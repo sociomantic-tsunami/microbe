@@ -1,0 +1,35 @@
+{
+  "name": "microbe.js",
+  "version": "0.0.1",
+  "author": "J. Mouse Braun <jason.braun@sociomantic.com>",
+  "description": "Testing tool",
+  "contributors": [
+    {
+      "name": "Nicolas Brugneaux",
+      "email": "nicolas.brugneaux@sociomantic.com"
+    },
+    {
+      "name": "Michele Guido",
+      "email": "michele.guido@sociomantic.com"
+    }
+  ],
+  "main": "index.html",
+  "keywords": [
+    "test"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "mocha": "latest",
+    "chai": "latest",
+    "traceur": "latest",
+    "closure-compiler": "http://dl.google.com/closure-compiler/compiler-latest.zip"
+  }
+}
