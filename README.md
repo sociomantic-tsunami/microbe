@@ -9,7 +9,7 @@ So why not go further and make better and learn how this `<insert JS framework h
 
 It is being developed as both an ongoing learning experiment, as well as something to use internally once its speed has been tweaked. The goal being to write an efficent library in both ES5 and ES6 to be ready for the future. The ES6 version is already usable through [traceur-compiler](https://github.com/google/traceur-compiler) (included in our gulpfile).
 
-Microbe aiming to be somewhat general and expendable as wish is separated into several categories:
+Microbe, which is aiming to be somewhat general and expendable as wish, is separated into several categories:
 - CSS helpers (add classes, change style, ... )
 - Events helpers (bind DOM events, unbind, ... )
 - HTML helpers, *aka a DOM manipulation that might be split even more in the future* (selectors, attributes, ... )
