@@ -15,7 +15,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "TBA"
+    "url": "https://github.com/sociomantic/microbe"
   },
   "dependencies": {},
   "devDependencies": {
