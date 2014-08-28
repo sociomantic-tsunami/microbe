@@ -18,11 +18,13 @@ the future. The ES6 version is already usable through
 `traceur-compiler`_ (included in our gulpfile).
 
 Microbe, which is aiming to be somewhat general and expendable as wish,
-is separated into several categories: - CSS helpers (add classes, change
-style, … ) - Events helpers (bind DOM events, unbind, … ) - HTML
-helpers, *aka a DOM manipulation that might be split even more in the
-future* (selectors, attributes, … ) - HTTP helpers making use of
-Promises (get, post, … ) - Generalistic helpers (iterator, each, … )
+is separated into several categories:
+- CSS helpers (add classes, change style, … )
+- Events helpers (bind DOM events, unbind, … )
+- HTML helpers, *aka a DOM manipulation that might be split even more in the
+future* (selectors, attributes, … )
+- HTTP helpers making use of Promises (get, post, … )
+- Generalistic helpers (iterator, each, … )
 
 And more to come. Don’t hesitate to file an issue for features that
 you’d like to see.
