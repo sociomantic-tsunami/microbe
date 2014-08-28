@@ -84,6 +84,11 @@ gulp.task('closure', function() {
     .pipe(notify({ message: 'Closure task complete' }));
 });
 
+gulp.task('test', function()
+{
+    return true;
+});
+
 
 gulp.task('clean', function()
 {
