@@ -14,18 +14,16 @@ Microbe.prototype.http = (function()
     {
         var _responses =
         {
-            success: function( _cb )
+            then: function( _cb )
             {
-                delete _responses.success;
                 if ( _val.status === 200 )
                 {
                     _cb( _val.responseText );
                 }
                 return _responses;
             },
-            error: function( _cb )
+            catch: function( _cb )
             {
-                delete _responses.error;
                 if ( _val.status !== 200 )
                 {
                     _cb({
@@ -33,12 +31,6 @@ Microbe.prototype.http = (function()
                         statusText  : _val.statusText
                     });
                 }
-                return _responses;
-            },
-            always: function( _cb )
-            {
-                delete _responses.always;
-                _cb( _val );
                 return _responses;
             }
         };

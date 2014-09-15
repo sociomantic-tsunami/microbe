@@ -1,4 +1,5 @@
 /* jshint esnext: true*/
+/* globals Promise */
 /**
  * microbe.http.js
  *
@@ -13,7 +14,7 @@ Microbe.prototype.http = function( _parameters )
 {
     return new Promise( function( resolve, reject )
     {
-        if ( !_parameters ) { reject( Error( 'No parameters given' ) ); }
+        if ( !_parameters ) { reject( new Error( 'No parameters given' ) ); }
         if ( typeof _parameters === 'string' )
         {
             _parameters = { url: _parameters };
@@ -36,7 +37,7 @@ Microbe.prototype.http = function( _parameters )
         };
         req.onerror = function()
         {
-            reject( Error( 'Network error!' ) );
+            reject( new Error( 'Network error!' ) );
         };
 
         req.open( method, url, true, user, password );
@@ -65,7 +66,7 @@ Microbe.prototype.http = function( _parameters )
             }
             else
             {
-                reject( Error( req.status ) );
+                reject( new Error( req.status ) );
             }
         };
     });

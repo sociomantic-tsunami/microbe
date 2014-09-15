@@ -21,7 +21,7 @@
  *
  * @return  Microbe
 */
-window.Microbe = window.Microbe || function( _selector, _scope, _elements )
+function Microbe( _selector, _scope, _elements )
 {
     var elements;
 
@@ -29,13 +29,15 @@ window.Microbe = window.Microbe || function( _selector, _scope, _elements )
     {
         return this.create( _selector );
     }
-
-    if ( /^<.+>$/.test( _selector ) )
+    else if ( /^<.+>$/.test( _selector ) )
     {
         return this.create( _selector.substring( 1, _selector.length - 1 ) );
     }
-
-    if ( _elements )
+    else if ( Object.prototype.toString.call( _selector ) === '[object NodeList]' )
+    {
+        elements = _selector;
+    }
+    else if ( _elements )
     {
         if ( Object.prototype.toString.call( _elements ) === '[object Array]' )
         {
@@ -60,7 +62,7 @@ window.Microbe = window.Microbe || function( _selector, _scope, _elements )
         this[ i ] = elements[ i ];
     }
 
-    for( var prop in Microbe.prototype )
+    for ( var prop in Microbe.prototype )
     {
         if ( Microbe.prototype.hasOwnProperty( prop ) )
         {
@@ -69,7 +71,7 @@ window.Microbe = window.Microbe || function( _selector, _scope, _elements )
     }
 
     return elements;
-};
+}
 
 
 /**
@@ -154,4 +156,3 @@ Microbe.prototype.toString = function()
 Microbe.prototype.type = '[object Microbe]';
 
 /******************************************************************************/
-

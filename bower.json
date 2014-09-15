@@ -30,6 +30,7 @@
     "mocha": "latest",
     "chai": "latest",
     "traceur": "latest",
+    "jquery": "latest",
     "closure-compiler": "http://dl.google.com/closure-compiler/compiler-latest.zip"
   }
 }
