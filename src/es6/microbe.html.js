@@ -194,43 +194,26 @@ Microbe.prototype.children = function( _el )
 */
 Microbe.prototype.create = function ( _el )
 {
-    if ( Object.prototype.toString.call( _el ) === '[object String]' )
+    if ( typeof _el === 'string' )
     {
-        let _ids, _classes = '';
+        let reClass     = /\.([^.$#]+)/g;
+        let reId        = /#([^.$]+)/;
+        let reElement   = /[#.]/;
+        let _class;
 
-        if ( _el.indexOf( '#' ) !== -1 )
-        {
-            if ( _ids === undefined )
-            {
-                _ids = _el;
-            }
-            _ids     = _el.split( '#' )[ 1 ];
-            _ids     = _ids.split( '.' )[ 0 ];
-        }
-
-        let classArray = _el.split( '.' );
-
-        for ( let i = 1, len = classArray.length; i < len; i++ )
-        {
-            if ( classArray[ i ].indexOf( '#' ) === -1 )
-            {
-                _classes += ' ' + classArray[ i ];
-            }
-        }
-        _classes = _classes.trim();
-
-        _el = _el.split( /[#.]/ )[ 0 ];
-
+        let original = _el;
+        _el = _el.split( reElement )[ 0 ];
         _el = document.createElement( _el );
 
-        if ( _classes !== '' )
+        let _id = original.match( reId );
+        if ( _id )
         {
-            _el.className = _classes;
+            _el.id = _id[1].trim();
         }
 
-        if ( _ids )
+        while ( ( _class = reClass.exec( original ) ) !== null )
         {
-            _el.id = _ids.trim();
+            _el.classList.add( _class[1] );
         }
     }
 

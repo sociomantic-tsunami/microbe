@@ -22,7 +22,7 @@ Microbe.prototype.addClass = function( _class, _el )
 {
     let _addClass = function( _elm )
     {
-        _elm.className += _elm.className.length > 0 ? ' ' + _class : _class;
+        _elm.classList.add( _class );
     };
 
     if ( _el )
@@ -114,11 +114,9 @@ Microbe.prototype.css = function ( _property, _value, _el)
 */
 Microbe.prototype.hasClass = function( _class, _el )
 {
-    let classRegex = new RegExp( '(^|\\s)' + _class + '(\\s|$)', 'g' );
-
     let _hasClass = function( _elm )
     {
-        return !!_elm.className.match( classRegex );
+        _elm.classList.contains( _class );
     };
 
     if ( _el )
@@ -148,11 +146,9 @@ Microbe.prototype.hasClass = function( _class, _el )
 */
 Microbe.prototype.removeClass = function( _class, _el )
 {
-    let classRegex = new RegExp( '(?:^| +)' + _class + ' *(?= +|$)', 'g' );
-
     let _removeClass = function( _elm )
     {
-        _elm.className = _elm.className.replace( classRegex , '' ).trim();
+        _elm.classList.remove( _class );
         if ( _elm.classList.length === 0 )
         {
             _elm.removeAttribute( 'class' );
@@ -189,13 +185,13 @@ Microbe.prototype.toggleClass = function ( _class, _el )
 {
     let _toggleClass = function( _elm )
     {
-        if ( _elm.className.indexOf( _class ) > -1 )
+        if ( _elm.classList.contains( _class ) )
         {
-            Microbe.removeClass( _class, _elm );
+            _elm.classList.add( _class );
         }
         else
         {
-            Microbe.addClass( _class, _elm );
+            _elm.classList.remove( _class );
         }
     };
 

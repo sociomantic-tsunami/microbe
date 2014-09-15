@@ -36,13 +36,15 @@ class Microbe
         {
             return this.create( _selector );
         }
-
-        if ( /^<.+>$/.test( _selector ) )
+        else if ( /^<.+>$/.test( _selector ) )
         {
             return this.create( _selector.substring( 1, _selector.length - 1 ) );
         }
-
-        if ( _elements )
+        else if ( Object.prototype.toString.call( _selector ) === '[object NodeList]' )
+        {
+            elements = _selector;
+        }
+        else if ( _elements )
         {
             if ( Array.isArray( _elements ) )
             {
@@ -55,7 +57,7 @@ class Microbe
         }
         else
         {
-            elements = ( _scope ).querySelectorAll( _selector );
+            elements = _scope.querySelectorAll( _selector );
         }
 
         this.length = elements.length;
