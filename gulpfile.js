@@ -47,7 +47,7 @@ gulp.task('legacy', function()
     .pipe(jshint.reporter('default'))
     .pipe(concat('microbe.js'))
     .pipe(wrapper(defineAMD))
-    .pipe(gulp.dest('lib/'))
+    .pipe(gulp.dest('dist/'))
     .pipe(notify({ message: 'Legacy scripts task complete' }));
 });
 
@@ -65,22 +65,22 @@ gulp.task('scripts', function()
     .pipe(jshint.reporter('default'))
     .pipe(concat('microbe.js'))
     // .pipe(wrapper(defineAMD))
-    .pipe(gulp.dest('lib/es6/'))
+    .pipe(gulp.dest('dist/es6/'))
     .pipe(sourcemaps.init())
     .pipe(rename({suffix: '.traceur'}))
     .pipe(traceur({experimental: true}))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('lib/es6/'))
+    .pipe(gulp.dest('dist/es6/'))
     .pipe(notify({ message: 'Scripts task complete' }));
 });
 
 gulp.task('closure', function() {
-  gulp.src('lib/es6/microbe.traceur.js')
+  gulp.src('dist/es6/microbe.traceur.js')
     .pipe(closureCompiler({
       compilerPath: 'bower_components/closure-compiler/compiler.jar',
       fileName: 'microbe.traceur.min.js'
     }))
-    .pipe(gulp.dest('lib/es6/'))
+    .pipe(gulp.dest('dist/es6/'))
     .pipe(notify({ message: 'Closure task complete' }));
 });
 
@@ -92,7 +92,7 @@ gulp.task('test', function()
 
 gulp.task('clean', function()
 {
-  return gulp.src(['lib/'], {read: false})
+  return gulp.src(['dist/'], {read: false})
     .pipe(clean());
 });
 
