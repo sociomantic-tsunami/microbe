@@ -8,41 +8,25 @@ var notify          = require('gulp-notify');
 var traceur         = require('gulp-traceur');
 var sourcemaps      = require('gulp-sourcemaps');
 var wrapper         = require('gulp-wrapper');
-var browserify      = require('gulp-browserify');
-
-var defineAMD = {
-    header: '( function ( root, factory )\n' +
-            '{\n' +
-            '   /* globals define */\n\n' +
-            '   /**\n' +
-            '    * AMD module\n' +
-            '    */\n' +
-            '    if ( typeof define === \'function\' && define.amd )\n' +
-            '    {\n' +
-            '        define( \'microbe\', [], factory );\n' +
-            '    }\n' +
-            '    else\n' +
-            '    {\n' +
-            '        root.µ = factory();\n' +
-            '    }\n' +
-            '}( this, function ()\n' +
-            '{\n' +
-            '    \'use strict\';\n',
-
-    footer: '    return µ;\n' +
-            '\n' +
-            '} ) );\n'
-};
+var replace         = require('gulp-replace');
 
 var fs = require( 'fs' );
 var browserify = require('browserify');
+var token = 'ThisIsVeryUnlikelyThatAVariableWillBeCalledThisWay';
+var exportName = 'µ';
 
 // Basic usage
 gulp.task('build', function()
 {
-    browserify('./src/microbe.js', {standalone: 'Microbe'})
+    browserify('./src/microbe.js', {standalone: token})
         .bundle()
-        .pipe(fs.createWriteStream(__dirname + '/dist/microbe.js'));
+        .pipe(fs.createWriteStream(__dirname + '/dist/microbe.js'))
+        .on( 'finish', function()
+        {
+            gulp.src('./dist/microbe.js')
+                .pipe(replace(token, exportName))
+                .pipe(gulp.dest('./dist/'));
+        });
 });
 
 gulp.task('test', function()

@@ -13,6 +13,8 @@ var Strings     = require( './utils/string/' );
 var Types       = require( './utils/types' );
 
 var slice       = Arrays.slice;
+var splice      = Arrays.splice;
+var push        = Arrays.push;
 var forEach     = Arrays.forEach;
 var map         = Arrays.map;
 var indexOf     = Arrays.indexOf;
@@ -226,7 +228,7 @@ Microbe.core = Microbe.prototype =
         var attributes = [];
         for ( j = 0, lenj = this.length; j < lenj; j++ )
         {
-            attributes.push( _getAttr( this[ j ] ) );
+            push.call( attributes, _getAttr( this[ j ] ) );
         }
 
         if ( attributes.length === 1 )
@@ -294,7 +296,7 @@ Microbe.core = Microbe.prototype =
 
         for ( i = 0, len = this.length; i < len; i++ )
         {
-            childrenArray.push( _children( this[ i ] ) );
+            push.call( childrenArray, _children( this[ i ] ) );
         }
 
         if ( childrenArray.length === 1 )
@@ -393,7 +395,7 @@ Microbe.core = Microbe.prototype =
         var styles = [];
         for ( j = 0, lenj = this.length; j < lenj; j++ )
         {
-            styles.push( _getCss( this[ j ] ) );
+            push.call( styles, _getCss( this[ j ] ) );
         }
         if ( styles.length === 1 )
         {
@@ -496,7 +498,7 @@ Microbe.core = Microbe.prototype =
 
         for ( i = 0, len = this.length; i < len; i++ )
         {
-            indexes.push( _getParentIndex( this[ i ] ) );
+            push.call( indexes, _getParentIndex( this[ i ] ) );
         }
 
         return indexes;
@@ -537,7 +539,7 @@ Microbe.core = Microbe.prototype =
         var i, len, results = [];
         for ( i = 0, len = this.length; i < len; i++ )
         {
-            results.push( _hasClass( this[ i ] ) );
+            push.call( results, _hasClass( this[ i ] ) );
         }
 
         return results;
@@ -588,7 +590,7 @@ Microbe.core = Microbe.prototype =
         var markup = [];
         for ( j = 0, lenj = this.length; j < lenj; j++ )
         {
-            markup.push( _getHtml( this[ j ] ) );
+            push.call( markup, _getHtml( this[ j ] ) );
         }
 
         if ( markup.length === 1 )
@@ -705,7 +707,7 @@ Microbe.core = Microbe.prototype =
 
         for ( var i = 0, len = this.length; i < len; i++ )
         {
-            parentArray.push( _parent( this[ i ] ) );
+            push.call( parentArray, _parent( this[ i ] ) );
         }
 
         return new Microbe( '', '', parentArray );
@@ -775,6 +777,7 @@ Microbe.core = Microbe.prototype =
         return this;
     },
 
+    splice : splice,
 
     /**
      * Alter/Get inner Text
@@ -835,7 +838,7 @@ Microbe.core = Microbe.prototype =
         var arrayText = [];
         for ( j = 0, lenj = this.length; j < lenj; j++ )
         {
-            arrayText.push( _getText( this[ j ] ) );
+            push.call( arrayText, _getText( this[ j ] ) );
         }
 
         if ( arrayText.length === 1 )
@@ -979,7 +982,7 @@ Microbe.core = Microbe.prototype =
     //         }
     //         else
     //         {
-    //             _this.push( elements );
+    //             push.call( _this, elements );
     //         }
     //     }
 
