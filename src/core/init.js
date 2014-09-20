@@ -1,7 +1,6 @@
 module.exports = function( Microbe )
 {
-    var selectorRegex   = /^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]*))$/;
-    var newElementRegex = /^<.+>$/;
+    var selectorRegex   = /(?:[\s]*\.([\w-_\.]*)|#([\w-_]*)|([^#\.<][\w-_]*)|(<[\w-_#\.]*>))/;
 
     /**
      * Build
@@ -94,10 +93,6 @@ module.exports = function( Microbe )
         {
             return Microbe.core.create( _selector );
         }
-        else if ( newElementRegex.test( _selector ) )
-        {
-            return Microbe.core.create( _selector.substring( 1, _selector.length - 1 ) );
-        }
 
         if ( _elements )
         {
@@ -116,14 +111,21 @@ module.exports = function( Microbe )
 
             if ( resultsRegex )
             {
-                var _classSelector  = resultsRegex[ 1 ],
-                    _idSelector     = resultsRegex[ 2 ],
-                    _tagSelector    = resultsRegex[ 3 ];
+                var _classSelector      = resultsRegex[ 1 ],
+                    _idSelector         = resultsRegex[ 2 ],
+                    _tagSelector        = resultsRegex[ 3 ],
+                    _newElementSelector = resultsRegex[ 4 ];
+
+                var _classesCount       = ( _classSelector || '' ).slice( 1 ).split( '.' ).length;
+
+                if ( _newElementSelector )
+                {
+                    return Microbe.core.create( _selector.substring( 1, _selector.length - 1 ) );
+                }
 
                 if ( _classSelector && ! _idSelector && ! _tagSelector )
                 {
-// broken!
-                    if ( ! selectorRegex.class.exec( _selector ) )
+                    if ( _classesCount === 1 )
                     {
                         return _build.call( this, _scope.getElementsByClassName( _classSelector ), _selector );
                     }
@@ -132,6 +134,11 @@ module.exports = function( Microbe )
                 if ( _idSelector && ! _tagSelector && ! _classSelector )
                 {
                     var _id = document.getElementById( _idSelector );
+
+                    if ( ! _id )
+                    {
+                        return _build.call( this, [], _selector );
+                    }
 
                     if ( scopeNodeType === 9 )
                     {
