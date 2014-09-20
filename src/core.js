@@ -406,52 +406,53 @@ Microbe.core = Microbe.prototype =
     },
 
 
-    // each : function( callback )
-    // {
-    //     return forEach.call( this, callback );
-    // },
-    //
-    // /**
-    //  * For each
-    //  *
-    //  * Methods iterates through all the elements an execute the function on each of
-    //  * them
-    //  *
-    //  * @return  Array
-    // */
-    // each : function( _callback )
-    // {
-    //     var i, leni;
-    //     for ( i = 0, leni = this.length; i < leni; i++ )
-    //     {
-    //         _callback( this[ i ], i );
-    //     }
-    //     return this;
-    // },
+    /**
+     * For each
+     *
+     * Methods iterates through all the elements an execute the function on each of
+     * them
+     *
+     * @return  Array
+    */
+    each : function( _callback )
+    {
+        var i, leni;
+        for ( i = 0, leni = this.length; i < leni; i++ )
+        {
+            _callback( this[ i ], i );
+        }
+        return this;
+    },
 
 
-    // first: function() {
-    //     return this.getWrapped( 0 );
-    // },
-    //
-    // /**
-    //  * Get First Element
-    //  *
-    //  * Methods gets the first HTML Elements of the current object, and wrap it in
-    //  * Microbe for chaining purpose.
-    //  *
-    //  * @return  Microbe
-    //  */
-    //
-    // first : function ()
-    // {
-    //     if ( this.length === 1 )
-    //     {
-    //         return this;
-    //     }
+    eachExp : function( callback )
+    {
+        return forEach.call( this, callback );
+    },
 
-    //     return new Microbe( '', '', [ this[ 0 ] ] );
-    // },
+
+    /**
+     * Get First Element
+     *
+     * Methods gets the first HTML Elements of the current object, and wrap it in
+     * Microbe for chaining purpose.
+     *
+     * @return  Microbe
+     */
+    first : function ()
+    {
+        if ( this.length === 1 )
+        {
+            return this;
+        }
+
+        return new Microbe( '', '', [ this[ 0 ] ] );
+    },
+
+
+    firstExp: function() {
+        return this.getWrapped( 0 );
+    },
 
 
     get : function( index )
@@ -657,29 +658,29 @@ Microbe.core = Microbe.prototype =
         return this;
     },
 
+    /**
+     * Get Last Element
+     *
+     * Methods gets the last HTML Elements of the current object, and wrap it in
+     * Microbe for chaining purpose.
+     *
+     * @return  Microbe
+     */
+    last : function ()
+    {
+        if ( this.length === 1 )
+        {
+            return this;
+        }
 
-    // last: function() {
-    //     return this.getWrapped( -1 );
-    // },
+        return new Microbe( '', '', [ this[ this.length - 1 ] ] );
+    },
 
-    // /**
-    //  * Get Last Element
-    //  *
-    //  * Methods gets the last HTML Elements of the current object, and wrap it in
-    //  * Microbe for chaining purpose.
-    //  *
-    //  * @return  Microbe
-    //  */
-    //
-    // last : function ()
-    // {
-    //     if ( this.length === 1 )
-    //     {
-    //         return this;
-    //     }
 
-    //     return new Microbe( '', '', [ this[ this.length - 1 ] ] );
-    // },
+    lastExp: function() 
+    {
+        return this.getWrapped( -1 );
+    },
 
 
     map : function( callback )
@@ -849,24 +850,25 @@ Microbe.core = Microbe.prototype =
     },
 
 
-    // toArray : function()
-    // {
-    //     return slice.call( this );
-    // },
-    //
-    // /**
-    //  * To array
-    //  *
-    //  * Methods returns all the elements in an array.
-    //  *
-    //  * @return  Array
-    // */
-    // toArray : function( _el )
-    // {
-    //     _el = _el || this;
+    /**
+     * To array
+     *
+     * Methods returns all the elements in an array.
+     *
+     * @return  Array
+    */
+    toArray : function( _el )
+    {
+        _el = _el || this;
 
-    //     return Array.prototype.slice.call( _el );
-    // },
+        return Array.prototype.slice.call( _el );
+    },
+
+
+    toArrayExp : function()
+    {
+        return slice.call( this );
+    },
 
 
     /**
