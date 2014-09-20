@@ -75,7 +75,7 @@ module.exports = function( Microbe )
         _scope = _scope === undefined ?  document : _scope;
 
         var scopeNodeType   = _scope.nodeType,
-            nodeType        = _selector.nodeType || typeof _selector;
+            nodeType        = ( _selector ) ? _selector.nodeType || typeof _selector : null;
 
 
         if ( !( this instanceof Microbe.core.__init__ ) )
