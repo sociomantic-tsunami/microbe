@@ -1,7 +1,7 @@
 !function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.Microbe=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var Microbe = require( './core' );
 require( './core/index.js' )( Microbe );
-window.µ  = Microbe;
+
 module.exports = Microbe;
 
 },{"./core":2,"./core/index.js":3}],2:[function(require,module,exports){
@@ -20,6 +20,8 @@ var Strings     = require( './utils/string/' );
 var Types       = require( './utils/types' );
 
 var slice       = Arrays.slice;
+var splice      = Arrays.splice;
+var push        = Arrays.push;
 var forEach     = Arrays.forEach;
 var map         = Arrays.map;
 var indexOf     = Arrays.indexOf;
@@ -233,7 +235,7 @@ Microbe.core = Microbe.prototype =
         var attributes = [];
         for ( j = 0, lenj = this.length; j < lenj; j++ )
         {
-            attributes.push( _getAttr( this[ j ] ) );
+            push.call( attributes, _getAttr( this[ j ] ) );
         }
 
         if ( attributes.length === 1 )
@@ -301,7 +303,7 @@ Microbe.core = Microbe.prototype =
 
         for ( i = 0, len = this.length; i < len; i++ )
         {
-            childrenArray.push( _children( this[ i ] ) );
+            push.call( childrenArray, _children( this[ i ] ) );
         }
 
         if ( childrenArray.length === 1 )
@@ -400,7 +402,7 @@ Microbe.core = Microbe.prototype =
         var styles = [];
         for ( j = 0, lenj = this.length; j < lenj; j++ )
         {
-            styles.push( _getCss( this[ j ] ) );
+            push.call( styles, _getCss( this[ j ] ) );
         }
         if ( styles.length === 1 )
         {
@@ -503,7 +505,7 @@ Microbe.core = Microbe.prototype =
 
         for ( i = 0, len = this.length; i < len; i++ )
         {
-            indexes.push( _getParentIndex( this[ i ] ) );
+            push.call( indexes, _getParentIndex( this[ i ] ) );
         }
 
         return indexes;
@@ -544,7 +546,7 @@ Microbe.core = Microbe.prototype =
         var i, len, results = [];
         for ( i = 0, len = this.length; i < len; i++ )
         {
-            results.push( _hasClass( this[ i ] ) );
+            push.call( results, _hasClass( this[ i ] ) );
         }
 
         return results;
@@ -595,7 +597,7 @@ Microbe.core = Microbe.prototype =
         var markup = [];
         for ( j = 0, lenj = this.length; j < lenj; j++ )
         {
-            markup.push( _getHtml( this[ j ] ) );
+            push.call( markup, _getHtml( this[ j ] ) );
         }
 
         if ( markup.length === 1 )
@@ -712,7 +714,7 @@ Microbe.core = Microbe.prototype =
 
         for ( var i = 0, len = this.length; i < len; i++ )
         {
-            parentArray.push( _parent( this[ i ] ) );
+            push.call( parentArray, _parent( this[ i ] ) );
         }
 
         return new Microbe( '', '', parentArray );
@@ -782,6 +784,7 @@ Microbe.core = Microbe.prototype =
         return this;
     },
 
+    splice : splice,
 
     /**
      * Alter/Get inner Text
@@ -842,7 +845,7 @@ Microbe.core = Microbe.prototype =
         var arrayText = [];
         for ( j = 0, lenj = this.length; j < lenj; j++ )
         {
-            arrayText.push( _getText( this[ j ] ) );
+            push.call( arrayText, _getText( this[ j ] ) );
         }
 
         if ( arrayText.length === 1 )
@@ -986,7 +989,7 @@ Microbe.core = Microbe.prototype =
     //         }
     //         else
     //         {
-    //             _this.push( elements );
+    //             push.call( _this, elements );
     //         }
     //     }
 

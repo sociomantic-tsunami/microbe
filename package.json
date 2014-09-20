@@ -33,6 +33,7 @@
     "gulp-jshint": "latest",
     "gulp-notify": "latest",
     "gulp-rename": "latest",
+    "gulp-replace": "^0.4.0",
     "gulp-rimraf": "latest",
     "gulp-sourcemaps": "^1.1.0",
     "gulp-traceur": "latest",
