@@ -739,10 +739,10 @@ Microbe.core = Microbe.prototype =
 
         for ( var i = 0, len = this.length; i < len; i++ )
         {
-            push.call( parentArray, _parent( this[ i ] ) );
+            parentArray[ i ] = _parent( this[ i ] );
         }
 
-        return new Microbe( '', '', parentArray );
+        return new Microbe( parentArray );
     },
 
 

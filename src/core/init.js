@@ -67,12 +67,19 @@ module.exports = function( Microbe )
      */
     function _getSelector( _el )
     {
-        var tag     = _el.tagName.toLowerCase(),
-            id      = ( _el.id ) ? '#' + _el.id : '',
-            clss   = ( _el.className.length > 0 ) ? '.' + _el.className : '';
-        clss = clss.replace( ' ', '.' );
+        if ( _el.nodeType === 1 )
+        {
+            var tag     = _el.tagName.toLowerCase(),
+                id      = ( _el.id ) ? '#' + _el.id : '',
+                clss   = ( _el.className.length > 0 ) ? '.' + _el.className : '';
+            clss = clss.replace( ' ', '.' );
 
-        return tag + id + clss;
+            return tag + id + clss;
+        }
+        else
+        {
+            return 'fromArray';
+        }
     }
 
 
@@ -92,10 +99,10 @@ module.exports = function( Microbe )
     */
     Microbe.core.__init__ =  function( _selector, _scope, _elements )
     {
-        if ( _selector.nodeType === 1 )
+        if ( _selector.nodeType === 1 || Object.prototype.toString.call( _selector ) === '[object Array]' )
         {
-            var _newSelector = _getSelector( _selector );
-            return _build.call( this, [ _selector ], _newSelector );
+            _elements = _selector;
+            _selector = ( _elements.length ) ? 'fromArray' : _getSelector( _elements );
         }
 
         _scope = _scope === undefined ?  document : _scope;
