@@ -76,9 +76,18 @@ Microbe.core = Microbe.prototype =
     */
     addClass : function( _class, _el )
     {
+        if ( typeof _class === 'string' )
+        {
+            _class = [ _class ];
+        }
+
         var _addClass = function( _elm )
         {
-            _elm.classList.add( _class );
+            var j, lenJ;
+            for ( j = 0, lenJ = _class.length; j < lenJ; j++ )
+            {
+                _elm.classList.add( _class[ j ] );
+            }
         };
 
         if ( _el )
@@ -320,33 +329,55 @@ Microbe.core = Microbe.prototype =
     */
     create : function ( _el )
     {
-        var reClass     = /\.([^.$#]+)/g;
-        var reId        = /#([^.$]+)/;
-        var reElement   = /[#.]/;
-        var _id;
-        var i, len;
-        var _class;
-        var original;
+        var selectorRegex   = /(?:[\s]*\.([\w-_\.]*)|#([\w-_]*)|([^#\.<][\w-_]*)|(<[\w-_#\.]*>))/g,
+            resultsRegex    = _el.match( selectorRegex ),
+            _id, _tag, _class, _selector = '';
 
-        if ( typeof _el === 'string' )
+        var i, lenI;
+        for ( i = 0, lenI = resultsRegex.length; i < lenI; i++ ) 
         {
-            original = _el;
-            _el = _el.split( reElement )[ 0 ];
-            _el = document.createElement( _el );
-
-            _id = original.match( reId );
-            if ( _id )
+            var trigger = resultsRegex[ i ][ 0 ];
+            switch ( trigger )
             {
-                _el.id = _id[1].trim();
-            }
+                case '#':
+                    _id      = resultsRegex[ i ];
+                    break;
 
-            while ( ( _class = reClass.exec( original ) ) !== null )
-            {
-                _el.classList.add( _class[1] );
+                case '.':
+                    _class   = resultsRegex[ i ];
+                    break;
+
+                default:
+                    _tag     = resultsRegex[ i ];
+                    break;
             }
         }
 
-        return new Microbe( '', '', _el );
+        if ( typeof _tag === 'string' )
+        {
+            _el = document.createElement( _tag );
+            _selector = _tag;
+
+            if ( _id )
+            {
+                _selector += _id;
+                _el.id = _id.slice( 1 );
+            }
+
+            if ( _class )
+            {
+                _selector += _class;
+                _class = _class.split( '.' );
+
+                for ( i = 1, lenI = _class.length; i < lenI; i++ ) 
+                {
+                    _el.classList.add( _class[ i ] );
+                }
+            }
+
+        }
+
+        return new Microbe( _selector, undefined, _el );
     },
 
 
@@ -1168,6 +1199,8 @@ Microbe.http = (function()
     return _http;
 }() );
 
+Microbe.getWrapped  = Microbe.core.getWrapped;
+Microbe.wrap        = Microbe.core.wrap;
 
 Microbe.identity = function( value ) { return value; };
 

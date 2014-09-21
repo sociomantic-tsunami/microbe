@@ -83,9 +83,18 @@ Microbe.core = Microbe.prototype =
     */
     addClass : function( _class, _el )
     {
+        if ( typeof _class === 'string' )
+        {
+            _class = [ _class ];
+        }
+
         var _addClass = function( _elm )
         {
-            _elm.classList.add( _class );
+            var j, lenJ;
+            for ( j = 0, lenJ = _class.length; j < lenJ; j++ )
+            {
+                _elm.classList.add( _class[ j ] );
+            }
         };
 
         if ( _el )
@@ -327,33 +336,55 @@ Microbe.core = Microbe.prototype =
     */
     create : function ( _el )
     {
-        var reClass     = /\.([^.$#]+)/g;
-        var reId        = /#([^.$]+)/;
-        var reElement   = /[#.]/;
-        var _id;
-        var i, len;
-        var _class;
-        var original;
+        var selectorRegex   = /(?:[\s]*\.([\w-_\.]*)|#([\w-_]*)|([^#\.<][\w-_]*)|(<[\w-_#\.]*>))/g,
+            resultsRegex    = _el.match( selectorRegex ),
+            _id, _tag, _class, _selector = '';
 
-        if ( typeof _el === 'string' )
+        var i, lenI;
+        for ( i = 0, lenI = resultsRegex.length; i < lenI; i++ ) 
         {
-            original = _el;
-            _el = _el.split( reElement )[ 0 ];
-            _el = document.createElement( _el );
-
-            _id = original.match( reId );
-            if ( _id )
+            var trigger = resultsRegex[ i ][ 0 ];
+            switch ( trigger )
             {
-                _el.id = _id[1].trim();
-            }
+                case '#':
+                    _id      = resultsRegex[ i ];
+                    break;
 
-            while ( ( _class = reClass.exec( original ) ) !== null )
-            {
-                _el.classList.add( _class[1] );
+                case '.':
+                    _class   = resultsRegex[ i ];
+                    break;
+
+                default:
+                    _tag     = resultsRegex[ i ];
+                    break;
             }
         }
 
-        return new Microbe( '', '', _el );
+        if ( typeof _tag === 'string' )
+        {
+            _el = document.createElement( _tag );
+            _selector = _tag;
+
+            if ( _id )
+            {
+                _selector += _id;
+                _el.id = _id.slice( 1 );
+            }
+
+            if ( _class )
+            {
+                _selector += _class;
+                _class = _class.split( '.' );
+
+                for ( i = 1, lenI = _class.length; i < lenI; i++ ) 
+                {
+                    _el.classList.add( _class[ i ] );
+                }
+            }
+
+        }
+
+        return new Microbe( _selector, undefined, _el );
     },
 
 
@@ -1175,6 +1206,8 @@ Microbe.http = (function()
     return _http;
 }() );
 
+Microbe.getWrapped  = Microbe.core.getWrapped;
+Microbe.wrap        = Microbe.core.wrap;
 
 Microbe.identity = function( value ) { return value; };
 
@@ -1290,14 +1323,13 @@ module.exports = function( Microbe )
 },{"./init":4}],4:[function(require,module,exports){
 module.exports = function( Microbe )
 {
-    var selectorRegex   = /(?:[\s]*\.([\w-_\.]*)|#([\w-_]*)|([^#\.<][\w-_]*)|(<[\w-_#\.]*>))/;
+    var trigger, _shortSelector, selectorRegex   = /(?:[\s]*\.([\w-_\.]*)|#([\w-_]*)|([^#\.<][\w-_]*)|(<[\w-_#\.]*>))/g;
 
     /**
      * Build
      *
      * builds and returns the final microbe
      *
-     * @param  {[type]} microbe   [description]
      * @param  {[type]} _elements [description]
      * @param  {[type]} _selector [description]
      *
@@ -1318,13 +1350,13 @@ module.exports = function( Microbe )
         return this;
     }
 
+
     /**
      * Contains
      *
      * checks if a given element is a child of _scope
      *
      * @param  {[type]} _el        [description]
-     * @param  {[type]} _container [description]
      * @param  {[type]} _scope     [description]
      *
      * @return {[type]}            [description]
@@ -1346,6 +1378,27 @@ module.exports = function( Microbe )
         return true;
     }
 
+
+    /**
+     * Get Selector
+     *
+     * returns the css selector from an element
+     *
+     * @param  {DOM Element}        _el         DOM element
+     *
+     * @return {string}                         css selector
+     */
+    function _getSelector( _el )
+    {
+        var tag     = _el.tagName.toLowerCase(),
+            id      = ( _el.id ) ? '#' + _el.id : '',
+            clss   = ( _el.className.length > 0 ) ? '.' + _el.className : '';
+        clss = clss.replace( ' ', '.' );
+
+        return tag + id + clss;
+    }
+
+
     /**
      * Class Microbe
      *
@@ -1362,11 +1415,15 @@ module.exports = function( Microbe )
     */
     Microbe.core.__init__ =  function( _selector, _scope, _elements )
     {
-        _scope = _scope === undefined ?  document : _scope;
+        if ( _selector.nodeType === 1 )
+        {
+            var _newSelector = _getSelector( _selector );
+            return _build.call( this, [ _selector ], _newSelector );
+        }
 
+        _scope = _scope === undefined ?  document : _scope;
         var scopeNodeType   = _scope.nodeType,
             nodeType        = ( _selector ) ? _selector.nodeType || typeof _selector : null;
-
 
         if ( !( this instanceof Microbe.core.__init__ ) )
         {
@@ -1377,11 +1434,6 @@ module.exports = function( Microbe )
              ( scopeNodeType !== 1 && scopeNodeType !== 9 ) )
         {
             return _build.call( this, [], _selector );
-        }
-
-        if ( _selector.nodeType === 1 )
-        {
-            return Microbe.core.create( _selector );
         }
 
         if ( _elements )
@@ -1397,33 +1449,29 @@ module.exports = function( Microbe )
         }
         else
         {
-            var resultsRegex = selectorRegex.exec( _selector );
+            var resultsRegex = _selector.match( selectorRegex );
 
-            if ( resultsRegex )
+            if ( resultsRegex && resultsRegex.length === 1 )
             {
-                var _classSelector      = resultsRegex[ 1 ],
-                    _idSelector         = resultsRegex[ 2 ],
-                    _tagSelector        = resultsRegex[ 3 ],
-                    _newElementSelector = resultsRegex[ 4 ];
+                trigger = resultsRegex[0][0];
+                _shortSelector = _selector.slice( 1 );
 
-                var _classesCount       = ( _classSelector || '' ).slice( 1 ).split( '.' ).length;
-
-                if ( _newElementSelector )
+                if ( trigger === '<' )
                 {
                     return Microbe.core.create( _selector.substring( 1, _selector.length - 1 ) );
                 }
-
-                if ( _classSelector && ! _idSelector && ! _tagSelector )
+                else if ( trigger === '.' )
                 {
+                    var _classesCount   = ( _selector || '' ).slice( 1 ).split( '.' ).length;
+
                     if ( _classesCount === 1 )
                     {
-                        return _build.call( this, _scope.getElementsByClassName( _classSelector ), _selector );
+                        return _build.call( this, _scope.getElementsByClassName( _shortSelector ), _selector );
                     }
                 }
-
-                if ( _idSelector && ! _tagSelector && ! _classSelector )
+                else if ( trigger === '#' )
                 {
-                    var _id = document.getElementById( _idSelector );
+                    var _id = document.getElementById( _shortSelector );
 
                     if ( ! _id )
                     {
@@ -1432,7 +1480,7 @@ module.exports = function( Microbe )
 
                     if ( scopeNodeType === 9 )
                     {
-                        if ( _id.parentNode && ( _id.id === _idSelector ) )
+                        if ( _id.parentNode && ( _id.id === _selector ) )
                         {
                             return _build.call( this, [ _id ], _selector );
                         }
@@ -1445,10 +1493,9 @@ module.exports = function( Microbe )
                         }
                     }
                 }
-
-                if ( _tagSelector && ! _idSelector && ! _classSelector )
+                else // if ( _tagSelector ) // && ! _idSelector && ! _classSelector )
                 {
-                    return _build.call( this, _scope.getElementsByTagName( _tagSelector ), _selector );
+                    return _build.call( this, _scope.getElementsByTagName( _selector ), _selector );
                 }
             }
         }
