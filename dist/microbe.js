@@ -1318,7 +1318,7 @@ Microbe.core = Microbe.prototype =
             }
 
             return this;
-        }
+        };
     }()),
 
 
@@ -1337,61 +1337,64 @@ Microbe.core = Microbe.prototype =
      *
      * @return  mixed ( Microbe or string or array of strings)
     */
-    text : function ( _value, _el)
+    text : (function()
     {
-        var _setText = function( _elm )
+        var _setText = function( _value, _el )
         {
             if( document.all )
             {
-                _elm.innerText = _value;
+                _el.innerText = _value;
             }
             else // stupid FF
             {
-                _elm.textContent = _value;
+                _el.textContent = _value;
             }
         };
 
-        var _getText = function( _elm )
+        var _getText = function( _el )
         {
             if( document.all )
             {
-                return _elm.innerText;
+                return _el.innerText;
             }
             else // stupid FF
             {
-                return _elm.textContent;
+                return _el.textContent;
             }
         };
-
-        if ( _value )
+        return function( _value, _el )
         {
-            if ( _el )
+            if ( _value )
             {
-                _setText( _el );
+                if ( _el )
+                {
+                    _setText( _value, _el );
+                    return this;
+                }
+
+                var i, len;
+                for ( i = 0, len = this.length; i < len; i++ )
+                {
+                    _setText( _value, this[ i ] );
+                }
+
                 return this;
             }
 
-            var i, len;
-            for ( i = 0, len = this.length; i < len; i++ )
+            var j, lenj, arrayText = new Array( this.length );
+            for ( j = 0, lenj = this.length; j < lenj; j++ )
             {
-                _setText( this[ i ] );
+                arrayText[ j ] = _getText( this[ j ] );
             }
 
-            return this;
-        }
+            if ( arrayText.length === 1 )
+            {
+                return arrayText[0];
+            }
 
-        var j, lenj, arrayText = new Array( this.length );
-        for ( j = 0, lenj = this.length; j < lenj; j++ )
-        {
-            arrayText[ j ] = _getText( this[ j ] );
-        }
-
-        if ( arrayText.length === 1 )
-        {
-            return arrayText[0];
-        }
-        return arrayText;
-    },
+            return arrayText;
+        };
+    }()),
 
 
     /**
@@ -1426,34 +1429,36 @@ Microbe.core = Microbe.prototype =
      *
      * @return  Microbe
     */
-    toggleClass : function ( _class, _el )
+    toggleClass : (function()
     {
-        var _toggleClass = function( _elm )
+        var _toggleClass = function( _class, _el )
         {
-            if ( _elm.classList.contains( _class ) )
+            if ( _el.classList.contains( _class ) )
             {
-                _elm.classList.remove( _class );
+                _el.classList.remove( _class );
             }
             else
             {
-                _elm.classList.add( _class );
+                _el.classList.add( _class );
             }
         };
-
-        if ( _el )
+        return function( _class, _el )
         {
-            _toggleClass( _el );
+            if ( _el )
+            {
+                _toggleClass( _el );
+                return this;
+            }
+
+            var i, len;
+            for ( i = 0, len = this.length; i < len; i++ )
+            {
+                _toggleClass( this[ i ] );
+            }
+
             return this;
-        }
-
-        var i, len;
-        for ( i = 0, len = this.length; i < len; i++ )
-        {
-            _toggleClass( this[ i ] );
-        }
-
-        return this;
-    },
+        };
+    }()),
 
 
     /**
@@ -1481,23 +1486,18 @@ Microbe.core = Microbe.prototype =
      *
      * @return  Microbe
     */
-    unbind : function ( _event, _callback, _el )
+    unbind : function( _event, _callback, _el )
     {
-        var _unbind = function( _elm )
-        {
-            _elm.removeEventListener( _event, _callback );
-        };
-
         if ( _el )
         {
-            _unbind( _el );
+            _el.removeEventListener( _event, _callback );
             return this;
         }
 
         var i, len;
         for ( i = 0, len = this.length; i < len; i++ )
         {
-            _unbind( this[ i ] );
+            this[ i ].removeEventListener( _event, _callback );
         }
 
         return this;
