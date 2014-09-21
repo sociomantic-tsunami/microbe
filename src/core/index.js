@@ -1,4 +1,1183 @@
-module.exports = function( Microbe )
+/**
+ * microbe.js
+ *
+ * @author  Mouse Braun         <mouse@sociomantic.com>
+ * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
+ *
+ * @package Microbe
+ */
+'use strict';
+
+var Arrays      = require( '../utils/array' );
+var Strings     = require( '../utils/string' );
+var Types       = require( '../utils/types' );
+
+var slice       = Arrays.slice;
+var splice      = Arrays.splice;
+var push        = Arrays.push;
+var forEach     = Arrays.forEach;
+var map         = Arrays.map;
+var indexOf     = Arrays.indexOf;
+var toString    = Strings.toString;
+var _type       = '[object Microbe]';
+
+/**
+ * µ constructor
+ *
+ * builds the µ object
+ *
+ * @return µ
+ */
+var Microbe = function( selector, scope, elements )
 {
-    require( './init' )( Microbe );
+    return new Microbe.core.__init__( selector, scope, elements );
 };
+
+function isIterable( obj )
+{
+    var length  = obj.length;
+    var type    = Microbe.type( obj );
+
+    if ( type === 'function' || obj === window )
+    {
+        return false;
+    }
+
+    if ( obj.nodeType === 1 && length )
+    {
+        return true;
+    }
+
+    return type === 'array' || length === 0 ||
+        ( typeof length === 'number' && length > 0 && ( length - 1 ) in obj );
+}
+
+
+Microbe.core = Microbe.prototype =
+{
+    version : '0.1.0',
+
+    constructor : Microbe,
+
+    selector : '',
+
+    length : 0,
+
+
+    /**
+     * Add Class
+     *
+     * Method adds the given class from the current object or the given element.
+     *
+     * @param   _class      string       class to add
+     * @param   _el         HTMLELement  element to modify (optional)
+     *
+     * @return  Microbe
+    */
+    addClass : (function()
+    {
+        var _addClass = function( _class, _el )
+        {
+            var i, len;
+            for ( i = 0, len = _class.length; i < len; i++ )
+            {
+                _el.classList.add( _class[i] );
+            }
+        };
+
+        return function( _class, _el )
+        {
+            if ( typeof _class === 'string' )
+            {
+                _class = [ _class ];
+            }
+
+            if ( _el )
+            {
+                _addClass( _class, _el );
+                return this;
+            }
+
+            var i, len;
+            for ( i = 0, len = this.length; i < len; i++ )
+            {
+                _addClass( _class, this[i] );
+            }
+
+            return this;
+        };
+    }()),
+
+
+    /**
+     * Append Element
+     *
+     * @param  {[type]} _ele    [description]
+     * @param  {[type]} _parent [description]
+     * @return {[type]}         [description]
+     */
+    append : (function()
+    {
+        var _append = function( _el, _parentEl, _elm )
+        {
+            if ( _elm )
+            {
+                _parentEl.appendChild( _elm );
+            }
+            else
+            {
+                _parentEl.appendChild( _el );
+            }
+        };
+
+        return function( _el, _parent )
+        {
+            if ( _parent )
+            {
+                _append( _el, _parent );
+            }
+
+            if ( !_el.length )
+            {
+                _el = [ _el ];
+            }
+
+            var i, j, leni, lenj;
+            for ( i = 0, leni = this.length; i < leni; i++ )
+            {
+                for ( j = 0, lenj = _el.length; j < lenj; j++ )
+                {
+                    if ( i !== 0 )
+                    {
+                        _append( _el, this[ i ], _el[ j ].cloneNode(true) );
+                    }
+                    else
+                    {
+                        _append( _el, this[ i ], _el[ j ] );
+                    }
+                }
+            }
+
+            return this;
+        };
+    }()),
+
+
+     /**
+     * Alter/Get Attribute
+     *
+     * Changes the attribute by writing the given property and value to the
+     * supplied elements. (properties should be supplied in javascript format).
+     * If the value is omitted, simply returns the current attribute value  of the
+     * element.
+     *
+     * @param   _attribute  string           JS formatted CSS property
+     * @param   _el         HTMLELement      element to modify (optional)
+     * @param   _value      string           CSS value (optional)
+     *
+     * @return  mixed ( Microbe or string or array of strings)
+    */
+    attr : function ( _attribute, _value, _el)
+    {
+        var _setAttr;
+        var _getAttr;
+        var _removeAttr;
+
+        _setAttr = function( _elm )
+        {
+            if ( _value === null )
+            {
+                _removeAttr( _elm );
+            }
+            else
+            {
+                if ( !_elm.getAttribute )
+                {
+                    _elm[ _attribute ] = _value;
+                }
+                else
+                {
+                    _elm.setAttribute( _attribute, _value );
+                }
+            }
+        };
+
+        _getAttr = function( _elm )
+        {
+            if ( _elm.getAttribute( _attribute ) === null )
+            {
+                return _elm[ _attribute ];
+            }
+            return _elm.getAttribute( _attribute );
+        };
+
+        _removeAttr = function( _elm )
+        {
+            if ( _elm.getAttribute( _attribute ) === null )
+            {
+                delete _elm[ _attribute ];
+            }
+            else
+            {
+                _elm.removeAttribute( _attribute );
+            }
+        };
+
+        if ( _value !== undefined )
+        {
+            if ( _el )
+            {
+                _setAttr( _el );
+                return this;
+            }
+
+            var i, len;
+            for ( i = 0, len = this.length; i < len; i++ )
+            {
+                _setAttr( this[ i ] );
+            }
+
+            return this;
+        }
+
+        var j, lenj;
+        var attributes = new Array( this.length );
+        for ( j = 0, lenj = this.length; j < lenj; j++ )
+        {
+            attributes[ j ] = _getAttr( this[ j ] );
+        }
+
+        if ( attributes.length === 1 )
+        {
+            return attributes[0];
+        }
+
+        return attributes;
+    },
+
+
+     /**
+     * Bind Events
+     *
+     * Methods binds an event to the HTMLElements of the current object or to the
+     * given element.
+     *
+     * @param   _event      string          HTMLEvent
+     * @param   _callback   function        callback function
+     * @param   _el         HTMLELement     element to modify (optional)
+     *
+     * @return  Microbe
+    */
+    bind : function ( _event, _callback, _el )
+    {
+        var _bind = function( _elm )
+        {
+            _elm.addEventListener( _event, _callback );
+        };
+
+        if ( _el )
+        {
+            _bind( _el );
+            return this;
+        }
+
+        var i, len;
+        for ( i = 0, len = this.length; i < len; i++ )
+        {
+            _bind( this[ i ] );
+        }
+
+        return this;
+    },
+
+
+    /**
+     * Get Children
+     *
+     * gets an array or all the given element's children
+     *
+     * @param  {[type]} _el [description]
+     * @return {[type]}     [description]
+     */
+    children : function( _el )
+    {
+        var _children = function( _elm )
+        {
+            return _elm.children;
+        };
+
+        var i, len, childrenArray = new Array( this.length );
+
+        for ( i = 0, len = this.length; i < len; i++ )
+        {
+            childrenArray[ i ] = _children( this[ i ] );
+        }
+
+        if ( childrenArray.length === 1 )
+        {
+            return childrenArray[0];
+        }
+
+        return childrenArray;
+    },
+
+
+    /**
+     * Create Element
+     *
+     * Method creates a Microbe from an element or a new element of the passed string, and
+     * returns the Microbe
+     *
+     * @param   _el         HTMLELement     element to create
+     *
+     * @return  Microbe
+    */
+    create : function ( _el )
+    {
+        var selectorRegex   = /(?:[\s]*\.([\w-_\.]*)|#([\w-_]*)|([^#\.<][\w-_]*)|(<[\w-_#\.]*>))/g,
+            resultsRegex    = _el.match( selectorRegex ),
+            _id, _tag, _class, _selector = '';
+
+        var i, lenI;
+        for ( i = 0, lenI = resultsRegex.length; i < lenI; i++ )
+        {
+            var trigger = resultsRegex[ i ][ 0 ];
+            switch ( trigger )
+            {
+                case '#':
+                    _id      = resultsRegex[ i ];
+                    break;
+
+                case '.':
+                    _class   = resultsRegex[ i ];
+                    break;
+
+                default:
+                    _tag     = resultsRegex[ i ];
+                    break;
+            }
+        }
+
+        if ( typeof _tag === 'string' )
+        {
+            _el = document.createElement( _tag );
+            _selector = _tag;
+
+            if ( _id )
+            {
+                _selector += _id;
+                _el.id = _id.slice( 1 );
+            }
+
+            if ( _class )
+            {
+                _selector += _class;
+                _class = _class.split( '.' );
+
+                for ( i = 1, lenI = _class.length; i < lenI; i++ )
+                {
+                    _el.classList.add( _class[ i ] );
+                }
+            }
+
+        }
+
+        return new Microbe( _selector, undefined, _el );
+    },
+
+
+    /**
+     * Alter/Get CSS
+     *
+     * Changes the CSS by writing the given property and value inline to the
+     * supplied elements. (properties should be supplied in javascript format).
+     * If the value is omitted, simply returns the current css value of the element.
+     *
+     * @param   _property   string          CSS property
+     * @param   _el         HTMLELement     element to modify (optional)
+     * @param   _value      string          CSS value (optional)
+     *
+     * @return  mixed ( Microbe or string or array of strings)
+    */
+    css : function ( _property, _value, _el)
+    {
+        var _setCss = function( _elm )
+        {
+            _elm.style[ _property ] = _value;
+        };
+
+        var _getCss = function( _elm )
+        {
+            return window.getComputedStyle( _elm ).getPropertyValue( _property );
+        };
+
+        if ( _value)
+        {
+            if ( _el )
+            {
+                _setCss( _el );
+                return this;
+            }
+
+            var i, len;
+            for ( i = 0, len = this.length; i < len; i++ )
+            {
+                _setCss( this[ i ] );
+            }
+
+            return this;
+        }
+        var j, lenj, styles = new Array( this.length );
+        for ( j = 0, lenj = this.length; j < lenj; j++ )
+        {
+            styles[ j ] = _getCss( this[ j ] );
+        }
+        if ( styles.length === 1 )
+        {
+            return styles[0];
+        }
+
+        return styles;
+    },
+
+
+    /**
+     * For each
+     *
+     * Methods iterates through all the elements an execute the function on each of
+     * them
+     *
+     * @return  Array
+    */
+    each : function( _callback )
+    {
+        var i, leni;
+        for ( i = 0, leni = this.length; i < leni; i++ )
+        {
+            _callback( this[ i ], i );
+        }
+        return this;
+    },
+
+// UNTESTED
+    // eachExp : function( callback )
+    // {
+    //     return forEach.call( this, callback );
+    // },
+
+
+    /**
+     * Get First Element
+     *
+     * Methods gets the first HTML Elements of the current object, and wrap it in
+     * Microbe for chaining purpose.
+     *
+     * @return  Microbe
+     */
+    first : function ()
+    {
+        if ( this.length === 1 )
+        {
+            return this;
+        }
+
+        return new Microbe( [ this[ 0 ] ] );
+    },
+
+// UNTESTED
+    // firstExp: function() {
+    //     return this.getWrapped( 0 );
+    // },
+
+
+    /**
+     * Get value
+     *
+     * gets the element in the appropriate index
+     *
+     * @param  {element object or array} _el object to find the index of (optional)
+     * @return {array}                       array of indexes
+     */
+    get : function( index )
+    {
+        if ( index === null || index === undefined )
+        {
+            return slice.call( this );
+        }
+        var i = +index;
+
+        if ( index < 0 )
+        {
+            i += this.length;
+        }
+
+        return this[i];
+    },
+
+
+    /**
+     * Get Parent Index
+     *
+     * gets the index of the item in it's parentNode's children array
+     *
+     * @param  {element object or array} _el object to find the index of (optional)
+     * @return {array}                       array of indexes
+     */
+    getParentIndex : function( _el )
+    {
+        var _getParentIndex = function( _elm )
+        {
+            return Array.prototype.indexOf.call( _elm.parentNode.children, _elm );
+        };
+
+        if ( _el )
+        {
+            return _getParentIndex( _el );
+        }
+
+        var i, len, indexes = new Array( this.length );
+
+        for ( i = 0, len = this.length; i < len; i++ )
+        {
+            indexes[ i ] = _getParentIndex( this[ i ] );
+        }
+
+        return indexes;
+    },
+
+
+    // getWrapped : function( i )
+    // {
+    //     var length  = this.length;
+    //     var j = +i + ( i < 0 ? length : 0 );
+
+    //     return this.wrap( j >= 0 && j < length ? [ this[j] ] : [] );
+    // },
+
+
+    /**
+     * Has Class
+     *
+     * Method checks if the current object or the given element has the given class
+     *
+     * @param   _class      string       class to check
+     * @param   _el         HTMLELement  element to modify (optional)
+     *
+     * @return  Microbe
+    */
+    hasClass : function( _class, _el )
+    {
+        var _hasClass = function( _elm )
+        {
+            return _elm.classList.contains( _class );
+        };
+
+        if ( _el )
+        {
+            return _hasClass( _el );
+        }
+
+        var i, len, results = new Array( this.length );
+        for ( i = 0, len = this.length; i < len; i++ )
+        {
+            results[ i ] = _hasClass( this[ i ] );
+        }
+
+        return results;
+    },
+
+
+    /**
+     * Alter/Get inner HTML
+     *
+     * Changes the innerHtml to the supplied string.
+     * If the value is omitted, simply returns the current inner html value of the element.
+     *
+     * @param   _value      string          html value (optional)
+     * @param   _el         HTMLELement     element to modify (optional)
+     *
+     * @return  mixed ( Microbe or string or array of strings)
+    */
+    html : function ( _value, _el)
+    {
+        var _setHtml = function( _elm )
+        {
+            _elm.innerHTML = _value;
+        };
+
+        var _getHtml = function( _elm )
+        {
+            return _elm.innerHTML;
+        };
+
+        if ( _value || _value === '' )
+        {
+            if ( _el )
+            {
+                _setHtml( _el );
+                return this;
+            }
+
+            var i, len;
+            for ( i = 0, len = this.length; i < len; i++ )
+            {
+                _setHtml( this[ i ] );
+            }
+
+            return this;
+        }
+
+        var j, lenj, markup = new Array( this.length );
+        for ( j = 0, lenj = this.length; j < lenj; j++ )
+        {
+            markup[ j ] = _getHtml( this[ j ] );
+        }
+
+        if ( markup.length === 1 )
+        {
+            return markup[0];
+        }
+        return markup;
+    },
+
+
+    /**
+     * Index of
+     *
+     *
+     *
+     * @return {void}
+     */
+    indexOf : function( _el )
+    {
+        return this.toArray().indexOf( _el );
+    },
+
+
+    /**
+     * Insert After
+     *
+     * Inserts the given element after each of the elements given (or passed through this).
+     * if it is an elemnet it is wrapped in a microbe object.  if it is a string it is created
+     *
+     * @example µ( '.elementsInDom' ).insertAfter( µElementToInsert )
+     *
+     * @param  {object or string} _elAfter element to insert
+     * @param  {object} _el      element to insert after (optional)
+     *
+     * @return Microbe
+     */
+    insertAfter : function( _elAfter, _el )
+    {
+        var _this = this;
+
+        var _insertAfter = function( _elm )
+        {
+            console.log( _elm );
+            var nextIndex;
+
+            nextIndex = _this.getParentIndex( _elm );
+
+            var nextEle   = _elm.parentNode.children[ nextIndex + 1 ];
+
+            if ( nextEle )
+            {
+                nextEle.parentNode.insertBefore( _elAfter[0].cloneNode( true ), nextEle );
+            }
+            else
+            {
+                _elm.parentNode.appendChild( _elAfter[0].cloneNode( true ) );
+            }
+        };
+
+        if ( _el )
+        {
+            _insertAfter( _el );
+            return this;
+        }
+
+        var i, len;
+        for ( i = 0, len = this.length; i < len; i++ )
+        {
+            _insertAfter( this[ i ] );
+        }
+
+        return this;
+    },
+
+
+    /**
+     * Get Last Element
+     *
+     * Methods gets the last HTML Elements of the current object, and wrap it in
+     * Microbe for chaining purpose.
+     *
+     * @return  Microbe
+     */
+    last : function ()
+    {
+        if ( this.length === 1 )
+        {
+            return this;
+        }
+
+        return new Microbe( [ this[ this.length - 1 ] ] );
+    },
+
+// UNTESTED
+    // lastExp: function()
+    // {
+    //     return this.getWrapped( -1 );
+    // },
+
+
+    map : function( callback )
+    {
+        return map.call( this, callback );
+    },
+
+
+    /**
+     * Get Parent
+     *
+     * sets all elements in µ to their parent nodes
+     *
+     * @param  {[type]} _el [description]
+     * @return {[type]}     [description]
+     */
+    parent : function( _el )
+    {
+        var _parent = function( _elm )
+        {
+            return _elm.parentNode;
+        };
+
+        var i, len, parentArray = new Array( this.length );
+
+        for ( i = 0, len = this.length; i < len; i++ )
+        {
+            parentArray[ i ] = _parent( this[ i ] );
+        }
+
+        return new Microbe( parentArray );
+    },
+
+
+    /**
+     * Remove Element
+     *
+     * removes an element or elements from the dom
+     *
+     * @param  {[type]} _el [description]
+     * @return {[type]}     [description]
+     */
+    remove : function( _el )
+    {
+        var _remove = function( _elm )
+        {
+            return _elm.parentNode.removeChild( _elm );
+        };
+
+        if ( _el )
+        {
+            _remove( _el );
+        }
+
+        var i, len;
+
+        for ( i = 0, len = this.length; i < len; i++ )
+        {
+            _remove( this[ i ] );
+        }
+
+        return this;
+    },
+
+
+    /**
+     * Remove Class
+     *
+     * Method removes the given class from the current object or the given element.
+     *
+     * @param   _class      string       class to remove
+     * @param   _el         HTMLELement  element to modify (optional)
+     *
+     * @return  Microbe
+    */
+    removeClass : (function()
+    {
+        var _removeClass = function( _class, _el )
+        {
+            _el.classList.remove( _class );
+        };
+
+        return function( _class, _el )
+        {
+            if ( _el )
+            {
+                _removeClass( _class, _el );
+                return this;
+            }
+
+            var i, len;
+            for ( i = 0, len = this.length; i < len; i++ )
+            {
+                _removeClass( _class, this[ i ] );
+            }
+
+            return this;
+        };
+    }()),
+
+
+    splice : splice,
+
+
+    /**
+     * Alter/Get inner Text
+     *
+     * Changes the inner text to the supplied string.
+     * If the value is
+     * If the value is omitted, simply returns the current inner html value of the element.
+     *
+     * @param   _value      string          Text value (optional)
+     * @param   _el         HTMLELement     element to modify (optional)
+     *
+     * @return  mixed ( Microbe or string or array of strings)
+    */
+    text : (function()
+    {
+        var _setText = function( _value, _el )
+        {
+            if( document.all )
+            {
+                _el.innerText = _value;
+            }
+            else // stupid FF
+            {
+                _el.textContent = _value;
+            }
+        };
+
+        var _getText = function( _el )
+        {
+            if( document.all )
+            {
+                return _el.innerText;
+            }
+            else // stupid FF
+            {
+                return _el.textContent;
+            }
+        };
+        return function( _value, _el )
+        {
+            if ( _value )
+            {
+                if ( _el )
+                {
+                    _setText( _value, _el );
+                    return this;
+                }
+
+                var i, len;
+                for ( i = 0, len = this.length; i < len; i++ )
+                {
+                    _setText( _value, this[ i ] );
+                }
+
+                return this;
+            }
+
+            var j, lenj, arrayText = new Array( this.length );
+            for ( j = 0, lenj = this.length; j < lenj; j++ )
+            {
+                arrayText[ j ] = _getText( this[ j ] );
+            }
+
+            if ( arrayText.length === 1 )
+            {
+                return arrayText[0];
+            }
+
+            return arrayText;
+        };
+    }()),
+
+
+    /**
+     * To array
+     *
+     * Methods returns all the elements in an array.
+     *
+     * @return  Array
+    */
+    toArray : function( _el )
+    {
+        _el = _el || this;
+
+        return Array.prototype.slice.call( _el );
+    },
+
+// UNTESTED
+    // toArrayExp : function()
+    // {
+    //     return slice.call( this );
+    // },
+
+
+    /**
+     * Toggle Class
+     *
+     * Methods calls removeClass or removeClass from the current object or given
+     * element.
+     *
+     * @param   _class      string       class to add
+     * @param   _el         HTMLELement  element to modify (optional)
+     *
+     * @return  Microbe
+    */
+    toggleClass : (function()
+    {
+        var _toggleClass = function( _class, _el )
+        {
+            if ( _el.classList.contains( _class ) )
+            {
+                _el.classList.remove( _class );
+            }
+            else
+            {
+                _el.classList.add( _class );
+            }
+        };
+        return function( _class, _el )
+        {
+            if ( _el )
+            {
+                _toggleClass( _el );
+                return this;
+            }
+
+            var i, len;
+            for ( i = 0, len = this.length; i < len; i++ )
+            {
+                _toggleClass( this[ i ] );
+            }
+
+            return this;
+        };
+    }()),
+
+
+    /**
+     * To String
+     *
+     * Methods returns the type of Microbe.
+     *
+     * @return  string
+    */
+    toString : function()
+    {
+        return _type;
+    },
+
+
+     /**
+     * Unbind Events
+     *
+     * Methods binds an event to the HTMLElements of the current object or to the
+     * given element.
+     *
+     * @param   _event      string          HTMLEvent
+     * @param   _callback   function        callback function
+     * @param   _el         HTMLELement     element to modify (optional)
+     *
+     * @return  Microbe
+    */
+    unbind : function( _event, _callback, _el )
+    {
+        if ( _el )
+        {
+            _el.removeEventListener( _event, _callback );
+            return this;
+        }
+
+        var i, len;
+        for ( i = 0, len = this.length; i < len; i++ )
+        {
+            this[ i ].removeEventListener( _event, _callback );
+        }
+
+        return this;
+    },
+
+    // wrap : function( elements )
+    // {
+    //     var wrapped = Microbe.merge( this.constructor(), elements );
+
+    //     wrapped.prevObject  = this;
+    //     wrapped.context     = this.context;
+
+    //     return wrapped;
+    // }
+
+
+    // __repr__ : function( elements, results )
+    // {
+    //     var _this = results || [];
+
+    //     if ( elements !== null )
+    //     {
+    //         if ( isIterable( Object( elements ) ) )
+    //         {
+    //             Microbe.merge( _this, (typeof elements === 'string' ?
+    //                 [ elements ] : elements ) );
+    //         }
+    //         else
+    //         {
+    //             push.call( _this, elements );
+    //         }
+    //     }
+
+    //     return _this;
+    // }
+};
+
+Microbe.extend = Microbe.core.extend = function()
+{
+    var args    = slice.call( arguments );
+    var index   = 0;
+    var length  = args.length;
+    var deep    = false;
+    var isArray;
+    var target;
+    var options;
+    var src;
+    var copy;
+    var clone;
+
+    if ( args[index] === true )
+    {
+        deep    = true;
+        index   += 1;
+    }
+
+    target = Microbe.isObject( args[index] ) ? args[index] : {};
+
+    for ( ; index < length; index++ )
+    {
+        if ( ( options = args[index] ) !== null )
+        {
+            for ( var name in options )
+            {
+                isArray = false;
+                src     = target[name];
+                copy    = options[name];
+
+                if ( target === copy || copy === undefined )
+                {
+                    continue;
+                }
+
+                if ( deep && copy && Microbe.isObject( copy ) )
+                {
+                    if ( Microbe.isArray( copy ) )
+                    {
+                        clone = src && Microbe.isArray( src ) ? src : [];
+                    }
+                    else
+                    {
+                        clone = src && Microbe.isObject( src ) ? src : {};
+                    }
+
+                    target[name] = Microbe.extend( deep, clone, copy );
+                }
+
+                target[name] = copy;
+            }
+        }
+    }
+
+    return target;
+};
+
+
+// Microbe.getWrapped  = Microbe.core.getWrapped;
+// Microbe.wrap        = Microbe.core.wrap;
+
+Microbe.identity = function( value ) { return value; };
+
+
+Microbe.isFunction = function( obj )
+{
+    return Microbe.type(obj) === "function";
+};
+
+
+Microbe.isArray = Array.isArray;
+
+
+Microbe.isWindow = function( obj )
+{
+    return obj !== null && obj === obj.window;
+};
+
+
+Microbe.isObject = function( obj )
+{
+    if ( Microbe.type( obj ) !== "object" || obj.nodeType || Microbe.isWindow( obj ) )
+    {
+        return false;
+    }
+
+    return true;
+};
+
+
+Microbe.isEmpty = function( obj )
+{
+    var name;
+    for ( name in obj )
+    {
+        return false;
+    }
+
+    return true;
+};
+
+
+Microbe.merge = Microbe.core.merge  = function( first, second )
+{
+    var i = first.length;
+
+    for ( var j = 0, length = second.length; j < length; j++ )
+    {
+        first[ i++ ] = second[ j ];
+    }
+
+    first.length = i;
+
+    return first;
+};
+
+
+Microbe.noop = function() {};
+
+Microbe.toString = Microbe.core.toString = function()
+{
+    return _type;
+};
+
+Microbe.type = function( obj )
+{
+    if ( obj === null )
+    {
+        return obj + '';
+    }
+
+    return typeof obj === 'object' ?
+        Types[ obj.toString() ] || 'object' :
+        typeof obj;
+};
+
+module.exports = Microbe;
