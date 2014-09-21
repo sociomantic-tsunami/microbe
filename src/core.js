@@ -76,9 +76,18 @@ Microbe.core = Microbe.prototype =
     */
     addClass : function( _class, _el )
     {
+        if ( typeof _class === 'string' )
+        {
+            _class = [ _class ];
+        }
+
         var _addClass = function( _elm )
         {
-            _elm.classList.add( _class );
+            var j, lenJ;
+            for ( j = 0, lenJ = _class.length; j < lenJ; j++ )
+            {
+                _elm.classList.add( _class[ j ] );
+            }
         };
 
         if ( _el )
@@ -123,7 +132,7 @@ Microbe.core = Microbe.prototype =
             _append( _parent );
         }
 
-        if (!_el.length )
+        if ( !_el.length )
         {
             _el = [ _el ];
         }
@@ -224,11 +233,12 @@ Microbe.core = Microbe.prototype =
 
             return this;
         }
+
         var j, lenj;
-        var attributes = [];
+        var attributes = new Array( this.length );
         for ( j = 0, lenj = this.length; j < lenj; j++ )
         {
-            push.call( attributes, _getAttr( this[ j ] ) );
+            attributes[ j ] = _getAttr( this[ j ] );
         }
 
         if ( attributes.length === 1 )
@@ -290,13 +300,11 @@ Microbe.core = Microbe.prototype =
             return _elm.children;
         };
 
-        var childrenArray = [];
-
-        var i, len;
+        var i, len, childrenArray = new Array( this.length );
 
         for ( i = 0, len = this.length; i < len; i++ )
         {
-            push.call( childrenArray, _children( this[ i ] ) );
+            childrenArray[ i ] = _children( this[ i ] );
         }
 
         if ( childrenArray.length === 1 )
@@ -320,33 +328,55 @@ Microbe.core = Microbe.prototype =
     */
     create : function ( _el )
     {
-        var reClass     = /\.([^.$#]+)/g;
-        var reId        = /#([^.$]+)/;
-        var reElement   = /[#.]/;
-        var _id;
-        var i, len;
-        var _class;
-        var original;
+        var selectorRegex   = /(?:[\s]*\.([\w-_\.]*)|#([\w-_]*)|([^#\.<][\w-_]*)|(<[\w-_#\.]*>))/g,
+            resultsRegex    = _el.match( selectorRegex ),
+            _id, _tag, _class, _selector = '';
 
-        if ( typeof _el === 'string' )
+        var i, lenI;
+        for ( i = 0, lenI = resultsRegex.length; i < lenI; i++ ) 
         {
-            original = _el;
-            _el = _el.split( reElement )[ 0 ];
-            _el = document.createElement( _el );
-
-            _id = original.match( reId );
-            if ( _id )
+            var trigger = resultsRegex[ i ][ 0 ];
+            switch ( trigger )
             {
-                _el.id = _id[1].trim();
-            }
+                case '#':
+                    _id      = resultsRegex[ i ];
+                    break;
 
-            while ( ( _class = reClass.exec( original ) ) !== null )
-            {
-                _el.classList.add( _class[1] );
+                case '.':
+                    _class   = resultsRegex[ i ];
+                    break;
+
+                default:
+                    _tag     = resultsRegex[ i ];
+                    break;
             }
         }
 
-        return new Microbe( '', '', _el );
+        if ( typeof _tag === 'string' )
+        {
+            _el = document.createElement( _tag );
+            _selector = _tag;
+
+            if ( _id )
+            {
+                _selector += _id;
+                _el.id = _id.slice( 1 );
+            }
+
+            if ( _class )
+            {
+                _selector += _class;
+                _class = _class.split( '.' );
+
+                for ( i = 1, lenI = _class.length; i < lenI; i++ ) 
+                {
+                    _el.classList.add( _class[ i ] );
+                }
+            }
+
+        }
+
+        return new Microbe( _selector, undefined, _el );
     },
 
 
@@ -357,7 +387,7 @@ Microbe.core = Microbe.prototype =
      * supplied elements. (properties should be supplied in javascript format).
      * If the value is omitted, simply returns the current css value of the element.
      *
-     * @param   _property   string          JS formatted CSS property
+     * @param   _property   string          CSS property
      * @param   _el         HTMLELement     element to modify (optional)
      * @param   _value      string          CSS value (optional)
      *
@@ -391,11 +421,10 @@ Microbe.core = Microbe.prototype =
 
             return this;
         }
-        var j, lenj;
-        var styles = [];
+        var j, lenj, styles = new Array( this.length );
         for ( j = 0, lenj = this.length; j < lenj; j++ )
         {
-            push.call( styles, _getCss( this[ j ] ) );
+            styles[ j ] = _getCss( this[ j ] );
         }
         if ( styles.length === 1 )
         {
@@ -424,11 +453,11 @@ Microbe.core = Microbe.prototype =
         return this;
     },
 
-
-    eachExp : function( callback )
-    {
-        return forEach.call( this, callback );
-    },
+// UNTESTED
+    // eachExp : function( callback )
+    // {
+    //     return forEach.call( this, callback );
+    // },
 
 
     /**
@@ -446,15 +475,23 @@ Microbe.core = Microbe.prototype =
             return this;
         }
 
-        return new Microbe( '', '', [ this[ 0 ] ] );
+        return new Microbe( [ this[ 0 ] ] );
     },
 
+// UNTESTED
+    // firstExp: function() {
+    //     return this.getWrapped( 0 );
+    // },
 
-    firstExp: function() {
-        return this.getWrapped( 0 );
-    },
 
-
+    /**
+     * Get value
+     *
+     * gets the element in the appropriate index
+     *
+     * @param  {element object or array} _el object to find the index of (optional)
+     * @return {array}                       array of indexes
+     */
     get : function( index )
     {
         if ( index === null || index === undefined )
@@ -487,32 +524,29 @@ Microbe.core = Microbe.prototype =
             return Array.prototype.indexOf.call( _elm.parentNode.children, _elm );
         };
 
-        var indexes = [];
-
         if ( _el )
         {
-            indexes = _getParentIndex( _el );
-            return indexes;
+            return _getParentIndex( _el );
         }
 
-        var i, len;
+        var i, len, indexes = new Array( this.length );
 
         for ( i = 0, len = this.length; i < len; i++ )
         {
-            push.call( indexes, _getParentIndex( this[ i ] ) );
+            indexes[ i ] = _getParentIndex( this[ i ] );
         }
 
         return indexes;
     },
 
 
-    getWrapped : function( i )
-    {
-        var length  = this.length;
-        var j = +i + ( i < 0 ? length : 0 );
+    // getWrapped : function( i )
+    // {
+    //     var length  = this.length;
+    //     var j = +i + ( i < 0 ? length : 0 );
 
-        return this.wrap( j >= 0 && j < length ? [ this[j] ] : [] );
-    },
+    //     return this.wrap( j >= 0 && j < length ? [ this[j] ] : [] );
+    // },
 
 
     /**
@@ -537,10 +571,10 @@ Microbe.core = Microbe.prototype =
             return _hasClass( _el );
         }
 
-        var i, len, results = [];
+        var i, len, results = new Array( this.length );
         for ( i = 0, len = this.length; i < len; i++ )
         {
-            push.call( results, _hasClass( this[ i ] ) );
+            results[ i ] = _hasClass( this[ i ] );
         }
 
         return results;
@@ -587,11 +621,10 @@ Microbe.core = Microbe.prototype =
             return this;
         }
 
-        var j, lenj;
-        var markup = [];
+        var j, lenj, markup = new Array( this.length );
         for ( j = 0, lenj = this.length; j < lenj; j++ )
         {
-            push.call( markup, _getHtml( this[ j ] ) );
+            markup[ j ] = _getHtml( this[ j ] );
         }
 
         if ( markup.length === 1 )
@@ -600,6 +633,19 @@ Microbe.core = Microbe.prototype =
         }
         return markup;
     },
+
+
+    /** 
+     * Index of
+     *
+     * 
+     *
+     * @return {void}
+     */
+     indexOf : function( _el )
+     {
+        return this.toArray().indexOf( _el );  
+     },
 
 
     /**
@@ -621,25 +667,20 @@ Microbe.core = Microbe.prototype =
 
         var _insertAfter = function( _elm )
         {
-            _elAfter = _this.micro( _elAfter );
-            _elm     = _this.micro( _elm );
-
+            console.log( _elm );
             var nextIndex;
 
-            for ( var i = 0, len = _elm.length; i < len; i++ )
+            nextIndex = _this.getParentIndex( _elm );
+
+            var nextEle   = _elm.parentNode.children[ nextIndex + 1 ];
+
+            if ( nextEle )
             {
-                nextIndex = _this.getParentIndex( _elm[ i ] );
-
-                var nextEle   = _elm[ i ].parentNode.children[ nextIndex + 1 ];
-
-                if ( nextEle )
-                {
-                    nextEle.parentNode.insertBefore( _elAfter[0].cloneNode( true ), nextEle );
-                }
-                else
-                {
-                    _elm[ i ].parentNode.appendChild( _elAfter[0].cloneNode( true ) );
-                }
+                nextEle.parentNode.insertBefore( _elAfter[0].cloneNode( true ), nextEle );
+            }
+            else
+            {
+                _elm.parentNode.appendChild( _elAfter[0].cloneNode( true ) );
             }
         };
 
@@ -658,6 +699,7 @@ Microbe.core = Microbe.prototype =
         return this;
     },
 
+
     /**
      * Get Last Element
      *
@@ -673,14 +715,14 @@ Microbe.core = Microbe.prototype =
             return this;
         }
 
-        return new Microbe( '', '', [ this[ this.length - 1 ] ] );
+        return new Microbe( [ this[ this.length - 1 ] ] );
     },
 
-
-    lastExp: function() 
-    {
-        return this.getWrapped( -1 );
-    },
+// UNTESTED
+    // lastExp: function() 
+    // {
+    //     return this.getWrapped( -1 );
+    // },
 
 
     map : function( callback )
@@ -704,14 +746,14 @@ Microbe.core = Microbe.prototype =
             return _elm.parentNode;
         };
 
-        var parentArray = [];
+        var i, len, parentArray = new Array( this.length );
 
-        for ( var i = 0, len = this.length; i < len; i++ )
+        for ( i = 0, len = this.length; i < len; i++ )
         {
-            push.call( parentArray, _parent( this[ i ] ) );
+            parentArray[ i ] = _parent( this[ i ] );
         }
 
-        return new Microbe( '', '', parentArray );
+        return new Microbe( parentArray );
     },
 
 
@@ -778,7 +820,9 @@ Microbe.core = Microbe.prototype =
         return this;
     },
 
+
     splice : splice,
+
 
     /**
      * Alter/Get inner Text
@@ -835,11 +879,10 @@ Microbe.core = Microbe.prototype =
             return this;
         }
 
-        var j, lenj;
-        var arrayText = [];
+        var j, lenj, arrayText = new Array( this.length );
         for ( j = 0, lenj = this.length; j < lenj; j++ )
         {
-            push.call( arrayText, _getText( this[ j ] ) );
+            arrayText[ j ] = _getText( this[ j ] );
         }
 
         if ( arrayText.length === 1 )
@@ -864,11 +907,11 @@ Microbe.core = Microbe.prototype =
         return Array.prototype.slice.call( _el );
     },
 
-
-    toArrayExp : function()
-    {
-        return slice.call( this );
-    },
+// UNTESTED
+    // toArrayExp : function()
+    // {
+    //     return slice.call( this );
+    // },
 
 
     /**
@@ -888,11 +931,11 @@ Microbe.core = Microbe.prototype =
         {
             if ( _elm.classList.contains( _class ) )
             {
-                _elm.classList.add( _class );
+                _elm.classList.remove( _class );
             }
             else
             {
-                _elm.classList.remove( _class );
+                _elm.classList.add( _class );
             }
         };
 
@@ -960,15 +1003,15 @@ Microbe.core = Microbe.prototype =
     },
 
 
-    wrap : function( elements )
-    {
-        var wrapped = Microbe.merge( this.constructor(), elements );
+    // wrap : function( elements )
+    // {
+    //     var wrapped = Microbe.merge( this.constructor(), elements );
 
-        wrapped.prevObject  = this;
-        wrapped.context     = this.context;
+    //     wrapped.prevObject  = this;
+    //     wrapped.context     = this.context;
 
-        return wrapped;
-    }
+    //     return wrapped;
+    // }
 
 
     // __repr__ : function( elements, results )
@@ -1168,6 +1211,8 @@ Microbe.http = (function()
     return _http;
 }() );
 
+// Microbe.getWrapped  = Microbe.core.getWrapped;
+// Microbe.wrap        = Microbe.core.wrap;
 
 Microbe.identity = function( value ) { return value; };
 
