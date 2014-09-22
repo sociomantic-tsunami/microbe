@@ -18,25 +18,28 @@
     "url": "https://github.com/sociomantic/microbe"
   },
   "scripts": {
-    "get-dependencies" : "npm install . && ./node_modules/.bin/bower install . && echo \"Installation complete.\"",
-    "build" : "./node_modules/.bin/gulp && ./node_modules/.bin/gulp closure && echo \"Build complete.\"",
-    "test" : "./node_modules/.bin/gulp test && echo \"Tests complete.\"",
+    "get-dependencies": "npm install . && ./node_modules/.bin/bower install . && echo \"Installation complete.\"",
+    "build": "./node_modules/.bin/gulp && echo \"Build complete.\"",
+    "test": "./node_modules/.bin/gulp test && echo \"Tests complete.\"",
     "watch": "./node_modules/.bin/gulp watch"
   },
   "dependencies": {},
   "devDependencies": {
     "bower": "latest",
+    "browserify": "^5.11.2",
     "gulp": "latest",
-    "gulp-closure-compiler": "latest",
+    "gulp-browserify": "^0.5.0",
     "gulp-concat": "latest",
     "gulp-jshint": "latest",
     "gulp-notify": "latest",
     "gulp-rename": "latest",
+    "gulp-replace": "^0.4.0",
     "gulp-rimraf": "latest",
     "gulp-sourcemaps": "^1.1.0",
     "gulp-traceur": "latest",
     "gulp-uglify": "^0.3.1",
-    "gulp-wrapper": "^0.1.5"
+    "gulp-wrapper": "^0.1.5",
+    "promise": "^6.0.0"
   },
   "license": "MIT"
 }

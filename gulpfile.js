@@ -1,6 +1,6 @@
 var gulp            = require('gulp');
+var fs              = require( 'fs' );
 var jshint          = require('gulp-jshint');
-var closureCompiler = require('gulp-closure-compiler');
 var rename          = require('gulp-rename');
 var clean           = require('gulp-rimraf');
 var concat          = require('gulp-concat');
@@ -8,80 +8,25 @@ var notify          = require('gulp-notify');
 var traceur         = require('gulp-traceur');
 var sourcemaps      = require('gulp-sourcemaps');
 var wrapper         = require('gulp-wrapper');
+var replace         = require('gulp-replace');
 
-var defineAMD = {
-    header: '( function ( root, factory )\n' +
-            '{\n' +
-            '   /* globals define */\n\n' +
-            '   /**\n' +
-            '    * AMD module\n' +
-            '    */\n' +
-            '    if ( typeof define === \'function\' && define.amd )\n' +
-            '    {\n' +
-            '        define( \'microbe\', [], factory );\n' +
-            '    }\n' +
-            '    else\n' +
-            '    {\n' +
-            '        root.µ = factory();\n' +
-            '    }\n' +
-            '}( this, function ()\n' +
-            '{\n' +
-            '    \'use strict\';\n',
+var fs = require( 'fs' );
+var browserify = require('browserify');
+var token = 'ThisIsVeryUnlikelyThatAVariableWillBeCalledThisWay';
+var exportName = 'µ';
 
-    footer: '    return µ;\n' +
-            '\n' +
-            '} ) );\n'
-};
-
-gulp.task('legacy', function()
+// Basic usage
+gulp.task('build', function()
 {
-  return gulp.src([
-        'src/microbe.js',
-        'src/microbe.html.js',
-        'src/microbe.css.js',
-        'src/microbe.events.js',
-        'src/microbe.http.js',
-        'src/microbe.main.js'
-    ])
-    .pipe(jshint('.jshintrc'))
-    .pipe(jshint.reporter('default'))
-    .pipe(concat('microbe.js'))
-    .pipe(wrapper(defineAMD))
-    .pipe(gulp.dest('dist/'))
-    .pipe(notify({ message: 'Legacy scripts task complete' }));
-});
-
-gulp.task('scripts', function()
-{
-  return gulp.src([
-        'src/es6/microbe.js',
-        'src/es6/microbe.html.js',
-        'src/es6/microbe.css.js',
-        'src/es6/microbe.events.js',
-        'src/es6/microbe.http.js',
-        'src/es6/microbe.main.js'
-    ])
-    .pipe(jshint('.jshintrc'))
-    .pipe(jshint.reporter('default'))
-    .pipe(concat('microbe.js'))
-    // .pipe(wrapper(defineAMD))
-    .pipe(gulp.dest('dist/es6/'))
-    .pipe(sourcemaps.init())
-    .pipe(rename({suffix: '.traceur'}))
-    .pipe(traceur({experimental: true}))
-    .pipe(sourcemaps.write())
-    .pipe(gulp.dest('dist/es6/'))
-    .pipe(notify({ message: 'Scripts task complete' }));
-});
-
-gulp.task('closure', function() {
-  gulp.src('dist/es6/microbe.traceur.js')
-    .pipe(closureCompiler({
-      compilerPath: 'bower_components/closure-compiler/compiler.jar',
-      fileName: 'microbe.traceur.min.js'
-    }))
-    .pipe(gulp.dest('dist/es6/'))
-    .pipe(notify({ message: 'Closure task complete' }));
+    browserify('./src/microbe.js', {standalone: token})
+        .bundle()
+        .pipe(fs.createWriteStream(__dirname + '/dist/microbe.js'))
+        .on( 'finish', function()
+        {
+            gulp.src('./dist/microbe.js')
+                .pipe(replace(token, exportName))
+                .pipe(gulp.dest('./dist/'));
+        });
 });
 
 gulp.task('test', function()
@@ -92,19 +37,15 @@ gulp.task('test', function()
 
 gulp.task('clean', function()
 {
-  return gulp.src(['dist/'], {read: false})
-    .pipe(clean());
+    return gulp.src(['dist/'], {read: false}).pipe(clean());
 });
 
 gulp.task('default', [], function()
 {
-    gulp.start('scripts');
-    gulp.start('legacy');
+    gulp.start('build');
 });
 
 gulp.task('watch', function()
 {
-  gulp.watch('src/*.js', ['legacy']);
-  gulp.watch('src/es6/*.js', ['scripts']);
-
+    gulp.watch('src/**/*.js', ['build']);
 });

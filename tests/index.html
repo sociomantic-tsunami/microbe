@@ -3,14 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <title>Tests Microbe.js</title>
-  <link rel="stylesheet" href="./mocha/mocha.css">
+  <link rel="stylesheet" href="../bower_components/mocha/mocha.css">
   <script  src="../bower_components/mocha/mocha.js"></script>
   <script  src="../bower_components/chai/chai.js"></script>
+  <script  src="../bower_components/jquery/dist/jquery.js"></script>
   <!--  promise polyfill is optional on canary and aurora (nightly ff) -->
   <!-- <script src="http://s3.amazonaws.com/es6-promises/promise-1.0.0.min.js"></script> -->
-  <script src="../bower_components/traceur/traceur.js"></script>
-  <script src="../lib/es6/microbe.traceur.js"></script>
-  <script>mocha.setup('bdd');</script>
+  <!-- <script src="../bower_components/traceur/traceur.js"></script> -->
+  <!-- <script src="../dist/es6/microbe.traceur.js"></script> -->
+  <script src="../dist/microbe.js"></script>
+  <!-- <script>mocha.setup('bdd');</script> -->
 </head>
 <body>
   <div id="mocha">
@@ -18,10 +20,11 @@
   </div>
   <div id="messages"></div>
   <div id="fixtures"></div>
-  <script src="./tests.js"></script>
+  <!-- <script src="./tests.js"></script> -->
+  <script src="./speed.js"></script>
   <script>
-      mocha.checkLeaks();
-      mocha.run();
+      // mocha.checkLeaks();
+      // mocha.run();
   </script>
 </body>
 </html>
