@@ -187,5 +187,4 @@ module.exports = function( Microbe )
     };
 
     Microbe.core.__init__.prototype = Microbe.core;
-
 };
