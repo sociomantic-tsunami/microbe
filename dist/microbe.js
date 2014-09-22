@@ -1911,21 +1911,29 @@ module.exports = function( Microbe )
      */
     Microbe.http = function( _parameters )
     {
-        return new Promise( function( resolve, reject )
+        var fail,
+            req, method, url, data, user, password, headers, async;
+
+        if ( !_parameters )
         {
-            if ( !_parameters ) { reject( new Error( 'No parameters given' ) ); }
+            return new Error( 'No parameters given' );
+        }
+        else
+        {
             if ( typeof _parameters === 'string' )
             {
                 _parameters = { url: _parameters };
             }
 
-            var req         = new XMLHttpRequest();
-            var method      = _parameters.method || 'GET';
-            var url         = _parameters.url;
-            var data        = JSON.stringify( _parameters.data ) || null;
-            var user        = _parameters.user || '';
-            var password    = _parameters.password || '';
-            var headers     = _parameters.headers  || null;
+            req         = new XMLHttpRequest();
+            method      = _parameters.method || 'GET';
+            url         = _parameters.url;
+            data        = JSON.stringify( _parameters.data ) || null;
+            user        = _parameters.user || '';
+            password    = _parameters.password || '';
+            headers     = _parameters.headers  || null;
+            async       = typeof _parameters.async === "boolean" ?
+                                _parameters.async : true;
 
             req.onreadystatechange = function()
             {
@@ -1934,41 +1942,86 @@ module.exports = function( Microbe )
                     return req;
                 }
             };
-            req.onerror = function()
-            {
-                reject( new Error( 'Network error!' ) );
-            };
+        }
 
-            req.open( method, url, true, user, password );
+        req.open( method, url, async, user, password );
 
-            if ( headers )
+        if ( headers )
+        {
+            if ( Array.isArray( headers ) )
             {
-                if ( Array.isArray( headers ) )
+                for ( var i = 0, len = headers.length; i < len; i++ )
                 {
-                    for ( var i = 0, len = headers.length; i < len; i++ )
-                    {
-                        req.setRequestHeader( headers[i].header, headers[i].value );
-                    }
-                }
-                else
-                {
-                    req.setRequestHeader( headers.header, headers.value );
+                    req.setRequestHeader( headers[i].header, headers[i].value );
                 }
             }
+            else
+            {
+                req.setRequestHeader( headers.header, headers.value );
+            }
+        }
+
+        if ( async )
+        {
+            return new Promise( function( resolve, reject )
+            {
+                req.onerror = function()
+                {
+                    reject( new Error( 'Network error!' ) );
+                };
+
+                req.send( data );
+                req.onload = function()
+                {
+                    if ( req.status === 200 )
+                    {
+                        resolve( req.response );
+                    }
+                    else
+                    {
+                        reject( new Error( req.status ) );
+                    }
+                };
+
+            });
+        }
+        else
+        {
+            var _response = function( _val )
+            {
+                var _responses =
+                {
+                    then: function( _cb )
+                    {
+                        if ( _val.status === 200 )
+                        {
+                            _cb( _val.responseText );
+                        }
+                        return _responses;
+                    },
+                    catch: function( _cb )
+                    {
+                        if ( _val.status !== 200 )
+                        {
+                            _cb({
+                                status      : _val.status,
+                                statusText  : _val.statusText
+                            });
+                        }
+                        return _responses;
+                    }
+                };
+                return _responses;
+            };
 
             req.send( data );
-            req.onload = function()
+            req.onloadend = function()
             {
-                if ( req.status === 200 )
-                {
-                    resolve( req.response );
-                }
-                else
-                {
-                    reject( new Error( req.status ) );
-                }
+                req.onreadystatechange();
+                return _response( req );
             };
-        });
+            return req.onloadend();
+        }
     };
 
     Microbe.http.get = function( _url )
