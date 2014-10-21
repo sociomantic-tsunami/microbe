@@ -78,9 +78,7 @@ var testLoop = function( testArray, query, iterations )
 		total += resultsArray[ k ];
 		resultsArray[ k ] = resultsArray[ k ] / iterations;
 	}
-
     reset();
-
 	return [ resultsArray, total ];
 };
 
@@ -144,26 +142,26 @@ var addClassTest = [
         var result, target  = document.querySelectorAll( query );
         for ( var i = 0, lenI = target.length; i < lenI; i++ )
         {
-            result  = target[ i ].classList.add( 'moo' );   result  = target[ i ].classList.remove( 'moo' );
+            result  = target[ i ].classList.add( 'moo' );
         }
         return result;
     },
 
     function( query )
     {
-     var result = $( query ).addClass( 'moo' ).removeClass( 'moo' );
+     var result = $( query ).addClass( 'moo' );
      return result;
     },
 
     function( query )
     {
-     var result = µ( query ).addClass( 'moo' ).removeClass( 'moo' );
+     var result = µ( query ).addClass( 'moo' );
      return result;
     },
 
     function( query )
     {
-     var result = xµ( query ).addClass( 'moo' ).removeClass( 'moo' );
+     var result = xµ( query ).addClass( 'moo' );
      return result;
     }
 ];
@@ -529,18 +527,21 @@ var htmlTest = [
     function( query )
     {
         var result = $( query ).html( 'test1' );
+        $( query ).html();
         return result;
     },
 
     function( query )
     {
         var result = µ( query ).html( 'test1' );
+        µ( query ).html();
         return result;
     },
 
     function( query )
     {
         var result = xµ( query ).html( 'test1' );
+        xµ( query ).html();
         return result;
     }
 ];
@@ -577,10 +578,13 @@ var indexOf = [
     },
 
     function( query )
-    {
-        var result = xµ( query );
-        setTimeout( function(){ 'dummy function. this didnt exist in xµ'; }, 20 );
-        return result;
+    {           // dummy function. this didnt exist in xµ
+        var i = 0;
+        while ( i < 30000 )
+        {
+            i++;
+        }
+        return true;
     }
 ];
 var indexOfResults = testLoop( indexOf, '.test1', iterations );
@@ -591,36 +595,351 @@ var insertAfter = [
 
     function( query )
     {
-        // var result = document.querySelectorAll( query );
-        // for ( var i = 0, lenI = result.length; i < lenI; i++ )
-        // {
-        //     result[ i ].innerHTML = 'test1';
-        // }
-        // return result;
+        var el = document.createElement( 'span' ); // vanilla to be consistant
+        var result = document.querySelectorAll( query );
+        for ( var i = 0, lenI = result.length; i < lenI; i++ )
+        {
+            result[ i ].parentNode.insertBefore( el, result[ i ].nextSibling );
+        }
+        return result;
     },
 
     function( query )
     {
-        // var result = $( query ).html( 'test1' );
-        // return result;
+        var el = $( '<span></span>' ); // jquery will only take a string or a $
+        result = $( query ).insertAfter( el );
     },
 
     function( query )
     {
         var el = document.createElement( 'span' ); // vanilla to be consistant
-        var result = µ( query ).insertAfter( el )
+        var result = µ( query ).insertAfter( el );
         return result;
     },
 
     function( query )
     {
         var el = document.createElement( 'span' ); // vanilla to be consistant
-        var result = µ( query ).insertAfter( el )
+        var result = xµ( query ).insertAfter( el );
         return result;
     }
 ];
 var insertAfterResults = testLoop( insertAfter, '.test1', iterations );
 testPresent( '.insertAfter( ) test x ' + iterations + ' : total ' + insertAfterResults[ 1 ], insertAfterResults[ 0 ], insertAfter );
+
+
+var lastTest = [
+
+    function( query )
+    {
+        var results = document.querySelectorAll( query );
+
+        return results[ results.length - 1 ];
+    },
+
+    function( query )
+    {
+        var result = $( query ).last();
+        return result;
+    },
+
+    function( query )
+    {
+        var result = µ( query ).last();
+        return result;
+    },
+
+    function( query )
+    {
+        var result = xµ( query ).last();
+        return result;
+    }
+];
+var lastTestResults = testLoop( lastTest, '.test1', iterations );
+testPresent( '.last( ) test x ' + iterations + ' : total ' + lastTestResults[ 1 ], lastTestResults[ 0 ], lastTest );
+
+
+
+var mapFunc = function ()
+{
+    var that = this;
+    return Math.random() * 765765 % 56;
+};
+var mapTest = [
+
+    function( query )
+    {
+        var results = document.querySelectorAll( query );
+
+        for ( var i = 0, lenI = results.length; i < lenI; i++ )
+        {
+            mapFunc( results[ i ], i );
+        }
+
+        return results;
+    },
+
+    function( query )
+    {
+        var result = $( query ).map( mapFunc );
+        return result;
+    },
+
+    function( query )
+    {
+        var result = µ( query ).map( mapFunc );
+        return result;
+    },
+
+    function( query )
+    {           // dummy function. this didnt exist in xµ
+        var i = 0;
+        while ( i < 50000 )
+        {
+            i++;
+        }
+        return true;
+    }
+];
+var mapTestResults = testLoop( mapTest, '.test1', iterations );
+testPresent( '.map( ) test x ' + iterations + ' : total ' + mapTestResults[ 1 ], mapTestResults[ 0 ], mapTest );
+
+
+
+var parentTest = [
+
+    function( query )
+    {
+        var results = document.querySelectorAll( query );
+
+        for ( var i = 0, lenI = results.length; i < lenI; i++ )
+        {
+            results[ i ] = results[ i ].parentNode;
+        }
+        return results;
+    },
+
+    function( query )
+    {
+        var result = $( query ).parent();
+        return result;
+    },
+
+    function( query )
+    {
+        var result = µ( query ).parent();
+        return result;
+    },
+
+    function( query )
+    {
+        var result = xµ( query ).parent();
+        return result;
+    }
+];
+var parentTestResults = testLoop( parentTest, '.test1', iterations );
+testPresent( '.parent( ) test x ' + iterations + ' : total ' + parentTestResults[ 1 ], parentTestResults[ 0 ], parentTest );
+
+
+
+
+var removeTest = [
+
+    function( query )
+    {
+        var el = document.createElement( query ); // vanilla to be consistant
+        document.getElementsByTagName( 'body' )[0].appendChild( el ); // vanilla to be consistant
+
+
+        // var results = document.querySelectorAll( query );
+
+        // for ( var i = 0, lenI = results.length; i < lenI; i++ )
+        // {
+        //     results[ i ] = results[ i ].removeNode;
+        // }
+        // return results;
+    },
+
+    function( query )
+    {
+        var el = document.createElement( query ); // vanilla to be consistant
+        document.getElementsByTagName( 'body' )[0].appendChild( el ); // vanilla to be consistant
+        var result = $( query ).remove();
+        return result;
+    },
+
+    function( query )
+    {
+        var el = document.createElement( query ); // vanilla to be consistant
+        document.getElementsByTagName( 'body' )[0].appendChild( el ); // vanilla to be consistant
+        var result = µ( query ).remove();
+        return result;
+    },
+
+    function( query )
+    {
+        var el = document.createElement( query ); // vanilla to be consistant
+        document.getElementsByTagName( 'body' )[0].appendChild( el ); // vanilla to be consistant
+        var result = xµ( query ).remove();
+        return result;
+    }
+];
+var removeTestResults = testLoop( removeTest, 'removeme', iterations );
+testPresent( '.remove( ) test x ' + iterations + ' : total ' + removeTestResults[ 1 ], removeTestResults[ 0 ], removeTest );
+
+
+
+
+var removeClassTest = [
+
+    function( query )
+    {
+        var result, target  = document.querySelectorAll( query );
+        for ( var i = 0, lenI = target.length; i < lenI; i++ )
+        {
+            result  = target[ i ].classList.remove( 'moo' );
+        }
+        return result;
+    },
+
+    function( query )
+    {
+     var result = $( query ).removeClass( 'moo' );
+     return result;
+    },
+
+    function( query )
+    {
+     var result = µ( query ).removeClass( 'moo' );
+     return result;
+    },
+
+    function( query )
+    {
+     var result = xµ( query ).removeClass( 'moo' );
+     return result;
+    }
+];
+var removeClassTestResults = testLoop( removeClassTest, '.test1', iterations );
+testPresent( '.removeClass( ) test x ' + iterations + ' : total ' + removeClassTestResults[ 1 ], removeClassTestResults[ 0 ], removeClassTest );
+
+
+
+var textTest = [
+
+    function( query )
+    {
+        var result = document.querySelectorAll( query );
+        for ( var i = 0, lenI = result.length; i < lenI; i++ )
+        {
+            result[ i ].innerText = 'test1';
+        }
+        return result;
+    },
+
+    function( query )
+    {
+        var result = $( query ).text( 'test1' );
+        $( query ).text();
+        return result;
+    },
+
+    function( query )
+    {
+        var result = µ( query ).text( 'test1' );
+        µ( query ).text();
+        return result;
+    },
+
+    function( query )
+    {
+        var result = xµ( query ).text( 'test1' );
+        xµ( query ).text();
+        return result;
+    }
+];
+var textTestResults = testLoop( textTest, '.test1', iterations );
+testPresent( '.text( ) test x ' + iterations + ' : total ' + textTestResults[ 1 ], textTestResults[ 0 ], textTest );
+
+
+
+var toArray = [
+
+    function( query )
+    {
+        var arr = [], result = document.querySelectorAll( query );
+
+        for( var i = 0, lenI = result.length; i < lenI; i++ )
+        {
+            arr.push( result[ i ] );
+        }
+        return arr;
+    },
+
+    function( query )
+    {
+        var result = $( query ).toArray();
+        return result;
+    },
+
+    function( query )
+    {
+        var result = µ( query ).toArray();
+        return result;
+    },
+
+    function( query )
+    {
+        var result = xµ( query ).toArray();
+    }
+];
+var toArrayResults = testLoop( toArray, '.test1', iterations );
+testPresent( '.toArray( ) test x ' + iterations + ' : total ' + toArrayResults[ 1 ], toArrayResults[ 0 ], toArray );
+
+
+
+var toggleClassTest = [
+
+    function( query )
+    {
+        var result, target  = document.querySelectorAll( query );
+        for ( var i = 0, lenI = target.length; i < lenI; i++ )
+        {
+            result  = target[ i ].classList.toggle( 'moo' );
+        }
+        return result;
+    },
+
+    function( query )
+    {
+        var target = $( query );
+        var result = target.toggleClass( 'moo' );
+        result = target.toggleClass( 'moo' );
+        return result;
+    },
+
+    function( query )
+    {
+        var target = µ( query );
+        var result = target.toggleClass( 'moo' );
+        result = target.toggleClass( 'moo' );
+        return result;
+    },
+
+    function( query )
+    {           // dummy function. this didnt work in xµ
+        var i = 0;
+        while ( i < 50000 )
+        {
+            i++;
+        }
+        return true;
+    }
+];
+var toggleClassTestResults = testLoop( toggleClassTest, '.test1', iterations );
+testPresent( '.toggleClass( ) test x ' + iterations + ' : total ' + toggleClassTestResults[ 1 ], toggleClassTestResults[ 0 ], toggleClassTest );
+
+// unbind test later
 
 
 

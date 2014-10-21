@@ -1452,7 +1452,7 @@ Microbe.core = Microbe.prototype =
             var i, len;
             for ( i = 0, len = this.length; i < len; i++ )
             {
-                _toggleClass( this[ i ] );
+                _toggleClass( _class, this[ i ] );
             }
 
             return this;
