@@ -581,11 +581,7 @@ var indexOf = [
     {           // dummy function. this didnt exist in xµ
         var i = 0;
         while ( i < 30000 )
-        {
-            i++;
-        }
-        return true;
-    }
+        { i++; } return true; }
 ];
 var indexOfResults = testLoop( indexOf, '.test1', iterations );
 testPresent( '.indexOf( ) test x ' + iterations + ' : total ' + indexOfResults[ 1 ], indexOfResults[ 0 ], indexOf );
@@ -695,11 +691,7 @@ var mapTest = [
     {           // dummy function. this didnt exist in xµ
         var i = 0;
         while ( i < 50000 )
-        {
-            i++;
-        }
-        return true;
-    }
+        { i++; } return true; }
 ];
 var mapTestResults = testLoop( mapTest, '.test1', iterations );
 testPresent( '.map( ) test x ' + iterations + ' : total ' + mapTestResults[ 1 ], mapTestResults[ 0 ], mapTest );
@@ -930,11 +922,7 @@ var toggleClassTest = [
     {           // dummy function. this didnt work in xµ
         var i = 0;
         while ( i < 50000 )
-        {
-            i++;
-        }
-        return true;
-    }
+        { i++; } return true;}
 ];
 var toggleClassTestResults = testLoop( toggleClassTest, '.test1', iterations );
 testPresent( '.toggleClass( ) test x ' + iterations + ' : total ' + toggleClassTestResults[ 1 ], toggleClassTestResults[ 0 ], toggleClassTest );
