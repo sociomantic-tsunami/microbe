@@ -29,12 +29,24 @@ var testPresent = function( testName, results, code )
         {
             fastest = i;
         }
+
+        µTestWrapper.attr( 'data-time', results[ i ] );
+
         µTestWrapper.append( µFrameworkWrapper ).append( µCodeWrapper ).append( µTimeWrapper ).append( µ( '<br>' ) );
 
         µTestsWrapper.append( µTestWrapper );
     }
     var _fast = µ( µTestsWrapper.children()[ fastest + 1 ] );
-    _fast.addClass( 'fastestTest' );
+
+    if ( _fast.attr( 'data-time' ) < results[ 0 ] )
+    {
+        _fast.addClass( 'fastestTest__beat-native' );
+    }
+    else
+    {
+        _fast.addClass( 'fastestTest' );
+    }
+
     _fast = _fast.children();
     _fast[ 0 ].className = _fast[ 0 ].className + ' fastestFramework';
     _fast[ 1 ].className = _fast[ 1 ].className + ' fastestCode';
@@ -128,7 +140,7 @@ testPresent( 'Query body x ' + iterations + ' : total ' + simpleQueryResults[ 1 
 simpleQueryResults = testLoop( simpleQuery, '.test1', iterations );
 testPresent( 'Query .test1 x ' + iterations + ' : total ' + simpleQueryResults[ 1 ], simpleQueryResults[ 0 ], simpleQuery );
 
-simpleQueryResults = testLoop( simpleQuery, 'div.test1.test1', iterations );
+simpleQueryResults = testLoop( simpleQuery, 'div.test1.test2', iterations );
 testPresent( 'Query body x ' + iterations + ' : total ' + simpleQueryResults[ 1 ], simpleQueryResults[ 0 ], simpleQuery );
 
 simpleQueryResults = testLoop( simpleQuery, 'div#test', iterations );

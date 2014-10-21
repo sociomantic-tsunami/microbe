@@ -77,6 +77,11 @@ span
     color:                      #002872;
 }
 
+.fastestTest__beat-native
+{
+    color:                      #C4553E;
+}
+
 .fastestFramework, .fastestTime
 {
     background-color:           rgba( 141, 157, 151, 0.5 );
