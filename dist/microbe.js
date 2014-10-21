@@ -1165,7 +1165,6 @@ Microbe.core = Microbe.prototype =
 
         var _insertAfter = function( _elm )
         {
-            console.log( _elm );
             var nextIndex;
 
             nextIndex = _this.getParentIndex( _elm );
@@ -1174,11 +1173,11 @@ Microbe.core = Microbe.prototype =
 
             if ( nextEle )
             {
-                nextEle.parentNode.insertBefore( _elAfter[0].cloneNode( true ), nextEle );
+                nextEle.parentNode.insertBefore( _elAfter.cloneNode( true ), nextEle );
             }
             else
             {
-                _elm.parentNode.appendChild( _elAfter[0].cloneNode( true ) );
+                _elm.parentNode.appendChild( _elAfter.cloneNode( true ) );
             }
         };
 

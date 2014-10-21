@@ -23,7 +23,9 @@
     "test": "./node_modules/.bin/gulp test && echo \"Tests complete.\"",
     "watch": "./node_modules/.bin/gulp watch"
   },
-  "dependencies": {},
+  "dependencies": {
+    "gulp": "^3.8.8"
+  },
   "devDependencies": {
     "bower": "latest",
     "browserify": "^5.11.2",

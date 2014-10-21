@@ -1,3 +1,10 @@
+!function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.µ=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+var Microbe = require( './core' );
+require( './core/index.js' )( Microbe );
+
+module.exports = Microbe;
+
+},{"./core":2,"./core/index.js":3}],2:[function(require,module,exports){
 /**
  * microbe.js
  *
@@ -8,9 +15,9 @@
  */
 'use strict';
 
-var Arrays      = require( '../utils/array' );
-var Strings     = require( '../utils/string' );
-var Types       = require( '../utils/types' );
+var Arrays      = require( './utils/array/' );
+var Strings     = require( './utils/string/' );
+var Types       = require( './utils/types' );
 
 var slice       = Arrays.slice;
 var splice      = Arrays.splice;
@@ -74,39 +81,36 @@ Microbe.core = Microbe.prototype =
      *
      * @return  Microbe
     */
-    addClass : (function()
+    addClass : function( _class, _el )
     {
-        var _addClass = function( _class, _el )
+        if ( typeof _class === 'string' )
         {
-            var i, len;
-            for ( i = 0, len = _class.length; i < len; i++ )
+            _class = [ _class ];
+        }
+
+        var _addClass = function( _elm )
+        {
+            var j, lenJ;
+            for ( j = 0, lenJ = _class.length; j < lenJ; j++ )
             {
-                _el.classList.add( _class[i] );
+                _elm.classList.add( _class[ j ] );
             }
         };
 
-        return function( _class, _el )
+        if ( _el )
         {
-            if ( typeof _class === 'string' )
-            {
-                _class = [ _class ];
-            }
-
-            if ( _el )
-            {
-                _addClass( _class, _el );
-                return this;
-            }
-
-            var i, len;
-            for ( i = 0, len = this.length; i < len; i++ )
-            {
-                _addClass( _class, this[i] );
-            }
-
+            _addClass( _el );
             return this;
-        };
-    }()),
+        }
+
+        var i, len;
+        for ( i = 0, len = this.length; i < len; i++ )
+        {
+            _addClass( this[ i ] );
+        }
+
+        return this;
+    },
 
 
     /**
@@ -116,9 +120,9 @@ Microbe.core = Microbe.prototype =
      * @param  {[type]} _parent [description]
      * @return {[type]}         [description]
      */
-    append : (function()
+    append : function( _el, _parent )
     {
-        var _append = function( _el, _parentEl, _elm )
+        var _append = function( _parentEl, _elm )
         {
             if ( _elm )
             {
@@ -130,37 +134,34 @@ Microbe.core = Microbe.prototype =
             }
         };
 
-        return function( _el, _parent )
+        if ( _parent )
         {
-            if ( _parent )
-            {
-                _append( _el, _parent );
-            }
+            _append( _parent );
+        }
 
-            if ( !_el.length )
-            {
-                _el = [ _el ];
-            }
+        if ( !_el.length )
+        {
+            _el = [ _el ];
+        }
 
-            var i, j, leni, lenj;
-            for ( i = 0, leni = this.length; i < leni; i++ )
+        var i, j, leni, lenj;
+        for ( i = 0, leni = this.length; i < leni; i++ )
+        {
+            for ( j = 0, lenj = _el.length; j < lenj; j++ )
             {
-                for ( j = 0, lenj = _el.length; j < lenj; j++ )
+                if ( i !== 0 )
                 {
-                    if ( i !== 0 )
-                    {
-                        _append( _el, this[ i ], _el[ j ].cloneNode(true) );
-                    }
-                    else
-                    {
-                        _append( _el, this[ i ], _el[ j ] );
-                    }
+                    _append( this[ i ], _el[ j ].cloneNode(true) );
+                }
+                else
+                {
+                    _append( this[ i ], _el[ j ] );
                 }
             }
+        }
 
-            return this;
-        };
-    }()),
+        return this;
+    },
 
 
      /**
@@ -241,7 +242,7 @@ Microbe.core = Microbe.prototype =
         }
 
         var j, lenj;
-        var attributes = new Array( this.length );
+        var attributes = [];
         for ( j = 0, lenj = this.length; j < lenj; j++ )
         {
             attributes[ j ] = _getAttr( this[ j ] );
@@ -306,7 +307,9 @@ Microbe.core = Microbe.prototype =
             return _elm.children;
         };
 
-        var i, len, childrenArray = new Array( this.length );
+        var childrenArray = [];
+
+        var i, len;
 
         for ( i = 0, len = this.length; i < len; i++ )
         {
@@ -427,7 +430,8 @@ Microbe.core = Microbe.prototype =
 
             return this;
         }
-        var j, lenj, styles = new Array( this.length );
+        var j, lenj;
+        var styles = [];
         for ( j = 0, lenj = this.length; j < lenj; j++ )
         {
             styles[ j ] = _getCss( this[ j ] );
@@ -459,11 +463,11 @@ Microbe.core = Microbe.prototype =
         return this;
     },
 
-// UNTESTED
-    // eachExp : function( callback )
-    // {
-    //     return forEach.call( this, callback );
-    // },
+
+    eachExp : function( callback )
+    {
+        return forEach.call( this, callback );
+    },
 
 
     /**
@@ -530,12 +534,15 @@ Microbe.core = Microbe.prototype =
             return Array.prototype.indexOf.call( _elm.parentNode.children, _elm );
         };
 
+        var indexes = [];
+
         if ( _el )
         {
-            return _getParentIndex( _el );
+            indexes = _getParentIndex( _el );
+            return indexes;
         }
 
-        var i, len, indexes = new Array( this.length );
+        var i, len;
 
         for ( i = 0, len = this.length; i < len; i++ )
         {
@@ -577,7 +584,7 @@ Microbe.core = Microbe.prototype =
             return _hasClass( _el );
         }
 
-        var i, len, results = new Array( this.length );
+        var i, len, results = [];
         for ( i = 0, len = this.length; i < len; i++ )
         {
             results[ i ] = _hasClass( this[ i ] );
@@ -627,7 +634,8 @@ Microbe.core = Microbe.prototype =
             return this;
         }
 
-        var j, lenj, markup = new Array( this.length );
+        var j, lenj;
+        var markup = [];
         for ( j = 0, lenj = this.length; j < lenj; j++ )
         {
             markup[ j ] = _getHtml( this[ j ] );
@@ -648,10 +656,10 @@ Microbe.core = Microbe.prototype =
      *
      * @return {void}
      */
-    indexOf : function( _el )
-    {
+     indexOf : function( _el )
+     {
         return this.toArray().indexOf( _el );
-    },
+     },
 
 
     /**
@@ -673,6 +681,7 @@ Microbe.core = Microbe.prototype =
 
         var _insertAfter = function( _elm )
         {
+            console.log( _elm );
             var nextIndex;
 
             nextIndex = _this.getParentIndex( _elm );
@@ -681,11 +690,11 @@ Microbe.core = Microbe.prototype =
 
             if ( nextEle )
             {
-                nextEle.parentNode.insertBefore( _elAfter.cloneNode( true ), nextEle );
+                nextEle.parentNode.insertBefore( _elAfter[0].cloneNode( true ), nextEle );
             }
             else
             {
-                _elm.parentNode.appendChild( _elAfter.cloneNode( true ) );
+                _elm.parentNode.appendChild( _elAfter[0].cloneNode( true ) );
             }
         };
 
@@ -751,9 +760,9 @@ Microbe.core = Microbe.prototype =
             return _elm.parentNode;
         };
 
-        var i, len, parentArray = new Array( this.length );
+        var parentArray = [];
 
-        for ( i = 0, len = this.length; i < len; i++ )
+        for ( var i = 0, len = this.length; i < len; i++ )
         {
             parentArray[ i ] = _parent( this[ i ] );
         }
@@ -803,30 +812,27 @@ Microbe.core = Microbe.prototype =
      *
      * @return  Microbe
     */
-    removeClass : (function()
+    removeClass : function( _class, _el )
     {
-        var _removeClass = function( _class, _el )
+        var _removeClass = function( _elm )
         {
-            _el.classList.remove( _class );
+            _elm.classList.remove( _class );
         };
 
-        return function( _class, _el )
+        if ( _el )
         {
-            if ( _el )
-            {
-                _removeClass( _class, _el );
-                return this;
-            }
-
-            var i, len;
-            for ( i = 0, len = this.length; i < len; i++ )
-            {
-                _removeClass( _class, this[ i ] );
-            }
-
+            _removeClass( _el );
             return this;
-        };
-    }()),
+        }
+
+        var i, len;
+        for ( i = 0, len = this.length; i < len; i++ )
+        {
+            _removeClass( this[ i ] );
+        }
+
+        return this;
+    },
 
 
     splice : splice,
@@ -844,64 +850,62 @@ Microbe.core = Microbe.prototype =
      *
      * @return  mixed ( Microbe or string or array of strings)
     */
-    text : (function()
+    text : function ( _value, _el)
     {
-        var _setText = function( _value, _el )
+        var _setText = function( _elm )
         {
             if( document.all )
             {
-                _el.innerText = _value;
+                _elm.innerText = _value;
             }
             else // stupid FF
             {
-                _el.textContent = _value;
+                _elm.textContent = _value;
             }
         };
 
-        var _getText = function( _el )
+        var _getText = function( _elm )
         {
             if( document.all )
             {
-                return _el.innerText;
+                return _elm.innerText;
             }
             else // stupid FF
             {
-                return _el.textContent;
+                return _elm.textContent;
             }
         };
-        return function( _value, _el )
+
+        if ( _value )
         {
-            if ( _value )
+            if ( _el )
             {
-                if ( _el )
-                {
-                    _setText( _value, _el );
-                    return this;
-                }
-
-                var i, len;
-                for ( i = 0, len = this.length; i < len; i++ )
-                {
-                    _setText( _value, this[ i ] );
-                }
-
+                _setText( _el );
                 return this;
             }
 
-            var j, lenj, arrayText = new Array( this.length );
-            for ( j = 0, lenj = this.length; j < lenj; j++ )
+            var i, len;
+            for ( i = 0, len = this.length; i < len; i++ )
             {
-                arrayText[ j ] = _getText( this[ j ] );
+                _setText( this[ i ] );
             }
 
-            if ( arrayText.length === 1 )
-            {
-                return arrayText[0];
-            }
+            return this;
+        }
 
-            return arrayText;
-        };
-    }()),
+        var j, lenj;
+        var arrayText = [];
+        for ( j = 0, lenj = this.length; j < lenj; j++ )
+        {
+            arrayText[ j ] = _getText( this[ j ] );
+        }
+
+        if ( arrayText.length === 1 )
+        {
+            return arrayText[0];
+        }
+        return arrayText;
+    },
 
 
     /**
@@ -936,36 +940,34 @@ Microbe.core = Microbe.prototype =
      *
      * @return  Microbe
     */
-    toggleClass : (function()
+    toggleClass : function ( _class, _el )
     {
-        var _toggleClass = function( _class, _el )
+        var _toggleClass = function( _elm )
         {
-            if ( _el.classList.contains( _class ) )
+            if ( _elm.classList.contains( _class ) )
             {
-                _el.classList.remove( _class );
+                _elm.classList.remove( _class );
             }
             else
             {
-                _el.classList.add( _class );
+                _elm.classList.add( _class );
             }
         };
-        return function( _class, _el )
+
+        if ( _el )
         {
-            if ( _el )
-            {
-                _toggleClass( _el );
-                return this;
-            }
-
-            var i, len;
-            for ( i = 0, len = this.length; i < len; i++ )
-            {
-                _toggleClass( this[ i ] );
-            }
-
+            _toggleClass( _el );
             return this;
-        };
-    }()),
+        }
+
+        var i, len;
+        for ( i = 0, len = this.length; i < len; i++ )
+        {
+            _toggleClass( this[ i ] );
+        }
+
+        return this;
+    },
 
 
     /**
@@ -993,22 +995,28 @@ Microbe.core = Microbe.prototype =
      *
      * @return  Microbe
     */
-    unbind : function( _event, _callback, _el )
+    unbind : function ( _event, _callback, _el )
     {
+        var _unbind = function( _elm )
+        {
+            _elm.removeEventListener( _event, _callback );
+        };
+
         if ( _el )
         {
-            _el.removeEventListener( _event, _callback );
+            _unbind( _el );
             return this;
         }
 
         var i, len;
         for ( i = 0, len = this.length; i < len; i++ )
         {
-            this[ i ].removeEventListener( _event, _callback );
+            _unbind( this[ i ] );
         }
 
         return this;
     },
+
 
     // wrap : function( elements )
     // {
@@ -1101,6 +1109,128 @@ Microbe.extend = Microbe.core.extend = function()
 };
 
 
+/**
+ * microbe.http.js
+ *
+ * @author  Mouse Braun         <mouse@sociomantic.com>
+ * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
+ *
+ * @package Microbe
+ */
+Microbe.http = (function()
+{
+    var _response = function( _val )
+    {
+        var _responses =
+        {
+            then: function( _cb )
+            {
+                if ( _val.status === 200 )
+                {
+                    _cb( _val.responseText );
+                }
+                return _responses;
+            },
+            catch: function( _cb )
+            {
+                if ( _val.status !== 200 )
+                {
+                    _cb({
+                        status      : _val.status,
+                        statusText  : _val.statusText
+                    });
+                }
+                return _responses;
+            }
+        };
+        return _responses;
+    };
+
+    var _http = function( _parameters )
+    {
+        if ( !_parameters ) { return undefined; }
+        if ( typeof _parameters === 'string' )
+        {
+            _parameters = { url: _parameters };
+        }
+
+        var req         = new XMLHttpRequest();
+        var method      = _parameters.method || 'GET';
+        var url         = _parameters.url;
+        var data        = JSON.stringify( _parameters.data ) || null;
+        var user        = _parameters.user || '';
+        var password    = _parameters.password || '';
+        var headers     = _parameters.headers  || null;
+
+        if ( _parameters.dataType === 'jsonp' )
+        {
+            url = url + '?callback=?';
+            console.log( url );
+        }
+
+        req.onreadystatechange = function()
+        {
+            if ( req.readyState === 4 )
+            {
+                return req;
+            }
+        };
+
+        req.open( method, url, false, user, password );
+
+        if ( headers )
+        {
+            if ( Object.prototype.toString.call( headers ) === '[object Array]' )
+            {
+                var i, leni;
+                for ( i = 0, leni = headers.length; i < leni; i++ )
+                {
+                    req.setRequestHeader( headers[i].header, headers[i].value );
+                }
+            }
+            else
+            {
+                req.setRequestHeader( headers.header, headers.value );
+            }
+        }
+        try
+        {
+            req.send( data );
+            req.onloadend = function()
+            {
+                req.onreadystatechange();
+                return _response( req );
+            };
+            return req.onloadend();
+        }
+        catch ( error )
+        {
+            return _response( req, false );
+        }
+    };
+
+    _http.get = function( _url )
+    {
+        if ( !_url ) { return undefined; }
+        return this({
+            url     : _url,
+            method  : 'GET'
+        });
+    };
+
+    _http.post = function( _url, _data )
+    {
+        if ( !_url || !_data ) { return undefined; }
+        return this({
+            url     : _url,
+            data    : _data,
+            method  : 'POST'
+        });
+    };
+
+    return _http;
+}() );
+
 // Microbe.getWrapped  = Microbe.core.getWrapped;
 // Microbe.wrap        = Microbe.core.wrap;
 
@@ -1162,10 +1292,6 @@ Microbe.merge = Microbe.core.merge  = function( first, second )
 
 Microbe.noop = function() {};
 
-Microbe.toString = Microbe.core.toString = function()
-{
-    return _type;
-};
 
 Microbe.type = function( obj )
 {
@@ -1179,4 +1305,322 @@ Microbe.type = function( obj )
         typeof obj;
 };
 
+
+/*
+ * Ready
+ *
+ * Methods detects if the DOM is ready.
+ * http://stackoverflow.com/a/1207005
+ *
+ * @return  void
+*/
+Microbe.ready = function( _callback )
+{
+    /* Mozilla, Chrome, Opera */
+    if ( document.addEventListener )
+    {
+        document.addEventListener( 'DOMContentLoaded', _callback, false );
+    }
+    /* Safari, iCab, Konqueror */
+    if ( /KHTML|WebKit|iCab/i.test( navigator.userAgent ) )
+    {
+        var DOMLoadTimer = setInterval(function ()
+        {
+            if ( /loaded|complete/i.test( document.readyState ) )
+            {
+                _callback();
+                clearInterval( DOMLoadTimer );
+            }
+        }, 10);
+    }
+    /* Other web browsers */
+    window.onload = _callback;
+};
+
 module.exports = Microbe;
+
+},{"./utils/array/":5,"./utils/string/":6,"./utils/types":7}],3:[function(require,module,exports){
+module.exports = function( Microbe )
+{
+    require( './init' )( Microbe );
+};
+
+},{"./init":4}],4:[function(require,module,exports){
+module.exports = function( Microbe )
+{
+    var trigger, _shortSelector, selectorRegex   = /(?:[\s]*\.([\w-_\.]*)|#([\w-_]*)|([^#\.<][\w-_]*)|(<[\w-_#\.]*>))/g;
+
+    /**
+     * Build
+     *
+     * builds and returns the final microbe
+     *
+     * @param  {[type]} _elements [description]
+     * @param  {[type]} _selector [description]
+     *
+     * @return {[type]}           [description]
+     */
+    function _build( _elements, _selector )
+    {
+        var i = 0, lenI = _elements.length;
+
+        for ( ; i < lenI; i++ )
+        {
+            this[ i ] = _elements[ i ];
+        }
+
+        this.selector    = _selector;
+        this.length      = i;
+
+        return this;
+    }
+
+
+    /**
+     * Contains
+     *
+     * checks if a given element is a child of _scope
+     *
+     * @param  {[type]} _el        [description]
+     * @param  {[type]} _scope     [description]
+     *
+     * @return {[type]}            [description]
+     */
+    function _contains( _el, _scope )
+    {
+        var parent = _el.parentNode;
+
+        while ( parent !== document && parent !== _scope )
+        {
+            parent = parent.parentNode || _scope.parentNode;
+        }
+
+        if ( parent === document )
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+
+    /**
+     * Get Selector
+     *
+     * returns the css selector from an element
+     *
+     * @param  {DOM Element}        _el         DOM element
+     *
+     * @return {string}                         css selector
+     */
+    function _getSelector( _el )
+    {
+        if ( _el.nodeType === 1 )
+        {
+            var tag     = _el.tagName.toLowerCase(),
+                id      = ( _el.id ) ? '#' + _el.id : '',
+                clss   = ( _el.className.length > 0 ) ? '.' + _el.className : '';
+            clss = clss.replace( ' ', '.' );
+
+            return tag + id + clss;
+        }
+        else
+        {
+            return 'fromArray';
+        }
+    }
+
+
+    /**
+     * Class Microbe
+     *
+     * Constructor.
+     * Either selects or creates an HTML element and wraps in into an Microbe instance.
+     * Usage:   µ('div#test')   ---> selection
+     *          µ('<div#test>') ---> creation
+     *
+     * @param   _selector   string or HTMLElement   HTML selector
+     * @param   _scope      HTMLElement             scope to look inside
+     * @param   _elements   HTMLElement(s)          elements to fill Microbe with (optional)
+     *
+     * @return  Microbe
+    */
+    Microbe.core.__init__ =  function( _selector, _scope, _elements )
+    {
+        if ( _selector.nodeType === 1 || Object.prototype.toString.call( _selector ) === '[object Array]' )
+        {
+            _elements = _selector;
+            _selector = ( _elements.length ) ? 'fromArray' : _getSelector( _elements );
+        }
+
+        _scope = _scope === undefined ?  document : _scope;
+        var scopeNodeType   = _scope.nodeType,
+            nodeType        = ( _selector ) ? _selector.nodeType || typeof _selector : null;
+
+        if ( !( this instanceof Microbe.core.__init__ ) )
+        {
+            return new Microbe.core.__init__( _selector, _scope, _elements );
+        }
+
+        if ( ( !_selector || typeof _selector !== 'string' ) ||
+             ( scopeNodeType !== 1 && scopeNodeType !== 9 ) )
+        {
+            return _build.call( this, [], _selector );
+        }
+
+        if ( _elements )
+        {
+            if ( Object.prototype.toString.call( _elements ) === '[object Array]' )
+            {
+                return _build.call( this, _elements, _selector );
+            }
+            else
+            {
+                return _build.call( this, [ _elements ], _selector );
+            }
+        }
+        else
+        {
+            var resultsRegex = _selector.match( selectorRegex );
+
+            if ( resultsRegex && resultsRegex.length === 1 )
+            {
+                trigger = resultsRegex[0][0];
+                _shortSelector = _selector.slice( 1 );
+
+                if ( trigger === '<' )
+                {
+                    return Microbe.core.create( _selector.substring( 1, _selector.length - 1 ) );
+                }
+                else if ( trigger === '.' )
+                {
+                    var _classesCount   = ( _selector || '' ).slice( 1 ).split( '.' ).length;
+
+                    if ( _classesCount === 1 )
+                    {
+                        return _build.call( this, _scope.getElementsByClassName( _shortSelector ), _selector );
+                    }
+                }
+                else if ( trigger === '#' )
+                {
+                    var _id = document.getElementById( _shortSelector );
+
+                    if ( ! _id )
+                    {
+                        return _build.call( this, [], _selector );
+                    }
+
+                    if ( scopeNodeType === 9 )
+                    {
+                        if ( _id.parentNode && ( _id.id === _selector ) )
+                        {
+                            return _build.call( this, [ _id ], _selector );
+                        }
+                    }
+                    else // scope not document
+                    {
+                        if ( _scope.ownerDocument && _contains( _id, _scope ) )
+                        {
+                            return _build.call( this, [ _id ], _selector );
+                        }
+                    }
+                }
+                else // if ( _tagSelector ) // && ! _idSelector && ! _classSelector )
+                {
+                    return _build.call( this, _scope.getElementsByTagName( _selector ), _selector );
+                }
+            }
+        }
+        return _build.call( this, _scope.querySelectorAll( _selector ), _selector );
+    };
+
+    Microbe.core.__init__.prototype = Microbe.core;
+
+};
+
+},{}],5:[function(require,module,exports){
+module.exports =
+{
+    fill            : Array.prototype.fill,
+    pop             : Array.prototype.pop,
+    push            : Array.prototype.push,
+    reverse         : Array.prototype.reverse,
+    shift           : Array.prototype.shift,
+    sort            : Array.prototype.sort,
+    splice          : Array.prototype.splice,
+    unshift         : Array.prototype.unshift,
+    concat          : Array.prototype.concat,
+    join            : Array.prototype.join,
+    slice           : Array.prototype.slice,
+    toSource        : Array.prototype.toSource,
+    toString        : Array.prototype.toString,
+    toLocaleString  : Array.prototype.toLocaleString,
+    indexOf         : Array.prototype.indexOf,
+    lastIndexOf     : Array.prototype.lastIndexOf,
+    forEach         : Array.prototype.forEach,
+    entries         : Array.prototype.entries,
+    every           : Array.prototype.every,
+    some            : Array.prototype.some,
+    filter          : Array.prototype.filter,
+    find            : Array.prototype.find,
+    findIndex       : Array.prototype.findIndex,
+    keys            : Array.prototype.keys,
+    map             : Array.prototype.map,
+    reduce          : Array.prototype.reduce,
+    reduceRight     : Array.prototype.reduceRight,
+    copyWithin      : Array.prototype.copyWithin
+};
+
+},{}],6:[function(require,module,exports){
+module.exports =
+{
+    charAt              : String.prototype.charAt,
+    charCodeAt          : String.prototype.charCodeAt,
+    codePointAt         : String.prototype.codePointAt,
+    concat              : String.prototype.concat,
+    contains            : String.prototype.contains,
+    endsWith            : String.prototype.endsWith,
+    indexOf             : String.prototype.indexOf,
+    lastIndexOf         : String.prototype.lastIndexOf,
+    localeCompare       : String.prototype.localeCompare,
+    match               : String.prototype.match,
+    normalize           : String.prototype.normalize,
+    quote               : String.prototype.quote,
+    repeat              : String.prototype.repeat,
+    replace             : String.prototype.replace,
+    search              : String.prototype.search,
+    slice               : String.prototype.slice,
+    split               : String.prototype.split,
+    startsWith          : String.prototype.startsWith,
+    substr              : String.prototype.substr,
+    substring           : String.prototype.substring,
+    toLocaleLowerCase   : String.prototype.toLocaleLowerCase,
+    toLocaleUpperCase   : String.prototype.toLocaleUpperCase,
+    toLowerCase         : String.prototype.toLowerCase,
+    toSource            : String.prototype.toSource,
+    toString            : String.prototype.toString,
+    toUpperCase         : String.prototype.toUpperCase,
+    trim                : String.prototype.trim,
+    trimLeft            : String.prototype.trimLeft,
+    trimRight           : String.prototype.trimRight,
+    valueOf             : String.prototype.valueOf
+};
+
+},{}],7:[function(require,module,exports){
+module.exports =
+{
+    '[object Boolean]'  : 'boolean',
+    '[object Number]'   : 'number',
+    '[object String]'   : 'string',
+    '[object Function]' : 'function',
+    '[object Array]'    : 'array',
+    '[object Date]'     : 'date',
+    '[object RegExp]'   : 'regExp',
+    '[object Object]'   : 'object',
+    '[object Error]'    : 'error',
+    '[object Promise]'  : 'promise',
+    '[object Microbe]'  : 'microbe'
+};
+
+},{}]},{},[1])(1)
+});

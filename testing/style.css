@@ -1,0 +1,88 @@
+*
+{
+    font-family:                monospace;
+}
+
+span
+{
+    height:                     60px;
+    box-sizing:                 border-box;
+    display:                    inline-block;
+    position:                   absolute;
+    top:                        0;
+    border-top:                 #000 1px solid;
+    border-bottom:              #000 1px solid;
+}
+
+.js-testCases
+{
+    position:                   absolute;
+    left:                       -8888px;
+}
+
+.tests__wrapper
+{
+    margin-top:                 20px;
+}
+
+.test__wrapper
+{
+    width:                      100%;
+    position:                   relative;
+    border:                     none;
+}
+
+.test__name
+{
+    font-weight:                bold;
+    margin-left:                9%;
+}
+
+.framework__wrapper
+{
+    border-left:                #000 1px solid;
+    margin-left:                8%;
+    width:                      7%;
+    font-size:                  25px;
+    font-weight:                bold;
+    text-align:                 center;
+    left:                       0;
+    line-height:                60px;
+}
+
+.code__wrapper
+{
+    background-color:           #ccc;
+    width:                      40%;
+    font-size:                  8px;
+    left:                       15%;
+    padding:                    3px;
+    white-space:                pre;
+}
+
+.time__wrapper
+{
+    width:                      15%;
+    left:                       55%;
+    border-right:               #000 1px solid;
+    font-size:                  25px;
+    font-weight:                bold;
+    line-height:                60px;
+    text-align:                 left;
+    padding-left:               20px;
+}
+
+.fastestTest
+{
+    color:                      #002872;
+}
+
+.fastestFramework, .fastestTime
+{
+    background-color:           rgba( 141, 157, 151, 0.5 );
+}
+
+.fastestCode
+{
+    background-color:           rgba( 141, 157, 151, 0.7 );
+}
