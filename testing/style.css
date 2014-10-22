@@ -91,3 +91,12 @@ span
 {
     background-color:           rgba( 141, 157, 151, 0.7 );
 }
+
+.timing-diff
+{
+    font-size:                  15px;
+    font-weight:                normal;
+    position:                   relative;
+    top:                        -10px;
+}
+

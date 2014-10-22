@@ -47,8 +47,8 @@ var htmlEscape = function( str )
  */
 var testPresent = function( testName, results, code )
 {
-    var fastest = 99999, µResults            = µ( '.results' );
-    var µTestsWrapper           = µ( '<div.tests__wrapper>' )
+    var µResults            = µ( '.results' );
+    var µTestsWrapper       = µ( '<div.tests__wrapper>' )
                     .html( '<div class="test__name">' + testName + '</div>' );
 
     for ( var i = 0, lenI = frameworks.length; i < lenI; i++ )
@@ -59,11 +59,6 @@ var testPresent = function( testName, results, code )
         µTimeWrapper        = µ( '<span.time__wrapper>' )
                     .html( ( Math.floor( results[ i ] * 1000000000 ) / 1000000000 ) + 'ms' );
 
-        if ( ( !results[ fastest ] || results[ i ] < results[ fastest ] ) && i !== 0 )
-        {
-            fastest = i;
-        }
-
         µTestWrapper.attr( 'data-time', results[ i ] );
 
         µTestWrapper.append( µFrameworkWrapper ).append( µCodeWrapper )
@@ -71,21 +66,74 @@ var testPresent = function( testName, results, code )
 
         µTestsWrapper.append( µTestWrapper );
     }
-    var _fast = µ( µTestsWrapper.children()[ fastest + 1 ] );
 
-    if ( _fast.attr( 'data-time' ) < results[ 0 ] )
+    var nativeTime;
+    for ( i = 0, lenI = results.length; i < lenI; i++ )
     {
-        _fast.addClass( 'fastestTest__beat-native' );
-    }
-    else
-    {
-        _fast.addClass( 'fastestTest' );
+        if ( i === 0 ) // native is not to be considered for fastest
+        {
+            nativeTime      = results[ i ];
+            results[ i ]    = 999999;
+        }
+        results[ i ] = [ i, results[ i ] ];
     }
 
-    _fast = _fast.children();
-    _fast[ 0 ].className = _fast[ 0 ].className + ' fastestFramework';
-    _fast[ 1 ].className = _fast[ 1 ].className + ' fastestCode';
-    _fast[ 2 ].className = _fast[ 2 ].className + ' fastestTime';
+    results.sort( function( a, b )
+    {
+        return a[ 1 ] - b[ 1 ];
+    } );
+
+    var µTest, testChildren, index, µTime, difference;
+    for ( i = 0, lenI = results.length; i < lenI; i++ )
+    {
+        index           = results[ i ][ 0 ] + 1;
+        µTest           = µ( µTestsWrapper.children()[ index ] );
+        testChildren    = µTest.children();
+        µTime           = µ( testChildren[ 2 ] );
+
+        if ( i === 0 )
+        {
+            testChildren[ 0 ].className = testChildren[ 0 ].className + ' fastestFramework';
+            testChildren[ 1 ].className = testChildren[ 1 ].className + ' fastestCode';
+            testChildren[ 2 ].className = testChildren[ 2 ].className + ' fastestTime';
+
+            if ( µTest.attr( 'data-time' ) < nativeTime )
+            {
+                µTest.addClass( 'fastestTest__beat-native' );
+            }
+            else
+            {
+                µTest.addClass( 'fastestTest' );
+            }
+        }
+        else
+        {
+            if ( i === results.length - 1 )
+            {
+                results[ i ][ 1 ] = nativeTime;
+            }
+
+            µTime.css( 'line-height', '36px' );
+
+            if ( results[ i ][ 1 ] >= results[ 0 ][ 1 ] * 2 )
+            {
+                difference = 100;
+            }
+            else
+            {
+                difference = ( results[ i ][ 1 ] / results[ 0 ][ 1 ] - 1 ) * 100;
+                difference = difference.toPrecision( 6 );
+            }
+            if ( difference < 0 )
+            {       // only used if native is fastest
+                µTime.html( µTime.html() + '<div class="timing-diff">' + Math.abs( difference ) + '% faster</div>' );
+            }
+            else
+            {
+                µTime.html( µTime.html() + '<div class="timing-diff">' + difference + '% slower</div>' );
+            }
+        }
+    }
 
     µResults.append( µTestsWrapper );
 };
