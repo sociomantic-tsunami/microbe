@@ -55,7 +55,7 @@ function isIterable( obj )
 
 Microbe.core = Microbe.prototype =
 {
-    version : '0.1.0',
+    version : '0.1.1',
 
     constructor : Microbe,
 
