@@ -976,11 +976,6 @@ Microbe.core = Microbe.prototype =
         return new Microbe( [ this[ 0 ] ] );
     },
 
-// UNTESTED
-    // firstExp: function() {
-    //     return this.getWrapped( 0 );
-    // },
-
 
     /**
      * Get value
@@ -1036,15 +1031,6 @@ Microbe.core = Microbe.prototype =
 
         return indexes;
     },
-
-
-    // getWrapped : function( i )
-    // {
-    //     var length  = this.length;
-    //     var j = +i + ( i < 0 ? length : 0 );
-
-    //     return this.wrap( j >= 0 && j < length ? [ this[j] ] : [] );
-    // },
 
 
     /**
@@ -1227,12 +1213,6 @@ Microbe.core = Microbe.prototype =
         return new Microbe( [ this[ this.length - 1 ] ] );
     },
 
-// UNTESTED
-    // lastExp: function()
-    // {
-    //     return this.getWrapped( -1 );
-    // },
-
 
     map : function( callback )
     {
@@ -1302,8 +1282,8 @@ Microbe.core = Microbe.prototype =
      *
      * Method removes the given class from the current object or the given element.
      *
-     * @param   _class      string       class to remove
-     * @param   _el         HTMLELement  element to modify (optional)
+     * @param   {str}               _class              class to remove
+     * @param   {ele}               _el                 element to modify (optional)
      *
      * @return  Microbe
     */
@@ -1573,9 +1553,6 @@ Microbe.extend = Microbe.core.extend = function()
     return target;
 };
 
-
-// Microbe.getWrapped  = Microbe.core.getWrapped;
-// Microbe.wrap        = Microbe.core.wrap;
 
 Microbe.identity = function( value ) { return value; };
 
