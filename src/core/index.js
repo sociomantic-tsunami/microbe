@@ -328,7 +328,7 @@ Microbe.core = Microbe.prototype =
      * Method creates a Microbe from an element or a new element of the passed string, and
      * returns the Microbe
      *
-     * @param   _el         HTMLELement     element to create
+     * @param   _el                 HTMLELement         element to create
      *
      * @return  Microbe
     */
@@ -679,13 +679,16 @@ Microbe.core = Microbe.prototype =
 
             var nextEle   = _elm.parentNode.children[ nextIndex + 1 ];
 
-            if ( nextEle )
+            for ( var i = 0, lenI = _elAfter.length; i < lenI; i++ )
             {
-                nextEle.parentNode.insertBefore( _elAfter.cloneNode( true ), nextEle );
-            }
-            else
-            {
-                _elm.parentNode.appendChild( _elAfter.cloneNode( true ) );
+                if ( nextEle )
+                {
+                    nextEle.parentNode.insertBefore( _elAfter[ i ].cloneNode( true ), nextEle );
+                }
+                else
+                {
+                    _elm.parentNode.appendChild( _elAfter[ i ].cloneNode( true ) );
+                }
             }
         };
 
@@ -693,6 +696,15 @@ Microbe.core = Microbe.prototype =
         {
             _insertAfter( _el );
             return this;
+        }
+
+        if ( typeof _elAfter === 'string' )
+        {
+            _elAfter = new Microbe( _elAfter );
+        }
+        else if ( ! _elAfter.length )
+        {
+            _elAfter = [ _elAfter ];
         }
 
         var i, len;
@@ -1008,38 +1020,7 @@ Microbe.core = Microbe.prototype =
         }
 
         return this;
-    },
-
-    // wrap : function( elements )
-    // {
-    //     var wrapped = Microbe.merge( this.constructor(), elements );
-
-    //     wrapped.prevObject  = this;
-    //     wrapped.context     = this.context;
-
-    //     return wrapped;
-    // }
-
-
-    // __repr__ : function( elements, results )
-    // {
-    //     var _this = results || [];
-
-    //     if ( elements !== null )
-    //     {
-    //         if ( isIterable( Object( elements ) ) )
-    //         {
-    //             Microbe.merge( _this, (typeof elements === 'string' ?
-    //                 [ elements ] : elements ) );
-    //         }
-    //         else
-    //         {
-    //             push.call( _this, elements );
-    //         }
-    //     }
-
-    //     return _this;
-    // }
+    }
 };
 
 Microbe.extend = Microbe.core.extend = function()

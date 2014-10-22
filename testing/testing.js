@@ -1,5 +1,5 @@
 var µFrameworkWrapper, µCodeWrapper, µTimeWrapper, µTestWrapper,
-    frameworks = [ 'native', '$', 'µ', 'old µ' ], iterations = 2500, slowIterations = 1000;
+    frameworks = [ 'native', '$', 'µ', 'old µ' ], iterations = 250, slowIterations = 100;
 
 
 var htmlEscape = function( str )
