@@ -547,7 +547,7 @@ function isIterable( obj )
 
 Microbe.core = Microbe.prototype =
 {
-    version : '0.1.0',
+    version : '0.1.1',
 
     constructor : Microbe,
 
@@ -561,8 +561,8 @@ Microbe.core = Microbe.prototype =
      *
      * Method adds the given class from the current object or the given element.
      *
-     * @param   _class      string       class to add
-     * @param   _el         HTMLELement  element to modify (optional)
+     * @param   {str}               _class              class to add
+     * @param   {ele}               _el                 element to modify (optional)
      *
      * @return  Microbe
     */
@@ -601,34 +601,23 @@ Microbe.core = Microbe.prototype =
     }()),
 
 
+
     /**
      * Append Element
      *
-     * @param  {[type]} _ele    [description]
-     * @param  {[type]} _parent [description]
-     * @return {[type]}         [description]
+     * @param   {element}           _ele                element to append
+     *
+     * @return  {microbe}           this
      */
     append : (function()
     {
-        var _append = function( _el, _parentEl, _elm )
+        var _append = function( _parentEl, _elm )
         {
-            if ( _elm )
-            {
-                _parentEl.appendChild( _elm );
-            }
-            else
-            {
-                _parentEl.appendChild( _el );
-            }
+            _parentEl.appendChild( _elm );
         };
 
-        return function( _el, _parent )
+        return function( _el )
         {
-            if ( _parent )
-            {
-                _append( _el, _parent );
-            }
-
             if ( !_el.length )
             {
                 _el = [ _el ];
@@ -641,11 +630,11 @@ Microbe.core = Microbe.prototype =
                 {
                     if ( i !== 0 )
                     {
-                        _append( _el, this[ i ], _el[ j ].cloneNode(true) );
+                        _append( this[ i ], _el[ j ].cloneNode(true) );
                     }
                     else
                     {
-                        _append( _el, this[ i ], _el[ j ] );
+                        _append( this[ i ], _el[ j ] );
                     }
                 }
             }
@@ -951,12 +940,6 @@ Microbe.core = Microbe.prototype =
         return this;
     },
 
-// UNTESTED
-    // eachExp : function( callback )
-    // {
-    //     return forEach.call( this, callback );
-    // },
-
 
     /**
      * Get First Element
@@ -1201,7 +1184,7 @@ Microbe.core = Microbe.prototype =
      * Methods gets the last HTML Elements of the current object, and wrap it in
      * Microbe for chaining purpose.
      *
-     * @return  Microbe
+     * @return  {microbe}
      */
     last : function ()
     {
@@ -1214,6 +1197,13 @@ Microbe.core = Microbe.prototype =
     },
 
 
+    /**
+     * map
+     *
+     * @param  {Function} callback [description]
+     *
+     * @return {[type]}            [description]
+     */
     map : function( callback )
     {
         return map.call( this, callback );
@@ -1401,12 +1391,6 @@ Microbe.core = Microbe.prototype =
 
         return Array.prototype.slice.call( _el );
     },
-
-// UNTESTED
-    // toArrayExp : function()
-    // {
-    //     return slice.call( this );
-    // },
 
 
     /**

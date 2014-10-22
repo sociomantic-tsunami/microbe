@@ -1,7 +1,24 @@
+/* global document, window, µ, xµ, $, performance */
+
+/**
+ * Microbe tests
+ */
+
+/**
+ * assorted variables
+ */
 var µFrameworkWrapper, µCodeWrapper, µTimeWrapper, µTestWrapper,
     frameworks = [ 'native', '$', 'µ', 'old µ' ], iterations = 250, slowIterations = 100;
 
-
+/**
+ * html escape
+ *
+ * escapes code for <pre> display
+ *
+ * @param  {str}                    str                 str to convert
+ *
+ * @return {str}                                        escaped string
+ */
 var htmlEscape = function( str )
 {
     return String( str )
@@ -13,10 +30,21 @@ var htmlEscape = function( str )
 };
 
 
+/**
+ * Test - Present
+ *
+ * formats the results for html display and adds them to the page
+ *
+ * @param  {str}                    testName            name of the test
+ * @param  {ar}                     results             results
+ * @param  {arr}                    code                code used in the test
+ *
+ * @return {void}
+ */
 var testPresent = function( testName, results, code )
 {
     var fastest = 99999, µResults            = µ( '.results' );
-    µTestsWrapper           = µ( '<div.tests__wrapper>' ).html( '<div class="test__name">' + testName + '</div>' );
+    var µTestsWrapper           = µ( '<div.tests__wrapper>' ).html( '<div class="test__name">' + testName + '</div>' );
 
     for ( var i = 0, lenI = frameworks.length; i < lenI; i++ )
     {
@@ -56,7 +84,17 @@ var testPresent = function( testName, results, code )
 };
 
 
-var timingTest = function( i, test, query )
+/**
+ * Timing test
+ *
+ * runs the test while grabbing a time stamp before and after
+ *
+ * @param  {func}                   test                test to run
+ * @param  {str}                    query               selector
+ *
+ * @return {num}                                        timing
+ */
+var timingTest = function( test, query )
 {
 	var start = performance.now();
 	test( query );
@@ -66,7 +104,34 @@ var timingTest = function( i, test, query )
 };
 
 
-var testLoop = function( testArray, query, iterations )
+/**
+ * Reset
+ *
+ * resets the test divs to their original state
+ *
+ * @return {void}
+ */
+var reset = function()
+{
+    µ( '.js-testCases' ).html( '<div class="test1 test2">test</div>' +
+            '<div class="test1" id="id">test</div>' +
+            '<div class="test1" id="testId">' +
+                '<div class="subTest">test</div>' +
+            '</div>' );
+};
+
+
+/**
+ * Test Loop
+ *
+ * loops through all 4 versions of the test while cataloging the timing results
+ *
+ * @param  {arr}                    testArray           array of test functions
+ * @param  {str}                    query               selector string
+ *
+ * @return {array}                                      results && total time
+ */
+var testLoop = function( testArray, query )
 {
 	var resultsArray = [];
 
@@ -79,7 +144,7 @@ var testLoop = function( testArray, query, iterations )
 				resultsArray[ i ] = [ 0 ];
 			}
 
-			resultsArray[ i ] = parseFloat( resultsArray[ i ] ) + timingTest( i, testArray[ i ], query );
+			resultsArray[ i ] = parseFloat( resultsArray[ i ] ) + timingTest( testArray[ i ], query );
 		}
 	}
 
@@ -94,16 +159,13 @@ var testLoop = function( testArray, query, iterations )
 	return [ resultsArray, total ];
 };
 
-var reset = function()
-{
-    µ( '.js-testCases' ).html( '<div class="test1 test2">test</div>' +
-            '<div class="test1" id="id">test</div>' +
-            '<div class="test1" id="testId">' +
-                '<div class="subTest">test</div>' +
-            '</div>' );
-};
 
-
+/**
+ *
+ * Simple query
+ *
+ * tests the speed of various queries
+ */
 var simpleQueryResults, simpleQuery = [
 
     function( query )
@@ -131,22 +193,28 @@ var simpleQueryResults, simpleQuery = [
 	}
 ];
 
-simpleQueryResults = testLoop( simpleQuery, '#id', iterations );
+simpleQueryResults = testLoop( simpleQuery, '#id' );
 testPresent( 'Query #id x ' + iterations + ' : total ' + simpleQueryResults[ 1 ], simpleQueryResults[ 0 ], simpleQuery );
 
-simpleQueryResults = testLoop( simpleQuery, 'body', iterations );
+simpleQueryResults = testLoop( simpleQuery, 'body' );
 testPresent( 'Query body x ' + iterations + ' : total ' + simpleQueryResults[ 1 ], simpleQueryResults[ 0 ], simpleQuery );
 
-simpleQueryResults = testLoop( simpleQuery, '.test1', iterations );
+simpleQueryResults = testLoop( simpleQuery, '.test1' );
 testPresent( 'Query .test1 x ' + iterations + ' : total ' + simpleQueryResults[ 1 ], simpleQueryResults[ 0 ], simpleQuery );
 
-simpleQueryResults = testLoop( simpleQuery, 'div.test1.test2', iterations );
+simpleQueryResults = testLoop( simpleQuery, 'div.test1.test2' );
 testPresent( 'Query body x ' + iterations + ' : total ' + simpleQueryResults[ 1 ], simpleQueryResults[ 0 ], simpleQuery );
 
-simpleQueryResults = testLoop( simpleQuery, 'div#test', iterations );
+simpleQueryResults = testLoop( simpleQuery, 'div#test' );
 testPresent( 'Query div#test x ' + iterations + ' : total ' + simpleQueryResults[ 1 ], simpleQueryResults[ 0 ], simpleQuery );
 
 
+/**
+ *
+ * .addClass() test
+ *
+ * tests addClass by repeatedly adding the class 'moo'
+ */
 var addClassTest = [
 
     function( query )
@@ -177,10 +245,16 @@ var addClassTest = [
      return result;
     }
 ];
-var addClassTestResults = testLoop( addClassTest, '.test1', iterations );
+var addClassTestResults = testLoop( addClassTest, '.test1' );
 testPresent( '.addClass( ) test x ' + iterations + ' : total ' + addClassTestResults[ 1 ], addClassTestResults[ 0 ], addClassTest );
 
 
+/**
+ *
+ * .append() test
+ *
+ * tests .append() by adding a new span to the queried elements
+ */
 var appendTest = [
 
     function( query )
@@ -221,6 +295,12 @@ var appendTestResults = testLoop( appendTest, '.test1', slowIterations );
 testPresent( '.append( ) test x ' + slowIterations + ' : total ' + appendTestResults[ 1 ], appendTestResults[ 0 ], appendTest );
 
 
+/**
+ *
+ * .attr() test
+ *
+ * tests .attr() by adding and removing an attribute 'data-testdata'
+ */
 var attrTest = [
 
     function( query )
@@ -253,11 +333,18 @@ var attrTest = [
         return result;
     }
 ];
-var attrTestResults = testLoop( attrTest, '.test1', iterations );
+var attrTestResults = testLoop( attrTest, '.test1' );
 testPresent( '.attr( ) test x ' + iterations + ' : total ' + attrTestResults[ 1 ], attrTestResults[ 0 ], attrTest );
 
-// bind test
+// bind test skipped
 
+
+/**
+ *
+ * .children() test
+ *
+ *  tests .children() by outputting an array of the children of the queried elements
+ */
 var childrenTest = [
 
     function( query )
@@ -293,11 +380,16 @@ var childrenTest = [
         return result;
     }
 ];
-var childrenTestResults = testLoop( childrenTest, '.test1', iterations );
+var childrenTestResults = testLoop( childrenTest, '.test1' );
 testPresent( '.children() test x ' + iterations + ' : total ' + childrenTestResults[ 1 ], childrenTestResults[ 0 ], childrenTest );
 
 
-
+/**
+ *
+ * .create() test
+ *
+ * tests .create() by creating a div
+ */
 var createTest = [
 
     function( query )
@@ -325,10 +417,16 @@ var createTest = [
         return result;
     }
 ];
-var createTestResults = testLoop( createTest, 'dummy query doesnt do anything', iterations );
+var createTestResults = testLoop( createTest, 'dummy query doesnt do anything' );
 testPresent( '.create( ) test x ' + iterations + ' : total ' + createTestResults[ 1 ], createTestResults[ 0 ], createTest );
 
 
+/**
+ *
+ * .css() test
+ *
+ * tests .css() by changing the background color repeatedly
+ */
 var cssTest = [
 
     function( query )
@@ -366,10 +464,16 @@ var cssTest = [
         return result;
     }
 ];
-var cssTestResults = testLoop( cssTest, '.test1', iterations );
+var cssTestResults = testLoop( cssTest, '.test1' );
 testPresent( '.css( ) test x ' + iterations + ' : total ' + cssTestResults[ 1 ], cssTestResults[ 0 ], cssTest );
 
 
+/**
+ *
+ * .each() test
+ *
+ * tests .each by running eachFunc with each item
+ */
 var eachFunc = function ( item, index )
 {
     return Math.random() * 765765 % 56;
@@ -406,10 +510,16 @@ var eachTest = [
         return result;
     }
 ];
-var eachTestResults = testLoop( eachTest, '.test1', iterations );
+var eachTestResults = testLoop( eachTest, '.test1' );
 testPresent( '.each( ) test x ' + iterations + ' : total ' + eachTestResults[ 1 ], eachTestResults[ 0 ], eachTest );
 
 
+/**
+ *
+ * .first() test
+ *
+ * tests .first() by returning the first result of a query
+ */
 var firstTest = [
 
     function( query )
@@ -437,11 +547,19 @@ var firstTest = [
         return result;
     }
 ];
-var firstTestResults = testLoop( firstTest, '.test1', iterations );
+var firstTestResults = testLoop( firstTest, '.test1' );
 testPresent( '.first( ) test x ' + iterations + ' : total ' + firstTestResults[ 1 ], firstTestResults[ 0 ], firstTest );
+
 
 // get() test skipped.... it's stupid
 
+
+/**
+ *
+ * .getParentIndex() test
+ *
+ * tests .getParentIndex() by returning an array of indexes
+ */
 var getParentIndex = [
 
     function( query )
@@ -450,6 +568,7 @@ var getParentIndex = [
         for ( var i = 0, lenI = result.length; i < lenI; i++ )
         {
             arr = [], cn = result[ i ].parentNode.childNodes;
+
             for( var j = 0, lenJ = cn.length; j < lenJ; j++ )
             {
                 arr.push( cn[ j ] );
@@ -481,11 +600,16 @@ var getParentIndex = [
         return result;
     }
 ];
-var getParentIndexResults = testLoop( getParentIndex, '.test1', iterations );
+var getParentIndexResults = testLoop( getParentIndex, '.test1' );
 testPresent( '.getParentIndex( ) test x ' + iterations + ' : total ' + getParentIndexResults[ 1 ], getParentIndexResults[ 0 ], getParentIndex );
 
 
-
+/**
+ *
+ * .hasClass() test
+ *
+ * tests .hasClass() by returning an array of booleans, whether or not the elements have the given class
+ */
 var hasClassTest = [
 
     function( query )
@@ -493,7 +617,7 @@ var hasClassTest = [
         var result = document.querySelectorAll( query );
         for ( var i = 0, lenI = result.length; i < lenI; i++ )
         {
-            result[ i ] = result[ i ].classList.contains( 'test1' );
+            result[ i ] = result[ i ].classList.contains( 'test2' );
         }
         return result;
     },
@@ -503,27 +627,33 @@ var hasClassTest = [
         var result = $( query );
         for ( var i = 0, lenI = result.length; i < lenI; i++ )
         {
-            result[ i ] = $( result[ i ] ).hasClass( 'test1' );
+            result[ i ] = $( result[ i ] ).hasClass( 'test2' );
         }
         return result;
     },
 
     function( query )
     {
-        var result = µ( query ).hasClass( 'test1' );
+        var result = µ( query ).hasClass( 'test2' );
         return result;
     },
 
     function( query )
     {
-        var result = xµ( query ).hasClass( 'test1' );
+        var result = xµ( query ).hasClass( 'test2' );
         return result;
     }
 ];
-var hasClassTestResults = testLoop( hasClassTest, '.test1', iterations );
+var hasClassTestResults = testLoop( hasClassTest, '.test1' );
 testPresent( '.hasClass( ) test x ' + iterations + ' : total ' + hasClassTestResults[ 1 ], hasClassTestResults[ 0 ], hasClassTest );
 
 
+/**
+ *
+ * .html() test
+ *
+ * tests .html() by changing the html in the element to 'test1'
+ */
 var htmlTest = [
 
     function( query )
@@ -557,10 +687,16 @@ var htmlTest = [
         return result;
     }
 ];
-var htmlTestResults = testLoop( htmlTest, '.test1', iterations );
+var htmlTestResults = testLoop( htmlTest, '.test1' );
 testPresent( '.html( ) test x ' + iterations + ' : total ' + htmlTestResults[ 1 ], htmlTestResults[ 0 ], htmlTest );
 
 
+/**
+ *
+ * .indexOf() test
+ *
+ * tests .indexOf() by finding where in a query the second result is (I know....)
+ */
 var indexOf = [
 
     function( query )
@@ -595,10 +731,16 @@ var indexOf = [
         while ( i < 30000 )
         { i++; } return true; }
 ];
-var indexOfResults = testLoop( indexOf, '.test1', iterations );
+var indexOfResults = testLoop( indexOf, '.test1' );
 testPresent( '.indexOf( ) test x ' + iterations + ' : total ' + indexOfResults[ 1 ], indexOfResults[ 0 ], indexOf );
 
 
+/**
+ *
+ * .insertAfter() test
+ *
+ * tests .insertAfter() by creating a span and inserting it after each of a queried list
+ */
 var insertAfter = [
 
     function( query )
@@ -615,7 +757,7 @@ var insertAfter = [
     function( query )
     {
         var el = $( '<span></span>' ); // jquery will only take a string or a $
-        result = $( query ).insertAfter( el );
+        var result = $( query ).insertAfter( el );
     },
 
     function( query )
@@ -632,10 +774,16 @@ var insertAfter = [
         return result;
     }
 ];
-var insertAfterResults = testLoop( insertAfter, '.test1', iterations );
+var insertAfterResults = testLoop( insertAfter, '.test1' );
 testPresent( '.insertAfter( ) test x ' + iterations + ' : total ' + insertAfterResults[ 1 ], insertAfterResults[ 0 ], insertAfter );
 
 
+/**
+ *
+ * .last() test
+ *
+ * tests .last() by returning the last item of a query
+ */
 var lastTest = [
 
     function( query )
@@ -663,11 +811,16 @@ var lastTest = [
         return result;
     }
 ];
-var lastTestResults = testLoop( lastTest, '.test1', iterations );
+var lastTestResults = testLoop( lastTest, '.test1' );
 testPresent( '.last( ) test x ' + iterations + ' : total ' + lastTestResults[ 1 ], lastTestResults[ 0 ], lastTest );
 
 
-
+/**
+ *
+ * .map() test
+ *
+ * tests .map() by applying mapFunc to each element of a query
+ */
 var mapFunc = function ()
 {
     var that = this;
@@ -705,11 +858,16 @@ var mapTest = [
         while ( i < 50000 )
         { i++; } return true; }
 ];
-var mapTestResults = testLoop( mapTest, '.test1', iterations );
+var mapTestResults = testLoop( mapTest, '.test1' );
 testPresent( '.map( ) test x ' + iterations + ' : total ' + mapTestResults[ 1 ], mapTestResults[ 0 ], mapTest );
 
 
-
+/**
+ *
+ * .parent() test
+ *
+ * tests .parent() by returning an array of the parents of the queried elements
+ */
 var parentTest = [
 
     function( query )
@@ -741,12 +899,15 @@ var parentTest = [
         return result;
     }
 ];
-var parentTestResults = testLoop( parentTest, '.test1', iterations );
+var parentTestResults = testLoop( parentTest, '.test1' );
 testPresent( '.parent( ) test x ' + iterations + ' : total ' + parentTestResults[ 1 ], parentTestResults[ 0 ], parentTest );
 
 
-
-
+/**
+ * .remove() test
+ *
+ * tests .remove() by adding an element (vanilla for continuity) then removing it
+ */
 var removeTest = [
 
     function( query )
@@ -755,13 +916,13 @@ var removeTest = [
         document.getElementsByTagName( 'body' )[0].appendChild( el ); // vanilla to be consistant
 
 
-        // var results = document.querySelectorAll( query );
+        var results = document.querySelectorAll( query );
 
-        // for ( var i = 0, lenI = results.length; i < lenI; i++ )
-        // {
-        //     results[ i ] = results[ i ].removeNode;
-        // }
-        // return results;
+        for ( var i = 0, lenI = results.length; i < lenI; i++ )
+        {
+            results[ i ] = results[ i ].removeNode;
+        }
+        return results;
     },
 
     function( query )
@@ -788,12 +949,16 @@ var removeTest = [
         return result;
     }
 ];
-var removeTestResults = testLoop( removeTest, 'removeme', iterations );
+var removeTestResults = testLoop( removeTest, 'removeme' );
 testPresent( '.remove( ) test x ' + iterations + ' : total ' + removeTestResults[ 1 ], removeTestResults[ 0 ], removeTest );
 
 
-
-
+/**
+ *
+ * .remove() test
+ *
+ * tests .remove() by removing the class 'moo'
+ */
 var removeClassTest = [
 
     function( query )
@@ -824,11 +989,16 @@ var removeClassTest = [
      return result;
     }
 ];
-var removeClassTestResults = testLoop( removeClassTest, '.test1', iterations );
+var removeClassTestResults = testLoop( removeClassTest, '.test1' );
 testPresent( '.removeClass( ) test x ' + iterations + ' : total ' + removeClassTestResults[ 1 ], removeClassTestResults[ 0 ], removeClassTest );
 
 
-
+/**
+ *
+ * .text() test
+ *
+ * tests .test() by changing the text in each of a queried list to 'test1'
+ */
 var textTest = [
 
     function( query )
@@ -862,11 +1032,16 @@ var textTest = [
         return result;
     }
 ];
-var textTestResults = testLoop( textTest, '.test1', iterations );
+var textTestResults = testLoop( textTest, '.test1' );
 testPresent( '.text( ) test x ' + iterations + ' : total ' + textTestResults[ 1 ], textTestResults[ 0 ], textTest );
 
 
-
+/**
+ *
+ * .toArray() test
+ *
+ * tests .toArray() by changing from a nodelist to an array
+ */
 var toArray = [
 
     function( query )
@@ -897,11 +1072,16 @@ var toArray = [
         var result = xµ( query ).toArray();
     }
 ];
-var toArrayResults = testLoop( toArray, '.test1', iterations );
+var toArrayResults = testLoop( toArray, '.test1' );
 testPresent( '.toArray( ) test x ' + iterations + ' : total ' + toArrayResults[ 1 ], toArrayResults[ 0 ], toArray );
 
 
-
+/**
+ *
+ * .toggleClass() test
+ *
+ * tests .toggleClass() by adding and removing the class 'moo'
+ */
 var toggleClassTest = [
 
     function( query )
@@ -936,86 +1116,8 @@ var toggleClassTest = [
         while ( i < 50000 )
         { i++; } return true;}
 ];
-var toggleClassTestResults = testLoop( toggleClassTest, '.test1', iterations );
+var toggleClassTestResults = testLoop( toggleClassTest, '.test1' );
 testPresent( '.toggleClass( ) test x ' + iterations + ' : total ' + toggleClassTestResults[ 1 ], toggleClassTestResults[ 0 ], toggleClassTest );
 
+
 // unbind test later
-
-
-
-// var duplicateTest = [
-// 	function( query )
-// 	{
-// 		var result = µ( query ).last();
-// 		return result;
-// 	},
-
-// 	function( query, test )
-// 	{
-// 		var result = µ( query ).lastExp();
-// 		return result;
-// 	}
-// ];
-// var duplicateTestResults = testLoop( duplicateTest, 'div', iterations );
-// console.log( '\nduplicateTest' );
-// console.log( 'last    : ' + duplicateTestResults[ 0 ] );
-// console.log( 'lastExp : ' + duplicateTestResults[ 1 ] );
-
-
-// var duplicateTest = [
-// 	function( query, test )
-// 	{
-// 		var result = µ( query ).toArray();
-// 		return result;
-// 	},
-
-// 	function( query, test )
-// 	{
-// 		var result = µ( query ).toArrayExp();
-// 		return result;
-// 	}
-// ];
-// var duplicateTestResults = testLoop( duplicateTest, 'div', iterations );
-// console.log( '\nduplicateTest' );
-// console.log( 'toArray    : ' + duplicateTestResults[ 0 ] );
-// console.log( 'toArrayExp : ' + duplicateTestResults[ 1 ] );
-
-
-// var duplicateTest = [
-// 	function( query, test )
-// 	{
-// 		var result = µ( query ).first();
-// 		return result;
-// 	},
-
-// 	function( query, test )
-// 	{
-// 		var result = µ( query ).firstExp();
-// 		return result;
-// 	}
-// ];
-// var duplicateTestResults = testLoop( duplicateTest, 'div', iterations );
-// console.log( '\nduplicateTest' );
-// console.log( 'first    : ' + duplicateTestResults[ 0 ] );
-// console.log( 'firstExp : ' + duplicateTestResults[ 1 ] );
-
-
-// var duplicateTest = [
-// 	function( query, test )
-// 	{
-// 		var result = µ( query ).each( function(){ return true; } );
-// 		return result;
-// 	},
-
-// 	function( query, test )
-// 	{
-// 		var result = µ( query ).eachExp( function(){ return true; } );
-// 		return result;
-// 	}
-// ];
-// var duplicateTestResults = testLoop( duplicateTest, 'div', iterations );
-// console.log( '\nduplicateTest' );
-// console.log( 'each    : ' + duplicateTestResults[ 0 ] );
-// console.log( 'eachExp : ' + duplicateTestResults[ 1 ] );
-
-
