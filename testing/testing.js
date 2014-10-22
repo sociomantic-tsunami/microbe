@@ -1,14 +1,18 @@
 /* global document, window, µ, xµ, $, performance */
 
 /**
- * Microbe tests
+ * Microbe test suite
+ *
+ * the first functions are setups for the tests, then for each test there is
+ * an array of functions, and the testLoop function call
  */
 
 /**
  * assorted variables
  */
 var µFrameworkWrapper, µCodeWrapper, µTimeWrapper, µTestWrapper,
-    frameworks = [ 'native', '$', 'µ', 'old µ' ], iterations = 250, slowIterations = 100;
+    frameworks = [ 'native', '$', 'µ', 'old µ' ],
+    iterations = 250, slowIterations = 100;
 
 /**
  * html escape
@@ -44,14 +48,16 @@ var htmlEscape = function( str )
 var testPresent = function( testName, results, code )
 {
     var fastest = 99999, µResults            = µ( '.results' );
-    var µTestsWrapper           = µ( '<div.tests__wrapper>' ).html( '<div class="test__name">' + testName + '</div>' );
+    var µTestsWrapper           = µ( '<div.tests__wrapper>' )
+                    .html( '<div class="test__name">' + testName + '</div>' );
 
     for ( var i = 0, lenI = frameworks.length; i < lenI; i++ )
     {
         µTestWrapper        = µ( '<span.test__wrapper>' );
         µFrameworkWrapper   = µ( '<span.framework__wrapper>' ).html( frameworks[ i ] );
         µCodeWrapper        = µ( '<span.code__wrapper>' ).html( htmlEscape( code[ i ] ) );
-        µTimeWrapper        = µ( '<span.time__wrapper>' ).html( ( Math.floor( results[ i ] * 1000000000 ) / 1000000000 ) + 'ms' );
+        µTimeWrapper        = µ( '<span.time__wrapper>' )
+                    .html( ( Math.floor( results[ i ] * 1000000000 ) / 1000000000 ) + 'ms' );
 
         if ( ( !results[ fastest ] || results[ i ] < results[ fastest ] ) && i !== 0 )
         {
@@ -60,7 +66,8 @@ var testPresent = function( testName, results, code )
 
         µTestWrapper.attr( 'data-time', results[ i ] );
 
-        µTestWrapper.append( µFrameworkWrapper ).append( µCodeWrapper ).append( µTimeWrapper ).append( µ( '<br>' ) );
+        µTestWrapper.append( µFrameworkWrapper ).append( µCodeWrapper )
+                        .append( µTimeWrapper ).append( µ( '<br>' ) );
 
         µTestsWrapper.append( µTestWrapper );
     }
@@ -144,7 +151,8 @@ var testLoop = function( testArray, query )
 				resultsArray[ i ] = [ 0 ];
 			}
 
-			resultsArray[ i ] = parseFloat( resultsArray[ i ] ) + timingTest( testArray[ i ], query );
+			resultsArray[ i ] = parseFloat( resultsArray[ i ] ) +
+                                    timingTest( testArray[ i ], query );
 		}
 	}
 
@@ -194,19 +202,24 @@ var simpleQueryResults, simpleQuery = [
 ];
 
 simpleQueryResults = testLoop( simpleQuery, '#id' );
-testPresent( 'Query #id x ' + iterations + ' : total ' + simpleQueryResults[ 1 ], simpleQueryResults[ 0 ], simpleQuery );
+testPresent( 'Query #id x ' + iterations + ' : total ' +
+        simpleQueryResults[ 1 ], simpleQueryResults[ 0 ], simpleQuery );
 
 simpleQueryResults = testLoop( simpleQuery, 'body' );
-testPresent( 'Query body x ' + iterations + ' : total ' + simpleQueryResults[ 1 ], simpleQueryResults[ 0 ], simpleQuery );
+testPresent( 'Query body x ' + iterations + ' : total ' +
+        simpleQueryResults[ 1 ], simpleQueryResults[ 0 ], simpleQuery );
 
 simpleQueryResults = testLoop( simpleQuery, '.test1' );
-testPresent( 'Query .test1 x ' + iterations + ' : total ' + simpleQueryResults[ 1 ], simpleQueryResults[ 0 ], simpleQuery );
+testPresent( 'Query .test1 x ' + iterations + ' : total ' +
+        simpleQueryResults[ 1 ], simpleQueryResults[ 0 ], simpleQuery );
 
 simpleQueryResults = testLoop( simpleQuery, 'div.test1.test2' );
-testPresent( 'Query body x ' + iterations + ' : total ' + simpleQueryResults[ 1 ], simpleQueryResults[ 0 ], simpleQuery );
+testPresent( 'Query div.test1.test2 x ' + iterations + ' : total ' +
+        simpleQueryResults[ 1 ], simpleQueryResults[ 0 ], simpleQuery );
 
 simpleQueryResults = testLoop( simpleQuery, 'div#test' );
-testPresent( 'Query div#test x ' + iterations + ' : total ' + simpleQueryResults[ 1 ], simpleQueryResults[ 0 ], simpleQuery );
+testPresent( 'Query div#test x ' + iterations + ' : total ' +
+        simpleQueryResults[ 1 ], simpleQueryResults[ 0 ], simpleQuery );
 
 
 /**
@@ -246,7 +259,8 @@ var addClassTest = [
     }
 ];
 var addClassTestResults = testLoop( addClassTest, '.test1' );
-testPresent( '.addClass( ) test x ' + iterations + ' : total ' + addClassTestResults[ 1 ], addClassTestResults[ 0 ], addClassTest );
+testPresent( '.addClass( ) test x ' + iterations + ' : total ' +
+        addClassTestResults[ 1 ], addClassTestResults[ 0 ], addClassTest );
 
 
 /**
@@ -292,7 +306,8 @@ var appendTest = [
     }
 ];
 var appendTestResults = testLoop( appendTest, '.test1', slowIterations );
-testPresent( '.append( ) test x ' + slowIterations + ' : total ' + appendTestResults[ 1 ], appendTestResults[ 0 ], appendTest );
+testPresent( '.append( ) test x ' + slowIterations + ' : total ' +
+        appendTestResults[ 1 ], appendTestResults[ 0 ], appendTest );
 
 
 /**
@@ -317,24 +332,28 @@ var attrTest = [
 
     function( query )
     {
-        var result = $( query ).attr( 'data-testdata', 'aStringIsBorn!' ).attr( 'data-testdata', null );
+        var result = $( query ).attr( 'data-testdata', 'aStringIsBorn!' )
+                .attr( 'data-testdata', null );
         return result;
     },
 
     function( query )
     {
-        var result = µ( query ).attr( 'data-testdata', 'aStringIsBorn!' ).attr( 'data-testdata', null );
+        var result = µ( query ).attr( 'data-testdata', 'aStringIsBorn!' )
+                .attr( 'data-testdata', null );
         return result;
     },
 
     function( query )
     {
-        var result = xµ( query ).attr( 'data-testdata', 'aStringIsBorn!' ).attr( 'data-testdata', null );
+        var result = xµ( query ).attr( 'data-testdata', 'aStringIsBorn!' )
+                .attr( 'data-testdata', null );
         return result;
     }
 ];
 var attrTestResults = testLoop( attrTest, '.test1' );
-testPresent( '.attr( ) test x ' + iterations + ' : total ' + attrTestResults[ 1 ], attrTestResults[ 0 ], attrTest );
+testPresent( '.attr( ) test x ' + iterations + ' : total ' +
+         attrTestResults[ 1 ], attrTestResults[ 0 ], attrTest );
 
 // bind test skipped
 
@@ -381,7 +400,8 @@ var childrenTest = [
     }
 ];
 var childrenTestResults = testLoop( childrenTest, '.test1' );
-testPresent( '.children() test x ' + iterations + ' : total ' + childrenTestResults[ 1 ], childrenTestResults[ 0 ], childrenTest );
+testPresent( '.children() test x ' + iterations + ' : total ' +
+            childrenTestResults[ 1 ], childrenTestResults[ 0 ], childrenTest );
 
 
 /**
@@ -418,7 +438,8 @@ var createTest = [
     }
 ];
 var createTestResults = testLoop( createTest, 'dummy query doesnt do anything' );
-testPresent( '.create( ) test x ' + iterations + ' : total ' + createTestResults[ 1 ], createTestResults[ 0 ], createTest );
+testPresent( '.create( ) test x ' + iterations + ' : total ' +
+            createTestResults[ 1 ], createTestResults[ 0 ], createTest );
 
 
 /**
@@ -445,27 +466,31 @@ var cssTest = [
 
     function( query )
     {
-        var result = $( query ).css( 'background-color', '#fff' ).css( 'background-color', 'rgba( 255, 255, 255, 0.6' )
+        var result = $( query ).css( 'background-color', '#fff' )
+                .css( 'background-color', 'rgba( 255, 255, 255, 0.6' )
                                 .css( 'background-color', null );
         return result;
     },
 
     function( query )
     {
-        var result = µ( query ).css( 'background-color', '#fff' ).css( 'background-color', 'rgba( 255, 255, 255, 0.6' )
+        var result = µ( query ).css( 'background-color', '#fff' )
+                .css( 'background-color', 'rgba( 255, 255, 255, 0.6' )
                                 .css( 'background-color', null );
         return result;
     },
 
     function( query )
     {
-        var result = xµ( query ).css( 'background-color', '#fff' ).css( 'background-color', 'rgba( 255, 255, 255, 0.6' )
+        var result = xµ( query ).css( 'background-color', '#fff' )
+                .css( 'background-color', 'rgba( 255, 255, 255, 0.6' )
                                 .css( 'background-color', null );
         return result;
     }
 ];
 var cssTestResults = testLoop( cssTest, '.test1' );
-testPresent( '.css( ) test x ' + iterations + ' : total ' + cssTestResults[ 1 ], cssTestResults[ 0 ], cssTest );
+testPresent( '.css( ) test x ' + iterations + ' : total ' +
+            cssTestResults[ 1 ], cssTestResults[ 0 ], cssTest );
 
 
 /**
@@ -511,7 +536,8 @@ var eachTest = [
     }
 ];
 var eachTestResults = testLoop( eachTest, '.test1' );
-testPresent( '.each( ) test x ' + iterations + ' : total ' + eachTestResults[ 1 ], eachTestResults[ 0 ], eachTest );
+testPresent( '.each( ) test x ' + iterations + ' : total ' +
+            eachTestResults[ 1 ], eachTestResults[ 0 ], eachTest );
 
 
 /**
@@ -548,7 +574,8 @@ var firstTest = [
     }
 ];
 var firstTestResults = testLoop( firstTest, '.test1' );
-testPresent( '.first( ) test x ' + iterations + ' : total ' + firstTestResults[ 1 ], firstTestResults[ 0 ], firstTest );
+testPresent( '.first( ) test x ' + iterations + ' : total ' +
+            firstTestResults[ 1 ], firstTestResults[ 0 ], firstTest );
 
 
 // get() test skipped.... it's stupid
@@ -567,7 +594,8 @@ var getParentIndex = [
         var array = [], arr, cn, result = document.querySelectorAll( query );
         for ( var i = 0, lenI = result.length; i < lenI; i++ )
         {
-            arr = [], cn = result[ i ].parentNode.childNodes;
+            arr = [];
+            cn  = result[ i ].parentNode.childNodes;
 
             for( var j = 0, lenJ = cn.length; j < lenJ; j++ )
             {
@@ -601,7 +629,8 @@ var getParentIndex = [
     }
 ];
 var getParentIndexResults = testLoop( getParentIndex, '.test1' );
-testPresent( '.getParentIndex( ) test x ' + iterations + ' : total ' + getParentIndexResults[ 1 ], getParentIndexResults[ 0 ], getParentIndex );
+testPresent( '.getParentIndex( ) test x ' + iterations + ' : total ' +
+            getParentIndexResults[ 1 ], getParentIndexResults[ 0 ], getParentIndex );
 
 
 /**
@@ -645,7 +674,8 @@ var hasClassTest = [
     }
 ];
 var hasClassTestResults = testLoop( hasClassTest, '.test1' );
-testPresent( '.hasClass( ) test x ' + iterations + ' : total ' + hasClassTestResults[ 1 ], hasClassTestResults[ 0 ], hasClassTest );
+testPresent( '.hasClass( ) test x ' + iterations + ' : total ' +
+            hasClassTestResults[ 1 ], hasClassTestResults[ 0 ], hasClassTest );
 
 
 /**
@@ -688,7 +718,8 @@ var htmlTest = [
     }
 ];
 var htmlTestResults = testLoop( htmlTest, '.test1' );
-testPresent( '.html( ) test x ' + iterations + ' : total ' + htmlTestResults[ 1 ], htmlTestResults[ 0 ], htmlTest );
+testPresent( '.html( ) test x ' + iterations + ' : total ' +
+            htmlTestResults[ 1 ], htmlTestResults[ 0 ], htmlTest );
 
 
 /**
@@ -732,7 +763,8 @@ var indexOf = [
         { i++; } return true; }
 ];
 var indexOfResults = testLoop( indexOf, '.test1' );
-testPresent( '.indexOf( ) test x ' + iterations + ' : total ' + indexOfResults[ 1 ], indexOfResults[ 0 ], indexOf );
+testPresent( '.indexOf( ) test x ' + iterations + ' : total ' +
+            indexOfResults[ 1 ], indexOfResults[ 0 ], indexOf );
 
 
 /**
@@ -775,7 +807,8 @@ var insertAfter = [
     }
 ];
 var insertAfterResults = testLoop( insertAfter, '.test1' );
-testPresent( '.insertAfter( ) test x ' + iterations + ' : total ' + insertAfterResults[ 1 ], insertAfterResults[ 0 ], insertAfter );
+testPresent( '.insertAfter( ) test x ' + iterations + ' : total ' +
+            insertAfterResults[ 1 ], insertAfterResults[ 0 ], insertAfter );
 
 
 /**
@@ -812,7 +845,8 @@ var lastTest = [
     }
 ];
 var lastTestResults = testLoop( lastTest, '.test1' );
-testPresent( '.last( ) test x ' + iterations + ' : total ' + lastTestResults[ 1 ], lastTestResults[ 0 ], lastTest );
+testPresent( '.last( ) test x ' + iterations + ' : total ' +
+            lastTestResults[ 1 ], lastTestResults[ 0 ], lastTest );
 
 
 /**
@@ -859,7 +893,8 @@ var mapTest = [
         { i++; } return true; }
 ];
 var mapTestResults = testLoop( mapTest, '.test1' );
-testPresent( '.map( ) test x ' + iterations + ' : total ' + mapTestResults[ 1 ], mapTestResults[ 0 ], mapTest );
+testPresent( '.map( ) test x ' + iterations + ' : total ' +
+            mapTestResults[ 1 ], mapTestResults[ 0 ], mapTest );
 
 
 /**
@@ -900,7 +935,8 @@ var parentTest = [
     }
 ];
 var parentTestResults = testLoop( parentTest, '.test1' );
-testPresent( '.parent( ) test x ' + iterations + ' : total ' + parentTestResults[ 1 ], parentTestResults[ 0 ], parentTest );
+testPresent( '.parent( ) test x ' + iterations + ' : total ' +
+            parentTestResults[ 1 ], parentTestResults[ 0 ], parentTest );
 
 
 /**
@@ -912,8 +948,8 @@ var removeTest = [
 
     function( query )
     {
-        var el = document.createElement( query ); // vanilla to be consistant
-        document.getElementsByTagName( 'body' )[0].appendChild( el ); // vanilla to be consistant
+        var el = document.createElement( query );
+        document.getElementsByTagName( 'body' )[0].appendChild( el );
 
 
         var results = document.querySelectorAll( query );
@@ -927,30 +963,31 @@ var removeTest = [
 
     function( query )
     {
-        var el = document.createElement( query ); // vanilla to be consistant
-        document.getElementsByTagName( 'body' )[0].appendChild( el ); // vanilla to be consistant
+        var el = document.createElement( query );
+        document.getElementsByTagName( 'body' )[0].appendChild( el );
         var result = $( query ).remove();
         return result;
     },
 
     function( query )
     {
-        var el = document.createElement( query ); // vanilla to be consistant
-        document.getElementsByTagName( 'body' )[0].appendChild( el ); // vanilla to be consistant
+        var el = document.createElement( query );
+        document.getElementsByTagName( 'body' )[0].appendChild( el );
         var result = µ( query ).remove();
         return result;
     },
 
     function( query )
     {
-        var el = document.createElement( query ); // vanilla to be consistant
-        document.getElementsByTagName( 'body' )[0].appendChild( el ); // vanilla to be consistant
+        var el = document.createElement( query );
+        document.getElementsByTagName( 'body' )[0].appendChild( el );
         var result = xµ( query ).remove();
         return result;
     }
 ];
 var removeTestResults = testLoop( removeTest, 'removeme' );
-testPresent( '.remove( ) test x ' + iterations + ' : total ' + removeTestResults[ 1 ], removeTestResults[ 0 ], removeTest );
+testPresent( '.remove( ) test x ' + iterations + ' : total ' +
+        removeTestResults[ 1 ], removeTestResults[ 0 ], removeTest );
 
 
 /**
@@ -990,7 +1027,8 @@ var removeClassTest = [
     }
 ];
 var removeClassTestResults = testLoop( removeClassTest, '.test1' );
-testPresent( '.removeClass( ) test x ' + iterations + ' : total ' + removeClassTestResults[ 1 ], removeClassTestResults[ 0 ], removeClassTest );
+testPresent( '.removeClass( ) test x ' + iterations + ' : total ' +
+            removeClassTestResults[ 1 ], removeClassTestResults[ 0 ], removeClassTest );
 
 
 /**
@@ -1033,7 +1071,8 @@ var textTest = [
     }
 ];
 var textTestResults = testLoop( textTest, '.test1' );
-testPresent( '.text( ) test x ' + iterations + ' : total ' + textTestResults[ 1 ], textTestResults[ 0 ], textTest );
+testPresent( '.text( ) test x ' + iterations + ' : total ' +
+            textTestResults[ 1 ], textTestResults[ 0 ], textTest );
 
 
 /**
@@ -1073,7 +1112,8 @@ var toArray = [
     }
 ];
 var toArrayResults = testLoop( toArray, '.test1' );
-testPresent( '.toArray( ) test x ' + iterations + ' : total ' + toArrayResults[ 1 ], toArrayResults[ 0 ], toArray );
+testPresent( '.toArray( ) test x ' + iterations + ' : total ' +
+            toArrayResults[ 1 ], toArrayResults[ 0 ], toArray );
 
 
 /**
@@ -1117,7 +1157,8 @@ var toggleClassTest = [
         { i++; } return true;}
 ];
 var toggleClassTestResults = testLoop( toggleClassTest, '.test1' );
-testPresent( '.toggleClass( ) test x ' + iterations + ' : total ' + toggleClassTestResults[ 1 ], toggleClassTestResults[ 0 ], toggleClassTest );
+testPresent( '.toggleClass( ) test x ' + iterations + ' : total ' +
+            toggleClassTestResults[ 1 ], toggleClassTestResults[ 0 ], toggleClassTest );
 
 
 // unbind test later

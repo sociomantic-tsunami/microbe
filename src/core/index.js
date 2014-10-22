@@ -70,7 +70,6 @@ Microbe.core = Microbe.prototype =
      * Method adds the given class from the current object or the given element.
      *
      * @param   {str}               _class              class to add
-     * @param   {ele}               _el                 element to modify (optional)
      *
      * @return  Microbe
     */
@@ -85,17 +84,11 @@ Microbe.core = Microbe.prototype =
             }
         };
 
-        return function( _class, _el )
+        return function( _class )
         {
             if ( typeof _class === 'string' )
             {
                 _class = [ _class ];
-            }
-
-            if ( _el )
-            {
-                _addClass( _class, _el );
-                return this;
             }
 
             var i, len;
@@ -161,12 +154,11 @@ Microbe.core = Microbe.prototype =
      * element.
      *
      * @param   _attribute  string           JS formatted CSS property
-     * @param   _el         HTMLELement      element to modify (optional)
      * @param   _value      string           CSS value (optional)
      *
      * @return  mixed ( Microbe or string or array of strings)
     */
-    attr : function ( _attribute, _value, _el)
+    attr : function ( _attribute, _value )
     {
         var _setAttr;
         var _getAttr;
@@ -214,12 +206,6 @@ Microbe.core = Microbe.prototype =
 
         if ( _value !== undefined )
         {
-            if ( _el )
-            {
-                _setAttr( _el );
-                return this;
-            }
-
             var i, len;
             for ( i = 0, len = this.length; i < len; i++ )
             {
@@ -253,22 +239,15 @@ Microbe.core = Microbe.prototype =
      *
      * @param   _event      string          HTMLEvent
      * @param   _callback   function        callback function
-     * @param   _el         HTMLELement     element to modify (optional)
      *
      * @return  Microbe
     */
-    bind : function ( _event, _callback, _el )
+    bind : function ( _event, _callback )
     {
         var _bind = function( _elm )
         {
             _elm.addEventListener( _event, _callback );
         };
-
-        if ( _el )
-        {
-            _bind( _el );
-            return this;
-        }
 
         var i, len;
         for ( i = 0, len = this.length; i < len; i++ )
@@ -383,12 +362,11 @@ Microbe.core = Microbe.prototype =
      * If the value is omitted, simply returns the current css value of the element.
      *
      * @param   _property   string          CSS property
-     * @param   _el         HTMLELement     element to modify (optional)
      * @param   _value      string          CSS value (optional)
      *
      * @return  mixed ( Microbe or string or array of strings)
     */
-    css : function ( _property, _value, _el)
+    css : function ( _property, _value )
     {
         var _setCss = function( _elm )
         {
@@ -402,12 +380,6 @@ Microbe.core = Microbe.prototype =
 
         if ( _value)
         {
-            if ( _el )
-            {
-                _setCss( _el );
-                return this;
-            }
-
             var i, len;
             for ( i = 0, len = this.length; i < len; i++ )
             {
@@ -469,49 +441,18 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * Get value
-     *
-     * gets the element in the appropriate index
-     *
-     * @param  {element object or array} _el object to find the index of (optional)
-     * @return {array}                       array of indexes
-     */
-    get : function( index )
-    {
-        if ( index === null || index === undefined )
-        {
-            return slice.call( this );
-        }
-        var i = +index;
-
-        if ( index < 0 )
-        {
-            i += this.length;
-        }
-
-        return this[i];
-    },
-
-
-    /**
      * Get Parent Index
      *
      * gets the index of the item in it's parentNode's children array
      *
-     * @param  {element object or array} _el object to find the index of (optional)
      * @return {array}                       array of indexes
      */
-    getParentIndex : function( _el )
+    getParentIndex : function()
     {
         var _getParentIndex = function( _elm )
         {
             return Array.prototype.indexOf.call( _elm.parentNode.children, _elm );
         };
-
-        if ( _el )
-        {
-            return _getParentIndex( _el );
-        }
 
         var i, len, indexes = new Array( this.length );
 
@@ -530,21 +471,15 @@ Microbe.core = Microbe.prototype =
      * Method checks if the current object or the given element has the given class
      *
      * @param   _class      string       class to check
-     * @param   _el         HTMLELement  element to modify (optional)
      *
      * @return  Microbe
     */
-    hasClass : function( _class, _el )
+    hasClass : function( _class )
     {
         var _hasClass = function( _elm )
         {
             return _elm.classList.contains( _class );
         };
-
-        if ( _el )
-        {
-            return _hasClass( _el );
-        }
 
         var i, len, results = new Array( this.length );
         for ( i = 0, len = this.length; i < len; i++ )
@@ -563,11 +498,10 @@ Microbe.core = Microbe.prototype =
      * If the value is omitted, simply returns the current inner html value of the element.
      *
      * @param   _value      string          html value (optional)
-     * @param   _el         HTMLELement     element to modify (optional)
      *
      * @return  mixed ( Microbe or string or array of strings)
     */
-    html : function ( _value, _el)
+    html : function ( _value )
     {
         var _setHtml = function( _elm )
         {
@@ -581,12 +515,6 @@ Microbe.core = Microbe.prototype =
 
         if ( _value || _value === '' )
         {
-            if ( _el )
-            {
-                _setHtml( _el );
-                return this;
-            }
-
             var i, len;
             for ( i = 0, len = this.length; i < len; i++ )
             {
@@ -632,11 +560,10 @@ Microbe.core = Microbe.prototype =
      * @example µ( '.elementsInDom' ).insertAfter( µElementToInsert )
      *
      * @param  {object or string} _elAfter element to insert
-     * @param  {object} _el      element to insert after (optional)
      *
      * @return Microbe
      */
-    insertAfter : function( _elAfter, _el )
+    insertAfter : function( _elAfter )
     {
         var _this = this;
 
@@ -660,12 +587,6 @@ Microbe.core = Microbe.prototype =
                 }
             }
         };
-
-        if ( _el )
-        {
-            _insertAfter( _el );
-            return this;
-        }
 
         if ( typeof _elAfter === 'string' )
         {
@@ -726,7 +647,7 @@ Microbe.core = Microbe.prototype =
      * @param  {[type]} _el [description]
      * @return {[type]}     [description]
      */
-    parent : function( _el )
+    parent : function()
     {
         var _parent = function( _elm )
         {
@@ -752,17 +673,12 @@ Microbe.core = Microbe.prototype =
      * @param  {[type]} _el [description]
      * @return {[type]}     [description]
      */
-    remove : function( _el )
+    remove : function()
     {
         var _remove = function( _elm )
         {
             return _elm.parentNode.removeChild( _elm );
         };
-
-        if ( _el )
-        {
-            _remove( _el );
-        }
 
         var i, len;
 
@@ -781,7 +697,6 @@ Microbe.core = Microbe.prototype =
      * Method removes the given class from the current object or the given element.
      *
      * @param   {str}               _class              class to remove
-     * @param   {ele}               _el                 element to modify (optional)
      *
      * @return  Microbe
     */
@@ -792,14 +707,8 @@ Microbe.core = Microbe.prototype =
             _el.classList.remove( _class );
         };
 
-        return function( _class, _el )
+        return function( _class )
         {
-            if ( _el )
-            {
-                _removeClass( _class, _el );
-                return this;
-            }
-
             var i, len;
             for ( i = 0, len = this.length; i < len; i++ )
             {
@@ -822,7 +731,6 @@ Microbe.core = Microbe.prototype =
      * If the value is omitted, simply returns the current inner html value of the element.
      *
      * @param   _value      string          Text value (optional)
-     * @param   _el         HTMLELement     element to modify (optional)
      *
      * @return  mixed ( Microbe or string or array of strings)
     */
@@ -851,16 +759,10 @@ Microbe.core = Microbe.prototype =
                 return _el.textContent;
             }
         };
-        return function( _value, _el )
+        return function( _value )
         {
             if ( _value )
             {
-                if ( _el )
-                {
-                    _setText( _value, _el );
-                    return this;
-                }
-
                 var i, len;
                 for ( i = 0, len = this.length; i < len; i++ )
                 {
@@ -893,11 +795,9 @@ Microbe.core = Microbe.prototype =
      *
      * @return  Array
     */
-    toArray : function( _el )
+    toArray : function()
     {
-        _el = _el || this;
-
-        return Array.prototype.slice.call( _el );
+        return Array.prototype.slice.call( this );
     },
 
 
@@ -908,7 +808,6 @@ Microbe.core = Microbe.prototype =
      * element.
      *
      * @param   _class      string       class to add
-     * @param   _el         HTMLELement  element to modify (optional)
      *
      * @return  Microbe
     */
@@ -925,14 +824,8 @@ Microbe.core = Microbe.prototype =
                 _el.classList.add( _class );
             }
         };
-        return function( _class, _el )
+        return function( _class )
         {
-            if ( _el )
-            {
-                _toggleClass( _el );
-                return this;
-            }
-
             var i, len;
             for ( i = 0, len = this.length; i < len; i++ )
             {
@@ -969,14 +862,8 @@ Microbe.core = Microbe.prototype =
      *
      * @return  Microbe
     */
-    unbind : function( _event, _callback, _el )
+    unbind : function( _event, _callback )
     {
-        if ( _el )
-        {
-            _el.removeEventListener( _event, _callback );
-            return this;
-        }
-
         var i, len;
         for ( i = 0, len = this.length; i < len; i++ )
         {
