@@ -1063,7 +1063,7 @@ Microbe.core = Microbe.prototype =
         {
             var nextIndex;
 
-            nextIndex = _this.getParentIndex( _elm );
+            nextIndex = _this.getParentIndex( _elm )[0];
 
             var nextEle   = _elm.parentNode.children[ nextIndex + 1 ];
 
