@@ -547,7 +547,7 @@ function isIterable( obj )
 
 Microbe.core = Microbe.prototype =
 {
-    version : '0.1.1',
+    version : '0.1.2',
 
     constructor : Microbe,
 
@@ -574,6 +574,9 @@ Microbe.core = Microbe.prototype =
             {
                 _el.classList.add( _class[i] );
             }
+
+            _el.data        = _el.data || {};
+            _el.data.class  = _el.className;
         };
 
         return function( _class )
@@ -990,14 +993,17 @@ Microbe.core = Microbe.prototype =
      * If the value is omitted, simply returns the current inner html value of the element.
      *
      * @param   _value      string          html value (optional)
+     * @param   _el         HTMLELement     element to modify (optional)
      *
      * @return  mixed ( Microbe or string or array of strings)
     */
-    html : function ( _value )
+    html : function ( _value, _el)
     {
         var _setHtml = function( _elm )
         {
-            _elm.innerHTML = _value;
+            _elm.data = _elm.data || {};
+            _elm.data.html      = _value;
+            _elm.innerHTML      = _value;
         };
 
         var _getHtml = function( _elm )
@@ -1007,6 +1013,12 @@ Microbe.core = Microbe.prototype =
 
         if ( _value || _value === '' )
         {
+            if ( _el )
+            {
+                _setHtml( _el );
+                return this;
+            }
+
             var i, len;
             for ( i = 0, len = this.length; i < len; i++ )
             {
@@ -1027,6 +1039,122 @@ Microbe.core = Microbe.prototype =
             return markup[0];
         }
         return markup;
+    },
+
+
+    /**
+     * Observe
+     *
+     * applies a function to an element if it is changed from within µ
+     *
+     * @param   _func       function                function to apply
+     * @param   _el         HTMLELement             element to observe (optional)
+     *
+     * @return  Microbe
+    */
+    observe : function( func, _el )
+    {
+        var _observe = function( _elm )
+        {
+            _elm.data               = _elm.data || {};
+            _elm.data._observeFunc  = func.bind( this );
+            Object.observe( _elm.data, _elm.data._observeFunc );
+        }.bind( this );
+
+        if ( _el )
+        {
+            _observe( _el );
+        }
+
+        var i, len, results = new Array( this.length );
+        for ( i = 0, len = this.length; i < len; i++ )
+        {
+            _observe( this[ i ] );
+        }
+
+        return this;
+    },
+
+
+    /**
+     * Observe Once
+     *
+     * applies a function to an element if it is changed from within µ once
+     *
+     * @param   _func       function                function to apply
+     * @param   _el         HTMLELement             element to observe (optional)
+     *
+     * @return  Microbe
+    */
+    observeOnce : function( func, _el )
+    {
+        var _observeOnce = function( _elm )
+        {
+            _elm.data               = _elm.data || {};
+            _elm.data._observeFunc  = function()
+            { 
+                func.bind( this );
+
+                for ( var i = 0, lenI = arguments.length; i < lenI; i++ ) 
+                {
+                    console.log( arguments[i] );
+                    func.bind( arguments[i] );
+                }
+                func();
+                
+                this.unobserve(); 
+            }.bind( this );
+
+            // _elm.data._observeFunc  = function(){ func.call( this, arguments ); this.unobserve(); }.bind( this );
+            Object.observe( _elm.data, _elm.data._observeFunc );
+        }.bind( this );
+
+        if ( _el )
+        {
+            _observeOnce( _el );
+        }
+
+        var i, len, results = new Array( this.length );
+        for ( i = 0, len = this.length; i < len; i++ )
+        {
+            _observeOnce( this[ i ] );
+        }
+
+        return this;
+    },
+
+
+    /**
+     * Stop observing
+     *
+     * stops watching the data changes of a µ onject
+     *
+     * @param   _el         HTMLELement             element to watch (optional)
+     *
+     * @return  Microbe
+    */
+    unobserve : function( _el )
+    {
+        var _unobserve = function( _elm )
+        {
+            if ( _elm.data && _elm.data._observeFunc )
+            {
+                Object.unobserve( _elm.data, _elm.data._observeFunc );
+            }  
+        }.bind( this );
+
+        if ( _el )
+        {
+            _unobserve( _el );
+        }
+
+        var i, len, results = new Array( this.length );
+        for ( i = 0, len = this.length; i < len; i++ )
+        {
+            _unobserve( this[ i ] );
+        }
+
+        return this;
     },
 
 
