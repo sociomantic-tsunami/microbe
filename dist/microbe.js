@@ -547,13 +547,13 @@ function isIterable( obj )
 
 Microbe.core = Microbe.prototype =
 {
-    version : '0.1.2',
+    version :       '0.1.2',
 
-    constructor : Microbe,
+    constructor :   Microbe,
 
-    selector : '',
+    selector :      '',
 
-    length : 0,
+    length :        0,
 
 
     /**
@@ -575,8 +575,9 @@ Microbe.core = Microbe.prototype =
                 _el.classList.add( _class[i] );
             }
 
-            _el.data        = _el.data || {};
-            _el.data.class  = _el.className;
+            _el.data                = _el.data || {};
+            _el.data.class          = _el.data.class || {};
+            _el.data.class.class    = _el.className;
         };
 
         return function( _class )
@@ -675,6 +676,10 @@ Microbe.core = Microbe.prototype =
                 {
                     _elm.setAttribute( _attribute, _value );
                 }
+
+                _elm.data                    = _elm.data || {};
+                _elm.data.attr               = _elm.data.attr || {};
+                _elm.data.attr[ _attribute ] = _value;
             }
         };
 
@@ -865,7 +870,10 @@ Microbe.core = Microbe.prototype =
     {
         var _setCss = function( _elm )
         {
-            _elm.style[ _property ] = _value;
+            _elm.data                   = _elm.data || {};
+            _elm.data.css               = _elm.data.css || {};
+            _elm.data.css[ _property ]  = _value;
+            _elm.style[ _property ]     = _elm.data.css[ _property ];
         };
 
         var _getCss = function( _elm )
@@ -1001,8 +1009,9 @@ Microbe.core = Microbe.prototype =
     {
         var _setHtml = function( _elm )
         {
-            _elm.data = _elm.data || {};
-            _elm.data.html      = _value;
+            _elm.data           = _elm.data || {};
+            _elm.data.html      = _elm.data.html || {};
+            _elm.data.html.html = _value;
             _elm.innerHTML      = _value;
         };
 
@@ -1039,122 +1048,6 @@ Microbe.core = Microbe.prototype =
             return markup[0];
         }
         return markup;
-    },
-
-
-    /**
-     * Observe
-     *
-     * applies a function to an element if it is changed from within µ
-     *
-     * @param   _func       function                function to apply
-     * @param   _el         HTMLELement             element to observe (optional)
-     *
-     * @return  Microbe
-    */
-    observe : function( func, _el )
-    {
-        var _observe = function( _elm )
-        {
-            _elm.data               = _elm.data || {};
-            _elm.data._observeFunc  = func.bind( this );
-            Object.observe( _elm.data, _elm.data._observeFunc );
-        }.bind( this );
-
-        if ( _el )
-        {
-            _observe( _el );
-        }
-
-        var i, len, results = new Array( this.length );
-        for ( i = 0, len = this.length; i < len; i++ )
-        {
-            _observe( this[ i ] );
-        }
-
-        return this;
-    },
-
-
-    /**
-     * Observe Once
-     *
-     * applies a function to an element if it is changed from within µ once
-     *
-     * @param   _func       function                function to apply
-     * @param   _el         HTMLELement             element to observe (optional)
-     *
-     * @return  Microbe
-    */
-    observeOnce : function( func, _el )
-    {
-        var _observeOnce = function( _elm )
-        {
-            _elm.data               = _elm.data || {};
-            _elm.data._observeFunc  = function()
-            { 
-                func.bind( this );
-
-                for ( var i = 0, lenI = arguments.length; i < lenI; i++ ) 
-                {
-                    console.log( arguments[i] );
-                    func.bind( arguments[i] );
-                }
-                func();
-                
-                this.unobserve(); 
-            }.bind( this );
-
-            // _elm.data._observeFunc  = function(){ func.call( this, arguments ); this.unobserve(); }.bind( this );
-            Object.observe( _elm.data, _elm.data._observeFunc );
-        }.bind( this );
-
-        if ( _el )
-        {
-            _observeOnce( _el );
-        }
-
-        var i, len, results = new Array( this.length );
-        for ( i = 0, len = this.length; i < len; i++ )
-        {
-            _observeOnce( this[ i ] );
-        }
-
-        return this;
-    },
-
-
-    /**
-     * Stop observing
-     *
-     * stops watching the data changes of a µ onject
-     *
-     * @param   _el         HTMLELement             element to watch (optional)
-     *
-     * @return  Microbe
-    */
-    unobserve : function( _el )
-    {
-        var _unobserve = function( _elm )
-        {
-            if ( _elm.data && _elm.data._observeFunc )
-            {
-                Object.unobserve( _elm.data, _elm.data._observeFunc );
-            }  
-        }.bind( this );
-
-        if ( _el )
-        {
-            _unobserve( _el );
-        }
-
-        var i, len, results = new Array( this.length );
-        for ( i = 0, len = this.length; i < len; i++ )
-        {
-            _unobserve( this[ i ] );
-        }
-
-        return this;
     },
 
 
@@ -1260,6 +1153,63 @@ Microbe.core = Microbe.prototype =
 
 
     /**
+     * Observe
+     *
+     * applies a function to an element if it is changed from within µ
+     *
+     * @param   func        function                function to apply
+     * @param   _el         HTMLELement             element to observe (optional)
+     *
+     * @return  Microbe
+    */
+    observe : function( func, _prop )
+    {
+        var _observe = function( _elm )
+        {
+            _elm.data   = _elm.data || {};
+            var _data   = _elm.data;
+            func = func.bind( this );
+
+            if ( _prop )
+            {
+                _data[ _prop ]                  = _data[ _prop ] || {};
+
+                if ( _data[ _prop ]._observeFunc )
+                {
+                    Object.unobserve( _data[ _prop ], _data[ _prop ]._observeFunc );    
+                }
+                _data[ _prop ]._observeFunc     = func;
+                Object.observe( _data[ _prop ], _data[ _prop ]._observeFunc );
+            }
+            else
+            {
+                // all
+                // console.log( this.constructor.prototype );
+                var _props = [ 'attr', 'text', 'css', 'html', 'class' ];
+
+                for ( var i = 0, lenI = _props.length - 1; i < lenI; i++ ) 
+                {
+                    _data[ _props[ i ] ] = {};
+                    _data[ _props[ i ] ]._observeFunc = func;
+                    Object.observe( _data[ _props[ i ] ], _data[ _props[ i ] ]._observeFunc );
+                }
+                
+                _data._observeFunc  = func;
+                Object.observe( _data, _data._observeFunc );
+            }
+        }.bind( this );
+
+        var i, len, results = new Array( this.length );
+        for ( i = 0, len = this.length; i < len; i++ )
+        {
+            _observe( this[ i ] );
+        }
+
+        return this;
+    },
+
+
+    /**
      * Get Parent
      *
      * sets all elements in µ to their parent nodes
@@ -1325,6 +1275,10 @@ Microbe.core = Microbe.prototype =
         var _removeClass = function( _class, _el )
         {
             _el.classList.remove( _class );
+
+            _el.data                = _el.data || {};
+            _el.data.class          = _el.data.class || {};
+            _el.data.class.class    = _el.className;
         };
 
         return function( _class )
@@ -1366,6 +1320,10 @@ Microbe.core = Microbe.prototype =
             {
                 _el.textContent = _value;
             }
+
+            _el.data            = _el.data || {};
+            _el.data.text       = _el.data.text || {};
+            _el.data.text.text  = _value;
         };
 
         var _getText = function( _el )
@@ -1443,6 +1401,10 @@ Microbe.core = Microbe.prototype =
             {
                 _el.classList.add( _class );
             }
+
+            _el.data                = _el.data || {};
+            _el.data.class          = _el.data.class || {};
+            _el.data.class.class    = _el.className;
         };
         return function( _class )
         {
@@ -1488,6 +1450,55 @@ Microbe.core = Microbe.prototype =
         for ( i = 0, len = this.length; i < len; i++ )
         {
             this[ i ].removeEventListener( _event, _callback );
+        }
+
+        return this;
+    },
+
+
+    /**
+     * Stop observing
+     *
+     * stops watching the data changes of a µ onject
+     *
+     * @param   _el         HTMLELement             element to watch (optional)
+     *
+     * @return  Microbe
+    */
+    unobserve : function( _prop )
+    {
+        var _unobserve = function( _elm )
+        {
+            var _data = _elm.data;
+
+            if ( _data )
+            {
+                if ( _prop && _data[ _prop ] && _data[ _prop ]._observeFunc )
+                {
+                    Object.unobserve( _data[ _prop ], _data[ _prop ]._observeFunc );   
+                }
+                else if ( ! _prop )
+                { 
+                    if ( _data._observeFunc )
+                    {
+                        Object.unobserve( _data, _data._observeFunc );
+                    }  
+
+                    for ( _prop in _data )
+                    {
+                        if ( _data[ _prop ]._observeFunc )
+                        {
+                            Object.unobserve( _data[ _prop ], _data[ _prop ]._observeFunc ); 
+                        }
+                    }
+                }
+            }
+        }.bind( this );
+
+        var i, len, results = new Array( this.length );
+        for ( i = 0, len = this.length; i < len; i++ )
+        {
+            _unobserve( this[ i ] );
         }
 
         return this;
