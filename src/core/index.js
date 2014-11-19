@@ -670,13 +670,32 @@ Microbe.core = Microbe.prototype =
      *
      * @return  Microbe
     */
-    observe : function( func, _prop )
+    observe : function( func, _prop, _once )
     {
         var _observe = function( _elm )
         {
             _elm.data   = _elm.data || {};
             var _data   = _elm.data;
             func = func.bind( this );
+
+            var _setObserve = function()
+            {
+                if ( _once === true )
+                {
+                    var _func = function( e )
+                    {
+                        _data[ _prop ]._observeFunc( e );
+                        Object.unobserve( _data[ _prop ], _func );
+
+                    }.bind( this );
+
+                    Object.observe( _data[ _prop ], _func );
+                }
+                else
+                {
+                    Object.observe( _data[ _prop ], _data[ _prop ]._observeFunc );
+                }
+            };
 
             if ( _prop )
             {
@@ -687,7 +706,8 @@ Microbe.core = Microbe.prototype =
                     Object.unobserve( _data[ _prop ], _data[ _prop ]._observeFunc );    
                 }
                 _data[ _prop ]._observeFunc     = func;
-                Object.observe( _data[ _prop ], _data[ _prop ]._observeFunc );
+
+                _setObserve();
             }
             else
             {
@@ -699,11 +719,11 @@ Microbe.core = Microbe.prototype =
                 {
                     _data[ _props[ i ] ] = {};
                     _data[ _props[ i ] ]._observeFunc = func;
-                    Object.observe( _data[ _props[ i ] ], _data[ _props[ i ] ]._observeFunc );
+                    _setObserve();
                 }
                 
                 _data._observeFunc  = func;
-                Object.observe( _data, _data._observeFunc );
+                _setObserve();
             }
         }.bind( this );
 
@@ -714,6 +734,22 @@ Microbe.core = Microbe.prototype =
         }
 
         return this;
+    },
+
+
+    /**
+     * Observe Once
+     *
+     * applies a function to an element if it is changed from within µ (once)
+     *
+     * @param   func        function                function to apply
+     * @param   _el         HTMLELement             element to observe (optional)
+     *
+     * @return  Microbe
+    */
+    observeOnce : function( func, _prop )
+    {
+        this.observe( func, _prop, true );
     },
 
 
