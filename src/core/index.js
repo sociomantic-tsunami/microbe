@@ -452,6 +452,31 @@ Microbe.core = Microbe.prototype =
 
 
     /**
+     * Get data parameter
+     *
+     * gets the index of the item in it's parentNode's children array
+     *
+     * @return {arr}                       array of values
+     */
+    get : function( prop )
+    {
+        var _get = function( _el )
+        {
+            return _el.data[ prop ][ prop ];
+        };
+
+        var i, len, values = new Array( this.length );
+
+        for ( i = 0, len = this.length; i < len; i++ )
+        {
+            values[ i ] = _get( this[ i ] );
+        }
+
+        return values;
+    },
+
+
+    /**
      * Get Parent Index
      *
      * gets the index of the item in it's parentNode's children array
@@ -580,7 +605,7 @@ Microbe.core = Microbe.prototype =
      *
      * @example µ( '.elementsInDom' ).insertAfter( µElementToInsert )
      *
-     * @param  {object or string} _elAfter element to insert
+     * @param  {obj or str}         _elAfter            element to insert
      *
      * @return Microbe
      */
@@ -665,8 +690,9 @@ Microbe.core = Microbe.prototype =
      *
      * applies a function to an element if it is changed from within µ
      *
-     * @param   func        function                function to apply
-     * @param   _el         HTMLELement             element to observe (optional)
+     * @param  {func}               function            function to apply
+     * @param  {str}                _prop               property to observe
+     * @param  {bool}               _once               bool to trigger auto unobserve
      *
      * @return  Microbe
     */
@@ -705,8 +731,8 @@ Microbe.core = Microbe.prototype =
                 {
                     Object.unobserve( _data[ _prop ], _data[ _prop ]._observeFunc );    
                 }
-                _data[ _prop ]._observeFunc     = func;
 
+                _data[ _prop ]._observeFunc     = func;
                 _setObserve();
             }
             else
@@ -742,8 +768,8 @@ Microbe.core = Microbe.prototype =
      *
      * applies a function to an element if it is changed from within µ (once)
      *
-     * @param   func        function                function to apply
-     * @param   _el         HTMLELement             element to observe (optional)
+     * @param  {func}               function            function to apply
+     * @param  {str}                _prop               property to observe
      *
      * @return  Microbe
     */
@@ -838,6 +864,32 @@ Microbe.core = Microbe.prototype =
     }()),
 
 
+    /**
+     * Get data parameter
+     *
+     * gets the index of the item in it's parentNode's children array
+     *
+     * @return {arr}                       array of values
+     */
+    set : function( prop, value )
+    {
+        var _set = function( _el )
+        {
+            _el.data[ prop ]            = _el.data[ prop ] || {};
+            _el.data[ prop ][ prop ]    = value;
+        };
+
+        var i, len, values = new Array( this.length );
+
+        for ( i = 0, len = this.length; i < len; i++ )
+        {
+            values[ i ] = _set( this[ i ] );
+        }
+
+        return this;
+    },
+
+    
     splice : splice,
 
 
