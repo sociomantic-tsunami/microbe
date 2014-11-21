@@ -1030,23 +1030,28 @@ Microbe.core = Microbe.prototype =
      *
      * @return  mixed ( Microbe or string or array of strings)
     */
-    html : function ( _value, _el)
+    html : function ( _value, _el )
     {
-        var _setHtml = function( _elm )
-        {
-            _elm.data           = _elm.data || {};
-            _elm.data.html      = _elm.data.html || {};
-            _elm.data.html.html = _value;
-            _elm.innerHTML      = _value;
-        };
-
         var _getHtml = function( _elm )
         {
             return _elm.innerHTML;
         };
 
+        if ( _value && _value.nodeType === 1 )
+        {
+           return _getHtml( _value );
+        }
+
         if ( _value || _value === '' )
         {
+            var _setHtml = function( _elm )
+            {
+                _elm.data           = _elm.data || {};
+                _elm.data.html      = _elm.data.html || {};
+                _elm.data.html.html = _value;
+                _elm.innerHTML      = _value;
+            };
+
             if ( _el )
             {
                 _setHtml( _el );
@@ -1068,7 +1073,7 @@ Microbe.core = Microbe.prototype =
             markup[ j ] = _getHtml( this[ j ] );
         }
 
-        if ( markup.length === 1 )
+        if ( markup.length === 1 || typeof markup === 'string' )
         {
             return markup[0];
         }
@@ -1188,44 +1193,54 @@ Microbe.core = Microbe.prototype =
      *
      * @return  Microbe
     */
-    observe : function( func, _prop, _once )
+    observe : function( prop, func, _once )
     {
         var _observe = function( _elm )
         {
-            _elm.data   = _elm.data || {};
-            var _data   = _elm.data;
-            func = func.bind( this );
-
-            var _setObserve = function()
+            var _setObserve = function( _target )
             {
                 if ( _once === true )
                 {
                     var _func = function( e )
                     {
-                        _data[ _prop ]._observeFunc( e );
-                        Object.unobserve( _data[ _prop ], _func );
+                        _target._observeFunc( e );
+                        Object.unobserve( _target, _func );
 
                     }.bind( this );
 
-                    Object.observe( _data[ _prop ], _func );
+                    Object.observe( _target, _func );
                 }
                 else
                 {
-                    Object.observe( _data[ _prop ], _data[ _prop ]._observeFunc );
+                    Object.observe( _target, _target._observeFunc );
                 }
             };
 
-            if ( _prop )
+            var _setObserveFunc = function( _target )
             {
-                _data[ _prop ]                  = _data[ _prop ] || {};
-
-                if ( _data[ _prop ]._observeFunc )
+                if ( _target._observeFunc )
                 {
-                    Object.unobserve( _data[ _prop ], _data[ _prop ]._observeFunc );    
+                    Object.unobserve( _target, _target._observeFunc );    
                 }
 
-                _data[ _prop ]._observeFunc     = func;
-                _setObserve();
+                _target._observeFunc     = func;
+
+                return _target;
+            };
+
+
+            _elm.data   = _elm.data || {};
+            var _data   = _elm.data;
+            func = func.bind( this );
+
+            var target = null;
+
+            if ( prop )
+            {
+                _data[ prop ]  = _data[ prop ] || {};
+
+                target = _setObserveFunc( _data[ prop ] );
+                _setObserve( target );
             }
             else
             {
@@ -1233,17 +1248,25 @@ Microbe.core = Microbe.prototype =
                 // console.log( this.constructor.prototype );
                 var _props = [ 'attr', 'text', 'css', 'html', 'class' ];
 
-                for ( var i = 0, lenI = _props.length - 1; i < lenI; i++ ) 
+                for ( var i = 0, lenI = _props.length; i < lenI; i++ ) 
                 {
-                    _data[ _props[ i ] ] = {};
-                    _data[ _props[ i ] ]._observeFunc = func;
-                    _setObserve();
+                    _data[ _props[ i ] ] = _data[ _props[ i ] ] || {};
+
+                    target = _setObserveFunc( _data[ _props[ i ] ] );
+                    _setObserve( target );
                 }
+
+                target = _setObserveFunc( _data );
+                _setObserve( target );
                 
-                _data._observeFunc  = func;
-                _setObserve();
             }
         }.bind( this );
+
+        if ( typeof prop === 'function' )
+        {
+            func    = prop;
+            prop   = null;
+        }
 
         var i, len, results = new Array( this.length );
         for ( i = 0, len = this.length; i < len; i++ )
@@ -1831,6 +1854,8 @@ module.exports = function( Microbe )
     */
     Microbe.core.__init__ =  function( _selector, _scope, _elements )
     {
+        _selector = _selector || '';
+        
         if ( _selector.nodeType === 1 || Object.prototype.toString.call( _selector ) === '[object Array]' )
         {
             _elements = _selector;
