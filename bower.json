@@ -1,8 +1,8 @@
 {
   "name": "microbe.js",
-  "version": "0.0.1",
-  "author": "J. Mouse Braun <jason.braun@sociomantic.com>",
-  "description": "Testing tool",
+  "version": "0.2.0",
+  "author": "Mouse Braun <mouse@sociomantic.com>",
+  "description": "micro-library front-end in javascript next",
   "contributors": [
     {
       "name": "Nicolas Brugneaux",

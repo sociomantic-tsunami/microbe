@@ -8,6 +8,14 @@
  */
 'use strict';
 
+// shim needed for observe
+if ( ! Object.observe )
+{
+    require( 'setimmediate' );
+    require( 'observe-shim' );
+    var ObserveUtils = require( 'observe-utils' );
+}
+
 var Arrays      = require( '../utils/array' );
 var Strings     = require( '../utils/string' );
 var Types       = require( '../utils/types' );
@@ -705,8 +713,14 @@ Microbe.core = Microbe.prototype =
     {
         var _observe = function( _elm )
         {
-            var _setObserve = function( _target )
+            var _setObserve = function( _target, _prop )
             {
+                // shim
+                if ( ObserveUtils )
+                {
+                    ObserveUtils.defineObservableProperties( _target, prop );
+                }
+
                 if ( _once === true )
                 {
                     var _func = function( e )
@@ -728,7 +742,7 @@ Microbe.core = Microbe.prototype =
             {
                 if ( _target._observeFunc )
                 {
-                    Object.unobserve( _target, _target._observeFunc );    
+                    Object.unobserve( _target, _target._observeFunc );
                 }
 
                 _target._observeFunc     = func;
@@ -748,7 +762,7 @@ Microbe.core = Microbe.prototype =
                 _data[ prop ]  = _data[ prop ] || {};
 
                 target = _setObserveFunc( _data[ prop ] );
-                _setObserve( target );
+                _setObserve( target, prop );
             }
             else
             {
@@ -756,17 +770,17 @@ Microbe.core = Microbe.prototype =
                 // console.log( this.constructor.prototype );
                 var _props = [ 'attr', 'text', 'css', 'html', 'class' ];
 
-                for ( var i = 0, lenI = _props.length; i < lenI; i++ ) 
+                for ( var i = 0, lenI = _props.length; i < lenI; i++ )
                 {
                     _data[ _props[ i ] ] = _data[ _props[ i ] ] || {};
 
                     target = _setObserveFunc( _data[ _props[ i ] ] );
-                    _setObserve( target );
+                    _setObserve( target, _props[ i ] );
                 }
 
                 target = _setObserveFunc( _data );
-                _setObserve( target );
-                
+                _setObserve( target, null );
+
             }
         }.bind( this );
 
@@ -912,7 +926,7 @@ Microbe.core = Microbe.prototype =
         return this;
     },
 
-    
+
     splice : splice,
 
 
@@ -1094,20 +1108,20 @@ Microbe.core = Microbe.prototype =
             {
                 if ( _prop && _data[ _prop ] && _data[ _prop ]._observeFunc )
                 {
-                    Object.unobserve( _data[ _prop ], _data[ _prop ]._observeFunc );   
+                    Object.unobserve( _data[ _prop ], _data[ _prop ]._observeFunc );
                 }
                 else if ( ! _prop )
-                { 
+                {
                     if ( _data._observeFunc )
                     {
                         Object.unobserve( _data, _data._observeFunc );
-                    }  
+                    }
 
                     for ( _prop in _data )
                     {
                         if ( _data[ _prop ]._observeFunc )
                         {
-                            Object.unobserve( _data[ _prop ], _data[ _prop ]._observeFunc ); 
+                            Object.unobserve( _data[ _prop ], _data[ _prop ]._observeFunc );
                         }
                     }
                 }
