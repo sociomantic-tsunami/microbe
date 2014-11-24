@@ -3,10 +3,11 @@ var Microbe = require( './core/' );
     require( './core/init' )( Microbe );
 require( './dom/' )( Microbe );
 require( './http/' )( Microbe );
+require( './observe/' )( Microbe );
 
 module.exports = Microbe;
 
-},{"./core/":12,"./core/init":13,"./dom/":14,"./http/":16}],2:[function(require,module,exports){
+},{"./core/":12,"./core/init":13,"./dom/":14,"./http/":16,"./observe/":17}],2:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -1960,14 +1961,6 @@ module.exports = asap;
  */
 'use strict';
 
-// shim needed for observe
-if ( ! Object.observe )
-{
-    require( 'setimmediate' );
-    require( 'observe-shim' );
-    var ObserveUtils = require( 'observe-utils' );
-}
-
 var Arrays      = require( '../utils/array' );
 var Strings     = require( '../utils/string' );
 var Types       = require( '../utils/types' );
@@ -2015,7 +2008,7 @@ function isIterable( obj )
 
 Microbe.core = Microbe.prototype =
 {
-    version :       '0.1.2',
+    version :       '0.2.0',
 
     constructor :   Microbe,
 
@@ -2651,124 +2644,6 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * Observe
-     *
-     * applies a function to an element if it is changed from within µ
-     *
-     * @param  {func}               function            function to apply
-     * @param  {str}                _prop               property to observe
-     * @param  {bool}               _once               bool to trigger auto unobserve
-     *
-     * @return  Microbe
-    */
-    observe : function( prop, func, _once )
-    {
-        var _observe = function( _elm )
-        {
-            var _setObserve = function( _target, _prop )
-            {
-                // shim
-                if ( ObserveUtils )
-                {
-                    ObserveUtils.defineObservableProperties( _target, prop );
-                }
-
-                if ( _once === true )
-                {
-                    var _func = function( e )
-                    {
-                        _target._observeFunc( e );
-                        Object.unobserve( _target, _func );
-
-                    }.bind( this );
-
-                    Object.observe( _target, _func );
-                }
-                else
-                {
-                    Object.observe( _target, _target._observeFunc );
-                }
-            };
-
-            var _setObserveFunc = function( _target )
-            {
-                if ( _target._observeFunc )
-                {
-                    Object.unobserve( _target, _target._observeFunc );
-                }
-
-                _target._observeFunc     = func;
-
-                return _target;
-            };
-
-
-            _elm.data   = _elm.data || {};
-            var _data   = _elm.data;
-            func = func.bind( this );
-
-            var target = null;
-
-            if ( prop )
-            {
-                _data[ prop ]  = _data[ prop ] || {};
-
-                target = _setObserveFunc( _data[ prop ] );
-                _setObserve( target, prop );
-            }
-            else
-            {
-                // all
-                // console.log( this.constructor.prototype );
-                var _props = [ 'attr', 'text', 'css', 'html', 'class' ];
-
-                for ( var i = 0, lenI = _props.length; i < lenI; i++ )
-                {
-                    _data[ _props[ i ] ] = _data[ _props[ i ] ] || {};
-
-                    target = _setObserveFunc( _data[ _props[ i ] ] );
-                    _setObserve( target, _props[ i ] );
-                }
-
-                target = _setObserveFunc( _data );
-                _setObserve( target, null );
-
-            }
-        }.bind( this );
-
-        if ( typeof prop === 'function' )
-        {
-            func    = prop;
-            prop   = null;
-        }
-
-        var i, len, results = new Array( this.length );
-        for ( i = 0, len = this.length; i < len; i++ )
-        {
-            _observe( this[ i ] );
-        }
-
-        return this;
-    },
-
-
-    /**
-     * Observe Once
-     *
-     * applies a function to an element if it is changed from within µ (once)
-     *
-     * @param  {func}               function            function to apply
-     * @param  {str}                _prop               property to observe
-     *
-     * @return  Microbe
-    */
-    observeOnce : function( func, _prop )
-    {
-        this.observe( func, _prop, true );
-    },
-
-
-    /**
      * Get Parent
      *
      * sets all elements in µ to their parent nodes
@@ -3226,7 +3101,7 @@ Microbe.type = function( obj )
 
 module.exports = Microbe;
 
-},{"../utils/array":17,"../utils/string":18,"../utils/types":19,"observe-shim":3,"observe-utils":4,"setimmediate":11}],13:[function(require,module,exports){
+},{"../utils/array":18,"../utils/string":19,"../utils/types":20}],13:[function(require,module,exports){
 module.exports = function( Microbe )
 {
     var trigger, _shortSelector, selectorRegex   = /(?:[\s]*\.([\w-_\.]*)|#([\w-_]*)|([^#\.<][\w-_]*)|(<[\w-_#\.]*>))/g;
@@ -3597,6 +3472,135 @@ module.exports = function( Microbe )
 };
 
 },{"promise":5}],17:[function(require,module,exports){
+module.exports = function( Microbe )
+{
+    // shim needed for observe
+    if ( ! Object.observe )
+    {
+        require( 'setimmediate' );
+        require( 'observe-shim' );
+        var ObserveUtils = require( 'observe-utils' );
+    }
+
+    /**
+     * Observe
+     *
+     * applies a function to an element if it is changed from within µ
+     *
+     * @param  {func}               function            function to apply
+     * @param  {str}                _prop               property to observe
+     * @param  {bool}               _once               bool to trigger auto unobserve
+     *
+     * @return  Microbe
+    */
+    Microbe.prototype.observe = function( prop, func, _once )
+    {
+        var _observe = function( _elm )
+        {
+            var _setObserve = function( _target, _prop )
+            {
+                // shim
+                if ( ObserveUtils )
+                {
+                    ObserveUtils.defineObservableProperties( _target, prop );
+                }
+
+                if ( _once === true )
+                {
+                    var _func = function( e )
+                    {
+                        _target._observeFunc( e );
+                        Object.unobserve( _target, _func );
+
+                    }.bind( this );
+
+                    Object.observe( _target, _func );
+                }
+                else
+                {
+                    Object.observe( _target, _target._observeFunc );
+                }
+            };
+
+            var _setObserveFunc = function( _target )
+            {
+                if ( _target._observeFunc )
+                {
+                    Object.unobserve( _target, _target._observeFunc );
+                }
+
+                _target._observeFunc     = func;
+
+                return _target;
+            };
+
+
+            _elm.data   = _elm.data || {};
+            var _data   = _elm.data;
+            func = func.bind( this );
+
+            var target = null;
+
+            if ( prop )
+            {
+                _data[ prop ]  = _data[ prop ] || {};
+
+                target = _setObserveFunc( _data[ prop ] );
+                _setObserve( target, prop );
+            }
+            else
+            {
+                // all
+                // console.log( this.constructor.prototype );
+                var _props = [ 'attr', 'text', 'css', 'html', 'class' ];
+
+                for ( var i = 0, lenI = _props.length; i < lenI; i++ )
+                {
+                    _data[ _props[ i ] ] = _data[ _props[ i ] ] || {};
+
+                    target = _setObserveFunc( _data[ _props[ i ] ] );
+                    _setObserve( target, _props[ i ] );
+                }
+
+                target = _setObserveFunc( _data );
+                _setObserve( target, null );
+
+            }
+        }.bind( this );
+
+        if ( typeof prop === 'function' )
+        {
+            func    = prop;
+            prop   = null;
+        }
+
+        var i, len, results = new Array( this.length );
+        for ( i = 0, len = this.length; i < len; i++ )
+        {
+            _observe( this[ i ] );
+        }
+
+        return this;
+    };
+
+
+    /**
+     * Observe Once
+     *
+     * applies a function to an element if it is changed from within µ (once)
+     *
+     * @param  {func}               function            function to apply
+     * @param  {str}                _prop               property to observe
+     *
+     * @return  Microbe
+    */
+    Microbe.prototype.observeOnce = function( func, _prop )
+    {
+        this.observe( func, _prop, true );
+    };
+};
+
+},{"observe-shim":3,"observe-utils":4,"setimmediate":11}],18:[function(require,module,exports){
 module.exports =
 {
     fill            : Array.prototype.fill,
@@ -3629,7 +3633,7 @@ module.exports =
     copyWithin      : Array.prototype.copyWithin
 };
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 module.exports =
 {
     charAt              : String.prototype.charAt,
@@ -3664,7 +3668,7 @@ module.exports =
     valueOf             : String.prototype.valueOf
 };
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 module.exports =
 {
     '[object Boolean]'  : 'boolean',
