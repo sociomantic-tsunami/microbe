@@ -2739,6 +2739,7 @@ Microbe.core = Microbe.prototype =
     {
         var _set = function( _el )
         {
+            _el.data                    = _el.data || {};
             _el.data[ prop ]            = _el.data[ prop ] || {};
             _el.data[ prop ][ prop ]    = value;
         };
