@@ -695,7 +695,6 @@ Microbe.core = Microbe.prototype =
      *
      * sets all elements in µ to their parent nodes
      *
-     * @param  {[type]} _el [description]
      * @return {[type]}     [description]
      */
     parent : function()
@@ -713,6 +712,30 @@ Microbe.core = Microbe.prototype =
         }
 
         return new Microbe( parentArray );
+    },
+
+
+
+    /**
+     * Push element
+     *
+     * adds a new element to a microbe
+     *
+     * @param  {[type]} _el [description]
+     *
+     * @return {[type]}     [description]
+     */
+    push : function( _el )
+    {
+        var length = this.length;
+
+        if ( _el && _el.nodeType === 1 )
+        {
+            this[ length ] = _el;
+            this.length = length + 1;
+        }
+
+        return this;
     },
 
 
