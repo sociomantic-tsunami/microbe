@@ -1,8 +1,8 @@
 {
   "name": "microbe.js",
-  "version": "0.0.1",
-  "author": "J. Mouse Braun <jason.braun@sociomantic.com>",
-  "description": "micro-framework front-end in javascript next",
+  "version": "0.2.0",
+  "author": "Mouse Braun <mouse@sociomantic.com>",
+  "description": "micro-library front-end in javascript next",
   "contributors": [
     {
       "name": "Nicolas Brugneaux",
@@ -41,7 +41,10 @@
     "gulp-traceur": "latest",
     "gulp-uglify": "^0.3.1",
     "gulp-wrapper": "^0.1.5",
-    "promise": "^6.0.0"
+    "observe-shim": "^0.4.1",
+    "observe-utils": "^0.3.2",
+    "promise": "^6.0.0",
+    "setimmediate": "^1.0.2"
   },
   "license": "MIT"
 }

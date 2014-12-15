@@ -99,7 +99,10 @@ module.exports = function( Microbe )
     */
     Microbe.core.__init__ =  function( _selector, _scope, _elements )
     {
-        if ( _selector.nodeType === 1 || Object.prototype.toString.call( _selector ) === '[object Array]' )
+        _selector = _selector || '';
+
+        if ( _selector.nodeType === 1 || _selector.nodeType === 9 ||
+                Object.prototype.toString.call( _selector ) === '[object Array]' )
         {
             _elements = _selector;
             _selector = ( _elements.length ) ? 'fromArray' : _getSelector( _elements );

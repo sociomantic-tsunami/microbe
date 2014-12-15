@@ -55,13 +55,13 @@ function isIterable( obj )
 
 Microbe.core = Microbe.prototype =
 {
-    version : '0.1.1',
+    version :       '0.2.0',
 
-    constructor : Microbe,
+    constructor :   Microbe,
 
-    selector : '',
+    selector :      '',
 
-    length : 0,
+    length :        0,
 
 
     /**
@@ -82,6 +82,10 @@ Microbe.core = Microbe.prototype =
             {
                 _el.classList.add( _class[i] );
             }
+
+            _el.data                = _el.data || {};
+            _el.data.class          = _el.data.class || {};
+            _el.data.class.class    = _el.className;
         };
 
         return function( _class )
@@ -180,6 +184,10 @@ Microbe.core = Microbe.prototype =
                 {
                     _elm.setAttribute( _attribute, _value );
                 }
+
+                _elm.data                    = _elm.data || {};
+                _elm.data.attr               = _elm.data.attr || {};
+                _elm.data.attr[ _attribute ] = _value;
             }
         };
 
@@ -370,7 +378,10 @@ Microbe.core = Microbe.prototype =
     {
         var _setCss = function( _elm )
         {
-            _elm.style[ _property ] = _value;
+            _elm.data                   = _elm.data || {};
+            _elm.data.css               = _elm.data.css || {};
+            _elm.data.css[ _property ]  = _value;
+            _elm.style[ _property ]     = _elm.data.css[ _property ];
         };
 
         var _getCss = function( _elm )
@@ -441,6 +452,31 @@ Microbe.core = Microbe.prototype =
 
 
     /**
+     * Get data parameter
+     *
+     * gets the index of the item in it's parentNode's children array
+     *
+     * @return {arr}                       array of values
+     */
+    get : function( prop )
+    {
+        var _get = function( _el )
+        {
+            return _el.data[ prop ][ prop ];
+        };
+
+        var i, len, values = new Array( this.length );
+
+        for ( i = 0, len = this.length; i < len; i++ )
+        {
+            values[ i ] = _get( this[ i ] );
+        }
+
+        return values;
+    },
+
+
+    /**
      * Get Parent Index
      *
      * gets the index of the item in it's parentNode's children array
@@ -498,23 +534,38 @@ Microbe.core = Microbe.prototype =
      * If the value is omitted, simply returns the current inner html value of the element.
      *
      * @param   _value      string          html value (optional)
+     * @param   _el         HTMLELement     element to modify (optional)
      *
      * @return  mixed ( Microbe or string or array of strings)
     */
-    html : function ( _value )
+    html : function ( _value, _el )
     {
-        var _setHtml = function( _elm )
-        {
-            _elm.innerHTML = _value;
-        };
-
         var _getHtml = function( _elm )
         {
             return _elm.innerHTML;
         };
 
+        if ( _value && _value.nodeType === 1 )
+        {
+           return _getHtml( _value );
+        }
+
         if ( _value || _value === '' )
         {
+            var _setHtml = function( _elm )
+            {
+                _elm.data           = _elm.data || {};
+                _elm.data.html      = _elm.data.html || {};
+                _elm.data.html.html = _value;
+                _elm.innerHTML      = _value;
+            };
+
+            if ( _el )
+            {
+                _setHtml( _el );
+                return this;
+            }
+
             var i, len;
             for ( i = 0, len = this.length; i < len; i++ )
             {
@@ -530,7 +581,7 @@ Microbe.core = Microbe.prototype =
             markup[ j ] = _getHtml( this[ j ] );
         }
 
-        if ( markup.length === 1 )
+        if ( markup.length === 1 || typeof markup === 'string' )
         {
             return markup[0];
         }
@@ -559,7 +610,7 @@ Microbe.core = Microbe.prototype =
      *
      * @example µ( '.elementsInDom' ).insertAfter( µElementToInsert )
      *
-     * @param  {object or string} _elAfter element to insert
+     * @param  {obj or str}         _elAfter            element to insert
      *
      * @return Microbe
      */
@@ -644,7 +695,6 @@ Microbe.core = Microbe.prototype =
      *
      * sets all elements in µ to their parent nodes
      *
-     * @param  {[type]} _el [description]
      * @return {[type]}     [description]
      */
     parent : function()
@@ -662,6 +712,30 @@ Microbe.core = Microbe.prototype =
         }
 
         return new Microbe( parentArray );
+    },
+
+
+
+    /**
+     * Push element
+     *
+     * adds a new element to a microbe
+     *
+     * @param  {[type]} _el [description]
+     *
+     * @return {[type]}     [description]
+     */
+    push : function( _el )
+    {
+        var length = this.length;
+
+        if ( _el && _el.nodeType === 1 )
+        {
+            this[ length ] = _el;
+            this.length = length + 1;
+        }
+
+        return this;
     },
 
 
@@ -705,6 +779,10 @@ Microbe.core = Microbe.prototype =
         var _removeClass = function( _class, _el )
         {
             _el.classList.remove( _class );
+
+            _el.data                = _el.data || {};
+            _el.data.class          = _el.data.class || {};
+            _el.data.class.class    = _el.className;
         };
 
         return function( _class )
@@ -718,6 +796,33 @@ Microbe.core = Microbe.prototype =
             return this;
         };
     }()),
+
+
+    /**
+     * Get data parameter
+     *
+     * gets the index of the item in it's parentNode's children array
+     *
+     * @return {arr}                       array of values
+     */
+    set : function( prop, value )
+    {
+        var _set = function( _el )
+        {
+            _el.data                    = _el.data || {};
+            _el.data[ prop ]            = _el.data[ prop ] || {};
+            _el.data[ prop ][ prop ]    = value;
+        };
+
+        var i, len, values = new Array( this.length );
+
+        for ( i = 0, len = this.length; i < len; i++ )
+        {
+            values[ i ] = _set( this[ i ] );
+        }
+
+        return this;
+    },
 
 
     splice : splice,
@@ -746,6 +851,10 @@ Microbe.core = Microbe.prototype =
             {
                 _el.textContent = _value;
             }
+
+            _el.data            = _el.data || {};
+            _el.data.text       = _el.data.text || {};
+            _el.data.text.text  = _value;
         };
 
         var _getText = function( _el )
@@ -823,6 +932,10 @@ Microbe.core = Microbe.prototype =
             {
                 _el.classList.add( _class );
             }
+
+            _el.data                = _el.data || {};
+            _el.data.class          = _el.data.class || {};
+            _el.data.class.class    = _el.className;
         };
         return function( _class )
         {
@@ -868,6 +981,55 @@ Microbe.core = Microbe.prototype =
         for ( i = 0, len = this.length; i < len; i++ )
         {
             this[ i ].removeEventListener( _event, _callback );
+        }
+
+        return this;
+    },
+
+
+    /**
+     * Stop observing
+     *
+     * stops watching the data changes of a µ onject
+     *
+     * @param   _el         HTMLELement             element to watch (optional)
+     *
+     * @return  Microbe
+    */
+    unobserve : function( _prop )
+    {
+        var _unobserve = function( _elm )
+        {
+            var _data = _elm.data;
+
+            if ( _data )
+            {
+                if ( _prop && _data[ _prop ] && _data[ _prop ]._observeFunc )
+                {
+                    Object.unobserve( _data[ _prop ], _data[ _prop ]._observeFunc );
+                }
+                else if ( ! _prop )
+                {
+                    if ( _data._observeFunc )
+                    {
+                        Object.unobserve( _data, _data._observeFunc );
+                    }
+
+                    for ( _prop in _data )
+                    {
+                        if ( _data[ _prop ]._observeFunc )
+                        {
+                            Object.unobserve( _data[ _prop ], _data[ _prop ]._observeFunc );
+                        }
+                    }
+                }
+            }
+        }.bind( this );
+
+        var i, len, results = new Array( this.length );
+        for ( i = 0, len = this.length; i < len; i++ )
+        {
+            _unobserve( this[ i ] );
         }
 
         return this;
