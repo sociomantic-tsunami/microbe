@@ -618,11 +618,11 @@ process.chdir = function (dir) {
     /**
      * @namespace
      */
-    var ObserveUtils = {};
-    if ( typeof module === 'object' && typeof exports !== 'undefined') {
-        module.exports = ObserveUtils;
+    var ObserveUtils;
+    if (typeof exports !== 'undefined') {
+        ObserveUtils = exports;
     } else {
-        global.ObserveUtils = ObserveUtils;
+        ObserveUtils = global.ObserveUtils = {};
     }
 
     // Utilities
@@ -3229,7 +3229,8 @@ module.exports = function( Microbe )
     {
         _selector = _selector || '';
 
-        if ( _selector.nodeType === 1 || Object.prototype.toString.call( _selector ) === '[object Array]' )
+        if ( _selector.nodeType === 1 || _selector.nodeType === 9 ||
+                Object.prototype.toString.call( _selector ) === '[object Array]' )
         {
             _elements = _selector;
             _selector = ( _elements.length ) ? 'fromArray' : _getSelector( _elements );
