@@ -2415,7 +2415,14 @@ Microbe.core = Microbe.prototype =
     {
         var _get = function( _el )
         {
-            return _el.data[ prop ][ prop ];
+            if ( ! prop )
+            {
+                return _el.data;
+            }
+            else
+            {
+                return _el.data[ prop ][ prop ];
+            }
         };
 
         var i, len, values = new Array( this.length );
