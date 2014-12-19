@@ -28,7 +28,8 @@ module.exports = function( Microbe )
                 // shim
                 if ( ObserveUtils )
                 {
-                    ObserveUtils.defineObservableProperties( _target, prop );
+                    console.log( prop, _prop );
+                    ObserveUtils.defineObservableProperties( _target, prop || _prop );
                 }
 
                 if ( _once === true )
@@ -63,7 +64,7 @@ module.exports = function( Microbe )
 
             _elm.data   = _elm.data || {};
             var _data   = _elm.data;
-            func = func.bind( this );
+            func        = func.bind( this );
 
             var target = null;
 
@@ -76,8 +77,6 @@ module.exports = function( Microbe )
             }
             else
             {
-                // all
-                // console.log( this.constructor.prototype );
                 var _props = [ 'attr', 'text', 'css', 'html', 'class' ];
 
                 for ( var i = 0, lenI = _props.length; i < lenI; i++ )
@@ -97,10 +96,11 @@ module.exports = function( Microbe )
         if ( typeof prop === 'function' )
         {
             func    = prop;
-            prop   = null;
+            prop    = null;
         }
 
         var i, len, results = new Array( this.length );
+
         for ( i = 0, len = this.length; i < len; i++ )
         {
             _observe( this[ i ] );
