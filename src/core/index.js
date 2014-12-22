@@ -55,7 +55,7 @@ function isIterable( obj )
 
 Microbe.core = Microbe.prototype =
 {
-    version :       '0.2.0',
+    version :       '0.2.1',
 
     constructor :   Microbe,
 
@@ -254,7 +254,22 @@ Microbe.core = Microbe.prototype =
     {
         var _bind = function( _elm )
         {
+            var prop = '_' + _event + '-bound-function';
+
+            _elm.data                    = _elm.data || {};
+            _elm.data[ prop ]            = _elm.data[ prop ] || {};
+            var _callbackArray           = _elm.data[ prop ][ prop ];
+
+            var i, len, filterFunction = function( val ){ return val !== null; };
+
+            if ( ! _callbackArray )
+            {
+                _callbackArray = [];
+            }
+
             _elm.addEventListener( _event, _callback );
+            _callbackArray.push( _callback );
+            _elm.data[ prop ][ prop ]    = _callbackArray;
         };
 
         var i, len;
@@ -973,8 +988,7 @@ Microbe.core = Microbe.prototype =
      /**
      * Unbind Events
      *
-     * Methods binds an event to the HTMLElements of the current object or to the
-     * given element.
+     * unbinds an/all events.
      *
      * @param   _event      string          HTMLEvent
      * @param   _callback   function        callback function
@@ -984,10 +998,36 @@ Microbe.core = Microbe.prototype =
     */
     unbind : function( _event, _callback )
     {
-        var i, len;
+        var i, len, filterFunction = function( val ){ return val !== null; };
         for ( i = 0, len = this.length; i < len; i++ )
         {
-            this[ i ].removeEventListener( _event, _callback );
+            var _elm = this[ i ];
+            var prop = '_' + _event + '-bound-function';
+            if ( ! _callback && _elm.data && _elm.data[ prop ] &&
+                    _elm.data[ prop ][ prop ] )
+            {
+                _callback = _elm.data[ prop ][ prop ];
+            }
+
+            if ( _callback )
+            {
+                if ( !_callback.length )
+                {
+                    _callback = [ _callback ];
+                }
+                for ( var j = 0, lenJ = _callback.length; j < lenJ; j++ )
+                {
+                    _elm.removeEventListener( _event, _callback[ j ] );
+                    _callback[ j ] = null;
+                }
+                _callback.filter( filterFunction );
+
+
+                _elm.data                   = _elm.data || {};
+                _elm.data[ prop ]           = _elm.data[ prop ] || {};
+                _elm.data[ prop ][ prop ]   = _callback;
+            }
+
         }
 
         return this;
