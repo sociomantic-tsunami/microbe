@@ -1011,10 +1011,11 @@ Microbe.core = Microbe.prototype =
 
             if ( _callback )
             {
-                if ( !_callback.length )
+                if ( Object.prototype.toString.call( _callback ) !== '[Object Array]' )
                 {
                     _callback = [ _callback ];
                 }
+
                 for ( var j = 0, lenJ = _callback.length; j < lenJ; j++ )
                 {
                     _elm.removeEventListener( _event, _callback[ j ] );
