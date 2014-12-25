@@ -3,6 +3,7 @@ var Microbe = require( './core/' );
     require( './core/init' )( Microbe );
 require( './dom/' )( Microbe );
 require( './http/' )( Microbe );
+// require( './observe/' )( Microbe );
 
 module.exports = Microbe;
 
@@ -291,13 +292,13 @@ Promise.all = function (arr) {
 }
 
 Promise.reject = function (value) {
-  return new Promise(function (resolve, reject) {
+  return new Promise(function (resolve, reject) { 
     reject(value);
   });
 }
 
 Promise.race = function (values) {
-  return new Promise(function (resolve, reject) {
+  return new Promise(function (resolve, reject) { 
     values.forEach(function(value){
       Promise.resolve(value).then(resolve, reject);
     })
@@ -547,13 +548,13 @@ function isIterable( obj )
 
 Microbe.core = Microbe.prototype =
 {
-    version : '0.1.1',
+    version :       '0.2.1',
 
-    constructor : Microbe,
+    constructor :   Microbe,
 
-    selector : '',
+    selector :      '',
 
-    length : 0,
+    length :        0,
 
 
     /**
@@ -574,6 +575,10 @@ Microbe.core = Microbe.prototype =
             {
                 _el.classList.add( _class[i] );
             }
+
+            _el.data                = _el.data || {};
+            _el.data.class          = _el.data.class || {};
+            _el.data.class.class    = _el.className;
         };
 
         return function( _class )
@@ -672,6 +677,10 @@ Microbe.core = Microbe.prototype =
                 {
                     _elm.setAttribute( _attribute, _value );
                 }
+
+                _elm.data                    = _elm.data || {};
+                _elm.data.attr               = _elm.data.attr || {};
+                _elm.data.attr[ _attribute ] = _value;
             }
         };
 
@@ -738,7 +747,22 @@ Microbe.core = Microbe.prototype =
     {
         var _bind = function( _elm )
         {
+            var prop = '_' + _event + '-bound-function';
+
+            _elm.data                    = _elm.data || {};
+            _elm.data[ prop ]            = _elm.data[ prop ] || {};
+            var _callbackArray           = _elm.data[ prop ][ prop ];
+
+            var i, len, filterFunction = function( val ){ return val !== null; };
+
+            if ( ! _callbackArray )
+            {
+                _callbackArray = [];
+            }
+
             _elm.addEventListener( _event, _callback );
+            _callbackArray.push( _callback );
+            _elm.data[ prop ][ prop ]    = _callbackArray;
         };
 
         var i, len;
@@ -862,7 +886,10 @@ Microbe.core = Microbe.prototype =
     {
         var _setCss = function( _elm )
         {
-            _elm.style[ _property ] = _value;
+            _elm.data                   = _elm.data || {};
+            _elm.data.css               = _elm.data.css || {};
+            _elm.data.css[ _property ]  = _value;
+            _elm.style[ _property ]     = _elm.data.css[ _property ];
         };
 
         var _getCss = function( _elm )
@@ -990,23 +1017,38 @@ Microbe.core = Microbe.prototype =
      * If the value is omitted, simply returns the current inner html value of the element.
      *
      * @param   _value      string          html value (optional)
+     * @param   _el         HTMLELement     element to modify (optional)
      *
      * @return  mixed ( Microbe or string or array of strings)
     */
-    html : function ( _value )
+    html : function ( _value, _el )
     {
-        var _setHtml = function( _elm )
-        {
-            _elm.innerHTML = _value;
-        };
-
         var _getHtml = function( _elm )
         {
             return _elm.innerHTML;
         };
 
+        if ( _value && _value.nodeType === 1 )
+        {
+           return _getHtml( _value );
+        }
+
         if ( _value || _value === '' )
         {
+            var _setHtml = function( _elm )
+            {
+                _elm.data           = _elm.data || {};
+                _elm.data.html      = _elm.data.html || {};
+                _elm.data.html.html = _value;
+                _elm.innerHTML      = _value;
+            };
+
+            if ( _el )
+            {
+                _setHtml( _el );
+                return this;
+            }
+
             var i, len;
             for ( i = 0, len = this.length; i < len; i++ )
             {
@@ -1022,7 +1064,7 @@ Microbe.core = Microbe.prototype =
             markup[ j ] = _getHtml( this[ j ] );
         }
 
-        if ( markup.length === 1 )
+        if ( markup.length === 1 || typeof markup === 'string' )
         {
             return markup[0];
         }
@@ -1051,7 +1093,7 @@ Microbe.core = Microbe.prototype =
      *
      * @example µ( '.elementsInDom' ).insertAfter( µElementToInsert )
      *
-     * @param  {object or string} _elAfter element to insert
+     * @param  {obj or str}         _elAfter            element to insert
      *
      * @return Microbe
      */
@@ -1136,7 +1178,6 @@ Microbe.core = Microbe.prototype =
      *
      * sets all elements in µ to their parent nodes
      *
-     * @param  {[type]} _el [description]
      * @return {[type]}     [description]
      */
     parent : function()
@@ -1154,6 +1195,30 @@ Microbe.core = Microbe.prototype =
         }
 
         return new Microbe( parentArray );
+    },
+
+
+
+    /**
+     * Push element
+     *
+     * adds a new element to a microbe
+     *
+     * @param  {[type]} _el [description]
+     *
+     * @return {[type]}     [description]
+     */
+    push : function( _el )
+    {
+        var length = this.length;
+
+        if ( _el && _el.nodeType === 1 )
+        {
+            this[ length ] = _el;
+            this.length = length + 1;
+        }
+
+        return this;
     },
 
 
@@ -1197,6 +1262,10 @@ Microbe.core = Microbe.prototype =
         var _removeClass = function( _class, _el )
         {
             _el.classList.remove( _class );
+
+            _el.data                = _el.data || {};
+            _el.data.class          = _el.data.class || {};
+            _el.data.class.class    = _el.className;
         };
 
         return function( _class )
@@ -1238,6 +1307,10 @@ Microbe.core = Microbe.prototype =
             {
                 _el.textContent = _value;
             }
+
+            _el.data            = _el.data || {};
+            _el.data.text       = _el.data.text || {};
+            _el.data.text.text  = _value;
         };
 
         var _getText = function( _el )
@@ -1315,6 +1388,10 @@ Microbe.core = Microbe.prototype =
             {
                 _el.classList.add( _class );
             }
+
+            _el.data                = _el.data || {};
+            _el.data.class          = _el.data.class || {};
+            _el.data.class.class    = _el.className;
         };
         return function( _class )
         {
@@ -1345,8 +1422,7 @@ Microbe.core = Microbe.prototype =
      /**
      * Unbind Events
      *
-     * Methods binds an event to the HTMLElements of the current object or to the
-     * given element.
+     * unbinds an/all events.
      *
      * @param   _event      string          HTMLEvent
      * @param   _callback   function        callback function
@@ -1356,10 +1432,37 @@ Microbe.core = Microbe.prototype =
     */
     unbind : function( _event, _callback )
     {
-        var i, len;
+        var i, len, filterFunction = function( val ){ return val !== null; };
         for ( i = 0, len = this.length; i < len; i++ )
         {
-            this[ i ].removeEventListener( _event, _callback );
+            var _elm = this[ i ];
+            var prop = '_' + _event + '-bound-function';
+            if ( ! _callback && _elm.data && _elm.data[ prop ] &&
+                    _elm.data[ prop ][ prop ] )
+            {
+                _callback = _elm.data[ prop ][ prop ];
+            }
+
+            if ( _callback )
+            {
+                if ( Object.prototype.toString.call( _callback ) !== '[Object Array]' )
+                {
+                    _callback = [ _callback ];
+                }
+
+                for ( var j = 0, lenJ = _callback.length; j < lenJ; j++ )
+                {
+                    _elm.removeEventListener( _event, _callback[ j ] );
+                    _callback[ j ] = null;
+                }
+                _callback.filter( filterFunction );
+
+
+                _elm.data                   = _elm.data || {};
+                _elm.data[ prop ]           = _elm.data[ prop ] || {};
+                _elm.data[ prop ][ prop ]   = _callback;
+            }
+
         }
 
         return this;
@@ -1604,7 +1707,10 @@ module.exports = function( Microbe )
     */
     Microbe.core.__init__ =  function( _selector, _scope, _elements )
     {
-        if ( _selector.nodeType === 1 || Object.prototype.toString.call( _selector ) === '[object Array]' )
+        _selector = _selector || '';
+
+        if ( _selector.nodeType === 1 || _selector.nodeType === 9 ||
+                Object.prototype.toString.call( _selector ) === '[object Array]' )
         {
             _elements = _selector;
             _selector = ( _elements.length ) ? 'fromArray' : _getSelector( _elements );
