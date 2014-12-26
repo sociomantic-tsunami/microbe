@@ -1,19 +1,12 @@
 var gulp            = require('gulp');
 var fs              = require( 'fs' );
-var jshint          = require('gulp-jshint');
-var rename          = require('gulp-rename');
 var clean           = require('gulp-rimraf');
 var concat          = require('gulp-concat');
-var notify          = require('gulp-notify');
-var traceur         = require('gulp-traceur');
-var sourcemaps      = require('gulp-sourcemaps');
-var wrapper         = require('gulp-wrapper');
 var replace         = require('gulp-replace');
 
-var fs = require( 'fs' );
-var browserify = require('browserify');
-var token = 'ThisIsVeryUnlikelyThatAVariableWillBeCalledThisWay';
-var exportName = 'µ';
+var browserify      = require('browserify');
+var token           = 'ThisIsVeryUnlikelyThatAVariableWillBeCalledThisWay';
+var exportName      = 'µ';
 
 // Basic usage
 gulp.task('build', function()
