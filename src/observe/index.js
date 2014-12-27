@@ -8,6 +8,46 @@ module.exports = function( Microbe )
         var ObserveUtils = require( 'observe-utils' );
     }
 
+
+    /**
+     * Get data parameter
+     *
+     * gets the index of the item in it's parentNode's children array
+     *
+     * @return {arr}                       array of values
+     */
+    Microbe.prototype.get = function( prop )
+    {
+        var _get = function( _el )
+        {
+            if ( ! prop )
+            {
+                return _el.data;
+            }
+            else
+            {
+                if ( _el.data[ prop ] && _el.data[ prop ][ prop ] )
+                {
+                    return _el.data[ prop ][ prop ];
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        };
+
+        var i, len, values = new Array( this.length );
+
+        for ( i = 0, len = this.length; i < len; i++ )
+        {
+            values[ i ] = _get( this[ i ] );
+        }
+
+        return values;
+    };
+
+
     /**
      * Observe
      *
@@ -25,13 +65,6 @@ module.exports = function( Microbe )
         {
             var _setObserve = function( _target, _prop )
             {
-                // shim
-                if ( ObserveUtils )
-                {
-                    console.log( prop, _prop );
-                    ObserveUtils.defineObservableProperties( _target, prop || _prop );
-                }
-
                 if ( _once === true )
                 {
                     var _func = function( e )
@@ -124,4 +157,87 @@ module.exports = function( Microbe )
     {
         this.observe( func, _prop, true );
     };
+
+
+    /**
+     * Get data parameter
+     *
+     * gets the index of the item in it's parentNode's children array
+     *
+     * @return {arr}                       array of values
+     */
+    Microbe.prototype.set = function( prop, value )
+    {
+        var _set = function( _el )
+        {
+            _el.data                    = _el.data || {};
+            
+            // shim
+            if ( ObserveUtils && ! _el.data[ prop ] )
+            {
+                ObserveUtils.defineObservableProperties( _el.data, prop );
+            }
+
+            _el.data[ prop ]            = _el.data[ prop ] || {};
+            _el.data[ prop ][ prop ]    = value;
+        };
+
+        var i, len, values = new Array( this.length );
+
+        for ( i = 0, len = this.length; i < len; i++ )
+        {
+            values[ i ] = _set( this[ i ] );
+        }
+
+        return this;
+    };
+
+
+    /**
+     * Stop observing
+     *
+     * stops watching the data changes of a µ onject
+     *
+     * @param   _el         HTMLELement             element to watch (optional)
+     *
+     * @return  Microbe
+    */
+    Microbe.prototype.unobserve = function( _prop )
+    {
+        var _unobserve = function( _elm )
+        {
+            var _data = _elm.data;
+
+            if ( _data )
+            {
+                if ( _prop && _data[ _prop ] && _data[ _prop ]._observeFunc )
+                {
+                    Object.unobserve( _data[ _prop ], _data[ _prop ]._observeFunc );
+                }
+                else if ( ! _prop )
+                {
+                    if ( _data._observeFunc )
+                    {
+                        Object.unobserve( _data, _data._observeFunc );
+                    }
+
+                    for ( _prop in _data )
+                    {
+                        if ( _data[ _prop ]._observeFunc )
+                        {
+                            Object.unobserve( _data[ _prop ], _data[ _prop ]._observeFunc );
+                        }
+                    }
+                }
+            }
+        }.bind( this );
+
+        var i, len, results = new Array( this.length );
+        for ( i = 0, len = this.length; i < len; i++ )
+        {
+            _unobserve( this[ i ] );
+        }
+
+        return this;
+    }
 };
