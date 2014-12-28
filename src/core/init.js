@@ -122,7 +122,7 @@ module.exports = function( Microbe )
                 Object.prototype.toString.call( _selector ) === '[object Array]' )
         {
             _elements = _selector;
-            _selector = ( _elements.length ) ? 'fromArray' : _getSelector( _elements );
+            _selector = _getSelector( _elements );
         }
 
         _scope = _scope === undefined ?  document : _scope;
