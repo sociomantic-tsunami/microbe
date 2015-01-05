@@ -3135,18 +3135,35 @@ module.exports = function( Microbe )
      */
     function _getSelector( _el )
     {
-        if ( _el.nodeType === 1 )
+        var getSelectorString = function( _elm )
         {
-            var tag     = _el.tagName.toLowerCase(),
-                id      = ( _el.id ) ? '#' + _el.id : '',
-                clss   = ( _el.className.length > 0 ) ? '.' + _el.className : '';
-            clss = clss.replace( ' ', '.' );
+            var tag = _elm.tagName.toLowerCase(),
+            id      = ( _elm.id ) ? '#' + _elm.id : '',
+            clss    = ( _elm.className.length > 0 ) ? '.' + _elm.className : '';
+            clss    = clss.replace( ' ', '.' );
 
             return tag + id + clss;
         }
+
+        if ( _el.nodeType === 1 )
+        {
+            return getSelectorString( _el );
+        }
         else
         {
-            return 'fromArray';
+            var _selector, selectors = [];
+
+            for ( var i = 0, lenI = _el.length; i < lenI; i++ ) 
+            {
+                _selector = getSelectorString( _el[ i ] );
+                
+                if ( selectors.indexOf( _selector ) === -1 )
+                {
+                    selectors.push( _selector );
+                }
+            }
+
+            return selectors.join( ', ' );
         }
     }
 
@@ -3173,7 +3190,7 @@ module.exports = function( Microbe )
                 Object.prototype.toString.call( _selector ) === '[object Array]' )
         {
             _elements = _selector;
-            _selector = ( _elements.length ) ? 'fromArray' : _getSelector( _elements );
+            _selector = _getSelector( _elements );
         }
 
         _scope = _scope === undefined ?  document : _scope;
