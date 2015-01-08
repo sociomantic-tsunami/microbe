@@ -47,18 +47,17 @@ module.exports = function( Microbe )
 
         req.open( method, url, async, user, password );
 
+        // weird Safari voodoo fix
+        if ( method === 'POST' )
+        {
+            req.setRequestHeader( 'Content-Type', 'application/x-www-form-urlencoded' );
+        }
+        
         if ( headers )
         {
-            if ( Array.isArray( headers ) )
+            for ( var header in headers )
             {
-                for ( var i = 0, len = headers.length; i < len; i++ )
-                {
-                    req.setRequestHeader( headers[i].header, headers[i].value );
-                }
-            }
-            else
-            {
-                req.setRequestHeader( headers.header, headers.value );
+                req.setRequestHeader( header, headers[header] );
             }
         }
 
