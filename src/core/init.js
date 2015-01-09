@@ -7,8 +7,8 @@ module.exports = function( Microbe )
      *
      * builds and returns the final microbe
      *
-     * @param  {[type]} _elements [description]
-     * @param  {[type]} _selector [description]
+     * @param  {arr}                _elements           array of elements
+     * @param  {str}                _selector           selector
      *
      * @return {[type]}           [description]
      */
@@ -69,13 +69,19 @@ module.exports = function( Microbe )
     {
         var getSelectorString = function( _elm )
         {
-            var tag = _elm.tagName.toLowerCase(),
-            id      = ( _elm.id ) ? '#' + _elm.id : '',
-            clss    = ( _elm.className.length > 0 ) ? '.' + _elm.className : '';
-            clss    = clss.replace( ' ', '.' );
+            if ( _elm && _elm.tagName )
+            {
+                var tag = _elm.tagName.toLowerCase(),
+                id      = ( _elm.id ) ? '#' + _elm.id : '',
+                clss    = ( _elm.className.length > 0 ) ? '.' + _elm.className : '';
+                clss    = clss.replace( ' ', '.' );
 
-            return tag + id + clss;
-        }
+                return tag + id + clss;
+            }
+
+            // document or window
+            return '';
+        };
 
         if ( _el.nodeType === 1 )
         {
@@ -85,10 +91,10 @@ module.exports = function( Microbe )
         {
             var _selector, selectors = [];
 
-            for ( var i = 0, lenI = _el.length; i < lenI; i++ ) 
+            for ( var i = 0, lenI = _el.length; i < lenI; i++ )
             {
                 _selector = getSelectorString( _el[ i ] );
-                
+
                 if ( selectors.indexOf( _selector ) === -1 )
                 {
                     selectors.push( _selector );
@@ -118,8 +124,8 @@ module.exports = function( Microbe )
     {
         _selector = _selector || '';
 
-        if ( _selector.nodeType === 1 || _selector.nodeType === 9 ||
-                Object.prototype.toString.call( _selector ) === '[object Array]' )
+        if ( _selector.nodeType === 1 || Object.prototype.toString.call( _selector ) === '[object Array]' ||
+            _selector === window || _selector === document )
         {
             _elements = _selector;
             _selector = _getSelector( _elements );
@@ -132,12 +138,6 @@ module.exports = function( Microbe )
         if ( !( this instanceof Microbe.core.__init__ ) )
         {
             return new Microbe.core.__init__( _selector, _scope, _elements );
-        }
-
-        if ( ( !_selector || typeof _selector !== 'string' ) ||
-             ( scopeNodeType !== 1 && scopeNodeType !== 9 ) )
-        {
-            return _build.call( this, [], _selector );
         }
 
         if ( _elements )
@@ -153,6 +153,12 @@ module.exports = function( Microbe )
         }
         else
         {
+            if ( ( !_selector || typeof _selector !== 'string' ) ||
+                ( scopeNodeType !== 1 && scopeNodeType !== 9 ) )
+            {
+                return _build.call( this, [], _selector );
+            }
+
             var resultsRegex = _selector.match( selectorRegex );
 
             if ( resultsRegex && resultsRegex.length === 1 )

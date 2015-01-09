@@ -12,7 +12,7 @@
  */
 var µFrameworkWrapper, µCodeWrapper, µTimeWrapper, µTestWrapper,
     frameworks = [ 'native', '$', 'µ', 'old µ' ],
-    iterations = 25000, slowIterations = 10000;
+    iterations = 250, slowIterations = 100;
 
 /**
  * html escape
