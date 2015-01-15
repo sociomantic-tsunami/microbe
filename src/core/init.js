@@ -74,7 +74,7 @@ module.exports = function( Microbe )
                 var tag = _elm.tagName.toLowerCase(),
                 id      = ( _elm.id ) ? '#' + _elm.id : '',
                 clss    = ( _elm.className.length > 0 ) ? '.' + _elm.className : '';
-                clss    = clss.replace( ' ', '.' );
+                clss    = clss.replace( /[\s]+/g, '.' );
 
                 return tag + id + clss;
             }
