@@ -1023,10 +1023,10 @@ Microbe.extend = Microbe.core.extend = function()
                         clone = src && Microbe.isObject( src ) ? src : {};
                     }
 
-                    target[name] = Microbe.extend( deep, clone, copy );
+                    target[ name ] = Microbe.extend( deep, clone, copy );
                 }
 
-                target[name] = copy;
+                target[ name ] = copy;
             }
         }
     }
@@ -1035,22 +1035,50 @@ Microbe.extend = Microbe.core.extend = function()
 };
 
 
+Microbe.capitalize = function( text )
+{
+    var µText = ( ! Microbe.isArray( text ) ) ? [ text ] : text;
+
+    for ( var i = 0, lenI = µText.length; i < lenI; i++ )
+    {
+        µText[ i ] = µText[ i ].split( ' ' );
+        for ( var j = 0, lenJ = µText[ i ].length; j < lenJ; j++ )
+        {
+            µText[ i ][ j ] = µText[ i ][ j ].charAt( 0 ).toUpperCase() + µText[ i ][ j ].slice( 1 );
+        }
+        µText[ i ] = µText[ i ].join( ' ' );
+    }
+
+    return ( Microbe.isArray( text ) ) ? µText : µText[ 0 ];
+};
+
+
+// british people....
+Microbe.capitalise = Microbe.capitalize;
+
+
 Microbe.identity = function( value ) { return value; };
+
+
+Microbe.isEmpty = function( obj )
+{
+    var name;
+    for ( name in obj )
+    {
+        return false;
+    }
+
+    return true;
+};
 
 
 Microbe.isFunction = function( obj )
 {
-    return Microbe.type(obj) === "function";
+    return Microbe.type( obj ) === "function";
 };
 
 
 Microbe.isArray = Array.isArray;
-
-
-Microbe.isWindow = function( obj )
-{
-    return obj !== null && obj === obj.window;
-};
 
 
 Microbe.isObject = function( obj )
@@ -1064,15 +1092,20 @@ Microbe.isObject = function( obj )
 };
 
 
-Microbe.isEmpty = function( obj )
+Microbe.isWindow = function( obj )
 {
-    var name;
-    for ( name in obj )
+    return obj !== null && obj === obj.window;
+};
+
+
+Microbe.isUndefined = function( obj, parent )
+{
+    if ( typeof parent !== 'object' )
     {
-        return false;
+        return true;
     }
 
-    return true;
+    return parent ? !( obj in parent ) : obj === void 0;
 };
 
 
