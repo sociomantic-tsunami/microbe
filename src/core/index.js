@@ -1100,7 +1100,7 @@ Microbe.isWindow = function( obj )
 
 Microbe.isUndefined = function( obj, parent )
 {
-    if ( typeof parent !== 'object' )
+    if ( parent && typeof parent !== 'object' )
     {
         return true;
     }
