@@ -404,8 +404,9 @@ Microbe.core = Microbe.prototype =
             return window.getComputedStyle( _elm ).getPropertyValue( _property );
         };
 
-        if ( _value)
+        if ( _value || _value === false || _value === '' )
         {
+            _value = ( _value === false ) ? '' : _value;
             var i, len;
             for ( i = 0, len = this.length; i < len; i++ )
             {
@@ -421,7 +422,7 @@ Microbe.core = Microbe.prototype =
         }
         if ( styles.length === 1 )
         {
-            return styles[0];
+            return styles[ 0 ];
         }
 
         return styles;

@@ -615,14 +615,14 @@ process.chdir = function (dir) {
 (function (global) {
     'use strict';
 
-    var ObserveUtils = {};
-    if ( typeof module === 'object' && typeof exports !== 'undefined' )
-    {
-        module.exports = ObserveUtils;
-    }
-    else
-    {
-        global.ObserveUtils = ObserveUtils;
+    /**
+     * @namespace
+     */
+    var ObserveUtils;
+    if (typeof exports !== 'undefined') {
+        ObserveUtils = exports;
+    } else {
+        ObserveUtils = global.ObserveUtils = {};
     }
 
     // Utilities
@@ -1617,7 +1617,10 @@ Promise.denodeify = function (fn, argumentCount) {
         if (err) reject(err)
         else resolve(res)
       })
-      fn.apply(self, args)
+      var res = fn.apply(self, args)
+      if (res && (typeof res === 'object' || typeof res === 'function') && typeof res.then === 'function') {
+        resolve(res)
+      }
     })
   }
 }
@@ -2357,8 +2360,9 @@ Microbe.core = Microbe.prototype =
             return window.getComputedStyle( _elm ).getPropertyValue( _property );
         };
 
-        if ( _value)
+        if ( _value || _value === false || _value === '' )
         {
+            _value = ( _value === false ) ? '' : _value;
             var i, len;
             for ( i = 0, len = this.length; i < len; i++ )
             {
@@ -2374,7 +2378,7 @@ Microbe.core = Microbe.prototype =
         }
         if ( styles.length === 1 )
         {
-            return styles[0];
+            return styles[ 0 ];
         }
 
         return styles;
