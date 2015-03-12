@@ -2790,7 +2790,7 @@ Microbe.core = Microbe.prototype =
         };
         return function( _value )
         {
-            if ( _value )
+            if ( _value || _value === '' )
             {
                 var i, len;
                 for ( i = 0, len = this.length; i < len; i++ )
