@@ -27,7 +27,6 @@ gulp.task('test', function()
     return true;
 });
 
-
 gulp.task('clean', function()
 {
     return gulp.src(['dist/'], {read: false}).pipe(clean());

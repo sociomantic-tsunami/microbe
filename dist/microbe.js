@@ -2011,7 +2011,7 @@ function isIterable( obj )
 
 Microbe.core = Microbe.prototype =
 {
-    version :       '0.2.3',
+    version :       '0.2.4',
 
     constructor :   Microbe,
 
@@ -3123,7 +3123,8 @@ module.exports = function( Microbe )
 
         for ( ; i < lenI; i++ )
         {
-            this[ i ] = _elements[ i ];
+            _elements[ i ].data = {};
+            this[ i ]           = _elements[ i ];
         }
 
         this.selector    = _selector;
