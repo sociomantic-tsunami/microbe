@@ -3123,7 +3123,10 @@ module.exports = function( Microbe )
 
         for ( ; i < lenI; i++ )
         {
-            _elements[ i ].data = {};
+            if ( ! _elements[ i ].data )
+            {
+                _elements[ i ].data = {};
+            }
             this[ i ]           = _elements[ i ];
         }
 
