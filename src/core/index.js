@@ -1039,6 +1039,13 @@ Microbe.toString = Microbe.core.toString = function()
     return _type;
 };
 
+
+Microbe.toArray = function( _arr )
+{
+    return Array.prototype.slice.call( _arr );
+};
+
+
 Microbe.type = function( obj )
 {
     if ( obj === null )
