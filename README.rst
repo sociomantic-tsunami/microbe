@@ -1,4 +1,4 @@
-Microbe - 0.2.4
+Microbe - 0.2.5
 =======
 
 Microbe (µ) - a javascript library

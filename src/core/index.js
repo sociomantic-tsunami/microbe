@@ -55,7 +55,7 @@ function isIterable( obj )
 
 Microbe.core = Microbe.prototype =
 {
-    version :       '0.2.4',
+    version :       '0.2.5',
 
     constructor :   Microbe,
 
@@ -236,49 +236,6 @@ Microbe.core = Microbe.prototype =
         }
 
         return attributes;
-    },
-
-
-     /**
-     * Bind Events
-     *
-     * Methods binds an event to the HTMLElements of the current object or to the
-     * given element.
-     *
-     * @param   _event      string          HTMLEvent
-     * @param   _callback   function        callback function
-     *
-     * @return  Microbe
-    */
-    bind : function ( _event, _callback )
-    {
-        var _bind = function( _elm )
-        {
-            var prop = '_' + _event + '-bound-function';
-
-            _elm.data                    = _elm.data || {};
-            _elm.data[ prop ]            = _elm.data[ prop ] || {};
-            var _callbackArray           = _elm.data[ prop ][ prop ];
-
-            var i, len, filterFunction = function( val ){ return val !== null; };
-
-            if ( ! _callbackArray )
-            {
-                _callbackArray = [];
-            }
-
-            _elm.addEventListener( _event, _callback );
-            _callbackArray.push( _callback );
-            _elm.data[ prop ][ prop ]    = _callbackArray;
-        };
-
-        var i, len;
-        for ( i = 0, len = this.length; i < len; i++ )
-        {
-            _bind( this[ i ] );
-        }
-
-        return this;
     },
 
 
@@ -924,56 +881,6 @@ Microbe.core = Microbe.prototype =
     toString : function()
     {
         return _type;
-    },
-
-
-     /**
-     * Unbind Events
-     *
-     * unbinds an/all events.
-     *
-     * @param   _event      string          HTMLEvent
-     * @param   _callback   function        callback function
-     * @param   _el         HTMLELement     element to modify (optional)
-     *
-     * @return  Microbe
-    */
-    unbind : function( _event, _callback )
-    {
-        var i, len, filterFunction = function( val ){ return val !== null; };
-        for ( i = 0, len = this.length; i < len; i++ )
-        {
-            var _elm = this[ i ];
-            var prop = '_' + _event + '-bound-function';
-            if ( ! _callback && _elm.data && _elm.data[ prop ] &&
-                    _elm.data[ prop ][ prop ] )
-            {
-                _callback = _elm.data[ prop ][ prop ];
-            }
-
-            if ( _callback )
-            {
-                if ( Object.prototype.toString.call( _callback ) !== '[Object Array]' )
-                {
-                    _callback = [ _callback ];
-                }
-
-                for ( var j = 0, lenJ = _callback.length; j < lenJ; j++ )
-                {
-                    _elm.removeEventListener( _event, _callback[ j ] );
-                    _callback[ j ] = null;
-                }
-                _callback.filter( filterFunction );
-
-
-                _elm.data                   = _elm.data || {};
-                _elm.data[ prop ]           = _elm.data[ prop ] || {};
-                _elm.data[ prop ][ prop ]   = _callback;
-            }
-
-        }
-
-        return this;
     }
 };
 
