@@ -64,8 +64,7 @@ module.exports = function( Microbe )
             }
 
             _elm.addEventListener( _event, _callback );
-            _callbackArray.push( _callback );
-            _elm.data[ prop ][ prop ]    = _callbackArray;
+            _elm.data[ prop ][ prop ]    = _callback;
         };
 
         var i, len;
