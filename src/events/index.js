@@ -64,7 +64,8 @@ module.exports = function( Microbe )
             }
 
             _elm.addEventListener( _event, _callback );
-            _elm.data[ prop ][ prop ]    = _callback;
+            _callbackArray.push( _callback );
+            _elm.data[ prop ][ prop ]    = _callbackArray;
         };
 
         var i, len;
@@ -90,37 +91,39 @@ module.exports = function( Microbe )
     */
     Microbe.prototype.off = function( _event, _callback )
     {
-        var i, len, filterFunction = function( val ){ return val !== null; };
-        for ( i = 0, len = this.length; i < len; i++ )
+        var _cb, filterFunction = function( val ){ return val !== null; };
+        for ( var i = 0, len = this.length; i < len; i++ )
         {
+            _cb = _callback;
             var _elm = this[ i ];
             var prop = '_' + _event + '-bound-function';
-            if ( ! _callback && _elm.data && _elm.data[ prop ] &&
+
+            if ( ! _cb && _elm.data && _elm.data[ prop ] &&
                     _elm.data[ prop ][ prop ] )
             {
-                _callback = _elm.data[ prop ][ prop ];
+                _cb = _elm.data[ prop ][ prop ];
             }
 
-            if ( _callback )
+            if ( _cb )
             {
-                if ( Object.prototype.toString.call( _callback ) !== '[Object Array]' )
+                if ( Object.prototype.toString.call( _cb ) !== '[object Array]' )
                 {
-                    _callback = [ _callback ];
+                    _cb = [ _cb ];
                 }
 
-                for ( var j = 0, lenJ = _callback.length; j < lenJ; j++ )
+                for ( var j = 0, lenJ = _cb.length; j < lenJ; j++ )
                 {
-                    _elm.removeEventListener( _event, _callback[ j ] );
-                    _callback[ j ] = null;
+                    _elm.removeEventListener( _event, _cb[ j ] );
+                    _cb[ j ] = null;
                 }
-                _callback.filter( filterFunction );
+                _cb.filter( filterFunction );
 
 
                 _elm.data                   = _elm.data || {};
                 _elm.data[ prop ]           = _elm.data[ prop ] || {};
-                _elm.data[ prop ][ prop ]   = _callback;
+                _elm.data[ prop ][ prop ]   = _cb;
             }
-
+            _cb = null;
         }
 
         return this;
