@@ -1,4 +1,4 @@
-Microbe - 0.2.5
+Microbe - 0.2.6
 =======
 
 Microbe (µ) - a javascript library
@@ -36,4 +36,3 @@ Contributing
 
 We gladly accept and review any pull-requests. Feel free! :heart:
 
-.. _traceur-compiler: https://github.com/google/traceur-compiler

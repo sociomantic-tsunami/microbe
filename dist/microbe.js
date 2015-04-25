@@ -2009,7 +2009,7 @@ function isIterable( obj )
 
 Microbe.core = Microbe.prototype =
 {
-    version :       '0.2.5',
+    version :       '0.2.6',
 
     constructor :   Microbe,
 
@@ -3373,7 +3373,7 @@ module.exports = function( Microbe )
 
             if ( _cb )
             {
-                if ( Object.prototype.toString.call( _cb ) !== '[object Array]' )
+                if ( ! Microbe.isArray( _cb ) )
                 {
                     _cb = [ _cb ];
                 }
@@ -3383,7 +3383,6 @@ module.exports = function( Microbe )
                     _elm.removeEventListener( _e, _cb[ j ] );
                     _cb[ j ] = null;
                 }
-                _cb.filter( filterFunction );
 
                 _elm.data                   = _elm.data || {};
                 _elm.data[ prop ]           = _elm.data[ prop ] || {};
@@ -3392,7 +3391,7 @@ module.exports = function( Microbe )
             _cb = null;
         }
 
-        var _cb, filterFunction = function( val ){ return val !== null; };
+        var _cb;
         for ( var i = 0, len = this.length; i < len; i++ )
         {
             var _elm = this[ i ];
@@ -3400,6 +3399,11 @@ module.exports = function( Microbe )
             if ( !_event && _elm.data && _elm.data.__boundEvents && _elm.data.__boundEvents.__boundEvents )
             {
                 _event = _elm.data.__boundEvents.__boundEvents;
+            }
+            else
+            {
+                _elm.data                   = _elm.data || {};
+                _elm.data.__boundEvents     = _elm.data.__boundEvents || {};
             }
 
             if ( !Microbe.isArray( _event ) ) 
@@ -3412,6 +3416,8 @@ module.exports = function( Microbe )
                 _off( _event[ j ], _elm );
                 _event[ j ] = null;
             }
+
+            _elm.data.__boundEvents.__boundEvents = _event.filter( function( e ){ return e; } );
         }
 
         return this;
