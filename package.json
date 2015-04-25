@@ -18,7 +18,7 @@
     "url": "https://github.com/sociomantic/microbe"
   },
   "scripts": {
-    "get-dependencies": "npm install . && ./node_modules/.bin/bower install . && echo \"Installation complete.\"",
+    "get-dependencies": "npm install . && echo \"Installation complete.\"",
     "build": "./node_modules/.bin/gulp && echo \"Build complete.\"",
     "test": "./node_modules/.bin/gulp test && echo \"Tests complete.\"",
     "watch": "./node_modules/.bin/gulp watch"
@@ -27,10 +27,8 @@
     "gulp": "^3.8.8"
   },
   "devDependencies": {
-    "bower": "latest",
     "browserify": "^5.11.2",
     "gulp": "latest",
-    "gulp-concat": "latest",
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.4.0",
     "gulp-rimraf": "latest",
