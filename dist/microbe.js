@@ -619,11 +619,11 @@ process.chdir = function (dir) {
     /**
      * @namespace
      */
-    var ObserveUtils;
-    if (typeof exports !== 'undefined') {
-        ObserveUtils = exports;
+    var ObserveUtils = {};
+    if ( typeof module === 'object' && typeof exports !== 'undefined') {
+        module.exports = ObserveUtils;
     } else {
-        ObserveUtils = global.ObserveUtils = {};
+        global.ObserveUtils = ObserveUtils;
     }
 
     // Utilities
@@ -1618,10 +1618,7 @@ Promise.denodeify = function (fn, argumentCount) {
         if (err) reject(err)
         else resolve(res)
       })
-      var res = fn.apply(self, args)
-      if (res && (typeof res === 'object' || typeof res === 'function') && typeof res.then === 'function') {
-        resolve(res)
-      }
+      fn.apply(self, args)
     })
   }
 }
@@ -2661,6 +2658,8 @@ Microbe.core = Microbe.prototype =
 
         var i, len;
 
+        this.off();
+
         for ( i = 0, len = this.length; i < len; i++ )
         {
             _remove( this[ i ] );
@@ -3324,20 +3323,18 @@ module.exports = function( Microbe )
         {
             var prop = '_' + _event + '-bound-function';
 
-            _elm.data                    = _elm.data || {};
-            _elm.data[ prop ]            = _elm.data[ prop ] || {};
-            var _callbackArray           = _elm.data[ prop ][ prop ];
 
-            var i, len, filterFunction = function( val ){ return val !== null; };
+            _elm.data                   = _elm.data || {};
+            _elm.data[ prop ]           = _elm.data[ prop ] || {};
+            _elm.data[ prop ][ prop ]   = _elm.data[ prop ][ prop ] || [];
 
-            if ( ! _callbackArray )
-            {
-                _callbackArray = [];
-            }
+            _elm.data.__boundEvents     = _elm.data.__boundEvents || {};
+            _elm.data.__boundEvents.__boundEvents   = _elm.data.__boundEvents.__boundEvents || [];                        
 
             _elm.addEventListener( _event, _callback );
-            _callbackArray.push( _callback );
-            _elm.data[ prop ][ prop ]    = _callbackArray;
+            _elm.data[ prop ][ prop ].push( _callback );
+
+            _elm.data.__boundEvents.__boundEvents.push( _event );
         };
 
         var i, len;
@@ -3362,13 +3359,11 @@ module.exports = function( Microbe )
      * @return  Microbe
     */
     Microbe.prototype.off = function( _event, _callback )
-    {
-        var _cb, filterFunction = function( val ){ return val !== null; };
-        for ( var i = 0, len = this.length; i < len; i++ )
+    {   
+        var _off = function( _e, _elm )
         {
             _cb = _callback;
-            var _elm = this[ i ];
-            var prop = '_' + _event + '-bound-function';
+            var prop = '_' + _e + '-bound-function';
 
             if ( ! _cb && _elm.data && _elm.data[ prop ] &&
                     _elm.data[ prop ][ prop ] )
@@ -3385,17 +3380,38 @@ module.exports = function( Microbe )
 
                 for ( var j = 0, lenJ = _cb.length; j < lenJ; j++ )
                 {
-                    _elm.removeEventListener( _event, _cb[ j ] );
+                    _elm.removeEventListener( _e, _cb[ j ] );
                     _cb[ j ] = null;
                 }
                 _cb.filter( filterFunction );
-
 
                 _elm.data                   = _elm.data || {};
                 _elm.data[ prop ]           = _elm.data[ prop ] || {};
                 _elm.data[ prop ][ prop ]   = _cb;
             }
             _cb = null;
+        }
+
+        var _cb, filterFunction = function( val ){ return val !== null; };
+        for ( var i = 0, len = this.length; i < len; i++ )
+        {
+            var _elm = this[ i ];
+
+            if ( !_event && _elm.data && _elm.data.__boundEvents && _elm.data.__boundEvents.__boundEvents )
+            {
+                _event = _elm.data.__boundEvents.__boundEvents;
+            }
+
+            if ( !Microbe.isArray( _event ) ) 
+            {
+                _event = [ _event ];
+            }
+
+            for ( var j = 0, lenJ = _event.length; j < lenJ; j++ ) 
+            {
+                _off( _event[ j ], _elm );
+                _event[ j ] = null;
+            }
         }
 
         return this;
@@ -3752,6 +3768,15 @@ module.exports = function( Microbe )
             if ( ObserveUtils && ! _el.data[ prop ] )
             {
                 ObserveUtils.defineObservableProperties( _el.data, prop );
+            }
+
+            if ( Microbe.isArray( value ) )
+            {
+                value = Microbe.extend( [], value );
+            }
+            else if ( Microbe.isObject( value ) )
+            {
+                value = Microbe.extend( {}, value );
             }
 
             _el.data[ prop ]            = _el.data[ prop ] || {};

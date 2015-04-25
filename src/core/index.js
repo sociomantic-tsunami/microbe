@@ -704,6 +704,8 @@ Microbe.core = Microbe.prototype =
 
         var i, len;
 
+        this.off();
+
         for ( i = 0, len = this.length; i < len; i++ )
         {
             _remove( this[ i ] );
