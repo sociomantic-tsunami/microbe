@@ -21,6 +21,7 @@ is separated into several categories:
 future* (selectors, attributes, … )
 - HTTP helpers making use of Promises (get, post, … )
 - Observe ( observe, get, set, … )
+- Events ( on, off, emit )
 
 Don’t hesitate to file issues and features requests!  Or change things youself and send a pull request.
 
