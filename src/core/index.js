@@ -55,7 +55,7 @@ function isIterable( obj )
 
 Microbe.core = Microbe.prototype =
 {
-    version :       '0.2.6',
+    version :       '0.3',
 
     constructor :   Microbe,
 
@@ -153,9 +153,8 @@ Microbe.core = Microbe.prototype =
      * Alter/Get Attribute
      *
      * Changes the attribute by writing the given property and value to the
-     * supplied elements. (properties should be supplied in javascript format).
-     * If the value is omitted, simply returns the current attribute value  of the
-     * element.
+     * supplied elements.  If the value is omitted, simply returns the current 
+     * attribute value of the element.
      *
      * @param   _attribute  string           JS formatted CSS property
      * @param   _value      string           CSS value (optional)
@@ -164,11 +163,7 @@ Microbe.core = Microbe.prototype =
     */
     attr : function ( _attribute, _value )
     {
-        var _setAttr;
-        var _getAttr;
-        var _removeAttr;
-
-        _setAttr = function( _elm )
+        var _setAttr = function( _elm )
         {
             if ( _value === null )
             {
@@ -185,13 +180,14 @@ Microbe.core = Microbe.prototype =
                     _elm.setAttribute( _attribute, _value );
                 }
 
-                _elm.data                    = _elm.data || {};
-                _elm.data.attr               = _elm.data.attr || {};
-                _elm.data.attr[ _attribute ] = _value;
+                _elm.data                           = _elm.data || {};
+                _elm.data.attr                      = _elm.data.attr || {};
+                _elm.data.attr.attr                 = _elm.data.attr.attr || {};
+                _elm.data.attr.attr[ _attribute ]   = _value;
             }
         };
 
-        _getAttr = function( _elm )
+        var _getAttr = function( _elm )
         {
             if ( _elm.getAttribute( _attribute ) === null )
             {
@@ -200,7 +196,7 @@ Microbe.core = Microbe.prototype =
             return _elm.getAttribute( _attribute );
         };
 
-        _removeAttr = function( _elm )
+        var _removeAttr = function( _elm )
         {
             if ( _elm.getAttribute( _attribute ) === null )
             {
@@ -210,6 +206,8 @@ Microbe.core = Microbe.prototype =
             {
                 _elm.removeAttribute( _attribute );
             }
+
+                delete _elm.data.attr.attr[ _attribute ];
         };
 
         if ( _value !== undefined )
@@ -228,11 +226,6 @@ Microbe.core = Microbe.prototype =
         for ( j = 0, lenj = this.length; j < lenj; j++ )
         {
             attributes[ j ] = _getAttr( this[ j ] );
-        }
-
-        if ( attributes.length === 1 )
-        {
-            return attributes[0];
         }
 
         return attributes;
@@ -258,79 +251,10 @@ Microbe.core = Microbe.prototype =
 
         for ( i = 0, len = this.length; i < len; i++ )
         {
-            childrenArray[ i ] = _children( this[ i ] );
-        }
-
-        if ( childrenArray.length === 1 )
-        {
-            return childrenArray[0];
+            childrenArray[ i ] = new Microbe( '', undefined, _children( this[ i ] )[0] );
         }
 
         return childrenArray;
-    },
-
-
-    /**
-     * Create Element
-     *
-     * Method creates a Microbe from an element or a new element of the passed string, and
-     * returns the Microbe
-     *
-     * @param   _el                 HTMLELement         element to create
-     *
-     * @return  Microbe
-    */
-    create : function ( _el )
-    {
-        var selectorRegex   = /(?:[\s]*\.([\w-_\.]*)|#([\w-_]*)|([^#\.<][\w-_]*)|(<[\w-_#\.]*>))/g,
-            resultsRegex    = _el.match( selectorRegex ),
-            _id, _tag, _class, _selector = '';
-
-        var i, lenI;
-        for ( i = 0, lenI = resultsRegex.length; i < lenI; i++ )
-        {
-            var trigger = resultsRegex[ i ][ 0 ];
-            switch ( trigger )
-            {
-                case '#':
-                    _id      = resultsRegex[ i ];
-                    break;
-
-                case '.':
-                    _class   = resultsRegex[ i ];
-                    break;
-
-                default:
-                    _tag     = resultsRegex[ i ];
-                    break;
-            }
-        }
-
-        if ( typeof _tag === 'string' )
-        {
-            _el = document.createElement( _tag );
-            _selector = _tag;
-
-            if ( _id )
-            {
-                _selector += _id;
-                _el.id = _id.slice( 1 );
-            }
-
-            if ( _class )
-            {
-                _selector += _class;
-                _class = _class.split( '.' );
-
-                for ( i = 1, lenI = _class.length; i < lenI; i++ )
-                {
-                    _el.classList.add( _class[ i ] );
-                }
-            }
-
-        }
-
-        return new Microbe( _selector, undefined, _el );
     },
 
 

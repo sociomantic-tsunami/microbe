@@ -1,6 +1,6 @@
 {
   "name": "microbe.js",
-  "version": "0.2.6",
+  "version": "0.3",
   "author": "Mouse Braun <mouse@sociomantic.com>",
   "description": "micro-library front-end in javascript next",
   "contributors": [
@@ -36,6 +36,7 @@
     "observe-shim": "^0.4.1",
     "observe-utils": "^0.3.2",
     "promise": "^6.0.0",
+    "qunitjs": "^1.18.0",
     "setimmediate": "^1.0.2"
   },
   "license": "MIT"
