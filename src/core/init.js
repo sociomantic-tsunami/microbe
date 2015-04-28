@@ -18,6 +18,7 @@ module.exports = function( Microbe )
      */
     function _build( _elements, _selector )
     {
+console.log( _elements );
         var i = 0, lenI = _elements.length;
 
         for ( ; i < lenI; i++ )
@@ -28,7 +29,7 @@ module.exports = function( Microbe )
 
         this.selector    = _selector;
         this.length      = i;
-        
+// console.log( this );
         return this;
     }
 
@@ -94,7 +95,7 @@ module.exports = function( Microbe )
         }
 
         return _build.call( this, [ _el ],  _selector );
-    };
+    }
 
 
     /**
@@ -146,14 +147,14 @@ module.exports = function( Microbe )
         if ( _selector.nodeType === 1 || Object.prototype.toString.call( _selector ) === '[object Array]' ||
             _selector === window || _selector === document )
         {
-            return _build.call( this, [ _selector ],  '' );
+            return _build.call( this, _selector,  '' );
         }
 
         _scope = _scope === undefined ?  document : _scope;
 
         // if ( ! _scope.nodeType && _scope === window )
         // {
-        // accept string or µ scope 
+        // accept string or µ scope
         // }
 
         var scopeNodeType   = _scope.nodeType,

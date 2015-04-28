@@ -153,7 +153,7 @@ Microbe.core = Microbe.prototype =
      * Alter/Get Attribute
      *
      * Changes the attribute by writing the given property and value to the
-     * supplied elements.  If the value is omitted, simply returns the current 
+     * supplied elements.  If the value is omitted, simply returns the current
      * attribute value of the element.
      *
      * @param   _attribute  string           JS formatted CSS property
@@ -300,10 +300,6 @@ Microbe.core = Microbe.prototype =
         for ( j = 0, lenj = this.length; j < lenj; j++ )
         {
             styles[ j ] = _getCss( this[ j ] );
-        }
-        if ( styles.length === 1 )
-        {
-            return styles[ 0 ];
         }
 
         return styles;
@@ -453,10 +449,6 @@ Microbe.core = Microbe.prototype =
             markup[ j ] = _getHtml( this[ j ] );
         }
 
-        if ( markup.length === 1 || typeof markup === 'string' )
-        {
-            return markup[0];
-        }
         return markup;
     },
 
@@ -732,11 +724,6 @@ Microbe.core = Microbe.prototype =
             for ( j = 0, lenj = this.length; j < lenj; j++ )
             {
                 arrayText[ j ] = _getText( this[ j ] );
-            }
-
-            if ( arrayText.length === 1 )
-            {
-                return arrayText[0];
             }
 
             return arrayText;
