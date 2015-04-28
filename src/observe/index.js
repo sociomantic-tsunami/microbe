@@ -178,6 +178,15 @@ module.exports = function( Microbe )
                 ObserveUtils.defineObservableProperties( _el.data, prop );
             }
 
+            if ( Microbe.isArray( value ) )
+            {
+                value = Microbe.extend( [], value );
+            }
+            else if ( Microbe.isObject( value ) )
+            {
+                value = Microbe.extend( {}, value );
+            }
+
             _el.data[ prop ]            = _el.data[ prop ] || {};
             _el.data[ prop ][ prop ]    = value;
         };
