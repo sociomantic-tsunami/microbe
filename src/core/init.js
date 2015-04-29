@@ -14,22 +14,24 @@ module.exports = function( Microbe )
      * @param  {arr}                _elements           array of elements
      * @param  {str}                _selector           selector
      *
-     * @return {microbe}                                micr9be wrapped elements
+     * @return {microbe}                                micrbe wrapped elements
      */
     function _build( _elements, _selector )
     {
-console.log( _elements );
         var i = 0, lenI = _elements.length;
 
         for ( ; i < lenI; i++ )
         {
-            _elements[ i ].data = _elements[ i ].data || {};
-            this[ i ]           = _elements[ i ];
+            if ( _elements[ i ] )
+            {
+                _elements[ i ].data = _elements[ i ].data || {};
+                this[ i ]           = _elements[ i ];
+            }
         }
 
-        this.selector    = _selector;
-        this.length      = i;
-// console.log( this );
+        this._selector  = _selector;
+        this.length     = i;
+
         return this;
     }
 
@@ -147,6 +149,7 @@ console.log( _elements );
         if ( _selector.nodeType === 1 || Object.prototype.toString.call( _selector ) === '[object Array]' ||
             _selector === window || _selector === document )
         {
+            _selector = Microbe.isArray( _selector ) ? _selector : [ _selector ];
             return _build.call( this, _selector,  '' );
         }
 

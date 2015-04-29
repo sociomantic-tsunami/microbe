@@ -1,13 +1,13 @@
 
-//   	assert.same( [1], [1], 'passes' );
+/* global document, window, µ, QUnit  */
 
 // test('asynchronous test', function() {
 //     // Pause the test first
 //     stop();
-     
+
 //     setTimeout(function() {
 //         ok(true);
- 
+
 //         // After the assertion has been called,
 //         // continue the test
 //         start();
@@ -18,7 +18,7 @@
 QUnit.module( 'core/init' );
 
 
-QUnit.test( 'wrap an element - 001a - slower', function( assert ) 
+QUnit.test( 'wrap an element - 001a - slower', function( assert )
 {
     var _body = document.getElementsByTagName( 'body' )[0];
     var µBody = µ( _body );
@@ -28,7 +28,7 @@ QUnit.test( 'wrap an element - 001a - slower', function( assert )
 });
 
 
-QUnit.test( 'query class - 002 - slower', function( assert ) 
+QUnit.test( 'query class - 002 - slower', function( assert )
 {
     var _div = document.getElementsByClassName( 'example--class' )[0];
     var µDiv = µ( '.example--class' );
@@ -38,7 +38,7 @@ QUnit.test( 'query class - 002 - slower', function( assert )
 });
 
 
-QUnit.test( 'query id - 003 - slower', function( assert ) 
+QUnit.test( 'query id - 003 - slower', function( assert )
 {
     var _div = document.getElementById( 'example--id' );
     var µDiv = µ( '#example--id' );
@@ -48,7 +48,7 @@ QUnit.test( 'query id - 003 - slower', function( assert )
 });
 
 
-QUnit.test( 'query tagname - 004 - slower', function( assert ) 
+QUnit.test( 'query tagname - 004 - slower', function( assert )
 {
     var _div = document.getElementsByTagName( 'div' )[0];
     var µDiv = µ( 'div' );
@@ -57,7 +57,7 @@ QUnit.test( 'query tagname - 004 - slower', function( assert )
 });
 
 
-QUnit.test( 'query combined - 005 - slower', function( assert ) 
+QUnit.test( 'query combined - 005 - slower', function( assert )
 {
     var _div = document.querySelector( 'div#example--combined.example--combined' );
     var µDiv = µ( 'div#example--combined.example--combined' );
@@ -67,7 +67,7 @@ QUnit.test( 'query combined - 005 - slower', function( assert )
 });
 
 
-// QUnit.test( 'query microbe scope', function( assert ) 
+// QUnit.test( 'query microbe scope', function( assert )
 // {
 //     var µDiv = µ( 'div', µ( '.example--class--groups' ) );
 
@@ -75,7 +75,7 @@ QUnit.test( 'query combined - 005 - slower', function( assert )
 // });
 
 
-QUnit.test( 'query element scope - 006 - slower', function( assert ) 
+QUnit.test( 'query element scope - 006 - slower', function( assert )
 {
     var µDiv = µ( 'div', µ( '.example--class--groups' )[0] );
 
@@ -83,7 +83,7 @@ QUnit.test( 'query element scope - 006 - slower', function( assert )
 });
 
 
-// QUnit.test( 'query string scope', function( assert ) 
+// QUnit.test( 'query string scope', function( assert )
 // {
 //     var µDiv = µ( 'div', '.example--class--groups' );
 
@@ -95,7 +95,7 @@ QUnit.test( 'query element scope - 006 - slower', function( assert )
 QUnit.module( 'core/index' );
 
 
-QUnit.test( 'µ().version', function( assert ) 
+QUnit.test( 'µ().version', function( assert )
 {
     var version = '0.3';
 
@@ -103,14 +103,22 @@ QUnit.test( 'µ().version', function( assert )
 });
 
 
-QUnit.test( 'µ().length', function( assert ) 
+QUnit.test( 'µ().type', function( assert )
+{
+    var type = '[object Microbe]';
+
+    assert.equal( µ().type, type, 'type is ' + type );
+});
+
+
+QUnit.test( 'µ().length', function( assert )
 {
     assert.equal( µ().length, 0, 'length initializes' );
     assert.equal( µ( 'div' ).length, 8, 'length reports correctly' );
 });
 
 
-QUnit.test( '.addClass()', function( assert ) 
+QUnit.test( '.addClass()', function( assert )
 {
     assert.ok( µ().addClass, 'exists' );
 
@@ -129,7 +137,7 @@ QUnit.test( '.addClass()', function( assert )
 });
 
 
-QUnit.test( '.append()', function( assert ) 
+QUnit.test( '.append()', function( assert )
 {
     assert.ok( µ().append, 'exists' );
 
@@ -167,7 +175,7 @@ QUnit.test( '.append()', function( assert )
 });
 
 
-QUnit.test( '.attr()', function( assert ) 
+QUnit.test( '.attr()', function( assert )
 {
     assert.ok( µ().attr, 'exists' );
 
@@ -184,21 +192,35 @@ QUnit.test( '.attr()', function( assert )
 });
 
 
-// QUnit.test( '.attr()', function( assert ) 
-// {
-//     assert.ok( µ().attr, 'exists' );
+QUnit.test( '.children()', function( assert )
+{
+    assert.ok( µ().children, 'exists' );
 
-//     var µTarget = µ( '#example--id' );
+    var children = µ( '.example--class' ).children();
 
-//     µTarget.attr( 'testing', 'should work' );
-//     assert.equal( µTarget[0].getAttribute( 'testing' ), 'should work', 'attribute set' );
-
-//     var attrGotten = µTarget.attr( 'testing' );
-//     assert.equal( attrGotten, 'should work', 'attribute gotten' );
-
-//     µTarget.attr( 'testing', null );
-//     assert.equal( µTarget[0].getAttribute( 'testing' ), null, 'attribute removed' );
-// });
+    assert.ok( µ.isArray( children ), 'returns an array' );
+    assert.ok( children[0].type === '[object Microbe]', 'full of microbes' );
+    assert.deepEqual( µ( '.example--class' )[0].children[0], children[0][0], 'the correct children' );
+});
 
 
+QUnit.test( '.css()', function( assert )
+{
+    assert.ok( µ().css, 'exists' );
+
+    var µTarget = µ( '#example--id' );
+
+    µTarget.css( 'background-color', 'rgb(255, 0, 0)' );
+    assert.equal( µTarget[0].style.backgroundColor, 'rgb(255, 0, 0)', 'css set' );
+
+    var cssGotten = µTarget.css( 'background-color' );
+    assert.ok( µ.isArray( cssGotten ), 'css get returns an array' );
+    assert.ok( cssGotten[0].length, 'full of strings' );
+    assert.equal( cssGotten.length, µTarget.length, 'correct amount of results' );
+    assert.equal( cssGotten[0], 'rgb(255, 0, 0)', 'correct result' );
+
+
+    µTarget.css( 'background-color', null );
+    assert.equal( µTarget[0].style.backgroundColor, '', 'css removed' );
+});
 

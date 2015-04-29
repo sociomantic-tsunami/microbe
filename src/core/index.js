@@ -59,9 +59,11 @@ Microbe.core = Microbe.prototype =
 
     constructor :   Microbe,
 
-    selector :      '',
+    type :          _type,
 
     length :        0,
+
+    _selector:      '',
 
 
     /**
@@ -237,21 +239,20 @@ Microbe.core = Microbe.prototype =
      *
      * gets an array or all the given element's children
      *
-     * @param  {[type]} _el [description]
-     * @return {[type]}     [description]
+     * @return {arr}                                    array of microbes
      */
-    children : function( _el )
+    children : function()
     {
         var _children = function( _elm )
         {
-            return _elm.children;
+            return Microbe.toArray( _elm.children );
         };
 
         var i, len, childrenArray = new Array( this.length );
 
         for ( i = 0, len = this.length; i < len; i++ )
         {
-            childrenArray[ i ] = new Microbe( '', undefined, _children( this[ i ] )[0] );
+            childrenArray[ i ] = new Microbe( '', undefined, _children( this[ i ] ) );
         }
 
         return childrenArray;
@@ -268,7 +269,7 @@ Microbe.core = Microbe.prototype =
      * @param   _property   string          CSS property
      * @param   _value      string          CSS value (optional)
      *
-     * @return  mixed ( Microbe or string or array of strings)
+     * @return  mixed ( Microbe or array of strings)
     */
     css : function ( _property, _value )
     {
@@ -285,9 +286,10 @@ Microbe.core = Microbe.prototype =
             return window.getComputedStyle( _elm ).getPropertyValue( _property );
         };
 
-        if ( _value || _value === false || _value === '' )
+        if ( _value || _value === null || _value === '' )
         {
-            _value = ( _value === false ) ? '' : _value;
+            _value = ( _value === null ) ? '' : _value;
+
             var i, len;
             for ( i = 0, len = this.length; i < len; i++ )
             {
@@ -662,6 +664,54 @@ Microbe.core = Microbe.prototype =
             return this;
         };
     }()),
+
+
+    /**
+     * Get Selector
+     *
+     * returns the css selector from an element
+     *
+     * @return {obj}                                    microbe
+     */
+    selector : function()
+    {
+        var self = this;
+
+        return this._selector || (function()
+        {
+            var getSelectorString = function( _elm )
+            {
+                if ( _elm && _elm.tagName )
+                {
+                    var tag = _elm.tagName.toLowerCase(),
+                    id      = ( _elm.id ) ? '#' + _elm.id : '',
+                    clss    = Array.prototype.join.call( _elm.classList, '.' );
+
+                    return tag + id + clss;
+                }
+
+                // document or window
+                return '';
+            };
+
+            var _selector, selectors = [];
+
+            for ( var i = 0, lenI = self.length; i < lenI; i++ )
+            {
+                _selector = getSelectorString( self[ i ] );
+
+                if ( selectors.indexOf( _selector ) === -1 )
+                {
+                    selectors.push( _selector );
+                }
+            }
+
+            selectors       = selectors.join( ', ' );
+            self._selector  = selectors;
+
+            return selectors;
+        })();
+    },
 
 
     splice : splice,
