@@ -2365,7 +2365,7 @@ Microbe.core = Microbe.prototype =
      *
      * @return  mixed ( Microbe or string or array of strings)
     */
-    html : function ( _value, _el )
+    html : function ( _value )
     {
         var _getHtml = function( _elm )
         {
@@ -2386,12 +2386,6 @@ Microbe.core = Microbe.prototype =
                 _elm.data.html.html = _value;
                 _elm.innerHTML      = _value;
             };
-
-            if ( _el )
-            {
-                _setHtml( _el );
-                return this;
-            }
 
             var i, len;
             for ( i = 0, len = this.length; i < len; i++ )
@@ -2643,6 +2637,8 @@ Microbe.core = Microbe.prototype =
                     var tag = _elm.tagName.toLowerCase(),
                     id      = ( _elm.id ) ? '#' + _elm.id : '',
                     clss    = Array.prototype.join.call( _elm.classList, '.' );
+                    
+                    clss = ( clss !== '' ) ? '.' + clss : clss; 
 
                     return tag + id + clss;
                 }
@@ -2739,19 +2735,6 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * To array
-     *
-     * Methods returns all the elements in an array.
-     *
-     * @return  Array
-    */
-    toArray : function()
-    {
-        return Array.prototype.slice.call( this );
-    },
-
-
-    /**
      * Toggle Class
      *
      * Methods calls removeClass or removeClass from the current object or given
@@ -2788,20 +2771,7 @@ Microbe.core = Microbe.prototype =
 
             return this;
         };
-    }()),
-
-
-    /**
-     * To String
-     *
-     * Methods returns the type of Microbe.
-     *
-     * @return  string
-    */
-    toString : function()
-    {
-        return _type;
-    }
+    }())
 };
 
 Microbe.extend = Microbe.core.extend = function()
@@ -2939,6 +2909,12 @@ Microbe.isUndefined = function( obj, parent )
 
 Microbe.merge = Microbe.core.merge  = function( first, second )
 {
+    if ( !second )
+    {
+        second  = first;
+        first   = this;
+    }
+
     var i = first.length;
 
     for ( var j = 0, length = second.length; j < length; j++ )
@@ -2954,13 +2930,28 @@ Microbe.merge = Microbe.core.merge  = function( first, second )
 
 Microbe.noop = function() {};
 
+
+/**
+ * To String
+ *
+ * Methods returns the type of Microbe.
+ *
+ * @return  string
+*/
 Microbe.toString = Microbe.core.toString = function()
 {
     return _type;
 };
 
 
-Microbe.toArray = function( _arr )
+/**
+ * To array
+ *
+ * Methods returns all the elements in an array.
+ *
+ * @return  Array
+*/
+Microbe.toArray = Microbe.core.toArray = function( _arr )
 {
     return Array.prototype.slice.call( _arr );
 };
