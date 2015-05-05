@@ -33,25 +33,6 @@ var Microbe = function( selector, scope, elements )
     return new Microbe.core.__init__( selector, scope, elements );
 };
 
-function isIterable( obj )
-{
-    var length  = obj.length;
-    var type    = Microbe.type( obj );
-
-    if ( type === 'function' || obj === window )
-    {
-        return false;
-    }
-
-    if ( obj.nodeType === 1 && length )
-    {
-        return true;
-    }
-
-    return type === 'array' || length === 0 ||
-        ( typeof length === 'number' && length > 0 && ( length - 1 ) in obj );
-}
-
 
 Microbe.core = Microbe.prototype =
 {
@@ -452,7 +433,7 @@ Microbe.core = Microbe.prototype =
     /**
      * Index of
      *
-     *
+     * returns the index of an element in this microbe
      *
      * @return {void}
      */
@@ -680,8 +661,8 @@ Microbe.core = Microbe.prototype =
                     var tag = _elm.tagName.toLowerCase(),
                     id      = ( _elm.id ) ? '#' + _elm.id : '',
                     clss    = Array.prototype.join.call( _elm.classList, '.' );
-                    
-                    clss = ( clss !== '' ) ? '.' + clss : clss; 
+
+                    clss = ( clss !== '' ) ? '.' + clss : clss;
 
                     return tag + id + clss;
                 }
@@ -710,6 +691,9 @@ Microbe.core = Microbe.prototype =
     },
 
 
+    /**
+     * native splice
+     */
     splice : splice,
 
 
@@ -818,9 +802,17 @@ Microbe.core = Microbe.prototype =
 };
 
 
+/**
+ * Extend
+ *
+ * extends an object or microbe
+ *
+ * @return {obj}
+ */
 Microbe.extend = Microbe.core.extend = function()
 {
     var args    = slice.call( arguments );
+
     var index   = 0;
     var length  = args.length;
     var deep    = false;
@@ -831,23 +823,23 @@ Microbe.extend = Microbe.core.extend = function()
     var copy;
     var clone;
 
-    if ( args[index] === true )
+    if ( args[ index ] === true )
     {
         deep    = true;
         index   += 1;
     }
 
-    target = Microbe.isObject( args[index] ) ? args[index] : {};
+    target = this.type === '[object Microbe]' ? this : Microbe.isObject( args[ index ] ) ? args[ index ] : {};
 
     for ( ; index < length; index++ )
     {
-        if ( ( options = args[index] ) !== null )
+        if ( ( options = args[ index ] ) !== null )
         {
             for ( var name in options )
             {
                 isArray = false;
-                src     = target[name];
-                copy    = options[name];
+                src     = target[ name ];
+                copy    = options[ name ];
 
                 if ( target === copy || copy === undefined )
                 {
@@ -881,10 +873,10 @@ Microbe.extend = Microbe.core.extend = function()
  * Merge
  *
  * combines microbes elements.
- * 
+ *
  * @param  {arr, obj}                first              first array or array-like object
  * @param  {arr, obj}                second             second array or array-like object
- * 
+ *
  * @return {arr, obj}                                   combined arr or obj (based off first)
  */
 Microbe.merge = Microbe.core.merge  = function( first, second )
@@ -908,7 +900,16 @@ Microbe.merge = Microbe.core.merge  = function( first, second )
 };
 
 
-
+/**
+ * Capitalize String
+ *
+ * capitalizes every word in a string or an array of strings and returns the
+ * type that it was given
+ *
+ * @param  {str, arr}               text                string(s) to capitalize
+ *
+ * @return {str, arr}                                   capitalized string(s)
+ */
 Microbe.capitalize = function( text )
 {
     var µText = ( ! Microbe.isArray( text ) ) ? [ text ] : text;
@@ -931,19 +932,32 @@ Microbe.capitalize = function( text )
 Microbe.capitalise = Microbe.capitalize;
 
 
-
-
-
+/**
+ * Identify a value
+ *
+ * returns itself if a value needs to be executed
+ *
+ * @param  {any}                    value               any value
+ *
+ * @return {value}
+ */
 Microbe.identity = function( value ) { return value; };
 
+
+/**
+ * nothing happens
+ *
+ * https://en.wikipedia.org/wiki/Xyzzy_(computing)
+ *
+ * @return {void}
+ */
 Microbe.noop = function() {};
 Microbe.xyzzy = Microbe.noop;
 
 
-
 /**
  * native isArray for completeness
- * 
+ *
  * @type {func}
  */
 Microbe.isArray = Array.isArray;
@@ -953,9 +967,9 @@ Microbe.isArray = Array.isArray;
  * isEmpty
  *
  * checks if the passed object is empty
- * 
+ *
  * @param  {obj}                    obj                 object to check
- * 
+ *
  * @return {Boolean}                                    empty or not
  */
 Microbe.isEmpty = function( obj )
@@ -974,9 +988,9 @@ Microbe.isEmpty = function( obj )
  * isFunction
  *
  * checks if the passed parameter is a function
- * 
+ *
  * @param  {obj}                    obj                 object to check
- * 
+ *
  * @return {Boolean}                                    function or not
  */
 Microbe.isFunction = function( obj )
@@ -989,9 +1003,9 @@ Microbe.isFunction = function( obj )
  * isObject
  *
  * checks if the passed parameter is an object
- * 
+ *
  * @param  {obj}                    obj                 object to check
- * 
+ *
  * @return {Boolean}                                    isObject or not
  */
 Microbe.isObject = function( obj )
@@ -1007,10 +1021,10 @@ Microbe.isObject = function( obj )
 
 /**
  * isUndefined
- * 
+ *
  * @param  {str}                    obj                 property
  * @param  {obj}                    parent              object to check
- * 
+ *
  * @return {Boolean}                                    obj in parent
  */
 Microbe.isUndefined = function( obj, parent )
@@ -1028,9 +1042,9 @@ Microbe.isUndefined = function( obj, parent )
  * isWindow
  *
  * checks if the passed parameter equals window
- * 
+ *
  * @param  {obj}                    obj                 object to check
- * 
+ *
  * @return {Boolean}                                    isWindow or not
  */
 Microbe.isWindow = function( obj )
@@ -1067,12 +1081,12 @@ Microbe.toArray = Microbe.prototype.toArray = function( _arr )
 
 
 /**
- * Type
+ * Type of
  *
  * returns the type of the parameter passed to it
- * 
+ *
  * @param  {all}                    obj                 parameter to test
- * 
+ *
  * @return {str}                                        typeof obj
  */
 Microbe.type = function( obj )
@@ -1082,9 +1096,11 @@ Microbe.type = function( obj )
         return obj + '';
     }
 
-    return typeof obj === 'object' ?
-        Types[ obj.toString() ] || 'object' :
-        typeof obj;
+    var type = Types[ Object.prototype.toString.call( obj ) ];
+        type = !type ? Types[ obj.toString() ] : type;
+    return  type || typeof obj;
 };
 
+
 module.exports = Microbe;
+
