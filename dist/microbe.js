@@ -2914,7 +2914,7 @@ Microbe.merge = Microbe.core.merge  = function( first, second )
         second  = first;
         first   = this;
     }
-
+console.log( first, second );
     var i = first.length;
 
     for ( var j = 0, length = second.length; j < length; j++ )
@@ -2938,7 +2938,7 @@ Microbe.noop = function() {};
  *
  * @return  string
 */
-Microbe.toString = Microbe.core.toString = function()
+Microbe.toString = Microbe.prototype.toString = function()
 {
     return _type;
 };
@@ -2951,8 +2951,9 @@ Microbe.toString = Microbe.core.toString = function()
  *
  * @return  Array
 */
-Microbe.toArray = Microbe.core.toArray = function( _arr )
+Microbe.toArray = Microbe.prototype.toArray = function( _arr )
 {
+    _arr = _arr || this;
     return Array.prototype.slice.call( _arr );
 };
 
