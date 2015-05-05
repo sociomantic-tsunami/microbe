@@ -632,10 +632,22 @@ QUnit.test( '.extend()', function( assert )
 });
 
 
+QUnit.test( '.merge()', function( assert )
+{
+    assert.ok( µ().merge, 'exists' );
+    assert.ok( µ.merge, 'exists' );
+});
+
+
 QUnit.test( '.capitalize()', function( assert )
 {
     assert.ok( µ.capitalize, 'exists' );
     assert.ok( µ.capitalise, 'exists' );
+    assert.ok( µ.capitalise( 'i dont know' ) === 'I Dont Know', 'capitalizes strings' );
+
+    var strArr = [ 'i dont know', 'for real' ];
+        strArr = µ.capitalize( strArr );
+    assert.ok( strArr[0] === 'I Dont Know' && strArr[1] === 'For Real', 'capitalizes string arrays' );
 });
 
 
@@ -645,52 +657,60 @@ QUnit.test( '.identity()', function( assert )
 });
 
 
-QUnit.test( '.isEmpty()', function( assert )
+QUnit.test( '.noop()', function( assert )
 {
-    assert.ok( µ.isEmpty, 'exists' );
-});
-
-
-QUnit.test( '.isFunction()', function( assert )
-{
-    assert.ok( µ.isFunction, 'exists' );
+    assert.ok( µ.noop, 'exists' );
+    assert.ok( µ.xyzzy, 'exists' );
+    assert.equal( µ.noop(), undefined, 'nothing happens' );
 });
 
 
 QUnit.test( '.isArray()', function( assert )
 {
     assert.ok( µ.isArray, 'exists' );
+    assert.ok( µ.isArray( [ 1, 2, 3 ] ), 'true for array' );
+    assert.ok( !µ.isArray( { 1: 'a', 2: 'b' } ), 'false otherwise' );
+});
+
+
+QUnit.test( '.isEmpty()', function( assert )
+{
+    assert.ok( µ.isEmpty, 'exists' );
+    assert.ok( µ.isEmpty( {} ), 'true on empty' );
+    assert.ok( !µ.isEmpty( { a: 1 } ), 'false otherwise' );
+});
+
+
+QUnit.test( '.isFunction()', function( assert )
+{
+    assert.ok( µ.isFunction, 'exists' );
+    assert.ok( µ.isFunction( assert.ok ), 'true on function' );
+    assert.ok( !µ.isFunction( {} ), 'false otherwise' );
 });
 
 
 QUnit.test( '.isObject()', function( assert )
 {
     assert.ok( µ.isObject, 'exists' );
+    assert.ok( µ.isObject( {} ), 'true on object' );
+    assert.ok( !µ.isObject( 'ä' ), 'false otherwise' );
+});
+
+
+QUnit.test( '.isUndefined()', function( assert )
+{
+    var parent = { a: 1 };
+    assert.ok( µ.isUndefined, 'exists' );
+    assert.ok( !µ.isUndefined( 'a', parent ), 'false if parent contains property' );
+    assert.ok( µ.isUndefined( 'b', parent ), 'true otherwise' );
 });
 
 
 QUnit.test( '.isWindow()', function( assert )
 {
     assert.ok( µ.isWindow, 'exists' );
-});
-
-
-QUnit.test( '.isUndefined()', function( assert )
-{
-    assert.ok( µ.isUndefined, 'exists' );
-});
-
-
-QUnit.test( '.merge()', function( assert )
-{
-    assert.ok( µ().merge, 'exists' );
-    assert.ok( µ.merge, 'exists' );
-});
-
-
-QUnit.test( '.noop()', function( assert )
-{
-    assert.ok( µ.noop, 'exists' );
+    assert.ok( µ.isWindow( window ), 'true on window' );
+    assert.ok( !µ.isWindow( {} ), 'false otherwise' );
 });
 
 
