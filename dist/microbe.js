@@ -2365,7 +2365,7 @@ Microbe.core = Microbe.prototype =
      *
      * @return  mixed ( Microbe or string or array of strings)
     */
-    html : function ( _value, _el )
+    html : function ( _value )
     {
         var _getHtml = function( _elm )
         {
@@ -2386,12 +2386,6 @@ Microbe.core = Microbe.prototype =
                 _elm.data.html.html = _value;
                 _elm.innerHTML      = _value;
             };
-
-            if ( _el )
-            {
-                _setHtml( _el );
-                return this;
-            }
 
             var i, len;
             for ( i = 0, len = this.length; i < len; i++ )
@@ -2643,6 +2637,8 @@ Microbe.core = Microbe.prototype =
                     var tag = _elm.tagName.toLowerCase(),
                     id      = ( _elm.id ) ? '#' + _elm.id : '',
                     clss    = Array.prototype.join.call( _elm.classList, '.' );
+                    
+                    clss = ( clss !== '' ) ? '.' + clss : clss; 
 
                     return tag + id + clss;
                 }
@@ -2739,19 +2735,6 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * To array
-     *
-     * Methods returns all the elements in an array.
-     *
-     * @return  Array
-    */
-    toArray : function()
-    {
-        return Array.prototype.slice.call( this );
-    },
-
-
-    /**
      * Toggle Class
      *
      * Methods calls removeClass or removeClass from the current object or given
@@ -2788,21 +2771,9 @@ Microbe.core = Microbe.prototype =
 
             return this;
         };
-    }()),
-
-
-    /**
-     * To String
-     *
-     * Methods returns the type of Microbe.
-     *
-     * @return  string
-    */
-    toString : function()
-    {
-        return _type;
-    }
+    }())
 };
+
 
 Microbe.extend = Microbe.core.extend = function()
 {
@@ -2863,6 +2834,38 @@ Microbe.extend = Microbe.core.extend = function()
 };
 
 
+/**
+ * Merge
+ *
+ * combines microbes elements.
+ * 
+ * @param  {arr, obj}                first              first array or array-like object
+ * @param  {arr, obj}                second             second array or array-like object
+ * 
+ * @return {arr, obj}                                   combined arr or obj (based off first)
+ */
+Microbe.merge = Microbe.core.merge  = function( first, second )
+{
+    if ( !second )
+    {
+        second  = first;
+        first   = this;
+    }
+
+    var i = first.length;
+
+    for ( var j = 0, length = second.length; j < length; j++ )
+    {
+        first[ i++ ] = second[ j ];
+    }
+
+    first.length = i;
+
+    return first;
+};
+
+
+
 Microbe.capitalize = function( text )
 {
     var µText = ( ! Microbe.isArray( text ) ) ? [ text ] : text;
@@ -2885,9 +2888,33 @@ Microbe.capitalize = function( text )
 Microbe.capitalise = Microbe.capitalize;
 
 
+
+
+
 Microbe.identity = function( value ) { return value; };
 
+Microbe.noop = function() {};
+Microbe.xyzzy = Microbe.noop;
 
+
+
+/**
+ * native isArray for completeness
+ * 
+ * @type {func}
+ */
+Microbe.isArray = Array.isArray;
+
+
+/**
+ * isEmpty
+ *
+ * checks if the passed object is empty
+ * 
+ * @param  {obj}                    obj                 object to check
+ * 
+ * @return {Boolean}                                    empty or not
+ */
 Microbe.isEmpty = function( obj )
 {
     var name;
@@ -2900,15 +2927,30 @@ Microbe.isEmpty = function( obj )
 };
 
 
+/**
+ * isFunction
+ *
+ * checks if the passed parameter is a function
+ * 
+ * @param  {obj}                    obj                 object to check
+ * 
+ * @return {Boolean}                                    function or not
+ */
 Microbe.isFunction = function( obj )
 {
     return Microbe.type( obj ) === "function";
 };
 
 
-Microbe.isArray = Array.isArray;
-
-
+/**
+ * isObject
+ *
+ * checks if the passed parameter is an object
+ * 
+ * @param  {obj}                    obj                 object to check
+ * 
+ * @return {Boolean}                                    isObject or not
+ */
 Microbe.isObject = function( obj )
 {
     if ( Microbe.type( obj ) !== "object" || obj.nodeType || Microbe.isWindow( obj ) )
@@ -2920,12 +2962,14 @@ Microbe.isObject = function( obj )
 };
 
 
-Microbe.isWindow = function( obj )
-{
-    return obj !== null && obj === obj.window;
-};
-
-
+/**
+ * isUndefined
+ * 
+ * @param  {str}                    obj                 property
+ * @param  {obj}                    parent              object to check
+ * 
+ * @return {Boolean}                                    obj in parent
+ */
 Microbe.isUndefined = function( obj, parent )
 {
     if ( parent && typeof parent !== 'object' )
@@ -2937,35 +2981,57 @@ Microbe.isUndefined = function( obj, parent )
 };
 
 
-Microbe.merge = Microbe.core.merge  = function( first, second )
+/**
+ * isWindow
+ *
+ * checks if the passed parameter equals window
+ * 
+ * @param  {obj}                    obj                 object to check
+ * 
+ * @return {Boolean}                                    isWindow or not
+ */
+Microbe.isWindow = function( obj )
 {
-    var i = first.length;
-
-    for ( var j = 0, length = second.length; j < length; j++ )
-    {
-        first[ i++ ] = second[ j ];
-    }
-
-    first.length = i;
-
-    return first;
+    return obj !== null && obj === obj.window;
 };
 
 
-Microbe.noop = function() {};
-
-Microbe.toString = Microbe.core.toString = function()
+/**
+ * To String
+ *
+ * Methods returns the type of Microbe.
+ *
+ * @return  string
+*/
+Microbe.toString = Microbe.prototype.toString = function()
 {
     return _type;
 };
 
 
-Microbe.toArray = function( _arr )
+/**
+ * To array
+ *
+ * Methods returns all the elements in an array.
+ *
+ * @return  Array
+*/
+Microbe.toArray = Microbe.prototype.toArray = function( _arr )
 {
+    _arr = _arr || this;
     return Array.prototype.slice.call( _arr );
 };
 
 
+/**
+ * Type
+ *
+ * returns the type of the parameter passed to it
+ * 
+ * @param  {all}                    obj                 parameter to test
+ * 
+ * @return {str}                                        typeof obj
+ */
 Microbe.type = function( obj )
 {
     if ( obj === null )
