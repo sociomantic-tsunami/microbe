@@ -3315,29 +3315,26 @@ module.exports = function( Microbe )
 };
 
 },{"./ready":15}],15:[function(require,module,exports){
-module.exports = function( _callback )
+module.exports = function( _cb )
 {
-    if ( document.addEventListener )
+    if ( document.readyState === 'complete' )
     {
-        document.addEventListener( 'DOMContentLoaded', _callback, false );
+        return _cb();
     }
-    else if ( /KHTML|WebKit|iCab/i.test( navigator.userAgent ) )
+
+    if ( window.addEventListener )
     {
-        var DOMLoadTimer = setInterval( function ()
-        {
-            if ( /loaded|complete/i.test( document.readyState ) )
-            {
-                _callback();
-                clearInterval( DOMLoadTimer );
-            }
-        }, 10 );
+        window.addEventListener( 'load', _cb, false );
+    }
+    else if ( window.attachEvent )
+    {
+        window.attachEvent( 'onload', _cb );
     }
     else
     {
-        window.onload = _callback;
+      window.onload = _cb;
     }
 };
-
 },{}],16:[function(require,module,exports){
 module.exports = function( Microbe )
 {
@@ -3399,7 +3396,7 @@ module.exports = function( Microbe )
             _elm.data[ prop ][ prop ]   = _elm.data[ prop ][ prop ] || [];
 
             _elm.data.__boundEvents     = _elm.data.__boundEvents || {};
-            _elm.data.__boundEvents.__boundEvents   = _elm.data.__boundEvents.__boundEvents || [];                        
+            _elm.data.__boundEvents.__boundEvents   = _elm.data.__boundEvents.__boundEvents || [];
 
             _elm.addEventListener( _event, _callback );
             _elm.data[ prop ][ prop ].push( _callback );
@@ -3429,7 +3426,7 @@ module.exports = function( Microbe )
      * @return  Microbe
     */
     Microbe.prototype.off = function( _event, _callback )
-    {   
+    {
         var _off = function( _e, _elm )
         {
             _cb = _callback;
@@ -3459,9 +3456,9 @@ module.exports = function( Microbe )
                 _elm.data[ prop ][ prop ]   = _cb;
             }
             _cb = null;
-        }
+        };
 
-        var _cb;
+        var _cb, filterFunction = function( e ){ return e; };
         for ( var i = 0, len = this.length; i < len; i++ )
         {
             var _elm = this[ i ];
@@ -3476,18 +3473,19 @@ module.exports = function( Microbe )
                 _elm.data.__boundEvents     = _elm.data.__boundEvents || {};
             }
 
-            if ( !Microbe.isArray( _event ) ) 
+            if ( !Microbe.isArray( _event ) )
             {
                 _event = [ _event ];
             }
 
-            for ( var j = 0, lenJ = _event.length; j < lenJ; j++ ) 
+            for ( var j = 0, lenJ = _event.length; j < lenJ; j++ )
             {
                 _off( _event[ j ], _elm );
                 _event[ j ] = null;
             }
 
-            _elm.data.__boundEvents.__boundEvents = _event.filter( function( e ){ return e; } );
+
+            _elm.data.__boundEvents.__boundEvents = _event.filter( filterFunction );
         }
 
         return this;
@@ -3729,6 +3727,8 @@ module.exports = function( Microbe )
     */
     Microbe.prototype.observe = function( prop, func, _once )
     {
+        var self = this;
+
         var _observe = function( _elm )
         {
             var _setObserve = function( _target, _prop )
@@ -3739,7 +3739,6 @@ module.exports = function( Microbe )
                     {
                         _target._observeFunc( e );
                         Object.unobserve( _target, _func );
-
                     }.bind( this );
 
                     Object.observe( _target, _func );
@@ -3839,7 +3838,7 @@ module.exports = function( Microbe )
         var _set = function( _el )
         {
             _el.data                    = _el.data || {};
-            
+
             // shim
             if ( ObserveUtils && ! _el.data[ prop ] )
             {
@@ -3898,11 +3897,11 @@ module.exports = function( Microbe )
                         Object.unobserve( _data, _data._observeFunc );
                     }
 
-                    for ( _prop in _data )
+                    for ( var _property in _data )
                     {
-                        if ( _data[ _prop ]._observeFunc )
+                        if ( _data[ _property ]._observeFunc )
                         {
-                            Object.unobserve( _data[ _prop ], _data[ _prop ]._observeFunc );
+                            Object.unobserve( _data[ _property ], _data[ _property ]._observeFunc );
                         }
                     }
                 }
@@ -3916,7 +3915,7 @@ module.exports = function( Microbe )
         }
 
         return this;
-    }
+    };
 };
 
 },{"observe-shim":3,"observe-utils":4,"setimmediate":11}],19:[function(require,module,exports){

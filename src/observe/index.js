@@ -61,6 +61,8 @@ module.exports = function( Microbe )
     */
     Microbe.prototype.observe = function( prop, func, _once )
     {
+        var self = this;
+
         var _observe = function( _elm )
         {
             var _setObserve = function( _target, _prop )
@@ -71,7 +73,6 @@ module.exports = function( Microbe )
                     {
                         _target._observeFunc( e );
                         Object.unobserve( _target, _func );
-
                     }.bind( this );
 
                     Object.observe( _target, _func );
@@ -171,7 +172,7 @@ module.exports = function( Microbe )
         var _set = function( _el )
         {
             _el.data                    = _el.data || {};
-            
+
             // shim
             if ( ObserveUtils && ! _el.data[ prop ] )
             {
@@ -230,11 +231,11 @@ module.exports = function( Microbe )
                         Object.unobserve( _data, _data._observeFunc );
                     }
 
-                    for ( _prop in _data )
+                    for ( var _property in _data )
                     {
-                        if ( _data[ _prop ]._observeFunc )
+                        if ( _data[ _property ]._observeFunc )
                         {
-                            Object.unobserve( _data[ _prop ], _data[ _prop ]._observeFunc );
+                            Object.unobserve( _data[ _property ], _data[ _property ]._observeFunc );
                         }
                     }
                 }
@@ -248,5 +249,5 @@ module.exports = function( Microbe )
         }
 
         return this;
-    }
+    };
 };

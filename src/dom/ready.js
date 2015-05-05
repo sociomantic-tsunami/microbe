@@ -1,22 +1,20 @@
-module.exports = function( _callback )
+module.exports = function( _cb )
 {
-    if ( document.addEventListener )
+    if ( document.readyState === 'complete' )
     {
-        document.addEventListener( 'DOMContentLoaded', _callback, false );
+        return _cb();
     }
-    else if ( /KHTML|WebKit|iCab/i.test( navigator.userAgent ) )
+
+    if ( window.addEventListener )
     {
-        var DOMLoadTimer = setInterval( function ()
-        {
-            if ( /loaded|complete/i.test( document.readyState ) )
-            {
-                _callback();
-                clearInterval( DOMLoadTimer );
-            }
-        }, 10 );
+        window.addEventListener( 'load', _cb, false );
+    }
+    else if ( window.attachEvent )
+    {
+        window.attachEvent( 'onload', _cb );
     }
     else
     {
-        window.onload = _callback;
+      window.onload = _cb;
     }
 };

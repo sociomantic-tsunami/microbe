@@ -102,21 +102,16 @@ var test = function( _str1, _cb1, _str2, _cb2, testNum )
 };
 
 
-/**
- * example async test
- */
-// test('asynchronous test', function() {
-//     // Pause the test first
-//     stop();
 
-//     setTimeout(function() {
-//         ok(true);
 
-//         // After the assertion has been called,
-//         // continue the test
-//         start();
-//     }, 100)
-// })
+
+
+
+
+
+
+
+
 
 
 QUnit.module( 'core/init' );
@@ -318,6 +313,10 @@ QUnit.test( '.addClass()', function( assert )
     µMooDivs = µ( 'div' ).addClass( [ 'moo', 'for--real' ] ).length;
     assert.equal( µMooDivs, µ( '.moo.for--real' ).length, 'it added 2 classes from an array of strings' );
 
+    var classData = µ( '.moo' )[0].data.class.class;
+
+    assert.ok( classData.indexOf( 'moo') !== -1, 'class sets data' );
+
     µ( '.moo' ).removeClass( 'moo' ).removeClass( 'for--real' );
 
     var µDivs = µ( 'div' );
@@ -329,7 +328,7 @@ QUnit.test( '.addClass()', function( assert )
         {
             µDivs[ i ].className.replace( 'moo', '' );
         }
-    }
+    };
 
     test(
     'µDivs.addClass( \'moo\' )', function()
@@ -635,7 +634,8 @@ QUnit.test( '.remove()', function( assert )
     assert.ok( µ().remove, 'exists' );
 
     var µFirstDiv   = µ( 'div' ).first();
-    µFirstDiv.append( µ( '<divdiv>' )[0] );
+    µFirstDiv.append( µ( '<divdiv.divide>' )[0] );
+
     µ( 'divdiv' ).remove();
 
     assert.equal( µ( 'divdiv' ).length, 0, 'is completely removed' );
@@ -648,6 +648,9 @@ QUnit.test( '.removeClass()', function( assert )
 
     var µDivs   = µ( '.example--class--groups' );
     µDivs.removeClass( 'example--class--groups' );
+
+    var classData = µDivs[0].data.class.class;
+    assert.ok( classData.indexOf( 'example--class--groups' ) === -1, 'removeClass sets data' );
 
     assert.equal( µ( '.example--class--groups' ).length, 0, 'removed class to both divs' );
 
@@ -872,6 +875,232 @@ QUnit.test( '.type()', function( assert )
     assert.equal( µ.type( new Boolean( true ) ), 'object', 'checks boolean objects' );
     // assert.equal( µ.type( ), 'error', 'checks error objects' );
     // assert.equal( µ.type( ), 'promise', 'checks promises' );
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+QUnit.module( 'dom/index' );
+
+QUnit.test( 'µ.ready()', function( assert )
+{
+    assert.ok( µ.ready, 'exists' );
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+QUnit.module( 'events/index' );
+
+
+QUnit.test( '.emit()', function( assert )
+{
+    assert.expect( 3 );
+
+    assert.ok( µ().emit, 'exists' );
+    var µExamples   = µ( '.example--class' );
+    var µParent     = µExamples.parent();
+
+    var emitTest    = assert.async();
+    var bubbleTest  = assert.async();
+
+    µExamples.on( 'emitTest', function( e )
+    {
+        µExamples.off();
+        assert.equal( e.detail.doIt, '2 times', 'custom event emitted' );
+        emitTest();
+    });
+
+
+    µParent.on( 'bubbleTest', function( e )
+    {
+        assert.equal( e.detail.bubbled, 'true', 'custom event bubbled' );
+        µParent.off();
+        bubbleTest();
+    });
+
+
+    µExamples.emit( 'emitTest', { doIt: '2 times' } );
+    µParent.emit( 'bubbleTest', { bubbled: 'true' }, true );
+});
+
+
+QUnit.test( '.on()', function( assert )
+{
+    assert.expect( 3 );
+
+    assert.ok( µ().on, 'exists' );
+
+    var µExamples   = µ( '.example--class' );
+
+    var onTest      = assert.async();
+
+    µExamples.on( 'onTest', function( e )
+    {
+        var func = µExamples[0].data['_onTest-bound-function']['_onTest-bound-function'][0];
+
+        assert.equal( typeof func, 'function', 'sets unload data' );
+        µExamples.off();
+        assert.equal( e.detail.doIt, '2 times', 'event correctly listened to' );
+        onTest();
+    });
+
+    µExamples.emit( 'onTest', { doIt: '2 times' } );
+});
+
+
+QUnit.test( '.off()', function( assert )
+{
+    assert.ok( µ().off, 'exists' );
+
+    var µExamples   = µ( '.example--class' );
+
+    µExamples.on( 'turningOff', function( e ){});
+    µExamples.off( 'turningOff' );
+    var func = µExamples[0].data['_turningOff-bound-function']['_turningOff-bound-function'][0];
+
+    assert.equal( func, null, 'listener removed' );
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+QUnit.module( 'http/index' );
+
+
+QUnit.test( '.http', function( assert )
+{
+    assert.ok( µ.http, 'exists' );
+});
+
+
+QUnit.test( '.http.get', function( assert )
+{
+    assert.ok( µ.http.get, 'exists' );
+});
+
+
+QUnit.test( '.http.post', function( assert )
+{
+    assert.ok( µ.http.post, 'exists' );
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+QUnit.module( 'observe/index' );
+
+
+QUnit.test( '.get', function( assert )
+{
+    assert.ok( µ().get, 'exists' );
+
+    var µExamples   = µ( '.example--class' );
+
+    µExamples[0].data = µExamples[0].data || {};
+    µExamples[0].data.moo = µExamples[0].data.moo || {};
+    µExamples[0].data.moo.moo = 'mooon!';
+
+    assert.equal( µExamples.get( 'moo' )[0], 'mooon!', 'get gets' );
+});
+
+
+QUnit.test( '.observe()', function( assert )
+{
+    assert.expect( 3 );
+
+    assert.ok( µ().observe, 'exists' );
+
+    var µExamples   = µ( '.example--class' );
+
+    var observeTest      = assert.async();
+
+    µExamples.observe( 'observeTest', function( e )
+    {
+        assert.equal( typeof µExamples[0].data.observeTest._observeFunc, 'function', 'observe function stored' );
+        µExamples.unobserve();
+        assert.equal( e[0].object.observeTest, 'whoohoo', 'object correctly observed' );
+        observeTest();
+    });
+
+    µExamples.set( 'observeTest', 'whoohoo' );
+});
+
+
+QUnit.test( '.observeOnce', function( assert )
+{
+    assert.expect( 2 );
+
+    assert.ok( µ().observeOnce, 'exists' );
+
+    var µExamples   = µ( '.example--class' );
+
+    var observeOnceTest      = assert.async();
+
+    µExamples.observeOnce( 'observeOnceTest', function( e )
+    {
+        assert.equal( e[0].object.observeOnceTest, 'whoohoo', 'object correctly observed once' );
+
+        observeOnceTest();
+    });
+
+    µExamples.set( 'observeOnceTest', 'whoohoo' );
+});
+
+
+QUnit.test( '.set', function( assert )
+{
+    assert.ok( µ().set, 'exists' );
+
+    var µExamples   = µ( '.example--class' );
+    µExamples.set( 'moo', 'mooon!' );
+
+    var setData = µExamples[0].data.moo.moo;
+
+    assert.equal( setData, 'mooon!', 'set sets' );
+});
+
+
+QUnit.test( '.unobserve', function( assert )
+{
+    assert.ok( µ().unobserve, 'exists' );
 });
 
 

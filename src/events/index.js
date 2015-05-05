@@ -58,7 +58,7 @@ module.exports = function( Microbe )
             _elm.data[ prop ][ prop ]   = _elm.data[ prop ][ prop ] || [];
 
             _elm.data.__boundEvents     = _elm.data.__boundEvents || {};
-            _elm.data.__boundEvents.__boundEvents   = _elm.data.__boundEvents.__boundEvents || [];                        
+            _elm.data.__boundEvents.__boundEvents   = _elm.data.__boundEvents.__boundEvents || [];
 
             _elm.addEventListener( _event, _callback );
             _elm.data[ prop ][ prop ].push( _callback );
@@ -88,7 +88,7 @@ module.exports = function( Microbe )
      * @return  Microbe
     */
     Microbe.prototype.off = function( _event, _callback )
-    {   
+    {
         var _off = function( _e, _elm )
         {
             _cb = _callback;
@@ -118,9 +118,9 @@ module.exports = function( Microbe )
                 _elm.data[ prop ][ prop ]   = _cb;
             }
             _cb = null;
-        }
+        };
 
-        var _cb;
+        var _cb, filterFunction = function( e ){ return e; };
         for ( var i = 0, len = this.length; i < len; i++ )
         {
             var _elm = this[ i ];
@@ -135,18 +135,19 @@ module.exports = function( Microbe )
                 _elm.data.__boundEvents     = _elm.data.__boundEvents || {};
             }
 
-            if ( !Microbe.isArray( _event ) ) 
+            if ( !Microbe.isArray( _event ) )
             {
                 _event = [ _event ];
             }
 
-            for ( var j = 0, lenJ = _event.length; j < lenJ; j++ ) 
+            for ( var j = 0, lenJ = _event.length; j < lenJ; j++ )
             {
                 _off( _event[ j ], _elm );
                 _event[ j ] = null;
             }
 
-            _elm.data.__boundEvents.__boundEvents = _event.filter( function( e ){ return e; } );
+
+            _elm.data.__boundEvents.__boundEvents = _event.filter( filterFunction );
         }
 
         return this;
