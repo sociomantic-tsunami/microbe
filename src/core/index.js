@@ -33,25 +33,6 @@ var Microbe = function( selector, scope, elements )
     return new Microbe.core.__init__( selector, scope, elements );
 };
 
-function isIterable( obj )
-{
-    var length  = obj.length;
-    var type    = Microbe.type( obj );
-
-    if ( type === 'function' || obj === window )
-    {
-        return false;
-    }
-
-    if ( obj.nodeType === 1 && length )
-    {
-        return true;
-    }
-
-    return type === 'array' || length === 0 ||
-        ( typeof length === 'number' && length > 0 && ( length - 1 ) in obj );
-}
-
 
 Microbe.core = Microbe.prototype =
 {
@@ -69,12 +50,12 @@ Microbe.core = Microbe.prototype =
     /**
      * Add Class
      *
-     * Method adds the given class from the current object or the given element.
+     * adds the passed class to the current element(s)
      *
-     * @param   {str}               _class              class to add
+     * @param   {String}            _class              class to add
      *
-     * @return  Microbe
-    */
+     * @return  {Microbe}
+     */
     addClass : (function()
     {
         var _addClass = function( _class, _el )
@@ -112,9 +93,12 @@ Microbe.core = Microbe.prototype =
     /**
      * Append Element
      *
-     * @param   {element}           _ele                element to append
+     * appends an element or elements to the microbe.  if there is more than 
+     * one target the next ones are cloned
      *
-     * @return  {microbe}           this
+     * @param   {Element Array or Microbe}  _ele          element(s) to append
+     *
+     * @return  {Microbe}
      */
     append : (function()
     {
@@ -137,7 +121,7 @@ Microbe.core = Microbe.prototype =
                 {
                     if ( i !== 0 )
                     {
-                        _append( this[ i ], _el[ j ].cloneNode(true) );
+                        _append( this[ i ], _el[ j ].cloneNode( true ) );
                     }
                     else
                     {
@@ -158,11 +142,11 @@ Microbe.core = Microbe.prototype =
      * supplied elements.  If the value is omitted, simply returns the current
      * attribute value of the element.
      *
-     * @param   _attribute  string           JS formatted CSS property
-     * @param   _value      string           CSS value (optional)
+     * @param   {String}            _attribute          attribute name
+     * @param   {String}            _value              attribute value (optional)
      *
-     * @return  mixed ( Microbe or string or array of strings)
-    */
+     * @return  {Microbe or Array}
+     */
     attr : function ( _attribute, _value )
     {
         var _setAttr = function( _elm )
@@ -235,11 +219,11 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * Get Children
+     * Children
      *
-     * gets an array or all the given element's children
+     * gets an array of all the given element's children
      *
-     * @return {arr}                                    array of microbes
+     * @return {Array}                                  array of microbes
      */
     children : function()
     {
@@ -260,17 +244,17 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * Alter/Get CSS
+     * CSS
      *
      * Changes the CSS by writing the given property and value inline to the
      * supplied elements. (properties should be supplied in javascript format).
      * If the value is omitted, simply returns the current css value of the element.
      *
-     * @param   _property   string          CSS property
-     * @param   _value      string          CSS value (optional)
+     * @param   {String}            _attribute          css property
+     * @param   {String}            _value              css value (optional)
      *
-     * @return  mixed ( Microbe or array of strings)
-    */
+     * @return  {Microbe or Array}
+     */
     css : function ( _property, _value )
     {
         var _setCss = function( _elm )
@@ -309,13 +293,15 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * For each
+     * Each
      *
      * Methods iterates through all the elements an execute the function on each of
      * them
      *
-     * @return  Array
-    */
+     * @param  {Function}           _callback           function to apply to each item
+     *
+     * @return {Array}
+     */
     each : function( _callback )
     {
         var i, leni;
@@ -328,12 +314,12 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * Get First Element
+     * First Element
      *
      * Methods gets the first HTML Elements of the current object, and wrap it in
-     * Microbe for chaining purpose.
+     * Microbe.
      *
-     * @return  Microbe
+     * @return  {Microbe}
      */
     first : function ()
     {
@@ -351,7 +337,7 @@ Microbe.core = Microbe.prototype =
      *
      * gets the index of the item in it's parentNode's children array
      *
-     * @return {array}                       array of indexes
+     * @return {Array}                                  array of indexes
      */
     getParentIndex : function()
     {
@@ -374,11 +360,11 @@ Microbe.core = Microbe.prototype =
     /**
      * Has Class
      *
-     * Method checks if the current object or the given element has the given class
+     * Checks if the current object or the given element has the given class
      *
-     * @param   _class      string       class to check
+     * @param   {String}            _class              class to check
      *
-     * @return  Microbe
+     * @return  {Microbe}
     */
     hasClass : function( _class )
     {
@@ -398,15 +384,14 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * Alter/Get inner HTML
+     * HTML
      *
-     * Changes the innerHtml to the supplied string.
-     * If the value is omitted, simply returns the current inner html value of the element.
+     * Changes the innerHtml to the supplied string.  If the value is omitted, 
+     * simply returns the current inner html value of the element.
      *
-     * @param   _value      string          html value (optional)
-     * @param   _el         HTMLELement     element to modify (optional)
+     * @param   {String}            _value              html value (optional)
      *
-     * @return  mixed ( Microbe or string or array of strings)
+     * @return  {Microbe or Array}
     */
     html : function ( _value )
     {
@@ -452,9 +437,11 @@ Microbe.core = Microbe.prototype =
     /**
      * Index of
      *
+     * returns the index of an element in this microbe
      *
+     * @param {Element}             _el                 element to check 
      *
-     * @return {void}
+     * @return {Number}
      */
     indexOf : function( _el )
     {
@@ -470,9 +457,9 @@ Microbe.core = Microbe.prototype =
      *
      * @example µ( '.elementsInDom' ).insertAfter( µElementToInsert )
      *
-     * @param  {obj or str}         _elAfter            element to insert
+     * @param  {Object or String}   _elAfter            element to insert
      *
-     * @return Microbe
+     * @return {Microbe}
      */
     insertAfter : function( _elAfter )
     {
@@ -519,12 +506,12 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * Get Last Element
+     * Last Element
      *
-     * Methods gets the last HTML Elements of the current object, and wrap it in
-     * Microbe for chaining purpose.
+     * Gets the last HTML Elements of the current object, and wrap it in
+     * Microbe.
      *
-     * @return  {microbe}
+     * @return  {Microbe}
      */
     last : function ()
     {
@@ -538,11 +525,13 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * map
+     * Map
      *
-     * @param  {Function} callback [description]
+     * native map function
+     * 
+     * @param  {Function}           callback            function to apply to all element
      *
-     * @return {[type]}            [description]
+     * @return {Array}                                  array of callback returns  
      */
     map : function( callback )
     {
@@ -551,11 +540,11 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * Get Parent
+     * Parent
      *
-     * sets all elements in µ to their parent nodes
+     * sets all elements in a microbe to their parent nodes
      *
-     * @return {[type]}     [description]
+     * @return {Microbe}
      */
     parent : function()
     {
@@ -581,9 +570,9 @@ Microbe.core = Microbe.prototype =
      *
      * adds a new element to a microbe
      *
-     * @param  {[type]} _el [description]
+     * @param  {Element}            _el                 element to add
      *
-     * @return {[type]}     [description]
+     * @return {Microbe}                            
      */
     push : function( _el )
     {
@@ -603,9 +592,8 @@ Microbe.core = Microbe.prototype =
      * Remove Element
      *
      * removes an element or elements from the dom
-     *
-     * @param  {[type]} _el [description]
-     * @return {[type]}     [description]
+     * 
+     * @return {Microbe}
      */
     remove : function()
     {
@@ -632,9 +620,9 @@ Microbe.core = Microbe.prototype =
      *
      * Method removes the given class from the current object or the given element.
      *
-     * @param   {str}               _class              class to remove
+     * @param   {String}            _class              class to remove
      *
-     * @return  Microbe
+     * @return  {Microbe}
     */
     removeClass : (function()
     {
@@ -665,7 +653,7 @@ Microbe.core = Microbe.prototype =
      *
      * returns the css selector from an element
      *
-     * @return {obj}                                    microbe
+     * @return {String}                                  combined selectors
      */
     selector : function()
     {
@@ -680,8 +668,8 @@ Microbe.core = Microbe.prototype =
                     var tag = _elm.tagName.toLowerCase(),
                     id      = ( _elm.id ) ? '#' + _elm.id : '',
                     clss    = Array.prototype.join.call( _elm.classList, '.' );
-                    
-                    clss = ( clss !== '' ) ? '.' + clss : clss; 
+
+                    clss = ( clss !== '' ) ? '.' + clss : clss;
 
                     return tag + id + clss;
                 }
@@ -710,19 +698,30 @@ Microbe.core = Microbe.prototype =
     },
 
 
-    splice : splice,
+    /**
+     * Splice
+     * 
+     * native splice wrapped in a microbe
+     *
+     * @return {Array}                                  array of elements
+     */
+    splice : function( _start, _end )
+    {
+        var arr = splice.call( this, _start, _end );
+
+        return new Microbe( arr )
+    },
 
 
     /**
-     * Alter/Get inner Text
+     * Text
      *
-     * Changes the inner text to the supplied string.
-     * If the value is
-     * If the value is omitted, simply returns the current inner html value of the element.
+     * Changes the inner text to the supplied string. If the value is omitted, 
+     * simply returns the current inner html value of the element.
      *
-     * @param   _value      string          Text value (optional)
+     * @param   {String}            _value              Text value (optional)
      *
-     * @return  mixed ( Microbe or string or array of strings)
+     * @return  {Microbe or Array}
     */
     text : (function()
     {
@@ -780,12 +779,11 @@ Microbe.core = Microbe.prototype =
     /**
      * Toggle Class
      *
-     * Methods calls removeClass or removeClass from the current object or given
-     * element.
+     * Methods calls removeClass on the current object or given element.
      *
-     * @param   _class      string       class to add
+     * @param   {String}            _class              class to add
      *
-     * @return  Microbe
+     * @return  {Microbe}
     */
     toggleClass : (function()
     {
@@ -818,9 +816,17 @@ Microbe.core = Microbe.prototype =
 };
 
 
+/**
+ * Extend
+ *
+ * extends an object or microbe
+ *
+ * @return {Object}
+ */
 Microbe.extend = Microbe.core.extend = function()
 {
     var args    = slice.call( arguments );
+
     var index   = 0;
     var length  = args.length;
     var deep    = false;
@@ -831,23 +837,23 @@ Microbe.extend = Microbe.core.extend = function()
     var copy;
     var clone;
 
-    if ( args[index] === true )
+    if ( args[ index ] === true )
     {
         deep    = true;
         index   += 1;
     }
 
-    target = Microbe.isObject( args[index] ) ? args[index] : {};
+    target = this.type === '[object Microbe]' ? this : Microbe.isObject( args[ index ] ) ? args[ index ] : {};
 
     for ( ; index < length; index++ )
     {
-        if ( ( options = args[index] ) !== null )
+        if ( ( options = args[ index ] ) !== null )
         {
             for ( var name in options )
             {
                 isArray = false;
-                src     = target[name];
-                copy    = options[name];
+                src     = target[ name ];
+                copy    = options[ name ];
 
                 if ( target === copy || copy === undefined )
                 {
@@ -880,12 +886,12 @@ Microbe.extend = Microbe.core.extend = function()
 /**
  * Merge
  *
- * combines microbes elements.
- * 
- * @param  {arr, obj}                first              first array or array-like object
- * @param  {arr, obj}                second             second array or array-like object
- * 
- * @return {arr, obj}                                   combined arr or obj (based off first)
+ * combines microbes or array elements.
+ *
+ * @param  {Object or Array}        first               first array or array-like object
+ * @param  {Object or Array}        second              second array or array-like object
+ *
+ * @return {Object or Array}                            combined arr or obj (based off first)
  */
 Microbe.merge = Microbe.core.merge  = function( first, second )
 {
@@ -908,7 +914,16 @@ Microbe.merge = Microbe.core.merge  = function( first, second )
 };
 
 
-
+/**
+ * Capitalize String
+ *
+ * capitalizes every word in a string or an array of strings and returns the
+ * type that it was given
+ *
+ * @param  {String or Array}        text                string(s) to capitalize
+ *
+ * @return {String or Array}                            capitalized string(s)
+ */
 Microbe.capitalize = function( text )
 {
     var µText = ( ! Microbe.isArray( text ) ) ? [ text ] : text;
@@ -931,20 +946,33 @@ Microbe.capitalize = function( text )
 Microbe.capitalise = Microbe.capitalize;
 
 
-
-
-
+/**
+ * Identify a value
+ *
+ * returns itself if a value needs to be executed
+ *
+ * @param  {any}                    value               any value
+ *
+ * @return {value}
+ */
 Microbe.identity = function( value ) { return value; };
 
+
+/**
+ * nothing happens
+ *
+ * https://en.wikipedia.org/wiki/Xyzzy_(computing)
+ *
+ * @return {void}
+ */
 Microbe.noop = function() {};
 Microbe.xyzzy = Microbe.noop;
 
 
-
 /**
  * native isArray for completeness
- * 
- * @type {func}
+ *
+ * @type {Function}
  */
 Microbe.isArray = Array.isArray;
 
@@ -953,9 +981,9 @@ Microbe.isArray = Array.isArray;
  * isEmpty
  *
  * checks if the passed object is empty
- * 
- * @param  {obj}                    obj                 object to check
- * 
+ *
+ * @param  {Object}                 obj                 object to check
+ *
  * @return {Boolean}                                    empty or not
  */
 Microbe.isEmpty = function( obj )
@@ -974,9 +1002,9 @@ Microbe.isEmpty = function( obj )
  * isFunction
  *
  * checks if the passed parameter is a function
- * 
- * @param  {obj}                    obj                 object to check
- * 
+ *
+ * @param  {Object}                 obj                 object to check
+ *
  * @return {Boolean}                                    function or not
  */
 Microbe.isFunction = function( obj )
@@ -989,9 +1017,9 @@ Microbe.isFunction = function( obj )
  * isObject
  *
  * checks if the passed parameter is an object
- * 
- * @param  {obj}                    obj                 object to check
- * 
+ *
+ * @param  {Object}                 obj                 object to check
+ *
  * @return {Boolean}                                    isObject or not
  */
 Microbe.isObject = function( obj )
@@ -1007,10 +1035,10 @@ Microbe.isObject = function( obj )
 
 /**
  * isUndefined
- * 
- * @param  {str}                    obj                 property
- * @param  {obj}                    parent              object to check
- * 
+ *
+ * @param  {String}                 obj                 property
+ * @param  {Object}                 parent              object to check
+ *
  * @return {Boolean}                                    obj in parent
  */
 Microbe.isUndefined = function( obj, parent )
@@ -1028,9 +1056,9 @@ Microbe.isUndefined = function( obj, parent )
  * isWindow
  *
  * checks if the passed parameter equals window
- * 
- * @param  {obj}                    obj                 object to check
- * 
+ *
+ * @param  {Object}                 obj                 object to check
+ *
  * @return {Boolean}                                    isWindow or not
  */
 Microbe.isWindow = function( obj )
@@ -1040,11 +1068,11 @@ Microbe.isWindow = function( obj )
 
 
 /**
- * To String
+ * To string
  *
  * Methods returns the type of Microbe.
  *
- * @return  string
+ * @return  {String}
 */
 Microbe.toString = Microbe.prototype.toString = function()
 {
@@ -1057,7 +1085,7 @@ Microbe.toString = Microbe.prototype.toString = function()
  *
  * Methods returns all the elements in an array.
  *
- * @return  Array
+ * @return  {Array}
 */
 Microbe.toArray = Microbe.prototype.toArray = function( _arr )
 {
@@ -1067,13 +1095,13 @@ Microbe.toArray = Microbe.prototype.toArray = function( _arr )
 
 
 /**
- * Type
+ * Type of
  *
  * returns the type of the parameter passed to it
- * 
+ *
  * @param  {all}                    obj                 parameter to test
- * 
- * @return {str}                                        typeof obj
+ *
+ * @return {String}                                     typeof obj
  */
 Microbe.type = function( obj )
 {
@@ -1082,9 +1110,11 @@ Microbe.type = function( obj )
         return obj + '';
     }
 
-    return typeof obj === 'object' ?
-        Types[ obj.toString() ] || 'object' :
-        typeof obj;
+    var type = Types[ Object.prototype.toString.call( obj ) ];
+        type = !type ? Types[ obj.toString() ] : type;
+    return  type || typeof obj;
 };
 
+
 module.exports = Microbe;
+

@@ -10,11 +10,13 @@ module.exports = function( Microbe )
 
 
     /**
-     * Get data parameter
+     * Get data
      *
-     * gets the index of the item in it's parentNode's children array
+     * gets the saved value from each element in the microbe in an array
      *
-     * @return {arr}                       array of values
+     * @param  {String}             _prop               property to get
+     *
+     * @return {Array}                                  array of values
      */
     Microbe.prototype.get = function( prop )
     {
@@ -53,14 +55,16 @@ module.exports = function( Microbe )
      *
      * applies a function to an element if it is changed from within µ
      *
-     * @param  {func}               function            function to apply
-     * @param  {str}                _prop               property to observe
-     * @param  {bool}               _once               bool to trigger auto unobserve
+     * @param  {Function}           function            function to apply
+     * @param  {String}             _prop               property to observe
+     * @param  {Boolean}            _once               bool to trigger auto unobserve
      *
-     * @return  Microbe
+     * @return  {Microbe}
     */
     Microbe.prototype.observe = function( prop, func, _once )
     {
+        var self = this;
+
         var _observe = function( _elm )
         {
             var _setObserve = function( _target, _prop )
@@ -71,7 +75,6 @@ module.exports = function( Microbe )
                     {
                         _target._observeFunc( e );
                         Object.unobserve( _target, _func );
-
                     }.bind( this );
 
                     Object.observe( _target, _func );
@@ -148,8 +151,8 @@ module.exports = function( Microbe )
      *
      * applies a function to an element if it is changed from within µ (once)
      *
-     * @param  {func}               function            function to apply
-     * @param  {str}                _prop               property to observe
+     * @param  {Function}           func                function to apply
+     * @param  {String}             _prop               property to observe
      *
      * @return  Microbe
     */
@@ -160,18 +163,21 @@ module.exports = function( Microbe )
 
 
     /**
-     * Get data parameter
+     * Set data
      *
-     * gets the index of the item in it's parentNode's children array
+     * sets the value to the data object in the each element in the microbe 
      *
-     * @return {arr}                       array of values
+     * @param  {String}             prop                property to set
+     * @param  {String}             value               value to set to
+     * 
+     * @return {Microbe}
      */
     Microbe.prototype.set = function( prop, value )
     {
         var _set = function( _el )
         {
             _el.data                    = _el.data || {};
-            
+
             // shim
             if ( ObserveUtils && ! _el.data[ prop ] )
             {
@@ -207,9 +213,9 @@ module.exports = function( Microbe )
      *
      * stops watching the data changes of a µ onject
      *
-     * @param   _el         HTMLELement             element to watch (optional)
+     * @param   {String}            _prop               property to stop observing
      *
-     * @return  Microbe
+     * @return  {Microbe}
     */
     Microbe.prototype.unobserve = function( _prop )
     {
@@ -230,11 +236,11 @@ module.exports = function( Microbe )
                         Object.unobserve( _data, _data._observeFunc );
                     }
 
-                    for ( _prop in _data )
+                    for ( var _property in _data )
                     {
-                        if ( _data[ _prop ]._observeFunc )
+                        if ( _data[ _property ]._observeFunc )
                         {
-                            Object.unobserve( _data[ _prop ], _data[ _prop ]._observeFunc );
+                            Object.unobserve( _data[ _property ], _data[ _property ]._observeFunc );
                         }
                     }
                 }
@@ -248,5 +254,5 @@ module.exports = function( Microbe )
         }
 
         return this;
-    }
+    };
 };

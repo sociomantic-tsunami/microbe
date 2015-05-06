@@ -1,18 +1,117 @@
 
-/* global document, window, µ, QUnit  */
+/* global document, window, µ, $, QUnit, Benchmark  */
 
-// test('asynchronous test', function() {
-//     // Pause the test first
-//     stop();
+/**
+ * benchmark tests
+ *
+ * @param  {str}                    _str1               test 1 name
+ * @param  {func}                   _cb1                test 1
+ * @param  {str}                    _str2               test 2 name
+ * @param  {func}                   _cb2                test 2
+ * @param  {int}                    testNum             test number
+ *
+ * @return {void}
+ */
+var test = function( _str1, _cb1, _str2, _cb2, testNum )
+{
+    setTimeout( function()
+    {
+        var µTests  = µ( '#qunit-tests' ).children()[0];
 
-//     setTimeout(function() {
-//         ok(true);
+        var resDiv  = µTests[ testNum ];
 
-//         // After the assertion has been called,
-//         // continue the test
-//         start();
-//     }, 100)
-// })
+        var µLi      = µ( 'li', resDiv );
+        var µStrong  = µ( 'strong', resDiv );
+        var testRes = [];
+        var _arr    = [];
+        var i       = 0;
+        var libraries = [ 'µ', '$' ];
+
+        var suite = new Benchmark.Suite();
+
+        suite.add( _str1, _cb1 )
+            .add( _str2, _cb2 )
+            .on( 'cycle', function( event )
+            {
+                _arr.push( this[ i ].hz );
+                var test = testRes[ i ] = µ( '<span.speed--result.slow>' );
+                µ( µLi[ i ] ).append( test );
+                test.html( String( event.target ) );
+
+                i++;
+            } )
+            .on( 'complete', function()
+            {
+                var fastest = _arr.indexOf( Math.max.apply( Math, _arr ) );
+                testRes[ fastest ].removeClass( 'slow' );
+
+                var µResult =  µ( '<span.fastest>' );
+                µStrong.append( µResult );
+                µResult.html( libraries[ fastest ] + ' is the fastest' );
+            } )
+            .run( { 'async': true } );
+    }, 1000 );
+
+    // var µTests  = µ( '#qunit-tests' ).children()[0];
+
+    // var resDiv  = µTests[ testNum ];
+
+    // var µLi      = µ( 'li', resDiv );
+    // var µStrong  = µ( 'strong', resDiv );
+    // var µResult =  µ( '<div.fastest>' );
+    // µStrong.append( µResult );
+
+    // var testRes = [];
+    // var _arr    = [];
+    // var i       = 0;
+    // var libraries = [ 'µ', '$' ];
+    // var suite = new Benchmark.Suite;
+
+    // suite.add( _str1, _cb1 )
+    //     .add( _str2, _cb2 )
+    //     .on( 'cycle', function( event )
+    //     {
+    //         _arr.push( this[ i ].hz );
+    //         var test = testRes[ i ] = µ( '<span.speed--result.slow>' )
+    //         µ( µLi[ i ] ).append( test )
+    //         test.html( String( event.target ) );
+
+    //         i++;
+    //     } )
+    //     .on( 'complete', function()
+    //     {
+    //         var fastest = _arr.indexOf( Math.max.apply( Math, _arr ) );
+    //         testRes[ fastest ].removeClass( 'slow' );
+
+    //         µResult.html( libraries[ fastest ] + ' is the fastest' );
+    //     } );
+
+    // var startTheTest = function()
+    // {
+    //     e.stopPropagation();
+    //     e.preventDefault();
+    //     µResult.off();
+    //     setTimeout( function()
+    //     {
+    //         suite.run( { 'async': true } );
+    //     }, 1 );
+    // };
+
+    // µResult.html( 'Click to start the speed test' );
+    // µResult.on( 'click', startTheTest );
+};
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 QUnit.module( 'core/init' );
@@ -26,13 +125,13 @@ QUnit.test( 'wrap an element', function( assert )
 	assert.equal( µBody.length, 1, 'one body' );
   	assert.deepEqual( µBody[ 0 ], _body, 'passes' );
 
-    test( 
-    'µ( _el )', function() 
+    test(
+    'µ( _el )', function()
     {
         return µ( _body );
     },
 
-    '$( _el )', function() 
+    '$( _el )', function()
     {
         return $( _body );
     }, 0 );
@@ -47,13 +146,13 @@ QUnit.test( 'query class', function( assert )
     assert.equal( µDiv.length, 1, 'one div' );
     assert.deepEqual( µDiv[ 0 ], _div, 'passes' );
 
-    test( 
-    'µ( \'.example--class\' )', function() 
+    test(
+    'µ( \'.example--class\' )', function()
     {
         return µ( '.example--class' );
     },
 
-    '$( \'.example--class\' )', function() 
+    '$( \'.example--class\' )', function()
     {
         return $( '.example--class' );
     }, 1 );
@@ -68,13 +167,13 @@ QUnit.test( 'query id', function( assert )
     assert.equal( µDiv.length, 1, 'one div' );
     assert.deepEqual( µDiv[ 0 ], _div, 'passes' );
 
-    test( 
-    'µ( \'#example--id\' )', function() 
+    test(
+    'µ( \'#example--id\' )', function()
     {
         return µ( '#example--id' );
     },
 
-    '$( \'#example--id\' )', function() 
+    '$( \'#example--id\' )', function()
     {
         return $( '#example--id' );
     }, 2 );
@@ -89,13 +188,13 @@ QUnit.test( 'query tagname', function( assert )
     assert.deepEqual( µDiv[ 0 ].tagName, 'DIV', 'passes' );
     assert.deepEqual( µDiv[ 0 ], _div, 'passes' );
 
-    test( 
-    'µ( \'div\' )', function() 
+    test(
+    'µ( \'div\' )', function()
     {
         return µ( 'div' );
     },
 
-    '$( \'div\' )', function() 
+    '$( \'div\' )', function()
     {
         return $( 'div' );
     }, 3 );
@@ -110,13 +209,13 @@ QUnit.test( 'query combined', function( assert )
     assert.equal( µDiv.length, 1, 'one div' );
     assert.deepEqual( µDiv[ 0 ], _div, 'passes' );
 
-    test( 
-    'µ( \'div#example--combined.example--combined\' )', function() 
+    test(
+    'µ( \'div#example--combined.example--combined\' )', function()
     {
         return µ( 'div#example--combined.example--combined' );
     },
 
-    '$( \'div#example--combined.example--combined\' )', function() 
+    '$( \'div#example--combined.example--combined\' )', function()
     {
         return $( 'div#example--combined.example--combined' );
     }, 4 );
@@ -140,13 +239,13 @@ QUnit.test( 'query element scope', function( assert )
     assert.equal( µDiv.length, 2, 'two divs' );
     assert.deepEqual( µDiv.first().parent()[0], _scopeEl, 'correct parent' );
 
-    test( 
-    'µ( \'div\', _scopeEl )', function() 
+    test(
+    'µ( \'div\', _scopeEl )', function()
     {
         return µ( 'div', _scopeEl );
     },
 
-    '$( \'div\', _scopeEl )', function() 
+    '$( \'div\', _scopeEl )', function()
     {
         return $( 'div', _scopeEl );
     }, 5 );
@@ -159,6 +258,17 @@ QUnit.test( 'query element scope', function( assert )
 
 //     assert.equal( µDiv.length, 2, 'two divs' );
 // });
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -203,6 +313,10 @@ QUnit.test( '.addClass()', function( assert )
     µMooDivs = µ( 'div' ).addClass( [ 'moo', 'for--real' ] ).length;
     assert.equal( µMooDivs, µ( '.moo.for--real' ).length, 'it added 2 classes from an array of strings' );
 
+    var classData = µ( '.moo' )[0].data.class.class;
+
+    assert.ok( classData.indexOf( 'moo') !== -1, 'class sets data' );
+
     µ( '.moo' ).removeClass( 'moo' ).removeClass( 'for--real' );
 
     var µDivs = µ( 'div' );
@@ -210,21 +324,21 @@ QUnit.test( '.addClass()', function( assert )
 
     var resetDivs = function()
     {
-        for ( var i = 0, lenI = µDivs.length; i < lenI; i++ ) 
+        for ( var i = 0, lenI = µDivs.length; i < lenI; i++ )
         {
             µDivs[ i ].className.replace( 'moo', '' );
         }
-    }
+    };
 
-    test( 
-    'µDivs.addClass( \'moo\' )', function() 
+    test(
+    'µDivs.addClass( \'moo\' )', function()
     {
         µDivs.addClass( 'moo' );
 
         resetDivs();
     },
 
-    '$Divs.addClass( \'moo\' )', function() 
+    '$Divs.addClass( \'moo\' )', function()
     {
         $Divs.addClass( 'moo' );
 
@@ -291,21 +405,21 @@ QUnit.test( '.attr()', function( assert )
 
     var vanillaRemove = function()
     {
-        for ( var i = 0, lenI = µDivs.length; i < lenI; i++ ) 
+        for ( var i = 0, lenI = µDivs.length; i < lenI; i++ )
         {
             µDivs[ i ].removeAttribute( 'moo' );
         }
     };
 
-    test( 
-    'µDivs.attr( \'moo\', \'moooooooooooooon\' )', function() 
+    test(
+    'µDivs.attr( \'moo\', \'moooooooooooooon\' )', function()
     {
         µDivs.attr( 'moo', 'moooooooooooooon' );
 
         vanillaRemove();
     },
 
-    '$Divs.attr( \'moo\', \'moooooooooooooon\' )', function() 
+    '$Divs.attr( \'moo\', \'moooooooooooooon\' )', function()
     {
         $Divs.attr( 'moo', 'moooooooooooooon' );
 
@@ -395,7 +509,7 @@ QUnit.test( '.hasClass()', function( assert )
     assert.ok( exampleClass.length === µExampleClass.length, 'it checks every element' );
 
     var correct = true;
-    for ( var i = 0, lenI = exampleClass.length; i < lenI; i++ ) 
+    for ( var i = 0, lenI = exampleClass.length; i < lenI; i++ )
     {
         if ( ! exampleClass[ i ] )
         {
@@ -404,24 +518,6 @@ QUnit.test( '.hasClass()', function( assert )
         }
     }
     assert.ok( correct, 'correctly' );
-});
-
-
-QUnit.test( '.html()', function( assert )
-{
-    assert.ok( µ().html, 'exists' );
-
-    var µTarget = µ( '#example--id' );
-
-    µTarget.html( 'text, yo' );
-    assert.equal( µTarget[0].innerHTML, 'text, yo', 'html set' );
-
-    var htmlGotten = µTarget.html();
-    assert.ok( µ.isArray( htmlGotten ), 'html() get returns an array' );
-    assert.ok( typeof htmlGotten[0] === 'string', 'full of strings' );
-
-    assert.equal( htmlGotten.length, µTarget.length, 'correct amount of results' );
-    assert.equal( htmlGotten[0], 'text, yo', 'correct result' );
 });
 
 
@@ -538,7 +634,8 @@ QUnit.test( '.remove()', function( assert )
     assert.ok( µ().remove, 'exists' );
 
     var µFirstDiv   = µ( 'div' ).first();
-    µFirstDiv.append( µ( '<divdiv>' )[0] );
+    µFirstDiv.append( µ( '<divdiv.divide>' )[0] );
+
     µ( 'divdiv' ).remove();
 
     assert.equal( µ( 'divdiv' ).length, 0, 'is completely removed' );
@@ -551,6 +648,9 @@ QUnit.test( '.removeClass()', function( assert )
 
     var µDivs   = µ( '.example--class--groups' );
     µDivs.removeClass( 'example--class--groups' );
+
+    var classData = µDivs[0].data.class.class;
+    assert.ok( classData.indexOf( 'example--class--groups' ) === -1, 'removeClass sets data' );
 
     assert.equal( µ( '.example--class--groups' ).length, 0, 'removed class to both divs' );
 
@@ -629,6 +729,15 @@ QUnit.test( '.extend()', function( assert )
 {
     assert.ok( µ().extend, 'exists' );
     assert.ok( µ.extend, 'exists' );
+
+    var µDivs = µ( 'divs' );
+    var extension = { more: function(){ return 'MOAR!!!'; } };
+    µDivs.extend( extension );
+    assert.equal( µDivs.more(), 'MOAR!!!', 'extends microbes' );
+
+    var _obj = { a: 1, b: 2, c:3 };
+    µ.extend( _obj, extension );
+    assert.equal( _obj.more(), 'MOAR!!!', 'extends objects' );
 });
 
 
@@ -636,6 +745,21 @@ QUnit.test( '.merge()', function( assert )
 {
     assert.ok( µ().merge, 'exists' );
     assert.ok( µ.merge, 'exists' );
+
+    var µDivs       = µ( 'div' );
+    var divCount    = µDivs.length;
+    var µHtml       = µ( 'html' );
+    var htmlCount   = µHtml.length;
+
+    var merged      = µ.merge( µDivs, µHtml );
+    assert.equal( divCount + htmlCount, merged.length, 'merged microbes' );
+
+    merged = µ.merge( [ 1, 2, 3 ], [ 4, 5, 6 ] );
+    assert.equal( 6, merged.length, 'merged arrays' );
+
+    µDivs       = µ( 'div' );
+    µDivs.merge( µHtml );
+    assert.equal( µDivs.length, divCount + htmlCount, 'merged this' );
 });
 
 
@@ -654,14 +778,18 @@ QUnit.test( '.capitalize()', function( assert )
 QUnit.test( '.identity()', function( assert )
 {
     assert.ok( µ.identity, 'exists' );
+    var val = 'mooon';
+    assert.equal( 'mooon', µ.identity( 'mooon' ), 'it equals itself' );
 });
 
 
 QUnit.test( '.noop()', function( assert )
 {
-    assert.ok( µ.noop, 'exists' );
-    assert.ok( µ.xyzzy, 'exists' );
+    assert.ok( µ.noop, 'noop exists' );
     assert.equal( µ.noop(), undefined, 'nothing happens' );
+
+    assert.ok( µ.xyzzy, 'xyzzy exists' );
+    assert.equal( µ.xyzzy(), undefined, 'nothing happens' );
 });
 
 
@@ -718,7 +846,7 @@ QUnit.test( '.toString()', function( assert )
 {
     assert.ok( µ().toString, 'exists' );
     assert.ok( µ.toString, 'exists' );
-    assert.ok( µ().toString() === '[object Microbe]', 'is a microbe' );
+    assert.ok( µ().toString() === '[object Microbe]', 'micriobe is a microbe' );
 });
 
 
@@ -726,113 +854,253 @@ QUnit.test( '.toArray()', function( assert )
 {
     assert.ok( µ().toArray, 'exists' );
     assert.ok( µ.toArray, 'exists' );
+
+    var arr = µ( 'div' ).toArray();
+    assert.equal( µ.type( arr ), 'array', 'makes arrays' );
 });
 
 
 QUnit.test( '.type()', function( assert )
 {
     assert.ok( µ.type, 'exists' );
+    assert.equal( µ.type( [] ), 'array', 'checks arrays' );
+    assert.equal( µ.type( 2 ), 'number', 'checks numbers' );
+    assert.equal( µ.type( {} ), 'object', 'checks objects' );
+    assert.equal( µ.type( 'moin!' ), 'string', 'checks strings' );
+    assert.equal( µ.type( new Date() ), 'date', 'checks dates' );
+    assert.equal( µ.type( µ( 'div' ) ), 'microbe', 'checks microbes' );
+    assert.equal( µ.type( /[0-9]/ ), 'regExp', 'checks regex' );
+    assert.equal( µ.type( assert.ok ), 'function', 'checks functions' );
+    assert.equal( µ.type( true ), 'boolean', 'checks boolean primitives' );
+    assert.equal( µ.type( new Boolean( true ) ), 'object', 'checks boolean objects' );
+    // assert.equal( µ.type( ), 'error', 'checks error objects' );
+    // assert.equal( µ.type( ), 'promise', 'checks promises' );
 });
 
 
-/**
- * benchmark tests
- * 
- * @param  {str}                    _str1               test 1 name
- * @param  {func}                   _cb1                test 1
- * @param  {str}                    _str2               test 2 name
- * @param  {func}                   _cb2                test 2
- * @param  {int}                    testNum             test number
- * 
- * @return {void}
- */
-var test    = function( _str1, _cb1, _str2, _cb2, testNum )
+
+
+
+
+
+
+
+
+
+
+
+
+QUnit.module( 'dom/index' );
+
+QUnit.test( 'µ.ready()', function( assert )
 {
-    setTimeout( function()
+    assert.ok( µ.ready, 'exists' );
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+QUnit.module( 'events/index' );
+
+
+QUnit.test( '.emit()', function( assert )
+{
+    assert.expect( 3 );
+
+    assert.ok( µ().emit, 'exists' );
+    var µExamples   = µ( '.example--class' );
+    var µParent     = µExamples.parent();
+
+    var emitTest    = assert.async();
+    var bubbleTest  = assert.async();
+
+    µExamples.on( 'emitTest', function( e )
     {
-        var µTests  = µ( '#qunit-tests' ).children()[0];
+        µExamples.off();
+        assert.equal( e.detail.doIt, '2 times', 'custom event emitted' );
+        emitTest();
+    });
 
-        var resDiv  = µTests[ testNum ];
 
-        var µLi      = µ( 'li', resDiv );
-        var µStrong  = µ( 'strong', resDiv );
-        var testRes = [];
-        var _arr    = [];
-        var i       = 0;
-        var libraries = [ 'µ', '$' ];
+    µParent.on( 'bubbleTest', function( e )
+    {
+        assert.equal( e.detail.bubbled, 'true', 'custom event bubbled' );
+        µParent.off();
+        bubbleTest();
+    });
 
-        var suite = new Benchmark.Suite;
 
-        suite.add( _str1, _cb1 )
-            .add( _str2, _cb2 )
-            .on( 'cycle', function( event )
-            {
-                _arr.push( this[ i ].hz );
-                var test = testRes[ i ] = µ( '<span.speed--result.slow>' )
-                µ( µLi[ i ] ).append( test )
-                test.html( String( event.target ) );
+    µExamples.emit( 'emitTest', { doIt: '2 times' } );
+    µParent.emit( 'bubbleTest', { bubbled: 'true' }, true );
+});
 
-                i++;
-            } )
-            .on( 'complete', function() 
-            {
-                var fastest = _arr.indexOf( Math.max.apply( Math, _arr ) );
-                testRes[ fastest ].removeClass( 'slow' );
 
-                var µResult =  µ( '<span.fastest>' );
-                µStrong.append( µResult );
-                µResult.html( libraries[ fastest ] + ' is the fastest' );
-            } )
-            .run( { 'async': true } );
-    }, 1000 );
+QUnit.test( '.on()', function( assert )
+{
+    assert.expect( 3 );
 
-    // var µTests  = µ( '#qunit-tests' ).children()[0];
+    assert.ok( µ().on, 'exists' );
 
-    // var resDiv  = µTests[ testNum ];
+    var µExamples   = µ( '.example--class' );
 
-    // var µLi      = µ( 'li', resDiv );
-    // var µStrong  = µ( 'strong', resDiv );
-    // var µResult =  µ( '<div.fastest>' );
-    // µStrong.append( µResult );
+    var onTest      = assert.async();
 
-    // var testRes = [];
-    // var _arr    = [];
-    // var i       = 0;
-    // var libraries = [ 'µ', '$' ];
-    // var suite = new Benchmark.Suite;
+    µExamples.on( 'onTest', function( e )
+    {
+        var func = µExamples[0].data['_onTest-bound-function']['_onTest-bound-function'][0];
 
-    // suite.add( _str1, _cb1 )
-    //     .add( _str2, _cb2 )
-    //     .on( 'cycle', function( event )
-    //     {
-    //         _arr.push( this[ i ].hz );
-    //         var test = testRes[ i ] = µ( '<span.speed--result.slow>' )
-    //         µ( µLi[ i ] ).append( test )
-    //         test.html( String( event.target ) );
+        assert.equal( typeof func, 'function', 'sets unload data' );
+        µExamples.off();
+        assert.equal( e.detail.doIt, '2 times', 'event correctly listened to' );
+        onTest();
+    });
 
-    //         i++;
-    //     } )
-    //     .on( 'complete', function() 
-    //     {
-    //         var fastest = _arr.indexOf( Math.max.apply( Math, _arr ) );
-    //         testRes[ fastest ].removeClass( 'slow' );
+    µExamples.emit( 'onTest', { doIt: '2 times' } );
+});
 
-    //         µResult.html( libraries[ fastest ] + ' is the fastest' );
-    //     } );
 
-    // var startTheTest = function()
-    // {
-    //     e.stopPropagation();
-    //     e.preventDefault();
-    //     µResult.off();
-    //     setTimeout( function()
-    //     {
-    //         suite.run( { 'async': true } );
-    //     }, 1 );
-    // };
+QUnit.test( '.off()', function( assert )
+{
+    assert.ok( µ().off, 'exists' );
 
-    // µResult.html( 'Click to start the speed test' );
-    // µResult.on( 'click', startTheTest );
-};
+    var µExamples   = µ( '.example--class' );
+
+    µExamples.on( 'turningOff', function( e ){});
+    µExamples.off( 'turningOff' );
+    var func = µExamples[0].data['_turningOff-bound-function']['_turningOff-bound-function'][0];
+
+    assert.equal( func, null, 'listener removed' );
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+QUnit.module( 'http/index' );
+
+
+QUnit.test( '.http', function( assert )
+{
+    assert.ok( µ.http, 'exists' );
+});
+
+
+QUnit.test( '.http.get', function( assert )
+{
+    assert.ok( µ.http.get, 'exists' );
+});
+
+
+QUnit.test( '.http.post', function( assert )
+{
+    assert.ok( µ.http.post, 'exists' );
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+QUnit.module( 'observe/index' );
+
+
+QUnit.test( '.get', function( assert )
+{
+    assert.ok( µ().get, 'exists' );
+
+    var µExamples   = µ( '.example--class' );
+
+    µExamples[0].data = µExamples[0].data || {};
+    µExamples[0].data.moo = µExamples[0].data.moo || {};
+    µExamples[0].data.moo.moo = 'mooon!';
+
+    assert.equal( µExamples.get( 'moo' )[0], 'mooon!', 'get gets' );
+});
+
+
+QUnit.test( '.observe()', function( assert )
+{
+    assert.expect( 3 );
+
+    assert.ok( µ().observe, 'exists' );
+
+    var µExamples   = µ( '.example--class' );
+
+    var observeTest      = assert.async();
+
+    µExamples.observe( 'observeTest', function( e )
+    {
+        assert.equal( typeof µExamples[0].data.observeTest._observeFunc, 'function', 'observe function stored' );
+        µExamples.unobserve();
+        assert.equal( e[0].object.observeTest, 'whoohoo', 'object correctly observed' );
+        observeTest();
+    });
+
+    µExamples.set( 'observeTest', 'whoohoo' );
+});
+
+
+QUnit.test( '.observeOnce', function( assert )
+{
+    assert.expect( 2 );
+
+    assert.ok( µ().observeOnce, 'exists' );
+
+    var µExamples   = µ( '.example--class' );
+
+    var observeOnceTest      = assert.async();
+
+    µExamples.observeOnce( 'observeOnceTest', function( e )
+    {
+        assert.equal( e[0].object.observeOnceTest, 'whoohoo', 'object correctly observed once' );
+
+        observeOnceTest();
+    });
+
+    µExamples.set( 'observeOnceTest', 'whoohoo' );
+});
+
+
+QUnit.test( '.set', function( assert )
+{
+    assert.ok( µ().set, 'exists' );
+
+    var µExamples   = µ( '.example--class' );
+    µExamples.set( 'moo', 'mooon!' );
+
+    var setData = µExamples[0].data.moo.moo;
+
+    assert.equal( setData, 'mooon!', 'set sets' );
+});
+
+
+QUnit.test( '.unobserve', function( assert )
+{
+    assert.ok( µ().unobserve, 'exists' );
+});
 
 

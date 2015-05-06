@@ -2,19 +2,17 @@ module.exports = function( Microbe )
 {
     var trigger, _shortSelector, selectorRegex   = /(?:[\s]*\.([\w-_\.]*)|#([\w-_]*)|([^#\.<][\w-_]*)|(<[\w-_#\.]*>))/g;
 
-
     // TODO: Check if we hit the duck
-
 
     /**
      * Build
      *
      * builds and returns the final microbe
      *
-     * @param  {arr}                _elements           array of elements
-     * @param  {str}                _selector           selector
+     * @param  {Array}              _elements           array of elements
+     * @param  {String}             _selector           selector
      *
-     * @return {microbe}                                micrbe wrapped elements
+     * @return {Microbe}                                microbe wrapped elements
      */
     function _build( _elements, _selector )
     {
@@ -42,9 +40,9 @@ module.exports = function( Microbe )
      * Method creates a Microbe from an element or a new element of the passed string, and
      * returns the Microbe
      *
-     * @param   _el                 HTMLELement         element to create
+     * @param   {Element}           _el                 element to create
      *
-     * @return  Microbe
+     * @return  {Microbe}
     */
     function _create( _el )
     {
@@ -105,10 +103,10 @@ module.exports = function( Microbe )
      *
      * checks if a given element is a child of _scope
      *
-     * @param  {[type]} _el        [description]
-     * @param  {[type]} _scope     [description]
+     * @param  {Element}            _el                 element to check
+     * @param  {Element}            _scope              scope
      *
-     * @return {[type]}            [description]
+     * @return {Boolean}                                whether _el is contained in the scope
      */
     function _contains( _el, _scope )
     {
@@ -136,11 +134,11 @@ module.exports = function( Microbe )
      * Usage:   µ('div#test')   ---> selection
      *          µ('<div#test>') ---> creation
      *
-     * @param   _selector   string or HTMLElement   HTML selector
-     * @param   _scope      HTMLElement             scope to look inside
-     * @param   _elements   HTMLElement(s)          elements to fill Microbe with (optional)
+     * @param   {Element or String} _selector           HTML selector
+     * @param   {Element}           _scope              scope to look inside
+     * @param   {Element or Array}  _elements           elements to fill Microbe with (optional)
      *
-     * @return  Microbe
+     * @return  {Microbe}
     */
     Microbe.core.__init__ =  function( _selector, _scope, _elements )
     {

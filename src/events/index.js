@@ -6,10 +6,12 @@ module.exports = function( Microbe )
      *
      * emits a custom event to the HTMLElements of the current object
      *
-     * @param   {str}               _event              HTMLEvent
-     * @param   {obj}               _data               event data
+     * @param   {String}            _event              HTMLEvent
+     * @param   {Object}            _data               event data
+     * @param   {Boolean}           _bubbles            event bubbles?
+     * @param   {Boolean}           _cancelable         cancelable?
      *
-     * @return  Microbe
+     * @return  {Microbe}
     */
     Microbe.prototype.emit = function ( _event, _data, _bubbles, _cancelable )
     {
@@ -41,10 +43,10 @@ module.exports = function( Microbe )
      * Binds an event to the HTMLElements of the current object or to the
      * given element.
      *
-     * @param   {str}               _event              HTMLEvent
-     * @param   {func}              _callback           callback function
+     * @param   {String}            _event              HTMLEvent
+     * @param   {Function}          _callback           callback function
      *
-     * @return  Microbe
+     * @return  {Microbe}
     */
     Microbe.prototype.on = function ( _event, _callback )
     {
@@ -58,7 +60,7 @@ module.exports = function( Microbe )
             _elm.data[ prop ][ prop ]   = _elm.data[ prop ][ prop ] || [];
 
             _elm.data.__boundEvents     = _elm.data.__boundEvents || {};
-            _elm.data.__boundEvents.__boundEvents   = _elm.data.__boundEvents.__boundEvents || [];                        
+            _elm.data.__boundEvents.__boundEvents   = _elm.data.__boundEvents.__boundEvents || [];
 
             _elm.addEventListener( _event, _callback );
             _elm.data[ prop ][ prop ].push( _callback );
@@ -88,7 +90,7 @@ module.exports = function( Microbe )
      * @return  Microbe
     */
     Microbe.prototype.off = function( _event, _callback )
-    {   
+    {
         var _off = function( _e, _elm )
         {
             _cb = _callback;
@@ -118,9 +120,9 @@ module.exports = function( Microbe )
                 _elm.data[ prop ][ prop ]   = _cb;
             }
             _cb = null;
-        }
+        };
 
-        var _cb;
+        var _cb, filterFunction = function( e ){ return e; };
         for ( var i = 0, len = this.length; i < len; i++ )
         {
             var _elm = this[ i ];
@@ -135,18 +137,19 @@ module.exports = function( Microbe )
                 _elm.data.__boundEvents     = _elm.data.__boundEvents || {};
             }
 
-            if ( !Microbe.isArray( _event ) ) 
+            if ( !Microbe.isArray( _event ) )
             {
                 _event = [ _event ];
             }
 
-            for ( var j = 0, lenJ = _event.length; j < lenJ; j++ ) 
+            for ( var j = 0, lenJ = _event.length; j < lenJ; j++ )
             {
                 _off( _event[ j ], _elm );
                 _event[ j ] = null;
             }
 
-            _elm.data.__boundEvents.__boundEvents = _event.filter( function( e ){ return e; } );
+
+            _elm.data.__boundEvents.__boundEvents = _event.filter( filterFunction );
         }
 
         return this;
