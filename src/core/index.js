@@ -93,7 +93,7 @@ Microbe.core = Microbe.prototype =
     /**
      * Append Element
      *
-     * appends an element or elements to the microbe.  if there is more than 
+     * appends an element or elements to the microbe.  if there is more than
      * one target the next ones are cloned
      *
      * @param   {Element Array or Microbe}  _ele          element(s) to append
@@ -386,7 +386,7 @@ Microbe.core = Microbe.prototype =
     /**
      * HTML
      *
-     * Changes the innerHtml to the supplied string.  If the value is omitted, 
+     * Changes the innerHtml to the supplied string.  If the value is omitted,
      * simply returns the current inner html value of the element.
      *
      * @param   {String}            _value              html value (optional)
@@ -439,7 +439,7 @@ Microbe.core = Microbe.prototype =
      *
      * returns the index of an element in this microbe
      *
-     * @param {Element}             _el                 element to check 
+     * @param {Element}             _el                 element to check
      *
      * @return {Number}
      */
@@ -528,10 +528,10 @@ Microbe.core = Microbe.prototype =
      * Map
      *
      * native map function
-     * 
+     *
      * @param  {Function}           callback            function to apply to all element
      *
-     * @return {Array}                                  array of callback returns  
+     * @return {Array}                                  array of callback returns
      */
     map : function( callback )
     {
@@ -572,7 +572,7 @@ Microbe.core = Microbe.prototype =
      *
      * @param  {Element}            _el                 element to add
      *
-     * @return {Microbe}                            
+     * @return {Microbe}
      */
     push : function( _el )
     {
@@ -592,7 +592,7 @@ Microbe.core = Microbe.prototype =
      * Remove Element
      *
      * removes an element or elements from the dom
-     * 
+     *
      * @return {Microbe}
      */
     remove : function()
@@ -700,7 +700,7 @@ Microbe.core = Microbe.prototype =
 
     /**
      * Splice
-     * 
+     *
      * native splice wrapped in a microbe
      *
      * @return {Array}                                  array of elements
@@ -709,14 +709,14 @@ Microbe.core = Microbe.prototype =
     {
         var arr = splice.call( this, _start, _end );
 
-        return new Microbe( arr )
+        return new Microbe( arr );
     },
 
 
     /**
      * Text
      *
-     * Changes the inner text to the supplied string. If the value is omitted, 
+     * Changes the inner text to the supplied string. If the value is omitted,
      * simply returns the current inner html value of the element.
      *
      * @param   {String}            _value              Text value (optional)
