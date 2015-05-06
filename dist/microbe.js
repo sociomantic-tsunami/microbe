@@ -2007,12 +2007,12 @@ Microbe.core = Microbe.prototype =
     /**
      * Add Class
      *
-     * Method adds the given class from the current object or the given element.
+     * adds the passed class to the current element(s)
      *
-     * @param   {str}               _class              class to add
+     * @param   {String}            _class              class to add
      *
-     * @return  Microbe
-    */
+     * @return  {Microbe}
+     */
     addClass : (function()
     {
         var _addClass = function( _class, _el )
@@ -2050,9 +2050,12 @@ Microbe.core = Microbe.prototype =
     /**
      * Append Element
      *
-     * @param   {element}           _ele                element to append
+     * appends an element or elements to the microbe.  if there is more than 
+     * one target the next ones are cloned
      *
-     * @return  {microbe}           this
+     * @param   {Element Array or Microbe}  _ele          element(s) to append
+     *
+     * @return  {Microbe}
      */
     append : (function()
     {
@@ -2075,7 +2078,7 @@ Microbe.core = Microbe.prototype =
                 {
                     if ( i !== 0 )
                     {
-                        _append( this[ i ], _el[ j ].cloneNode(true) );
+                        _append( this[ i ], _el[ j ].cloneNode( true ) );
                     }
                     else
                     {
@@ -2096,11 +2099,11 @@ Microbe.core = Microbe.prototype =
      * supplied elements.  If the value is omitted, simply returns the current
      * attribute value of the element.
      *
-     * @param   _attribute  string           JS formatted CSS property
-     * @param   _value      string           CSS value (optional)
+     * @param   {String}            _attribute          attribute name
+     * @param   {String}            _value              attribute value (optional)
      *
-     * @return  mixed ( Microbe or string or array of strings)
-    */
+     * @return  {Microbe or Array}
+     */
     attr : function ( _attribute, _value )
     {
         var _setAttr = function( _elm )
@@ -2173,11 +2176,11 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * Get Children
+     * Children
      *
-     * gets an array or all the given element's children
+     * gets an array of all the given element's children
      *
-     * @return {arr}                                    array of microbes
+     * @return {Array}                                  array of microbes
      */
     children : function()
     {
@@ -2198,17 +2201,17 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * Alter/Get CSS
+     * CSS
      *
      * Changes the CSS by writing the given property and value inline to the
      * supplied elements. (properties should be supplied in javascript format).
      * If the value is omitted, simply returns the current css value of the element.
      *
-     * @param   _property   string          CSS property
-     * @param   _value      string          CSS value (optional)
+     * @param   {String}            _attribute          css property
+     * @param   {String}            _value              css value (optional)
      *
-     * @return  mixed ( Microbe or array of strings)
-    */
+     * @return  {Microbe or Array}
+     */
     css : function ( _property, _value )
     {
         var _setCss = function( _elm )
@@ -2247,13 +2250,15 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * For each
+     * Each
      *
      * Methods iterates through all the elements an execute the function on each of
      * them
      *
-     * @return  Array
-    */
+     * @param  {Function}           _callback           function to apply to each item
+     *
+     * @return {Array}
+     */
     each : function( _callback )
     {
         var i, leni;
@@ -2266,12 +2271,12 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * Get First Element
+     * First Element
      *
      * Methods gets the first HTML Elements of the current object, and wrap it in
-     * Microbe for chaining purpose.
+     * Microbe.
      *
-     * @return  Microbe
+     * @return  {Microbe}
      */
     first : function ()
     {
@@ -2289,7 +2294,7 @@ Microbe.core = Microbe.prototype =
      *
      * gets the index of the item in it's parentNode's children array
      *
-     * @return {array}                       array of indexes
+     * @return {Array}                                  array of indexes
      */
     getParentIndex : function()
     {
@@ -2312,11 +2317,11 @@ Microbe.core = Microbe.prototype =
     /**
      * Has Class
      *
-     * Method checks if the current object or the given element has the given class
+     * Checks if the current object or the given element has the given class
      *
-     * @param   _class      string       class to check
+     * @param   {String}            _class              class to check
      *
-     * @return  Microbe
+     * @return  {Microbe}
     */
     hasClass : function( _class )
     {
@@ -2336,15 +2341,14 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * Alter/Get inner HTML
+     * HTML
      *
-     * Changes the innerHtml to the supplied string.
-     * If the value is omitted, simply returns the current inner html value of the element.
+     * Changes the innerHtml to the supplied string.  If the value is omitted, 
+     * simply returns the current inner html value of the element.
      *
-     * @param   _value      string          html value (optional)
-     * @param   _el         HTMLELement     element to modify (optional)
+     * @param   {String}            _value              html value (optional)
      *
-     * @return  mixed ( Microbe or string or array of strings)
+     * @return  {Microbe or Array}
     */
     html : function ( _value )
     {
@@ -2392,7 +2396,9 @@ Microbe.core = Microbe.prototype =
      *
      * returns the index of an element in this microbe
      *
-     * @return {void}
+     * @param {Element}             _el                 element to check 
+     *
+     * @return {Number}
      */
     indexOf : function( _el )
     {
@@ -2408,9 +2414,9 @@ Microbe.core = Microbe.prototype =
      *
      * @example µ( '.elementsInDom' ).insertAfter( µElementToInsert )
      *
-     * @param  {obj or str}         _elAfter            element to insert
+     * @param  {Object or String}   _elAfter            element to insert
      *
-     * @return Microbe
+     * @return {Microbe}
      */
     insertAfter : function( _elAfter )
     {
@@ -2457,12 +2463,12 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * Get Last Element
+     * Last Element
      *
-     * Methods gets the last HTML Elements of the current object, and wrap it in
-     * Microbe for chaining purpose.
+     * Gets the last HTML Elements of the current object, and wrap it in
+     * Microbe.
      *
-     * @return  {microbe}
+     * @return  {Microbe}
      */
     last : function ()
     {
@@ -2476,11 +2482,13 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * map
+     * Map
      *
-     * @param  {Function} callback [description]
+     * native map function
+     * 
+     * @param  {Function}           callback            function to apply to all element
      *
-     * @return {[type]}            [description]
+     * @return {Array}                                  array of callback returns  
      */
     map : function( callback )
     {
@@ -2489,11 +2497,11 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * Get Parent
+     * Parent
      *
-     * sets all elements in µ to their parent nodes
+     * sets all elements in a microbe to their parent nodes
      *
-     * @return {[type]}     [description]
+     * @return {Microbe}
      */
     parent : function()
     {
@@ -2519,9 +2527,9 @@ Microbe.core = Microbe.prototype =
      *
      * adds a new element to a microbe
      *
-     * @param  {[type]} _el [description]
+     * @param  {Element}            _el                 element to add
      *
-     * @return {[type]}     [description]
+     * @return {Microbe}                            
      */
     push : function( _el )
     {
@@ -2541,9 +2549,8 @@ Microbe.core = Microbe.prototype =
      * Remove Element
      *
      * removes an element or elements from the dom
-     *
-     * @param  {[type]} _el [description]
-     * @return {[type]}     [description]
+     * 
+     * @return {Microbe}
      */
     remove : function()
     {
@@ -2570,9 +2577,9 @@ Microbe.core = Microbe.prototype =
      *
      * Method removes the given class from the current object or the given element.
      *
-     * @param   {str}               _class              class to remove
+     * @param   {String}            _class              class to remove
      *
-     * @return  Microbe
+     * @return  {Microbe}
     */
     removeClass : (function()
     {
@@ -2603,7 +2610,7 @@ Microbe.core = Microbe.prototype =
      *
      * returns the css selector from an element
      *
-     * @return {obj}                                    microbe
+     * @return {String}                                  combined selectors
      */
     selector : function()
     {
@@ -2649,21 +2656,29 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * native splice
+     * Splice
+     * 
+     * native splice wrapped in a microbe
+     *
+     * @return {Array}                                  array of elements
      */
-    splice : splice,
+    splice : function( _start, _end )
+    {
+        var arr = splice.call( this, _start, _end );
+
+        return new Microbe( arr )
+    },
 
 
     /**
-     * Alter/Get inner Text
+     * Text
      *
-     * Changes the inner text to the supplied string.
-     * If the value is
-     * If the value is omitted, simply returns the current inner html value of the element.
+     * Changes the inner text to the supplied string. If the value is omitted, 
+     * simply returns the current inner html value of the element.
      *
-     * @param   _value      string          Text value (optional)
+     * @param   {String}            _value              Text value (optional)
      *
-     * @return  mixed ( Microbe or string or array of strings)
+     * @return  {Microbe or Array}
     */
     text : (function()
     {
@@ -2721,12 +2736,11 @@ Microbe.core = Microbe.prototype =
     /**
      * Toggle Class
      *
-     * Methods calls removeClass or removeClass from the current object or given
-     * element.
+     * Methods calls removeClass on the current object or given element.
      *
-     * @param   _class      string       class to add
+     * @param   {String}            _class              class to add
      *
-     * @return  Microbe
+     * @return  {Microbe}
     */
     toggleClass : (function()
     {
@@ -2764,7 +2778,7 @@ Microbe.core = Microbe.prototype =
  *
  * extends an object or microbe
  *
- * @return {obj}
+ * @return {Object}
  */
 Microbe.extend = Microbe.core.extend = function()
 {
@@ -2829,12 +2843,12 @@ Microbe.extend = Microbe.core.extend = function()
 /**
  * Merge
  *
- * combines microbes elements.
+ * combines microbes or array elements.
  *
- * @param  {arr, obj}                first              first array or array-like object
- * @param  {arr, obj}                second             second array or array-like object
+ * @param  {Object or Array}        first               first array or array-like object
+ * @param  {Object or Array}        second              second array or array-like object
  *
- * @return {arr, obj}                                   combined arr or obj (based off first)
+ * @return {Object or Array}                            combined arr or obj (based off first)
  */
 Microbe.merge = Microbe.core.merge  = function( first, second )
 {
@@ -2863,9 +2877,9 @@ Microbe.merge = Microbe.core.merge  = function( first, second )
  * capitalizes every word in a string or an array of strings and returns the
  * type that it was given
  *
- * @param  {str, arr}               text                string(s) to capitalize
+ * @param  {String or Array}        text                string(s) to capitalize
  *
- * @return {str, arr}                                   capitalized string(s)
+ * @return {String or Array}                            capitalized string(s)
  */
 Microbe.capitalize = function( text )
 {
@@ -2915,7 +2929,7 @@ Microbe.xyzzy = Microbe.noop;
 /**
  * native isArray for completeness
  *
- * @type {func}
+ * @type {Function}
  */
 Microbe.isArray = Array.isArray;
 
@@ -2925,7 +2939,7 @@ Microbe.isArray = Array.isArray;
  *
  * checks if the passed object is empty
  *
- * @param  {obj}                    obj                 object to check
+ * @param  {Object}                 obj                 object to check
  *
  * @return {Boolean}                                    empty or not
  */
@@ -2946,7 +2960,7 @@ Microbe.isEmpty = function( obj )
  *
  * checks if the passed parameter is a function
  *
- * @param  {obj}                    obj                 object to check
+ * @param  {Object}                 obj                 object to check
  *
  * @return {Boolean}                                    function or not
  */
@@ -2961,7 +2975,7 @@ Microbe.isFunction = function( obj )
  *
  * checks if the passed parameter is an object
  *
- * @param  {obj}                    obj                 object to check
+ * @param  {Object}                 obj                 object to check
  *
  * @return {Boolean}                                    isObject or not
  */
@@ -2979,8 +2993,8 @@ Microbe.isObject = function( obj )
 /**
  * isUndefined
  *
- * @param  {str}                    obj                 property
- * @param  {obj}                    parent              object to check
+ * @param  {String}                 obj                 property
+ * @param  {Object}                 parent              object to check
  *
  * @return {Boolean}                                    obj in parent
  */
@@ -3000,7 +3014,7 @@ Microbe.isUndefined = function( obj, parent )
  *
  * checks if the passed parameter equals window
  *
- * @param  {obj}                    obj                 object to check
+ * @param  {Object}                 obj                 object to check
  *
  * @return {Boolean}                                    isWindow or not
  */
@@ -3011,11 +3025,11 @@ Microbe.isWindow = function( obj )
 
 
 /**
- * To String
+ * To string
  *
  * Methods returns the type of Microbe.
  *
- * @return  string
+ * @return  {String}
 */
 Microbe.toString = Microbe.prototype.toString = function()
 {
@@ -3028,7 +3042,7 @@ Microbe.toString = Microbe.prototype.toString = function()
  *
  * Methods returns all the elements in an array.
  *
- * @return  Array
+ * @return  {Array}
 */
 Microbe.toArray = Microbe.prototype.toArray = function( _arr )
 {
@@ -3044,7 +3058,7 @@ Microbe.toArray = Microbe.prototype.toArray = function( _arr )
  *
  * @param  {all}                    obj                 parameter to test
  *
- * @return {str}                                        typeof obj
+ * @return {String}                                     typeof obj
  */
 Microbe.type = function( obj )
 {
@@ -3067,19 +3081,17 @@ module.exports = function( Microbe )
 {
     var trigger, _shortSelector, selectorRegex   = /(?:[\s]*\.([\w-_\.]*)|#([\w-_]*)|([^#\.<][\w-_]*)|(<[\w-_#\.]*>))/g;
 
-
     // TODO: Check if we hit the duck
-
 
     /**
      * Build
      *
      * builds and returns the final microbe
      *
-     * @param  {arr}                _elements           array of elements
-     * @param  {str}                _selector           selector
+     * @param  {Array}              _elements           array of elements
+     * @param  {String}             _selector           selector
      *
-     * @return {microbe}                                micrbe wrapped elements
+     * @return {Microbe}                                microbe wrapped elements
      */
     function _build( _elements, _selector )
     {
@@ -3107,9 +3119,9 @@ module.exports = function( Microbe )
      * Method creates a Microbe from an element or a new element of the passed string, and
      * returns the Microbe
      *
-     * @param   _el                 HTMLELement         element to create
+     * @param   {Element}           _el                 element to create
      *
-     * @return  Microbe
+     * @return  {Microbe}
     */
     function _create( _el )
     {
@@ -3170,10 +3182,10 @@ module.exports = function( Microbe )
      *
      * checks if a given element is a child of _scope
      *
-     * @param  {[type]} _el        [description]
-     * @param  {[type]} _scope     [description]
+     * @param  {Element}            _el                 element to check
+     * @param  {Element}            _scope              scope
      *
-     * @return {[type]}            [description]
+     * @return {Boolean}                                whether _el is contained in the scope
      */
     function _contains( _el, _scope )
     {
@@ -3201,11 +3213,11 @@ module.exports = function( Microbe )
      * Usage:   µ('div#test')   ---> selection
      *          µ('<div#test>') ---> creation
      *
-     * @param   _selector   string or HTMLElement   HTML selector
-     * @param   _scope      HTMLElement             scope to look inside
-     * @param   _elements   HTMLElement(s)          elements to fill Microbe with (optional)
+     * @param   {Element or String} _selector           HTML selector
+     * @param   {Element}           _scope              scope to look inside
+     * @param   {Element or Array}  _elements           elements to fill Microbe with (optional)
      *
-     * @return  Microbe
+     * @return  {Microbe}
     */
     Microbe.core.__init__ =  function( _selector, _scope, _elements )
     {
@@ -3344,10 +3356,12 @@ module.exports = function( Microbe )
      *
      * emits a custom event to the HTMLElements of the current object
      *
-     * @param   {str}               _event              HTMLEvent
-     * @param   {obj}               _data               event data
+     * @param   {String}            _event              HTMLEvent
+     * @param   {Object}            _data               event data
+     * @param   {Boolean}           _bubbles            event bubbles?
+     * @param   {Boolean}           _cancelable         cancelable?
      *
-     * @return  Microbe
+     * @return  {Microbe}
     */
     Microbe.prototype.emit = function ( _event, _data, _bubbles, _cancelable )
     {
@@ -3379,10 +3393,10 @@ module.exports = function( Microbe )
      * Binds an event to the HTMLElements of the current object or to the
      * given element.
      *
-     * @param   {str}               _event              HTMLEvent
-     * @param   {func}              _callback           callback function
+     * @param   {String}            _event              HTMLEvent
+     * @param   {Function}          _callback           callback function
      *
-     * @return  Microbe
+     * @return  {Microbe}
     */
     Microbe.prototype.on = function ( _event, _callback )
     {
@@ -3676,11 +3690,13 @@ module.exports = function( Microbe )
 
 
     /**
-     * Get data parameter
+     * Get data
      *
-     * gets the index of the item in it's parentNode's children array
+     * gets the saved value from each element in the microbe in an array
      *
-     * @return {arr}                       array of values
+     * @param  {String}             _prop               property to get
+     *
+     * @return {Array}                                  array of values
      */
     Microbe.prototype.get = function( prop )
     {
@@ -3719,11 +3735,11 @@ module.exports = function( Microbe )
      *
      * applies a function to an element if it is changed from within µ
      *
-     * @param  {func}               function            function to apply
-     * @param  {str}                _prop               property to observe
-     * @param  {bool}               _once               bool to trigger auto unobserve
+     * @param  {Function}           function            function to apply
+     * @param  {String}             _prop               property to observe
+     * @param  {Boolean}            _once               bool to trigger auto unobserve
      *
-     * @return  Microbe
+     * @return  {Microbe}
     */
     Microbe.prototype.observe = function( prop, func, _once )
     {
@@ -3815,8 +3831,8 @@ module.exports = function( Microbe )
      *
      * applies a function to an element if it is changed from within µ (once)
      *
-     * @param  {func}               function            function to apply
-     * @param  {str}                _prop               property to observe
+     * @param  {Function}           func                function to apply
+     * @param  {String}             _prop               property to observe
      *
      * @return  Microbe
     */
@@ -3827,11 +3843,14 @@ module.exports = function( Microbe )
 
 
     /**
-     * Get data parameter
+     * Set data
      *
-     * gets the index of the item in it's parentNode's children array
+     * sets the value to the data object in the each element in the microbe 
      *
-     * @return {arr}                       array of values
+     * @param  {String}             prop                property to set
+     * @param  {String}             value               value to set to
+     * 
+     * @return {Microbe}
      */
     Microbe.prototype.set = function( prop, value )
     {
@@ -3874,9 +3893,9 @@ module.exports = function( Microbe )
      *
      * stops watching the data changes of a µ onject
      *
-     * @param   _el         HTMLELement             element to watch (optional)
+     * @param   {String}            _prop               property to stop observing
      *
-     * @return  Microbe
+     * @return  {Microbe}
     */
     Microbe.prototype.unobserve = function( _prop )
     {

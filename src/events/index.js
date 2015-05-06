@@ -6,10 +6,12 @@ module.exports = function( Microbe )
      *
      * emits a custom event to the HTMLElements of the current object
      *
-     * @param   {str}               _event              HTMLEvent
-     * @param   {obj}               _data               event data
+     * @param   {String}            _event              HTMLEvent
+     * @param   {Object}            _data               event data
+     * @param   {Boolean}           _bubbles            event bubbles?
+     * @param   {Boolean}           _cancelable         cancelable?
      *
-     * @return  Microbe
+     * @return  {Microbe}
     */
     Microbe.prototype.emit = function ( _event, _data, _bubbles, _cancelable )
     {
@@ -41,10 +43,10 @@ module.exports = function( Microbe )
      * Binds an event to the HTMLElements of the current object or to the
      * given element.
      *
-     * @param   {str}               _event              HTMLEvent
-     * @param   {func}              _callback           callback function
+     * @param   {String}            _event              HTMLEvent
+     * @param   {Function}          _callback           callback function
      *
-     * @return  Microbe
+     * @return  {Microbe}
     */
     Microbe.prototype.on = function ( _event, _callback )
     {
