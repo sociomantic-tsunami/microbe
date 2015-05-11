@@ -41,17 +41,17 @@ No one should be using less than 0.3.  Changes past that will be posted here
 Usage
 =====
 
-    - include microbe.js or microbe.min.js
-    - that's it!
+- include microbe.js or microbe.min.js
+- that's it!
 
 
 Dev Installation
 ================
 
-    -  Clone repo
-    -  Make sure npm is installed
-    -  npm install
-    -  gulp
+-  Clone repo
+-  Make sure npm is installed
+-  npm install
+-  gulp
 
 
 Dev Dependencies (taken care of by npm install)
