@@ -45,6 +45,34 @@ Usage
 - that's it!
 
 
+Example use
+===========
+
+var µDivs = µ( 'div' )                  // all divs on the page
+
+var newDiv = µ( '<div.example--class>' )// create a div with the class anotherDiv
+
+µDivs.insertAfter( newDiv )             // all divs get a newDiv or a clone of
+                                        // newDiv inserted into the DOM after them
+
+µDivs.observe( 'class', function( e ){ console.log( 'your class changed' ); } );
+                                        // watches the class of each div
+
+
+µDivs.addClass( 'example--class' )      // gives the class aClass to each div
+                                        // also triggers the observe fuctions
+
+
+µDivs.on( 'toTheMoon', function( e ){ console.log( e.detail ); } );
+                                        // sets a custom event watch
+
+µDivs.emit( 'toTheMoon', { moon : 'close' } );
+                                        // emits a custom event to all elements in µDivs
+                                        // with a custom data packet.  triggers the
+                                        // event listener to show the sent data
+
+
+
 Dev Installation
 ================
 
@@ -84,11 +112,6 @@ Microbe was born JSUnconf in 2014 from a simple shortcut.::
     $   = document.querySelector;
     $$  = document.querySelectorAll;
 
-So why not go further and make better and learn exactly how this::
+So why not go further and make better and learn exactly how this <insert JS framework here> magic works ?
 
-    <insert JS framework here>
-
-magic works ?
-
-Microbe is being developed as both an ongoing learning experiment, as well as
-something actively used in projects.
+Microbe is being developed as both an ongoing learning experiment, as well as something actively used in projects.
