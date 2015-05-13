@@ -47,31 +47,31 @@ Usage
 
 Example use
 ===========
+.. code:: javascript
 
-var µDivs = µ( 'div' )                  // all divs on the page
+    var µDivs = µ( 'div' )                  // all divs on the page
 
-var newDiv = µ( '<div.example--class>' )// create a div with the class anotherDiv
+    var newDiv = µ( '<div.example--class>' )// create a div with the class anotherDiv
 
-µDivs.insertAfter( newDiv )             // all divs get a newDiv or a clone of
-                                        // newDiv inserted into the DOM after them
+    µDivs.insertAfter( newDiv )             // all divs get a newDiv or a clone of
+                                            // newDiv inserted into the DOM after them
 
-µDivs.observe( 'class', function( e ){ console.log( 'your class changed' ); } );
-                                        // watches the class of each div
-
-
-µDivs.addClass( 'example--class' )      // gives the class aClass to each div
-                                        // also triggers the observe fuctions
+    µDivs.observe( 'class', function( e ){ console.log( 'your class changed' ); } );
+                                            // watches the class of each div
 
 
-µDivs.on( 'toTheMoon', function( e ){ console.log( e.detail ); } );
-                                        // sets a custom event watch
-
-µDivs.emit( 'toTheMoon', { moon : 'close' } );
-                                        // emits a custom event to all elements in µDivs
-                                        // with a custom data packet.  triggers the
-                                        // event listener to show the sent data
+    µDivs.addClass( 'example--class' )      // gives the class aClass to each div
+                                            // also triggers the observe fuctions
 
 
+    µDivs.on( 'toTheMoon', function( e ){ console.log( e.detail ); } );
+                                            // sets a custom event watch
+
+    µDivs.emit( 'toTheMoon', { moon : 'close' } );
+                                            // emits a custom event to all elements in µDivs
+                                            // with a custom data packet.  triggers the
+                                            // event listener to show the sent data
+                                        
 
 Dev Installation
 ================
