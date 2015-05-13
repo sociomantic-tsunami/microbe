@@ -71,7 +71,7 @@ Example use
                                             // emits a custom event to all elements in µDivs
                                             // with a custom data packet.  triggers the
                                             // event listener to show the sent data
-                                        
+
 
 Dev Installation
 ================
@@ -80,22 +80,6 @@ Dev Installation
 -  Make sure npm is installed
 -  npm install
 -  gulp
-
-
-Dev Dependencies (taken care of by npm install)
-===============================================
-
-:Dependency: browserify     ^5.11.2
-:Dependency: gulp           latest
-:Dependency: gulp-rename    ^1.2.2
-:Dependency: gulp-replace   ^0.4.0
-:Dependency: gulp-rimraf    latest
-:Dependency: gulp-uglify    ^1.2.0
-:Dependency: observe-shim   ^0.4.1
-:Dependency: observe-utils  ^0.3.2
-:Dependency: promise        ^6.0.0
-:Dependency: qunitjs        ^1.18.0
-:Dependency: setimmediate   ^1.0.2
 
 
 Contributing
