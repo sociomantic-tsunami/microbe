@@ -47,6 +47,7 @@ Usage
 
 Example use
 ===========
+
 .. code:: javascript
 
     var µDivs = µ( 'div' )                  // all divs on the page
@@ -62,7 +63,6 @@ Example use
 
     µDivs.addClass( 'example--class' )      // gives the class aClass to each div
                                             // also triggers the observe fuctions
-
 
     µDivs.on( 'toTheMoon', function( e ){ console.log( e.detail ); } );
                                             // sets a custom event watch
