@@ -4,10 +4,9 @@ Microbe - 0.3
 Microbe (µ) - a javascript library
 
 Microbe is a javascript library to aid in DOM manipulation as well as facilitating
-events, object observation, and data binding, the goal being to write an efficent
-library in ES6 to be ready for the future. Due to the nature
-of it's development, Microbe is only using ES6 functionality that can be
-shimmed.
+events, object observation, and data binding.
+
+The next goal being to convert the library to ES6 to be ready for the future.
 
 Microbe aims to be somewhat general and expandable.  It's separated
 into several categories:
