@@ -130,7 +130,7 @@ module.exports = function( Microbe )
      * Class Microbe
      *
      * Constructor.
-     * Either selects or creates an HTML element and wraps in into an Microbe instance.
+     * Either selects or creates an HTML element and wraps it into a Microbe instance.
      * Usage:   µ('div#test')   ---> selection
      *          µ('<div#test>') ---> creation
      *
@@ -153,7 +153,7 @@ module.exports = function( Microbe )
 
         _scope = _scope === undefined ?  document : _scope;
 
-        // if ( ! _scope.nodeType && _scope === window )
+        // if ( ! _scope.nodeType && _scope !== window )
         // {
         // accept string or µ scope
         // }

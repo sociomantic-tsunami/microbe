@@ -24,6 +24,15 @@ gulp.task('dist', function()
                 .pipe(rename('./dist/microbe.min.js'))
                 .pipe(gulp.dest('./'));
         });
+
+    browserify('./tests/unit/buildTests.js' )
+        .bundle()
+        .pipe(fs.createWriteStream(__dirname + '/tests/tests.js'))
+        .on( 'finish', function()
+        {
+            gulp.src('./tests/tests.js')
+                .pipe(gulp.dest('./tests/'));
+        });
 });
 
 

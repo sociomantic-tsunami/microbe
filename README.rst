@@ -49,27 +49,33 @@ Example use
 
 .. code:: javascript
 
-    var µDivs = µ( 'div' )                  // all divs on the page
+    // all divs on the page
+    var µDivs = µ( 'div' ) ;
 
-    var newDiv = µ( '<div.example--class>' )// create a div with the class anotherDiv
+    // create a div with the class anotherDiv
+    var newDiv = µ( '<div.example--class>' );
 
-    µDivs.insertAfter( newDiv )             // all divs get a newDiv or a clone of
-                                            // newDiv inserted into the DOM after them
+    // all divs get a newDiv or a clone of newDiv inserted into the DOM after them
+    µDivs.insertAfter( newDiv );
 
-    µDivs.observe( 'class', function( e ){ console.log( 'your class changed' ); } );
-                                            // watches the class of each div
+    // watches the class of each div
+    µDivs.observe( 'class', function( e )
+    {
+        console.log( 'your class changed' );
+    } );
 
+    // gives the class aClass to each div also triggers the observe fuctions
+    µDivs.addClass( 'example--class' );
 
-    µDivs.addClass( 'example--class' )      // gives the class aClass to each div
-                                            // also triggers the observe fuctions
+    // sets a custom event watch
+    µDivs.on( 'toTheMoon', function( e )
+    {
+        console.log( e.detail );
+    } );
 
-    µDivs.on( 'toTheMoon', function( e ){ console.log( e.detail ); } );
-                                            // sets a custom event watch
-
+    // emits a custom event to all elements in µDivs with a custom data packet.
+    // triggers the event listener to show the sent data
     µDivs.emit( 'toTheMoon', { moon : 'close' } );
-                                            // emits a custom event to all elements in µDivs
-                                            // with a custom data packet.  triggers the
-                                            // event listener to show the sent data
 
 
 Dev Installation

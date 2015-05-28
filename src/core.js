@@ -8,9 +8,9 @@
  */
 'use strict';
 
-var Arrays      = require( '../utils/array' );
-var Strings     = require( '../utils/string' );
-var Types       = require( '../utils/types' );
+var Arrays      = require( './utils/array' );
+var Strings     = require( './utils/string' );
+var Types       = require( './utils/types' );
 
 var slice       = Arrays.slice;
 var splice      = Arrays.splice;
@@ -731,7 +731,7 @@ Microbe.core = Microbe.prototype =
             {
                 _el.innerText = _value;
             }
-            else // stupid FF
+            else // FF
             {
                 _el.textContent = _value;
             }
@@ -747,7 +747,7 @@ Microbe.core = Microbe.prototype =
             {
                 return _el.innerText;
             }
-            else // stupid FF
+            else // FF
             {
                 return _el.textContent;
             }
@@ -843,7 +843,21 @@ Microbe.extend = Microbe.core.extend = function()
         index   += 1;
     }
 
-    target = this.type === '[object Microbe]' ? this : Microbe.isObject( args[ index ] ) ? args[ index ] : {};
+    if ( this.type === '[object Microbe]' )
+    {
+        target = this;
+    }
+    else
+    {
+        if ( Microbe.isObject( args[ index ] ) )
+        {
+            target = args[ index ];
+        }
+        else
+        {
+            target = {};
+        }
+    }
 
     for ( ; index < length; index++ )
     {
@@ -851,30 +865,33 @@ Microbe.extend = Microbe.core.extend = function()
         {
             for ( var name in options )
             {
-                isArray = false;
-                src     = target[ name ];
-                copy    = options[ name ];
-
-                if ( target === copy || copy === undefined )
+                if ( options.hasOwnProperty( name ) )
                 {
-                    continue;
-                }
+                    isArray = false;
+                    src     = target[ name ];
+                    copy    = options[ name ];
 
-                if ( deep && copy && Microbe.isObject( copy ) )
-                {
-                    if ( Microbe.isArray( copy ) )
+                    if ( target === copy || typeof copy === undefined )
                     {
-                        clone = src && Microbe.isArray( src ) ? src : [];
-                    }
-                    else
-                    {
-                        clone = src && Microbe.isObject( src ) ? src : {};
+                        continue;
                     }
 
-                    target[ name ] = Microbe.extend( deep, clone, copy );
-                }
+                    if ( deep && copy && Microbe.isObject( copy ) )
+                    {
+                        if ( Microbe.isArray( copy ) )
+                        {
+                            clone = src && Microbe.isArray( src ) ? src : [];
+                        }
+                        else
+                        {
+                            clone = src && Microbe.isObject( src ) ? src : {};
+                        }
 
-                target[ name ] = copy;
+                        target[ name ] = Microbe.extend( deep, clone, copy );
+                    }
+
+                    target[ name ] = copy;
+                }
             }
         }
     }

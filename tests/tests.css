@@ -1,0 +1,25 @@
+.speed--result, .fastest
+{
+    float:              right;
+    font-size:          11px;
+}
+.fastest
+{
+    position:           relative;
+    right:              200px;
+    color:              #2137a8;
+    cursor:             pointer;
+    font-weight:        bold;
+}
+.fastest:hover
+{
+    color:              #fff;
+}
+.speed--result
+{
+    margin-right:       25px;
+}
+.slow
+{
+    color:              #CB3737;
+}
