@@ -2271,6 +2271,22 @@ Microbe.core = Microbe.prototype =
 
 
     /**
+     * Find Element
+     *
+     * finds an element with the given selector inside the scope of the current microbe
+     * 
+     * @param  {String}             selector            selector to search for
+     * 
+     * @return {Microbe}
+     */
+    find : function( selector )
+    {
+        var _scope = this.selector();
+        return new Microbe( selector, _scope );
+    },
+
+
+    /**
      * First Element
      *
      * Methods gets the first HTML Elements of the current object, and wrap it in
@@ -3113,7 +3129,7 @@ module.exports = function( Microbe )
         }
         else
         {
-          window.onload = _cb;
+            window.onload = _cb;
         }
     };
 };
@@ -3621,7 +3637,6 @@ module.exports = function( Microbe )
 
                 newSelector = newSelector.trim();
                 newSelector = newSelector.slice( 0, newSelector.length - 1 );
-                console.log( newSelector );
             }
             else
             {
@@ -3631,7 +3646,7 @@ module.exports = function( Microbe )
         }
         // if ( ! _scope.nodeType && _scope !== window )
         // {
-        // accept µ scope
+        //     accept µ scope
         // }
 
         var scopeNodeType   = _scope.nodeType,

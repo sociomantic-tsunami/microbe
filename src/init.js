@@ -170,7 +170,6 @@ module.exports = function( Microbe )
 
                 newSelector = newSelector.trim();
                 newSelector = newSelector.slice( 0, newSelector.length - 1 );
-                console.log( newSelector );
             }
             else
             {
@@ -180,7 +179,7 @@ module.exports = function( Microbe )
         }
         // if ( ! _scope.nodeType && _scope !== window )
         // {
-        // accept µ scope
+        //     accept µ scope
         // }
 
         var scopeNodeType   = _scope.nodeType,

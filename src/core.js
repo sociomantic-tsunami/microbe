@@ -314,6 +314,22 @@ Microbe.core = Microbe.prototype =
 
 
     /**
+     * Find Element
+     *
+     * finds an element with the given selector inside the scope of the current microbe
+     * 
+     * @param  {String}             selector            selector to search for
+     * 
+     * @return {Microbe}
+     */
+    find : function( selector )
+    {
+        var _scope = this.selector();
+        return new Microbe( selector, _scope );
+    },
+
+
+    /**
      * First Element
      *
      * Methods gets the first HTML Elements of the current object, and wrap it in
