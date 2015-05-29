@@ -1112,7 +1112,7 @@ Microbe.toArray = Microbe.prototype.toArray = function( _arr )
 
 
 /**
- * Type of
+ * Type
  *
  * returns the type of the parameter passed to it
  *

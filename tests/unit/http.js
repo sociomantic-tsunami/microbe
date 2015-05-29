@@ -2,7 +2,7 @@
 
 module.exports = function( buildTest )
 {
-    QUnit.module( 'http/index' );
+    QUnit.module( 'http.js' );
 
 
     QUnit.test( '.http', function( assert )

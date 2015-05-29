@@ -3069,7 +3069,7 @@ Microbe.toArray = Microbe.prototype.toArray = function( _arr )
 
 
 /**
- * Type of
+ * Type
  *
  * returns the type of the parameter passed to it
  *
@@ -3497,8 +3497,7 @@ module.exports = function( Microbe )
     */
     function _create( _el )
     {
-        var selectorRegex   = /(?:[\s]*\.([\w-_\.]*)|#([\w-_]*)|([^#\.<][\w-_]*)|(<[\w-_#\.]*>))/g,
-            resultsRegex    = _el.match( selectorRegex ),
+        var resultsRegex    = _el.match( selectorRegex ),
             _id, _tag, _class, _selector = '';
 
         var i, lenI;
@@ -3604,9 +3603,35 @@ module.exports = function( Microbe )
 
         _scope = _scope === undefined ?  document : _scope;
 
+        if ( _scope !== document && typeof _scope === 'string' && typeof _selector === 'string' )
+        {
+            if ( _selector.indexOf( ',' ) !== -1 || _scope.indexOf( ',' ) !== -1 )
+            {
+                var newSelector = '';
+                _selector   = _selector.split( ',' );
+                _scope      = _scope.split( ',' );
+
+                for ( var i = 0, lenI = _scope.length; i < lenI; i++ ) 
+                {
+                    for ( var j = 0, lenJ = _selector.length; j < lenJ; j++ ) 
+                    {
+                        newSelector += _scope[ i ] + ' ' + _selector[ j ] + ', ';
+                    }
+                }
+
+                newSelector = newSelector.trim();
+                newSelector = newSelector.slice( 0, newSelector.length - 1 );
+                console.log( newSelector );
+            }
+            else
+            {
+                _selector   = _scope + ' ' + _selector;
+                _scope      = document;
+            }
+        }
         // if ( ! _scope.nodeType && _scope !== window )
         // {
-        // accept string or µ scope
+        // accept µ scope
         // }
 
         var scopeNodeType   = _scope.nodeType,
@@ -3640,8 +3665,8 @@ module.exports = function( Microbe )
 
             if ( resultsRegex && resultsRegex.length === 1 )
             {
-                trigger = resultsRegex[0][0];
-                _shortSelector = _selector.slice( 1 );
+                trigger         = resultsRegex[0][0];
+                _shortSelector  = _selector.slice( 1 );
 
                 if ( trigger === '<' )
                 {

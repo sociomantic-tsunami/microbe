@@ -2,7 +2,7 @@
 
 module.exports = function( buildTest )
 {
-    QUnit.module( 'core/index' );
+    QUnit.module( 'core.js' );
 
 
     QUnit.test( 'µ().version', function( assert )

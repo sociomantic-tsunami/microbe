@@ -2,7 +2,7 @@
 
 module.exports = function( buildTest )
 {
-    QUnit.module( 'observe/index' );
+    QUnit.module( 'observe.js' );
 
 
     QUnit.test( '.get', function( assert )
