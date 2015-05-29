@@ -75,7 +75,7 @@ require( './observe.js' )( buildTest );
 
 module.exports = function( buildTest )
 {
-    QUnit.module( 'core/index' );
+    QUnit.module( 'core.js' );
 
 
     QUnit.test( 'µ().version', function( assert )
@@ -703,7 +703,7 @@ module.exports = function( buildTest )
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 module.exports = function( buildTest )
 {
-    QUnit.module( 'dom/index' );
+    QUnit.module( 'dom.js' );
 
     QUnit.test( 'µ.ready()', function( assert )
     {
@@ -716,7 +716,7 @@ module.exports = function( buildTest )
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 module.exports = function( buildTest )
 {
-    QUnit.module( 'events/index' );
+    QUnit.module( 'events.js' );
 
 
     QUnit.test( '.emit()', function( assert )
@@ -793,7 +793,7 @@ module.exports = function( buildTest )
 /* global document, window, µ, $, QUnit, Benchmark, buildTest  */
 module.exports = function( buildTest )
 {
-    QUnit.module( 'core/init' );
+    QUnit.module( 'init.js' );
 
     QUnit.test( 'wrap an element', function( assert )
     {
@@ -949,7 +949,7 @@ module.exports = function( buildTest )
 
 module.exports = function( buildTest )
 {
-    QUnit.module( 'observe/index' );
+    QUnit.module( 'observe.js' );
 
 
     QUnit.test( '.get', function( assert )

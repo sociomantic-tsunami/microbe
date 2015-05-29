@@ -1,7 +1,7 @@
 /* global document, window, µ, $, QUnit, Benchmark, buildTest  */
 module.exports = function( buildTest )
 {
-    QUnit.module( 'core/init' );
+    QUnit.module( 'init.js' );
 
     QUnit.test( 'wrap an element', function( assert )
     {

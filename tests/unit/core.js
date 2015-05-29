@@ -2,7 +2,7 @@
 
 module.exports = function( buildTest )
 {
-    QUnit.module( 'core/index' );
+    QUnit.module( 'core.js' );
 
 
     QUnit.test( 'µ().version', function( assert )
@@ -208,6 +208,12 @@ module.exports = function( buildTest )
         var divs = [];
         µDivs.each( function( _el ){ divs.push( _el ); } );
         assert.equal( µDivs.length, divs.length, 'pushed each element' );
+    });
+
+
+    QUnit.test( '.find()', function( assert )
+    {
+        assert.ok( µ().find, 'exists' );
     });
 
 

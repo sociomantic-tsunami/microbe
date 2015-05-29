@@ -1,7 +1,7 @@
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 module.exports = function( buildTest )
 {
-    QUnit.module( 'events/index' );
+    QUnit.module( 'events.js' );
 
 
     QUnit.test( '.emit()', function( assert )

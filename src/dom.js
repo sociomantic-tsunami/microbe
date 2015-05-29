@@ -17,7 +17,7 @@ module.exports = function( Microbe )
         }
         else
         {
-          window.onload = _cb;
+            window.onload = _cb;
         }
     };
 };
