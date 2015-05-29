@@ -336,34 +336,40 @@ Microbe.core = Microbe.prototype =
         var i, lenI, j, lenJ;
         for ( j = 0, lenJ = selectorArray.length; j < lenJ; j++ )
         {
-            for ( i = 0, lenI = selectorArray[ j ].length; i < lenI; i++ )
+            if ( selectorArray[ j ] )
             {
-                var trigger = selectorArray[ j ][ i ][ 0 ];
-
-                switch ( trigger )
+                for ( i = 0, lenI = selectorArray[ j ].length; i < lenI; i++ )
                 {
-                    case '#':
-                        _id      += selectorArray[ j ][ i ];
-                        break;
+                    var trigger = selectorArray[ j ][ i ][ 0 ];
 
-                    case '.':
-                        _class   += selectorArray[ j ][ i ];
-                        break;
+                    switch ( trigger )
+                    {
+                        case '#':
+                            _id      += selectorArray[ j ][ i ];
+                            break;
 
-                    case ':':
-                        _psuedo   = selectorArray[ j ][ i ];
-                        break;
+                        case '.':
+                            _class   += selectorArray[ j ][ i ];
+                            break;
 
-                    default:
-                        if ( _tag !== '' )
-                        {
-                            return new Microbe();
-                        }
-                        else
-                        {
-                            _tag     = selectorArray[ j ][ i ];
-                        }
-                        break;
+                        case ':':
+                            _psuedo   = selectorArray[ j ][ i ];
+                            break;
+
+                        default:
+                            if ( _tag !== selectorArray[ j ][ i ] )
+                            {
+                                if ( _tag !== '' )
+                                {
+                                    return new Microbe();
+                                }
+                                else
+                                {
+                                    _tag     = selectorArray[ j ][ i ];
+                                }
+                            }
+                            break;
+                    }
                 }
             }
         }
@@ -377,7 +383,7 @@ Microbe.core = Microbe.prototype =
     /**
      * Find Element
      *
-     * finds an element with the given selector inside the scope of the current microbe
+     * finds a child element with the given selector inside the scope of the current microbe
      *
      * @param  {String}             selector            selector to search for
      *

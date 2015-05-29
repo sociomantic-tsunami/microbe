@@ -71,7 +71,7 @@ module.exports = function( buildTest )
         var _div = document.getElementsByTagName( 'div' )[0];
         var µDiv = µ( 'div' );
 
-        assert.deepEqual( µDiv[ 0 ].tagName, 'DIV', 'passes' );
+        assert.equal( µDiv[ 0 ].tagName, 'DIV', 'correct element' );
         assert.deepEqual( µDiv[ 0 ], _div, 'passes' );
 
         buildTest(
@@ -108,15 +108,25 @@ module.exports = function( buildTest )
     });
 
 
-    // NON FUNCTIONAL TEST
-    // this is a future ability and cannot be tested yet
-    //
-    // QUnit.test( 'query microbe scope', function( assert )
-    // {
-    //     var µDiv = µ( 'div', µ( '.example--class--groups' ) );
+    QUnit.test( 'query microbe scope', function( assert )
+    {
+        var µDiv = µ( 'div', µ( '.example--class--groups' ) );
+        var $Div = $( 'div', $( '.example--class--groups' ) );
 
-    //     assert.equal( µDiv.length, 2, 'two divs' );
-    // });
+        assert.equal( µDiv.length, 2, 'two divs' );
+        assert.equal( µDiv[0].tagName, 'DIV', 'correct element' );
+
+        buildTest(
+        'µ( \'div\', µDiv )', function()
+        {
+            return µ( 'div', µDiv );
+        },
+
+        '$( \'div\', $Div )', function()
+        {
+            return $( 'div', $Div );
+        }, 5 );
+    });
 
 
     QUnit.test( 'query element scope', function( assert )
@@ -137,17 +147,26 @@ module.exports = function( buildTest )
         '$( \'div\', _scopeEl )', function()
         {
             return $( 'div', _scopeEl );
-        }, 5 );
+        }, 6 );
     });
 
 
-    // NON FUNCTIONAL TEST
-    // this is a future ability and cannot be tested yet
-    //
-    // QUnit.test( 'query string scope', function( assert )
-    // {
-    //     var µDiv = µ( 'div', '.example--class--groups' );
+    QUnit.test( 'query string scope', function( assert )
+    {
+        var µDiv = µ( 'div', '.example--class--groups' );
+        assert.equal( µDiv.selector(), '.example--class--groups div', 'correctly formed selector' );
+        assert.equal( µDiv.length, 2, 'two divs' );
 
-    //     assert.equal( µDiv.length, 2, 'two divs' );
-    // });
+
+        buildTest(
+        'µ( \'div\', \'.example--class--groups\' )', function()
+        {
+            return µ( 'div', '.example--class--groups' );
+        },
+
+        '$( \'div\', \'.example--class--groups\' )', function()
+        {
+            return $( 'div', '.example--class--groups' );
+        }, 7 );
+    });
 };

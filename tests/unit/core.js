@@ -73,7 +73,7 @@ module.exports = function( buildTest )
             $Divs.addClass( 'moo' );
 
             resetDivs();
-        }, 9 );
+        }, 11 );
     });
 
 
@@ -163,7 +163,7 @@ module.exports = function( buildTest )
             $Divs.attr( 'moo', 'moooooooooooooon' );
 
             vanillaRemove();
-        }, 11 );
+        }, 13 );
     });
 
 
