@@ -284,6 +284,12 @@ module.exports = function( buildTest )
     });
 
 
+    QUnit.test( '.find()', function( assert )
+    {
+        assert.ok( µ().find, 'exists' );
+    });
+
+
     QUnit.test( '.first()', function( assert )
     {
         assert.ok( µ().first, 'exists' );

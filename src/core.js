@@ -314,12 +314,73 @@ Microbe.core = Microbe.prototype =
 
 
     /**
+     * Filter Element
+     *
+     * filters the microbe by the given given selector
+     *
+     * @param  {String}             selector            selector to filter by
+     *
+     * @return {Microbe}
+     */
+    filter : function( filter )
+    {
+        var originalSelector = this.selector();
+
+        var selectorRegex   = originalSelector.match( this.__selectorRegex ),
+            filterRegex     = filter.match( this.__selectorRegex );
+
+        var _id = '', _tag = '', _psuedo = '', _class = '', _selector;
+
+        var selectorArray = [ selectorRegex, filterRegex ];
+
+        var i, lenI, j, lenJ;
+        for ( j = 0, lenJ = selectorArray.length; j < lenJ; j++ )
+        {
+            for ( i = 0, lenI = selectorArray[ j ].length; i < lenI; i++ )
+            {
+                var trigger = selectorArray[ j ][ i ][ 0 ];
+
+                switch ( trigger )
+                {
+                    case '#':
+                        _id      += selectorArray[ j ][ i ];
+                        break;
+
+                    case '.':
+                        _class   += selectorArray[ j ][ i ];
+                        break;
+
+                    case ':':
+                        _psuedo   = selectorArray[ j ][ i ];
+                        break;
+
+                    default:
+                        if ( _tag !== '' )
+                        {
+                            return new Microbe();
+                        }
+                        else
+                        {
+                            _tag     = selectorArray[ j ][ i ];
+                        }
+                        break;
+                }
+            }
+        }
+
+        _selector = _tag + _id + _class + _psuedo;
+
+        return new Microbe( _selector );
+    },
+
+
+    /**
      * Find Element
      *
      * finds an element with the given selector inside the scope of the current microbe
-     * 
+     *
      * @param  {String}             selector            selector to search for
-     * 
+     *
      * @return {Microbe}
      */
     find : function( selector )

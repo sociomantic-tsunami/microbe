@@ -211,6 +211,12 @@ module.exports = function( buildTest )
     });
 
 
+    QUnit.test( '.filter()', function( assert )
+    {
+        assert.ok( µ().find, 'exists' );
+    });
+
+
     QUnit.test( '.find()', function( assert )
     {
         assert.ok( µ().find, 'exists' );

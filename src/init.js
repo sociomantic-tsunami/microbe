@@ -1,6 +1,8 @@
 module.exports = function( Microbe )
 {
-    var trigger, _shortSelector, selectorRegex   = /(?:[\s]*\.([\w-_\.]*)|#([\w-_]*)|([^#\.<][\w-_]*)|(<[\w-_#\.]*>))/g;
+    var trigger, _shortSelector;
+
+    var selectorRegex = Microbe.prototype.__selectorRegex =  /(?:[\s]*\.([\w-_\.]+)|#([\w-_]+)|([^#\.:<][\w-_]+)|(<[\w-_#\.]+>)|:([^#\.<][\w-_]*))/g;
 
     // TODO: Check if we hit the duck
 
@@ -47,7 +49,7 @@ module.exports = function( Microbe )
     function _create( _el )
     {
         var resultsRegex    = _el.match( selectorRegex ),
-            _id, _tag, _class, _selector = '';
+            _id, _tag, _class, _psuedo, _selector = '';
 
         var i, lenI;
         for ( i = 0, lenI = resultsRegex.length; i < lenI; i++ )
@@ -160,9 +162,9 @@ module.exports = function( Microbe )
                 _selector   = _selector.split( ',' );
                 _scope      = _scope.split( ',' );
 
-                for ( var i = 0, lenI = _scope.length; i < lenI; i++ ) 
+                for ( var i = 0, lenI = _scope.length; i < lenI; i++ )
                 {
-                    for ( var j = 0, lenJ = _selector.length; j < lenJ; j++ ) 
+                    for ( var j = 0, lenJ = _selector.length; j < lenJ; j++ )
                     {
                         newSelector += _scope[ i ] + ' ' + _selector[ j ] + ', ';
                     }
