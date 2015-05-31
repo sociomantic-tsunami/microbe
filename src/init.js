@@ -2,7 +2,7 @@ module.exports = function( Microbe )
 {
     var trigger, _shortSelector;
 
-    var selectorRegex = Microbe.prototype.__selectorRegex =  /(?:[\s]*\.([\w-_\.]+)|#([\w-_]+)|([^#\.:<][\w-_]*)|(<[\w-_#\.]+>)|:([^#\.<][\w-_]*))/g;
+    var selectorRegex = Microbe.prototype.__selectorRegex =  /(?:[\s]*\.([\w-_\.]+)|#([\w-_]+)|([^#\.:<][\w-_]*)|(<[\w-_#\.]+>)|:([^#\.<][\w-()_]*))/g;
 
     // TODO: Check if we hit the duck
 
@@ -304,7 +304,38 @@ module.exports = function( Microbe )
             return new Microbe.core.__init__( _selector, _scope, _elements );
         }
 
-        return _build.call( this, _scope.querySelectorAll( _selector ), _selector );
+
+        var pseudo;
+        if ( _selector.indexOf( ':' ) !== -1 )
+        {
+             pseudo     = _selector.split( ':' );
+            _selector   = pseudo[ 0 ];
+            pseudo.splice( 0, 1 );
+
+            for ( var i = 0, lenI = pseudo.length; i < lenI; i++ ) 
+            {
+                if ( !Microbe.constructor.pseudo[ pseudo[ i ] ] )
+                {
+                    _selector += ':' + pseudo[ i ];
+                    pseudo.splice( i, 1 );
+                }
+            }
+        }
+
+        var obj = _build.call( this, _scope.querySelectorAll( _selector ), _selector );
+
+        if ( pseudo )
+        {
+            for ( var i = 0, lenI = pseudo.length; i < lenI; i++ ) 
+            {
+                if ( Microbe.constructor.pseudo[ pseudo[ i ] ] )
+                {
+                    obj = Microbe.constructor.pseudo[ pseudo[ i ] ]( obj );
+                }
+            }
+        }
+
+        return obj;
     };
 
     Microbe.core.__init__.prototype = Microbe.core;
