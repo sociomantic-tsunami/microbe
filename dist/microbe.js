@@ -2690,6 +2690,29 @@ Microbe.core = Microbe.prototype =
 
 
     /**
+     * returns the root elements of the document
+     * 
+     * @return {Microbe}
+     */
+    root : function()
+    {
+        var _root = this[ 0 ];
+
+        if ( _root )
+        {
+            while ( _root.parentNode !== document )
+            {
+                _root = _root.parentNode
+            }
+
+            return new Microbe( [ _root ] );
+        }
+        
+        return new Microbe( [] );
+    },
+
+
+    /**
      * Get Selector
      *
      * returns the css selector from an element
@@ -3840,16 +3863,18 @@ module.exports = function( Microbe )
         }
 
 
-        var pseudo;
         if ( _selector.indexOf( ':' ) !== -1 )
         {
+            var pseudo, _pseudoArray;
              pseudo     = _selector.split( ':' );
             _selector   = pseudo[ 0 ];
             pseudo.splice( 0, 1 );
 
             for ( var i = 0, lenI = pseudo.length; i < lenI; i++ ) 
             {
-                if ( !Microbe.constructor.pseudo[ pseudo[ i ] ] )
+                _pseudoArray = pseudo[ i ].split( '(' );
+
+                if ( !Microbe.constructor.pseudo[ _pseudoArray[ 0 ] ] )
                 {
                     _selector += ':' + pseudo[ i ];
                     pseudo.splice( i, 1 );
@@ -3861,11 +3886,20 @@ module.exports = function( Microbe )
 
         if ( pseudo )
         {
+            var _sel, _var;
             for ( var i = 0, lenI = pseudo.length; i < lenI; i++ ) 
             {
-                if ( Microbe.constructor.pseudo[ pseudo[ i ] ] )
+                _sel = pseudo[ i ].split( '(' );
+                _var = _sel[ 1 ];
+                if ( _var )
                 {
-                    obj = Microbe.constructor.pseudo[ pseudo[ i ] ]( obj );
+                    _var = _var.slice( 0, _var.length - 1 );
+                }
+                _sel = _sel[ 0 ];
+
+                if ( Microbe.constructor.pseudo[ _sel ] )
+                {
+                    obj = Microbe.constructor.pseudo[ _sel ]( obj, _var );
                 }
             }
         }
@@ -4141,8 +4175,28 @@ module.exports = function( Microbe )
 {
     Microbe.constructor.prototype.pseudo = {
 
+        /**
+         * returns only elements that contain the given text
+         * 
+         * @param  {Microbe}        _el                 microbe to be filtered
+         * @param  {String}         _var                string to search for
+         * 
+         * @return {Microbe}
+         */
+        contains : function( _el, _var )
+        {
+            var textArray   = _el.text();
+            var elements    = [];
+            for ( var i = 0, lenI = _el.length; i < lenI; i++ ) 
+            {
+                if ( textArray[ i ].indexOf( _var ) !== -1 )
+                {
+                    elements.push( _el[ i ] );
+                }
+            }
+            return _el.constructor( elements );
+        },
 
-        // contains  : function( _el ){},
 
         /**
          * returns the even indexed elements of a microbe (starting at 0)
@@ -4151,7 +4205,7 @@ module.exports = function( Microbe )
          * 
          * @return {Microbe}
          */
-        even      : function( _el )
+        even : function( _el )
         {
             var elements = [];
             for ( var i = 0, lenI = _el.length; i < lenI; i++ ) 
@@ -4172,13 +4226,24 @@ module.exports = function( Microbe )
          * 
          * @return {Microbe}
          */
-        first     : function( _el )
+        first : function( _el )
         { 
             return _el.first() 
         },
 
 
-        // gt        : function( _el ){},
+        /**
+         * returns the last {_var} element
+         * 
+         * @param  {Microbe}        _el                 microbe to be filtered
+         * @param  {String}         _var                number of elements to return
+         * 
+         * @return {Microbe}
+         */
+        gt : function( _el, _var )
+        {
+            return _el.splice( _el.length - _var, _el.length );
+        },
 
 
         // has       : function(){}
@@ -4191,13 +4256,24 @@ module.exports = function( Microbe )
          * 
          * @return {Microbe}
          */
-        last      : function( _el )
+        last : function( _el )
         { 
             return _el.last() 
         },
 
 
-        // lt        : function( _el ){},
+        /**
+         * returns the first {_var} element
+         * 
+         * @param  {Microbe}        _el                 microbe to be filtered
+         * @param  {String}         _var                number of elements to return
+         * 
+         * @return {Microbe}
+         */
+        lt : function( _el, _var )
+        {
+            return _el.splice( 0, _var );
+        },
 
 
         /**
@@ -4207,7 +4283,7 @@ module.exports = function( Microbe )
          * 
          * @return {Microbe}
          */
-        odd       : function( _el )
+        odd : function( _el )
         {
             var elements = [];
             for ( var i = 0, lenI = _el.length; i < lenI; i++ ) 
@@ -4228,21 +4304,9 @@ module.exports = function( Microbe )
          * 
          * @return {Microbe}
          */
-        root      : function( _el )
+        root : function( _el )
         {
-            _root = _el[ 0 ];
-
-            if ( _root )
-            {
-                while ( _root.parentNode !== document )
-                {
-                    _root = _root.parentNode
-                }
-
-                return _el.constructor( [ _root ] );
-            }
-            
-            return _el.constructor( [] );
+            return _el.root();
         },
 
 
@@ -4253,7 +4317,7 @@ module.exports = function( Microbe )
          * 
          * @return {Microbe}
          */
-        target    : function( _el )
+        target : function( _el )
         {
             var hash = ( location.href.split( '#' )[ 1 ] )
 
