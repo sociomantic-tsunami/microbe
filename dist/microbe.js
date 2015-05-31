@@ -4246,7 +4246,23 @@ module.exports = function( Microbe )
         },
 
 
-        // has       : function(){}
+        has : function( _el, _var )
+        {
+            var i, lenI, _obj, results = [];
+
+            for ( var i = 0, lenI = _el.length; i < lenI; i++ ) 
+            {
+                _obj = _el.constructor( _var, _el[ i ] );
+
+                if ( _obj.length !== 0 )
+                {
+                    results.push( _el[ i ] )
+                }
+            }
+
+            return _el.constructor( results );
+
+        },
 
 
         /**
