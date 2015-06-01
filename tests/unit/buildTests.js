@@ -79,6 +79,7 @@ var buildTest = function( _str1, _cb1, _str2, _cb2, testNum )
 require( './init' )( buildTest );
 require( './pseudo' )( buildTest );
 require( './core' )( buildTest );
+require( './http' )( buildTest );
 require( './dom' )( buildTest );
 require( './events' )( buildTest );
 require( './observe' )( buildTest );

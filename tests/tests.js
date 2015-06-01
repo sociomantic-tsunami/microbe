@@ -80,10 +80,11 @@ var buildTest = function( _str1, _cb1, _str2, _cb2, testNum )
 require( './init' )( buildTest );
 require( './pseudo' )( buildTest );
 require( './core' )( buildTest );
+require( './http' )( buildTest );
 require( './dom' )( buildTest );
 require( './events' )( buildTest );
 require( './observe' )( buildTest );
-},{"./core":2,"./dom":3,"./events":4,"./init":5,"./observe":6,"./pseudo":7}],2:[function(require,module,exports){
+},{"./core":2,"./dom":3,"./events":4,"./http":5,"./init":6,"./observe":7,"./pseudo":8}],2:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 
 module.exports = function( buildTest )
@@ -687,6 +688,49 @@ module.exports = function( buildTest )
     QUnit.test( '.map()', function( assert )
     {
         assert.ok( µ().map, 'exists' );
+
+        var µDivs = µ( 'div' );
+
+        µDivs.map( function( el )
+        {
+            el.moo = 'moo';
+        } );
+
+        var rand = Math.floor( Math.random() * µDivs.length );
+
+        assert.equal( µDivs[ rand ].moo, 'moo', 'applies to all elements' );
+
+
+            µDivs = µ( 'div' );
+        var $Divs = $( 'div' );
+
+        var resetDivs = function()
+        {
+            µDivs = µ( 'div' );
+            $Divs = $( 'div' );
+        };
+
+
+        buildTest(
+        'µDivs.last( function(){} )', function()
+        {
+            resetDivs();
+
+            µDivs.map( function( el )
+            {
+                el.moo = 'moo';
+            } );
+        },
+
+        '$Divs.map( function(){} )', function()
+        {
+            resetDivs();
+
+            $Divs.map( function( el )
+            {
+                el.moo = 'moo';
+            } );
+        }, 36 );
     });
 
 
@@ -1370,6 +1414,32 @@ module.exports = function( buildTest )
 };
 
 },{}],5:[function(require,module,exports){
+/* global document, window, µ, $, QUnit, Benchmark, test  */
+
+module.exports = function( buildTest )
+{
+    QUnit.module( 'http.js' );
+
+
+    QUnit.test( '.http', function( assert )
+    {
+        assert.ok( µ.http, 'exists' );
+    });
+
+
+    QUnit.test( '.http.get', function( assert )
+    {
+        assert.ok( µ.http.get, 'exists' );
+    });
+
+
+    QUnit.test( '.http.post', function( assert )
+    {
+        assert.ok( µ.http.post, 'exists' );
+    });
+};
+
+},{}],6:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, buildTest  */
 module.exports = function( buildTest )
 {
@@ -1543,7 +1613,7 @@ module.exports = function( buildTest )
     });
 };
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 
 module.exports = function( buildTest )
@@ -1627,7 +1697,7 @@ module.exports = function( buildTest )
     });
 };
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 module.exports = function( buildTest )
 {

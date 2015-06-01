@@ -601,6 +601,49 @@ module.exports = function( buildTest )
     QUnit.test( '.map()', function( assert )
     {
         assert.ok( µ().map, 'exists' );
+
+        var µDivs = µ( 'div' );
+
+        µDivs.map( function( el )
+        {
+            el.moo = 'moo';
+        } );
+
+        var rand = Math.floor( Math.random() * µDivs.length );
+
+        assert.equal( µDivs[ rand ].moo, 'moo', 'applies to all elements' );
+
+
+            µDivs = µ( 'div' );
+        var $Divs = $( 'div' );
+
+        var resetDivs = function()
+        {
+            µDivs = µ( 'div' );
+            $Divs = $( 'div' );
+        };
+
+
+        buildTest(
+        'µDivs.last( function(){} )', function()
+        {
+            resetDivs();
+
+            µDivs.map( function( el )
+            {
+                el.moo = 'moo';
+            } );
+        },
+
+        '$Divs.map( function(){} )', function()
+        {
+            resetDivs();
+
+            $Divs.map( function( el )
+            {
+                el.moo = 'moo';
+            } );
+        }, 36 );
     });
 
 
