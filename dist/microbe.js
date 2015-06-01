@@ -2505,6 +2505,7 @@ Microbe.core = Microbe.prototype =
     insertAfter : function( _elAfter )
     {
         var _this = this;
+        var elementArray = [];
 
         var _insertAfter = function( _elm )
         {
@@ -2512,17 +2513,21 @@ Microbe.core = Microbe.prototype =
 
             nextIndex = _this.getParentIndex( _elm )[0];
 
-            var nextEle   = _elm.parentNode.children[ nextIndex + 1 ];
+            var node, nextEle   = _elm.parentNode.children[ nextIndex + 1 ];
 
             for ( var i = 0, lenI = _elAfter.length; i < lenI; i++ )
             {
+                node = i === 0 ? _elAfter[ i ] : _elAfter[ i ].cloneNode( true );
+
+                elementArray.push( node );
+                
                 if ( nextEle )
                 {
-                    nextEle.parentNode.insertBefore( _elAfter[ i ].cloneNode( true ), nextEle );
+                    nextEle.parentNode.insertBefore( node, nextEle );
                 }
                 else
                 {
-                    _elm.parentNode.appendChild( _elAfter[ i ].cloneNode( true ) );
+                    _elm.parentNode.appendChild( node );
                 }
             }
         };
@@ -2542,7 +2547,7 @@ Microbe.core = Microbe.prototype =
             _insertAfter( this[ i ] );
         }
 
-        return this;
+        return this.constructor( elementArray );
     },
 
 

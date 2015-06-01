@@ -213,6 +213,33 @@ module.exports = function( buildTest )
         // assert.equal( µ( '.a--new--div' ).length, 2, 'attached 2 creation strings' );
         // µNewDiv.remove();
         // µAnotherNewDiv.remove();
+        
+
+        var el;
+        var µDiv = µ( 'div' ).first();
+        var $Div = $( 'div' ).first();
+
+        var vanillaRemove = function( el )
+        {
+            el.parentNode.removeChild( el );
+        };
+
+        buildTest(
+        'µDiv.append( el )', function()
+        {
+            el = document.createElement( 'div' );
+            µDiv.append( el );
+
+            vanillaRemove( el );
+        },
+
+        '$Div.append( el )', function()
+        {
+            el = document.createElement( 'div' );
+            $Div.append( el );
+
+            vanillaRemove( el );
+        }, 22 );
     });
 
 
@@ -315,10 +342,34 @@ module.exports = function( buildTest )
     {
         assert.ok( µ().each, 'exists' );
 
-        var µDivs = µ( 'div' );
-        var divs = [];
+        var µDivs   = µ( 'div' );
+        var divs    = [];
+
         µDivs.each( function( _el ){ divs.push( _el ); } );
         assert.equal( µDivs.length, divs.length, 'pushed each element' );
+        assert.deepEqual( µDivs[ 0 ], divs[ 0 ], 'correct result' );
+
+        µDivs       = µ( 'div' );
+        var $Divs   = $( 'div' );
+
+        buildTest(
+        'µDivs.each( function( _el, i ){} )', function()
+        {
+            var arr = [];
+            µDivs.each( function( _el, i )
+            {
+                arr.push( _el.id );
+            } );
+        },
+
+        '$Divs.each( function( _el, i ){} )', function()
+        {
+            var arr = [];
+            $Divs.each( function( _el, i )
+            {
+                arr.push( _el.id );
+            } );
+        }, 26 );
     });
 
 
@@ -505,6 +556,44 @@ module.exports = function( buildTest )
         µTarget.insertAfter( µEl );
         assert.equal( µTargetParentChildren + 1, µTargetParent.children()[0].length, 'add by new element' );
         µ( 'addedDivThing' ).remove();
+
+
+        var siblingDiv      = document.getElementById( 'qunit' );
+        var µSiblingDiv     = µ( siblingDiv );
+        var $SiblingDiv     = $( siblingDiv );
+        var parentDiv       = siblingDiv.parentNode;
+
+        var vanillaCreate = function( i )
+        {
+            var el  = document.createElement( 'div' );
+            el      = [ µ( el ), $( el ) ];
+
+            return el[ i ];
+        };
+
+        var vanillaRemove = function( el )
+        {
+            parentDiv.removeChild( el[ 0 ] );
+        };
+
+        buildTest(
+        'µDiv.insertAfter( el )', function()
+        {
+            var µEl = vanillaCreate( 0 );
+
+            µSiblingDiv.insertAfter( µEl );
+
+            vanillaRemove( µEl );
+        },
+
+        '$Div.insertAfter( el )', function()
+        {
+            var $El = vanillaCreate( 1 );
+
+            $El.insertAfter( $SiblingDiv );
+
+            vanillaRemove( $El );
+        }, 34 );
     });
 
 
@@ -610,6 +699,32 @@ module.exports = function( buildTest )
         µ( 'divdiv' ).remove();
 
         assert.equal( µ( 'divdiv' ).length, 0, 'is completely removed' );
+
+        var $El, µEl;
+        var parentDiv   = µ( 'div' )[0];
+
+        var vanillaAdd = function()
+        {
+            el = document.createElement( 'div' );
+            µEl         = µ( el );
+            $El         = $( el );
+
+            parentDiv.appendChild( el );
+            return el;
+        };
+
+        buildTest(
+        'µDiv.remove()', function()
+        {
+            vanillaAdd();
+            µEl.remove();
+        },
+
+        '$Div.remove()', function()
+        {
+            vanillaAdd();
+            $El.remove();
+        }, 39 );
     });
 
 
@@ -785,6 +900,8 @@ module.exports = function( buildTest )
         buildTest(
         'µ.extend( _obj, extension );', function()
         {
+            /* these are commented out to draw attention to how slow the 
+               other function is comparatively.  this one is quite a bit faster */
             // extension = { more: function(){ return 'MOAR!!!'; } };
             // _obj = µ( 'div' );
             // _obj.extend( extension );
@@ -796,6 +913,8 @@ module.exports = function( buildTest )
 
         '$.extend( _obj, extension )', function()
         {
+            /* these are commented out to draw attention to how slow the 
+               other function is comparatively.  this one is quite a bit faster */
             // extension   = { more: function(){ return 'MOAR!!!'; } };
             // _obj = $( 'div' );
             // _obj.extend( extension );
@@ -826,6 +945,40 @@ module.exports = function( buildTest )
         µDivs       = µ( 'div' );
         µDivs.merge( µHtml );
         assert.equal( µDivs.length, divCount + htmlCount, 'merged this' );
+
+
+        var µDivs, $Divs, µLi, $Li;
+
+        var refreshObjects = function()
+        {
+            µDivs = µ( 'div' );
+            $Divs = $( 'div' );
+
+            µLi = µ( 'li' );
+            $Li = $( 'li' );
+        };
+
+
+        buildTest(
+        'µ.merge( _obj, extension );', function()
+        {
+            refreshObjects();
+
+            /* these are commented out because jquery doesn't handle this syntax */
+            // µDivs.merge( µLi );
+
+            µ.merge( µDivs, µLi );
+        },
+
+        '$.merge( _obj, extension )', function()
+        {
+            refreshObjects();
+
+            /* these are commented out because jquery doesn't handle this syntax */
+            // $Divs.merge( $Li );
+
+            $.merge( $Divs, µLi );
+        }, 46 );
     });
 
 
