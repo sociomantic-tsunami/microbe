@@ -14,6 +14,11 @@
  */
 var buildTest = function( _str1, _cb1, _str2, _cb2, testNum )
 {
+    if ( typeof _cb1 !== 'function' )
+    {
+        testNum = _cb1;
+    }
+
     var µTests  = µ( '#qunit-tests' ).children()[0];
 
     var resDiv  = µTests[ testNum ];
@@ -24,44 +29,51 @@ var buildTest = function( _str1, _cb1, _str2, _cb2, testNum )
 
     resDiv.insertBefore( µResult[ 0 ], µStrong[ 0 ] );
 
-    var testRes = [];
-    var _arr    = [];
-    var i       = 0;
-    var libraries = [ 'µ', '$' ];
-    var suite = new Benchmark.Suite();
-
-    suite.add( _str1, _cb1 )
-        .add( _str2, _cb2 )
-        .on( 'cycle', function( event )
-        {
-            _arr.push( this[ i ].hz );
-            var test = testRes[ i ] = µ( '<span.speed--result.slow>' );
-            µ( µLi[ i ] ).append( test );
-            test.html( String( event.target ) );
-
-            i++;
-        } )
-        .on( 'complete', function()
-        {
-            var fastest = _arr.indexOf( Math.max.apply( Math, _arr ) );
-            testRes[ fastest ].removeClass( 'slow' );
-
-            µResult.html( libraries[ fastest ] + ' is the fastest' );
-        } );
-
-    var startTheTest = function( e )
+    if ( typeof _cb1 === 'function' )
     {
-        e.stopPropagation();
-        e.preventDefault();
-        µResult.off();
-        setTimeout( function()
-        {
-            suite.run( { 'async': true } );
-        }, 1 );
-    };
+        var testRes = [];
+        var _arr    = [];
+        var i       = 0;
+        var libraries = [ 'µ', '$' ];
+        var suite = new Benchmark.Suite();
 
-    µResult.html( 'Click to start the speed test' );
-    µResult.on( 'click', startTheTest );
+        suite.add( _str1, _cb1 )
+            .add( _str2, _cb2 )
+            .on( 'cycle', function( event )
+            {
+                _arr.push( this[ i ].hz );
+                var test = testRes[ i ] = µ( '<span.speed--result.slow>' );
+                µ( µLi[ i ] ).append( test );
+                test.html( String( event.target ) );
+
+                i++;
+            } )
+            .on( 'complete', function()
+            {
+                var fastest = _arr.indexOf( Math.max.apply( Math, _arr ) );
+                testRes[ fastest ].removeClass( 'slow' );
+
+                µResult.html( libraries[ fastest ] + ' is the fastest' );
+            } );
+
+        var startTheTest = function( e )
+        {
+            e.stopPropagation();
+            e.preventDefault();
+            µResult.off();
+            setTimeout( function()
+            {
+                suite.run( { 'async': true } );
+            }, 1 );
+        };
+
+        µResult.html( 'Click to start the speed test' );
+        µResult.on( 'click', startTheTest );
+    }
+    else
+    {
+        µResult.html( _str1 ).addClass( 'invalid--test' );
+    }
 };
 
 require( './init' )( buildTest );

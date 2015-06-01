@@ -10,6 +10,8 @@ module.exports = function( buildTest )
         var version = '0.3.1';
 
         assert.equal( µ().version, version, 'version is ' + version );
+
+        buildTest( 'No tests available.', 18 );
     });
 
 
@@ -18,6 +20,8 @@ module.exports = function( buildTest )
         var type = '[object Microbe]';
 
         assert.equal( µ().type, type, 'type is ' + type );
+
+        buildTest( 'No tests available.', 19 );
     });
 
 
@@ -25,6 +29,8 @@ module.exports = function( buildTest )
     {
         assert.equal( µ().length, 0, 'length initializes' );
         assert.equal( µ( 'head' ).length, 1, 'length reports correctly' );
+
+        buildTest( 'No tests available.', 20 );
     });
 
 
@@ -176,6 +182,8 @@ module.exports = function( buildTest )
         assert.ok( µ.isArray( children ), 'returns an array' );
         assert.ok( children[0].type === '[object Microbe]', 'full of microbes' );
         assert.deepEqual( µ( '.example--class' )[0].children[0], children[0][0], 'the correct children' );
+
+        buildTest( 'No comparison available.', 24 );
     });
 
 
@@ -197,6 +205,23 @@ module.exports = function( buildTest )
 
         µTarget.css( 'background-color', null );
         assert.equal( µTarget[0].style.backgroundColor, '', 'css removed' );
+
+
+        µTarget = µ( '#example--id' );
+        var $Target = $( '#example--id' );
+
+        buildTest(
+        'µTarget.css( \'background-color\', \'#f00\' )', function()
+        {
+            µTarget.css( 'background-color', '#f00' );
+            µTarget.css( 'background-color', null );
+        },
+
+        '$Target.css( \'background-color\', \'#f00\' )', function()
+        {
+            $Target.css( 'background-color', '#f00' );
+            $Target.css( 'background-color', null );
+        }, 25 );
     });
 
 
@@ -233,6 +258,20 @@ module.exports = function( buildTest )
         assert.equal( µFirst.type, '[object Microbe]', 'returns a microbe' );
         assert.equal( µFirst.length, 1, 'of length 1' );
         assert.deepEqual( µEverything[0], µFirst[0], 'that is actually the first one' );
+
+        var µDivs = µ( 'div' );
+        var $Divs = $( 'div' );
+
+        buildTest(
+        'µDivs.first()', function()
+        {
+            µDivs.first();
+        },
+
+        '$Divs.first()', function()
+        {
+            $Divs.first();
+        }, 29 );
     });
 
 
@@ -246,6 +285,22 @@ module.exports = function( buildTest )
         var _function   = setup[ µ( '#example--combined' ).getParentIndex()[0] ];
 
         assert.deepEqual( literal, _function, 'parent index is correctly determined' );
+
+
+        var µDiv = µ( 'div' ).first();
+        var $Div = $( 'div' ).first();
+
+        buildTest(
+        'µDiv.getParentIndex()', function()
+        {
+            µDiv.getParentIndex();
+        },
+
+        '$Div.getParentIndex()', function()
+        {
+            var $DivParent  = $Div.parent();
+            $DivParent.index( $Div );
+        }, 30 );
     });
 
 
@@ -269,6 +324,9 @@ module.exports = function( buildTest )
             }
         }
         assert.ok( correct, 'correctly' );
+
+
+        buildTest( 'No comparison available.', 31 );
     });
 
 
@@ -289,6 +347,22 @@ module.exports = function( buildTest )
         assert.equal( htmlGotten[0], 'text, yo', 'correct result' );
 
         µTarget.html( '' );
+
+        µTarget = µ( '#example--id' );
+        var $Target = $( '#example--id' );
+
+        buildTest(
+        'µTarget.html( \'blarg\' )', function()
+        {
+            µTarget.html( 'blarg' );
+            µTarget.html();
+        },
+
+        '$Target.html( \'blarg\' )', function()
+        {
+            $Target.html( 'blarg' );
+            $Target.html();
+        }, 32 );
     });
 
 
@@ -302,6 +376,21 @@ module.exports = function( buildTest )
         var index   = µTarget.indexOf( target );
 
         assert.deepEqual( µTarget[ index ], target, 'index correctly determined' );
+
+        var µDivs   = µ( 'div' );
+        var $Divs   = $( 'div' );
+        var _el     = document.getElementById( 'QUnit' );
+
+        buildTest(
+        'µDivs.indexOf( _el )', function()
+        {
+            µDivs.indexOf( _el );
+        },
+
+        '$Divs.index( _el )', function()
+        {
+            $Divs.index( _el );
+        }, 33 );
     });
 
 
@@ -343,6 +432,20 @@ module.exports = function( buildTest )
         assert.equal( µLast.type, '[object Microbe]', 'returns a microbe' );
         assert.equal( µLast.length, 1, 'of length 1' );
         assert.deepEqual( µLast[0], µEverything[ µEverything.length - 1 ], 'that is actually the last one' );
+
+        var µDivs = µ( 'div' );
+        var $Divs = $( 'div' );
+
+        buildTest(
+        'µDivs.last()', function()
+        {
+            µDivs.last();
+        },
+
+        '$Divs.last()', function()
+        {
+            $Divs.last();
+        }, 35 );
     });
 
 
@@ -362,6 +465,20 @@ module.exports = function( buildTest )
         assert.equal( µParent.type, '[object Microbe]', 'returns a microbe' );
         assert.equal( µParent.length, 1, 'of length 1' );
         assert.deepEqual( µParent[0], µ( 'html' )[0], 'that is actually the parent' );
+
+        var µDivs = µ( 'div' );
+        var $Divs = $( 'div' );
+
+        buildTest(
+        'µDivs.parent()', function()
+        {
+            µDivs.parent();
+        },
+
+        '$Divs.parent()', function()
+        {
+            $Divs.parent();
+        }, 37 );
     });
 
 
@@ -377,6 +494,23 @@ module.exports = function( buildTest )
 
         assert.equal( µDivsLength + 1, µDivs.length, 'pushes to the microbe' );
         assert.deepEqual( newDiv, µDivs[ µDivs.length - 1 ], 'that is the correct element' );
+
+        var _el;
+        var µEmpty = µ( [] );
+        var $Empty = $( [] );
+
+        buildTest(
+        'µEmpty.push( _el )', function()
+        {
+            _el = document.getElementById( 'QUnit' );
+            µEmpty.push( _el );
+        },
+
+        '$Empty.push( _el )', function()
+        {
+            _el = document.getElementById( 'QUnit' );
+            $Empty.push( _el );
+        }, 38 );
     });
 
 
@@ -406,6 +540,32 @@ module.exports = function( buildTest )
         assert.equal( µ( '.example--class--groups' ).length, 0, 'removed class to both divs' );
 
         µDivs.addClass( 'example--class--groups' );
+
+            µDivs   = µ( '.example--class--groups' );
+        var $Divs   = $( '.example--class--groups' );
+
+        var resetDivs = function()
+        {
+            for ( var i = 0, lenI = µDivs.length; i < lenI; i++ )
+            {
+                µDivs[ i ].className += ' moo';
+            }
+        };
+
+        buildTest(
+        'µDivs.removeClass( \'moo\' )', function()
+        {
+            µDivs.removeClass( 'moo' );
+
+            resetDivs();
+        },
+
+        '$Divs.removeClass( \'moo\' )', function()
+        {
+            $Divs.removeClass( 'moo' );
+
+            resetDivs();
+        }, 40 );
     });
 
 
@@ -421,12 +581,27 @@ module.exports = function( buildTest )
 
         _el = µ( '#example--combined' )[0];
         assert.equal( µ( _el ).selector(), 'div#example--combined.example--combined', 'correctly parses combined' );
+
+        buildTest( 'No comparison available.', 41 );
     });
 
 
     QUnit.test( '.splice()', function( assert )
     {
         assert.ok( µ().splice, 'exists' );
+        assert.equal( µ( 'div' ).splice( 0, 5 ).length, 5, 'is the correct length' );
+
+        var $Div = $( 'div' ), µDiv = µ( 'div' );
+        buildTest(
+        'µDiv.splice( 0, 5 )', function()
+        {
+            µDiv.splice( 0, 5 );
+        },
+
+        'µDiv.splice( 0, 5 )', function()
+        {
+            $Div.splice( 0, 5 );
+        }, 42 );
     });
 
 
@@ -459,6 +634,22 @@ module.exports = function( buildTest )
         assert.equal( textGotten[0], 'text, yo', 'correct result' );
 
         µTarget.text( '' );
+
+        µTarget = µ( '#example--id' );
+        var $Target = $( '#example--id' );
+
+        buildTest(
+        'µTarget.text( \'blarg\' )', function()
+        {
+            µTarget.text( 'blarg' );
+            µTarget.text();
+        },
+
+        '$Target.text( \'blarg\' )', function()
+        {
+            $Target.text( 'blarg' );
+            $Target.text();
+        }, 43 );
     });
 
 
@@ -473,6 +664,20 @@ module.exports = function( buildTest )
 
         µDivs.toggleClass( 'example--class--groups' );
         assert.equal( µDivs.first().hasClass( 'example--class--groups' )[0], true, 'adds classes' );
+
+            µDivs   = µ( '.example--class--groups' );
+        var $Divs   = $( '.example--class--groups' );
+
+        buildTest(
+        'µDivs.toggleClass( \'moo\' )', function()
+        {
+            µDivs.toggleClass( 'moo' );
+        },
+
+        '$Divs.toggleClass( \'moo\' )', function()
+        {
+            $Divs.toggleClass( 'moo' );
+        }, 44 );
     });
 
 
@@ -489,6 +694,30 @@ module.exports = function( buildTest )
         var _obj = { a: 1, b: 2, c:3 };
         µ.extend( _obj, extension );
         assert.equal( _obj.more(), 'MOAR!!!', 'extends objects' );
+
+
+        buildTest(
+        'µ.extend( _obj, extension );', function()
+        {
+            // extension = { more: function(){ return 'MOAR!!!'; } };
+            // _obj = µ( 'div' );
+            // _obj.extend( extension );
+
+            extension   = { more: function(){ return 'MOAR!!!'; } };
+            _obj        = { a: 1, b: 2, c:3 };
+            µ.extend( _obj, extension );
+        },
+
+        '$.extend( _obj, extension )', function()
+        {
+            // extension   = { more: function(){ return 'MOAR!!!'; } };
+            // _obj = $( 'div' );
+            // _obj.extend( extension );
+
+            extension   = { more: function(){ return 'MOAR!!!'; } };
+            _obj        = { a: 1, b: 2, c:3 };
+            $.extend( _obj, extension );
+        }, 45 );
     });
 
 
@@ -523,6 +752,8 @@ module.exports = function( buildTest )
         var strArr = [ 'i dont know', 'for real' ];
             strArr = µ.capitalize( strArr );
         assert.ok( strArr[0] === 'I Dont Know' && strArr[1] === 'For Real', 'capitalizes string arrays' );
+
+        buildTest( 'No comparison available.', 47 );
     });
 
 
@@ -531,6 +762,8 @@ module.exports = function( buildTest )
         assert.ok( µ.identity, 'exists' );
         var val = 'mooon';
         assert.equal( 'mooon', µ.identity( 'mooon' ), 'it equals itself' );
+
+        buildTest( 'No tests available.', 48 );
     });
 
 
@@ -541,6 +774,8 @@ module.exports = function( buildTest )
 
         assert.ok( µ.xyzzy, 'xyzzy exists' );
         assert.equal( µ.xyzzy(), undefined, 'nothing happens' );
+
+        buildTest( 'No tests available.', 49 );
     });
 
 
@@ -549,6 +784,19 @@ module.exports = function( buildTest )
         assert.ok( µ.isArray, 'exists' );
         assert.ok( µ.isArray( [ 1, 2, 3 ] ), 'true for array' );
         assert.ok( !µ.isArray( { 1: 'a', 2: 'b' } ), 'false otherwise' );
+
+        buildTest(
+        'µ.isArray', function()
+        {
+            µ.isArray( {} );
+            µ.isArray( [ 1, 2, 3 ] );
+        },
+
+        '$.isArray', function()
+        {
+            $.isArray( {} );
+            $.isArray( [ 1, 2, 3 ] );
+        }, 50 );
     });
 
 
@@ -557,6 +805,19 @@ module.exports = function( buildTest )
         assert.ok( µ.isEmpty, 'exists' );
         assert.ok( µ.isEmpty( {} ), 'true on empty' );
         assert.ok( !µ.isEmpty( { a: 1 } ), 'false otherwise' );
+
+        buildTest(
+        'µ.isEmpty', function()
+        {
+            µ.isEmpty( {} );
+            µ.isEmpty( { a: 2 } );
+        },
+
+        '$.isEmptyObject', function()
+        {
+            $.isEmptyObject( {} );
+            $.isEmptyObject( { a: 2 } );
+        }, 51 );
     });
 
 
@@ -565,6 +826,19 @@ module.exports = function( buildTest )
         assert.ok( µ.isFunction, 'exists' );
         assert.ok( µ.isFunction( assert.ok ), 'true on function' );
         assert.ok( !µ.isFunction( {} ), 'false otherwise' );
+
+        buildTest(
+        'µ.isFunction', function()
+        {
+            µ.isFunction( function(){} );
+            µ.isFunction( [ 1, 2, 3 ] );
+        },
+
+        '$.isFunction', function()
+        {
+            $.isFunction( function(){} );
+            $.isFunction( [ 1, 2, 3 ] );
+        }, 52 );
     });
 
 
@@ -573,6 +847,19 @@ module.exports = function( buildTest )
         assert.ok( µ.isObject, 'exists' );
         assert.ok( µ.isObject( {} ), 'true on object' );
         assert.ok( !µ.isObject( 'ä' ), 'false otherwise' );
+
+        buildTest(
+        'µ.isObject', function()
+        {
+            µ.isObject( {} );
+            µ.isObject( [ 1, 2, 3 ] );
+        },
+
+        '$.isPlainObject', function()
+        {
+            $.isPlainObject( {} );
+            $.isPlainObject( [ 1, 2, 3 ] );
+        }, 53 );
     });
 
 
@@ -582,6 +869,8 @@ module.exports = function( buildTest )
         assert.ok( µ.isUndefined, 'exists' );
         assert.ok( !µ.isUndefined( 'a', parent ), 'false if parent contains property' );
         assert.ok( µ.isUndefined( 'b', parent ), 'true otherwise' );
+
+        buildTest( 'No comparison available.', 54 );
     });
 
 
@@ -590,6 +879,19 @@ module.exports = function( buildTest )
         assert.ok( µ.isWindow, 'exists' );
         assert.ok( µ.isWindow( window ), 'true on window' );
         assert.ok( !µ.isWindow( {} ), 'false otherwise' );
+
+        buildTest(
+        'µ.isWindow', function()
+        {
+            µ.isWindow( window );
+            µ.isWindow( [ 1, 2, 3 ] );
+        },
+
+        '$.isWindow', function()
+        {
+            $.isWindow( window );
+            $.isWindow( [ 1, 2, 3 ] );
+        }, 55 );
     });
 
 
@@ -598,6 +900,19 @@ module.exports = function( buildTest )
         assert.ok( µ().toString, 'exists' );
         assert.ok( µ.toString, 'exists' );
         assert.ok( µ().toString() === '[object Microbe]', 'micriobe is a microbe' );
+
+        buildTest(
+        'µ.toString', function()
+        {
+            µ.toString( µ );
+            µ.toString( [ 1, 2, 3 ] );
+        },
+
+        '$.toString', function()
+        {
+            $.toString( $ );
+            $.toString( [ 1, 2, 3 ] );
+        }, 56 );
     });
 
 
@@ -608,6 +923,8 @@ module.exports = function( buildTest )
 
         var arr = µ( 'div' ).toArray();
         assert.equal( µ.type( arr ), 'array', 'makes arrays' );
+
+        buildTest( 'No comparison available.', 57 );
     });
 
 
@@ -624,16 +941,41 @@ module.exports = function( buildTest )
         assert.equal( µ.type( assert.ok ), 'function', 'checks functions' );
         assert.equal( µ.type( true ), 'boolean', 'checks boolean primitives' );
         assert.equal( µ.type( new Boolean( true ) ), 'object', 'checks boolean objects' );
+        assert.equal( µ.type( new Error() ), 'error', 'checks error objects' );
+        assert.equal( µ.type( new Promise(function(){}) ), 'promise', 'checks promises' );
 
-        // NON FUNCTIONAL TEST
-        // this is a future ability and cannot be tested yet
-        //
-        // assert.equal( µ.type( ), 'error', 'checks error objects' );
+        buildTest(
+        'µ.type', function()
+        {
+            µ.type( [] );
+            µ.type( 2 );
+            µ.type( {} );
+            µ.type( 'moin!' );
+            µ.type( new Date() );
+            µ.type( µ( 'div' ) );
+            µ.type( /[0-9]/ );
+            µ.type( assert.ok );
+            µ.type( true );
+            µ.type( new Boolean( true ) );
+            µ.type( new Error() );
+            µ.type( new Promise(function(){}) );
+        },
 
-        // NON FUNCTIONAL TEST
-        // this is a future ability and cannot be tested yet
-        //
-        // assert.equal( µ.type( ), 'promise', 'checks promises' );
+        '$.type', function()
+        {
+            $.type( [] );
+            $.type( 2 );
+            $.type( {} );
+            $.type( 'moin!' );
+            $.type( new Date() );
+            $.type( $( 'div' ) );
+            $.type( /[0-9]/ );
+            $.type( assert.ok );
+            $.type( true );
+            $.type( new Boolean( true ) );
+            $.type( new Error() );
+            $.type( new Promise(function(){}) );
+        }, 58 );
     });
 };
 

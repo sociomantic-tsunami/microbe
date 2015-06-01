@@ -3,22 +3,38 @@
     float:              right;
     font-size:          11px;
 }
+
+
 .fastest
 {
-    position:           relative;
-    right:              200px;
+    margin-top:         -15px;
+    position:           absolute;
+    left:               400px;
     color:              #2137a8;
     cursor:             pointer;
     font-weight:        bold;
 }
+
+
+.invalid--test
+{
+    pointer-events:     none;
+    color:              #D02000;
+}
+
+
 .fastest:hover
 {
     color:              #fff;
 }
+
+
 .speed--result
 {
     margin-right:       25px;
 }
+
+
 .slow
 {
     color:              #CB3737;

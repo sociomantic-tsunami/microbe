@@ -4176,7 +4176,8 @@ module.exports = function( Microbe )
     Microbe.constructor.prototype.pseudo = {
 
         /**
-         * returns only elements that contain the given text
+         * returns only elements that contain the given text.  The supplied text
+         * is compared ignoring case
          *
          * @param  {Microbe}        _el                 microbe to be filtered
          * @param  {String}         _var                string to search for
