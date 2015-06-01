@@ -2,7 +2,7 @@ module.exports = function( Microbe )
 {
     var trigger, _shortSelector;
 
-    var selectorRegex = Microbe.prototype.__selectorRegex =  /(?:[\s]*\.([\w-_\.]+)|#([\w-_]+)|([^#\.:<][\w-_]*)|(<[\w-_#\.]+>)|:([^#\.<][\w-_]*))/g;
+    var selectorRegex = Microbe.prototype.__selectorRegex =  /(?:[\s]*\.([\w-_\.]+)|#([\w-_]+)|([^#\.:<][\w-_]*)|(<[\w-_#\.]+>)|:([^#\.<][\w-()_]*))/g;
 
     // TODO: Check if we hit the duck
 
@@ -304,7 +304,49 @@ module.exports = function( Microbe )
             return new Microbe.core.__init__( _selector, _scope, _elements );
         }
 
-        return _build.call( this, _scope.querySelectorAll( _selector ), _selector );
+
+        if ( _selector.indexOf( ':' ) !== -1 )
+        {
+            var pseudo, _pseudoArray;
+             pseudo     = _selector.split( ':' );
+            _selector   = pseudo[ 0 ];
+            pseudo.splice( 0, 1 );
+
+            for ( var i = 0, lenI = pseudo.length; i < lenI; i++ ) 
+            {
+                _pseudoArray = pseudo[ i ].split( '(' );
+
+                if ( !Microbe.constructor.pseudo[ _pseudoArray[ 0 ] ] )
+                {
+                    _selector += ':' + pseudo[ i ];
+                    pseudo.splice( i, 1 );
+                }
+            }
+        }
+
+        var obj = _build.call( this, _scope.querySelectorAll( _selector ), _selector );
+
+        if ( pseudo )
+        {
+            var _sel, _var;
+            for ( var i = 0, lenI = pseudo.length; i < lenI; i++ ) 
+            {
+                _sel = pseudo[ i ].split( '(' );
+                _var = _sel[ 1 ];
+                if ( _var )
+                {
+                    _var = _var.slice( 0, _var.length - 1 );
+                }
+                _sel = _sel[ 0 ];
+
+                if ( Microbe.constructor.pseudo[ _sel ] )
+                {
+                    obj = Microbe.constructor.pseudo[ _sel ]( obj, _var );
+                }
+            }
+        }
+
+        return obj;
     };
 
     Microbe.core.__init__.prototype = Microbe.core;

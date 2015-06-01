@@ -732,6 +732,29 @@ Microbe.core = Microbe.prototype =
 
 
     /**
+     * returns the root elements of the document
+     * 
+     * @return {Microbe}
+     */
+    root : function()
+    {
+        var _root = this[ 0 ];
+
+        if ( _root )
+        {
+            while ( _root.parentNode !== document )
+            {
+                _root = _root.parentNode
+            }
+
+            return new Microbe( [ _root ] );
+        }
+        
+        return new Microbe( [] );
+    },
+
+
+    /**
      * Get Selector
      *
      * returns the css selector from an element
