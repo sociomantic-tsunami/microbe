@@ -64,8 +64,9 @@ var buildTest = function( _str1, _cb1, _str2, _cb2, testNum )
     µResult.on( 'click', startTheTest );
 };
 
-require( './init.js' )( buildTest );
-require( './core.js' )( buildTest );
-require( './dom.js' )( buildTest );
-require( './events.js' )( buildTest );
-require( './observe.js' )( buildTest );
+require( './init' )( buildTest );
+require( './pseudo' )( buildTest );
+require( './core' )( buildTest );
+require( './dom' )( buildTest );
+require( './events' )( buildTest );
+require( './observe' )( buildTest );

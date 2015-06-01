@@ -7,7 +7,7 @@ module.exports = function( buildTest )
 
     QUnit.test( 'µ().version', function( assert )
     {
-        var version = '0.3';
+        var version = '0.3.1';
 
         assert.equal( µ().version, version, 'version is ' + version );
     });
@@ -73,7 +73,7 @@ module.exports = function( buildTest )
             $Divs.addClass( 'moo' );
 
             resetDivs();
-        }, 11 );
+        }, 21 );
     });
 
 
@@ -118,7 +118,7 @@ module.exports = function( buildTest )
         // this is a future ability and cannot be tested yet
         //
         // µTarget.append( [ '<div.a--new--div>', '<div.a--new--div>' ] );
-        // assert.equal( µ( '.a--new--div' ).length, 2, 'attached 2 creation stringd' );
+        // assert.equal( µ( '.a--new--div' ).length, 2, 'attached 2 creation strings' );
         // µNewDiv.remove();
         // µAnotherNewDiv.remove();
     });
@@ -163,7 +163,7 @@ module.exports = function( buildTest )
             $Divs.attr( 'moo', 'moooooooooooooon' );
 
             vanillaRemove();
-        }, 13 );
+        }, 23 );
     });
 
 

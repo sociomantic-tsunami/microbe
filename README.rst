@@ -1,5 +1,5 @@
-Microbe - 0.3
-=============
+Microbe - 0.3.1
+===============
 
 Microbe (µ) - a javascript library
 
@@ -34,7 +34,16 @@ Don’t hesitate to file issues and features requests!  Or change things yoursel
 Changelog
 =========
 
-No one should be using less than 0.3.  Changes past that will be posted here
+0.3.1
+~~~~~
+
++ added pseudo selector support
++ added filter function
++ added find function
++ many documentation updates
+
+
+No one should be using less than 0.3.  Changes past that will be posted here.
 
 
 Usage

@@ -1994,7 +1994,7 @@ var Microbe = function( selector, scope, elements )
 
 Microbe.core = Microbe.prototype =
 {
-    version :       '0.3',
+    version :       '0.3.1',
 
     constructor :   Microbe,
 
@@ -2691,7 +2691,7 @@ Microbe.core = Microbe.prototype =
 
     /**
      * returns the root elements of the document
-     * 
+     *
      * @return {Microbe}
      */
     root : function()
@@ -2707,7 +2707,7 @@ Microbe.core = Microbe.prototype =
 
             return new Microbe( [ _root ] );
         }
-        
+
         return new Microbe( [] );
     },
 
@@ -4177,19 +4177,22 @@ module.exports = function( Microbe )
 
         /**
          * returns only elements that contain the given text
-         * 
+         *
          * @param  {Microbe}        _el                 microbe to be filtered
          * @param  {String}         _var                string to search for
-         * 
+         *
          * @return {Microbe}
          */
         contains : function( _el, _var )
         {
+            _var            = _var.toLowerCase();
+
             var textArray   = _el.text();
             var elements    = [];
-            for ( var i = 0, lenI = _el.length; i < lenI; i++ ) 
+
+            for ( var i = 0, lenI = _el.length; i < lenI; i++ )
             {
-                if ( textArray[ i ].indexOf( _var ) !== -1 )
+                if ( textArray[ i ].toLowerCase().indexOf( _var ) !== -1 )
                 {
                     elements.push( _el[ i ] );
                 }
@@ -4200,15 +4203,15 @@ module.exports = function( Microbe )
 
         /**
          * returns the even indexed elements of a microbe (starting at 0)
-         * 
+         *
          * @param  {Microbe}        _el                 microbe to be filtered
-         * 
+         *
          * @return {Microbe}
          */
         even : function( _el )
         {
             var elements = [];
-            for ( var i = 0, lenI = _el.length; i < lenI; i++ ) 
+            for ( var i = 0, lenI = _el.length; i < lenI; i++ )
             {
                 if ( ( i + 1 ) % 2 === 0 )
                 {
@@ -4221,42 +4224,50 @@ module.exports = function( Microbe )
 
         /**
          * returns the first element of a microbe
-         * 
+         *
          * @param  {Microbe}        _el                 microbe to be filtered
-         * 
+         *
          * @return {Microbe}
          */
         first : function( _el )
-        { 
-            return _el.first() 
+        {
+            return _el.first();
         },
 
 
         /**
          * returns the last {_var} element
-         * 
+         *
          * @param  {Microbe}        _el                 microbe to be filtered
          * @param  {String}         _var                number of elements to return
-         * 
+         *
          * @return {Microbe}
          */
         gt : function( _el, _var )
         {
-            return _el.splice( _el.length - _var, _el.length );
+            return _el.splice( _var, _el.length );
         },
 
 
+        /**
+         * returns elements that have the passed selector as a child
+         *
+         * @param  {Microbe}        _el                 microbe to be filtered
+         * @param  {String}         _var                selector string
+         *
+         * @return {Microbe}
+         */
         has : function( _el, _var )
         {
             var i, lenI, _obj, results = [];
 
-            for ( var i = 0, lenI = _el.length; i < lenI; i++ ) 
+            for ( i = 0, lenI = _el.length; i < lenI; i++ )
             {
                 _obj = _el.constructor( _var, _el[ i ] );
 
                 if ( _obj.length !== 0 )
                 {
-                    results.push( _el[ i ] )
+                    results.push( _el[ i ] );
                 }
             }
 
@@ -4267,23 +4278,23 @@ module.exports = function( Microbe )
 
         /**
          * returns the last element of a microbe
-         * 
+         *
          * @param  {Microbe}        _el                 microbe to be filtered
-         * 
+         *
          * @return {Microbe}
          */
         last : function( _el )
-        { 
-            return _el.last() 
+        {
+            return _el.last();
         },
 
 
         /**
          * returns the first {_var} element
-         * 
+         *
          * @param  {Microbe}        _el                 microbe to be filtered
          * @param  {String}         _var                number of elements to return
-         * 
+         *
          * @return {Microbe}
          */
         lt : function( _el, _var )
@@ -4294,15 +4305,15 @@ module.exports = function( Microbe )
 
         /**
          * returns the odd indexed elements of a microbe
-         * 
+         *
          * @param  {Microbe}        _el                 microbe to be filtered
-         * 
+         *
          * @return {Microbe}
          */
         odd : function( _el )
         {
             var elements = [];
-            for ( var i = 0, lenI = _el.length; i < lenI; i++ ) 
+            for ( var i = 0, lenI = _el.length; i < lenI; i++ )
             {
                 if ( ( i + 1 ) % 2 !== 0 )
                 {
@@ -4315,9 +4326,9 @@ module.exports = function( Microbe )
 
         /**
          * returns the root elements of the document
-         * 
+         *
          * @param  {Microbe}        _el                 microbe to be filtered
-         * 
+         *
          * @return {Microbe}
          */
         root : function( _el )
@@ -4328,19 +4339,20 @@ module.exports = function( Microbe )
 
         /**
          * returns a microbe with elements that match both the original selector, and the id of the page hash
-         * 
+         *
          * @param  {Microbe}        _el                 microbe to be filtered
-         * 
+         *
          * @return {Microbe}
          */
         target : function( _el )
         {
-            var hash = ( location.href.split( '#' )[ 1 ] )
+            var hash = ( location.href.split( '#' )[ 1 ] );
+
+            var elements = [];
 
             if ( hash )
             {
-                var elements = [];
-                for ( var i = 0, lenI = _el.length; i < lenI; i++ ) 
+                for ( var i = 0, lenI = _el.length; i < lenI; i++ )
                 {
                     if ( _el[ i ].id === hash  )
                     {
@@ -4348,7 +4360,7 @@ module.exports = function( Microbe )
                     }
                 }
             }
-            
+
             return _el.constructor( elements );
         }
     };

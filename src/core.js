@@ -36,7 +36,7 @@ var Microbe = function( selector, scope, elements )
 
 Microbe.core = Microbe.prototype =
 {
-    version :       '0.3',
+    version :       '0.3.1',
 
     constructor :   Microbe,
 
@@ -733,7 +733,7 @@ Microbe.core = Microbe.prototype =
 
     /**
      * returns the root elements of the document
-     * 
+     *
      * @return {Microbe}
      */
     root : function()
@@ -749,7 +749,7 @@ Microbe.core = Microbe.prototype =
 
             return new Microbe( [ _root ] );
         }
-        
+
         return new Microbe( [] );
     },
 
