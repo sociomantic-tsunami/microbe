@@ -97,7 +97,7 @@ module.exports = function( buildTest )
 
         assert.equal( µ().version, version, 'version is ' + version );
 
-        buildTest( 'No tests available.', 18 );
+        buildTest( 'No speed tests available.', 18 );
     });
 
 
@@ -107,7 +107,7 @@ module.exports = function( buildTest )
 
         assert.equal( µ().type, type, 'type is ' + type );
 
-        buildTest( 'No tests available.', 19 );
+        buildTest( 'No speed tests available.', 19 );
     });
 
 
@@ -116,7 +116,7 @@ module.exports = function( buildTest )
         assert.equal( µ().length, 0, 'length initializes' );
         assert.equal( µ( 'head' ).length, 1, 'length reports correctly' );
 
-        buildTest( 'No tests available.', 20 );
+        buildTest( 'No speed tests available.', 20 );
     });
 
 
@@ -375,13 +375,73 @@ module.exports = function( buildTest )
 
     QUnit.test( '.filter()', function( assert )
     {
-        assert.ok( µ().find, 'exists' );
+        assert.ok( µ().filter, 'exists' );
+        var µDivs   = µ( 'div' );
+        var µId     = µDivs.filter( '#qunit' );
+
+        assert.equal( µId.length, 1, 'selects the correct element' );
+
+            µId     = µDivs.filter( ':lt(3)' );
+
+        assert.equal( µId.length, 3, 'accepts pseudo selectors' );
+
+        var $Divs;
+        
+        var resetDivs = function()
+        {
+            µDivs   = µ( 'div' );
+            $Divs   = $( 'div' );
+        };
+
+        buildTest(
+        'µDivs.filter( \'#qunit\' )', function()
+        {
+            resetDivs();
+            µDivs.filter( '#qunit' );
+        },
+
+        '$Divs.filter( \'qunit\' )', function()
+        {
+            resetDivs();
+            $Divs.filter( '#qunit' );
+        }, 27 );
     });
 
 
     QUnit.test( '.find()', function( assert )
     {
         assert.ok( µ().find, 'exists' );
+
+        var µDiv    = µ( '#qunit' );
+        var µH2     = µDiv.find( 'h2' );
+
+        assert.equal( µH2.length, 2, 'selects enough child elements' );
+
+            µH2     = µDiv.find( ':first' );
+
+        assert.equal( µH2.length, 1, 'accepts pseudo selectors' );
+
+
+        var $Divs;
+        
+        var resetDivs = function()
+        {
+            µDivs   = µ( 'div' );
+            $Divs   = $( 'div' );
+        };
+
+        buildTest(
+        'µDivs.find( \'h2\' )', function()
+        {
+            resetDivs();
+            µDivs.find( 'h2' );
+        },
+
+        '$Divs.find()', function()
+        {
+            resetDivs();
+            $Divs.find( 'h2' );
+        }, 28 );
     });
 
 
@@ -1002,7 +1062,7 @@ module.exports = function( buildTest )
         var val = 'mooon';
         assert.equal( 'mooon', µ.identity( 'mooon' ), 'it equals itself' );
 
-        buildTest( 'No tests available.', 48 );
+        buildTest( 'No speed tests available.', 48 );
     });
 
 
@@ -1014,7 +1074,7 @@ module.exports = function( buildTest )
         assert.ok( µ.xyzzy, 'xyzzy exists' );
         assert.equal( µ.xyzzy(), undefined, 'nothing happens' );
 
-        buildTest( 'No tests available.', 49 );
+        buildTest( 'No speed tests available.', 49 );
     });
 
 
