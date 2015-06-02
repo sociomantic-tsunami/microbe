@@ -2520,7 +2520,7 @@ Microbe.core = Microbe.prototype =
                 node = i === 0 ? _elAfter[ i ] : _elAfter[ i ].cloneNode( true );
 
                 elementArray.push( node );
-                
+
                 if ( nextEle )
                 {
                     nextEle.parentNode.insertBefore( node, nextEle );
@@ -3012,19 +3012,20 @@ Microbe.merge = Microbe.core.merge  = function( first, second )
  */
 Microbe.capitalize = function( text )
 {
-    var µText = ( ! Microbe.isArray( text ) ) ? [ text ] : text;
+    var array   = Microbe.isArray( text );
+    text        = !array ? [ text ] : text;
 
-    for ( var i = 0, lenI = µText.length; i < lenI; i++ )
+    for ( var i = 0, lenI = text.length; i < lenI; i++ )
     {
-        µText[ i ] = µText[ i ].split( ' ' );
-        for ( var j = 0, lenJ = µText[ i ].length; j < lenJ; j++ )
+        text[ i ] = text[ i ].split( ' ' );
+        for ( var j = 0, lenJ = text[ i ].length; j < lenJ; j++ )
         {
-            µText[ i ][ j ] = µText[ i ][ j ].charAt( 0 ).toUpperCase() + µText[ i ][ j ].slice( 1 );
+            text[ i ][ j ] = text[ i ][ j ].charAt( 0 ).toUpperCase() + text[ i ][ j ].slice( 1 );
         }
-        µText[ i ] = µText[ i ].join( ' ' );
+        text[ i ] = text[ i ].join( ' ' );
     }
 
-    return ( Microbe.isArray( text ) ) ? µText : µText[ 0 ];
+    return ( array ) ? text : text[ 0 ];
 };
 
 
@@ -3051,8 +3052,8 @@ Microbe.identity = function( value ) { return value; };
  *
  * @return {void}
  */
-Microbe.noop = function() {};
-Microbe.xyzzy = Microbe.noop;
+Microbe.noop    = function() {};
+Microbe.xyzzy   = Microbe.noop;
 
 
 /**
@@ -3428,6 +3429,14 @@ module.exports = function( Microbe )
      *
      * @package Microbe
      */
+
+    /**
+     * Http takes as many of few parameters, with url being the only required.
+     * The return then has the methods .then( _cb ) and .error( _cb )
+     *
+     * @param {Object}             _parameters          http parameters. possible properties
+     *                                                  method, url, data, user, password, headers, async
+     */
     Microbe.http = function( _parameters )
     {
         var fail,
@@ -3470,7 +3479,7 @@ module.exports = function( Microbe )
         {
             req.setRequestHeader( 'Content-Type', 'application/x-www-form-urlencoded' );
         }
-        
+
         if ( headers )
         {
             for ( var header in headers )
@@ -3509,6 +3518,16 @@ module.exports = function( Microbe )
             {
                 var _responses =
                 {
+                    /**
+                     * .then()
+                     *
+                     * called after http(), http.get(), or http.post(), this is
+                     * called with the result
+                     *
+                     * @param  {Function}   _cb         function to call after http request
+                     *
+                     * @return {Object}                 contains the .catch
+                     */
                     then: function( _cb )
                     {
                         if ( _val.status === 200 )
@@ -3867,22 +3886,22 @@ module.exports = function( Microbe )
             return new Microbe.core.__init__( _selector, _scope, _elements );
         }
 
-
+        var pseudo;
         if ( _selector.indexOf( ':' ) !== -1 )
         {
-            var pseudo, _pseudoArray;
+            var _pseudoArray;
              pseudo     = _selector.split( ':' );
             _selector   = pseudo[ 0 ];
             pseudo.splice( 0, 1 );
 
-            for ( var i = 0, lenI = pseudo.length; i < lenI; i++ ) 
+            for ( var k = 0, lenK = pseudo.length; k < lenK; k++ )
             {
-                _pseudoArray = pseudo[ i ].split( '(' );
+                _pseudoArray = pseudo[ k ].split( '(' );
 
                 if ( !Microbe.constructor.pseudo[ _pseudoArray[ 0 ] ] )
                 {
-                    _selector += ':' + pseudo[ i ];
-                    pseudo.splice( i, 1 );
+                    _selector += ':' + pseudo[ k ];
+                    pseudo.splice( k, 1 );
                 }
             }
         }
@@ -3892,9 +3911,9 @@ module.exports = function( Microbe )
         if ( pseudo )
         {
             var _sel, _var;
-            for ( var i = 0, lenI = pseudo.length; i < lenI; i++ ) 
+            for ( var h = 0, lenH = pseudo.length; h < lenH; h++ )
             {
-                _sel = pseudo[ i ].split( '(' );
+                _sel = pseudo[ h ].split( '(' );
                 _var = _sel[ 1 ];
                 if ( _var )
                 {

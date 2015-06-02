@@ -214,7 +214,7 @@ module.exports = function( buildTest )
         // assert.equal( µ( '.a--new--div' ).length, 2, 'attached 2 creation strings' );
         // µNewDiv.remove();
         // µAnotherNewDiv.remove();
-        
+
 
         var el;
         var µDiv = µ( 'div' ).first();
@@ -387,7 +387,7 @@ module.exports = function( buildTest )
         assert.equal( µId.length, 3, 'accepts pseudo selectors' );
 
         var $Divs;
-        
+
         var resetDivs = function()
         {
             µDivs   = µ( 'div' );
@@ -423,8 +423,8 @@ module.exports = function( buildTest )
         assert.equal( µH2.length, 1, 'accepts pseudo selectors' );
 
 
-        var $Divs;
-        
+        var µDivs, $Divs;
+
         var resetDivs = function()
         {
             µDivs   = µ( 'div' );
@@ -494,7 +494,7 @@ module.exports = function( buildTest )
             µDiv.getParentIndex();
         },
 
-        '$Div.getParentIndex()', function()
+        '$Div.index()', function()
         {
             var $DivParent  = $Div.parent();
             $DivParent.index( $Div );
@@ -804,7 +804,7 @@ module.exports = function( buildTest )
 
         assert.equal( µ( 'divdiv' ).length, 0, 'is completely removed' );
 
-        var $El, µEl;
+        var el, $El, µEl;
         var parentDiv   = µ( 'div' )[0];
 
         var vanillaAdd = function()
@@ -1004,7 +1004,7 @@ module.exports = function( buildTest )
         buildTest(
         'µ.extend( _obj, extension );', function()
         {
-            /* these are commented out to draw attention to how slow the 
+            /* these are commented out to draw attention to how slow the
                other function is comparatively.  this one is quite a bit faster */
             // extension = { more: function(){ return 'MOAR!!!'; } };
             // _obj = µ( 'div' );
@@ -1017,7 +1017,7 @@ module.exports = function( buildTest )
 
         '$.extend( _obj, extension )', function()
         {
-            /* these are commented out to draw attention to how slow the 
+            /* these are commented out to draw attention to how slow the
                other function is comparatively.  this one is quite a bit faster */
             // extension   = { more: function(){ return 'MOAR!!!'; } };
             // _obj = $( 'div' );
@@ -1051,7 +1051,7 @@ module.exports = function( buildTest )
         assert.equal( µDivs.length, divCount + htmlCount, 'merged this' );
 
 
-        var µDivs, $Divs, µLi, $Li;
+        var $Divs, µLi, $Li;
 
         var refreshObjects = function()
         {
@@ -1332,6 +1332,20 @@ module.exports = function( buildTest )
     QUnit.test( 'µ.ready()', function( assert )
     {
         assert.ok( µ.ready, 'exists' );
+
+        var domReady    = assert.async();
+
+        var loaded = function()
+        {
+            assert.equal( µ( 'h1' ).length, 1, 'is run after dom loads' );
+
+            domReady();
+        };
+
+        µ.ready( loaded );
+
+
+        buildTest( 'No speed tests available.', 62 );
     });
 
 };
@@ -1504,18 +1518,65 @@ module.exports = function( buildTest )
     QUnit.test( '.http', function( assert )
     {
         assert.ok( µ.http, 'exists' );
+
+        var getTest      = assert.async();
+        µ.http( { url: './httpTest.html', method: 'GET' } ).then( function( data )
+        {
+            assert.equal( data, 'moon', 'page correctly retrieved' );
+            getTest();
+        } );
+
+        var parameterTest      = assert.async();
+        µ.http( {
+                    url         : './httpTest.html',
+                    method      : 'GET',
+                    headers     : {
+                        Accept      : 'text/plain'
+                    },
+                    async       : true
+                }
+        ).then( function( data )
+        {
+            assert.equal( data, 'moon', 'parameters are recieved correctly' );
+            parameterTest();
+        } );
+
+        var errorTest      = assert.async();
+        µ.http( { url : './httpTest.hml' }
+        ).catch( function( e )
+        {
+            console.log( e );
+            assert.equal( e, 'Error: 404', 'errors are handled correctly' );
+            errorTest();
+        } );
+
+        buildTest( 'Speed depends on network traffic.', 59 );
     });
 
 
     QUnit.test( '.http.get', function( assert )
     {
         assert.ok( µ.http.get, 'exists' );
+
+        var getTest      = assert.async();
+
+        µ.http.get( './httpTest.html' ).then( function( data )
+        {
+            assert.equal( data, 'moon', 'page correctly retrieved' );
+            getTest();
+        } );
+
+
+        buildTest( 'Speed depends on network traffic.', 60 );
     });
 
 
     QUnit.test( '.http.post', function( assert )
     {
         assert.ok( µ.http.post, 'exists' );
+
+
+        buildTest( 'Speed depends on network traffic.', 61 );
     });
 };
 
@@ -1755,7 +1816,7 @@ module.exports = function( buildTest )
 
         µExamples.observeOnce( 'observeOnceTest', function( e )
         {
-            assert.equal( e[0].object.observeOnceTest, 'whoohoo', 'object correctly observed once' );
+            assert.equal( e[0].object.observeOnceTest, 'whoohoo', 'object correctly observed' );
 
             observeOnceTest();
         });

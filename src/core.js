@@ -562,7 +562,7 @@ Microbe.core = Microbe.prototype =
                 node = i === 0 ? _elAfter[ i ] : _elAfter[ i ].cloneNode( true );
 
                 elementArray.push( node );
-                
+
                 if ( nextEle )
                 {
                     nextEle.parentNode.insertBefore( node, nextEle );
@@ -1054,19 +1054,20 @@ Microbe.merge = Microbe.core.merge  = function( first, second )
  */
 Microbe.capitalize = function( text )
 {
-    var µText = ( ! Microbe.isArray( text ) ) ? [ text ] : text;
+    var array   = Microbe.isArray( text );
+    text        = !array ? [ text ] : text;
 
-    for ( var i = 0, lenI = µText.length; i < lenI; i++ )
+    for ( var i = 0, lenI = text.length; i < lenI; i++ )
     {
-        µText[ i ] = µText[ i ].split( ' ' );
-        for ( var j = 0, lenJ = µText[ i ].length; j < lenJ; j++ )
+        text[ i ] = text[ i ].split( ' ' );
+        for ( var j = 0, lenJ = text[ i ].length; j < lenJ; j++ )
         {
-            µText[ i ][ j ] = µText[ i ][ j ].charAt( 0 ).toUpperCase() + µText[ i ][ j ].slice( 1 );
+            text[ i ][ j ] = text[ i ][ j ].charAt( 0 ).toUpperCase() + text[ i ][ j ].slice( 1 );
         }
-        µText[ i ] = µText[ i ].join( ' ' );
+        text[ i ] = text[ i ].join( ' ' );
     }
 
-    return ( Microbe.isArray( text ) ) ? µText : µText[ 0 ];
+    return ( array ) ? text : text[ 0 ];
 };
 
 
@@ -1093,8 +1094,8 @@ Microbe.identity = function( value ) { return value; };
  *
  * @return {void}
  */
-Microbe.noop = function() {};
-Microbe.xyzzy = Microbe.noop;
+Microbe.noop    = function() {};
+Microbe.xyzzy   = Microbe.noop;
 
 
 /**

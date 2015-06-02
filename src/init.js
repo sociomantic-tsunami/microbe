@@ -304,22 +304,22 @@ module.exports = function( Microbe )
             return new Microbe.core.__init__( _selector, _scope, _elements );
         }
 
-
+        var pseudo;
         if ( _selector.indexOf( ':' ) !== -1 )
         {
-            var pseudo, _pseudoArray;
+            var _pseudoArray;
              pseudo     = _selector.split( ':' );
             _selector   = pseudo[ 0 ];
             pseudo.splice( 0, 1 );
 
-            for ( var i = 0, lenI = pseudo.length; i < lenI; i++ ) 
+            for ( var k = 0, lenK = pseudo.length; k < lenK; k++ )
             {
-                _pseudoArray = pseudo[ i ].split( '(' );
+                _pseudoArray = pseudo[ k ].split( '(' );
 
                 if ( !Microbe.constructor.pseudo[ _pseudoArray[ 0 ] ] )
                 {
-                    _selector += ':' + pseudo[ i ];
-                    pseudo.splice( i, 1 );
+                    _selector += ':' + pseudo[ k ];
+                    pseudo.splice( k, 1 );
                 }
             }
         }
@@ -329,9 +329,9 @@ module.exports = function( Microbe )
         if ( pseudo )
         {
             var _sel, _var;
-            for ( var i = 0, lenI = pseudo.length; i < lenI; i++ ) 
+            for ( var h = 0, lenH = pseudo.length; h < lenH; h++ )
             {
-                _sel = pseudo[ i ].split( '(' );
+                _sel = pseudo[ h ].split( '(' );
                 _var = _sel[ 1 ];
                 if ( _var )
                 {

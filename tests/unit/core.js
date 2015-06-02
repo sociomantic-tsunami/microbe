@@ -127,7 +127,7 @@ module.exports = function( buildTest )
         // assert.equal( µ( '.a--new--div' ).length, 2, 'attached 2 creation strings' );
         // µNewDiv.remove();
         // µAnotherNewDiv.remove();
-        
+
 
         var el;
         var µDiv = µ( 'div' ).first();
@@ -300,7 +300,7 @@ module.exports = function( buildTest )
         assert.equal( µId.length, 3, 'accepts pseudo selectors' );
 
         var $Divs;
-        
+
         var resetDivs = function()
         {
             µDivs   = µ( 'div' );
@@ -336,8 +336,8 @@ module.exports = function( buildTest )
         assert.equal( µH2.length, 1, 'accepts pseudo selectors' );
 
 
-        var $Divs;
-        
+        var µDivs, $Divs;
+
         var resetDivs = function()
         {
             µDivs   = µ( 'div' );
@@ -407,7 +407,7 @@ module.exports = function( buildTest )
             µDiv.getParentIndex();
         },
 
-        '$Div.getParentIndex()', function()
+        '$Div.index()', function()
         {
             var $DivParent  = $Div.parent();
             $DivParent.index( $Div );
@@ -717,7 +717,7 @@ module.exports = function( buildTest )
 
         assert.equal( µ( 'divdiv' ).length, 0, 'is completely removed' );
 
-        var $El, µEl;
+        var el, $El, µEl;
         var parentDiv   = µ( 'div' )[0];
 
         var vanillaAdd = function()
@@ -917,7 +917,7 @@ module.exports = function( buildTest )
         buildTest(
         'µ.extend( _obj, extension );', function()
         {
-            /* these are commented out to draw attention to how slow the 
+            /* these are commented out to draw attention to how slow the
                other function is comparatively.  this one is quite a bit faster */
             // extension = { more: function(){ return 'MOAR!!!'; } };
             // _obj = µ( 'div' );
@@ -930,7 +930,7 @@ module.exports = function( buildTest )
 
         '$.extend( _obj, extension )', function()
         {
-            /* these are commented out to draw attention to how slow the 
+            /* these are commented out to draw attention to how slow the
                other function is comparatively.  this one is quite a bit faster */
             // extension   = { more: function(){ return 'MOAR!!!'; } };
             // _obj = $( 'div' );
@@ -964,7 +964,7 @@ module.exports = function( buildTest )
         assert.equal( µDivs.length, divCount + htmlCount, 'merged this' );
 
 
-        var µDivs, $Divs, µLi, $Li;
+        var $Divs, µLi, $Li;
 
         var refreshObjects = function()
         {

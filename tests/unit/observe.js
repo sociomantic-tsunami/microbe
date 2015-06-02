@@ -59,7 +59,7 @@ module.exports = function( buildTest )
 
         µExamples.observeOnce( 'observeOnceTest', function( e )
         {
-            assert.equal( e[0].object.observeOnceTest, 'whoohoo', 'object correctly observed once' );
+            assert.equal( e[0].object.observeOnceTest, 'whoohoo', 'object correctly observed' );
 
             observeOnceTest();
         });

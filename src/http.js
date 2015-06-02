@@ -10,6 +10,14 @@ module.exports = function( Microbe )
      *
      * @package Microbe
      */
+
+    /**
+     * Http takes as many of few parameters, with url being the only required.
+     * The return then has the methods .then( _cb ) and .error( _cb )
+     *
+     * @param {Object}             _parameters          http parameters. possible properties
+     *                                                  method, url, data, user, password, headers, async
+     */
     Microbe.http = function( _parameters )
     {
         var fail,
@@ -52,7 +60,7 @@ module.exports = function( Microbe )
         {
             req.setRequestHeader( 'Content-Type', 'application/x-www-form-urlencoded' );
         }
-        
+
         if ( headers )
         {
             for ( var header in headers )
@@ -91,6 +99,16 @@ module.exports = function( Microbe )
             {
                 var _responses =
                 {
+                    /**
+                     * .then()
+                     *
+                     * called after http(), http.get(), or http.post(), this is
+                     * called passing the result as the first parameter to the callback
+                     *
+                     * @param  {Function}   _cb         function to call after http request
+                     *
+                     * @return {Object}                 contains the .catch method
+                     */
                     then: function( _cb )
                     {
                         if ( _val.status === 200 )
@@ -99,6 +117,18 @@ module.exports = function( Microbe )
                         }
                         return _responses;
                     },
+
+
+                    /**
+                     * .catch()
+                     *
+                     * called after http(), http.get(), or http.post(), this is
+                     * called passing the error as the first parameter to the callback
+                     *
+                     * @param  {Function}   _cb         function to call after http request
+                     *
+                     * @return {Object}                 contains the .then method
+                     */
                     catch: function( _cb )
                     {
                         if ( _val.status !== 200 )
@@ -124,6 +154,13 @@ module.exports = function( Microbe )
         }
     };
 
+    /**
+     * Syntactic shortcut for simple GET requests
+     *
+     * @param  {String}             _url                file url
+     *
+     * @return {Object}                                 contains .then() and .catch()
+     */
     Microbe.http.get = function( _url )
     {
         return this({
@@ -132,6 +169,15 @@ module.exports = function( Microbe )
         });
     };
 
+
+    /**
+     * Syntactic shortcut for simple POST requests
+     *
+     * @param  {String}             _url                file url
+     * @param  {Object or String}   _data               data to post to location
+     *
+     * @return {Object}                                 contains .then() and .catch()
+     */
     Microbe.http.post = function( _url, _data )
     {
         return this({

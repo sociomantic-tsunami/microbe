@@ -61,7 +61,7 @@ Example use
     // all divs on the page
     var µDivs = µ( 'div' ) ;
 
-    // create a div with the class anotherDiv
+    // create a div with the class example--class
     var newDiv = µ( '<div.example--class>' );
 
     // all divs get a newDiv or a clone of newDiv inserted into the DOM after them
@@ -73,7 +73,7 @@ Example use
         console.log( 'your class changed' );
     } );
 
-    // gives the class aClass to each div also triggers the observe fuctions
+    // gives the class example--class to each div also triggers the observe fuctions
     µDivs.addClass( 'example--class' );
 
     // sets a custom event watch
