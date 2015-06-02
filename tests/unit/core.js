@@ -11,7 +11,7 @@ module.exports = function( buildTest )
 
         assert.equal( µ().version, version, 'version is ' + version );
 
-        buildTest( 'No tests available.', 18 );
+        buildTest( 'No speed tests available.', 18 );
     });
 
 
@@ -21,7 +21,7 @@ module.exports = function( buildTest )
 
         assert.equal( µ().type, type, 'type is ' + type );
 
-        buildTest( 'No tests available.', 19 );
+        buildTest( 'No speed tests available.', 19 );
     });
 
 
@@ -30,7 +30,7 @@ module.exports = function( buildTest )
         assert.equal( µ().length, 0, 'length initializes' );
         assert.equal( µ( 'head' ).length, 1, 'length reports correctly' );
 
-        buildTest( 'No tests available.', 20 );
+        buildTest( 'No speed tests available.', 20 );
     });
 
 
@@ -127,6 +127,33 @@ module.exports = function( buildTest )
         // assert.equal( µ( '.a--new--div' ).length, 2, 'attached 2 creation strings' );
         // µNewDiv.remove();
         // µAnotherNewDiv.remove();
+        
+
+        var el;
+        var µDiv = µ( 'div' ).first();
+        var $Div = $( 'div' ).first();
+
+        var vanillaRemove = function( el )
+        {
+            el.parentNode.removeChild( el );
+        };
+
+        buildTest(
+        'µDiv.append( el )', function()
+        {
+            el = document.createElement( 'div' );
+            µDiv.append( el );
+
+            vanillaRemove( el );
+        },
+
+        '$Div.append( el )', function()
+        {
+            el = document.createElement( 'div' );
+            $Div.append( el );
+
+            vanillaRemove( el );
+        }, 22 );
     });
 
 
@@ -229,22 +256,106 @@ module.exports = function( buildTest )
     {
         assert.ok( µ().each, 'exists' );
 
-        var µDivs = µ( 'div' );
-        var divs = [];
+        var µDivs   = µ( 'div' );
+        var divs    = [];
+
         µDivs.each( function( _el ){ divs.push( _el ); } );
         assert.equal( µDivs.length, divs.length, 'pushed each element' );
+        assert.deepEqual( µDivs[ 0 ], divs[ 0 ], 'correct result' );
+
+        µDivs       = µ( 'div' );
+        var $Divs   = $( 'div' );
+
+        buildTest(
+        'µDivs.each( function( _el, i ){} )', function()
+        {
+            var arr = [];
+            µDivs.each( function( _el, i )
+            {
+                arr.push( _el.id );
+            } );
+        },
+
+        '$Divs.each( function( _el, i ){} )', function()
+        {
+            var arr = [];
+            $Divs.each( function( _el, i )
+            {
+                arr.push( _el.id );
+            } );
+        }, 26 );
     });
 
 
     QUnit.test( '.filter()', function( assert )
     {
-        assert.ok( µ().find, 'exists' );
+        assert.ok( µ().filter, 'exists' );
+        var µDivs   = µ( 'div' );
+        var µId     = µDivs.filter( '#qunit' );
+
+        assert.equal( µId.length, 1, 'selects the correct element' );
+
+            µId     = µDivs.filter( ':lt(3)' );
+
+        assert.equal( µId.length, 3, 'accepts pseudo selectors' );
+
+        var $Divs;
+        
+        var resetDivs = function()
+        {
+            µDivs   = µ( 'div' );
+            $Divs   = $( 'div' );
+        };
+
+        buildTest(
+        'µDivs.filter( \'#qunit\' )', function()
+        {
+            resetDivs();
+            µDivs.filter( '#qunit' );
+        },
+
+        '$Divs.filter( \'qunit\' )', function()
+        {
+            resetDivs();
+            $Divs.filter( '#qunit' );
+        }, 27 );
     });
 
 
     QUnit.test( '.find()', function( assert )
     {
         assert.ok( µ().find, 'exists' );
+
+        var µDiv    = µ( '#qunit' );
+        var µH2     = µDiv.find( 'h2' );
+
+        assert.equal( µH2.length, 2, 'selects enough child elements' );
+
+            µH2     = µDiv.find( ':first' );
+
+        assert.equal( µH2.length, 1, 'accepts pseudo selectors' );
+
+
+        var $Divs;
+        
+        var resetDivs = function()
+        {
+            µDivs   = µ( 'div' );
+            $Divs   = $( 'div' );
+        };
+
+        buildTest(
+        'µDivs.find( \'h2\' )', function()
+        {
+            resetDivs();
+            µDivs.find( 'h2' );
+        },
+
+        '$Divs.find()', function()
+        {
+            resetDivs();
+            $Divs.find( 'h2' );
+        }, 28 );
     });
 
 
@@ -419,6 +530,44 @@ module.exports = function( buildTest )
         µTarget.insertAfter( µEl );
         assert.equal( µTargetParentChildren + 1, µTargetParent.children()[0].length, 'add by new element' );
         µ( 'addedDivThing' ).remove();
+
+
+        var siblingDiv      = document.getElementById( 'qunit' );
+        var µSiblingDiv     = µ( siblingDiv );
+        var $SiblingDiv     = $( siblingDiv );
+        var parentDiv       = siblingDiv.parentNode;
+
+        var vanillaCreate = function( i )
+        {
+            var el  = document.createElement( 'div' );
+            el      = [ µ( el ), $( el ) ];
+
+            return el[ i ];
+        };
+
+        var vanillaRemove = function( el )
+        {
+            parentDiv.removeChild( el[ 0 ] );
+        };
+
+        buildTest(
+        'µDiv.insertAfter( el )', function()
+        {
+            var µEl = vanillaCreate( 0 );
+
+            µSiblingDiv.insertAfter( µEl );
+
+            vanillaRemove( µEl );
+        },
+
+        '$Div.insertAfter( el )', function()
+        {
+            var $El = vanillaCreate( 1 );
+
+            $El.insertAfter( $SiblingDiv );
+
+            vanillaRemove( $El );
+        }, 34 );
     });
 
 
@@ -452,6 +601,49 @@ module.exports = function( buildTest )
     QUnit.test( '.map()', function( assert )
     {
         assert.ok( µ().map, 'exists' );
+
+        var µDivs = µ( 'div' );
+
+        µDivs.map( function( el )
+        {
+            el.moo = 'moo';
+        } );
+
+        var rand = Math.floor( Math.random() * µDivs.length );
+
+        assert.equal( µDivs[ rand ].moo, 'moo', 'applies to all elements' );
+
+
+            µDivs = µ( 'div' );
+        var $Divs = $( 'div' );
+
+        var resetDivs = function()
+        {
+            µDivs = µ( 'div' );
+            $Divs = $( 'div' );
+        };
+
+
+        buildTest(
+        'µDivs.last( function(){} )', function()
+        {
+            resetDivs();
+
+            µDivs.map( function( el )
+            {
+                el.moo = 'moo';
+            } );
+        },
+
+        '$Divs.map( function(){} )', function()
+        {
+            resetDivs();
+
+            $Divs.map( function( el )
+            {
+                el.moo = 'moo';
+            } );
+        }, 36 );
     });
 
 
@@ -524,6 +716,32 @@ module.exports = function( buildTest )
         µ( 'divdiv' ).remove();
 
         assert.equal( µ( 'divdiv' ).length, 0, 'is completely removed' );
+
+        var $El, µEl;
+        var parentDiv   = µ( 'div' )[0];
+
+        var vanillaAdd = function()
+        {
+            el = document.createElement( 'div' );
+            µEl         = µ( el );
+            $El         = $( el );
+
+            parentDiv.appendChild( el );
+            return el;
+        };
+
+        buildTest(
+        'µDiv.remove()', function()
+        {
+            vanillaAdd();
+            µEl.remove();
+        },
+
+        '$Div.remove()', function()
+        {
+            vanillaAdd();
+            $El.remove();
+        }, 39 );
     });
 
 
@@ -699,6 +917,8 @@ module.exports = function( buildTest )
         buildTest(
         'µ.extend( _obj, extension );', function()
         {
+            /* these are commented out to draw attention to how slow the 
+               other function is comparatively.  this one is quite a bit faster */
             // extension = { more: function(){ return 'MOAR!!!'; } };
             // _obj = µ( 'div' );
             // _obj.extend( extension );
@@ -710,6 +930,8 @@ module.exports = function( buildTest )
 
         '$.extend( _obj, extension )', function()
         {
+            /* these are commented out to draw attention to how slow the 
+               other function is comparatively.  this one is quite a bit faster */
             // extension   = { more: function(){ return 'MOAR!!!'; } };
             // _obj = $( 'div' );
             // _obj.extend( extension );
@@ -740,6 +962,40 @@ module.exports = function( buildTest )
         µDivs       = µ( 'div' );
         µDivs.merge( µHtml );
         assert.equal( µDivs.length, divCount + htmlCount, 'merged this' );
+
+
+        var µDivs, $Divs, µLi, $Li;
+
+        var refreshObjects = function()
+        {
+            µDivs = µ( 'div' );
+            $Divs = $( 'div' );
+
+            µLi = µ( 'li' );
+            $Li = $( 'li' );
+        };
+
+
+        buildTest(
+        'µ.merge( _obj, extension );', function()
+        {
+            refreshObjects();
+
+            /* these are commented out because jquery doesn't handle this syntax */
+            // µDivs.merge( µLi );
+
+            µ.merge( µDivs, µLi );
+        },
+
+        '$.merge( _obj, extension )', function()
+        {
+            refreshObjects();
+
+            /* these are commented out because jquery doesn't handle this syntax */
+            // $Divs.merge( $Li );
+
+            $.merge( $Divs, µLi );
+        }, 46 );
     });
 
 
@@ -763,7 +1019,7 @@ module.exports = function( buildTest )
         var val = 'mooon';
         assert.equal( 'mooon', µ.identity( 'mooon' ), 'it equals itself' );
 
-        buildTest( 'No tests available.', 48 );
+        buildTest( 'No speed tests available.', 48 );
     });
 
 
@@ -775,7 +1031,7 @@ module.exports = function( buildTest )
         assert.ok( µ.xyzzy, 'xyzzy exists' );
         assert.equal( µ.xyzzy(), undefined, 'nothing happens' );
 
-        buildTest( 'No tests available.', 49 );
+        buildTest( 'No speed tests available.', 49 );
     });
 
 
