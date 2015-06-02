@@ -16,6 +16,9 @@ module.exports = function( buildTest )
         µExamples[0].data.moo.moo = 'mooon!';
 
         assert.equal( µExamples.get( 'moo' )[0], 'mooon!', 'get gets' );
+
+
+        buildTest( 'No comparison available.', 66 );
     });
 
 
@@ -38,6 +41,9 @@ module.exports = function( buildTest )
         });
 
         µExamples.set( 'observeTest', 'whoohoo' );
+
+
+        buildTest( 'No comparison available.', 67 );
     });
 
 
@@ -59,6 +65,9 @@ module.exports = function( buildTest )
         });
 
         µExamples.set( 'observeOnceTest', 'whoohoo' );
+
+
+        buildTest( 'No comparison available.', 68 );
     });
 
 
@@ -72,11 +81,16 @@ module.exports = function( buildTest )
         var setData = µExamples[0].data.moo.moo;
 
         assert.equal( setData, 'mooon!', 'set sets' );
+
+
+        buildTest( 'No comparison available.', 69);
     });
 
 
     QUnit.test( '.unobserve', function( assert )
     {
         assert.ok( µ().unobserve, 'exists' );
+
+        buildTest( 'No comparison available.', 70 );
     });
 };

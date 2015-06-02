@@ -79,15 +79,16 @@ module.exports = function( buildTest )
 
         var vanillaRemoveListener = function( divs )
         {
-            for ( var i = 0, lenI = divs.length; i < lenI; i++ ) 
+            for ( var i = 0, lenI = divs.length; i < lenI; i++ )
             {
                 divs[ i ].removeEventListener( 'click', _func );
             }
         };
 
+        var keyCode;
         var _func = function( e )
         {
-            e.keyCode
+            keyCode = e.keyCode;
         };
 
         buildTest(
@@ -113,7 +114,7 @@ module.exports = function( buildTest )
 
         µExamples.on( 'turningOff', function( e ){});
         µExamples.off( 'turningOff' );
-        var func = µExamples[0].data['_turningOff-bound-function']['_turningOff-bound-function'][0];
+        var func = µExamples[0].data[ '_turningOff-bound-function' ][ '_turningOff-bound-function' ][0];
 
         assert.equal( func, null, 'listener removed' );
 
@@ -123,7 +124,7 @@ module.exports = function( buildTest )
 
         var vanillaAddListener = function( divs )
         {
-            for ( var i = 0, lenI = divs.length; i < lenI; i++ ) 
+            for ( var i = 0, lenI = divs.length; i < lenI; i++ )
             {
                 divs[ i ].addEventListener( 'click', _func );
                 divs[ i ].data = divs[ i ].data || {};
@@ -132,9 +133,10 @@ module.exports = function( buildTest )
             }
         };
 
+        var keyCode;
         var _func = function( e )
         {
-            e.keyCode
+            keyCode = e.keyCode;
         };
 
         buildTest(
