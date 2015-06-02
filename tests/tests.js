@@ -1372,6 +1372,21 @@ module.exports = function( buildTest )
 
         µExamples.emit( 'emitTest', { doIt: '2 times' } );
         µParent.emit( 'bubbleTest', { bubbled: 'true' }, true );
+
+
+        var µDiv = µ( 'div' );
+        var $Div = $( 'div' );
+
+        buildTest(
+        'µDiv.emit( \'testClick\', { wooo: \'i\'m a ghost!\'} );', function()
+        {
+            µDiv.emit( 'testClick', { wooo: 'i\'m a ghost!'} );
+        },
+
+        '$Div.trigger( \'testClick\', { wooo: \'i\'m a ghost!\'} );', function()
+        {
+            $Div.trigger( 'testClick', { wooo: 'i\'m a ghost!'} );
+        }, 63 );
     });
 
 
@@ -1396,6 +1411,36 @@ module.exports = function( buildTest )
         });
 
         µExamples.emit( 'onTest', { doIt: '2 times' } );
+
+
+        var µDiv = µ( 'div' );
+        var $Div = $( 'div' );
+
+        var vanillaRemoveListener = function( divs )
+        {
+            for ( var i = 0, lenI = divs.length; i < lenI; i++ ) 
+            {
+                divs[ i ].removeEventListener( 'click', _func );
+            }
+        };
+
+        var _func = function( e )
+        {
+            e.keyCode
+        };
+
+        buildTest(
+        'µ( \'div\' ).on( \'click\', function(){} )', function()
+        {
+            µDiv.on( 'click', _func );
+            vanillaRemoveListener( µDiv );
+        },
+
+        '$( \'div\' ).on( \'click\', function(){} )', function()
+        {
+            $Div.on( 'click', _func );
+            vanillaRemoveListener( $Div );
+        }, 64 );
     });
 
 
@@ -1410,6 +1455,39 @@ module.exports = function( buildTest )
         var func = µExamples[0].data['_turningOff-bound-function']['_turningOff-bound-function'][0];
 
         assert.equal( func, null, 'listener removed' );
+
+
+        var µDiv = µ( 'div' );
+        var $Div = $( 'div' );
+
+        var vanillaAddListener = function( divs )
+        {
+            for ( var i = 0, lenI = divs.length; i < lenI; i++ ) 
+            {
+                divs[ i ].addEventListener( 'click', _func );
+                divs[ i ].data = divs[ i ].data || {};
+                divs[ i ].data[ '_click-bound-function' ] = divs[ i ].data[ '_click-bound-function' ] || {};
+                divs[ i ].data[ '_click-bound-function' ][ '_click-bound-function' ] = _func;
+            }
+        };
+
+        var _func = function( e )
+        {
+            e.keyCode
+        };
+
+        buildTest(
+        'µ( \'div\' ).on( \'click\', function(){} )', function()
+        {
+            vanillaAddListener( µDiv );
+            µDiv.off( 'click' );
+        },
+
+        '$( \'div\' ).on( \'click\', function(){} )', function()
+        {
+            vanillaAddListener( $Div );
+            $Div.off( 'click' );
+        }, 65 );
     });
 };
 
