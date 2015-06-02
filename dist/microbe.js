@@ -3522,11 +3522,11 @@ module.exports = function( Microbe )
                      * .then()
                      *
                      * called after http(), http.get(), or http.post(), this is
-                     * called with the result
+                     * called passing the result as the first parameter to the callback
                      *
                      * @param  {Function}   _cb         function to call after http request
                      *
-                     * @return {Object}                 contains the .catch
+                     * @return {Object}                 contains the .catch method
                      */
                     then: function( _cb )
                     {
@@ -3536,6 +3536,18 @@ module.exports = function( Microbe )
                         }
                         return _responses;
                     },
+
+
+                    /**
+                     * .catch()
+                     *
+                     * called after http(), http.get(), or http.post(), this is
+                     * called passing the error as the first parameter to the callback
+                     *
+                     * @param  {Function}   _cb         function to call after http request
+                     *
+                     * @return {Object}                 contains the .then method
+                     */
                     catch: function( _cb )
                     {
                         if ( _val.status !== 200 )
@@ -3561,6 +3573,13 @@ module.exports = function( Microbe )
         }
     };
 
+    /**
+     * Syntactic shortcut for simple GET requests
+     *
+     * @param  {String}             _url                file url
+     *
+     * @return {Object}                                 contains .then() and .catch()
+     */
     Microbe.http.get = function( _url )
     {
         return this({
@@ -3569,6 +3588,15 @@ module.exports = function( Microbe )
         });
     };
 
+
+    /**
+     * Syntactic shortcut for simple POST requests
+     *
+     * @param  {String}             _url                file url
+     * @param  {Object or String}   _data               data to post to location
+     *
+     * @return {Object}                                 contains .then() and .catch()
+     */
     Microbe.http.post = function( _url, _data )
     {
         return this({
