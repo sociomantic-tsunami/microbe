@@ -8,18 +8,11 @@
  */
 'use strict';
 
-var Arrays      = require( './utils/array' );
-var Strings     = require( './utils/string' );
-var Types       = require( './utils/types' );
+import { slice, splice, push, forEach, map, indexOf } from './utils/array';
+import { toString } from './utils/string';
+import Types from './utils/types';
 
-var slice       = Arrays.slice;
-var splice      = Arrays.splice;
-var push        = Arrays.push;
-var forEach     = Arrays.forEach;
-var map         = Arrays.map;
-var indexOf     = Arrays.indexOf;
-var toString    = Strings.toString;
-var _type       = '[object Microbe]';
+const _type       = '[object Microbe]';
 
 /**
  * µ constructor
@@ -28,7 +21,7 @@ var _type       = '[object Microbe]';
  *
  * @return µ
  */
-var Microbe = function( selector, scope, elements )
+const Microbe = ( selector, scope, elements ) =>
 {
     return new Microbe.core.__init__( selector, scope, elements );
 };
@@ -58,10 +51,9 @@ Microbe.core = Microbe.prototype =
      */
     addClass : (function()
     {
-        var _addClass = function( _class, _el )
+        const _addClass = ( _class, _el ) =>
         {
-            var i, len;
-            for ( i = 0, len = _class.length; i < len; i++ )
+            for ( let i = 0, len = _class.length; i < len; i++ )
             {
                 _el.classList.add( _class[i] );
             }
@@ -78,8 +70,7 @@ Microbe.core = Microbe.prototype =
                 _class = [ _class ];
             }
 
-            var i, len;
-            for ( i = 0, len = this.length; i < len; i++ )
+            for ( let i = 0, len = this.length; i < len; i++ )
             {
                 _addClass( _class, this[i] );
             }
@@ -102,7 +93,7 @@ Microbe.core = Microbe.prototype =
      */
     append : (function()
     {
-        var _append = function( _parentEl, _elm )
+        const _append = ( _parentEl, _elm ) =>
         {
             _parentEl.appendChild( _elm );
         };
@@ -114,10 +105,9 @@ Microbe.core = Microbe.prototype =
                 _el = [ _el ];
             }
 
-            var i, j, leni, lenj;
-            for ( i = 0, leni = this.length; i < leni; i++ )
+            for ( let i = 0, leni = this.length; i < leni; i++ )
             {
-                for ( j = 0, lenj = _el.length; j < lenj; j++ )
+                for ( let j = 0, lenj = _el.length; j < lenj; j++ )
                 {
                     if ( i !== 0 )
                     {
@@ -1246,4 +1236,3 @@ Microbe.type = function( obj )
 
 
 module.exports = Microbe;
-

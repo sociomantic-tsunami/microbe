@@ -1,9 +1,10 @@
-var Microbe = require( './core' );
-require( './init' )( Microbe );
-require( './dom' )( Microbe );
-require( './http' )( Microbe );
-require( './observe' )( Microbe );
-require( './events' )( Microbe );
-require( './pseudo' )( Microbe );
+import Microbe from './core';
 
-module.exports = Microbe;
+import init from './init';
+import dom from './dom';
+import http from './http';
+import observe from './observe';
+import events from './events';
+import pseudo from './pseudo';
+
+export default Microbe;

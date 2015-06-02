@@ -1,4 +1,4 @@
-module.exports =
+export default
 {
     '[object Number]'   : 'number',
     '[object String]'   : 'string',

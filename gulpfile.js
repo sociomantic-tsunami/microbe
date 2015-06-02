@@ -1,89 +1,72 @@
-var gulp            = require('gulp');
-var fs              = require('fs');
-var clean           = require('gulp-rimraf');
-var replace         = require('gulp-replace');
-var uglify          = require('gulp-uglify');
-var rename          = require('gulp-rename');
+var gulp           = require( 'gulp' );
+var browserify     = require( 'browserify' );
+var babelify       = require( 'babelify' );
+var source         = require( 'vinyl-source-stream' );
+var watch          = require( 'gulp-watch' );
+var mochaPhantomjs = require( 'gulp-mocha-phantomjs' );
 
-var browserify      = require('browserify');
-var token           = 'ThisIsVeryUnlikelyThatAVariableWillBeCalledThisWay';
-var exportName      = 'µ';
 
-// Basic usage
-gulp.task('dist', function()
+function compile( src, standalone )
 {
-    browserify('./src/microbe.js', {standalone: token})
-        .bundle()
-        .pipe(fs.createWriteStream(__dirname + '/dist/microbe.js'))
-        .on( 'finish', function()
+    var fileSplit = src.split( '/' );
+    var file      = fileSplit[fileSplit.length-1];
+    var options   =
+    {
+        debug: true
+    };
+
+    standalone && ( options.standalone = standalone );
+
+    var b = browserify( options )
+        .transform( babelify )
+        .add( src );
+
+    return b.bundle()
+        .on( 'error', function( err )
         {
-            gulp.src('./dist/microbe.js')
-                .pipe(replace(token, exportName))
-                .pipe(gulp.dest('./dist/'))
-                .pipe(uglify())
-                .pipe(rename('./dist/microbe.min.js'))
-                .pipe(gulp.dest('./'));
-        });
-
-    browserify('./tests/unit/buildTests.js' )
-        .bundle()
-        .pipe(fs.createWriteStream(__dirname + '/tests/tests.js'))
-        .on( 'finish', function()
-        {
-            gulp.src('./tests/tests.js')
-                .pipe(gulp.dest('./tests/'));
-        });
-});
+            console.log( err.toString() );
+            this.emit( 'end' );
+        } )
+        .pipe( source( file ) )
+        .pipe( gulp.dest( './dist' ) );
+}
 
 
-gulp.task('build', function()
+gulp.task( 'compile', function ()
 {
-    browserify('./src/microbe.js', {standalone: token})
-        .bundle()
-        .pipe(fs.createWriteStream(__dirname + '/dist/microbe.js'))
-        .on( 'finish', function()
-        {
-            gulp.src('./dist/microbe.js')
-                .pipe(replace(token, exportName))
-                .pipe(gulp.dest('./dist/'));
-        });
-});
+    compile( './src/microbe.js', 'µ' );
+} );
 
 
-gulp.task('min', function()
+gulp.task( 'compile-test', function ()
 {
-    browserify('./src/microbe.js', {standalone: token})
-        .bundle()
-        .pipe(fs.createWriteStream(__dirname + '/dist/microbe.min.js'))
-        .on( 'finish', function()
-        {
-            gulp.src('./dist/microbe.min.js')
-                .pipe(replace(token, exportName))
-                .pipe(uglify())
-                .pipe(gulp.dest('./dist/'));
-        });
-});
+    compile( './tests/unit/buildTests.js' );
+} );
 
 
-gulp.task('test', function()
+gulp.task( 'test', ['compile-test'], function ()
 {
-    return true;
-});
+    return gulp.src( 'test/index.html', { read: false } )
+        .pipe( mochaPhantomjs() );
+} );
 
 
-gulp.task('clean', function()
+gulp.task( 'watch', function ()
 {
-    return gulp.src(['dist/'], {read: false}).pipe(clean());
-});
+    gulp.start( 'compile' );
+    gulp.start( 'compile-test' );
+
+    watch( ['./src/**/*.js'], function()
+    {
+        gulp.start( 'compile' );
+    } );
+
+    watch( ['./test/**/*.js'], function()
+    {
+        gulp.start( 'compile-test' );
+    } );
+} );
 
 
-gulp.task('default', [], function()
-{
-    gulp.start('dist');
-});
-
-
-gulp.task('watch', function()
-{
-    gulp.watch('src/**/*.js', ['build']);
-});
+// Default Task
+gulp.task( 'default', ['compile', 'compile-test'] );

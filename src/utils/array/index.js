@@ -1,31 +1,60 @@
-module.exports =
+export const fill            = Array.prototype.fill;
+export const pop             = Array.prototype.pop;
+export const push            = Array.prototype.push;
+export const reverse         = Array.prototype.reverse;
+export const shift           = Array.prototype.shift;
+export const sort            = Array.prototype.sort;
+export const splice          = Array.prototype.splice;
+export const unshift         = Array.prototype.unshift;
+export const concat          = Array.prototype.concat;
+export const join            = Array.prototype.join;
+export const slice           = Array.prototype.slice;
+export const toSource        = Array.prototype.toSource;
+export const toString        = Array.prototype.toString;
+export const toLocaleString  = Array.prototype.toLocaleString;
+export const indexOf         = Array.prototype.indexOf;
+export const lastIndexOf     = Array.prototype.lastIndexOf;
+export const forEach         = Array.prototype.forEach;
+export const entries         = Array.prototype.entries;
+export const every           = Array.prototype.every;
+export const some            = Array.prototype.some;
+export const filter          = Array.prototype.filter;
+export const find            = Array.prototype.find;
+export const findIndex       = Array.prototype.findIndex;
+export const keys            = Array.prototype.keys;
+export const map             = Array.prototype.map;
+export const reduce          = Array.prototype.reduce;
+export const reduceRight     = Array.prototype.reduceRight;
+export const copyWithin      = Array.prototype.copyWithi;
+
+export default
 {
-    fill            : Array.prototype.fill,
-    pop             : Array.prototype.pop,
-    push            : Array.prototype.push,
-    reverse         : Array.prototype.reverse,
-    shift           : Array.prototype.shift,
-    sort            : Array.prototype.sort,
-    splice          : Array.prototype.splice,
-    unshift         : Array.prototype.unshift,
-    concat          : Array.prototype.concat,
-    join            : Array.prototype.join,
-    slice           : Array.prototype.slice,
-    toSource        : Array.prototype.toSource,
-    toString        : Array.prototype.toString,
-    toLocaleString  : Array.prototype.toLocaleString,
-    indexOf         : Array.prototype.indexOf,
-    lastIndexOf     : Array.prototype.lastIndexOf,
-    forEach         : Array.prototype.forEach,
-    entries         : Array.prototype.entries,
-    every           : Array.prototype.every,
-    some            : Array.prototype.some,
-    filter          : Array.prototype.filter,
-    find            : Array.prototype.find,
-    findIndex       : Array.prototype.findIndex,
-    keys            : Array.prototype.keys,
-    map             : Array.prototype.map,
-    reduce          : Array.prototype.reduce,
-    reduceRight     : Array.prototype.reduceRight,
-    copyWithin      : Array.prototype.copyWithin
+    fill,
+    pop,
+    push,
+    reverse,
+    shift,
+    sort,
+    splice,
+    unshift,
+    concat,
+    join,
+    slice,
+    toSource,
+    toString,
+    toLocaleString,
+    indexOf,
+    lastIndexOf,
+    forEach,
+    entries,
+    every,
+    some,
+    filter,
+    find,
+    findIndex,
+    keys,
+    map,
+    reduce,
+    reduceRight,
+    copyWithin
 };
