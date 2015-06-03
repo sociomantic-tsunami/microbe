@@ -5,6 +5,12 @@ module.exports = function( buildTest )
     QUnit.module( 'observe.js' );
 
 
+    /**
+     * µ get tests
+     *
+     * @test    get exists
+     * @test    get gets
+     */
     QUnit.test( '.get', function( assert )
     {
         assert.ok( µ().get, 'exists' );
@@ -22,6 +28,13 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ observe tests
+     *
+     * @test    observe exists
+     * @test    observe function correctly stored
+     * @test    object correctly observed
+     */
     QUnit.test( '.observe()', function( assert )
     {
         assert.expect( 3 );
@@ -47,6 +60,12 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ observeOnce tests
+     *
+     * @test    observeOnce exists
+     * @test    object correctly observed
+     */
     QUnit.test( '.observeOnce', function( assert )
     {
         assert.expect( 2 );
@@ -71,6 +90,12 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ set tests
+     *
+     * @test    set exists
+     * @test    set sets
+     */
     QUnit.test( '.set', function( assert )
     {
         assert.ok( µ().set, 'exists' );
@@ -87,6 +112,11 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ unobserve tests
+     *
+     * @test    unobserve exists
+     */
     QUnit.test( '.unobserve', function( assert )
     {
         assert.ok( µ().unobserve, 'exists' );

@@ -5,6 +5,14 @@ module.exports = function( buildTest )
     QUnit.module( 'http.js' );
 
 
+    /**
+     * µ http tests
+     *
+     * @test    http exists
+     * @test    page correctly retrieved
+     * @test    parameters are recieved correctly
+     * @test    errors are handled correctly
+     */
     QUnit.test( '.http', function( assert )
     {
         assert.ok( µ.http, 'exists' );
@@ -43,6 +51,12 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ http.get tests
+     *
+     * @test    http.get exists
+     * @test    page correctly retrieved
+     */
     QUnit.test( '.http.get', function( assert )
     {
         assert.ok( µ.http.get, 'exists' );
@@ -60,6 +74,11 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ http.post tests
+     *
+     * @test    http.post exists
+     */
     QUnit.test( '.http.post', function( assert )
     {
         assert.ok( µ.http.post, 'exists' );

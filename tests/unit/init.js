@@ -3,6 +3,13 @@ module.exports = function( buildTest )
 {
     QUnit.module( 'init.js' );
 
+
+    /**
+     * µ init wrap element tests
+     *
+     * @test    one body
+     * @test    passes
+     */
     QUnit.test( 'wrap an element', function( assert )
     {
         var _body = document.getElementsByTagName( 'body' )[0];
@@ -24,6 +31,12 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ init query class tests
+     *
+     * @test    one div
+     * @test    passes
+     */
     QUnit.test( 'query class', function( assert )
     {
         var _div = document.getElementsByClassName( 'example--class' )[0];
@@ -45,6 +58,12 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ init query id tests
+     *
+     * @test    one body
+     * @test    passes
+     */
     QUnit.test( 'query id', function( assert )
     {
         var _div = document.getElementById( 'example--id' );
@@ -66,6 +85,12 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ init query tagname tests
+     *
+     * @test    correct element
+     * @test    passes
+     */
     QUnit.test( 'query tagname', function( assert )
     {
         var _div = document.getElementsByTagName( 'div' )[0];
@@ -87,6 +112,12 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ init query combined tests
+     *
+     * @test    one div
+     * @test    passes
+     */
     QUnit.test( 'query combined', function( assert )
     {
         var _div = document.querySelector( 'div#example--combined.example--combined' );
@@ -108,7 +139,13 @@ module.exports = function( buildTest )
     });
 
 
-    QUnit.test( 'query microbe scope', function( assert )
+    /**
+     * µ init query with microbe scope tests
+     *
+     * @test    two divs
+     * @test    correct element
+     */
+    QUnit.test( 'query with microbe scope', function( assert )
     {
         var µDiv = µ( 'div', µ( '.example--class--groups' ) );
         var $Div = $( 'div', $( '.example--class--groups' ) );
@@ -129,7 +166,13 @@ module.exports = function( buildTest )
     });
 
 
-    QUnit.test( 'query element scope', function( assert )
+    /**
+     * µ init query with element scope tests
+     *
+     * @test    two divs
+     * @test    correct parent
+     */
+    QUnit.test( 'query with element scope', function( assert )
     {
         var _scopeEl = µ( '.example--class--groups' )[0];
 
@@ -151,7 +194,13 @@ module.exports = function( buildTest )
     });
 
 
-    QUnit.test( 'query string scope', function( assert )
+    /**
+     * µ init query with string scope tests
+     *
+     * @test    correctly formed selector
+     * @test    two divs
+     */
+    QUnit.test( 'query with string scope', function( assert )
     {
         var µDiv = µ( 'div', '.example--class--groups' );
         assert.equal( µDiv.selector(), '.example--class--groups div', 'correctly formed selector' );

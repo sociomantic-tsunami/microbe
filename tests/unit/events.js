@@ -3,7 +3,13 @@ module.exports = function( buildTest )
 {
     QUnit.module( 'events.js' );
 
-
+    /**
+     * µ emit tests
+     *
+     * @test    emit exists
+     * @test    custom event emitted
+     * @test    custom event bubbled
+     */
     QUnit.test( '.emit()', function( assert )
     {
         assert.expect( 3 );
@@ -51,6 +57,13 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ on tests
+     *
+     * @test    on exists
+     * @test    sets unload data
+     * @test    event correctly listened to
+     */
     QUnit.test( '.on()', function( assert )
     {
         assert.expect( 3 );
@@ -106,6 +119,12 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ off tests
+     *
+     * @test    off exists
+     * @test    listener removed
+     */
     QUnit.test( '.off()', function( assert )
     {
         assert.ok( µ().off, 'exists' );

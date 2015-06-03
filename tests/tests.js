@@ -785,7 +785,7 @@ module.exports = function( buildTest )
 
         µTarget.text( '' );
 
-        µTarget = µ( '#example--id' );
+        µTarget     = µ( '#example--id' );
         var $Target = $( '#example--id' );
 
         buildTest(

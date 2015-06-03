@@ -3,7 +3,12 @@ module.exports = function( buildTest )
 {
     QUnit.module( 'dom.js' );
 
-
+    /**
+     * µ ready tests
+     *
+     * @test    ready exists
+     * @test    is run after the dom loads
+     */
     QUnit.test( 'µ.ready()', function( assert )
     {
         assert.ok( µ.ready, 'exists' );
@@ -24,6 +29,17 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ append tests
+     *
+     * @test    append exists
+     * @test    attached microbe
+     * @test    attached element
+     * @test    attached by creation string                 // future feature
+     * @test    attached by array of microbes               // future feature
+     * @test    attached by array of elements
+     * @test    attached by array of creation strings       // future feature
+     */
     QUnit.test( '.append()', function( assert )
     {
         assert.ok( µ().append, 'exists' );
@@ -98,6 +114,15 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ insertAfter tests
+     *
+     * @test    insertAfter exists
+     * @test    add by creation string
+     * @test    attached element
+     * @test    add by microbe
+     * @test    add by element
+     */
     QUnit.test( '.insertAfter()', function( assert )
     {
         assert.ok( µ().insertAfter, 'exists' );
@@ -110,18 +135,18 @@ module.exports = function( buildTest )
 
         var _el = '<addedDivThing>';
         µTarget.insertAfter( _el );
-        assert.equal( µTargetParentChildren + 1, µTargetParent.children()[0].length, 'add by new string' );
+        assert.equal( µTargetParentChildren + 1, µTargetParent.children()[0].length, 'add by creation string' );
         µ( 'addedDivThing' ).remove();
 
 
         var µEl = µ( _el );
         µTarget.insertAfter( µEl );
-        assert.equal( µTargetParentChildren + 1, µTargetParent.children()[0].length, 'add by new microbe' );
+        assert.equal( µTargetParentChildren + 1, µTargetParent.children()[0].length, 'add by microbe' );
         µ( 'addedDivThing' ).remove();
 
         µEl = µ( '<addedDivThing>' )[0];
         µTarget.insertAfter( µEl );
-        assert.equal( µTargetParentChildren + 1, µTargetParent.children()[0].length, 'add by new element' );
+        assert.equal( µTargetParentChildren + 1, µTargetParent.children()[0].length, 'add by element' );
         µ( 'addedDivThing' ).remove();
 
 
@@ -164,7 +189,12 @@ module.exports = function( buildTest )
     });
 
 
-
+    /**
+     * µ remove tests
+     *
+     * @test    remove exists
+     * @test    element is removed
+     */
     QUnit.test( '.remove()', function( assert )
     {
         assert.ok( µ().remove, 'exists' );
@@ -174,7 +204,7 @@ module.exports = function( buildTest )
 
         µ( 'divdiv' ).remove();
 
-        assert.equal( µ( 'divdiv' ).length, 0, 'is completely removed' );
+        assert.equal( µ( 'divdiv' ).length, 0, 'element is removed' );
 
         var el, $El, µEl;
         var parentDiv   = µ( 'div' )[0];

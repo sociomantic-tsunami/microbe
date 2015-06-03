@@ -4,6 +4,14 @@ module.exports = function( buildTest )
     QUnit.module( 'pseudo.js' );
 
 
+    /**
+     * µ contains tests
+     *
+     * @test    contains exists
+     * @test    searches text
+     * @test    ignores case
+     * @test    ignores false returns
+     */
     QUnit.test( ':contains(text)', function( assert )
     {
         assert.ok( µ.pseudo.contains, 'exists' );
@@ -24,13 +32,20 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ even tests
+     *
+     * @test    even exists
+     * @test    selects only the even scripts
+     * @test    selects the correct half
+     */
     QUnit.test( ':even', function( assert )
     {
         var µEvenScripts   = µ( 'script:even' ).length;
         var µScripts       = µ( 'script' ).length;
 
         assert.ok( µ.pseudo.even, 'exists' );
-        assert.equal( µEvenScripts, Math.floor( µScripts / 2 ), 'selects only the even script' );
+        assert.equal( µEvenScripts, Math.floor( µScripts / 2 ), 'selects only the even scripts' );
         assert.deepEqual( µScripts[1], µEvenScripts[0], 'selects the correct half' );
 
         buildTest(
@@ -46,6 +61,13 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ first tests
+     *
+     * @test    first exists
+     * @test    finds the right div
+     * @test    only returns one div
+     */
     QUnit.test( ':first', function( assert )
     {
         var µDivs       = µ( 'div' );
@@ -68,6 +90,13 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ gt tests
+     *
+     * @test    gt exists
+     * @test    finds the right divs
+     * @test    finds the correct number of elements
+     */
     QUnit.test( ':gt(X)', function( assert )
     {
         var µDivs       = µ( 'div' );
@@ -75,7 +104,7 @@ module.exports = function( buildTest )
 
         assert.ok( µ.pseudo.gt, 'exists' );
         assert.deepEqual( µDivs[ 6 ], µGtDivs[ 3 ], 'finds the right divs' );
-        assert.equal( µGtDivs.length, µDivs.length - 3, 'finds the correct number if elements' );
+        assert.equal( µGtDivs.length, µDivs.length - 3, 'finds the correct number of elements' );
 
         buildTest(
         'µ( \'div:gt(3)\' )', function()
@@ -90,12 +119,18 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ has tests
+     *
+     * @test    has exists
+     * @test    finds the correct number of elements
+     */
     QUnit.test( ':has(S)', function( assert )
     {
         var µHasDiv = µ( 'div:has(li)' );
 
         assert.ok( µ.pseudo.has, 'exists' );
-        assert.equal( µHasDiv.length, 1, 'grabs the correct amount of divs' );
+        assert.equal( µHasDiv.length, 1, 'grabs the correct amount of elements' );
 
         buildTest(
         'µ( \'div:has(li)\' )', function()
@@ -110,6 +145,13 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ last tests
+     *
+     * @test    last exists
+     * @test    finds the right div
+     * @test    only returns one div
+     */
     QUnit.test( ':last', function( assert )
     {
         var µDivs       = µ( 'div' );
@@ -132,6 +174,13 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ lt tests
+     *
+     * @test    lt exists
+     * @test    finds the right divs
+     * @test    finds the correct number of elements
+     */
     QUnit.test( ':lt(X)', function( assert )
     {
         var µDivs       = µ( 'div' );
@@ -154,6 +203,13 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ odd tests
+     *
+     * @test    odd exists
+     * @test    selects only the odd scripts
+     * @test    selects the correct half
+     */
     QUnit.test( ':odd', function( assert )
     {
         var µOddScripts    = µ( 'script:odd' ).length;
@@ -176,6 +232,12 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ root tests
+     *
+     * @test    root exists
+     * @test    selects the root
+     */
     QUnit.test( ':root', function( assert )
     {
         var µRoot = µ( 'div:root' );
@@ -196,6 +258,13 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ target tests
+     *
+     * @test    target exists
+     * @test    finds the correct element
+     * @test    and only that one
+     */
     QUnit.test( ':target', function( assert )
     {
         window.location.hash = 'example--combined';
@@ -204,7 +273,7 @@ module.exports = function( buildTest )
 
         assert.ok( µ.pseudo.target, 'exists' );
         assert.deepEqual( µTarget[ 0 ], µIdSearch[ 0 ], 'finds the correct element' );
-        assert.equal( µTarget.length, 1, 'and that\'s the only one' );
+        assert.equal( µTarget.length, 1, 'and only that one' );
 
         buildTest(
         'µ( \'div:target\' )', function()
