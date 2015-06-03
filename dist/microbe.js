@@ -1,7 +1,7 @@
 !function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.µ=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var Microbe = require( './core' );
-require( './root' )( Microbe );
 require( './init' )( Microbe );
+require( './root' )( Microbe );
 require( './dom' )( Microbe );
 require( './http' )( Microbe );
 require( './observe' )( Microbe );
@@ -2226,6 +2226,90 @@ Microbe.core = Microbe.prototype =
 
 
     /**
+     * Extend
+     *
+     * extends an object or microbe
+     *
+     * @return {Object}
+     */
+    extend : function()
+    {
+        var args    = slice.call( arguments );
+
+        var index   = 0;
+        var length  = args.length;
+        var deep    = false;
+        var isArray;
+        var target;
+        var options;
+        var src;
+        var copy;
+        var clone;
+
+        if ( args[ index ] === true )
+        {
+            deep    = true;
+            index   += 1;
+        }
+
+        if ( this.type === '[object Microbe]' )
+        {
+            target = this;
+        }
+        else
+        {
+            if ( Microbe.isObject( args[ index ] ) )
+            {
+                target = args[ index ];
+            }
+            else
+            {
+                target = {};
+            }
+        }
+
+        for ( ; index < length; index++ )
+        {
+            if ( ( options = args[ index ] ) !== null )
+            {
+                for ( var name in options )
+                {
+                    if ( options.hasOwnProperty( name ) )
+                    {
+                        isArray = false;
+                        src     = target[ name ];
+                        copy    = options[ name ];
+
+                        if ( target === copy || typeof copy === undefined )
+                        {
+                            continue;
+                        }
+
+                        if ( deep && copy && Microbe.isObject( copy ) )
+                        {
+                            if ( Microbe.isArray( copy ) )
+                            {
+                                clone = src && Microbe.isArray( src ) ? src : [];
+                            }
+                            else
+                            {
+                                clone = src && Microbe.isObject( src ) ? src : {};
+                            }
+
+                            target[ name ] = Microbe.extend( deep, clone, copy );
+                        }
+
+                        target[ name ] = copy;
+                    }
+                }
+            }
+        }
+
+        return target;
+    },
+
+
+    /**
      * Filter Element
      *
      * filters the microbe by the given given selector
@@ -2475,6 +2559,37 @@ Microbe.core = Microbe.prototype =
     map : function( callback )
     {
         return map.call( this, callback );
+    },
+
+
+    /**
+     * Merge
+     *
+     * combines microbes or array elements.
+     *
+     * @param  {Object or Array}        first               first array or array-like object
+     * @param  {Object or Array}        second              second array or array-like object
+     *
+     * @return {Object or Array}                            combined arr or obj (based off first)
+     */
+    merge : function( first, second )
+    {
+        if ( !second )
+        {
+            second  = first;
+            first   = this;
+        }
+
+        var i = first.length;
+
+        for ( var j = 0, length = second.length; j < length; j++ )
+        {
+            first[ i++ ] = second[ j ];
+        }
+
+        first.length = i;
+
+        return first;
     },
 
 
@@ -2748,121 +2863,6 @@ Microbe.core = Microbe.prototype =
             return this;
         };
     }())
-};
-
-
-/**
- * Extend
- *
- * extends an object or microbe
- *
- * @return {Object}
- */
-Microbe.extend = Microbe.core.extend = function()
-{
-    var args    = slice.call( arguments );
-
-    var index   = 0;
-    var length  = args.length;
-    var deep    = false;
-    var isArray;
-    var target;
-    var options;
-    var src;
-    var copy;
-    var clone;
-
-    if ( args[ index ] === true )
-    {
-        deep    = true;
-        index   += 1;
-    }
-
-    if ( this.type === '[object Microbe]' )
-    {
-        target = this;
-    }
-    else
-    {
-        if ( Microbe.isObject( args[ index ] ) )
-        {
-            target = args[ index ];
-        }
-        else
-        {
-            target = {};
-        }
-    }
-
-    for ( ; index < length; index++ )
-    {
-        if ( ( options = args[ index ] ) !== null )
-        {
-            for ( var name in options )
-            {
-                if ( options.hasOwnProperty( name ) )
-                {
-                    isArray = false;
-                    src     = target[ name ];
-                    copy    = options[ name ];
-
-                    if ( target === copy || typeof copy === undefined )
-                    {
-                        continue;
-                    }
-
-                    if ( deep && copy && Microbe.isObject( copy ) )
-                    {
-                        if ( Microbe.isArray( copy ) )
-                        {
-                            clone = src && Microbe.isArray( src ) ? src : [];
-                        }
-                        else
-                        {
-                            clone = src && Microbe.isObject( src ) ? src : {};
-                        }
-
-                        target[ name ] = Microbe.extend( deep, clone, copy );
-                    }
-
-                    target[ name ] = copy;
-                }
-            }
-        }
-    }
-
-    return target;
-};
-
-
-/**
- * Merge
- *
- * combines microbes or array elements.
- *
- * @param  {Object or Array}        first               first array or array-like object
- * @param  {Object or Array}        second              second array or array-like object
- *
- * @return {Object or Array}                            combined arr or obj (based off first)
- */
-Microbe.merge = Microbe.core.merge  = function( first, second )
-{
-    if ( !second )
-    {
-        second  = first;
-        first   = this;
-    }
-
-    var i = first.length;
-
-    for ( var j = 0, length = second.length; j < length; j++ )
-    {
-        first[ i++ ] = second[ j ];
-    }
-
-    first.length = i;
-
-    return first;
 };
 
 
@@ -4262,6 +4262,9 @@ module.exports = function( Microbe )
     Microbe.capitalise = Microbe.capitalize;
 
 
+    Microbe.extend = Microbe.core.extend;
+
+
     /**
      * Identify a value
      *
@@ -4272,6 +4275,9 @@ module.exports = function( Microbe )
      * @return {value}
      */
     Microbe.identity = function( value ) { return value; };
+
+
+    Microbe.merge = Microbe.core.merge;
 
 
     /**

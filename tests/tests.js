@@ -194,6 +194,14 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ attr tests
+     *
+     * @test    attr exists
+     * @test    sets an attr
+     * @test    retrieves an attr
+     * @test    removes an attr
+     */
     QUnit.test( '.attr()', function( assert )
     {
         assert.ok( µ().attr, 'exists' );
@@ -237,6 +245,14 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ children tests
+     *
+     * @test    children exists
+     * @test    children returns an array
+     * @test    full of microbes
+     * @test    that are correct
+     */
     QUnit.test( '.children()', function( assert )
     {
         assert.ok( µ().children, 'exists' );
@@ -251,6 +267,17 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ css tests
+     *
+     * @test    css exists
+     * @test    sets css
+     * @test    retrieves a css array
+     * @test    full of strings
+     * @test    with the correct number of results
+     * @test    with the correct results
+     * @test    removes css
+     */
     QUnit.test( '.css()', function( assert )
     {
         assert.ok( µ().css, 'exists' );
@@ -289,6 +316,13 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ each tests
+     *
+     * @test    each exists
+     * @test    affects each element
+     * @test    correctly
+     */
     QUnit.test( '.each()', function( assert )
     {
         assert.ok( µ().each, 'exists' );
@@ -324,6 +358,13 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ filter tests
+     *
+     * @test    filter exists
+     * @test    selects the correct elements
+     * @test    accepts pseudo selectors
+     */
     QUnit.test( '.filter()', function( assert )
     {
         assert.ok( µ().filter, 'exists' );
@@ -359,6 +400,13 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ find tests
+     *
+     * @test    find exists
+     * @test    selects enough child elements
+     * @test    accepts pseudo selectors
+     */
     QUnit.test( '.find()', function( assert )
     {
         assert.ok( µ().find, 'exists' );
@@ -396,6 +444,14 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ first tests
+     *
+     * @test    first exists
+     * @test    returns a microbe
+     * @test    of length 1
+     * @test    that is the first one
+     */
     QUnit.test( '.first()', function( assert )
     {
         assert.ok( µ().first, 'exists' );
@@ -423,6 +479,12 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ getParentIndex tests
+     *
+     * @test    getParentIndex exists
+     * @test    retrieves the correct index
+     */
     QUnit.test( '.getParentIndex()', function( assert )
     {
         assert.ok( µ().getParentIndex, 'exists' );
@@ -452,6 +514,13 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ hasClass tests
+     *
+     * @test    hasClass exists
+     * @test    checks every element
+     * @test    correctly
+     */
     QUnit.test( '.hasClass()', function( assert )
     {
         assert.ok( µ().hasClass, 'exists' );
@@ -478,6 +547,16 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ html tests
+     *
+     * @test    html exists
+     * @test    html sets
+     * @test    returns an array
+     * @test    full of strings
+     * @test    with the correct number of results
+     * @test    with the correct results
+     */
     QUnit.test( '.html()', function( assert )
     {
         assert.ok( µ().html, 'exists' );
@@ -488,13 +567,14 @@ module.exports = function( buildTest )
         assert.equal( µTarget[0].innerHTML, 'text, yo', 'html set' );
 
         var htmlGotten = µTarget.html();
-        assert.ok( µ.isArray( htmlGotten ), 'html() get returns an array' );
+        assert.ok( µ.isArray( htmlGotten ), 'html() returns an array' );
         assert.ok( typeof htmlGotten[0] === 'string', 'full of strings' );
 
         assert.equal( htmlGotten.length, µTarget.length, 'correct amount of results' );
         assert.equal( htmlGotten[0], 'text, yo', 'correct result' );
 
         µTarget.html( '' );
+
 
         µTarget = µ( '#example--id' );
         var $Target = $( '#example--id' );
@@ -514,6 +594,12 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ indexOf tests
+     *
+     * @test    indexOf exists
+     * @test    indexOf correctly determines the index
+     */
     QUnit.test( '.indexOf()', function( assert )
     {
         assert.ok( µ().indexOf, 'exists' );
@@ -542,6 +628,14 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ last tests
+     *
+     * @test    last exists
+     * @test    returns a microbe
+     * @test    of length 1
+     * @test    that is the last one
+     */
     QUnit.test( '.last()', function( assert )
     {
         assert.ok( µ().last, 'exists' );
@@ -569,6 +663,12 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ map tests
+     *
+     * @test    map exists
+     * @test    applies to all elements
+     */
     QUnit.test( '.map()', function( assert )
     {
         assert.ok( µ().map, 'exists' );
@@ -618,6 +718,14 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ parent tests
+     *
+     * @test    parent exists
+     * @test    returns a microbe
+     * @test    of the correct length
+     * @test    that is actually the parent(s)
+     */
     QUnit.test( '.parent()', function( assert )
     {
         assert.ok( µ().parent, 'exists' );
@@ -626,8 +734,8 @@ module.exports = function( buildTest )
         var µParent = µBody.parent();
 
         assert.equal( µParent.type, '[object Microbe]', 'returns a microbe' );
-        assert.equal( µParent.length, 1, 'of length 1' );
-        assert.deepEqual( µParent[0], µ( 'html' )[0], 'that is actually the parent' );
+        assert.equal( µParent.length, 1, 'of the correct length' );
+        assert.deepEqual( µParent[0], µ( 'html' )[0], 'that is actually the parent(s)' );
 
         var µDivs = µ( 'div' );
         var $Divs = $( 'div' );
@@ -645,6 +753,13 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ push tests
+     *
+     * @test    push exists
+     * @test    pushes to the microbe
+     * @test    the correctc element
+     */
     QUnit.test( '.push()', function( assert )
     {
         assert.ok( µ().push, 'exists' );
@@ -656,7 +771,7 @@ module.exports = function( buildTest )
         µDivs.push( newDiv );
 
         assert.equal( µDivsLength + 1, µDivs.length, 'pushes to the microbe' );
-        assert.deepEqual( newDiv, µDivs[ µDivs.length - 1 ], 'that is the correct element' );
+        assert.deepEqual( newDiv, µDivs[ µDivs.length - 1 ], 'the correct element' );
 
         var _el;
         var µEmpty = µ( [] );
@@ -677,6 +792,13 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ removeClass tests
+     *
+     * @test    removeClass exists
+     * @test    sets data
+     * @test    removes class in all elements
+     */
     QUnit.test( '.removeClass()', function( assert )
     {
         assert.ok( µ().removeClass, 'exists' );
@@ -719,6 +841,14 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ selector tests
+     *
+     * @test    selector exists
+     * @test    correctly parses classes
+     * @test    correctly parses ids
+     * @test    correctly parses combined
+     */
     QUnit.test( '.selector()', function( assert )
     {
         assert.ok( µ().selector, 'exists' );
@@ -736,6 +866,12 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ splice tests
+     *
+     * @test    splice exists
+     * @test    is the correct length
+     */
     QUnit.test( '.splice()', function( assert )
     {
         assert.ok( µ().splice, 'exists' );
@@ -755,6 +891,16 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ text tests
+     *
+     * @test    text exists
+     * @test    text sets
+     * @test    returns an array
+     * @test    full of strings
+     * @test    with the correct number of results
+     * @test    with the correct results
+     */
     QUnit.test( '.text()', function( assert )
     {
         assert.ok( µ().text, 'exists' );
@@ -803,6 +949,13 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ toggleClass tests
+     *
+     * @test    toggleClass exists
+     * @test    removes classes
+     * @test    adds classes
+     */
     QUnit.test( '.toggleClass()', function( assert )
     {
         assert.ok( µ().toggleClass, 'exists' );
@@ -838,7 +991,12 @@ module.exports = function( buildTest )
 {
     QUnit.module( 'dom.js' );
 
-
+    /**
+     * µ ready tests
+     *
+     * @test    ready exists
+     * @test    is run after the dom loads
+     */
     QUnit.test( 'µ.ready()', function( assert )
     {
         assert.ok( µ.ready, 'exists' );
@@ -859,6 +1017,17 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ append tests
+     *
+     * @test    append exists
+     * @test    attached microbe
+     * @test    attached element
+     * @test    attached by creation string                 // future feature
+     * @test    attached by array of microbes               // future feature
+     * @test    attached by array of elements
+     * @test    attached by array of creation strings       // future feature
+     */
     QUnit.test( '.append()', function( assert )
     {
         assert.ok( µ().append, 'exists' );
@@ -933,6 +1102,15 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ insertAfter tests
+     *
+     * @test    insertAfter exists
+     * @test    add by creation string
+     * @test    attached element
+     * @test    add by microbe
+     * @test    add by element
+     */
     QUnit.test( '.insertAfter()', function( assert )
     {
         assert.ok( µ().insertAfter, 'exists' );
@@ -945,18 +1123,18 @@ module.exports = function( buildTest )
 
         var _el = '<addedDivThing>';
         µTarget.insertAfter( _el );
-        assert.equal( µTargetParentChildren + 1, µTargetParent.children()[0].length, 'add by new string' );
+        assert.equal( µTargetParentChildren + 1, µTargetParent.children()[0].length, 'add by creation string' );
         µ( 'addedDivThing' ).remove();
 
 
         var µEl = µ( _el );
         µTarget.insertAfter( µEl );
-        assert.equal( µTargetParentChildren + 1, µTargetParent.children()[0].length, 'add by new microbe' );
+        assert.equal( µTargetParentChildren + 1, µTargetParent.children()[0].length, 'add by microbe' );
         µ( 'addedDivThing' ).remove();
 
         µEl = µ( '<addedDivThing>' )[0];
         µTarget.insertAfter( µEl );
-        assert.equal( µTargetParentChildren + 1, µTargetParent.children()[0].length, 'add by new element' );
+        assert.equal( µTargetParentChildren + 1, µTargetParent.children()[0].length, 'add by element' );
         µ( 'addedDivThing' ).remove();
 
 
@@ -999,7 +1177,12 @@ module.exports = function( buildTest )
     });
 
 
-
+    /**
+     * µ remove tests
+     *
+     * @test    remove exists
+     * @test    element is removed
+     */
     QUnit.test( '.remove()', function( assert )
     {
         assert.ok( µ().remove, 'exists' );
@@ -1009,7 +1192,7 @@ module.exports = function( buildTest )
 
         µ( 'divdiv' ).remove();
 
-        assert.equal( µ( 'divdiv' ).length, 0, 'is completely removed' );
+        assert.equal( µ( 'divdiv' ).length, 0, 'element is removed' );
 
         var el, $El, µEl;
         var parentDiv   = µ( 'div' )[0];
@@ -1045,7 +1228,13 @@ module.exports = function( buildTest )
 {
     QUnit.module( 'events.js' );
 
-
+    /**
+     * µ emit tests
+     *
+     * @test    emit exists
+     * @test    custom event emitted
+     * @test    custom event bubbled
+     */
     QUnit.test( '.emit()', function( assert )
     {
         assert.expect( 3 );
@@ -1093,6 +1282,13 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ on tests
+     *
+     * @test    on exists
+     * @test    sets unload data
+     * @test    event correctly listened to
+     */
     QUnit.test( '.on()', function( assert )
     {
         assert.expect( 3 );
@@ -1148,6 +1344,12 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ off tests
+     *
+     * @test    off exists
+     * @test    listener removed
+     */
     QUnit.test( '.off()', function( assert )
     {
         assert.ok( µ().off, 'exists' );
@@ -1204,6 +1406,14 @@ module.exports = function( buildTest )
     QUnit.module( 'http.js' );
 
 
+    /**
+     * µ http tests
+     *
+     * @test    http exists
+     * @test    page correctly retrieved
+     * @test    parameters are recieved correctly
+     * @test    errors are handled correctly
+     */
     QUnit.test( '.http', function( assert )
     {
         assert.ok( µ.http, 'exists' );
@@ -1242,6 +1452,12 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ http.get tests
+     *
+     * @test    http.get exists
+     * @test    page correctly retrieved
+     */
     QUnit.test( '.http.get', function( assert )
     {
         assert.ok( µ.http.get, 'exists' );
@@ -1259,6 +1475,11 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ http.post tests
+     *
+     * @test    http.post exists
+     */
     QUnit.test( '.http.post', function( assert )
     {
         assert.ok( µ.http.post, 'exists' );
@@ -1274,6 +1495,13 @@ module.exports = function( buildTest )
 {
     QUnit.module( 'init.js' );
 
+
+    /**
+     * µ init wrap element tests
+     *
+     * @test    one body
+     * @test    passes
+     */
     QUnit.test( 'wrap an element', function( assert )
     {
         var _body = document.getElementsByTagName( 'body' )[0];
@@ -1295,6 +1523,12 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ init query class tests
+     *
+     * @test    one div
+     * @test    passes
+     */
     QUnit.test( 'query class', function( assert )
     {
         var _div = document.getElementsByClassName( 'example--class' )[0];
@@ -1316,6 +1550,12 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ init query id tests
+     *
+     * @test    one body
+     * @test    passes
+     */
     QUnit.test( 'query id', function( assert )
     {
         var _div = document.getElementById( 'example--id' );
@@ -1337,6 +1577,12 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ init query tagname tests
+     *
+     * @test    correct element
+     * @test    passes
+     */
     QUnit.test( 'query tagname', function( assert )
     {
         var _div = document.getElementsByTagName( 'div' )[0];
@@ -1358,6 +1604,12 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ init query combined tests
+     *
+     * @test    one div
+     * @test    passes
+     */
     QUnit.test( 'query combined', function( assert )
     {
         var _div = document.querySelector( 'div#example--combined.example--combined' );
@@ -1379,7 +1631,13 @@ module.exports = function( buildTest )
     });
 
 
-    QUnit.test( 'query microbe scope', function( assert )
+    /**
+     * µ init query with microbe scope tests
+     *
+     * @test    two divs
+     * @test    correct element
+     */
+    QUnit.test( 'query with microbe scope', function( assert )
     {
         var µDiv = µ( 'div', µ( '.example--class--groups' ) );
         var $Div = $( 'div', $( '.example--class--groups' ) );
@@ -1400,7 +1658,13 @@ module.exports = function( buildTest )
     });
 
 
-    QUnit.test( 'query element scope', function( assert )
+    /**
+     * µ init query with element scope tests
+     *
+     * @test    two divs
+     * @test    correct parent
+     */
+    QUnit.test( 'query with element scope', function( assert )
     {
         var _scopeEl = µ( '.example--class--groups' )[0];
 
@@ -1422,7 +1686,13 @@ module.exports = function( buildTest )
     });
 
 
-    QUnit.test( 'query string scope', function( assert )
+    /**
+     * µ init query with string scope tests
+     *
+     * @test    correctly formed selector
+     * @test    two divs
+     */
+    QUnit.test( 'query with string scope', function( assert )
     {
         var µDiv = µ( 'div', '.example--class--groups' );
         assert.equal( µDiv.selector(), '.example--class--groups div', 'correctly formed selector' );
@@ -1450,6 +1720,12 @@ module.exports = function( buildTest )
     QUnit.module( 'observe.js' );
 
 
+    /**
+     * µ get tests
+     *
+     * @test    get exists
+     * @test    get gets
+     */
     QUnit.test( '.get', function( assert )
     {
         assert.ok( µ().get, 'exists' );
@@ -1467,6 +1743,13 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ observe tests
+     *
+     * @test    observe exists
+     * @test    observe function correctly stored
+     * @test    object correctly observed
+     */
     QUnit.test( '.observe()', function( assert )
     {
         assert.expect( 3 );
@@ -1492,6 +1775,12 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ observeOnce tests
+     *
+     * @test    observeOnce exists
+     * @test    object correctly observed
+     */
     QUnit.test( '.observeOnce', function( assert )
     {
         assert.expect( 2 );
@@ -1516,6 +1805,12 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ set tests
+     *
+     * @test    set exists
+     * @test    set sets
+     */
     QUnit.test( '.set', function( assert )
     {
         assert.ok( µ().set, 'exists' );
@@ -1532,6 +1827,11 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ unobserve tests
+     *
+     * @test    unobserve exists
+     */
     QUnit.test( '.unobserve', function( assert )
     {
         assert.ok( µ().unobserve, 'exists' );
@@ -1547,6 +1847,14 @@ module.exports = function( buildTest )
     QUnit.module( 'pseudo.js' );
 
 
+    /**
+     * µ contains tests
+     *
+     * @test    contains exists
+     * @test    searches text
+     * @test    ignores case
+     * @test    ignores false returns
+     */
     QUnit.test( ':contains(text)', function( assert )
     {
         assert.ok( µ.pseudo.contains, 'exists' );
@@ -1567,13 +1875,20 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ even tests
+     *
+     * @test    even exists
+     * @test    selects only the even scripts
+     * @test    selects the correct half
+     */
     QUnit.test( ':even', function( assert )
     {
         var µEvenScripts   = µ( 'script:even' ).length;
         var µScripts       = µ( 'script' ).length;
 
         assert.ok( µ.pseudo.even, 'exists' );
-        assert.equal( µEvenScripts, Math.floor( µScripts / 2 ), 'selects only the even script' );
+        assert.equal( µEvenScripts, Math.floor( µScripts / 2 ), 'selects only the even scripts' );
         assert.deepEqual( µScripts[1], µEvenScripts[0], 'selects the correct half' );
 
         buildTest(
@@ -1589,6 +1904,13 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ first tests
+     *
+     * @test    first exists
+     * @test    finds the right div
+     * @test    only returns one div
+     */
     QUnit.test( ':first', function( assert )
     {
         var µDivs       = µ( 'div' );
@@ -1611,6 +1933,13 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ gt tests
+     *
+     * @test    gt exists
+     * @test    finds the right divs
+     * @test    finds the correct number of elements
+     */
     QUnit.test( ':gt(X)', function( assert )
     {
         var µDivs       = µ( 'div' );
@@ -1618,7 +1947,7 @@ module.exports = function( buildTest )
 
         assert.ok( µ.pseudo.gt, 'exists' );
         assert.deepEqual( µDivs[ 6 ], µGtDivs[ 3 ], 'finds the right divs' );
-        assert.equal( µGtDivs.length, µDivs.length - 3, 'finds the correct number if elements' );
+        assert.equal( µGtDivs.length, µDivs.length - 3, 'finds the correct number of elements' );
 
         buildTest(
         'µ( \'div:gt(3)\' )', function()
@@ -1633,12 +1962,18 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ has tests
+     *
+     * @test    has exists
+     * @test    finds the correct number of elements
+     */
     QUnit.test( ':has(S)', function( assert )
     {
         var µHasDiv = µ( 'div:has(li)' );
 
         assert.ok( µ.pseudo.has, 'exists' );
-        assert.equal( µHasDiv.length, 1, 'grabs the correct amount of divs' );
+        assert.equal( µHasDiv.length, 1, 'grabs the correct amount of elements' );
 
         buildTest(
         'µ( \'div:has(li)\' )', function()
@@ -1653,6 +1988,13 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ last tests
+     *
+     * @test    last exists
+     * @test    finds the right div
+     * @test    only returns one div
+     */
     QUnit.test( ':last', function( assert )
     {
         var µDivs       = µ( 'div' );
@@ -1675,6 +2017,13 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ lt tests
+     *
+     * @test    lt exists
+     * @test    finds the right divs
+     * @test    finds the correct number of elements
+     */
     QUnit.test( ':lt(X)', function( assert )
     {
         var µDivs       = µ( 'div' );
@@ -1697,6 +2046,13 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ odd tests
+     *
+     * @test    odd exists
+     * @test    selects only the odd scripts
+     * @test    selects the correct half
+     */
     QUnit.test( ':odd', function( assert )
     {
         var µOddScripts    = µ( 'script:odd' ).length;
@@ -1719,6 +2075,12 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ root tests
+     *
+     * @test    root exists
+     * @test    selects the root
+     */
     QUnit.test( ':root', function( assert )
     {
         var µRoot = µ( 'div:root' );
@@ -1739,6 +2101,13 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ target tests
+     *
+     * @test    target exists
+     * @test    finds the correct element
+     * @test    and only that one
+     */
     QUnit.test( ':target', function( assert )
     {
         window.location.hash = 'example--combined';
@@ -1747,7 +2116,7 @@ module.exports = function( buildTest )
 
         assert.ok( µ.pseudo.target, 'exists' );
         assert.deepEqual( µTarget[ 0 ], µIdSearch[ 0 ], 'finds the correct element' );
-        assert.equal( µTarget.length, 1, 'and that\'s the only one' );
+        assert.equal( µTarget.length, 1, 'and only that one' );
 
         buildTest(
         'µ( \'div:target\' )', function()
@@ -1773,6 +2142,14 @@ module.exports = function( buildTest )
     QUnit.module( 'root.js' );
 
 
+    /**
+     * µ capitalize tests
+     *
+     * @test    capitalize exists
+     * @test    capitalise exists
+     * @test    capitalizes strings
+     * @test    capitalizes string arrays
+     */
     QUnit.test( '.capitalize()', function( assert )
     {
         assert.ok( µ.capitalize, 'exists' );
@@ -1787,6 +2164,13 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ extend tests
+     *
+     * @test    extend exists
+     * @test    extends microbes
+     * @test    extends objects
+     */
     QUnit.test( '.extend()', function( assert )
     {
         assert.ok( µ().extend, 'exists' );
@@ -1831,6 +2215,12 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ identity tests
+     *
+     * @test    identity exists
+     * @test    it equals itself
+     */
     QUnit.test( '.identity()', function( assert )
     {
         assert.ok( µ.identity, 'exists' );
@@ -1841,6 +2231,17 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ noop tests
+     *
+     * @test    noop exists
+     * @test    nothing happens
+     *
+     * µ xyzzy tests
+     *
+     * @test    xyzzy exists
+     * @test    nothing happens
+     */
     QUnit.test( '.noop()', function( assert )
     {
         assert.ok( µ.noop, 'noop exists' );
@@ -1853,6 +2254,13 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ isArray tests
+     *
+     * @test    isArray exists
+     * @test    true for array
+     * @test    false otherwise
+     */
     QUnit.test( '.isArray()', function( assert )
     {
         assert.ok( µ.isArray, 'exists' );
@@ -1874,6 +2282,13 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ isEmpty tests
+     *
+     * @test    isEmpty exists
+     * @test    true for empty
+     * @test    false otherwise
+     */
     QUnit.test( '.isEmpty()', function( assert )
     {
         assert.ok( µ.isEmpty, 'exists' );
@@ -1895,6 +2310,13 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ isFunction tests
+     *
+     * @test    isFunction exists
+     * @test    true for function
+     * @test    false otherwise
+     */
     QUnit.test( '.isFunction()', function( assert )
     {
         assert.ok( µ.isFunction, 'exists' );
@@ -1916,10 +2338,17 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ isObject tests
+     *
+     * @test    isObject exists
+     * @test    true for objects
+     * @test    false otherwise
+     */
     QUnit.test( '.isObject()', function( assert )
     {
         assert.ok( µ.isObject, 'exists' );
-        assert.ok( µ.isObject( {} ), 'true on object' );
+        assert.ok( µ.isObject( {} ), 'true for objects' );
         assert.ok( !µ.isObject( 'ä' ), 'false otherwise' );
 
         buildTest(
@@ -1937,6 +2366,13 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ isUndefined tests
+     *
+     * @test    isUndefined exists
+     * @test    false if parent contains property
+     * @test    true otherwise
+     */
     QUnit.test( '.isUndefined()', function( assert )
     {
         var parent = { a: 1 };
@@ -1948,10 +2384,17 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ isWindow tests
+     *
+     * @test    isWindow exists
+     * @test    true for window
+     * @test    false otherwise
+     */
     QUnit.test( '.isWindow()', function( assert )
     {
         assert.ok( µ.isWindow, 'exists' );
-        assert.ok( µ.isWindow( window ), 'true on window' );
+        assert.ok( µ.isWindow( window ), 'true for window' );
         assert.ok( !µ.isWindow( {} ), 'false otherwise' );
 
         buildTest(
@@ -1969,10 +2412,19 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ merge tests
+     *
+     * @test    µ().merge exists
+     * @test    µ.merge exists
+     * @test    merged microbes
+     * @test    merged arrays
+     * @test    merged this
+     */
     QUnit.test( '.merge()', function( assert )
     {
-        assert.ok( µ().merge, 'exists' );
-        assert.ok( µ.merge, 'exists' );
+        assert.ok( µ().merge, 'µ().merge exists' );
+        assert.ok( µ.merge, 'µ.merge exists' );
 
         var µDivs       = µ( 'div' );
         var divCount    = µDivs.length;
@@ -2025,9 +2477,17 @@ module.exports = function( buildTest )
     });
 
 
+
+    /**
+     * µ toString tests
+     *
+     * @test    µ().toString exists
+     * @test    µ.toString exists
+     * @test    microbe is [object Microbe]
+     */
     QUnit.test( '.toString()', function( assert )
     {
-        assert.ok( µ().toString, 'exists after selector' );
+        assert.ok( µ().toString, 'µ().toString exists' );
         assert.ok( µ.toString, 'exists on root' );
         assert.ok( µ().toString() === '[object Microbe]', 'microbe is [object Microbe]' );
 
@@ -2046,6 +2506,13 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ toArray tests
+     *
+     * @test    µ().toArray exists
+     * @test    µ.toArray exists
+     * @test    makes arrays
+     */
     QUnit.test( '.toArray()', function( assert )
     {
         assert.ok( µ().toArray, 'exists' );
@@ -2058,6 +2525,23 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ type tests
+     *
+     * @test    µ.type exists
+     * @test    checks arrays
+     * @test    checks numbers
+     * @test    checks objects
+     * @test    checks strings
+     * @test    checks dates
+     * @test    checks microbes
+     * @test    checks regex
+     * @test    checks functions
+     * @test    checks boolean primitives
+     * @test    checks boolean objects
+     * @test    checks error objects
+     * @test    checks promises
+     */
     QUnit.test( '.type()', function( assert )
     {
         assert.ok( µ.type, 'exists' );

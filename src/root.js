@@ -37,6 +37,9 @@ module.exports = function( Microbe )
     Microbe.capitalise = Microbe.capitalize;
 
 
+    Microbe.extend = Microbe.core.extend;
+
+
     /**
      * Identify a value
      *
@@ -47,6 +50,9 @@ module.exports = function( Microbe )
      * @return {value}
      */
     Microbe.identity = function( value ) { return value; };
+
+
+    Microbe.merge = Microbe.core.merge;
 
 
     /**
