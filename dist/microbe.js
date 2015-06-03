@@ -1,5 +1,6 @@
 !function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.µ=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var Microbe = require( './core' );
+require( './root' )( Microbe );
 require( './init' )( Microbe );
 require( './dom' )( Microbe );
 require( './http' )( Microbe );
@@ -9,7 +10,7 @@ require( './pseudo' )( Microbe );
 
 module.exports = Microbe;
 
-},{"./core":12,"./dom":13,"./events":14,"./http":15,"./init":16,"./observe":17,"./pseudo":18}],2:[function(require,module,exports){
+},{"./core":12,"./dom":13,"./events":14,"./http":15,"./init":16,"./observe":17,"./pseudo":18,"./root":19}],2:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -1968,7 +1969,6 @@ module.exports = asap;
 
 var Arrays      = require( './utils/array' );
 var Strings     = require( './utils/string' );
-var Types       = require( './utils/types' );
 
 var slice       = Arrays.slice;
 var splice      = Arrays.splice;
@@ -2040,52 +2040,6 @@ Microbe.core = Microbe.prototype =
             for ( i = 0, len = this.length; i < len; i++ )
             {
                 _addClass( _class, this[i] );
-            }
-
-            return this;
-        };
-    }()),
-
-
-
-    /**
-     * Append Element
-     *
-     * appends an element or elements to the microbe.  if there is more than
-     * one target the next ones are cloned
-     *
-     * @param   {Element Array or Microbe}  _ele          element(s) to append
-     *
-     * @return  {Microbe}
-     */
-    append : (function()
-    {
-        var _append = function( _parentEl, _elm )
-        {
-            _parentEl.appendChild( _elm );
-        };
-
-        return function( _el )
-        {
-            if ( !_el.length )
-            {
-                _el = [ _el ];
-            }
-
-            var i, j, leni, lenj;
-            for ( i = 0, leni = this.length; i < leni; i++ )
-            {
-                for ( j = 0, lenj = _el.length; j < lenj; j++ )
-                {
-                    if ( i !== 0 )
-                    {
-                        _append( this[ i ], _el[ j ].cloneNode( true ) );
-                    }
-                    else
-                    {
-                        _append( this[ i ], _el[ j ] );
-                    }
-                }
             }
 
             return this;
@@ -2491,67 +2445,6 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * Insert After
-     *
-     * Inserts the given element after each of the elements given (or passed through this).
-     * if it is an elemnet it is wrapped in a microbe object.  if it is a string it is created
-     *
-     * @example µ( '.elementsInDom' ).insertAfter( µElementToInsert )
-     *
-     * @param  {Object or String}   _elAfter            element to insert
-     *
-     * @return {Microbe}
-     */
-    insertAfter : function( _elAfter )
-    {
-        var _this = this;
-        var elementArray = [];
-
-        var _insertAfter = function( _elm )
-        {
-            var nextIndex;
-
-            nextIndex = _this.getParentIndex( _elm )[0];
-
-            var node, nextEle   = _elm.parentNode.children[ nextIndex + 1 ];
-
-            for ( var i = 0, lenI = _elAfter.length; i < lenI; i++ )
-            {
-                node = i === 0 ? _elAfter[ i ] : _elAfter[ i ].cloneNode( true );
-
-                elementArray.push( node );
-
-                if ( nextEle )
-                {
-                    nextEle.parentNode.insertBefore( node, nextEle );
-                }
-                else
-                {
-                    _elm.parentNode.appendChild( node );
-                }
-            }
-        };
-
-        if ( typeof _elAfter === 'string' )
-        {
-            _elAfter = new Microbe( _elAfter );
-        }
-        else if ( ! _elAfter.length )
-        {
-            _elAfter = [ _elAfter ];
-        }
-
-        var i, len;
-        for ( i = 0, len = this.length; i < len; i++ )
-        {
-            _insertAfter( this[ i ] );
-        }
-
-        return this.constructor( elementArray );
-    },
-
-
-    /**
      * Last Element
      *
      * Gets the last HTML Elements of the current object, and wrap it in
@@ -2635,33 +2528,6 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * Remove Element
-     *
-     * removes an element or elements from the dom
-     *
-     * @return {Microbe}
-     */
-    remove : function()
-    {
-        var _remove = function( _elm )
-        {
-            return _elm.parentNode.removeChild( _elm );
-        };
-
-        var i, len;
-
-        this.off();
-
-        for ( i = 0, len = this.length; i < len; i++ )
-        {
-            _remove( this[ i ] );
-        }
-
-        return this;
-    },
-
-
-    /**
      * Remove Class
      *
      * Method removes the given class from the current object or the given element.
@@ -2707,7 +2573,7 @@ Microbe.core = Microbe.prototype =
         {
             while ( _root.parentNode !== document )
             {
-                _root = _root.parentNode
+                _root = _root.parentNode;
             }
 
             return new Microbe( [ _root ] );
@@ -3000,215 +2866,19 @@ Microbe.merge = Microbe.core.merge  = function( first, second )
 };
 
 
-/**
- * Capitalize String
- *
- * capitalizes every word in a string or an array of strings and returns the
- * type that it was given
- *
- * @param  {String or Array}        text                string(s) to capitalize
- *
- * @return {String or Array}                            capitalized string(s)
- */
-Microbe.capitalize = function( text )
-{
-    var array   = Microbe.isArray( text );
-    text        = !array ? [ text ] : text;
-
-    for ( var i = 0, lenI = text.length; i < lenI; i++ )
-    {
-        text[ i ] = text[ i ].split( ' ' );
-        for ( var j = 0, lenJ = text[ i ].length; j < lenJ; j++ )
-        {
-            text[ i ][ j ] = text[ i ][ j ].charAt( 0 ).toUpperCase() + text[ i ][ j ].slice( 1 );
-        }
-        text[ i ] = text[ i ].join( ' ' );
-    }
-
-    return ( array ) ? text : text[ 0 ];
-};
-
-
-// british people....
-Microbe.capitalise = Microbe.capitalize;
-
-
-/**
- * Identify a value
- *
- * returns itself if a value needs to be executed
- *
- * @param  {any}                    value               any value
- *
- * @return {value}
- */
-Microbe.identity = function( value ) { return value; };
-
-
-/**
- * nothing happens
- *
- * https://en.wikipedia.org/wiki/Xyzzy_(computing)
- *
- * @return {void}
- */
-Microbe.noop    = function() {};
-Microbe.xyzzy   = Microbe.noop;
-
-
-/**
- * native isArray for completeness
- *
- * @type {Function}
- */
-Microbe.isArray = Array.isArray;
-
-
-/**
- * isEmpty
- *
- * checks if the passed object is empty
- *
- * @param  {Object}                 obj                 object to check
- *
- * @return {Boolean}                                    empty or not
- */
-Microbe.isEmpty = function( obj )
-{
-    var name;
-    for ( name in obj )
-    {
-        return false;
-    }
-
-    return true;
-};
-
-
-/**
- * isFunction
- *
- * checks if the passed parameter is a function
- *
- * @param  {Object}                 obj                 object to check
- *
- * @return {Boolean}                                    function or not
- */
-Microbe.isFunction = function( obj )
-{
-    return Microbe.type( obj ) === "function";
-};
-
-
-/**
- * isObject
- *
- * checks if the passed parameter is an object
- *
- * @param  {Object}                 obj                 object to check
- *
- * @return {Boolean}                                    isObject or not
- */
-Microbe.isObject = function( obj )
-{
-    if ( Microbe.type( obj ) !== "object" || obj.nodeType || Microbe.isWindow( obj ) )
-    {
-        return false;
-    }
-
-    return true;
-};
-
-
-/**
- * isUndefined
- *
- * @param  {String}                 obj                 property
- * @param  {Object}                 parent              object to check
- *
- * @return {Boolean}                                    obj in parent
- */
-Microbe.isUndefined = function( obj, parent )
-{
-    if ( parent && typeof parent !== 'object' )
-    {
-        return true;
-    }
-
-    return parent ? !( obj in parent ) : obj === void 0;
-};
-
-
-/**
- * isWindow
- *
- * checks if the passed parameter equals window
- *
- * @param  {Object}                 obj                 object to check
- *
- * @return {Boolean}                                    isWindow or not
- */
-Microbe.isWindow = function( obj )
-{
-    return obj !== null && obj === obj.window;
-};
-
-
-/**
- * To string
- *
- * Methods returns the type of Microbe.
- *
- * @return  {String}
-*/
-Microbe.toString = Microbe.prototype.toString = function()
-{
-    return _type;
-};
-
-
-/**
- * To array
- *
- * Methods returns all the elements in an array.
- *
- * @return  {Array}
-*/
-Microbe.toArray = Microbe.prototype.toArray = function( _arr )
-{
-    _arr = _arr || this;
-    return Array.prototype.slice.call( _arr );
-};
-
-
-/**
- * Type
- *
- * returns the type of the parameter passed to it
- *
- * @param  {all}                    obj                 parameter to test
- *
- * @return {String}                                     typeof obj
- */
-Microbe.type = function( obj )
-{
-    if ( obj === null )
-    {
-        return obj + '';
-    }
-
-    var type = Types[ Object.prototype.toString.call( obj ) ];
-        type = !type ? Types[ obj.toString() ] : type;
-    return  type || typeof obj;
-};
-
-
 module.exports = Microbe;
 
 
-},{"./utils/array":19,"./utils/string":20,"./utils/types":21}],13:[function(require,module,exports){
+},{"./utils/array":20,"./utils/string":21}],13:[function(require,module,exports){
 module.exports = function( Microbe )
 {
+    /**
+     * waits until the DOM is ready to execute
+     *
+     * @param  {Function}           _cb                 callback to run on ready
+     *
+     * @return {Void}
+     */
     Microbe.ready = function( _cb )
     {
         if ( document.readyState === 'complete' )
@@ -3228,6 +2898,139 @@ module.exports = function( Microbe )
         {
             window.onload = _cb;
         }
+    };
+
+
+    /**
+     * Append Element
+     *
+     * appends an element or elements to the microbe.  if there is more than
+     * one target the next ones are cloned
+     *
+     * @param   {Element Array or Microbe}  _ele          element(s) to append
+     *
+     * @return  {Microbe}
+     */
+    Microbe.core.append = (function()
+    {
+        var _append = function( _parentEl, _elm )
+        {
+            _parentEl.appendChild( _elm );
+        };
+
+        return function( _el )
+        {
+            if ( !_el.length )
+            {
+                _el = [ _el ];
+            }
+
+            var i, j, leni, lenj;
+            for ( i = 0, leni = this.length; i < leni; i++ )
+            {
+                for ( j = 0, lenj = _el.length; j < lenj; j++ )
+                {
+                    if ( i !== 0 )
+                    {
+                        _append( this[ i ], _el[ j ].cloneNode( true ) );
+                    }
+                    else
+                    {
+                        _append( this[ i ], _el[ j ] );
+                    }
+                }
+            }
+
+            return this;
+        };
+    }());
+
+
+    /**
+     * Insert After
+     *
+     * Inserts the given element after each of the elements given (or passed through this).
+     * if it is an elemnet it is wrapped in a microbe object.  if it is a string it is created
+     *
+     * @example µ( '.elementsInDom' ).insertAfter( µElementToInsert )
+     *
+     * @param  {Object or String}   _elAfter            element to insert
+     *
+     * @return {Microbe}
+     */
+    Microbe.core.insertAfter = function( _elAfter )
+    {
+        var _this = this;
+        var elementArray = [];
+
+        var _insertAfter = function( _elm )
+        {
+            var nextIndex;
+
+            nextIndex = _this.getParentIndex( _elm )[0];
+
+            var node, nextEle   = _elm.parentNode.children[ nextIndex + 1 ];
+
+            for ( var i = 0, lenI = _elAfter.length; i < lenI; i++ )
+            {
+                node = i === 0 ? _elAfter[ i ] : _elAfter[ i ].cloneNode( true );
+
+                elementArray.push( node );
+
+                if ( nextEle )
+                {
+                    nextEle.parentNode.insertBefore( node, nextEle );
+                }
+                else
+                {
+                    _elm.parentNode.appendChild( node );
+                }
+            }
+        };
+
+        if ( typeof _elAfter === 'string' )
+        {
+            _elAfter = new Microbe( _elAfter );
+        }
+        else if ( ! _elAfter.length )
+        {
+            _elAfter = [ _elAfter ];
+        }
+
+        var i, len;
+        for ( i = 0, len = this.length; i < len; i++ )
+        {
+            _insertAfter( this[ i ] );
+        }
+
+        return this.constructor( elementArray );
+    };
+
+
+    /**
+     * Remove Element
+     *
+     * removes an element or elements from the dom
+     *
+     * @return {Microbe}
+     */
+    Microbe.core.remove = function()
+    {
+        var _remove = function( _elm )
+        {
+            return _elm.parentNode.removeChild( _elm );
+        };
+
+        var i, len;
+
+        this.off();
+
+        for ( i = 0, len = this.length; i < len; i++ )
+        {
+            _remove( this[ i ] );
+        }
+
+        return this;
     };
 };
 
@@ -3431,7 +3234,7 @@ module.exports = function( Microbe )
      */
 
     /**
-     * Http takes as many of few parameters, with url being the only required.
+     * http takes as many as necessary parameters, with url being the only required.
      * The return then has the methods .then( _cb ) and .error( _cb )
      *
      * @param {Object}             _parameters          http parameters. possible properties
@@ -4420,6 +4223,215 @@ module.exports = function( Microbe )
 };
 
 },{}],19:[function(require,module,exports){
+module.exports = function( Microbe )
+{
+    var Types       = require( './utils/types' );
+    var _type       = Microbe.core.type;
+
+
+    /**
+     * Capitalize String
+     *
+     * capitalizes every word in a string or an array of strings and returns the
+     * type that it was given
+     *
+     * @param  {String or Array}        text                string(s) to capitalize
+     *
+     * @return {String or Array}                            capitalized string(s)
+     */
+    Microbe.capitalize = function( text )
+    {
+        var array   = Microbe.isArray( text );
+        text        = !array ? [ text ] : text;
+
+        for ( var i = 0, lenI = text.length; i < lenI; i++ )
+        {
+            text[ i ] = text[ i ].split( ' ' );
+            for ( var j = 0, lenJ = text[ i ].length; j < lenJ; j++ )
+            {
+                text[ i ][ j ] = text[ i ][ j ].charAt( 0 ).toUpperCase() + text[ i ][ j ].slice( 1 );
+            }
+            text[ i ] = text[ i ].join( ' ' );
+        }
+
+        return ( array ) ? text : text[ 0 ];
+    };
+
+
+    // british people....
+    Microbe.capitalise = Microbe.capitalize;
+
+
+    /**
+     * Identify a value
+     *
+     * returns itself if a value needs to be executed
+     *
+     * @param  {any}                    value               any value
+     *
+     * @return {value}
+     */
+    Microbe.identity = function( value ) { return value; };
+
+
+    /**
+     * nothing happens
+     *
+     * https://en.wikipedia.org/wiki/Xyzzy_(computing)
+     *
+     * @return {void}
+     */
+    Microbe.noop    = function() {};
+    Microbe.xyzzy   = Microbe.noop;
+
+
+    /**
+     * native isArray for completeness
+     *
+     * @type {Function}
+     */
+    Microbe.isArray = Array.isArray;
+
+
+    /**
+     * isEmpty
+     *
+     * checks if the passed object is empty
+     *
+     * @param  {Object}                 obj                 object to check
+     *
+     * @return {Boolean}                                    empty or not
+     */
+    Microbe.isEmpty = function( obj )
+    {
+        var name;
+        for ( name in obj )
+        {
+            return false;
+        }
+
+        return true;
+    };
+
+
+    /**
+     * isFunction
+     *
+     * checks if the passed parameter is a function
+     *
+     * @param  {Object}                 obj                 object to check
+     *
+     * @return {Boolean}                                    function or not
+     */
+    Microbe.isFunction = function( obj )
+    {
+        return Microbe.type( obj ) === "function";
+    };
+
+
+    /**
+     * isObject
+     *
+     * checks if the passed parameter is an object
+     *
+     * @param  {Object}                 obj                 object to check
+     *
+     * @return {Boolean}                                    isObject or not
+     */
+    Microbe.isObject = function( obj )
+    {
+        if ( Microbe.type( obj ) !== "object" || obj.nodeType || Microbe.isWindow( obj ) )
+        {
+            return false;
+        }
+
+        return true;
+    };
+
+
+    /**
+     * isUndefined
+     *
+     * @param  {String}                 obj                 property
+     * @param  {Object}                 parent              object to check
+     *
+     * @return {Boolean}                                    obj in parent
+     */
+    Microbe.isUndefined = function( obj, parent )
+    {
+        if ( parent && typeof parent !== 'object' )
+        {
+            return true;
+        }
+
+        return parent ? !( obj in parent ) : obj === void 0;
+    };
+
+
+    /**
+     * isWindow
+     *
+     * checks if the passed parameter equals window
+     *
+     * @param  {Object}                 obj                 object to check
+     *
+     * @return {Boolean}                                    isWindow or not
+     */
+    Microbe.isWindow = function( obj )
+    {
+        return obj !== null && obj === obj.window;
+    };
+
+
+    /**
+     * To string
+     *
+     * Methods returns the type of Microbe.
+     *
+     * @return  {String}
+    */
+    Microbe.toString = Microbe.prototype.toString = function()
+    {
+        return _type;
+    };
+
+
+    /**
+     * To array
+     *
+     * Methods returns all the elements in an array.
+     *
+     * @return  {Array}
+    */
+    Microbe.toArray = Microbe.prototype.toArray = function( _arr )
+    {
+        _arr = _arr || this;
+        return Array.prototype.slice.call( _arr );
+    };
+
+
+    /**
+     * Type
+     *
+     * returns the type of the parameter passed to it
+     *
+     * @param  {all}                    obj                 parameter to test
+     *
+     * @return {String}                                     typeof obj
+     */
+    Microbe.type = function( obj )
+    {
+        if ( obj === null )
+        {
+            return obj + '';
+        }
+
+        var type = Types[ Object.prototype.toString.call( obj ) ];
+            type = !type ? Types[ obj.toString() ] : type;
+        return  type || typeof obj;
+    };
+};
+},{"./utils/types":22}],20:[function(require,module,exports){
 module.exports =
 {
     fill            : Array.prototype.fill,
@@ -4452,7 +4464,7 @@ module.exports =
     copyWithin      : Array.prototype.copyWithin
 };
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 module.exports =
 {
     charAt              : String.prototype.charAt,
@@ -4487,7 +4499,7 @@ module.exports =
     valueOf             : String.prototype.valueOf
 };
 
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 module.exports =
 {
     '[object Number]'   : 'number',

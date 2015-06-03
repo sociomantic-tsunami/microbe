@@ -12,7 +12,7 @@ module.exports = function( Microbe )
      */
 
     /**
-     * Http takes as many of few parameters, with url being the only required.
+     * http takes as many as necessary parameters, with url being the only required.
      * The return then has the methods .then( _cb ) and .error( _cb )
      *
      * @param {Object}             _parameters          http parameters. possible properties

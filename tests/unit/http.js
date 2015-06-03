@@ -35,12 +35,11 @@ module.exports = function( buildTest )
         µ.http( { url : './httpTest.hml' }
         ).catch( function( e )
         {
-            console.log( e );
             assert.equal( e, 'Error: 404', 'errors are handled correctly' );
             errorTest();
         } );
 
-        buildTest( 'Speed depends on network traffic.', 59 );
+        buildTest( 'Speed depends on network traffic.', 56 );
     });
 
 
@@ -57,7 +56,7 @@ module.exports = function( buildTest )
         } );
 
 
-        buildTest( 'Speed depends on network traffic.', 60 );
+        buildTest( 'Speed depends on network traffic.', 57 );
     });
 
 
@@ -66,6 +65,6 @@ module.exports = function( buildTest )
         assert.ok( µ.http.post, 'exists' );
 
 
-        buildTest( 'Speed depends on network traffic.', 61 );
+        buildTest( 'Speed depends on network traffic.', 58 );
     });
 };

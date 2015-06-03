@@ -1,4 +1,5 @@
 var Microbe = require( './core' );
+require( './root' )( Microbe );
 require( './init' )( Microbe );
 require( './dom' )( Microbe );
 require( './http' )( Microbe );
