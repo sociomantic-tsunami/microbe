@@ -24,7 +24,7 @@ module.exports = function( buildTest )
         assert.equal( µExamples.get( 'moo' )[0], 'mooon!', 'get gets' );
 
 
-        buildTest( 'No comparison available.', 66 );
+        buildTest( 'No comparison available.' );
     });
 
 
@@ -56,7 +56,7 @@ module.exports = function( buildTest )
         µExamples.set( 'observeTest', 'whoohoo' );
 
 
-        buildTest( 'No comparison available.', 67 );
+        buildTest( 'No comparison available.' );
     });
 
 
@@ -86,7 +86,7 @@ module.exports = function( buildTest )
         µExamples.set( 'observeOnceTest', 'whoohoo' );
 
 
-        buildTest( 'No comparison available.', 68 );
+        buildTest( 'No comparison available.' );
     });
 
 
@@ -108,7 +108,7 @@ module.exports = function( buildTest )
         assert.equal( setData, 'mooon!', 'set sets' );
 
 
-        buildTest( 'No comparison available.', 69);
+        buildTest( 'No comparison available.' );
     });
 
 
@@ -121,6 +121,6 @@ module.exports = function( buildTest )
     {
         assert.ok( µ().unobserve, 'exists' );
 
-        buildTest( 'No comparison available.', 70 );
+        buildTest( 'No comparison available.' );
     });
 };

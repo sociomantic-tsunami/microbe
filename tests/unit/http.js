@@ -47,7 +47,7 @@ module.exports = function( buildTest )
             errorTest();
         } );
 
-        buildTest( 'Speed depends on network traffic.', 56 );
+        buildTest( 'Speed depends on network traffic.' );
     });
 
 
@@ -70,7 +70,7 @@ module.exports = function( buildTest )
         } );
 
 
-        buildTest( 'Speed depends on network traffic.', 57 );
+        buildTest( 'Speed depends on network traffic.' );
     });
 
 
@@ -84,6 +84,6 @@ module.exports = function( buildTest )
         assert.ok( µ.http.post, 'exists' );
 
 
-        buildTest( 'Speed depends on network traffic.', 58 );
+        buildTest( 'Speed depends on network traffic.' );
     });
 };

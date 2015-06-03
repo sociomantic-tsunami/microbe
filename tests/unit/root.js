@@ -23,58 +23,7 @@ module.exports = function( buildTest )
             strArr = µ.capitalize( strArr );
         assert.ok( strArr[0] === 'I Dont Know' && strArr[1] === 'For Real', 'capitalizes string arrays' );
 
-        buildTest( 'No comparison available.', 42 );
-    });
-
-
-    /**
-     * µ extend tests
-     *
-     * @test    extend exists
-     * @test    extends microbes
-     * @test    extends objects
-     */
-    QUnit.test( '.extend()', function( assert )
-    {
-        assert.ok( µ().extend, 'exists' );
-        assert.ok( µ.extend, 'exists' );
-
-        var µDivs = µ( 'div' );
-        var extension = { more: function(){ return 'MOAR!!!'; } };
-        µDivs.extend( extension );
-        assert.equal( µDivs.more(), 'MOAR!!!', 'extends microbes' );
-
-        var _obj = { a: 1, b: 2, c:3 };
-        µ.extend( _obj, extension );
-        assert.equal( _obj.more(), 'MOAR!!!', 'extends objects' );
-
-
-        buildTest(
-        'µ.extend( _obj, extension );', function()
-        {
-            /* these are commented out to draw attention to how slow the
-               other function is comparatively.  this one is quite a bit faster */
-            // extension = { more: function(){ return 'MOAR!!!'; } };
-            // _obj = µ( 'div' );
-            // _obj.extend( extension );
-
-            extension   = { more: function(){ return 'MOAR!!!'; } };
-            _obj        = { a: 1, b: 2, c:3 };
-            µ.extend( _obj, extension );
-        },
-
-        '$.extend( _obj, extension )', function()
-        {
-            /* these are commented out to draw attention to how slow the
-               other function is comparatively.  this one is quite a bit faster */
-            // extension   = { more: function(){ return 'MOAR!!!'; } };
-            // _obj = $( 'div' );
-            // _obj.extend( extension );
-
-            extension   = { more: function(){ return 'MOAR!!!'; } };
-            _obj        = { a: 1, b: 2, c:3 };
-            $.extend( _obj, extension );
-        }, 43 );
+        buildTest( 'No comparison available.' );
     });
 
 
@@ -90,7 +39,7 @@ module.exports = function( buildTest )
         var val = 'mooon';
         assert.equal( 'mooon', µ.identity( 'mooon' ), 'it equals itself' );
 
-        buildTest( 'No speed tests available.', 44 );
+        buildTest( 'No speed tests available.' );
     });
 
 
@@ -113,7 +62,7 @@ module.exports = function( buildTest )
         assert.ok( µ.xyzzy, 'xyzzy exists' );
         assert.equal( µ.xyzzy(), undefined, 'nothing happens' );
 
-        buildTest( 'No speed tests available.', 45 );
+        buildTest( 'No speed tests available.' );
     });
 
 
@@ -141,7 +90,7 @@ module.exports = function( buildTest )
         {
             $.isArray( {} );
             $.isArray( [ 1, 2, 3 ] );
-        }, 46 );
+        } );
     });
 
 
@@ -169,7 +118,7 @@ module.exports = function( buildTest )
         {
             $.isEmptyObject( {} );
             $.isEmptyObject( { a: 2 } );
-        }, 47 );
+        } );
     });
 
 
@@ -197,7 +146,7 @@ module.exports = function( buildTest )
         {
             $.isFunction( function(){} );
             $.isFunction( [ 1, 2, 3 ] );
-        }, 48 );
+        } );
     });
 
 
@@ -225,7 +174,7 @@ module.exports = function( buildTest )
         {
             $.isPlainObject( {} );
             $.isPlainObject( [ 1, 2, 3 ] );
-        }, 49 );
+        } );
     });
 
 
@@ -243,7 +192,7 @@ module.exports = function( buildTest )
         assert.ok( !µ.isUndefined( 'a', parent ), 'false if parent contains property' );
         assert.ok( µ.isUndefined( 'b', parent ), 'true otherwise' );
 
-        buildTest( 'No comparison available.', 50 );
+        buildTest( 'No comparison available.' );
     });
 
 
@@ -271,74 +220,8 @@ module.exports = function( buildTest )
         {
             $.isWindow( window );
             $.isWindow( [ 1, 2, 3 ] );
-        }, 51 );
+        } );
     });
-
-
-    /**
-     * µ merge tests
-     *
-     * @test    µ().merge exists
-     * @test    µ.merge exists
-     * @test    merged microbes
-     * @test    merged arrays
-     * @test    merged this
-     */
-    QUnit.test( '.merge()', function( assert )
-    {
-        assert.ok( µ().merge, 'µ().merge exists' );
-        assert.ok( µ.merge, 'µ.merge exists' );
-
-        var µDivs       = µ( 'div' );
-        var divCount    = µDivs.length;
-        var µHtml       = µ( 'html' );
-        var htmlCount   = µHtml.length;
-
-        var merged      = µ.merge( µDivs, µHtml );
-        assert.equal( divCount + htmlCount, merged.length, 'merged microbes' );
-
-        merged = µ.merge( [ 1, 2, 3 ], [ 4, 5, 6 ] );
-        assert.equal( 6, merged.length, 'merged arrays' );
-
-        µDivs       = µ( 'div' );
-        µDivs.merge( µHtml );
-        assert.equal( µDivs.length, divCount + htmlCount, 'merged this' );
-
-
-        var $Divs, µLi, $Li;
-
-        var refreshObjects = function()
-        {
-            µDivs = µ( 'div' );
-            $Divs = $( 'div' );
-
-            µLi = µ( 'li' );
-            $Li = $( 'li' );
-        };
-
-
-        buildTest(
-        'µ.merge( _obj, extension );', function()
-        {
-            refreshObjects();
-
-            /* these are commented out because jquery doesn't handle this syntax */
-            // µDivs.merge( µLi );
-
-            µ.merge( µDivs, µLi );
-        },
-
-        '$.merge( _obj, extension )', function()
-        {
-            refreshObjects();
-
-            /* these are commented out because jquery doesn't handle this syntax */
-            // $Divs.merge( $Li );
-
-            $.merge( $Divs, µLi );
-        }, 52 );
-    });
-
 
 
     /**
@@ -365,7 +248,7 @@ module.exports = function( buildTest )
         {
             $.toString( $ );
             $.toString( [ 1, 2, 3 ] );
-        }, 53 );
+        } );
     });
 
 
@@ -384,7 +267,7 @@ module.exports = function( buildTest )
         var arr = µ( 'div' ).toArray();
         assert.equal( µ.type( arr ), 'array', 'makes arrays' );
 
-        buildTest( 'No comparison available.', 54 );
+        buildTest( 'No comparison available.' );
     });
 
 
@@ -452,6 +335,6 @@ module.exports = function( buildTest )
             $.type( new Boolean( true ) );
             $.type( new Error() );
             $.type( new Promise(function(){}) );
-        }, 55 );
+        } );
     });
 };

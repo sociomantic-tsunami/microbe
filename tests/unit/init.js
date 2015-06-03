@@ -27,7 +27,7 @@ module.exports = function( buildTest )
         '$( _el )', function()
         {
             return $( _body );
-        }, 0 );
+        } );
     });
 
 
@@ -54,7 +54,7 @@ module.exports = function( buildTest )
         '$( \'.example--class\' )', function()
         {
             return $( '.example--class' );
-        }, 1 );
+        } );
     });
 
 
@@ -81,7 +81,7 @@ module.exports = function( buildTest )
         '$( \'#example--id\' )', function()
         {
             return $( '#example--id' );
-        }, 2 );
+        } );
     });
 
 
@@ -108,7 +108,7 @@ module.exports = function( buildTest )
         '$( \'div\' )', function()
         {
             return $( 'div' );
-        }, 3 );
+        } );
     });
 
 
@@ -135,7 +135,7 @@ module.exports = function( buildTest )
         '$( \'div#example--combined.example--combined\' )', function()
         {
             return $( 'div#example--combined.example--combined' );
-        }, 4 );
+        } );
     });
 
 
@@ -162,7 +162,7 @@ module.exports = function( buildTest )
         '$( \'div\', $Div )', function()
         {
             return $( 'div', $Div );
-        }, 5 );
+        } );
     });
 
 
@@ -190,7 +190,7 @@ module.exports = function( buildTest )
         '$( \'div\', _scopeEl )', function()
         {
             return $( 'div', _scopeEl );
-        }, 6 );
+        } );
     });
 
 
@@ -216,6 +216,6 @@ module.exports = function( buildTest )
         '$( \'div\', \'.example--class--groups\' )', function()
         {
             return $( 'div', '.example--class--groups' );
-        }, 7 );
+        } );
     });
 };

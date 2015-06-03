@@ -53,7 +53,7 @@ module.exports = function( buildTest )
         '$Div.trigger( \'testClick\', { wooo: \'i\'m a ghost!\'} );', function()
         {
             $Div.trigger( 'testClick', { wooo: 'i\'m a ghost!'} );
-        }, 63 );
+        } );
     });
 
 
@@ -115,7 +115,7 @@ module.exports = function( buildTest )
         {
             $Div.on( 'click', _func );
             vanillaRemoveListener( $Div );
-        }, 64 );
+        } );
     });
 
 
@@ -169,6 +169,6 @@ module.exports = function( buildTest )
         {
             vanillaAddListener( $Div );
             $Div.off( 'click' );
-        }, 65 );
+        } );
     });
 };

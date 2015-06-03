@@ -8,20 +8,16 @@
  * @param  {func}                   _cb1                test 1
  * @param  {str}                    _str2               test 2 name
  * @param  {func}                   _cb2                test 2
- * @param  {int}                    testNum             test number
  *
  * @return {void}
  */
-var buildTest = function( _str1, _cb1, _str2, _cb2, testNum )
+var buildTest = function( _str1, _cb1, _str2, _cb2 )
 {
-    if ( typeof _cb1 !== 'function' )
-    {
-        testNum = _cb1;
-    }
+    this.count = this.count || 0;
 
     var µTests  = µ( '#qunit-tests' ).children()[0];
 
-    var resDiv  = µTests[ testNum ];
+    var resDiv  = µTests[ this.count ];
 
     var µLi      = µ( 'li', resDiv );
     var µStrong  = µ( 'strong', resDiv );
@@ -74,6 +70,8 @@ var buildTest = function( _str1, _cb1, _str2, _cb2, testNum )
     {
         µResult.html( _str1 ).addClass( 'invalid--test' );
     }
+
+    this.count++;
 };
 
 require( './init' )( buildTest );

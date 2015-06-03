@@ -4,49 +4,6 @@ module.exports = function( buildTest )
 {
     QUnit.module( 'core.js' );
 
-    /**
-     * µ version test
-     *
-     * @test    version exists
-     */
-    QUnit.test( 'µ().version', function( assert )
-    {
-        var version = '0.3.1';
-
-        assert.equal( µ().version, version, 'version is ' + version );
-
-        buildTest( 'No speed tests available.', 18 );
-    });
-
-
-    /**
-     * µ type test
-     *
-     * @test    type exists
-     */
-    QUnit.test( 'µ().type', function( assert )
-    {
-        var type = '[object Microbe]';
-
-        assert.equal( µ().type, type, 'type is ' + type );
-
-        buildTest( 'No speed tests available.', 19 );
-    });
-
-
-    /*
-     * µ length test
-     *
-     * @test    length exists
-     */
-    QUnit.test( 'µ().length', function( assert )
-    {
-        assert.equal( µ().length, 0, 'length initializes' );
-        assert.equal( µ( 'head' ).length, 1, 'length reports correctly' );
-
-        buildTest( 'No speed tests available.', 20 );
-    });
-
 
     /**
      * µ addClass tests
@@ -102,7 +59,7 @@ module.exports = function( buildTest )
             $Divs.addClass( 'moo' );
 
             resetDivs();
-        }, 21 );
+        } );
     });
 
 
@@ -153,7 +110,7 @@ module.exports = function( buildTest )
             $Divs.attr( 'moo', 'moooooooooooooon' );
 
             vanillaRemove();
-        }, 22 );
+        } );
     });
 
 
@@ -175,7 +132,7 @@ module.exports = function( buildTest )
         assert.ok( children[0].type === '[object Microbe]', 'full of microbes' );
         assert.deepEqual( µ( '.example--class' )[0].children[0], children[0][0], 'the correct children' );
 
-        buildTest( 'No comparison available.', 23 );
+        buildTest( 'No comparison available.' );
     });
 
 
@@ -224,7 +181,7 @@ module.exports = function( buildTest )
         {
             $Target.css( 'background-color', '#f00' );
             $Target.css( 'background-color', null );
-        }, 24 );
+        } );
     });
 
 
@@ -266,7 +223,59 @@ module.exports = function( buildTest )
             {
                 arr.push( _el.id );
             } );
-        }, 25 );
+        } );
+    });
+
+
+
+    /**
+     * µ extend tests
+     *
+     * @test    extend exists
+     * @test    extends microbes
+     * @test    extends objects
+     */
+    QUnit.test( '.extend()', function( assert )
+    {
+        assert.ok( µ().extend, 'exists' );
+        assert.ok( µ.extend, 'exists' );
+
+        var µDivs = µ( 'div' );
+        var extension = { more: function(){ return 'MOAR!!!'; } };
+        µDivs.extend( extension );
+        assert.equal( µDivs.more(), 'MOAR!!!', 'extends microbes' );
+
+        var _obj = { a: 1, b: 2, c:3 };
+        µ.extend( _obj, extension );
+        assert.equal( _obj.more(), 'MOAR!!!', 'extends objects' );
+
+
+        buildTest(
+        'µ.extend( _obj, extension );', function()
+        {
+            /* these are commented out to draw attention to how slow the
+               other function is comparatively.  this one is quite a bit faster */
+            // extension = { more: function(){ return 'MOAR!!!'; } };
+            // _obj = µ( 'div' );
+            // _obj.extend( extension );
+
+            extension   = { more: function(){ return 'MOAR!!!'; } };
+            _obj        = { a: 1, b: 2, c:3 };
+            µ.extend( _obj, extension );
+        },
+
+        '$.extend( _obj, extension )', function()
+        {
+            /* these are commented out to draw attention to how slow the
+               other function is comparatively.  this one is quite a bit faster */
+            // extension   = { more: function(){ return 'MOAR!!!'; } };
+            // _obj = $( 'div' );
+            // _obj.extend( extension );
+
+            extension   = { more: function(){ return 'MOAR!!!'; } };
+            _obj        = { a: 1, b: 2, c:3 };
+            $.extend( _obj, extension );
+        } );
     });
 
 
@@ -308,7 +317,7 @@ module.exports = function( buildTest )
         {
             resetDivs();
             $Divs.filter( '#qunit' );
-        }, 26 );
+        } );
     });
 
 
@@ -352,7 +361,7 @@ module.exports = function( buildTest )
         {
             resetDivs();
             $Divs.find( 'h2' );
-        }, 27 );
+        } );
     });
 
 
@@ -387,7 +396,7 @@ module.exports = function( buildTest )
         '$Divs.first()', function()
         {
             $Divs.first();
-        }, 28 );
+        } );
     });
 
 
@@ -422,7 +431,7 @@ module.exports = function( buildTest )
         {
             var $DivParent  = $Div.parent();
             $DivParent.index( $Div );
-        }, 29 );
+        } );
     });
 
 
@@ -455,7 +464,7 @@ module.exports = function( buildTest )
         assert.ok( correct, 'correctly' );
 
 
-        buildTest( 'No comparison available.', 30 );
+        buildTest( 'No comparison available.' );
     });
 
 
@@ -502,7 +511,7 @@ module.exports = function( buildTest )
         {
             $Target.html( 'blarg' );
             $Target.html();
-        }, 31 );
+        } );
     });
 
 
@@ -536,7 +545,7 @@ module.exports = function( buildTest )
         '$Divs.index( _el )', function()
         {
             $Divs.index( _el );
-        }, 32 );
+        } );
     });
 
 
@@ -571,7 +580,21 @@ module.exports = function( buildTest )
         '$Divs.last()', function()
         {
             $Divs.last();
-        }, 33 );
+        } );
+    });
+
+
+    /*
+     * µ length test
+     *
+     * @test    length exists
+     */
+    QUnit.test( 'µ.length', function( assert )
+    {
+        assert.equal( µ().length, 0, 'length initializes' );
+        assert.equal( µ( 'head' ).length, 1, 'length reports correctly' );
+
+        buildTest( 'No speed tests available.' );
     });
 
 
@@ -626,7 +649,72 @@ module.exports = function( buildTest )
             {
                 el.moo = 'moo';
             } );
-        }, 34 );
+        } );
+    });
+
+
+    /**
+     * µ merge tests
+     *
+     * @test    µ().merge exists
+     * @test    µ.merge exists
+     * @test    merged microbes
+     * @test    merged arrays
+     * @test    merged this
+     */
+    QUnit.test( '.merge()', function( assert )
+    {
+        assert.ok( µ().merge, 'µ().merge exists' );
+        assert.ok( µ.merge, 'µ.merge exists' );
+
+        var µDivs       = µ( 'div' );
+        var divCount    = µDivs.length;
+        var µHtml       = µ( 'html' );
+        var htmlCount   = µHtml.length;
+
+        var merged      = µ.merge( µDivs, µHtml );
+        assert.equal( divCount + htmlCount, merged.length, 'merged microbes' );
+
+        merged = µ.merge( [ 1, 2, 3 ], [ 4, 5, 6 ] );
+        assert.equal( 6, merged.length, 'merged arrays' );
+
+        µDivs       = µ( 'div' );
+        µDivs.merge( µHtml );
+        assert.equal( µDivs.length, divCount + htmlCount, 'merged this' );
+
+
+        var $Divs, µLi, $Li;
+
+        var refreshObjects = function()
+        {
+            µDivs = µ( 'div' );
+            $Divs = $( 'div' );
+
+            µLi = µ( 'li' );
+            $Li = $( 'li' );
+        };
+
+
+        buildTest(
+        'µ.merge( _obj, extension );', function()
+        {
+            refreshObjects();
+
+            /* these are commented out because jquery doesn't handle this syntax */
+            // µDivs.merge( µLi );
+
+            µ.merge( µDivs, µLi );
+        },
+
+        '$.merge( _obj, extension )', function()
+        {
+            refreshObjects();
+
+            /* these are commented out because jquery doesn't handle this syntax */
+            // $Divs.merge( $Li );
+
+            $.merge( $Divs, µLi );
+        } );
     });
 
 
@@ -661,7 +749,7 @@ module.exports = function( buildTest )
         '$Divs.parent()', function()
         {
             $Divs.parent();
-        }, 35 );
+        } );
     });
 
 
@@ -700,7 +788,7 @@ module.exports = function( buildTest )
         {
             _el = document.getElementById( 'QUnit' );
             $Empty.push( _el );
-        }, 36 );
+        } );
     });
 
 
@@ -749,7 +837,7 @@ module.exports = function( buildTest )
             $Divs.removeClass( 'moo' );
 
             resetDivs();
-        }, 37 );
+        } );
     });
 
 
@@ -774,7 +862,7 @@ module.exports = function( buildTest )
         _el = µ( '#example--combined' )[0];
         assert.equal( µ( _el ).selector(), 'div#example--combined.example--combined', 'correctly parses combined' );
 
-        buildTest( 'No comparison available.', 38 );
+        buildTest( 'No comparison available.' );
     });
 
 
@@ -799,7 +887,7 @@ module.exports = function( buildTest )
         'µDiv.splice( 0, 5 )', function()
         {
             $Div.splice( 0, 5 );
-        }, 39 );
+        } );
     });
 
 
@@ -857,7 +945,7 @@ module.exports = function( buildTest )
         {
             $Target.text( 'blarg' );
             $Target.text();
-        }, 40 );
+        } );
     });
 
 
@@ -892,7 +980,37 @@ module.exports = function( buildTest )
         '$Divs.toggleClass( \'moo\' )', function()
         {
             $Divs.toggleClass( 'moo' );
-        }, 41 );
+        } );
+    });
+
+
+    /**
+     * µ type test
+     *
+     * @test    type exists
+     */
+    QUnit.test( '.type', function( assert )
+    {
+        var type = '[object Microbe]';
+
+        assert.equal( µ().type, type, 'type is ' + type );
+
+        buildTest( 'No speed tests available.' );
+    });
+
+
+    /**
+     * µ version test
+     *
+     * @test    version exists
+     */
+    QUnit.test( '.version', function( assert )
+    {
+        var version = '0.3.1';
+
+        assert.equal( µ().version, version, 'version is ' + version );
+
+        buildTest( 'No speed tests available.' );
     });
 };
 

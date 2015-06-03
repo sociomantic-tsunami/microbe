@@ -28,7 +28,7 @@ module.exports = function( buildTest )
         '$( \'#example--combined:contains(I am)\' )', function()
         {
             return $( '#example--combined:contains(I am)' );
-        }, 8 );
+        } );
     });
 
 
@@ -57,7 +57,7 @@ module.exports = function( buildTest )
         '$( \'div:even\' )', function()
         {
             return $( 'div:even' );
-        }, 9 );
+        } );
     });
 
 
@@ -86,7 +86,7 @@ module.exports = function( buildTest )
         '$( \'div:first\' )', function()
         {
             return $( 'div:first' );
-        }, 10 );
+        } );
     });
 
 
@@ -115,7 +115,7 @@ module.exports = function( buildTest )
         '$( \'div:gt(3)\' )', function()
         {
             return $( 'div:gt(3)' );
-        }, 11 );
+        } );
     });
 
 
@@ -141,7 +141,7 @@ module.exports = function( buildTest )
         '$( \'div:has(li)\' )', function()
         {
             return $( 'div:has(li)' );
-        }, 12 );
+        } );
     });
 
 
@@ -170,7 +170,7 @@ module.exports = function( buildTest )
         '$( \'div:last\' )', function()
         {
             return $( 'div:last' );
-        }, 13 );
+        } );
     });
 
 
@@ -199,7 +199,7 @@ module.exports = function( buildTest )
         '$( \'div:lt(2)\' )', function()
         {
             return $( 'div:lt(2)' );
-        }, 14 );
+        } );
     });
 
 
@@ -228,7 +228,7 @@ module.exports = function( buildTest )
         '$( \'div:odd\' )', function()
         {
             return $( 'div:odd' );
-        }, 15 );
+        } );
     });
 
 
@@ -254,7 +254,7 @@ module.exports = function( buildTest )
         '$( \'div:root\' )', function()
         {
             return $( 'div:root' );
-        }, 16 );
+        } );
     });
 
 
@@ -284,7 +284,7 @@ module.exports = function( buildTest )
         '$( \'div:target\' )', function()
         {
             return $( 'div:target' );
-        }, 17 );
+        } );
 
         window.location.hash = '';
     });

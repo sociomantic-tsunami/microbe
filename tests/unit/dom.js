@@ -25,7 +25,7 @@ module.exports = function( buildTest )
         µ.ready( loaded );
 
 
-        buildTest( 'No speed tests available.', 59 );
+        buildTest( 'No speed tests available.' );
     });
 
 
@@ -110,7 +110,7 @@ module.exports = function( buildTest )
             $Div.append( el );
 
             vanillaRemove( el );
-        }, 60 );
+        } );
     });
 
 
@@ -185,7 +185,7 @@ module.exports = function( buildTest )
             $El.insertAfter( $SiblingDiv );
 
             vanillaRemove( $El );
-        }, 61 );
+        } );
     });
 
 
@@ -230,6 +230,6 @@ module.exports = function( buildTest )
         {
             vanillaAdd();
             $El.remove();
-        }, 62 );
+        } );
     });
 };
