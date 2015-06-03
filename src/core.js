@@ -868,6 +868,20 @@ Microbe.core = Microbe.prototype =
 
 
     /**
+     * To array
+     *
+     * Methods returns all the elements in an array.
+     *
+     * @return  {Array}
+    */
+    toArray : function( _arr )
+    {
+        _arr = _arr || this;
+        return Array.prototype.slice.call( _arr );
+    },
+
+
+    /**
      * Toggle Class
      *
      * Methods calls removeClass on the current object or given element.
@@ -903,7 +917,20 @@ Microbe.core = Microbe.prototype =
 
             return this;
         };
-    }())
+    }()),
+
+
+    /**
+     * To string
+     *
+     * Methods returns the type of Microbe.
+     *
+     * @return  {String}
+    */
+    toString : function()
+    {
+        return _type;
+    }
 };
 
 

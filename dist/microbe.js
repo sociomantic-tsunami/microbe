@@ -2827,6 +2827,20 @@ Microbe.core = Microbe.prototype =
 
 
     /**
+     * To array
+     *
+     * Methods returns all the elements in an array.
+     *
+     * @return  {Array}
+    */
+    toArray : function( _arr )
+    {
+        _arr = _arr || this;
+        return Array.prototype.slice.call( _arr );
+    },
+
+
+    /**
      * Toggle Class
      *
      * Methods calls removeClass on the current object or given element.
@@ -2862,7 +2876,20 @@ Microbe.core = Microbe.prototype =
 
             return this;
         };
-    }())
+    }()),
+
+
+    /**
+     * To string
+     *
+     * Methods returns the type of Microbe.
+     *
+     * @return  {String}
+    */
+    toString : function()
+    {
+        return _type;
+    }
 };
 
 
@@ -3075,47 +3102,6 @@ module.exports = function( Microbe )
 
 
     /**
-     * Bind Events
-     *
-     * Binds an event to the HTMLElements of the current object or to the
-     * given element.
-     *
-     * @param   {String}            _event              HTMLEvent
-     * @param   {Function}          _callback           callback function
-     *
-     * @return  {Microbe}
-    */
-    Microbe.prototype.on = function ( _event, _callback )
-    {
-        var _on = function( _elm )
-        {
-            var prop = '_' + _event + '-bound-function';
-
-
-            _elm.data                   = _elm.data || {};
-            _elm.data[ prop ]           = _elm.data[ prop ] || {};
-            _elm.data[ prop ][ prop ]   = _elm.data[ prop ][ prop ] || [];
-
-            _elm.data.__boundEvents     = _elm.data.__boundEvents || {};
-            _elm.data.__boundEvents.__boundEvents   = _elm.data.__boundEvents.__boundEvents || [];
-
-            _elm.addEventListener( _event, _callback );
-            _elm.data[ prop ][ prop ].push( _callback );
-
-            _elm.data.__boundEvents.__boundEvents.push( _event );
-        };
-
-        var i, len;
-        for ( i = 0, len = this.length; i < len; i++ )
-        {
-            _on( this[ i ] );
-        }
-
-        return this;
-    };
-
-
-    /**
      * Unbind Events
      *
      * unbinds an/all events.
@@ -3187,6 +3173,47 @@ module.exports = function( Microbe )
 
 
             _elm.data.__boundEvents.__boundEvents = _event.filter( filterFunction );
+        }
+
+        return this;
+    };
+
+
+    /**
+     * Bind Events
+     *
+     * Binds an event to the HTMLElements of the current object or to the
+     * given element.
+     *
+     * @param   {String}            _event              HTMLEvent
+     * @param   {Function}          _callback           callback function
+     *
+     * @return  {Microbe}
+    */
+    Microbe.prototype.on = function ( _event, _callback )
+    {
+        var _on = function( _elm )
+        {
+            var prop = '_' + _event + '-bound-function';
+
+
+            _elm.data                   = _elm.data || {};
+            _elm.data[ prop ]           = _elm.data[ prop ] || {};
+            _elm.data[ prop ][ prop ]   = _elm.data[ prop ][ prop ] || [];
+
+            _elm.data.__boundEvents     = _elm.data.__boundEvents || {};
+            _elm.data.__boundEvents.__boundEvents   = _elm.data.__boundEvents.__boundEvents || [];
+
+            _elm.addEventListener( _event, _callback );
+            _elm.data[ prop ][ prop ].push( _callback );
+
+            _elm.data.__boundEvents.__boundEvents.push( _event );
+        };
+
+        var i, len;
+        for ( i = 0, len = this.length; i < len; i++ )
+        {
+            _on( this[ i ] );
         }
 
         return this;
@@ -4277,20 +4304,6 @@ module.exports = function( Microbe )
     Microbe.identity = function( value ) { return value; };
 
 
-    Microbe.merge = Microbe.core.merge;
-
-
-    /**
-     * nothing happens
-     *
-     * https://en.wikipedia.org/wiki/Xyzzy_(computing)
-     *
-     * @return {void}
-     */
-    Microbe.noop    = function() {};
-    Microbe.xyzzy   = Microbe.noop;
-
-
     /**
      * native isArray for completeness
      *
@@ -4389,17 +4402,17 @@ module.exports = function( Microbe )
     };
 
 
+    Microbe.merge = Microbe.core.merge;
+
+
     /**
-     * To string
+     * nothing happens
      *
-     * Methods returns the type of Microbe.
+     * https://en.wikipedia.org/wiki/Xyzzy_(computing)
      *
-     * @return  {String}
-    */
-    Microbe.toString = Microbe.prototype.toString = function()
-    {
-        return _type;
-    };
+     * @return {void}
+     */
+    Microbe.noop    = function() {};
 
 
     /**
@@ -4409,11 +4422,17 @@ module.exports = function( Microbe )
      *
      * @return  {Array}
     */
-    Microbe.toArray = Microbe.prototype.toArray = function( _arr )
-    {
-        _arr = _arr || this;
-        return Array.prototype.slice.call( _arr );
-    };
+    Microbe.toArray = Microbe.core.toArray;
+
+
+    /**
+     * To string
+     *
+     * Methods returns the type of Microbe.
+     *
+     * @return  {String}
+    */
+    Microbe.toString = Microbe.core.toString;
 
 
     /**
@@ -4436,6 +4455,16 @@ module.exports = function( Microbe )
             type = !type ? Types[ obj.toString() ] : type;
         return  type || typeof obj;
     };
+
+
+    /**
+     * nothing happens
+     *
+     * https://en.wikipedia.org/wiki/Xyzzy_(computing)
+     *
+     * @return {void}
+     */
+    Microbe.xyzzy   = Microbe.noop;
 };
 },{"./utils/types":22}],20:[function(require,module,exports){
 module.exports =

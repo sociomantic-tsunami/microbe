@@ -52,20 +52,6 @@ module.exports = function( Microbe )
     Microbe.identity = function( value ) { return value; };
 
 
-    Microbe.merge = Microbe.core.merge;
-
-
-    /**
-     * nothing happens
-     *
-     * https://en.wikipedia.org/wiki/Xyzzy_(computing)
-     *
-     * @return {void}
-     */
-    Microbe.noop    = function() {};
-    Microbe.xyzzy   = Microbe.noop;
-
-
     /**
      * native isArray for completeness
      *
@@ -164,17 +150,17 @@ module.exports = function( Microbe )
     };
 
 
+    Microbe.merge = Microbe.core.merge;
+
+
     /**
-     * To string
+     * nothing happens
      *
-     * Methods returns the type of Microbe.
+     * https://en.wikipedia.org/wiki/Xyzzy_(computing)
      *
-     * @return  {String}
-    */
-    Microbe.toString = Microbe.prototype.toString = function()
-    {
-        return _type;
-    };
+     * @return {void}
+     */
+    Microbe.noop    = function() {};
 
 
     /**
@@ -184,11 +170,17 @@ module.exports = function( Microbe )
      *
      * @return  {Array}
     */
-    Microbe.toArray = Microbe.prototype.toArray = function( _arr )
-    {
-        _arr = _arr || this;
-        return Array.prototype.slice.call( _arr );
-    };
+    Microbe.toArray = Microbe.core.toArray;
+
+
+    /**
+     * To string
+     *
+     * Methods returns the type of Microbe.
+     *
+     * @return  {String}
+    */
+    Microbe.toString = Microbe.core.toString;
 
 
     /**
@@ -211,4 +203,14 @@ module.exports = function( Microbe )
             type = !type ? Types[ obj.toString() ] : type;
         return  type || typeof obj;
     };
+
+
+    /**
+     * nothing happens
+     *
+     * https://en.wikipedia.org/wiki/Xyzzy_(computing)
+     *
+     * @return {void}
+     */
+    Microbe.xyzzy   = Microbe.noop;
 };

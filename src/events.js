@@ -38,47 +38,6 @@ module.exports = function( Microbe )
 
 
     /**
-     * Bind Events
-     *
-     * Binds an event to the HTMLElements of the current object or to the
-     * given element.
-     *
-     * @param   {String}            _event              HTMLEvent
-     * @param   {Function}          _callback           callback function
-     *
-     * @return  {Microbe}
-    */
-    Microbe.prototype.on = function ( _event, _callback )
-    {
-        var _on = function( _elm )
-        {
-            var prop = '_' + _event + '-bound-function';
-
-
-            _elm.data                   = _elm.data || {};
-            _elm.data[ prop ]           = _elm.data[ prop ] || {};
-            _elm.data[ prop ][ prop ]   = _elm.data[ prop ][ prop ] || [];
-
-            _elm.data.__boundEvents     = _elm.data.__boundEvents || {};
-            _elm.data.__boundEvents.__boundEvents   = _elm.data.__boundEvents.__boundEvents || [];
-
-            _elm.addEventListener( _event, _callback );
-            _elm.data[ prop ][ prop ].push( _callback );
-
-            _elm.data.__boundEvents.__boundEvents.push( _event );
-        };
-
-        var i, len;
-        for ( i = 0, len = this.length; i < len; i++ )
-        {
-            _on( this[ i ] );
-        }
-
-        return this;
-    };
-
-
-    /**
      * Unbind Events
      *
      * unbinds an/all events.
@@ -150,6 +109,47 @@ module.exports = function( Microbe )
 
 
             _elm.data.__boundEvents.__boundEvents = _event.filter( filterFunction );
+        }
+
+        return this;
+    };
+
+
+    /**
+     * Bind Events
+     *
+     * Binds an event to the HTMLElements of the current object or to the
+     * given element.
+     *
+     * @param   {String}            _event              HTMLEvent
+     * @param   {Function}          _callback           callback function
+     *
+     * @return  {Microbe}
+    */
+    Microbe.prototype.on = function ( _event, _callback )
+    {
+        var _on = function( _elm )
+        {
+            var prop = '_' + _event + '-bound-function';
+
+
+            _elm.data                   = _elm.data || {};
+            _elm.data[ prop ]           = _elm.data[ prop ] || {};
+            _elm.data[ prop ][ prop ]   = _elm.data[ prop ][ prop ] || [];
+
+            _elm.data.__boundEvents     = _elm.data.__boundEvents || {};
+            _elm.data.__boundEvents.__boundEvents   = _elm.data.__boundEvents.__boundEvents || [];
+
+            _elm.addEventListener( _event, _callback );
+            _elm.data[ prop ][ prop ].push( _callback );
+
+            _elm.data.__boundEvents.__boundEvents.push( _event );
+        };
+
+        var i, len;
+        for ( i = 0, len = this.length; i < len; i++ )
+        {
+            _on( this[ i ] );
         }
 
         return this;
