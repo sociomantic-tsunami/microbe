@@ -59,10 +59,17 @@ Microbe.core = Microbe.prototype =
     {
         var _addClass = function( _class, _el )
         {
-            var i, len;
-            for ( i = 0, len = _class.length; i < len; i++ )
+            for ( var i = 0, lenI = _class.length; i < lenI; i++ )
             {
-                _el.classList.add( _class[i] );
+                var _c = _class[ i ].split( ' ' );
+                
+                for ( var j = 0, lenJ = _c.length; j < lenJ; j++ )
+                {   
+                    if ( _c[ j ] !== '' )
+                    {
+                        _el.classList.add( _c[ j ] );
+                    }
+                }
             }
 
             _el.data                = _el.data || {};
@@ -80,7 +87,7 @@ Microbe.core = Microbe.prototype =
             var i, len;
             for ( i = 0, len = this.length; i < len; i++ )
             {
-                _addClass( _class, this[i] );
+                _addClass( _class, this[ i ] );
             }
 
             return this;
@@ -696,7 +703,18 @@ Microbe.core = Microbe.prototype =
     {
         var _removeClass = function( _class, _el )
         {
-            _el.classList.remove( _class );
+            for ( var i = 0, lenI = _class.length; i < lenI; i++ )
+            {
+                var _c = _class[ i ].split( ' ' );
+                
+                for ( var j = 0, lenJ = _c.length; j < lenJ; j++ )
+                {   
+                    if ( _c[ j ] !== '' )
+                    {
+                        _el.classList.remove( _c[ j ] );
+                    }
+                }
+            }
 
             _el.data                = _el.data || {};
             _el.data.class          = _el.data.class || {};
@@ -705,6 +723,11 @@ Microbe.core = Microbe.prototype =
 
         return function( _class )
         {
+            if ( typeof _class === 'string' )
+            {
+                _class = [ _class ];
+            }
+
             var i, len;
             for ( i = 0, len = this.length; i < len; i++ )
             {
