@@ -51,7 +51,10 @@ Microbe.core = Microbe.prototype =
      *
      * adds the passed class to the current element(s)
      *
-     * @param   {String}            _class              class to add
+     * @param   {String Array}      _class              class to remove.  this accepts 
+     *                                                  strings and array of strings.  
+     *                                                  the strings can be a class or 
+     *                                                  classes seperated with spaces
      *
      * @return  {Microbe}
      */
@@ -95,7 +98,7 @@ Microbe.core = Microbe.prototype =
     }()),
 
 
-     /**
+    /**
      * Alter/Get Attribute
      *
      * Changes the attribute by writing the given property and value to the
@@ -695,10 +698,13 @@ Microbe.core = Microbe.prototype =
      *
      * Method removes the given class from the current object or the given element.
      *
-     * @param   {String}            _class              class to remove
+     * @param   {String Array}      _class              class to remove.  this accepts 
+     *                                                  strings and array of strings.  
+     *                                                  the strings can be a class or 
+     *                                                  classes seperated with spaces
      *
      * @return  {Microbe}
-    */
+     */
     removeClass : (function()
     {
         var _removeClass = function( _class, _el )
@@ -836,7 +842,7 @@ Microbe.core = Microbe.prototype =
      * @param   {String}            _value              Text value (optional)
      *
      * @return  {Microbe or Array}
-    */
+     */
     text : (function()
     {
         var _setText = function( _value, _el )
@@ -896,7 +902,7 @@ Microbe.core = Microbe.prototype =
      * Methods returns all the elements in an array.
      *
      * @return  {Array}
-    */
+     */
     toArray : function( _arr )
     {
         _arr = _arr || this;
@@ -912,7 +918,7 @@ Microbe.core = Microbe.prototype =
      * @param   {String}            _class              class to add
      *
      * @return  {Microbe}
-    */
+     */
     toggleClass : (function()
     {
         var _toggleClass = function( _class, _el )
@@ -949,7 +955,7 @@ Microbe.core = Microbe.prototype =
      * Methods returns the type of Microbe.
      *
      * @return  {String}
-    */
+     */
     toString : function()
     {
         return _type;

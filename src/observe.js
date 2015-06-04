@@ -60,7 +60,7 @@ module.exports = function( Microbe )
      * @param  {Boolean}            _once               bool to trigger auto unobserve
      *
      * @return  {Microbe}
-    */
+     */
     Microbe.prototype.observe = function( prop, func, _once )
     {
         var self = this;
@@ -155,7 +155,7 @@ module.exports = function( Microbe )
      * @param  {String}             _prop               property to observe
      *
      * @return  Microbe
-    */
+     */
     Microbe.prototype.observeOnce = function( func, _prop )
     {
         this.observe( func, _prop, true );
@@ -216,7 +216,7 @@ module.exports = function( Microbe )
      * @param   {String}            _prop               property to stop observing
      *
      * @return  {Microbe}
-    */
+     */
     Microbe.prototype.unobserve = function( _prop )
     {
         var _unobserve = function( _elm )

@@ -169,7 +169,7 @@ module.exports = function( Microbe )
      * Methods returns all the elements in an array.
      *
      * @return  {Array}
-    */
+     */
     Microbe.toArray = Microbe.core.toArray;
 
 
@@ -179,7 +179,7 @@ module.exports = function( Microbe )
      * Methods returns the type of Microbe.
      *
      * @return  {String}
-    */
+     */
     Microbe.toString = Microbe.core.toString;
 
 

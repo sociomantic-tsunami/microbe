@@ -45,7 +45,7 @@ module.exports = function( Microbe )
      * @param   {Element}           _el                 element to create
      *
      * @return  {Microbe}
-    */
+     */
     function _create( _el )
     {
         var resultsRegex    = _el.match( selectorRegex ),
@@ -140,7 +140,7 @@ module.exports = function( Microbe )
      * @param   {Element or Array}  _elements           elements to fill Microbe with (optional)
      *
      * @return  {Microbe}
-    */
+     */
     Microbe.core.__init__ =  function( _selector, _scope, _elements )
     {
         if ( !_scope )
