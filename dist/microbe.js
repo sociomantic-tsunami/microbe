@@ -3604,9 +3604,9 @@ module.exports = function( Microbe )
      * Usage:   µ('div#test')   ---> selection
      *          µ('<div#test>') ---> creation
      *
-     * @param   {Element or String} _selector           HTML selector
-     * @param   {Element}           _scope              scope to look inside
-     * @param   {Element or Array}  _elements           elements to fill Microbe with (optional)
+     * @param   {Element String Array}   _selector      HTML selector
+     * @param   {Element String Microbe} _scope         scope to look inside
+     * @param   {Element or Array}       _elements      elements to fill Microbe with (optional)
      *
      * @return  {Microbe}
      */
