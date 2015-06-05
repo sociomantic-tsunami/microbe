@@ -97,7 +97,6 @@ module.exports = function( Microbe )
                 return _target;
             };
 
-
             _elm.data   = _elm.data || {};
             var _data   = _elm.data;
             func        = func.bind( this );
@@ -107,6 +106,11 @@ module.exports = function( Microbe )
             if ( prop )
             {
                 _data[ prop ]  = _data[ prop ] || {};
+
+                if ( ObserveUtils )
+                {
+                    ObserveUtils.defineObservableProperties( _data[ prop ], prop );
+                }
 
                 target = _setObserveFunc( _data[ prop ] );
                 _setObserve( target, prop );
@@ -165,11 +169,11 @@ module.exports = function( Microbe )
     /**
      * Set data
      *
-     * sets the value to the data object in the each element in the microbe 
+     * sets the value to the data object in the each element in the microbe
      *
      * @param  {String}             prop                property to set
      * @param  {String}             value               value to set to
-     * 
+     *
      * @return {Microbe}
      */
     Microbe.prototype.set = function( prop, value )
