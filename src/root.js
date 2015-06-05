@@ -44,10 +44,10 @@ module.exports = function( Microbe )
      *  be triggered. The function will be called after it stops being called for
      *  [[wait]] milliseconds. If `immediate` is passed, trigger the function on
      *  the leading edge, instead of the trailing.
-
+     *
      * @param  {Function}           _func               function to meter
      * @param  {Number}             wait                milliseconds to wait
-     * @param  {Any}                immediate           run function at the start
+     * @param  {Boolean}            immediate           run function at the start
      *                                                  of the timeout
      *
      * @return {Function}
@@ -99,6 +99,8 @@ module.exports = function( Microbe )
 
 
     /**
+     * insertStyle
+     *
      * builds a style tag for the given selector/ media query.  Reference to the style
      * tag and object is saved in µ.__customCSSRules[ selector ][ media ].
      * next rule with the same selector combines the old and new rules and overwrites
@@ -344,10 +346,12 @@ module.exports = function( Microbe )
 
 
     /**
-     * removes a style tag for the given selector/ media query. If the properties
-     * array is passed, rules are removed individually.  If properties is set to
-     * true, all tags for this selector are removed.  The media query can also be
-     * passed as the second variable
+     * removeStyle
+     *
+     * removes a microbe added style tag for the given selector/ media query. If the
+     * properties array is passed, rules are removed individually.  If properties is
+     * set to true, all tags for this selector are removed.  The media query can
+     * also be passed as the second variable
      *
      * @param {String}              selector            selector to apply it to
      * @param {String Array}        properties          css properties to remove
@@ -430,7 +434,7 @@ module.exports = function( Microbe )
 
 
     /**
-     * removes all style tags for the given selector
+     * removes all microbe added style tags for the given selector
      *
      * @param {String}              selector            selector to apply it to
      *
