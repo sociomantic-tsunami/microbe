@@ -1297,6 +1297,91 @@ module.exports = function( buildTest )
 
 
     /**
+     * µ prepend tests
+     *
+     * @test    prepend exists
+     * @test    attached microbe
+     * @test    attached element
+     * @test    attached by creation string                 // future feature
+     * @test    attached by array of microbes               // future feature
+     * @test    attached by array of elements
+     * @test    attached by array of creation strings       // future feature
+     */
+    QUnit.test( '.prepend()', function( assert )
+    {
+        assert.ok( µ().prepend, 'exists' );
+
+        var µNewDiv = µ( '<div.a--new--div>' );
+        var µTarget = µ( '#example--id' );
+
+        µTarget.prepend( µNewDiv );
+        assert.deepEqual( µNewDiv[0], µTarget.children()[0][0], 'attached microbe' );
+        µNewDiv.remove();
+
+        µTarget.prepend( µNewDiv[0] );
+        assert.deepEqual( µNewDiv[0], µTarget.children()[0][0], 'attached element' );
+        µNewDiv.remove();
+
+        // NON FUNCTIONAL TEST
+        // this is a future ability and cannot be tested yet
+        //
+        // µTarget.prepend( '<div.a--new--div>' );
+        // assert.deepEqual( µ( '.a--new--div' )[0], µTarget.children()[0], 'attached by creation string' );
+        // µ( '.a--new--div' ).remove();
+
+        var µAnotherNewDiv = µ( '<div.a--new--div>' );
+
+        // NON FUNCTIONAL TEST
+        // this is a future ability and cannot be tested yet
+        //
+        // µTarget.prepend( [ µNewDiv, µAnotherNewDiv ] );
+        // assert.equal( µ( '.a--new--div' ).length, 2, 'attached 2 microbes' );
+        // µNewDiv.remove();
+        // µAnotherNewDiv.remove();
+
+        µTarget.prepend( [ µNewDiv[0], µAnotherNewDiv[0] ] );
+        assert.equal( µ( '.a--new--div' ).length, 2, 'attached 2 elements' );
+        µNewDiv.remove();
+        µAnotherNewDiv.remove();
+
+        // NON FUNCTIONAL TEST
+        // this is a future ability and cannot be tested yet
+        //
+        // µTarget.prepend( [ '<div.a--new--div>', '<div.a--new--div>' ] );
+        // assert.equal( µ( '.a--new--div' ).length, 2, 'attached 2 creation strings' );
+        // µNewDiv.remove();
+        // µAnotherNewDiv.remove();
+
+
+        var el;
+        var µDiv = µ( 'div' ).first();
+        var $Div = $( 'div' ).first();
+
+        var vanillaRemove = function( el )
+        {
+            el.parentNode.removeChild( el );
+        };
+
+        buildTest(
+        'µDiv.prepend( el )', function()
+        {
+            el = document.createElement( 'div' );
+            µDiv.prepend( el );
+
+            vanillaRemove( el );
+        },
+
+        '$Div.prepend( el )', function()
+        {
+            el = document.createElement( 'div' );
+            $Div.prepend( el );
+
+            vanillaRemove( el );
+        } );
+    });
+
+
+    /**
      * µ remove tests
      *
      * @test    remove exists

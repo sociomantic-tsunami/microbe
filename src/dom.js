@@ -35,7 +35,7 @@ module.exports = function( Microbe )
      * appends an element or elements to the microbe.  if there is more than
      * one target the next ones are cloned
      *
-     * @param   {Element Array or Microbe}  _ele          element(s) to append
+     * @param   {Element, Array, Microbe}   _ele          element(s) to append
      *
      * @return  {Microbe}
      */
@@ -82,7 +82,7 @@ module.exports = function( Microbe )
      *
      * @example µ( '.elementsInDom' ).insertAfter( µElementToInsert )
      *
-     * @param  {Object or String}   _elAfter            element to insert
+     * @param  {Object, String}   _elAfter            element to insert
      *
      * @return {Microbe}
      */
@@ -133,6 +133,52 @@ module.exports = function( Microbe )
 
         return this.constructor( elementArray );
     };
+
+
+    /**
+     * Prepend Element
+     *
+     * prepends an element or elements to the microbe.  if there is more than
+     * one target the next ones are cloned
+     *
+     * @param   {Element, Array, Microbe}  _ele          element(s) to prepend
+     *
+     * @return  {Microbe}
+     */
+    Microbe.core.prepend = (function()
+    {
+        var _prepend = function( _parentEl, _elm )
+        {
+            var firstChild = _parentEl.children[ 0 ];
+            _parentEl.insertBefore( _elm, firstChild );
+        };
+
+        return function( _el )
+        {
+            if ( !_el.length )
+            {
+                _el = [ _el ];
+            }
+
+            var i, j, leni, lenj;
+            for ( i = 0, leni = this.length; i < leni; i++ )
+            {
+                for ( j = 0, lenj = _el.length; j < lenj; j++ )
+                {
+                    if ( i !== 0 )
+                    {
+                        _prepend( this[ i ], _el[ j ].cloneNode( true ) );
+                    }
+                    else
+                    {
+                        _prepend( this[ i ], _el[ j ] );
+                    }
+                }
+            }
+
+            return this;
+        };
+    }());
 
 
     /**
