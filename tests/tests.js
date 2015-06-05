@@ -99,6 +99,7 @@ module.exports = function( buildTest )
      * @test    sets the data object
      * @test    sets multiple classes from an array
      * @test    multiple classes all set to data object
+     * @test    multiple classes set by className string
      */
     QUnit.test( '.addClass()', function( assert )
     {
@@ -112,14 +113,17 @@ module.exports = function( buildTest )
 
         µ( '.moo' ).removeClass( 'moo' );
 
-        µMooDivs = µ( 'div' ).addClass( [ 'moo', 'for--real' ] ).length;
-        assert.equal( µMooDivs, µ( '.moo.for--real' ).length, 'it added 2 classes from an array of strings' );
+        µMooDivs = µ( 'div' ).first().addClass( [ 'moo', 'for--real' ] );
+        assert.equal( µMooDivs.length, µ( '.moo.for--real' ).length, 'it added 2 classes from an array of strings' );
+
+        var µDiv = µ( 'div' ).addClass( µMooDivs[0].className );
+        assert.equal( µDiv.length, µ( '.moo.for--real' ).length, 'multiple classes set by className string' );
 
         var classData = µ( '.moo' )[0].data.class.class;
 
         assert.ok( classData.indexOf( 'for--real' ) !== -1, 'class sets data' );
 
-        µ( '.moo' ).removeClass( 'moo' ).removeClass( 'for--real' );
+        µ( '.moo' ).removeClass( 'moo  for--real' );
 
         var µDivs = µ( 'div' );
         var $Divs = $( 'div' );
@@ -678,7 +682,7 @@ module.exports = function( buildTest )
      *
      * @test    length exists
      */
-    QUnit.test( 'µ.length', function( assert )
+    QUnit.test( '.length', function( assert )
     {
         assert.equal( µ().length, 0, 'length initializes' );
         assert.equal( µ( 'head' ).length, 1, 'length reports correctly' );
@@ -900,6 +904,10 @@ module.exports = function( buildTest )
 
         assert.equal( µ( '.example--class--groups' ).length, 0, 'removed class to both divs' );
 
+        µ( '#qunit' ).addClass( 'test--yyy  test--zzz' );
+        µ( '#qunit' ).removeClass( µ( '#qunit' )[0].className );
+        assert.equal( 0, µ( '.test--yyy.test--zzz' ).length, 'multiple classes removed by className string' );
+
         µDivs.addClass( 'example--class--groups' );
 
             µDivs   = µ( '.example--class--groups' );
@@ -907,25 +915,25 @@ module.exports = function( buildTest )
 
         var resetDivs = function()
         {
-            for ( var i = 0, lenI = µDivs.length; i < lenI; i++ )
-            {
-                µDivs[ i ].className += ' moo';
-            }
+          for ( var i = 0, lenI = µDivs.length; i < lenI; i++ )
+          {
+              µDivs[ i ].className += ' moo';
+          }
         };
 
         buildTest(
         'µDivs.removeClass( \'moo\' )', function()
         {
-            µDivs.removeClass( 'moo' );
+          µDivs.removeClass( 'moo' );
 
-            resetDivs();
+          resetDivs();
         },
 
         '$Divs.removeClass( \'moo\' )', function()
         {
-            $Divs.removeClass( 'moo' );
+          $Divs.removeClass( 'moo' );
 
-            resetDivs();
+          resetDivs();
         } );
     });
 
@@ -1448,7 +1456,7 @@ module.exports = function( buildTest )
         var µParent     = µExamples.parent();
 
         var emitTest    = assert.async();
-        var bubbleTest  = assert.async();
+        var bubbleTest  = µ.once( assert.async() );
 
         µExamples.on( 'emitTest', function( e )
         {
@@ -1962,7 +1970,7 @@ module.exports = function( buildTest )
 
         var µExamples   = µ( '.example--class' );
 
-        var observeTest      = assert.async();
+        var observeTest = assert.async();
 
         µExamples.observe( 'observeTest', function( e )
         {
@@ -2369,6 +2377,19 @@ module.exports = function( buildTest )
 
 
     /**
+     * µ debounce tests
+     *
+     * @test    debounce exists
+     */
+    QUnit.test( '.debounce()', function( assert )
+    {
+        assert.ok( µ.debounce, 'exists' );
+
+        buildTest( 'No speed tests available.' );
+    });
+
+
+    /**
      * µ identity tests
      *
      * @test    identity exists
@@ -2379,6 +2400,19 @@ module.exports = function( buildTest )
         assert.ok( µ.identity, 'exists' );
         var val = 'mooon';
         assert.equal( 'mooon', µ.identity( 'mooon' ), 'it equals itself' );
+
+        buildTest( 'No speed tests available.' );
+    });
+
+
+    /**
+     * µ insertStyle tests
+     *
+     * @test    insertStyle exists
+     */
+    QUnit.test( '.insertStyle()', function( assert )
+    {
+        assert.ok( µ.insertStyle, 'exists' );
 
         buildTest( 'No speed tests available.' );
     });
@@ -2562,6 +2596,83 @@ module.exports = function( buildTest )
             $.isWindow( window );
             $.isWindow( [ 1, 2, 3 ] );
         } );
+    });
+
+
+    /**
+     * µ once tests
+     *
+     * @test    once exists
+     */
+    QUnit.test( '.once()', function( assert )
+    {
+        assert.ok( µ.once, 'exists' );
+        var _f = µ.once( function(){ return 'moon'; } );
+        assert.equal( _f(), 'moon', 'runs once' );
+        assert.equal( _f(), undefined, 'and only once' );
+
+        buildTest( 'No speed tests available.' );
+    });
+
+
+    /**
+     * µ poll tests
+     *
+     * @test    poll exists
+     */
+    QUnit.test( '.poll()', function( assert )
+    {
+        assert.expect( 3 );
+
+        var _fail       = function(){ return false; };
+        var _succees    = function(){ return true; };
+
+        var failTest    = assert.async();
+
+        assert.ok( µ.poll, 'exists' );
+
+        µ.poll( _fail, _fail, function()
+        {
+            assert.ok( true, 'failure handled correctly' );
+            failTest();
+        }, 100, 25 );
+
+        var successTest = assert.async();
+
+        µ.poll( _succees, function()
+        {
+            assert.ok( true, 'success handled correctly' );
+            successTest();
+        }, _succees, 100, 25 );
+
+
+        buildTest( 'No speed tests available.' );
+    });
+
+
+    /**
+     * µ removeStyle tests
+     *
+     * @test    removeStyle exists
+     */
+    QUnit.test( '.removeStyle()', function( assert )
+    {
+        assert.ok( µ.removeStyle, 'exists' );
+
+        buildTest( 'No speed tests available.' );
+    });
+
+
+    /**
+     * µ removeStyles tests
+     *
+     * @test    removeStyles exists
+     */
+    QUnit.test( '.removeStyles()', function( assert )
+    {
+        assert.ok( µ.removeStyles, 'exists' );
+
+        buildTest( 'No speed tests available.' );
     });
 
 

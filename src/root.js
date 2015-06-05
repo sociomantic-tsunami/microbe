@@ -302,6 +302,10 @@ module.exports = function( Microbe )
                 result  = _func.apply( context || this, arguments );
                 _func   = null;
             }
+            else
+            {
+                result  = null;
+            }
 
             return result;
         };

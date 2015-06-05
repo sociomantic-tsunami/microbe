@@ -13,6 +13,7 @@ module.exports = function( buildTest )
      * @test    sets the data object
      * @test    sets multiple classes from an array
      * @test    multiple classes all set to data object
+     * @test    multiple classes set by className string
      */
     QUnit.test( '.addClass()', function( assert )
     {
@@ -26,14 +27,17 @@ module.exports = function( buildTest )
 
         µ( '.moo' ).removeClass( 'moo' );
 
-        µMooDivs = µ( 'div' ).addClass( [ 'moo', 'for--real' ] ).length;
-        assert.equal( µMooDivs, µ( '.moo.for--real' ).length, 'it added 2 classes from an array of strings' );
+        µMooDivs = µ( 'div' ).first().addClass( [ 'moo', 'for--real' ] );
+        assert.equal( µMooDivs.length, µ( '.moo.for--real' ).length, 'it added 2 classes from an array of strings' );
+
+        var µDiv = µ( 'div' ).addClass( µMooDivs[0].className );
+        assert.equal( µDiv.length, µ( '.moo.for--real' ).length, 'multiple classes set by className string' );
 
         var classData = µ( '.moo' )[0].data.class.class;
 
         assert.ok( classData.indexOf( 'for--real' ) !== -1, 'class sets data' );
 
-        µ( '.moo' ).removeClass( 'moo' ).removeClass( 'for--real' );
+        µ( '.moo' ).removeClass( 'moo  for--real' );
 
         var µDivs = µ( 'div' );
         var $Divs = $( 'div' );
@@ -592,7 +596,7 @@ module.exports = function( buildTest )
      *
      * @test    length exists
      */
-    QUnit.test( 'µ.length', function( assert )
+    QUnit.test( '.length', function( assert )
     {
         assert.equal( µ().length, 0, 'length initializes' );
         assert.equal( µ( 'head' ).length, 1, 'length reports correctly' );
@@ -814,6 +818,10 @@ module.exports = function( buildTest )
 
         assert.equal( µ( '.example--class--groups' ).length, 0, 'removed class to both divs' );
 
+        µ( '#qunit' ).addClass( 'test--yyy  test--zzz' );
+        µ( '#qunit' ).removeClass( µ( '#qunit' )[0].className );
+        assert.equal( 0, µ( '.test--yyy.test--zzz' ).length, 'multiple classes removed by className string' );
+
         µDivs.addClass( 'example--class--groups' );
 
             µDivs   = µ( '.example--class--groups' );
@@ -821,25 +829,25 @@ module.exports = function( buildTest )
 
         var resetDivs = function()
         {
-            for ( var i = 0, lenI = µDivs.length; i < lenI; i++ )
-            {
-                µDivs[ i ].className += ' moo';
-            }
+          for ( var i = 0, lenI = µDivs.length; i < lenI; i++ )
+          {
+              µDivs[ i ].className += ' moo';
+          }
         };
 
         buildTest(
         'µDivs.removeClass( \'moo\' )', function()
         {
-            µDivs.removeClass( 'moo' );
+          µDivs.removeClass( 'moo' );
 
-            resetDivs();
+          resetDivs();
         },
 
         '$Divs.removeClass( \'moo\' )', function()
         {
-            $Divs.removeClass( 'moo' );
+          $Divs.removeClass( 'moo' );
 
-            resetDivs();
+          resetDivs();
         } );
     });
 

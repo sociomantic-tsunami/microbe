@@ -28,6 +28,19 @@ module.exports = function( buildTest )
 
 
     /**
+     * µ debounce tests
+     *
+     * @test    debounce exists
+     */
+    QUnit.test( '.debounce()', function( assert )
+    {
+        assert.ok( µ.debounce, 'exists' );
+
+        buildTest( 'No speed tests available.' );
+    });
+
+
+    /**
      * µ identity tests
      *
      * @test    identity exists
@@ -38,6 +51,19 @@ module.exports = function( buildTest )
         assert.ok( µ.identity, 'exists' );
         var val = 'mooon';
         assert.equal( 'mooon', µ.identity( 'mooon' ), 'it equals itself' );
+
+        buildTest( 'No speed tests available.' );
+    });
+
+
+    /**
+     * µ insertStyle tests
+     *
+     * @test    insertStyle exists
+     */
+    QUnit.test( '.insertStyle()', function( assert )
+    {
+        assert.ok( µ.insertStyle, 'exists' );
 
         buildTest( 'No speed tests available.' );
     });
@@ -221,6 +247,83 @@ module.exports = function( buildTest )
             $.isWindow( window );
             $.isWindow( [ 1, 2, 3 ] );
         } );
+    });
+
+
+    /**
+     * µ once tests
+     *
+     * @test    once exists
+     */
+    QUnit.test( '.once()', function( assert )
+    {
+        assert.ok( µ.once, 'exists' );
+        var _f = µ.once( function(){ return 'moon'; } );
+        assert.equal( _f(), 'moon', 'runs once' );
+        assert.equal( _f(), undefined, 'and only once' );
+
+        buildTest( 'No speed tests available.' );
+    });
+
+
+    /**
+     * µ poll tests
+     *
+     * @test    poll exists
+     */
+    QUnit.test( '.poll()', function( assert )
+    {
+        assert.expect( 3 );
+
+        var _fail       = function(){ return false; };
+        var _succees    = function(){ return true; };
+
+        var failTest    = assert.async();
+
+        assert.ok( µ.poll, 'exists' );
+
+        µ.poll( _fail, _fail, function()
+        {
+            assert.ok( true, 'failure handled correctly' );
+            failTest();
+        }, 100, 25 );
+
+        var successTest = assert.async();
+
+        µ.poll( _succees, function()
+        {
+            assert.ok( true, 'success handled correctly' );
+            successTest();
+        }, _succees, 100, 25 );
+
+
+        buildTest( 'No speed tests available.' );
+    });
+
+
+    /**
+     * µ removeStyle tests
+     *
+     * @test    removeStyle exists
+     */
+    QUnit.test( '.removeStyle()', function( assert )
+    {
+        assert.ok( µ.removeStyle, 'exists' );
+
+        buildTest( 'No speed tests available.' );
+    });
+
+
+    /**
+     * µ removeStyles tests
+     *
+     * @test    removeStyles exists
+     */
+    QUnit.test( '.removeStyles()', function( assert )
+    {
+        assert.ok( µ.removeStyles, 'exists' );
+
+        buildTest( 'No speed tests available.' );
     });
 
 

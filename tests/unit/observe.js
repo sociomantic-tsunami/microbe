@@ -43,7 +43,7 @@ module.exports = function( buildTest )
 
         var µExamples   = µ( '.example--class' );
 
-        var observeTest      = assert.async();
+        var observeTest = assert.async();
 
         µExamples.observe( 'observeTest', function( e )
         {

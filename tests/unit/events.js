@@ -19,7 +19,7 @@ module.exports = function( buildTest )
         var µParent     = µExamples.parent();
 
         var emitTest    = assert.async();
-        var bubbleTest  = assert.async();
+        var bubbleTest  = µ.once( assert.async() );
 
         µExamples.on( 'emitTest', function( e )
         {
