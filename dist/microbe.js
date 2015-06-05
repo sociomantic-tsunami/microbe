@@ -2010,7 +2010,10 @@ Microbe.core = Microbe.prototype =
      *
      * adds the passed class to the current element(s)
      *
-     * @param   {String}            _class              class to add
+     * @param   {String Array}      _class              class to remove.  this accepts 
+     *                                                  strings and array of strings.  
+     *                                                  the strings can be a class or 
+     *                                                  classes seperated with spaces
      *
      * @return  {Microbe}
      */
@@ -2018,10 +2021,17 @@ Microbe.core = Microbe.prototype =
     {
         var _addClass = function( _class, _el )
         {
-            var i, len;
-            for ( i = 0, len = _class.length; i < len; i++ )
+            for ( var i = 0, lenI = _class.length; i < lenI; i++ )
             {
-                _el.classList.add( _class[i] );
+                var _c = _class[ i ].split( ' ' );
+                
+                for ( var j = 0, lenJ = _c.length; j < lenJ; j++ )
+                {   
+                    if ( _c[ j ] !== '' )
+                    {
+                        _el.classList.add( _c[ j ] );
+                    }
+                }
             }
 
             _el.data                = _el.data || {};
@@ -2039,7 +2049,7 @@ Microbe.core = Microbe.prototype =
             var i, len;
             for ( i = 0, len = this.length; i < len; i++ )
             {
-                _addClass( _class, this[i] );
+                _addClass( _class, this[ i ] );
             }
 
             return this;
@@ -2047,7 +2057,7 @@ Microbe.core = Microbe.prototype =
     }()),
 
 
-     /**
+    /**
      * Alter/Get Attribute
      *
      * Changes the attribute by writing the given property and value to the
@@ -2647,15 +2657,29 @@ Microbe.core = Microbe.prototype =
      *
      * Method removes the given class from the current object or the given element.
      *
-     * @param   {String}            _class              class to remove
+     * @param   {String Array}      _class              class to remove.  this accepts 
+     *                                                  strings and array of strings.  
+     *                                                  the strings can be a class or 
+     *                                                  classes seperated with spaces
      *
      * @return  {Microbe}
-    */
+     */
     removeClass : (function()
     {
         var _removeClass = function( _class, _el )
         {
-            _el.classList.remove( _class );
+            for ( var i = 0, lenI = _class.length; i < lenI; i++ )
+            {
+                var _c = _class[ i ].split( ' ' );
+                
+                for ( var j = 0, lenJ = _c.length; j < lenJ; j++ )
+                {   
+                    if ( _c[ j ] !== '' )
+                    {
+                        _el.classList.remove( _c[ j ] );
+                    }
+                }
+            }
 
             _el.data                = _el.data || {};
             _el.data.class          = _el.data.class || {};
@@ -2664,6 +2688,11 @@ Microbe.core = Microbe.prototype =
 
         return function( _class )
         {
+            if ( typeof _class === 'string' )
+            {
+                _class = [ _class ];
+            }
+
             var i, len;
             for ( i = 0, len = this.length; i < len; i++ )
             {
@@ -2772,7 +2801,7 @@ Microbe.core = Microbe.prototype =
      * @param   {String}            _value              Text value (optional)
      *
      * @return  {Microbe or Array}
-    */
+     */
     text : (function()
     {
         var _setText = function( _value, _el )
@@ -2832,7 +2861,7 @@ Microbe.core = Microbe.prototype =
      * Methods returns all the elements in an array.
      *
      * @return  {Array}
-    */
+     */
     toArray : function( _arr )
     {
         _arr = _arr || this;
@@ -2848,7 +2877,7 @@ Microbe.core = Microbe.prototype =
      * @param   {String}            _class              class to add
      *
      * @return  {Microbe}
-    */
+     */
     toggleClass : (function()
     {
         var _toggleClass = function( _class, _el )
@@ -2885,7 +2914,7 @@ Microbe.core = Microbe.prototype =
      * Methods returns the type of Microbe.
      *
      * @return  {String}
-    */
+     */
     toString : function()
     {
         return _type;
@@ -3076,7 +3105,7 @@ module.exports = function( Microbe )
      * @param   {Boolean}           _cancelable         cancelable?
      *
      * @return  {Microbe}
-    */
+     */
     Microbe.prototype.emit = function ( _event, _data, _bubbles, _cancelable )
     {
         _bubbles    = _bubbles || false;
@@ -3111,7 +3140,7 @@ module.exports = function( Microbe )
      * @param   {obj}           _el                     HTML element to modify (optional)
      *
      * @return  Microbe
-    */
+     */
     Microbe.prototype.off = function( _event, _callback )
     {
         var _off = function( _e, _elm )
@@ -3189,7 +3218,7 @@ module.exports = function( Microbe )
      * @param   {Function}          _callback           callback function
      *
      * @return  {Microbe}
-    */
+     */
     Microbe.prototype.on = function ( _event, _callback )
     {
         var _on = function( _elm )
@@ -3485,7 +3514,7 @@ module.exports = function( Microbe )
      * @param   {Element}           _el                 element to create
      *
      * @return  {Microbe}
-    */
+     */
     function _create( _el )
     {
         var resultsRegex    = _el.match( selectorRegex ),
@@ -3580,7 +3609,7 @@ module.exports = function( Microbe )
      * @param   {Element or Array}  _elements           elements to fill Microbe with (optional)
      *
      * @return  {Microbe}
-    */
+     */
     Microbe.core.__init__ =  function( _selector, _scope, _elements )
     {
         if ( !_scope )
@@ -3855,7 +3884,7 @@ module.exports = function( Microbe )
      * @param  {Boolean}            _once               bool to trigger auto unobserve
      *
      * @return  {Microbe}
-    */
+     */
     Microbe.prototype.observe = function( prop, func, _once )
     {
         var self = this;
@@ -3950,7 +3979,7 @@ module.exports = function( Microbe )
      * @param  {String}             _prop               property to observe
      *
      * @return  Microbe
-    */
+     */
     Microbe.prototype.observeOnce = function( func, _prop )
     {
         this.observe( func, _prop, true );
@@ -4011,7 +4040,7 @@ module.exports = function( Microbe )
      * @param   {String}            _prop               property to stop observing
      *
      * @return  {Microbe}
-    */
+     */
     Microbe.prototype.unobserve = function( _prop )
     {
         var _unobserve = function( _elm )
@@ -4421,7 +4450,7 @@ module.exports = function( Microbe )
      * Methods returns all the elements in an array.
      *
      * @return  {Array}
-    */
+     */
     Microbe.toArray = Microbe.core.toArray;
 
 
@@ -4431,7 +4460,7 @@ module.exports = function( Microbe )
      * Methods returns the type of Microbe.
      *
      * @return  {String}
-    */
+     */
     Microbe.toString = Microbe.core.toString;
 
 
