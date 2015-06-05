@@ -1,4 +1,4 @@
-Microbe - 0.3.1
+Microbe - 0.3.2
 ===============
 
 Microbe (µ) - a javascript library
@@ -33,6 +33,23 @@ Don’t hesitate to file issues and features requests!  Or change things yoursel
 
 Changelog
 =========
+
+0.3.2
+~~~~~
+
++ added debounce
++ added insertStyle
++ added once
++ added poll
++ added prepend
++ added removeStyle
++ added removeStyles
++ addClass now accepts className strings
++ removeClass now accepts className strings and arrays
++ attr now accepts objects
++ html now accepts microbes
++ many documentation updates
+
 
 0.3.1
 ~~~~~

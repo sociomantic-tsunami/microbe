@@ -88,6 +88,8 @@ require( './observe' )( buildTest );
 
 module.exports = function( buildTest )
 {
+    var version = '0.3.2';
+
     QUnit.module( 'core.js' );
 
 
@@ -1103,8 +1105,6 @@ module.exports = function( buildTest )
      */
     QUnit.test( '.version', function( assert )
     {
-        var version = '0.3.1';
-
         assert.equal( µ().version, version, 'version is ' + version );
 
         buildTest( 'No speed tests available.' );
