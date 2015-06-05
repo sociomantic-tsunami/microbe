@@ -2007,9 +2007,9 @@ Microbe.core = Microbe.prototype =
      *
      * adds the passed class to the current element(s)
      *
-     * @param   {String Array}      _class              class to remove.  this accepts 
-     *                                                  strings and array of strings.  
-     *                                                  the strings can be a class or 
+     * @param   {String Array}      _class              class to remove.  this accepts
+     *                                                  strings and array of strings.
+     *                                                  the strings can be a class or
      *                                                  classes seperated with spaces
      *
      * @return  {Microbe}
@@ -2021,9 +2021,9 @@ Microbe.core = Microbe.prototype =
             for ( var i = 0, lenI = _class.length; i < lenI; i++ )
             {
                 var _c = _class[ i ].split( ' ' );
-                
+
                 for ( var j = 0, lenJ = _c.length; j < lenJ; j++ )
-                {   
+                {
                     if ( _c[ j ] !== '' )
                     {
                         _el.classList.add( _c[ j ] );
@@ -2475,12 +2475,19 @@ Microbe.core = Microbe.prototype =
      * Changes the innerHtml to the supplied string.  If the value is omitted,
      * simply returns the current inner html value of the element.
      *
-     * @param   {String}            _value              html value (optional)
+     * @param   {Microbe String}    _value              html value (optional)
      *
-     * @return  {Microbe or Array}
+     * @return  {Microbe Array}
     */
     html : function ( _value )
     {
+        var _append;
+        if ( _value && _value.type === _type )
+        {
+            _append = _value;
+            _value = '';
+        }
+
         var _getHtml = function( _elm )
         {
             return _elm.innerHTML;
@@ -2507,7 +2514,14 @@ Microbe.core = Microbe.prototype =
                 _setHtml( this[ i ] );
             }
 
-            return this;
+            if ( _append )
+            {
+                return this.append( _append );
+            }
+            else
+            {
+                return this;
+            }
         }
 
         var j, lenj, markup = new Array( this.length );
@@ -2654,9 +2668,9 @@ Microbe.core = Microbe.prototype =
      *
      * Method removes the given class from the current object or the given element.
      *
-     * @param   {String Array}      _class              class to remove.  this accepts 
-     *                                                  strings and array of strings.  
-     *                                                  the strings can be a class or 
+     * @param   {String Array}      _class              class to remove.  this accepts
+     *                                                  strings and array of strings.
+     *                                                  the strings can be a class or
      *                                                  classes seperated with spaces
      *
      * @return  {Microbe}
@@ -2668,9 +2682,9 @@ Microbe.core = Microbe.prototype =
             for ( var i = 0, lenI = _class.length; i < lenI; i++ )
             {
                 var _c = _class[ i ].split( ' ' );
-                
+
                 for ( var j = 0, lenJ = _c.length; j < lenJ; j++ )
-                {   
+                {
                     if ( _c[ j ] !== '' )
                     {
                         _el.classList.remove( _c[ j ] );
@@ -4509,14 +4523,48 @@ module.exports = function( Microbe )
 
 
     /**
+     * nothing happens
+     *
+     * https://en.wikipedia.org/wiki/Xyzzy_(computing)
+     *
+     * @return {void}
+     */
+    Microbe.noop    = function() {};
+
+
+    /**
+     * returns a function that can only be run once
+     *
+     * @param {Function}      _func                         function to run once
+     *
+     * @return {Function}
+     */
+    Microbe.once = function( _func, context )
+    {
+        var result;
+
+        return function()
+        {
+            if( _func )
+            {
+                result  = _func.apply( context || this, arguments );
+                _func   = null;
+            }
+
+            return result;
+        };
+    };
+
+
+    /**
      * removes a style tag for the given selector/ media query. If the properties
      * array is passed, rules are removed individually.  If properties is set to
      * true, all tags for this selector are removed.  The media query can also be
      * passed as the second variable
      *
      * @param {String}              selector            selector to apply it to
-     * @param {String Array Bool}   properties          css properties to remove
-     *                                                  true to remove all selector tags
+     * @param {String Array}        properties          css properties to remove
+     *                                                  'all' to remove all selector tags
      *                                                  string as media query
      * @param {String}              media               media query
      *
@@ -4595,36 +4643,15 @@ module.exports = function( Microbe )
 
 
     /**
-     * nothing happens
+     * removes all style tags for the given selector
      *
-     * https://en.wikipedia.org/wiki/Xyzzy_(computing)
+     * @param {String}              selector            selector to apply it to
      *
-     * @return {void}
+     * @return {Boolean}
      */
-    Microbe.noop    = function() {};
-
-
-    /**
-     * returns a function that can only be run once
-     *
-     * @param {Function}      _func                         function to run once
-     *
-     * @return {Function}
-     */
-    Microbe.once = function( _func, context )
+    Microbe.removeStyles = function( selector )
     {
-        var result;
-
-        return function()
-        {
-            if( _func )
-            {
-                result  = _func.apply( context || this, arguments );
-                _func   = null;
-            }
-
-            return result;
-        };
+        return Microbe.removeStyle( selector, 'all' );
     };
 
 

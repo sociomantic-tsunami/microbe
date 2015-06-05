@@ -51,9 +51,9 @@ Microbe.core = Microbe.prototype =
      *
      * adds the passed class to the current element(s)
      *
-     * @param   {String Array}      _class              class to remove.  this accepts 
-     *                                                  strings and array of strings.  
-     *                                                  the strings can be a class or 
+     * @param   {String Array}      _class              class to remove.  this accepts
+     *                                                  strings and array of strings.
+     *                                                  the strings can be a class or
      *                                                  classes seperated with spaces
      *
      * @return  {Microbe}
@@ -65,9 +65,9 @@ Microbe.core = Microbe.prototype =
             for ( var i = 0, lenI = _class.length; i < lenI; i++ )
             {
                 var _c = _class[ i ].split( ' ' );
-                
+
                 for ( var j = 0, lenJ = _c.length; j < lenJ; j++ )
-                {   
+                {
                     if ( _c[ j ] !== '' )
                     {
                         _el.classList.add( _c[ j ] );
@@ -516,15 +516,22 @@ Microbe.core = Microbe.prototype =
     /**
      * HTML
      *
-     * Changes the innerHtml to the supplied string.  If the value is omitted,
-     * simply returns the current inner html value of the element.
+     * Changes the innerHtml to the supplied string or microbe.  If the value is
+     * omitted, simply returns the current inner html value of the element.
      *
-     * @param   {String}            _value              html value (optional)
+     * @param   {Microbe String}    _value              html value (optional)
      *
-     * @return  {Microbe or Array}
+     * @return  {Microbe Array}
     */
     html : function ( _value )
     {
+        var _append;
+        if ( _value && _value.type === _type )
+        {
+            _append = _value;
+            _value = '';
+        }
+
         var _getHtml = function( _elm )
         {
             return _elm.innerHTML;
@@ -551,7 +558,14 @@ Microbe.core = Microbe.prototype =
                 _setHtml( this[ i ] );
             }
 
-            return this;
+            if ( _append )
+            {
+                return this.append( _append );
+            }
+            else
+            {
+                return this;
+            }
         }
 
         var j, lenj, markup = new Array( this.length );
@@ -698,9 +712,9 @@ Microbe.core = Microbe.prototype =
      *
      * Method removes the given class from the current object or the given element.
      *
-     * @param   {String Array}      _class              class to remove.  this accepts 
-     *                                                  strings and array of strings.  
-     *                                                  the strings can be a class or 
+     * @param   {String Array}      _class              class to remove.  this accepts
+     *                                                  strings and array of strings.
+     *                                                  the strings can be a class or
      *                                                  classes seperated with spaces
      *
      * @return  {Microbe}
@@ -712,9 +726,9 @@ Microbe.core = Microbe.prototype =
             for ( var i = 0, lenI = _class.length; i < lenI; i++ )
             {
                 var _c = _class[ i ].split( ' ' );
-                
+
                 for ( var j = 0, lenJ = _c.length; j < lenJ; j++ )
-                {   
+                {
                     if ( _c[ j ] !== '' )
                     {
                         _el.classList.remove( _c[ j ] );
