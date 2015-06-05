@@ -37,6 +37,52 @@ module.exports = function( Microbe )
     Microbe.capitalise = Microbe.capitalize;
 
 
+    /**
+     * debounce
+     *
+     *  Returns a function, that, as long as it continues to be invoked, will not
+     *  be triggered. The function will be called after it stops being called for
+     *  [[wait]] milliseconds. If `immediate` is passed, trigger the function on
+     *  the leading edge, instead of the trailing.
+
+     * @param  {Function}           func                function to meter
+     * @param  {Number}             wait                milliseconds to wait
+     * @param  {Any}                immediate           run function at the start
+     *                                                  of the timeout
+     *
+     * @return {Function}
+     */
+    Microbe.debounce = function( func, wait, immediate )
+    {
+        var timeout;
+
+        return function()
+        {
+            var context = this,
+                args    = arguments;
+
+            var later   = function()
+            {
+                timeout = null;
+
+                if ( !immediate )
+                {
+                    func.apply( context, args );
+                }
+            };
+
+            var callNow = immediate && !timeout;
+            clearTimeout( timeout );
+            timeout     = setTimeout( later, wait );
+
+            if ( callNow )
+            {
+                func.apply( context, args );
+            }
+        };
+    };
+
+
     Microbe.extend = Microbe.core.extend;
 
 
@@ -49,7 +95,7 @@ module.exports = function( Microbe )
      *
      * @return {value}
      */
-    Microbe.identity = function( value ) { return value; };
+    Microbe.identify = function( value ) { return value; };
 
 
     /**
