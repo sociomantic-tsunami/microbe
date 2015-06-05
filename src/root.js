@@ -45,14 +45,14 @@ module.exports = function( Microbe )
      *  [[wait]] milliseconds. If `immediate` is passed, trigger the function on
      *  the leading edge, instead of the trailing.
 
-     * @param  {Function}           func                function to meter
+     * @param  {Function}           _func               function to meter
      * @param  {Number}             wait                milliseconds to wait
      * @param  {Any}                immediate           run function at the start
      *                                                  of the timeout
      *
      * @return {Function}
      */
-    Microbe.debounce = function( func, wait, immediate )
+    Microbe.debounce = function( _func, wait, immediate )
     {
         var timeout;
 
@@ -67,7 +67,7 @@ module.exports = function( Microbe )
 
                 if ( !immediate )
                 {
-                    func.apply( context, args );
+                    _func.apply( context, args );
                 }
             };
 
@@ -77,7 +77,7 @@ module.exports = function( Microbe )
 
             if ( callNow )
             {
-                func.apply( context, args );
+                _func.apply( context, args );
             }
         };
     };
@@ -87,7 +87,7 @@ module.exports = function( Microbe )
 
 
     /**
-     * Identify a value
+     * identity
      *
      * returns itself if a value needs to be executed
      *
@@ -95,7 +95,7 @@ module.exports = function( Microbe )
      *
      * @return {value}
      */
-    Microbe.identify = function( value ) { return value; };
+    Microbe.identity = function( value ) { return value; };
 
 
     /**
@@ -303,6 +303,43 @@ module.exports = function( Microbe )
 
             return result;
         };
+    };
+
+
+    /**
+     * poll
+     *
+     * checks a passed function for true every [[interval]] milliseconds.  when
+     * true, it will run _success, if [[timeout[[]] is reached without a success,
+     * _error is excecuted
+     *
+     * @param {Function}      _func                         function to check for true
+     * @param {Function}      _success                      function to run on success
+     * @param {Function}      _error                        function to run on error
+     * @param {Number}        timeout                       time (in ms) to stop polling
+     * @param {Number}        interval                      time (in ms) in between polling
+     *
+     * @return {Function}
+     */
+    Microbe.poll = function( _func, _success, _error, timeout, interval )
+    {
+        var endTime = Number( new Date() ) + ( timeout || 2000 );
+        interval    = interval || 100;
+
+        ( function p()
+        {
+            if( _func() )
+            {
+                _success();
+            }
+            else if ( Number( new Date() ) < endTime )
+            {
+                setTimeout( p, interval );
+            }
+            else {
+                _error( new Error( 'timed out for ' + _func + ': ' + arguments ) );
+            }
+        } )();
     };
 
 
