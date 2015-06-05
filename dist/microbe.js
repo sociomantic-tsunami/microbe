@@ -2059,15 +2059,18 @@ Microbe.core = Microbe.prototype =
      *
      * Changes the attribute by writing the given property and value to the
      * supplied elements.  If the value is omitted, simply returns the current
-     * attribute value of the element.
+     * attribute value of the element. Attributes can be bulk added by passing
+     * an object (property: value)
      *
-     * @param   {String}            _attribute          attribute name
+     * @param   {String, Object}    _attribute          attribute name
      * @param   {String}            _value              attribute value (optional)
      *
      * @return  {Microbe or Array}
      */
     attr : function ( _attribute, _value )
     {
+        var attrObject = !!Microbe.isObject( _attribute );
+
         var _setAttr = function( _elm )
         {
             if ( _value === null )
@@ -2076,19 +2079,32 @@ Microbe.core = Microbe.prototype =
             }
             else
             {
-                if ( !_elm.getAttribute )
+                var _attr;
+                if ( !attrObject )
                 {
-                    _elm[ _attribute ] = _value;
-                }
-                else
-                {
-                    _elm.setAttribute( _attribute, _value );
+                    _attr               = _attribute;
+                     _attribute         = {};
+                    _attribute[ _attr ] = _value;
                 }
 
-                _elm.data                           = _elm.data || {};
-                _elm.data.attr                      = _elm.data.attr || {};
-                _elm.data.attr.attr                 = _elm.data.attr.attr || {};
-                _elm.data.attr.attr[ _attribute ]   = _value;
+                for ( _attr in _attribute )
+                {
+                    _value = _attribute[ _attr ];
+
+                    if ( !_elm.getAttribute )
+                    {
+                        _elm[ _attr ] = _value;
+                    }
+                    else
+                    {
+                        _elm.setAttribute( _attr, _value );
+                    }
+
+                    _elm.data                           = _elm.data || {};
+                    _elm.data.attr                      = _elm.data.attr || {};
+                    _elm.data.attr.attr                 = _elm.data.attr.attr || {};
+                    _elm.data.attr.attr[ _attribute ]   = _value;
+                }
             }
         };
 
@@ -2115,7 +2131,7 @@ Microbe.core = Microbe.prototype =
                 delete _elm.data.attr.attr[ _attribute ];
         };
 
-        if ( _value !== undefined )
+        if ( _value !== undefined || attrObject )
         {
             var i, len;
             for ( i = 0, len = this.length; i < len; i++ )
@@ -4340,10 +4356,10 @@ module.exports = function( Microbe )
      *  be triggered. The function will be called after it stops being called for
      *  [[wait]] milliseconds. If `immediate` is passed, trigger the function on
      *  the leading edge, instead of the trailing.
-
+     *
      * @param  {Function}           _func               function to meter
      * @param  {Number}             wait                milliseconds to wait
-     * @param  {Any}                immediate           run function at the start
+     * @param  {Boolean}            immediate           run function at the start
      *                                                  of the timeout
      *
      * @return {Function}
@@ -4395,6 +4411,8 @@ module.exports = function( Microbe )
 
 
     /**
+     * insertStyle
+     *
      * builds a style tag for the given selector/ media query.  Reference to the style
      * tag and object is saved in µ.__customCSSRules[ selector ][ media ].
      * next rule with the same selector combines the old and new rules and overwrites
@@ -4640,10 +4658,12 @@ module.exports = function( Microbe )
 
 
     /**
-     * removes a style tag for the given selector/ media query. If the properties
-     * array is passed, rules are removed individually.  If properties is set to
-     * true, all tags for this selector are removed.  The media query can also be
-     * passed as the second variable
+     * removeStyle
+     *
+     * removes a microbe added style tag for the given selector/ media query. If the
+     * properties array is passed, rules are removed individually.  If properties is
+     * set to true, all tags for this selector are removed.  The media query can
+     * also be passed as the second variable
      *
      * @param {String}              selector            selector to apply it to
      * @param {String Array}        properties          css properties to remove
@@ -4726,7 +4746,7 @@ module.exports = function( Microbe )
 
 
     /**
-     * removes all style tags for the given selector
+     * removes all microbe added style tags for the given selector
      *
      * @param {String}              selector            selector to apply it to
      *

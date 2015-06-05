@@ -103,15 +103,18 @@ Microbe.core = Microbe.prototype =
      *
      * Changes the attribute by writing the given property and value to the
      * supplied elements.  If the value is omitted, simply returns the current
-     * attribute value of the element.
+     * attribute value of the element. Attributes can be bulk added by passing
+     * an object (property: value)
      *
-     * @param   {String}            _attribute          attribute name
+     * @param   {String, Object}    _attribute          attribute name
      * @param   {String}            _value              attribute value (optional)
      *
      * @return  {Microbe or Array}
      */
     attr : function ( _attribute, _value )
     {
+        var attrObject = !!Microbe.isObject( _attribute );
+
         var _setAttr = function( _elm )
         {
             if ( _value === null )
@@ -120,19 +123,32 @@ Microbe.core = Microbe.prototype =
             }
             else
             {
-                if ( !_elm.getAttribute )
+                var _attr;
+                if ( !attrObject )
                 {
-                    _elm[ _attribute ] = _value;
-                }
-                else
-                {
-                    _elm.setAttribute( _attribute, _value );
+                    _attr               = _attribute;
+                     _attribute         = {};
+                    _attribute[ _attr ] = _value;
                 }
 
-                _elm.data                           = _elm.data || {};
-                _elm.data.attr                      = _elm.data.attr || {};
-                _elm.data.attr.attr                 = _elm.data.attr.attr || {};
-                _elm.data.attr.attr[ _attribute ]   = _value;
+                for ( _attr in _attribute )
+                {
+                    _value = _attribute[ _attr ];
+
+                    if ( !_elm.getAttribute )
+                    {
+                        _elm[ _attr ] = _value;
+                    }
+                    else
+                    {
+                        _elm.setAttribute( _attr, _value );
+                    }
+
+                    _elm.data                           = _elm.data || {};
+                    _elm.data.attr                      = _elm.data.attr || {};
+                    _elm.data.attr.attr                 = _elm.data.attr.attr || {};
+                    _elm.data.attr.attr[ _attribute ]   = _value;
+                }
             }
         };
 
@@ -159,7 +175,7 @@ Microbe.core = Microbe.prototype =
                 delete _elm.data.attr.attr[ _attribute ];
         };
 
-        if ( _value !== undefined )
+        if ( _value !== undefined || attrObject )
         {
             var i, len;
             for ( i = 0, len = this.length; i < len; i++ )

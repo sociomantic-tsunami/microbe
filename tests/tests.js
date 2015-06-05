@@ -172,6 +172,9 @@ module.exports = function( buildTest )
         µTarget.attr( 'testing', null );
         assert.equal( µTarget[0].getAttribute( 'testing' ), null, 'attribute removed' );
 
+        µTarget.attr( { testing: 'tested', moon: 'doge' } );
+        assert.equal( µTarget[0].getAttribute( 'moon' ), 'doge', 'attributes bulk added by object' );
+
         var µDivs = µ( 'div' );
         var $Divs = $( 'div' );
 
