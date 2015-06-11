@@ -1,3 +1,17 @@
+/**
+ * observe.js
+ *
+ * @author  Mouse Braun         <mouse@sociomantic.com>
+ * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
+ *
+ * @package Microbe
+ */
+
+/**
+ * ## exported
+ *
+ * @return {Function} function that augment Microbe.
+ */
 module.exports = function( Microbe )
 {
     // shim needed for observe
@@ -10,13 +24,13 @@ module.exports = function( Microbe )
 
 
     /**
-     * Get data
+     * ## get
      *
      * gets the saved value from each element in the microbe in an array
      *
-     * @param  {String}             _prop               property to get
+     * @param {String} _prop               property to get
      *
-     * @return {Array}                                  array of values
+     * @return {Array} array of values
      */
     Microbe.prototype.get = function( prop )
     {
@@ -51,15 +65,15 @@ module.exports = function( Microbe )
 
 
     /**
-     * Observe
+     * ## observe
      *
-     * applies a function to an element if it is changed from within µ
+     * Applies a function to an element if it is changed from within µ
      *
-     * @param  {Function}           function            function to apply
-     * @param  {String}             _prop               property to observe
-     * @param  {Boolean}            _once               bool to trigger auto unobserve
+     * @param {Function} function            function to apply
+     * @param {String} _prop               property to observe
+     * @param {Boolean} _once               bool to trigger auto unobserve
      *
-     * @return  {Microbe}
+     * @return {Microbe}
      */
     Microbe.prototype.observe = function( prop, func, _once )
     {
@@ -151,14 +165,14 @@ module.exports = function( Microbe )
 
 
     /**
-     * Observe Once
+     * ## observeOnce
      *
-     * applies a function to an element if it is changed from within µ (once)
+     * Applies a function to an element if it is changed from within µ (once)
      *
-     * @param  {Function}           func                function to apply
-     * @param  {String}             _prop               property to observe
+     * @param {Function} func                function to apply
+     * @param {String} _prop               property to observe
      *
-     * @return  Microbe
+     * @return Microbe
      */
     Microbe.prototype.observeOnce = function( func, _prop )
     {
@@ -167,12 +181,12 @@ module.exports = function( Microbe )
 
 
     /**
-     * Set data
+     * ## set
      *
-     * sets the value to the data object in the each element in the microbe
+     * Sets the value to the data object in the each element in the microbe
      *
-     * @param  {String}             prop                property to set
-     * @param  {String}             value               value to set to
+     * @param {String} prop                property to set
+     * @param {String} value               value to set to
      *
      * @return {Microbe}
      */
@@ -213,13 +227,13 @@ module.exports = function( Microbe )
 
 
     /**
-     * Stop observing
+     * ## unobserve
      *
-     * stops watching the data changes of a µ onject
+     * Stops watching the data changes of a µ onject
      *
-     * @param   {String}            _prop               property to stop observing
+     * @param {String} _prop               property to stop observing
      *
-     * @return  {Microbe}
+     * @return {Microbe}
      */
     Microbe.prototype.unobserve = function( _prop )
     {

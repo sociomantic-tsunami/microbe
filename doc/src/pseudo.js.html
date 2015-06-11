@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>pseudo.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../", thisFile = "src/pseudo.js", defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h2">
+        <a href="#exported">exported</a>
+      </div>
+      <div class="heading h2">
+        <a href="#pseudo">pseudo</a>
+      </div>
+      <div class="heading h3">
+        <a href="#contains">contains</a>
+      </div>
+      <div class="heading h3">
+        <a href="#even">even</a>
+      </div>
+      <div class="heading h3">
+        <a href="#first">first</a>
+      </div>
+      <div class="heading h3">
+        <a href="#gt">gt</a>
+      </div>
+      <div class="heading h3">
+        <a href="#has">has</a>
+      </div>
+      <div class="heading h3">
+        <a href="#last">last</a>
+      </div>
+      <div class="heading h3">
+        <a href="#lt">lt</a>
+      </div>
+      <div class="heading h3">
+        <a href="#add">add</a>
+      </div>
+      <div class="heading h3">
+        <a href="#root">root</a>
+      </div>
+      <div class="heading h3">
+        <a href="#target">target</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>pseudo.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>pseudo.js</p>
+  </div>
+  <div class="body">
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">author</div>
+    <div class="dox_tag_detail">
+      <span>Mouse Braun         <a href="m&#x61;&#105;&#x6C;&#116;&#x6F;:&#109;&#111;&#117;&#115;&#101;&#x40;&#115;&#111;&#x63;&#x69;&#111;&#109;&#97;&#x6E;&#x74;ic&#x2E;&#99;&#111;&#x6D;">&#109;&#111;&#117;&#115;&#101;&#x40;&#115;&#111;&#x63;&#x69;&#111;&#109;&#97;&#x6E;&#x74;ic&#x2E;&#99;&#111;&#x6D;</a></span>
+    </div>
+    <div class="dox_tag_title">author</div>
+    <div class="dox_tag_detail">
+      <span>Nicolas Brugneaux   <a href="&#109;&#x61;&#x69;&#108;&#x74;&#x6F;:&#110;&#x69;c&#111;l&#97;&#x73;&#x2E;&#x62;&#114;&#117;&#103;&#x6E;&#101;&#97;&#117;&#120;&#64;&#x73;&#x6F;&#99;&#105;&#x6F;&#x6D;&#x61;&#x6E;&#116;&#x69;&#x63;.&#99;&#x6F;&#x6D;">&#110;&#x69;c&#111;l&#97;&#x73;&#x2E;&#x62;&#114;&#117;&#103;&#x6E;&#101;&#97;&#117;&#120;&#64;&#x73;&#x6F;&#99;&#105;&#x6F;&#x6D;&#x61;&#x6E;&#116;&#x69;&#x63;.&#99;&#x6F;&#x6D;</a></span>
+    </div>
+    <div class="dox_tag_title">package</div>
+    <div class="dox_tag_detail">
+      <span>Microbe</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="exported">
+  <h2>
+    <a href="#exported" name="exported" class="pilcrow">&#182;</a>
+    exported
+  </h2>
+</div>
+
+  </div>
+  <div class="body">
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span class="dox_type">Function</span>
+      <span>function that augment Microbe.</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">Microbe</span> <span class="p">)</span>
+<span class="p">{</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="pseudo">
+  <h2>
+    <a href="#pseudo" name="pseudo" class="pilcrow">&#182;</a>
+    pseudo
+  </h2>
+</div>
+
+  </div>
+  <div class="body">
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span class="dox_type">Object
+</span>
+      <span>{Object}</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">pseudo</span> <span class="o">=</span> <span class="p">{</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="contains">
+  <h3>
+    <a href="#contains" name="contains" class="pilcrow">&#182;</a>
+    contains
+  </h3>
+</div>
+
+  </div>
+  <div class="body"><p>Returns only elements that contain the given text.  The supplied text
+is compared ignoring case</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">_el</span>
+      <span class="dox_type">Microbe</span>
+      <span>microbe to be filtered</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">_var</span>
+      <span class="dox_type">String</span>
+      <span>string to search for</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span class="dox_type">Microbe
+</span>
+      <span>{Microbe}</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">contains</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_el</span><span class="p">,</span> <span class="nx">_var</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">_var</span>            <span class="o">=</span> <span class="nx">_var</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">();</span>
+
+            <span class="kd">var</span> <span class="nx">textArray</span>   <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">text</span><span class="p">();</span>
+            <span class="kd">var</span> <span class="nx">elements</span>    <span class="o">=</span> <span class="p">[];</span>
+
+            <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span> <span class="nx">textArray</span><span class="p">[</span> <span class="nx">i</span> <span class="p">].</span><span class="nx">toLowerCase</span><span class="p">().</span><span class="nx">indexOf</span><span class="p">(</span> <span class="nx">_var</span> <span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nx">elements</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">_el</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="k">return</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">constructor</span><span class="p">(</span> <span class="nx">elements</span> <span class="p">);</span>
+        <span class="p">},</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="even">
+  <h3>
+    <a href="#even" name="even" class="pilcrow">&#182;</a>
+    even
+  </h3>
+</div>
+
+  </div>
+  <div class="body"><p>Returns the even indexed elements of a microbe (starting at 0)</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">_el</span>
+      <span class="dox_type">Microbe</span>
+      <span>microbe to be filtered</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span class="dox_type">Microbe
+</span>
+      <span>{Microbe}</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">even</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_el</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">elements</span> <span class="o">=</span> <span class="p">[];</span>
+            <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span> <span class="p">(</span> <span class="nx">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">)</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">===</span> <span class="mi">0</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nx">elements</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">_el</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="k">return</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">constructor</span><span class="p">(</span> <span class="nx">elements</span> <span class="p">);</span>
+        <span class="p">},</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="first">
+  <h3>
+    <a href="#first" name="first" class="pilcrow">&#182;</a>
+    first
+  </h3>
+</div>
+
+  </div>
+  <div class="body"><p>returns the first element of a microbe</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">_el</span>
+      <span class="dox_type">Microbe</span>
+      <span>microbe to be filtered</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span class="dox_type">Microbe
+</span>
+      <span>{Microbe}</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">first</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_el</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">first</span><span class="p">();</span>
+        <span class="p">},</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="gt">
+  <h3>
+    <a href="#gt" name="gt" class="pilcrow">&#182;</a>
+    gt
+  </h3>
+</div>
+
+  </div>
+  <div class="body"><p>returns the last {_var} element</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">_el</span>
+      <span class="dox_type">Microbe</span>
+      <span>microbe to be filtered</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">_var</span>
+      <span class="dox_type">String</span>
+      <span>number of elements to return</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span class="dox_type">Microbe
+</span>
+      <span>{Microbe}</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">gt</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_el</span><span class="p">,</span> <span class="nx">_var</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span> <span class="nx">_var</span><span class="p">,</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">length</span> <span class="p">);</span>
+        <span class="p">},</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="has">
+  <h3>
+    <a href="#has" name="has" class="pilcrow">&#182;</a>
+    has
+  </h3>
+</div>
+
+  </div>
+  <div class="body"><p>returns elements that have the passed selector as a child</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">_el</span>
+      <span class="dox_type">Microbe</span>
+      <span>microbe to be filtered</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">_var</span>
+      <span class="dox_type">String</span>
+      <span>selector string</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span class="dox_type">Microbe
+</span>
+      <span>{Microbe}</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">has</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_el</span><span class="p">,</span> <span class="nx">_var</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">lenI</span><span class="p">,</span> <span class="nx">_obj</span><span class="p">,</span> <span class="nx">results</span> <span class="o">=</span> <span class="p">[];</span>
+
+            <span class="k">for</span> <span class="p">(</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="nx">_obj</span> <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">constructor</span><span class="p">(</span> <span class="nx">_var</span><span class="p">,</span> <span class="nx">_el</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="p">);</span>
+
+                <span class="k">if</span> <span class="p">(</span> <span class="nx">_obj</span><span class="p">.</span><span class="nx">length</span> <span class="o">!==</span> <span class="mi">0</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nx">results</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">_el</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+
+            <span class="k">return</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">constructor</span><span class="p">(</span> <span class="nx">results</span> <span class="p">);</span>
+
+        <span class="p">},</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="last">
+  <h3>
+    <a href="#last" name="last" class="pilcrow">&#182;</a>
+    last
+  </h3>
+</div>
+
+  </div>
+  <div class="body"><p>returns the last element of a microbe</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">_el</span>
+      <span class="dox_type">Microbe</span>
+      <span>microbe to be filtered</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span class="dox_type">Microbe
+</span>
+      <span>{Microbe}</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">last</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_el</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">last</span><span class="p">();</span>
+        <span class="p">},</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="lt">
+  <h3>
+    <a href="#lt" name="lt" class="pilcrow">&#182;</a>
+    lt
+  </h3>
+</div>
+
+  </div>
+  <div class="body"><p>returns the first {_var} element</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">_el</span>
+      <span class="dox_type">Microbe</span>
+      <span>microbe to be filtered</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">_var</span>
+      <span class="dox_type">String</span>
+      <span>number of elements to return</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span class="dox_type">Microbe
+</span>
+      <span>{Microbe}</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">lt</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_el</span><span class="p">,</span> <span class="nx">_var</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">_var</span> <span class="p">);</span>
+        <span class="p">},</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="add">
+  <h3>
+    <a href="#add" name="add" class="pilcrow">&#182;</a>
+    add
+  </h3>
+</div>
+
+  </div>
+  <div class="body"><p>returns the odd indexed elements of a microbe</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">_el</span>
+      <span class="dox_type">Microbe</span>
+      <span>microbe to be filtered</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span class="dox_type">Microbe
+</span>
+      <span>{Microbe}</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">odd</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_el</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">elements</span> <span class="o">=</span> <span class="p">[];</span>
+            <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span> <span class="p">(</span> <span class="nx">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">)</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!==</span> <span class="mi">0</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nx">elements</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">_el</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="k">return</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">constructor</span><span class="p">(</span> <span class="nx">elements</span> <span class="p">);</span>
+        <span class="p">},</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="root">
+  <h3>
+    <a href="#root" name="root" class="pilcrow">&#182;</a>
+    root
+  </h3>
+</div>
+
+  </div>
+  <div class="body"><p>returns the root elements of the document</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">_el</span>
+      <span class="dox_type">Microbe</span>
+      <span>microbe to be filtered</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span class="dox_type">Microbe
+</span>
+      <span>{Microbe}</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">root</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_el</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">root</span><span class="p">();</span>
+        <span class="p">},</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="target">
+  <h3>
+    <a href="#target" name="target" class="pilcrow">&#182;</a>
+    target
+  </h3>
+</div>
+
+  </div>
+  <div class="body"><p>returns a microbe with elements that match both the original selector, and the id of the page hash</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">_el</span>
+      <span class="dox_type">Microbe</span>
+      <span>microbe to be filtered</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span class="dox_type">Microbe
+</span>
+      <span>{Microbe}</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="nx">target</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_el</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">hash</span> <span class="o">=</span> <span class="p">(</span> <span class="nx">location</span><span class="p">.</span><span class="nx">href</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span> <span class="s1">&#39;#&#39;</span> <span class="p">)[</span> <span class="mi">1</span> <span class="p">]</span> <span class="p">);</span>
+
+            <span class="kd">var</span> <span class="nx">elements</span> <span class="o">=</span> <span class="p">[];</span>
+
+            <span class="k">if</span> <span class="p">(</span> <span class="nx">hash</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="k">if</span> <span class="p">(</span> <span class="nx">_el</span><span class="p">[</span> <span class="nx">i</span> <span class="p">].</span><span class="nx">id</span> <span class="o">===</span> <span class="nx">hash</span>  <span class="p">)</span>
+                    <span class="p">{</span>
+                        <span class="nx">elements</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">_el</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="p">);</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+
+            <span class="k">return</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">constructor</span><span class="p">(</span> <span class="nx">elements</span> <span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

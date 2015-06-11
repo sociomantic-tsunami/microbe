@@ -1,11 +1,27 @@
+/**
+ * dom.js
+ *
+ * @author  Mouse Braun         <mouse@sociomantic.com>
+ * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
+ *
+ * @package Microbe
+ */
+
+/**
+ * ## exported
+ *
+ * @return {Function} function that augment Microbe.
+ */
 module.exports = function( Microbe )
 {
     /**
-     * waits until the DOM is ready to execute
+     * ## ready
      *
-     * @param  {Function}           _cb                 callback to run on ready
+     * Waits until the DOM is ready to execute
      *
-     * @return {Void}
+     * @param {Function} _cb callback to run on ready
+     *
+     * @return {void}
      */
     Microbe.ready = function( _cb )
     {
@@ -30,14 +46,14 @@ module.exports = function( Microbe )
 
 
     /**
-     * Append Element
+     * ## append
      *
-     * appends an element or elements to the microbe.  if there is more than
+     * Appends an element or elements to the microbe.  if there is more than
      * one target the next ones are cloned
      *
-     * @param   {Element, Array, Microbe}   _ele          element(s) to append
+     * @param {Mixed} _ele element(s) to append {Element, Array or Microbe}
      *
-     * @return  {Microbe}
+     * @return {Microbe}
      */
     Microbe.core.append = (function()
     {
@@ -75,14 +91,14 @@ module.exports = function( Microbe )
 
 
     /**
-     * Insert After
+     * ## insertAfter
      *
      * Inserts the given element after each of the elements given (or passed through this).
      * if it is an elemnet it is wrapped in a microbe object.  if it is a string it is created
      *
-     * @example µ( '.elementsInDom' ).insertAfter( µElementToInsert )
+     * @example `µ( '.elementsInDom' ).insertAfter( µElementToInsert )`
      *
-     * @param  {Object, String}   _elAfter            element to insert
+     * @param {Mixed} _elAfter element to insert {Object or String}
      *
      * @return {Microbe}
      */
@@ -136,14 +152,14 @@ module.exports = function( Microbe )
 
 
     /**
-     * Prepend Element
+     * ## prepend
      *
-     * prepends an element or elements to the microbe.  if there is more than
+     * Prepends an element or elements to the microbe.  if there is more than
      * one target the next ones are cloned
      *
-     * @param   {Element, Array, Microbe}  _ele          element(s) to prepend
+     * @param {Mixed} _ele element(s) to prepend {Element, Array or Microbe}
      *
-     * @return  {Microbe}
+     * @return {Microbe}
      */
     Microbe.core.prepend = (function()
     {
@@ -182,9 +198,9 @@ module.exports = function( Microbe )
 
 
     /**
-     * Remove Element
+     * ## remove
      *
-     * removes an element or elements from the dom
+     * Removes an element or elements from the dom
      *
      * @return {Microbe}
      */

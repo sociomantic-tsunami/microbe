@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>string.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../../doc-style.css" />
+  <script src="../../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../../", thisFile = "src/utils/string.js", defaultSidebar = true;
+  </script>
+  <script src="../../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h2">
+        <a href="#exported">exported</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>string.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>string.js</p>
+  </div>
+  <div class="body">
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">author</div>
+    <div class="dox_tag_detail">
+      <span>Mouse Braun         <a href="&#x6D;&#x61;&#105;&#108;&#116;&#x6F;:&#x6D;&#111;&#x75;&#x73;&#101;&#64;&#x73;o&#x63;&#x69;&#x6F;&#x6D;&#x61;n&#116;&#x69;&#x63;&#46;&#x63;&#111;&#109;">&#x6D;&#111;&#x75;&#x73;&#101;&#64;&#x73;o&#x63;&#x69;&#x6F;&#x6D;&#x61;n&#116;&#x69;&#x63;&#46;&#x63;&#111;&#109;</a></span>
+    </div>
+    <div class="dox_tag_title">author</div>
+    <div class="dox_tag_detail">
+      <span>Nicolas Brugneaux   <a href="&#x6D;&#x61;&#x69;&#108;&#116;&#111;:&#x6E;&#x69;c&#111;&#108;&#x61;&#115;&#46;&#98;&#114;u&#103;&#x6E;&#x65;&#97;&#117;&#120;&#x40;&#x73;&#x6F;&#99;&#x69;&#111;&#109;&#x61;&#110;&#x74;&#x69;&#x63;&#46;c&#x6F;&#109;">&#x6E;&#x69;c&#111;&#108;&#x61;&#115;&#46;&#98;&#114;u&#103;&#x6E;&#x65;&#97;&#117;&#120;&#x40;&#x73;&#x6F;&#99;&#x69;&#111;&#109;&#x61;&#110;&#x74;&#x69;&#x63;&#46;c&#x6F;&#109;</a></span>
+    </div>
+    <div class="dox_tag_title">package</div>
+    <div class="dox_tag_detail">
+      <span>Microbe</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="exported">
+  <h2>
+    <a href="#exported" name="exported" class="pilcrow">&#182;</a>
+    exported
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>String methods.</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span class="dox_type">Object
+</span>
+      <span>{Object}</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span>
+<span class="p">{</span>
+    <span class="nx">charAt</span>              <span class="o">:</span> <span class="nb">String</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">charAt</span><span class="p">,</span>
+    <span class="nx">charCodeAt</span>          <span class="o">:</span> <span class="nb">String</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">,</span>
+    <span class="nx">codePointAt</span>         <span class="o">:</span> <span class="nb">String</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">codePointAt</span><span class="p">,</span>
+    <span class="nx">concat</span>              <span class="o">:</span> <span class="nb">String</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">concat</span><span class="p">,</span>
+    <span class="nx">contains</span>            <span class="o">:</span> <span class="nb">String</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">contains</span><span class="p">,</span>
+    <span class="nx">endsWith</span>            <span class="o">:</span> <span class="nb">String</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">endsWith</span><span class="p">,</span>
+    <span class="nx">indexOf</span>             <span class="o">:</span> <span class="nb">String</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">,</span>
+    <span class="nx">lastIndexOf</span>         <span class="o">:</span> <span class="nb">String</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">lastIndexOf</span><span class="p">,</span>
+    <span class="nx">localeCompare</span>       <span class="o">:</span> <span class="nb">String</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">localeCompare</span><span class="p">,</span>
+    <span class="nx">match</span>               <span class="o">:</span> <span class="nb">String</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">match</span><span class="p">,</span>
+    <span class="nx">normalize</span>           <span class="o">:</span> <span class="nb">String</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">normalize</span><span class="p">,</span>
+    <span class="nx">quote</span>               <span class="o">:</span> <span class="nb">String</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">quote</span><span class="p">,</span>
+    <span class="nx">repeat</span>              <span class="o">:</span> <span class="nb">String</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">repeat</span><span class="p">,</span>
+    <span class="nx">replace</span>             <span class="o">:</span> <span class="nb">String</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">replace</span><span class="p">,</span>
+    <span class="nx">search</span>              <span class="o">:</span> <span class="nb">String</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">search</span><span class="p">,</span>
+    <span class="nx">slice</span>               <span class="o">:</span> <span class="nb">String</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">,</span>
+    <span class="nx">split</span>               <span class="o">:</span> <span class="nb">String</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">split</span><span class="p">,</span>
+    <span class="nx">startsWith</span>          <span class="o">:</span> <span class="nb">String</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">startsWith</span><span class="p">,</span>
+    <span class="nx">substr</span>              <span class="o">:</span> <span class="nb">String</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">substr</span><span class="p">,</span>
+    <span class="nx">substring</span>           <span class="o">:</span> <span class="nb">String</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">substring</span><span class="p">,</span>
+    <span class="nx">toLocaleLowerCase</span>   <span class="o">:</span> <span class="nb">String</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">toLocaleLowerCase</span><span class="p">,</span>
+    <span class="nx">toLocaleUpperCase</span>   <span class="o">:</span> <span class="nb">String</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">toLocaleUpperCase</span><span class="p">,</span>
+    <span class="nx">toLowerCase</span>         <span class="o">:</span> <span class="nb">String</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">,</span>
+    <span class="nx">toSource</span>            <span class="o">:</span> <span class="nb">String</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">toSource</span><span class="p">,</span>
+    <span class="nx">toString</span>            <span class="o">:</span> <span class="nb">String</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">toString</span><span class="p">,</span>
+    <span class="nx">toUpperCase</span>         <span class="o">:</span> <span class="nb">String</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">,</span>
+    <span class="nx">trim</span>                <span class="o">:</span> <span class="nb">String</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">trim</span><span class="p">,</span>
+    <span class="nx">trimLeft</span>            <span class="o">:</span> <span class="nb">String</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">trimLeft</span><span class="p">,</span>
+    <span class="nx">trimRight</span>           <span class="o">:</span> <span class="nb">String</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">trimRight</span><span class="p">,</span>
+    <span class="nx">valueOf</span>             <span class="o">:</span> <span class="nb">String</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">valueOf</span>
+<span class="p">};</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

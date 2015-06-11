@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>init.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../", thisFile = "src/init.js", defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h2">
+        <a href="#exported">exported</a>
+      </div>
+      <div class="heading h2">
+        <a href="#_build">_build</a>
+      </div>
+      <div class="heading h2">
+        <a href="#_create">_create</a>
+      </div>
+      <div class="heading h2">
+        <a href="#_contains">_contains</a>
+      </div>
+      <div class="heading h2">
+        <a href="#__init__">__init__</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>init.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>init.js</p>
+  </div>
+  <div class="body">
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">author</div>
+    <div class="dox_tag_detail">
+      <span>Mouse Braun         <a href="&#109;&#97;&#105;l&#116;&#111;:&#x6D;&#111;&#x75;&#115;&#101;&#x40;&#115;o&#x63;&#x69;&#111;&#109;&#97;&#x6E;&#116;&#x69;&#99;.&#99;&#111;&#x6D;">&#x6D;&#111;&#x75;&#115;&#101;&#x40;&#115;o&#x63;&#x69;&#111;&#109;&#97;&#x6E;&#116;&#x69;&#99;.&#99;&#111;&#x6D;</a></span>
+    </div>
+    <div class="dox_tag_title">author</div>
+    <div class="dox_tag_detail">
+      <span>Nicolas Brugneaux   <a href="&#109;&#x61;&#x69;&#108;&#116;&#111;:&#110;&#x69;&#99;&#111;&#108;&#x61;&#x73;&#46;&#98;&#114;&#x75;&#103;&#110;&#x65;&#97;&#x75;x&#64;&#x73;&#111;&#x63;&#105;&#111;&#109;&#97;&#110;&#x74;&#x69;&#x63;&#46;&#x63;&#111;&#109;">&#110;&#x69;&#99;&#111;&#108;&#x61;&#x73;&#46;&#98;&#114;&#x75;&#103;&#110;&#x65;&#97;&#x75;x&#64;&#x73;&#111;&#x63;&#105;&#111;&#109;&#97;&#110;&#x74;&#x69;&#x63;&#46;&#x63;&#111;&#109;</a></span>
+    </div>
+    <div class="dox_tag_title">package</div>
+    <div class="dox_tag_detail">
+      <span>Microbe</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="exported">
+  <h2>
+    <a href="#exported" name="exported" class="pilcrow">&#182;</a>
+    exported
+  </h2>
+</div>
+
+  </div>
+  <div class="body">
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span class="dox_type">Function</span>
+      <span>function that augment Microbe.</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">Microbe</span> <span class="p">)</span>
+<span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">trigger</span><span class="p">,</span> <span class="nx">_shortSelector</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">selectorRegex</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">__selectorRegex</span> <span class="o">=</span>  <span class="sr">/(?:[\s]*\.([\w-_\.]+)|#([\w-_]+)|([^#\.:&lt;][\w-_]*)|(&lt;[\w-_#\.]+&gt;)|:([^#\.&lt;][\w-()_]*))/g</span><span class="p">;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>TODO: Check if we hit the duck</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="_build">
+  <h2>
+    <a href="#_build" name="_build" class="pilcrow">&#182;</a>
+    _build
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>Builds and returns the final microbe</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">_elements</span>
+      <span class="dox_type">Array</span>
+      <span>array of elements</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">_selector</span>
+      <span class="dox_type">String</span>
+      <span>selector</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span class="dox_type">Microbe</span>
+      <span>microbe wrapped elements</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="kd">function</span> <span class="nx">_build</span><span class="p">(</span> <span class="nx">_elements</span><span class="p">,</span> <span class="nx">_selector</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">_elements</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+
+        <span class="k">for</span> <span class="p">(</span> <span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span> <span class="nx">_elements</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="nx">_elements</span><span class="p">[</span> <span class="nx">i</span> <span class="p">].</span><span class="nx">data</span> <span class="o">=</span> <span class="nx">_elements</span><span class="p">[</span> <span class="nx">i</span> <span class="p">].</span><span class="nx">data</span> <span class="o">||</span> <span class="p">{};</span>
+                <span class="k">this</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span>           <span class="o">=</span> <span class="nx">_elements</span><span class="p">[</span> <span class="nx">i</span> <span class="p">];</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">this</span><span class="p">.</span><span class="nx">_selector</span>  <span class="o">=</span> <span class="nx">_selector</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">length</span>     <span class="o">=</span> <span class="nx">i</span><span class="p">;</span>
+
+        <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+    <span class="p">}</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="_create">
+  <h2>
+    <a href="#_create" name="_create" class="pilcrow">&#182;</a>
+    _create
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>Method creates a Microbe from an element or a new element of the passed string, and
+returns the Microbe</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">_el</span>
+      <span class="dox_type">Element</span>
+      <span>element to create</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span class="dox_type">Microbe
+</span>
+      <span>{Microbe}</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="kd">function</span> <span class="nx">_create</span><span class="p">(</span> <span class="nx">_el</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">resultsRegex</span>    <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span> <span class="nx">selectorRegex</span> <span class="p">),</span>
+            <span class="nx">_id</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="nx">_tag</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="nx">_class</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="nx">_selector</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+
+        <span class="kd">var</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">lenI</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">resultsRegex</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">trigger</span> <span class="o">=</span> <span class="nx">resultsRegex</span><span class="p">[</span> <span class="nx">i</span> <span class="p">][</span> <span class="mi">0</span> <span class="p">];</span>
+            <span class="k">switch</span> <span class="p">(</span> <span class="nx">trigger</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">case</span> <span class="s1">&#39;#&#39;</span><span class="o">:</span>
+                    <span class="nx">_id</span>     <span class="o">+=</span> <span class="nx">resultsRegex</span><span class="p">[</span> <span class="nx">i</span> <span class="p">];</span>
+                    <span class="k">break</span><span class="p">;</span>
+
+                <span class="k">case</span> <span class="s1">&#39;.&#39;</span><span class="o">:</span>
+                    <span class="nx">_class</span>  <span class="o">+=</span> <span class="nx">resultsRegex</span><span class="p">[</span> <span class="nx">i</span> <span class="p">];</span>
+                    <span class="k">break</span><span class="p">;</span>
+
+                <span class="k">default</span><span class="o">:</span>
+                    <span class="nx">_tag</span>    <span class="o">+=</span> <span class="nx">resultsRegex</span><span class="p">[</span> <span class="nx">i</span> <span class="p">];</span>
+                    <span class="k">break</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="p">(</span> <span class="k">typeof</span> <span class="nx">_tag</span> <span class="o">===</span> <span class="s1">&#39;string&#39;</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">_el</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span> <span class="nx">_tag</span> <span class="p">);</span>
+            <span class="nx">_selector</span> <span class="o">=</span> <span class="nx">_tag</span><span class="p">;</span>
+
+            <span class="k">if</span> <span class="p">(</span> <span class="nx">_id</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="nx">_selector</span> <span class="o">+=</span> <span class="nx">_id</span><span class="p">;</span>
+                <span class="nx">_el</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="nx">_id</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span> <span class="mi">1</span> <span class="p">);</span>
+            <span class="p">}</span>
+
+            <span class="k">if</span> <span class="p">(</span> <span class="nx">_class</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="nx">_selector</span> <span class="o">+=</span> <span class="nx">_class</span><span class="p">;</span>
+                <span class="nx">_class</span> <span class="o">=</span> <span class="nx">_class</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span> <span class="s1">&#39;.&#39;</span> <span class="p">);</span>
+
+                <span class="k">for</span> <span class="p">(</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">_class</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nx">_el</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span> <span class="nx">_class</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="nx">_build</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="k">this</span><span class="p">,</span> <span class="p">[</span> <span class="nx">_el</span> <span class="p">],</span>  <span class="nx">_selector</span> <span class="p">);</span>
+    <span class="p">}</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="_contains">
+  <h2>
+    <a href="#_contains" name="_contains" class="pilcrow">&#182;</a>
+    _contains
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>Checks if a given element is a child of _scope</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">_el</span>
+      <span class="dox_type">Element</span>
+      <span>element to check</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">_scope</span>
+      <span class="dox_type">Element</span>
+      <span>scope</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span class="dox_type">Boolean</span>
+      <span>whether _el is contained in the scope</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="kd">function</span> <span class="nx">_contains</span><span class="p">(</span> <span class="nx">_el</span><span class="p">,</span> <span class="nx">_scope</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">parent</span> <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">;</span>
+
+        <span class="k">while</span> <span class="p">(</span> <span class="nx">parent</span> <span class="o">!==</span> <span class="nb">document</span> <span class="o">&amp;&amp;</span> <span class="nx">parent</span> <span class="o">!==</span> <span class="nx">_scope</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">parent</span> <span class="o">=</span> <span class="nx">parent</span><span class="p">.</span><span class="nx">parentNode</span> <span class="o">||</span> <span class="nx">_scope</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">parent</span> <span class="o">===</span> <span class="nb">document</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="__init__">
+  <h2>
+    <a href="#__init__" name="__init__" class="pilcrow">&#182;</a>
+    __init__
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>Constructor.</p>
+
+<p>Either selects or creates an HTML element and wraps it into a Microbe instance.
+Usage:   µ('div#test')   ---> selection
+         µ('<div#test>') ---> creation</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">_selector</span>
+      <span class="dox_type">ElementStringArray</span>
+      <span>HTML selector</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">_scope</span>
+      <span class="dox_type">ElementStringMicrobe</span>
+      <span>scope to look inside</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">_elements</span>
+      <span class="dox_type">Mixed</span>
+      <span>elements to fill Microbe with (optional) {Element or Array}</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span class="dox_type">Microbe
+</span>
+      <span>{Microbe}</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">__init__</span> <span class="o">=</span>  <span class="kd">function</span><span class="p">(</span> <span class="nx">_selector</span><span class="p">,</span> <span class="nx">_scope</span><span class="p">,</span> <span class="nx">_elements</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nx">_scope</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span> <span class="nx">_selector</span> <span class="o">&amp;&amp;</span> <span class="k">typeof</span> <span class="nx">_selector</span> <span class="o">===</span> <span class="s1">&#39;string&#39;</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">_s</span> <span class="o">=</span> <span class="nx">_selector</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+                <span class="kd">var</span> <span class="nx">_i</span><span class="p">,</span> <span class="nx">_c</span><span class="p">,</span> <span class="nx">_p</span><span class="p">;</span>
+
+                <span class="k">if</span> <span class="p">(</span> <span class="nx">_s</span> <span class="o">!==</span> <span class="s1">&#39;&lt;&#39;</span> <span class="o">&amp;&amp;</span>  <span class="nx">_selector</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="s1">&#39;:&#39;</span> <span class="p">)</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span> <span class="o">&amp;&amp;</span>
+                                <span class="nx">_selector</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="s1">&#39; &#39;</span> <span class="p">)</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="k">switch</span> <span class="p">(</span> <span class="nx">_s</span> <span class="p">)</span>
+                    <span class="p">{</span>
+                        <span class="k">case</span> <span class="s1">&#39;#&#39;</span><span class="o">:</span>
+                            <span class="k">if</span> <span class="p">(</span> <span class="nx">_selector</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="s1">&#39;.&#39;</span> <span class="p">)</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span> <span class="p">)</span>
+                            <span class="p">{</span>
+                                <span class="kd">var</span> <span class="nx">id</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span> <span class="nx">_selector</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span> <span class="mi">1</span> <span class="p">)</span> <span class="p">);</span>
+
+                                <span class="k">if</span> <span class="p">(</span> <span class="nx">id</span> <span class="p">)</span>
+                                <span class="p">{</span>
+                                    <span class="nx">id</span> <span class="o">=</span> <span class="p">[</span> <span class="nx">id</span> <span class="p">];</span>
+                                <span class="p">}</span>
+                                <span class="k">else</span>
+                                <span class="p">{</span>
+                                    <span class="nx">id</span> <span class="o">=</span> <span class="p">[];</span>
+                                <span class="p">}</span>
+
+                                <span class="k">return</span> <span class="nx">_build</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="k">this</span><span class="p">,</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">_selector</span> <span class="p">);</span>
+                            <span class="p">}</span>
+                            <span class="k">break</span><span class="p">;</span>
+                        <span class="k">case</span> <span class="s1">&#39;.&#39;</span><span class="o">:</span>
+                            <span class="k">if</span> <span class="p">(</span> <span class="nx">_selector</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="s1">&#39;#&#39;</span> <span class="p">)</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span> <span class="p">)</span>
+                            <span class="p">{</span>
+                                <span class="kd">var</span> <span class="nx">clss</span> <span class="o">=</span> <span class="nx">_selector</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span> <span class="mi">1</span> <span class="p">);</span>
+
+                                <span class="k">if</span> <span class="p">(</span> <span class="nx">clss</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="s1">&#39;.&#39;</span> <span class="p">)</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span> <span class="p">)</span>
+                                <span class="p">{</span>
+                                    <span class="nx">clss</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByClassName</span><span class="p">(</span> <span class="nx">clss</span> <span class="p">);</span>
+
+                                    <span class="k">return</span> <span class="nx">_build</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="k">this</span><span class="p">,</span> <span class="nx">clss</span><span class="p">,</span> <span class="nx">_selector</span> <span class="p">);</span>
+                                <span class="p">}</span>
+                            <span class="p">}</span>
+                            <span class="k">break</span><span class="p">;</span>
+                        <span class="k">default</span><span class="o">:</span>
+                            <span class="k">if</span> <span class="p">(</span> <span class="nx">_selector</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="s1">&#39;#&#39;</span> <span class="p">)</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span> <span class="o">&amp;&amp;</span>
+                                 <span class="nx">_selector</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="s1">&#39;.&#39;</span> <span class="p">)</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span> <span class="p">)</span>
+                            <span class="p">{</span>
+                                <span class="kd">var</span> <span class="nx">tag</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span> <span class="nx">_selector</span> <span class="p">);</span>
+
+                                <span class="k">return</span> <span class="nx">_build</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="k">this</span><span class="p">,</span> <span class="nx">tag</span><span class="p">,</span> <span class="nx">_selector</span> <span class="p">);</span>
+                            <span class="p">}</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="nx">_selector</span> <span class="o">=</span> <span class="nx">_selector</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">_selector</span><span class="p">.</span><span class="nx">nodeType</span> <span class="o">===</span> <span class="mi">1</span> <span class="o">||</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">toString</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="nx">_selector</span> <span class="p">)</span> <span class="o">===</span> <span class="s1">&#39;[object Array]&#39;</span> <span class="o">||</span>
+            <span class="nx">_selector</span> <span class="o">===</span> <span class="nb">window</span> <span class="o">||</span> <span class="nx">_selector</span> <span class="o">===</span> <span class="nb">document</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">_selector</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span> <span class="nx">_selector</span> <span class="p">)</span> <span class="o">?</span> <span class="nx">_selector</span> <span class="o">:</span> <span class="p">[</span> <span class="nx">_selector</span> <span class="p">];</span>
+            <span class="k">return</span> <span class="nx">_build</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="k">this</span><span class="p">,</span> <span class="nx">_selector</span><span class="p">,</span>  <span class="s1">&#39;&#39;</span> <span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="nx">_scope</span> <span class="o">=</span> <span class="nx">_scope</span> <span class="o">===</span> <span class="kc">undefined</span> <span class="o">?</span>  <span class="nb">document</span> <span class="o">:</span> <span class="nx">_scope</span><span class="p">;</span>
+
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">_scope</span> <span class="o">!==</span> <span class="nb">document</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span> <span class="nx">_scope</span><span class="p">.</span><span class="nx">type</span> <span class="o">===</span> <span class="s1">&#39;[object Microbe]&#39;</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="nx">_scope</span> <span class="o">=</span> <span class="nx">_scope</span><span class="p">.</span><span class="nx">selector</span><span class="p">();</span>
+            <span class="p">}</span>
+
+            <span class="k">if</span> <span class="p">(</span> <span class="k">typeof</span> <span class="nx">_scope</span> <span class="o">===</span> <span class="s1">&#39;string&#39;</span> <span class="o">&amp;&amp;</span> <span class="k">typeof</span> <span class="nx">_selector</span> <span class="o">===</span> <span class="s1">&#39;string&#39;</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span> <span class="nx">_selector</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="s1">&#39;,&#39;</span> <span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span> <span class="o">||</span> <span class="nx">_scope</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="s1">&#39;,&#39;</span> <span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="kd">var</span> <span class="nx">newSelector</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+                    <span class="nx">_selector</span>   <span class="o">=</span> <span class="nx">_selector</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span> <span class="s1">&#39;,&#39;</span> <span class="p">);</span>
+                    <span class="nx">_scope</span>      <span class="o">=</span> <span class="nx">_scope</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span> <span class="s1">&#39;,&#39;</span> <span class="p">);</span>
+
+                    <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">_scope</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
+                    <span class="p">{</span>
+                        <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenJ</span> <span class="o">=</span> <span class="nx">_selector</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">lenJ</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">)</span>
+                        <span class="p">{</span>
+                            <span class="nx">newSelector</span> <span class="o">+=</span> <span class="nx">_scope</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="nx">_selector</span><span class="p">[</span> <span class="nx">j</span> <span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="p">;</span>
+                        <span class="p">}</span>
+                    <span class="p">}</span>
+
+                    <span class="nx">newSelector</span> <span class="o">=</span> <span class="nx">newSelector</span><span class="p">.</span><span class="nx">trim</span><span class="p">();</span>
+                    <span class="nx">newSelector</span> <span class="o">=</span> <span class="nx">newSelector</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">newSelector</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">);</span>
+                <span class="p">}</span>
+                <span class="k">else</span>
+                <span class="p">{</span>
+                    <span class="nx">_selector</span>   <span class="o">=</span> <span class="nx">_scope</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="nx">_selector</span><span class="p">;</span>
+                    <span class="nx">_scope</span>      <span class="o">=</span> <span class="nb">document</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="kd">var</span> <span class="nx">scopeNodeType</span>   <span class="o">=</span> <span class="nx">_scope</span><span class="p">.</span><span class="nx">nodeType</span><span class="p">,</span>
+            <span class="nx">nodeType</span>        <span class="o">=</span> <span class="p">(</span> <span class="nx">_selector</span> <span class="p">)</span> <span class="o">?</span> <span class="nx">_selector</span><span class="p">.</span><span class="nx">nodeType</span> <span class="o">||</span> <span class="k">typeof</span> <span class="nx">_selector</span> <span class="o">:</span> <span class="kc">null</span><span class="p">;</span>
+
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">_elements</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">toString</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="nx">_elements</span> <span class="p">)</span> <span class="o">===</span> <span class="s1">&#39;[object Array]&#39;</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">return</span> <span class="nx">_build</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="k">this</span><span class="p">,</span> <span class="nx">_elements</span><span class="p">,</span> <span class="nx">_selector</span> <span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">else</span>
+            <span class="p">{</span>
+                <span class="k">return</span> <span class="nx">_build</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="k">this</span><span class="p">,</span> <span class="p">[</span> <span class="nx">_elements</span> <span class="p">],</span> <span class="nx">_selector</span> <span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span> <span class="p">(</span> <span class="o">!</span><span class="nx">_selector</span> <span class="o">||</span> <span class="k">typeof</span> <span class="nx">_selector</span> <span class="o">!==</span> <span class="s1">&#39;string&#39;</span> <span class="p">)</span> <span class="o">||</span>
+                <span class="p">(</span> <span class="nx">scopeNodeType</span> <span class="o">!==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="nx">scopeNodeType</span> <span class="o">!==</span> <span class="mi">9</span> <span class="p">)</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">return</span> <span class="nx">_build</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="k">this</span><span class="p">,</span> <span class="p">[],</span> <span class="nx">_selector</span> <span class="p">);</span>
+            <span class="p">}</span>
+
+            <span class="kd">var</span> <span class="nx">resultsRegex</span> <span class="o">=</span> <span class="nx">_selector</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span> <span class="nx">selectorRegex</span> <span class="p">);</span>
+
+            <span class="k">if</span> <span class="p">(</span> <span class="nx">resultsRegex</span> <span class="o">&amp;&amp;</span> <span class="nx">resultsRegex</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">1</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="nx">trigger</span>         <span class="o">=</span> <span class="nx">resultsRegex</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">];</span>
+
+                <span class="nx">_shortSelector</span>  <span class="o">=</span> <span class="nx">_selector</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span> <span class="mi">1</span> <span class="p">);</span>
+
+                <span class="k">switch</span><span class="p">(</span> <span class="nx">trigger</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="k">case</span> <span class="s1">&#39;.&#39;</span><span class="o">:</span> <span class="c1">// non-document scoped classname search</span>
+                        <span class="kd">var</span> <span class="nx">_classesCount</span>   <span class="o">=</span> <span class="p">(</span> <span class="nx">_selector</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span> <span class="p">).</span><span class="nx">slice</span><span class="p">(</span> <span class="mi">1</span> <span class="p">).</span><span class="nx">split</span><span class="p">(</span> <span class="s1">&#39;.&#39;</span> <span class="p">).</span><span class="nx">length</span><span class="p">;</span>
+
+                        <span class="k">if</span> <span class="p">(</span> <span class="nx">_classesCount</span> <span class="o">===</span> <span class="mi">1</span> <span class="p">)</span>
+                        <span class="p">{</span>
+                            <span class="k">return</span> <span class="nx">_build</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="k">this</span><span class="p">,</span> <span class="nx">_scope</span><span class="p">.</span><span class="nx">getElementsByClassName</span><span class="p">(</span> <span class="nx">_shortSelector</span> <span class="p">),</span> <span class="nx">_selector</span> <span class="p">);</span>
+                        <span class="p">}</span>
+                        <span class="k">break</span><span class="p">;</span>
+                    <span class="k">case</span> <span class="s1">&#39;#&#39;</span><span class="o">:</span> <span class="c1">// non-document scoped id search</span>
+                        <span class="kd">var</span> <span class="nx">_id</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span> <span class="nx">_shortSelector</span> <span class="p">);</span>
+
+                        <span class="k">if</span> <span class="p">(</span> <span class="nx">_scope</span><span class="p">.</span><span class="nx">ownerDocument</span> <span class="o">&amp;&amp;</span> <span class="nx">_contains</span><span class="p">(</span> <span class="nx">_id</span><span class="p">,</span> <span class="nx">_scope</span> <span class="p">)</span> <span class="p">)</span>
+                        <span class="p">{</span>
+                            <span class="k">return</span> <span class="nx">_build</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="k">this</span><span class="p">,</span> <span class="p">[</span> <span class="nx">_id</span> <span class="p">],</span> <span class="nx">_selector</span> <span class="p">);</span>
+                        <span class="p">}</span>
+                        <span class="k">break</span><span class="p">;</span>
+                    <span class="k">case</span> <span class="s1">&#39;&lt;&#39;</span><span class="o">:</span> <span class="c1">// element creation</span>
+                        <span class="k">return</span> <span class="nx">_create</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="k">this</span><span class="p">,</span> <span class="nx">_selector</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">_selector</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">)</span> <span class="p">);</span>
+                    <span class="k">default</span><span class="o">:</span>
+                        <span class="k">return</span> <span class="nx">_build</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="k">this</span><span class="p">,</span> <span class="nx">_scope</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span> <span class="nx">_selector</span> <span class="p">),</span> <span class="nx">_selector</span> <span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="p">(</span> <span class="k">this</span> <span class="k">instanceof</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">__init__</span> <span class="p">)</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">__init__</span><span class="p">(</span> <span class="nx">_selector</span><span class="p">,</span> <span class="nx">_scope</span><span class="p">,</span> <span class="nx">_elements</span> <span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="kd">var</span> <span class="nx">pseudo</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">_selector</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="s1">&#39;:&#39;</span> <span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">_pseudoArray</span><span class="p">;</span>
+             <span class="nx">pseudo</span>     <span class="o">=</span> <span class="nx">_selector</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span> <span class="s1">&#39;:&#39;</span> <span class="p">);</span>
+            <span class="nx">_selector</span>   <span class="o">=</span> <span class="nx">pseudo</span><span class="p">[</span> <span class="mi">0</span> <span class="p">];</span>
+            <span class="nx">pseudo</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span> <span class="p">);</span>
+
+            <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenK</span> <span class="o">=</span> <span class="nx">pseudo</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">k</span> <span class="o">&lt;</span> <span class="nx">lenK</span><span class="p">;</span> <span class="nx">k</span><span class="o">++</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="nx">_pseudoArray</span> <span class="o">=</span> <span class="nx">pseudo</span><span class="p">[</span> <span class="nx">k</span> <span class="p">].</span><span class="nx">split</span><span class="p">(</span> <span class="s1">&#39;(&#39;</span> <span class="p">);</span>
+
+                <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nx">Microbe</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">pseudo</span><span class="p">[</span> <span class="nx">_pseudoArray</span><span class="p">[</span> <span class="mi">0</span> <span class="p">]</span> <span class="p">]</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nx">_selector</span> <span class="o">+=</span> <span class="s1">&#39;:&#39;</span> <span class="o">+</span> <span class="nx">pseudo</span><span class="p">[</span> <span class="nx">k</span> <span class="p">];</span>
+                    <span class="nx">pseudo</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span> <span class="nx">k</span><span class="p">,</span> <span class="mi">1</span> <span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="nx">_build</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="k">this</span><span class="p">,</span> <span class="nx">_scope</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span> <span class="nx">_selector</span> <span class="p">),</span> <span class="nx">_selector</span> <span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">pseudo</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">_sel</span><span class="p">,</span> <span class="nx">_var</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">h</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenH</span> <span class="o">=</span> <span class="nx">pseudo</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">h</span> <span class="o">&lt;</span> <span class="nx">lenH</span><span class="p">;</span> <span class="nx">h</span><span class="o">++</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="nx">_sel</span> <span class="o">=</span> <span class="nx">pseudo</span><span class="p">[</span> <span class="nx">h</span> <span class="p">].</span><span class="nx">split</span><span class="p">(</span> <span class="s1">&#39;(&#39;</span> <span class="p">);</span>
+                <span class="nx">_var</span> <span class="o">=</span> <span class="nx">_sel</span><span class="p">[</span> <span class="mi">1</span> <span class="p">];</span>
+                <span class="k">if</span> <span class="p">(</span> <span class="nx">_var</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nx">_var</span> <span class="o">=</span> <span class="nx">_var</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">_var</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">);</span>
+                <span class="p">}</span>
+                <span class="nx">_sel</span> <span class="o">=</span> <span class="nx">_sel</span><span class="p">[</span> <span class="mi">0</span> <span class="p">];</span>
+
+                <span class="k">if</span> <span class="p">(</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">pseudo</span><span class="p">[</span> <span class="nx">_sel</span> <span class="p">]</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nx">obj</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">pseudo</span><span class="p">[</span> <span class="nx">_sel</span> <span class="p">](</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">_var</span> <span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="nx">obj</span><span class="p">;</span>
+    <span class="p">};</span>
+
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">__init__</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

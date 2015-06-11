@@ -21,10 +21,12 @@
     "get-dependencies": "npm install . && echo \"Installation complete.\"",
     "build": "./node_modules/.bin/gulp && echo \"Build complete.\"",
     "test": "./node_modules/.bin/gulp test && echo \"Tests complete.\"",
-    "watch": "./node_modules/.bin/gulp watch"
+    "watch": "./node_modules/.bin/gulp watch",
+    "buildDoc": "./node_modules/.bin/docker src/ --sidebar true --watch"
   },
   "devDependencies": {
     "browserify": "^5.11.2",
+    "docker": "^0.2.14",
     "gulp": "^3.8.7",
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.4.0",

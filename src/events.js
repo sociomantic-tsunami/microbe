@@ -1,17 +1,31 @@
+/**
+ * events.js
+ *
+ * @author  Mouse Braun         <mouse@sociomantic.com>
+ * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
+ *
+ * @package Microbe
+ */
+
+/**
+ * ## exported
+ *
+ * @return {Function} function that augment Microbe.
+ */
 module.exports = function( Microbe )
 {
 
     /**
-     * emit event
+     * ## emit
      *
-     * emits a custom event to the HTMLElements of the current object
+     * Emits a custom event to the HTMLElements of the current object
      *
-     * @param   {String}            _event              HTMLEvent
-     * @param   {Object}            _data               event data
-     * @param   {Boolean}           _bubbles            event bubbles?
-     * @param   {Boolean}           _cancelable         cancelable?
+     * @param {String} _event              HTMLEvent
+     * @param {Object} _data               event data
+     * @param {Boolean} _bubbles            event bubbles?
+     * @param {Boolean} _cancelable         cancelable?
      *
-     * @return  {Microbe}
+     * @return {Microbe}
      */
     Microbe.prototype.emit = function ( _event, _data, _bubbles, _cancelable )
     {
@@ -38,15 +52,15 @@ module.exports = function( Microbe )
 
 
     /**
-     * Unbind Events
+     * ## off
      *
-     * unbinds an/all events.
+     * Unbinds an/all events.
      *
-     * @param   {str}           _event                  event name
-     * @param   {func}          _callback               callback function
-     * @param   {obj}           _el                     HTML element to modify (optional)
+     * @param {String} _event                  event name
+     * @param {func} _callback               callback function
+     * @param {Object} _el                     HTML element to modify (optional)
      *
-     * @return  Microbe
+     * @return Microbe
      */
     Microbe.prototype.off = function( _event, _callback )
     {
@@ -116,15 +130,15 @@ module.exports = function( Microbe )
 
 
     /**
-     * Bind Events
+     * ## on
      *
      * Binds an event to the HTMLElements of the current object or to the
      * given element.
      *
-     * @param   {String}            _event              HTMLEvent
-     * @param   {Function}          _callback           callback function
+     * @param {String} _event              HTMLEvent
+     * @param {Function} _callback           callback function
      *
-     * @return  {Microbe}
+     * @return {Microbe}
      */
     Microbe.prototype.on = function ( _event, _callback )
     {
@@ -157,12 +171,14 @@ module.exports = function( Microbe )
 
 
     /**
-     * CustomEvent pollyfill for IE >= 9
+     * ## CustomEvent polyfill
      *
-     * @param   {str}               _event              HTMLEvent
-     * @param   {obj}               _data               event data
+     * CustomEvent polyfill for IE >= 9
      *
-     * @return  {void}
+     * @param {String} _event              HTMLEvent
+     * @param {Object} _data               event data
+     *
+     * @return {void}
      */
     if ( typeof CustomEvent !== 'function' )
     {

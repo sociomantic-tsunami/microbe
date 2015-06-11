@@ -1,3 +1,17 @@
+/**
+ * init.js
+ *
+ * @author  Mouse Braun         <mouse@sociomantic.com>
+ * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
+ *
+ * @package Microbe
+ */
+
+/**
+ * ## exported
+ *
+ * @return {Function} function that augment Microbe.
+ */
 module.exports = function( Microbe )
 {
     var trigger, _shortSelector;
@@ -7,14 +21,14 @@ module.exports = function( Microbe )
     // TODO: Check if we hit the duck
 
     /**
-     * Build
+     * ## _build
      *
-     * builds and returns the final microbe
+     * Builds and returns the final microbe
      *
-     * @param  {Array}              _elements           array of elements
-     * @param  {String}             _selector           selector
+     * @param {Array} _elements           array of elements
+     * @param {String} _selector           selector
      *
-     * @return {Microbe}                                microbe wrapped elements
+     * @return {Microbe} microbe wrapped elements
      */
     function _build( _elements, _selector )
     {
@@ -37,14 +51,14 @@ module.exports = function( Microbe )
 
 
     /**
-     * Create Element
+     * ## _create
      *
      * Method creates a Microbe from an element or a new element of the passed string, and
      * returns the Microbe
      *
-     * @param   {Element}           _el                 element to create
+     * @param {Element} _el                 element to create
      *
-     * @return  {Microbe}
+     * @return {Microbe}
      */
     function _create( _el )
     {
@@ -100,14 +114,14 @@ module.exports = function( Microbe )
 
 
     /**
-     * Contains
+     * ## _contains
      *
-     * checks if a given element is a child of _scope
+     * Checks if a given element is a child of _scope
      *
-     * @param  {Element}            _el                 element to check
-     * @param  {Element}            _scope              scope
+     * @param {Element} _el                 element to check
+     * @param {Element} _scope              scope
      *
-     * @return {Boolean}                                whether _el is contained in the scope
+     * @return {Boolean} whether _el is contained in the scope
      */
     function _contains( _el, _scope )
     {
@@ -128,18 +142,19 @@ module.exports = function( Microbe )
 
 
     /**
-     * Class Microbe
+     * ## \_\_init\_\_
      *
      * Constructor.
+     *
      * Either selects or creates an HTML element and wraps it into a Microbe instance.
      * Usage:   µ('div#test')   ---> selection
      *          µ('<div#test>') ---> creation
      *
-     * @param   {Element String Array}   _selector      HTML selector
-     * @param   {Element String Microbe} _scope         scope to look inside
-     * @param   {Element or Array}       _elements      elements to fill Microbe with (optional)
+     * @param {Element String Array} _selector      HTML selector
+     * @param {Element String Microbe} _scope         scope to look inside
+     * @param {Mixed} _elements      elements to fill Microbe with (optional) {Element or Array}
      *
-     * @return  {Microbe}
+     * @return {Microbe}
      */
     Microbe.core.__init__ =  function( _selector, _scope, _elements )
     {

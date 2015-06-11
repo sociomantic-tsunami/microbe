@@ -1,3 +1,17 @@
+/**
+ * root.js
+ *
+ * @author  Mouse Braun         <mouse@sociomantic.com>
+ * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
+ *
+ * @package Microbe
+ */
+
+/**
+ * ## exported
+ *
+ * @return {Function} function that augment Microbe.
+ */
 module.exports = function( Microbe )
 {
     var Types       = require( './utils/types' );
@@ -5,14 +19,14 @@ module.exports = function( Microbe )
 
 
     /**
-     * Capitalize String
+     * ## capitalize
      *
      * capitalizes every word in a string or an array of strings and returns the
      * type that it was given
      *
-     * @param  {String or Array}        text                string(s) to capitalize
+     * @param {Mixed} text                string(s) to capitalize {String or Array}
      *
-     * @return {String or Array}                            capitalized string(s)
+     * @return {Mixed} {String or Array} capitalized string(s)
      */
     Microbe.capitalize = function( text )
     {
@@ -38,20 +52,19 @@ module.exports = function( Microbe )
 
 
     /**
-     * debounce
+     * ## debounce
      *
      *  Returns a function, that, as long as it continues to be invoked, will not
      *  be triggered. The function will be called after it stops being called for
      *  [[wait]] milliseconds. If `immediate` is passed, trigger the function on
      *  the leading edge, instead of the trailing.
      *
-     * @param  {Function}           _func               function to meter
-     * @param  {Number}             wait                milliseconds to wait
-     * @param  {Boolean}            immediate           run function at the start
+     * @param {Function} _func               function to meter
+     * @param {Number} wait                milliseconds to wait
+     * @param {Boolean} immediate           run function at the start
      *                                                  of the timeout
      *
-     * @return {Function}
-     */
+     * @return {Function} */
     Microbe.debounce = function( _func, wait, immediate )
     {
         var timeout;
@@ -87,31 +100,29 @@ module.exports = function( Microbe )
 
 
     /**
-     * identity
+     * ## identity
      *
      * returns itself if a value needs to be executed
      *
-     * @param  {any}                    value               any value
+     * @param {any} value               any value
      *
-     * @return {value}
-     */
+     * @return {value} */
     Microbe.identity = function( value ) { return value; };
 
 
     /**
-     * insertStyle
+     * ## insertStyle
      *
      * builds a style tag for the given selector/ media query.  Reference to the style
      * tag and object is saved in µ.__customCSSRules[ selector ][ media ].
      * next rule with the same selector combines the old and new rules and overwrites
      * the contents
      *
-     * @param {String}              selector            selector to apply it to
-     * @param {String or Object}    cssObj              css object.
-     * @param {String}              media               media query
+     * @param {String} selector            selector to apply it to
+     * @param {Mixed} cssObj              css object. {String or Object}
+     * @param {String} media               media query
      *
-     * @return {Microbe or Style }
-     */
+     * @return {Mixed} {Microbe or Style } */
     Microbe.insertStyle = function( selector, cssObj, media )
     {
         var _s      = selector.replace( / /g, '-' );
@@ -174,6 +185,8 @@ module.exports = function( Microbe )
 
 
     /**
+     * ## isArray
+     *
      * native isArray for completeness
      *
      * @type {Function}
@@ -182,13 +195,13 @@ module.exports = function( Microbe )
 
 
     /**
-     * isEmpty
+     * ## isEmpty
      *
-     * checks if the passed object is empty
+     * Checks if the passed object is empty
      *
-     * @param  {Object}                 obj                 object to check
+     * @param {Object} obj                 object to check
      *
-     * @return {Boolean}                                    empty or not
+     * @return {Boolean} empty or not
      */
     Microbe.isEmpty = function( obj )
     {
@@ -203,13 +216,13 @@ module.exports = function( Microbe )
 
 
     /**
-     * isFunction
+     * ## isFunction
      *
-     * checks if the passed parameter is a function
+     * Checks if the passed parameter is a function
      *
-     * @param  {Object}                 obj                 object to check
+     * @param {Object} obj                 object to check
      *
-     * @return {Boolean}                                    function or not
+     * @return {Boolean} function or not
      */
     Microbe.isFunction = function( obj )
     {
@@ -218,13 +231,13 @@ module.exports = function( Microbe )
 
 
     /**
-     * isObject
+     * ## isObject
      *
-     * checks if the passed parameter is an object
+     * Checks if the passed parameter is an object
      *
-     * @param  {Object}                 obj                 object to check
+     * @param {Object} obj                 object to check
      *
-     * @return {Boolean}                                    isObject or not
+     * @return {Boolean} isObject or not
      */
     Microbe.isObject = function( obj )
     {
@@ -238,12 +251,14 @@ module.exports = function( Microbe )
 
 
     /**
-     * isUndefined
+     * ## isUndefined
      *
-     * @param  {String}                 obj                 property
-     * @param  {Object}                 parent              object to check
+     * Checks if the passed parameter is undefined
      *
-     * @return {Boolean}                                    obj in parent
+     * @param {String} obj                 property
+     * @param {Object} parent              object to check
+     *
+     * @return {Boolean} obj in parent
      */
     Microbe.isUndefined = function( obj, parent )
     {
@@ -257,13 +272,13 @@ module.exports = function( Microbe )
 
 
     /**
-     * isWindow
+     * ## isWindow
      *
-     * checks if the passed parameter equals window
+     * Checks if the passed parameter equals window
      *
-     * @param  {Object}                 obj                 object to check
+     * @param {Object} obj                 object to check
      *
-     * @return {Boolean}                                    isWindow or not
+     * @return {Boolean} isWindow or not
      */
     Microbe.isWindow = function( obj )
     {
@@ -275,22 +290,24 @@ module.exports = function( Microbe )
 
 
     /**
-     * nothing happens
+     * ## noop
+     *
+     * Nothing happens
      *
      * https://en.wikipedia.org/wiki/Xyzzy_(computing)
      *
-     * @return {void}
-     */
+     * @return {void} */
     Microbe.noop    = function() {};
 
 
     /**
+     * ## once
+     *
      * returns a function that can only be run once
      *
-     * @param {Function}      _func                         function to run once
+     * @param {Function} _func                         function to run once
      *
-     * @return {Function}
-     */
+     * @return {Function} */
     Microbe.once = function( _func, context )
     {
         var result;
@@ -313,20 +330,19 @@ module.exports = function( Microbe )
 
 
     /**
-     * poll
+     * ## poll
      *
      * checks a passed function for true every [[interval]] milliseconds.  when
      * true, it will run _success, if [[timeout[[]] is reached without a success,
      * _error is excecuted
      *
-     * @param {Function}      _func                         function to check for true
-     * @param {Function}      _success                      function to run on success
-     * @param {Function}      _error                        function to run on error
-     * @param {Number}        timeout                       time (in ms) to stop polling
-     * @param {Number}        interval                      time (in ms) in between polling
+     * @param {Function} _func                         function to check for true
+     * @param {Function} _success                      function to run on success
+     * @param {Function} _error                        function to run on error
+     * @param {Number} timeout                       time (in ms) to stop polling
+     * @param {Number} interval                      time (in ms) in between polling
      *
-     * @return {Function}
-     */
+     * @return {Function} */
     Microbe.poll = function( _func, _success, _error, timeout, interval )
     {
         var endTime = Number( new Date() ) + ( timeout || 2000 );
@@ -350,21 +366,20 @@ module.exports = function( Microbe )
 
 
     /**
-     * removeStyle
+     * ## removeStyle
      *
      * removes a microbe added style tag for the given selector/ media query. If the
      * properties array is passed, rules are removed individually.  If properties is
      * set to true, all tags for this selector are removed.  The media query can
      * also be passed as the second variable
      *
-     * @param {String}              selector            selector to apply it to
-     * @param {String Array}        properties          css properties to remove
+     * @param {String} selector            selector to apply it to
+     * @param {Mixed} properties          css properties to remove
      *                                                  'all' to remove all selector tags
-     *                                                  string as media query
-     * @param {String}              media               media query
+     *                                                  string as media query {String or Array}
+     * @param {String} media               media query
      *
-     * @return {Boolean}
-     */
+     * @return {Boolean} */
     Microbe.removeStyle = function( selector, properties, media )
     {
         if ( !media && typeof properties === 'string' && properties !== 'all' )
@@ -438,12 +453,13 @@ module.exports = function( Microbe )
 
 
     /**
+     * ## removeStyles
+     *
      * removes all microbe added style tags for the given selector
      *
-     * @param {String}              selector            selector to apply it to
+     * @param {String} selector            selector to apply it to
      *
-     * @return {Boolean}
-     */
+     * @return {Boolean} */
     Microbe.removeStyles = function( selector )
     {
         return Microbe.removeStyle( selector, 'all' );
@@ -451,33 +467,33 @@ module.exports = function( Microbe )
 
 
     /**
-     * To array
+     * ## toArray
      *
      * Methods returns all the elements in an array.
      *
-     * @return  {Array}
+     * @return {Array}
      */
     Microbe.toArray = Microbe.core.toArray;
 
 
     /**
-     * To string
+     * ## toString
      *
      * Methods returns the type of Microbe.
      *
-     * @return  {String}
+     * @return {String}
      */
     Microbe.toString = Microbe.core.toString;
 
 
     /**
-     * Type
+     * ## type
      *
      * returns the type of the parameter passed to it
      *
-     * @param  {all}                    obj                 parameter to test
+     * @param {all} obj                 parameter to test
      *
-     * @return {String}                                     typeof obj
+     * @return {String} typeof obj
      */
     Microbe.type = function( obj )
     {
@@ -493,11 +509,10 @@ module.exports = function( Microbe )
 
 
     /**
-     * nothing happens
+     * ## xyzzy
      *
      * https://en.wikipedia.org/wiki/Xyzzy_(computing)
      *
-     * @return {void}
-     */
+     * @return {void} */
     Microbe.xyzzy   = Microbe.noop;
 };
