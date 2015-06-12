@@ -29,8 +29,8 @@ module.exports = function( Microbe )
      */
     Microbe.prototype.emit = function ( _event, _data, _bubbles, _cancelable )
     {
-        _bubbles    = _bubbles || false;
-        _cancelable = _cancelable || false;
+        _bubbles    = _bubbles || false;
+        _cancelable = _cancelable || false;
         var _emit = function( _elm )
         {
             var _evt = new CustomEvent( _event, {

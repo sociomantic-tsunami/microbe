@@ -128,7 +128,7 @@ module.exports = function( Microbe )
         var _s      = selector.replace( / /g, '-' );
         var _clss   = media ? _s +  media.replace( /[\s:\/\[\]\(\)]+/g, '-' ) : _s;
 
-        media       = media || 'none';
+        media       = media || 'none';
 
         var createStyleTag = function()
         {
@@ -388,7 +388,7 @@ module.exports = function( Microbe )
             properties = null;
         }
 
-        media = media || 'none';
+        media = media || 'none';
 
         var _removeStyle = function( _el, _media )
         {
