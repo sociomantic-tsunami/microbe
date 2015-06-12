@@ -22,7 +22,7 @@
     "build": "./node_modules/.bin/gulp && echo \"Build complete.\"",
     "test": "./node_modules/.bin/gulp test && echo \"Tests complete.\"",
     "watch": "./node_modules/.bin/gulp watch",
-    "buildDoc": "cd src && ../node_modules/.bin/docker -o ../doc/ -i ./ --sidebar true --watch --js ../dist/microbe.js"
+    "buildDoc": "cd src && ../node_modules/.bin/docker -o ../www/doc/ -i ./ --sidebar true --watch --js ../dist/microbe.js"
   },
   "devDependencies": {
     "browserify": "^5.11.2",
