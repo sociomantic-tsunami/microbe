@@ -1,1 +1,1 @@
-var tree={"dirs":{"src":{"files":["core.js","dom.js","events.js","http.js","init.js","microbe.js","observe.js","pseudo.js","root.js"],"dirs":{"utils":{"files":["array.js","string.js","types.js"]}}}}};
+var tree={"files":["core.js","dom.js","events.js","http.js","init.js","microbe.js","observe.js","pseudo.js","root.js"],"dirs":{"utils":{"files":["array.js","string.js","types.js"]}}};
