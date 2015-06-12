@@ -21,7 +21,7 @@ module.exports = function( Microbe )
      *
      * @param {Function} _cb callback to run on ready
      *
-     * @return {void}
+     * @return _void_
      */
     Microbe.ready = function( _cb )
     {
@@ -51,9 +51,9 @@ module.exports = function( Microbe )
      * Appends an element or elements to the microbe.  if there is more than
      * one target the next ones are cloned
      *
-     * @param {Mixed} _ele element(s) to append {Element, Array or Microbe}
+     * @param {Mixed} _ele element(s) to append _{Element, Array or Microbe}_
      *
-     * @return {Microbe}
+     * @return _Microbe_
      */
     Microbe.core.append = (function()
     {
@@ -98,9 +98,9 @@ module.exports = function( Microbe )
      *
      * @example `µ( '.elementsInDom' ).insertAfter( µElementToInsert )`
      *
-     * @param {Mixed} _elAfter element to insert {Object or String}
+     * @param {Mixed} _elAfter element to insert _{Object or String}_
      *
-     * @return {Microbe}
+     * @return _Microbe_
      */
     Microbe.core.insertAfter = function( _elAfter )
     {
@@ -157,9 +157,9 @@ module.exports = function( Microbe )
      * Prepends an element or elements to the microbe.  if there is more than
      * one target the next ones are cloned
      *
-     * @param {Mixed} _ele element(s) to prepend {Element, Array or Microbe}
+     * @param {Mixed} _ele element(s) to prepend _{Element, Array or Microbe}_
      *
-     * @return {Microbe}
+     * @return _Microbe_
      */
     Microbe.core.prepend = (function()
     {
@@ -202,7 +202,7 @@ module.exports = function( Microbe )
      *
      * Removes an element or elements from the dom
      *
-     * @return {Microbe}
+     * @return _Microbe_
      */
     Microbe.core.remove = function()
     {

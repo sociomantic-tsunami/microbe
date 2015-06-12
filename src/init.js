@@ -58,7 +58,7 @@ module.exports = function( Microbe )
      *
      * @param {Element} _el                 element to create
      *
-     * @return {Microbe}
+     * @return _Microbe_
      */
     function _create( _el )
     {
@@ -152,9 +152,9 @@ module.exports = function( Microbe )
      *
      * @param {Element String Array} _selector      HTML selector
      * @param {Element String Microbe} _scope         scope to look inside
-     * @param {Mixed} _elements      elements to fill Microbe with (optional) {Element or Array}
+     * @param {Mixed} _elements      elements to fill Microbe with (optional) _{Element or Array}_
      *
-     * @return {Microbe}
+     * @return _Microbe_
      */
     Microbe.core.__init__ =  function( _selector, _scope, _elements )
     {

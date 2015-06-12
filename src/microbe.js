@@ -20,6 +20,6 @@ require( './pseudo' )( Microbe );
 /**
  * ## exported
  *
- * @return {Microbe}
+ * @return _Microbe_
  */
 module.exports = Microbe;

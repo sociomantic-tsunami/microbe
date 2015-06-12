@@ -17,7 +17,7 @@ module.exports = function( Microbe )
     /**
      * ## pseudo
      *
-     * @return {Object}
+     * @return _Object_
      */
     Microbe.constructor.prototype.pseudo = {
 
@@ -30,7 +30,7 @@ module.exports = function( Microbe )
          * @param {Microbe} _el                 microbe to be filtered
          * @param {String} _var                string to search for
          *
-         * @return {Microbe}
+         * @return _Microbe_
          */
         contains : function( _el, _var )
         {
@@ -57,7 +57,7 @@ module.exports = function( Microbe )
          *
          * @param {Microbe} _el                 microbe to be filtered
          *
-         * @return {Microbe}
+         * @return _Microbe_
          */
         even : function( _el )
         {
@@ -80,7 +80,7 @@ module.exports = function( Microbe )
          *
          * @param {Microbe} _el                 microbe to be filtered
          *
-         * @return {Microbe}
+         * @return _Microbe_
          */
         first : function( _el )
         {
@@ -96,7 +96,7 @@ module.exports = function( Microbe )
          * @param {Microbe} _el                 microbe to be filtered
          * @param {String} _var                number of elements to return
          *
-         * @return {Microbe}
+         * @return _Microbe_
          */
         gt : function( _el, _var )
         {
@@ -112,7 +112,7 @@ module.exports = function( Microbe )
          * @param {Microbe} _el                 microbe to be filtered
          * @param {String} _var                selector string
          *
-         * @return {Microbe}
+         * @return _Microbe_
          */
         has : function( _el, _var )
         {
@@ -140,7 +140,7 @@ module.exports = function( Microbe )
          *
          * @param {Microbe} _el                 microbe to be filtered
          *
-         * @return {Microbe}
+         * @return _Microbe_
          */
         last : function( _el )
         {
@@ -156,7 +156,7 @@ module.exports = function( Microbe )
          * @param {Microbe} _el                 microbe to be filtered
          * @param {String} _var                number of elements to return
          *
-         * @return {Microbe}
+         * @return _Microbe_
          */
         lt : function( _el, _var )
         {
@@ -171,7 +171,7 @@ module.exports = function( Microbe )
          *
          * @param {Microbe} _el                 microbe to be filtered
          *
-         * @return {Microbe}
+         * @return _Microbe_
          */
         odd : function( _el )
         {
@@ -194,7 +194,7 @@ module.exports = function( Microbe )
          *
          * @param {Microbe} _el                 microbe to be filtered
          *
-         * @return {Microbe}
+         * @return _Microbe_
          */
         root : function( _el )
         {
@@ -209,7 +209,7 @@ module.exports = function( Microbe )
          *
          * @param {Microbe} _el                 microbe to be filtered
          *
-         * @return {Microbe}
+         * @return _Microbe_
          */
         target : function( _el )
         {

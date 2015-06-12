@@ -22,7 +22,8 @@
     "build": "./node_modules/.bin/gulp && echo \"Build complete.\"",
     "test": "./node_modules/.bin/gulp test && echo \"Tests complete.\"",
     "watch": "./node_modules/.bin/gulp watch",
-    "buildDoc": "cd src && ../node_modules/.bin/docker -o ../www/doc/ -i ./ --sidebar true --watch --js ../dist/microbe.js"
+    "buildDoc": "cd src && ../node_modules/.bin/docker -o ../www/doc/ -i ./ --sidebar true --watch --js ../dist/microbe.js --extras fileSearch",
+    "serve": "cd www && python -m SimpleHTTPServer 8000"
   },
   "devDependencies": {
     "browserify": "^5.11.2",

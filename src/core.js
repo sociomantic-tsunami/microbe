@@ -1,5 +1,5 @@
 /**
- * microbe.js
+ * core.js
  *
  * @author  Mouse Braun         <mouse@sociomantic.com>
  * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
@@ -56,9 +56,9 @@ Microbe.core = Microbe.prototype =
      * @param {Mixed} _class    class to remove.  this accepts
      *                  strings and array of strings.
      *                  the strings can be a class or
-     *                  classes seperated with spaces {String or Array}
+     *                  classes seperated with spaces _{String or Array}_
      *
-     * @return {Microbe}
+     * @return _Microbe_
      */
     addClass : (function()
     {
@@ -110,10 +110,10 @@ Microbe.core = Microbe.prototype =
      * attribute value of the element. Attributes can be bulk added by passing
      * an object (property: value)
      *
-     * @param {Mixed} _attribute          attribute name {String or Object}
+     * @param _{Mixed} _attribute          attribute name {String or Object}_
      * @param {String} _value              attribute value (optional)
      *
-     * @return {Microbe or Array}
+     * @return _Microbe_ or _Array_
      */
     attr : function ( _attribute, _value )
     {
@@ -236,7 +236,7 @@ Microbe.core = Microbe.prototype =
      * @param {String} _attribute          css property
      * @param {String} _value              css value (optional)
      *
-     * @return {Microbe or Array}
+     * @return _Microbe_ or _Array_
      */
     css : function ( _property, _value )
     {
@@ -283,7 +283,8 @@ Microbe.core = Microbe.prototype =
      *
      * @param {Function} _callback           function to apply to each item
      *
-     * @return {Array} */
+     * @return _Array_
+     */
     each : function( _callback )
     {
         var i, leni;
@@ -300,7 +301,7 @@ Microbe.core = Microbe.prototype =
      *
      * Extends an object or microbe
      *
-     * @return {Object}
+     * @return _Object_
      */
     extend : function()
     {
@@ -386,7 +387,7 @@ Microbe.core = Microbe.prototype =
      *
      * @param {String} selector            selector to filter by
      *
-     * @return {Microbe}
+     * @return _Microbe_
      */
     filter : function( filter )
     {
@@ -453,7 +454,7 @@ Microbe.core = Microbe.prototype =
      *
      * @param {String} selector            selector to search for
      *
-     * @return {Microbe}
+     * @return _Microbe_
      */
     find : function( selector )
     {
@@ -513,7 +514,7 @@ Microbe.core = Microbe.prototype =
      *
      * @param {String} _class              class to check
      *
-     * @return {Microbe}
+     * @return _Microbe_
      */
     hasClass : function( _class )
     {
@@ -540,7 +541,7 @@ Microbe.core = Microbe.prototype =
      *
      * @param {Microbe String} _value              html value (optional)
      *
-     * @return {Microbe Array}
+     * @return _Microbe_ or _Array_
      */
     html : function ( _value )
     {
@@ -604,7 +605,7 @@ Microbe.core = Microbe.prototype =
      *
      * @param {Element} _el                 element to check
      *
-     * @return {Number}
+     * @return _Number_
      */
     indexOf : function( _el )
     {
@@ -618,7 +619,7 @@ Microbe.core = Microbe.prototype =
      * Gets the last HTML Elements of the current object, and wrap it in
      * Microbe.
      *
-     * @return {Microbe}
+     * @return _Microbe_
      */
     last : function ()
     {
@@ -651,10 +652,10 @@ Microbe.core = Microbe.prototype =
      *
      * Combines microbes or array elements.
      *
-     * @param {Mixed} first               first array or array-like object {Object or Array}
-     * @param {Mixed} second              second array or array-like object {Object or Array}
+     * @param {Mixed} first               first array or array-like object _{Object or Array}_
+     * @param {Mixed} second              second array or array-like object _{Object or Array}_
      *
-     * @return {Mixed} {Object or Array} combined arr or obj (based off first)
+     * @return {Mixed} _{Object or Array}_ combined arr or obj (based off first)
      */
     merge : function( first, second )
     {
@@ -682,7 +683,8 @@ Microbe.core = Microbe.prototype =
      *
      * Sets all elements in a microbe to their parent nodes
      *
-     * @return {Microbe} */
+     * @return _Microbe_
+     */
     parent : function()
     {
         var _parent = function( _elm )
@@ -709,7 +711,7 @@ Microbe.core = Microbe.prototype =
      *
      * @param {Element} _el                 element to add
      *
-     * @return {Microbe}
+     * @return _Microbe_
      */
     push : function( _el )
     {
@@ -735,7 +737,7 @@ Microbe.core = Microbe.prototype =
      *                          the strings can be a class or
      *                          classes seperated with spaces {String Array}
      *
-     * @return {Microbe}
+     * @return _Microbe_
      */
     removeClass : (function()
     {
@@ -782,7 +784,7 @@ Microbe.core = Microbe.prototype =
      *
      * Returns the root elements of the document
      *
-     * @return {Microbe}
+     * @return _Microbe_
      */
     root : function()
     {
@@ -875,7 +877,7 @@ Microbe.core = Microbe.prototype =
      *
      * @param {String} _value              Text value (optional)
      *
-     * @return {Microbe or Array}
+     * @return _Microbe_ or _Array_
      */
     text : (function()
     {
@@ -935,7 +937,7 @@ Microbe.core = Microbe.prototype =
      *
      * Methods returns all the elements in an array.
      *
-     * @return {Array}
+     * @return _Array_
      */
     toArray : function( _arr )
     {
@@ -988,7 +990,7 @@ Microbe.core = Microbe.prototype =
      *
      * Methods returns the type of Microbe.
      *
-     * @return {String}
+     * @return _String_
      */
     toString : function()
     {
@@ -999,6 +1001,6 @@ Microbe.core = Microbe.prototype =
 /**
  * ## exported
  *
- * @return {Microbe}
+ * @return _Microbe_
  */
 module.exports = Microbe;

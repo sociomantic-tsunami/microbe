@@ -25,7 +25,7 @@ module.exports = function( Microbe )
      * @param {Boolean} _bubbles            event bubbles?
      * @param {Boolean} _cancelable         cancelable?
      *
-     * @return {Microbe}
+     * @return _Microbe_
      */
     Microbe.prototype.emit = function ( _event, _data, _bubbles, _cancelable )
     {
@@ -138,7 +138,7 @@ module.exports = function( Microbe )
      * @param {String} _event              HTMLEvent
      * @param {Function} _callback           callback function
      *
-     * @return {Microbe}
+     * @return _Microbe_
      */
     Microbe.prototype.on = function ( _event, _callback )
     {
@@ -178,7 +178,7 @@ module.exports = function( Microbe )
      * @param {String} _event              HTMLEvent
      * @param {Object} _data               event data
      *
-     * @return {void}
+     * @return _void_
      */
     if ( typeof CustomEvent !== 'function' )
     {

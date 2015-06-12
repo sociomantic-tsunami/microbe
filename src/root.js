@@ -24,7 +24,7 @@ module.exports = function( Microbe )
      * capitalizes every word in a string or an array of strings and returns the
      * type that it was given
      *
-     * @param {Mixed} text                string(s) to capitalize {String or Array}
+     * @param {Mixed} text                string(s) to capitalize _{String or Array}_
      *
      * @return {Mixed} {String or Array} capitalized string(s)
      */
@@ -106,7 +106,8 @@ module.exports = function( Microbe )
      *
      * @param {any} value               any value
      *
-     * @return {value} */
+     * @return _any_
+     */
     Microbe.identity = function( value ) { return value; };
 
 
@@ -119,10 +120,11 @@ module.exports = function( Microbe )
      * the contents
      *
      * @param {String} selector            selector to apply it to
-     * @param {Mixed} cssObj              css object. {String or Object}
+     * @param {Mixed} cssObj              css object. _{String or Object}_
      * @param {String} media               media query
      *
-     * @return {Mixed} {Microbe or Style } */
+     * @return {Mixed} {Microbe or Style }
+     */
     Microbe.insertStyle = function( selector, cssObj, media )
     {
         var _s      = selector.replace( / /g, '-' );
@@ -471,7 +473,7 @@ module.exports = function( Microbe )
      *
      * Methods returns all the elements in an array.
      *
-     * @return {Array}
+     * @return _Array_
      */
     Microbe.toArray = Microbe.core.toArray;
 
@@ -481,7 +483,7 @@ module.exports = function( Microbe )
      *
      * Methods returns the type of Microbe.
      *
-     * @return {String}
+     * @return _String_
      */
     Microbe.toString = Microbe.core.toString;
 

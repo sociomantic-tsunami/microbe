@@ -1,0 +1,33 @@
+.home-slogan {
+    text-align: center
+}
+
+.home-description {
+    text-align: center;
+    margin-bottom: 40px
+}
+
+.content--body a:hover,
+.footer a:hover{
+    color:#005580
+}
+
+pre {
+  text-align: left;
+  margin-left: 25%;
+}
+
+
+.heart {
+    color: #f88;
+    font-weight: bold;
+}
+
+p.center {
+    text-align: center;
+}
+
+.footer {
+    margin-top: 150px;
+    font-size: 15px;
+}

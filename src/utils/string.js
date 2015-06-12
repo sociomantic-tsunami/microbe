@@ -12,7 +12,7 @@
  *
  * String methods.
  *
- * @return {Object}
+ * @return _Object_
  */
 module.exports =
 {

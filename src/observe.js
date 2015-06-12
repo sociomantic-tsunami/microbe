@@ -73,7 +73,7 @@ module.exports = function( Microbe )
      * @param {String} _prop               property to observe
      * @param {Boolean} _once               bool to trigger auto unobserve
      *
-     * @return {Microbe}
+     * @return _Microbe_
      */
     Microbe.prototype.observe = function( prop, func, _once )
     {
@@ -188,7 +188,7 @@ module.exports = function( Microbe )
      * @param {String} prop                property to set
      * @param {String} value               value to set to
      *
-     * @return {Microbe}
+     * @return _Microbe_
      */
     Microbe.prototype.set = function( prop, value )
     {
@@ -233,7 +233,7 @@ module.exports = function( Microbe )
      *
      * @param {String} _prop               property to stop observing
      *
-     * @return {Microbe}
+     * @return _Microbe_
      */
     Microbe.prototype.unobserve = function( _prop )
     {

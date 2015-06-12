@@ -185,7 +185,7 @@ module.exports = function( Microbe )
      * Syntactic shortcut for simple POST requests
      *
      * @param {String} _url                file url
-     * @param {Mixed} _data               data to post to location {Object or String}
+     * @param {Mixed} _data               data to post to location _{Object or String}_
      *
      * @return {Object} contains `.then` and `.catch`
      */
