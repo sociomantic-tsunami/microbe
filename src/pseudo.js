@@ -1,15 +1,36 @@
+/**
+ * pseudo.js
+ *
+ * @author  Mouse Braun         <mouse@sociomantic.com>
+ * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
+ *
+ * @package Microbe
+ */
+
+/**
+ * ## exported
+ *
+ * @return {Function} function that augment Microbe.
+ */
 module.exports = function( Microbe )
 {
+    /**
+     * ## pseudo
+     *
+     * @return _Object_
+     */
     Microbe.constructor.prototype.pseudo = {
 
         /**
-         * returns only elements that contain the given text.  The supplied text
+         * ### contains
+         *
+         * Returns only elements that contain the given text.  The supplied text
          * is compared ignoring case
          *
-         * @param  {Microbe}        _el                 microbe to be filtered
-         * @param  {String}         _var                string to search for
+         * @param {Microbe} _el                 microbe to be filtered
+         * @param {String} _var                string to search for
          *
-         * @return {Microbe}
+         * @return _Microbe_
          */
         contains : function( _el, _var )
         {
@@ -30,11 +51,13 @@ module.exports = function( Microbe )
 
 
         /**
-         * returns the even indexed elements of a microbe (starting at 0)
+         * ### even
          *
-         * @param  {Microbe}        _el                 microbe to be filtered
+         * Returns the even indexed elements of a microbe (starting at 0)
          *
-         * @return {Microbe}
+         * @param {Microbe} _el                 microbe to be filtered
+         *
+         * @return _Microbe_
          */
         even : function( _el )
         {
@@ -51,11 +74,13 @@ module.exports = function( Microbe )
 
 
         /**
+         * ### first
+         *
          * returns the first element of a microbe
          *
-         * @param  {Microbe}        _el                 microbe to be filtered
+         * @param {Microbe} _el                 microbe to be filtered
          *
-         * @return {Microbe}
+         * @return _Microbe_
          */
         first : function( _el )
         {
@@ -64,12 +89,14 @@ module.exports = function( Microbe )
 
 
         /**
+         * ### gt
+         *
          * returns the last {_var} element
          *
-         * @param  {Microbe}        _el                 microbe to be filtered
-         * @param  {String}         _var                number of elements to return
+         * @param {Microbe} _el                 microbe to be filtered
+         * @param {String} _var                number of elements to return
          *
-         * @return {Microbe}
+         * @return _Microbe_
          */
         gt : function( _el, _var )
         {
@@ -78,12 +105,14 @@ module.exports = function( Microbe )
 
 
         /**
+         * ### has
+         *
          * returns elements that have the passed selector as a child
          *
-         * @param  {Microbe}        _el                 microbe to be filtered
-         * @param  {String}         _var                selector string
+         * @param {Microbe} _el                 microbe to be filtered
+         * @param {String} _var                selector string
          *
-         * @return {Microbe}
+         * @return _Microbe_
          */
         has : function( _el, _var )
         {
@@ -105,11 +134,13 @@ module.exports = function( Microbe )
 
 
         /**
+         * ### last
+         *
          * returns the last element of a microbe
          *
-         * @param  {Microbe}        _el                 microbe to be filtered
+         * @param {Microbe} _el                 microbe to be filtered
          *
-         * @return {Microbe}
+         * @return _Microbe_
          */
         last : function( _el )
         {
@@ -118,12 +149,14 @@ module.exports = function( Microbe )
 
 
         /**
+         * ### lt
+         *
          * returns the first {_var} element
          *
-         * @param  {Microbe}        _el                 microbe to be filtered
-         * @param  {String}         _var                number of elements to return
+         * @param {Microbe} _el                 microbe to be filtered
+         * @param {String} _var                number of elements to return
          *
-         * @return {Microbe}
+         * @return _Microbe_
          */
         lt : function( _el, _var )
         {
@@ -132,11 +165,13 @@ module.exports = function( Microbe )
 
 
         /**
+         * ### add
+         *
          * returns the odd indexed elements of a microbe
          *
-         * @param  {Microbe}        _el                 microbe to be filtered
+         * @param {Microbe} _el                 microbe to be filtered
          *
-         * @return {Microbe}
+         * @return _Microbe_
          */
         odd : function( _el )
         {
@@ -153,11 +188,13 @@ module.exports = function( Microbe )
 
 
         /**
+         * ### root
+         *
          * returns the root elements of the document
          *
-         * @param  {Microbe}        _el                 microbe to be filtered
+         * @param {Microbe} _el                 microbe to be filtered
          *
-         * @return {Microbe}
+         * @return _Microbe_
          */
         root : function( _el )
         {
@@ -166,11 +203,13 @@ module.exports = function( Microbe )
 
 
         /**
+         * ### target
+         *
          * returns a microbe with elements that match both the original selector, and the id of the page hash
          *
-         * @param  {Microbe}        _el                 microbe to be filtered
+         * @param {Microbe} _el                 microbe to be filtered
          *
-         * @return {Microbe}
+         * @return _Microbe_
          */
         target : function( _el )
         {

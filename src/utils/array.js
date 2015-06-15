@@ -1,3 +1,19 @@
+/**
+ * array.js
+ *
+ * @author  Mouse Braun         <mouse@sociomantic.com>
+ * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
+ *
+ * @package Microbe
+ */
+
+/**
+ * ## exported
+ *
+ * Array methods.
+ *
+ * @return _Object_
+ */
 module.exports =
 {
     fill            : Array.prototype.fill,

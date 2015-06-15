@@ -21,10 +21,13 @@
     "get-dependencies": "npm install . && echo \"Installation complete.\"",
     "build": "./node_modules/.bin/gulp && echo \"Build complete.\"",
     "test": "./node_modules/.bin/gulp test && echo \"Tests complete.\"",
-    "watch": "./node_modules/.bin/gulp watch"
+    "watch": "./node_modules/.bin/gulp watch",
+    "buildDoc": "cd src && ../node_modules/.bin/docker -o ../www/doc/ -i ./ --sidebar true --watch --js ../dist/microbe.js --extras fileSearch -c manni",
+    "serve": "cd www && python -m SimpleHTTPServer 8000"
   },
   "devDependencies": {
     "browserify": "^5.11.2",
+    "docker": "git://github.com/nicolasbrugneaux/docker.git#patch-1",
     "gulp": "^3.8.7",
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.4.0",

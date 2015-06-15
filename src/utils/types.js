@@ -1,3 +1,19 @@
+/**
+ * types.js
+ *
+ * @author  Mouse Braun         <mouse@sociomantic.com>
+ * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
+ *
+ * @package Microbe
+ */
+
+/**
+ * ## exported
+ *
+ * Type strings.
+ *
+ * @return _Object_
+ */
 module.exports =
 {
     '[object Number]'   : 'number',

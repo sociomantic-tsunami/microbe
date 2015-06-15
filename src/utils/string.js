@@ -1,3 +1,19 @@
+/**
+ * string.js
+ *
+ * @author  Mouse Braun         <mouse@sociomantic.com>
+ * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
+ *
+ * @package Microbe
+ */
+
+/**
+ * ## exported
+ *
+ * String methods.
+ *
+ * @return _Object_
+ */
 module.exports =
 {
     charAt              : String.prototype.charAt,
