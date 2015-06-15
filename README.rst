@@ -31,38 +31,6 @@ Microbes are always array like for consistency and can be extended and merged ve
 Don’t hesitate to file issues and features requests!  Or change things yourself and send a pull request.
 
 
-Changelog
-=========
-
-0.3.2
-~~~~~
-
-+ added debounce
-+ added insertStyle
-+ added once
-+ added poll
-+ added prepend
-+ added removeStyle
-+ added removeStyles
-+ addClass now accepts className strings
-+ removeClass now accepts className strings and arrays
-+ attr now accepts objects
-+ html now accepts microbes
-+ many documentation updates
-
-
-0.3.1
-~~~~~
-
-+ added pseudo selector support
-+ added filter function
-+ added find function
-+ many documentation updates
-
-
-No one should be using less than 0.3.  Changes past that will be posted here.
-
-
 Usage
 =====
 
@@ -119,14 +87,33 @@ Contributing
 We gladly accept and review any pull-requests. Feel free! :heart:
 
 
-History
-=======
+Changelog
+=========
 
-Microbe was born JSUnconf in 2014 from a simple shortcut.::
+0.3.2
+~~~~~
 
-    $   = document.querySelector;
-    $$  = document.querySelectorAll;
++ added debounce
++ added insertStyle
++ added once
++ added poll
++ added prepend
++ added removeStyle
++ added removeStyles
++ addClass now accepts className strings
++ removeClass now accepts className strings and arrays
++ attr now accepts objects
++ html now accepts microbes
++ many documentation updates
 
-So why not go further and make better and learn exactly how this <insert JS framework here> magic works ?
 
-Microbe is being developed as both an ongoing learning experiment, as well as something actively used in projects.
+0.3.1
+~~~~~
+
++ added pseudo selector support
++ added filter function
++ added find function
++ many documentation updates
+
+
+No one should be using less than 0.3.  Changes past that will be posted here.
