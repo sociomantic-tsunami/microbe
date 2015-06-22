@@ -1,40 +1,80 @@
-.home-slogan {
-    text-align: center;
-    margin-bottom: 50px;
-    color: #aaa;
-}
-
-.home-description {
-    text-align: center;
-    margin-bottom: 40px
-}
-
-.content--body a:hover,
-.footer a:hover{
-    color:#005580
-}
-
-pre {
-  text-align: left;
-  margin-left: 25%;
+header
+{
+    padding-top:                        10px;
+    padding-bottom:                     10px;
 }
 
 
-.heart {
-    color: #f88;
-    font-weight: bold;
+.header--text
+{
+    line-height:                        50px;
 }
 
-.post-scriptum {
-    font-weight: bold;
-    font-size: 15px;
+
+.github
+{
+    width:                              50px;
+    height:                             50px;
+    background:                         url(github-white-40.png) no-repeat center center;
 }
 
-p.center {
-    text-align: center;
+
+.github:hover
+{
+    background-image:                   url(github-white.png);
 }
 
-.footer {
-    margin-top: 150px;
-    font-size: 15px;
+
+.home--slogan
+{
+    text-align:                         center;
+    margin-bottom:                      50px;
+    color:                              #aaa;
+}
+
+
+.home--description
+{
+    text-align:                         center;
+    margin-bottom:                      40px
+}
+
+
+.content--body a:hover, .footer a:hover
+{
+    color:                              #005580
+}
+
+
+pre
+{
+  text-align:                           left;
+  margin-left:                          25%;
+}
+
+
+.heart
+{
+    color:                              #f88;
+    font-weight:                        bold;
+}
+
+
+.post--scriptum
+{
+    font-weight:                        bold;
+    font-size:                          15px;
+}
+
+
+p.center
+{
+    text-align:                         center;
+}
+
+
+.footer
+{
+    font-size:                          15px;
+    margin-bottom:                      15px;
 }
