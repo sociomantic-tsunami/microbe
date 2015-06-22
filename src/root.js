@@ -506,7 +506,15 @@ module.exports = function( Microbe )
 
         var type = Types[ Object.prototype.toString.call( obj ) ];
             type = !type ? Types[ obj.toString() ] : type;
-        return  type || typeof obj;
+
+        type = type || typeof obj;
+
+        if ( type === 'object' && obj instanceof Promise )
+        {
+            type = 'promise';
+        }
+
+        return  type;
     };
 
 

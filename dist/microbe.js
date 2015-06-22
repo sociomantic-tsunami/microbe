@@ -1,4 +1,13 @@
 !function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.µ=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+/**
+ * microbe.js
+ *
+ * @author  Mouse Braun         <mouse@sociomantic.com>
+ * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
+ *
+ * @package Microbe
+ */
+
 var Microbe = require( './core' );
 require( './init' )( Microbe );
 require( './root' )( Microbe );
@@ -8,6 +17,12 @@ require( './observe' )( Microbe );
 require( './events' )( Microbe );
 require( './pseudo' )( Microbe );
 
+
+/**
+ * ## exported
+ *
+ * @return _Microbe_
+ */
 module.exports = Microbe;
 
 },{"./core":12,"./dom":13,"./events":14,"./http":15,"./init":16,"./observe":17,"./pseudo":18,"./root":19}],2:[function(require,module,exports){
@@ -1955,7 +1970,7 @@ module.exports = asap;
 }).call(this,require('_process'))
 },{"_process":2}],12:[function(require,module,exports){
 /**
- * microbe.js
+ * core.js
  *
  * @author  Mouse Braun         <mouse@sociomantic.com>
  * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
@@ -1977,11 +1992,13 @@ var toString    = Strings.toString;
 var _type       = '[object Microbe]';
 
 /**
+ * ## Microbe
+ *
  * µ constructor
  *
- * builds the µ object
+ * Builds the µ object
  *
- * @return µ
+ * @return {Microbe}
  */
 var Microbe = function( selector, scope, elements )
 {
@@ -2003,16 +2020,16 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * Add Class
+     * ## addClass
      *
-     * adds the passed class to the current element(s)
+     * Adds the passed class to the current element(s)
      *
-     * @param   {String Array}      _class              class to remove.  this accepts
-     *                                                  strings and array of strings.
-     *                                                  the strings can be a class or
-     *                                                  classes seperated with spaces
+     * @param {Mixed} _class    class to remove.  this accepts
+     *                  strings and array of strings.
+     *                  the strings can be a class or
+     *                  classes seperated with spaces _{String or Array}_
      *
-     * @return  {Microbe}
+     * @return _Microbe_
      */
     addClass : (function()
     {
@@ -2031,8 +2048,8 @@ Microbe.core = Microbe.prototype =
                 }
             }
 
-            _el.data                = _el.data || {};
-            _el.data.class          = _el.data.class || {};
+            _el.data                = _el.data || {};
+            _el.data.class          = _el.data.class || {};
             _el.data.class.class    = _el.className;
         };
 
@@ -2055,6 +2072,8 @@ Microbe.core = Microbe.prototype =
 
 
     /**
+     * ## attr
+     *
      * Alter/Get Attribute
      *
      * Changes the attribute by writing the given property and value to the
@@ -2062,10 +2081,10 @@ Microbe.core = Microbe.prototype =
      * attribute value of the element. Attributes can be bulk added by passing
      * an object (property: value)
      *
-     * @param   {String, Object}    _attribute          attribute name
-     * @param   {String}            _value              attribute value (optional)
+     * @param _{Mixed} _attribute          attribute name {String or Object}_
+     * @param {String} _value              attribute value (optional)
      *
-     * @return  {Microbe or Array}
+     * @return _Microbe_ or _Array_
      */
     attr : function ( _attribute, _value )
     {
@@ -2100,9 +2119,9 @@ Microbe.core = Microbe.prototype =
                         _elm.setAttribute( _attr, _value );
                     }
 
-                    _elm.data                           = _elm.data || {};
-                    _elm.data.attr                      = _elm.data.attr || {};
-                    _elm.data.attr.attr                 = _elm.data.attr.attr || {};
+                    _elm.data                           = _elm.data || {};
+                    _elm.data.attr                      = _elm.data.attr || {};
+                    _elm.data.attr.attr                 = _elm.data.attr.attr || {};
                     _elm.data.attr.attr[ _attribute ]   = _value;
                 }
             }
@@ -2154,11 +2173,11 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * Children
+     * ## children
      *
-     * gets an array of all the given element's children
+     * Gets an array of all the given element's children
      *
-     * @return {Array}                                  array of microbes
+     * @return {Array} array of microbes
      */
     children : function()
     {
@@ -2179,23 +2198,23 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * CSS
+     * ## css
      *
      * Changes the CSS by writing the given property and value inline to the
      * supplied elements. (properties should be supplied in javascript format).
      * If the value is omitted, simply returns the current css value of the element.
      *
-     * @param   {String}            _attribute          css property
-     * @param   {String}            _value              css value (optional)
+     * @param {String} _attribute          css property
+     * @param {String} _value              css value (optional)
      *
-     * @return  {Microbe or Array}
+     * @return _Microbe_ or _Array_
      */
     css : function ( _property, _value )
     {
         var _setCss = function( _elm )
         {
-            _elm.data                   = _elm.data || {};
-            _elm.data.css               = _elm.data.css || {};
+            _elm.data                   = _elm.data || {};
+            _elm.data.css               = _elm.data.css || {};
             _elm.data.css[ _property ]  = _value;
             _elm.style[ _property ]     = _elm.data.css[ _property ];
         };
@@ -2228,14 +2247,14 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * Each
+     * ## each
      *
      * Methods iterates through all the elements an execute the function on each of
      * them
      *
-     * @param  {Function}           _callback           function to apply to each item
+     * @param {Function} _callback           function to apply to each item
      *
-     * @return {Array}
+     * @return _Array_
      */
     each : function( _callback )
     {
@@ -2249,11 +2268,11 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * Extend
+     * ## extend
      *
-     * extends an object or microbe
+     * Extends an object or microbe
      *
-     * @return {Object}
+     * @return _Object_
      */
     extend : function()
     {
@@ -2333,13 +2352,13 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * Filter Element
+     * ## filter
      *
-     * filters the microbe by the given given selector
+     * Filters the microbe by the given given selector
      *
-     * @param  {String}             selector            selector to filter by
+     * @param {String} selector            selector to filter by
      *
-     * @return {Microbe}
+     * @return _Microbe_
      */
     filter : function( filter )
     {
@@ -2400,13 +2419,13 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * Find Element
+     * ## find
      *
-     * finds a child element with the given selector inside the scope of the current microbe
+     * Finds a child element with the given selector inside the scope of the current microbe
      *
-     * @param  {String}             selector            selector to search for
+     * @param {String} selector            selector to search for
      *
-     * @return {Microbe}
+     * @return _Microbe_
      */
     find : function( selector )
     {
@@ -2416,12 +2435,12 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * First Element
+     * ## first
      *
      * Methods gets the first HTML Elements of the current object, and wrap it in
      * Microbe.
      *
-     * @return  {Microbe}
+     * @return {Microbe}
      */
     first : function ()
     {
@@ -2435,11 +2454,11 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * Get Parent Index
+     * ## getParentIndex
      *
-     * gets the index of the item in it's parentNode's children array
+     * Gets the index of the item in it's parentNode's children array
      *
-     * @return {Array}                                  array of indexes
+     * @return {Array} array of indexes
      */
     getParentIndex : function()
     {
@@ -2460,14 +2479,14 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * Has Class
+     * ## hasClass
      *
      * Checks if the current object or the given element has the given class
      *
-     * @param   {String}            _class              class to check
+     * @param {String} _class              class to check
      *
-     * @return  {Microbe}
-    */
+     * @return _Microbe_
+     */
     hasClass : function( _class )
     {
         var _hasClass = function( _elm )
@@ -2486,15 +2505,15 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * HTML
+     * ## html
      *
      * Changes the innerHtml to the supplied string or microbe.  If the value is
      * omitted, simply returns the current inner html value of the element.
      *
-     * @param   {Microbe String}    _value              html value (optional)
+     * @param {Microbe String} _value              html value (optional)
      *
-     * @return  {Microbe Array}
-    */
+     * @return _Microbe_ or _Array_
+     */
     html : function ( _value )
     {
         var _append;
@@ -2551,13 +2570,13 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * Index of
+     * ## indexOf
      *
-     * returns the index of an element in this microbe
+     * Returns the index of an element in this microbe
      *
-     * @param {Element}             _el                 element to check
+     * @param {Element} _el                 element to check
      *
-     * @return {Number}
+     * @return _Number_
      */
     indexOf : function( _el )
     {
@@ -2566,12 +2585,12 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * Last Element
+     * ## last
      *
      * Gets the last HTML Elements of the current object, and wrap it in
      * Microbe.
      *
-     * @return  {Microbe}
+     * @return _Microbe_
      */
     last : function ()
     {
@@ -2585,13 +2604,13 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * Map
+     * ## map
      *
      * native map function
      *
-     * @param  {Function}           callback            function to apply to all element
+     * @param {Function} callback            function to apply to all element
      *
-     * @return {Array}                                  array of callback returns
+     * @return {Array} array of callback returns
      */
     map : function( callback )
     {
@@ -2600,14 +2619,14 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * Merge
+     * ## merge
      *
-     * combines microbes or array elements.
+     * Combines microbes or array elements.
      *
-     * @param  {Object or Array}        first               first array or array-like object
-     * @param  {Object or Array}        second              second array or array-like object
+     * @param {Mixed} first               first array or array-like object _{Object or Array}_
+     * @param {Mixed} second              second array or array-like object _{Object or Array}_
      *
-     * @return {Object or Array}                            combined arr or obj (based off first)
+     * @return {Mixed} _{Object or Array}_ combined arr or obj (based off first)
      */
     merge : function( first, second )
     {
@@ -2631,11 +2650,11 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * Parent
+     * ## Parent
      *
-     * sets all elements in a microbe to their parent nodes
+     * Sets all elements in a microbe to their parent nodes
      *
-     * @return {Microbe}
+     * @return _Microbe_
      */
     parent : function()
     {
@@ -2657,13 +2676,13 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * Push element
+     * ## push
      *
-     * adds a new element to a microbe
+     * Adds a new element to a microbe
      *
-     * @param  {Element}            _el                 element to add
+     * @param {Element} _el                 element to add
      *
-     * @return {Microbe}
+     * @return _Microbe_
      */
     push : function( _el )
     {
@@ -2680,16 +2699,16 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * Remove Class
+     * ## removeClass
      *
      * Method removes the given class from the current object or the given element.
      *
-     * @param   {String Array}      _class              class to remove.  this accepts
-     *                                                  strings and array of strings.
-     *                                                  the strings can be a class or
-     *                                                  classes seperated with spaces
+     * @param {Mixed} _class    class to remove.  this accepts
+     *                          strings and array of strings.
+     *                          the strings can be a class or
+     *                          classes seperated with spaces {String Array}
      *
-     * @return  {Microbe}
+     * @return _Microbe_
      */
     removeClass : (function()
     {
@@ -2708,8 +2727,8 @@ Microbe.core = Microbe.prototype =
                 }
             }
 
-            _el.data                = _el.data || {};
-            _el.data.class          = _el.data.class || {};
+            _el.data                = _el.data || {};
+            _el.data.class          = _el.data.class || {};
             _el.data.class.class    = _el.className;
         };
 
@@ -2732,9 +2751,11 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * returns the root elements of the document
+     * ## root
      *
-     * @return {Microbe}
+     * Returns the root elements of the document
+     *
+     * @return _Microbe_
      */
     root : function()
     {
@@ -2755,11 +2776,11 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * Get Selector
+     * ## selector
      *
-     * returns the css selector from an element
+     * Returns the css selector from an element
      *
-     * @return {String}                                  combined selectors
+     * @return {String} combined selectors
      */
     selector : function()
     {
@@ -2805,11 +2826,11 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * Splice
+     * ## splice
      *
-     * native splice wrapped in a microbe
+     * Native splice wrapped in a microbe
      *
-     * @return {Array}                                  array of elements
+     * @return {Array} array of elements
      */
     splice : function( _start, _end )
     {
@@ -2820,14 +2841,14 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * Text
+     * ## text
      *
      * Changes the inner text to the supplied string. If the value is omitted,
      * simply returns the current inner html value of the element.
      *
-     * @param   {String}            _value              Text value (optional)
+     * @param {String} _value              Text value (optional)
      *
-     * @return  {Microbe or Array}
+     * @return _Microbe_ or _Array_
      */
     text : (function()
     {
@@ -2883,11 +2904,11 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * To array
+     * ## toArray
      *
      * Methods returns all the elements in an array.
      *
-     * @return  {Array}
+     * @return _Array_
      */
     toArray : function( _arr )
     {
@@ -2897,13 +2918,13 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * Toggle Class
+     * ## toggleClass
      *
      * Methods calls removeClass on the current object or given element.
      *
-     * @param   {String}            _class              class to add
+     * @param {String} _class              class to add
      *
-     * @return  {Microbe}
+     * @return {Microbe}
      */
     toggleClass : (function()
     {
@@ -2918,8 +2939,8 @@ Microbe.core = Microbe.prototype =
                 _el.classList.add( _class );
             }
 
-            _el.data                = _el.data || {};
-            _el.data.class          = _el.data.class || {};
+            _el.data                = _el.data || {};
+            _el.data.class          = _el.data.class || {};
             _el.data.class.class    = _el.className;
         };
         return function( _class )
@@ -2936,11 +2957,11 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * To string
+     * ## toString
      *
      * Methods returns the type of Microbe.
      *
-     * @return  {String}
+     * @return _String_
      */
     toString : function()
     {
@@ -2948,19 +2969,38 @@ Microbe.core = Microbe.prototype =
     }
 };
 
-
+/**
+ * ## exported
+ *
+ * @return _Microbe_
+ */
 module.exports = Microbe;
 
-
 },{"./utils/array":20,"./utils/string":21}],13:[function(require,module,exports){
+/**
+ * dom.js
+ *
+ * @author  Mouse Braun         <mouse@sociomantic.com>
+ * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
+ *
+ * @package Microbe
+ */
+
+/**
+ * ## exported
+ *
+ * @return {Function} function that augment Microbe.
+ */
 module.exports = function( Microbe )
 {
     /**
-     * waits until the DOM is ready to execute
+     * ## ready
      *
-     * @param  {Function}           _cb                 callback to run on ready
+     * Waits until the DOM is ready to execute
      *
-     * @return {Void}
+     * @param {Function} _cb callback to run on ready
+     *
+     * @return _void_
      */
     Microbe.ready = function( _cb )
     {
@@ -2985,14 +3025,14 @@ module.exports = function( Microbe )
 
 
     /**
-     * Append Element
+     * ## append
      *
-     * appends an element or elements to the microbe.  if there is more than
+     * Appends an element or elements to the microbe.  if there is more than
      * one target the next ones are cloned
      *
-     * @param   {Element, Array, Microbe}   _ele          element(s) to append
+     * @param {Mixed} _ele element(s) to append _{Element, Array or Microbe}_
      *
-     * @return  {Microbe}
+     * @return _Microbe_
      */
     Microbe.core.append = (function()
     {
@@ -3030,16 +3070,16 @@ module.exports = function( Microbe )
 
 
     /**
-     * Insert After
+     * ## insertAfter
      *
      * Inserts the given element after each of the elements given (or passed through this).
      * if it is an elemnet it is wrapped in a microbe object.  if it is a string it is created
      *
-     * @example µ( '.elementsInDom' ).insertAfter( µElementToInsert )
+     * @example `µ( '.elementsInDom' ).insertAfter( µElementToInsert )`
      *
-     * @param  {Object, String}   _elAfter            element to insert
+     * @param {Mixed} _elAfter element to insert _{Object or String}_
      *
-     * @return {Microbe}
+     * @return _Microbe_
      */
     Microbe.core.insertAfter = function( _elAfter )
     {
@@ -3091,14 +3131,14 @@ module.exports = function( Microbe )
 
 
     /**
-     * Prepend Element
+     * ## prepend
      *
-     * prepends an element or elements to the microbe.  if there is more than
+     * Prepends an element or elements to the microbe.  if there is more than
      * one target the next ones are cloned
      *
-     * @param   {Element, Array, Microbe}  _ele          element(s) to prepend
+     * @param {Mixed} _ele element(s) to prepend _{Element, Array or Microbe}_
      *
-     * @return  {Microbe}
+     * @return _Microbe_
      */
     Microbe.core.prepend = (function()
     {
@@ -3137,11 +3177,11 @@ module.exports = function( Microbe )
 
 
     /**
-     * Remove Element
+     * ## remove
      *
-     * removes an element or elements from the dom
+     * Removes an element or elements from the dom
      *
-     * @return {Microbe}
+     * @return _Microbe_
      */
     Microbe.core.remove = function()
     {
@@ -3164,25 +3204,39 @@ module.exports = function( Microbe )
 };
 
 },{}],14:[function(require,module,exports){
+/**
+ * events.js
+ *
+ * @author  Mouse Braun         <mouse@sociomantic.com>
+ * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
+ *
+ * @package Microbe
+ */
+
+/**
+ * ## exported
+ *
+ * @return {Function} function that augment Microbe.
+ */
 module.exports = function( Microbe )
 {
 
     /**
-     * emit event
+     * ## emit
      *
-     * emits a custom event to the HTMLElements of the current object
+     * Emits a custom event to the HTMLElements of the current object
      *
-     * @param   {String}            _event              HTMLEvent
-     * @param   {Object}            _data               event data
-     * @param   {Boolean}           _bubbles            event bubbles?
-     * @param   {Boolean}           _cancelable         cancelable?
+     * @param {String} _event              HTMLEvent
+     * @param {Object} _data               event data
+     * @param {Boolean} _bubbles            event bubbles?
+     * @param {Boolean} _cancelable         cancelable?
      *
-     * @return  {Microbe}
+     * @return _Microbe_
      */
     Microbe.prototype.emit = function ( _event, _data, _bubbles, _cancelable )
     {
-        _bubbles    = _bubbles || false;
-        _cancelable = _cancelable || false;
+        _bubbles    = _bubbles || false;
+        _cancelable = _cancelable || false;
         var _emit = function( _elm )
         {
             var _evt = new CustomEvent( _event, {
@@ -3204,15 +3258,15 @@ module.exports = function( Microbe )
 
 
     /**
-     * Unbind Events
+     * ## off
      *
-     * unbinds an/all events.
+     * Unbinds an/all events.
      *
-     * @param   {str}           _event                  event name
-     * @param   {func}          _callback               callback function
-     * @param   {obj}           _el                     HTML element to modify (optional)
+     * @param {String} _event                  event name
+     * @param {func} _callback               callback function
+     * @param {Object} _el                     HTML element to modify (optional)
      *
-     * @return  Microbe
+     * @return Microbe
      */
     Microbe.prototype.off = function( _event, _callback )
     {
@@ -3282,15 +3336,15 @@ module.exports = function( Microbe )
 
 
     /**
-     * Bind Events
+     * ## on
      *
      * Binds an event to the HTMLElements of the current object or to the
      * given element.
      *
-     * @param   {String}            _event              HTMLEvent
-     * @param   {Function}          _callback           callback function
+     * @param {String} _event              HTMLEvent
+     * @param {Function} _callback           callback function
      *
-     * @return  {Microbe}
+     * @return _Microbe_
      */
     Microbe.prototype.on = function ( _event, _callback )
     {
@@ -3323,12 +3377,14 @@ module.exports = function( Microbe )
 
 
     /**
-     * CustomEvent pollyfill for IE >= 9
+     * ## CustomEvent polyfill
      *
-     * @param   {str}               _event              HTMLEvent
-     * @param   {obj}               _data               event data
+     * CustomEvent polyfill for IE >= 9
      *
-     * @return  {void}
+     * @param {String} _event              HTMLEvent
+     * @param {Object} _data               event data
+     *
+     * @return _void_
      */
     if ( typeof CustomEvent !== 'function' )
     {
@@ -3349,24 +3405,31 @@ module.exports = function( Microbe )
 };
 
 },{}],15:[function(require,module,exports){
+/**
+ * http.js
+ *
+ * @author  Mouse Braun         <mouse@sociomantic.com>
+ * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
+ *
+ * @package Microbe
+ */
+
+/**
+ * ## exported
+ *
+ * @return {Function} function that augment Microbe.
+ */
 module.exports = function( Microbe )
 {
     var Promise = require( 'promise' );
 
     /**
-     * microbe.http.js
+     * ## http
      *
-     * @author  Mouse Braun         <mouse@sociomantic.com>
-     * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
+     * Method takes as many as necessary parameters, with url being the only required.
+     * The return then has the methods `.then( _cb )` and `.error( _cb )`
      *
-     * @package Microbe
-     */
-
-    /**
-     * http takes as many as necessary parameters, with url being the only required.
-     * The return then has the methods .then( _cb ) and .error( _cb )
-     *
-     * @param {Object}             _parameters          http parameters. possible properties
+     * @param {Object} _parameters          http parameters. possible properties
      *                                                  method, url, data, user, password, headers, async
      */
     Microbe.http = function( _parameters )
@@ -3451,14 +3514,14 @@ module.exports = function( Microbe )
                 var _responses =
                 {
                     /**
-                     * .then()
+                     * ### .then
                      *
-                     * called after http(), http.get(), or http.post(), this is
+                     * Called after `http`, `http.get`, or `http.post`, this is
                      * called passing the result as the first parameter to the callback
                      *
-                     * @param  {Function}   _cb         function to call after http request
+                     * @param {Function} _cb         function to call after http request
                      *
-                     * @return {Object}                 contains the .catch method
+                     * @return {Object} contains the `.catch` method
                      */
                     then: function( _cb )
                     {
@@ -3471,14 +3534,14 @@ module.exports = function( Microbe )
 
 
                     /**
-                     * .catch()
+                     * ### .catch
                      *
-                     * called after http(), http.get(), or http.post(), this is
+                     * Called after `http`, `http.get`, or `http.post`, this is
                      * called passing the error as the first parameter to the callback
                      *
-                     * @param  {Function}   _cb         function to call after http request
+                     * @param {Function} _cb         function to call after http request
                      *
-                     * @return {Object}                 contains the .then method
+                     * @return {Object} contains the `.then` method
                      */
                     catch: function( _cb )
                     {
@@ -3506,11 +3569,13 @@ module.exports = function( Microbe )
     };
 
     /**
+     * ## http.get
+     *
      * Syntactic shortcut for simple GET requests
      *
-     * @param  {String}             _url                file url
+     * @param {String} _url                file url
      *
-     * @return {Object}                                 contains .then() and .catch()
+     * @return {Object} contains `.then` and `.catch`
      */
     Microbe.http.get = function( _url )
     {
@@ -3522,12 +3587,14 @@ module.exports = function( Microbe )
 
 
     /**
+     * ## http.post
+     *
      * Syntactic shortcut for simple POST requests
      *
-     * @param  {String}             _url                file url
-     * @param  {Object or String}   _data               data to post to location
+     * @param {String} _url                file url
+     * @param {Mixed} _data               data to post to location _{Object or String}_
      *
-     * @return {Object}                                 contains .then() and .catch()
+     * @return {Object} contains `.then` and `.catch`
      */
     Microbe.http.post = function( _url, _data )
     {
@@ -3540,6 +3607,20 @@ module.exports = function( Microbe )
 };
 
 },{"promise":5}],16:[function(require,module,exports){
+/**
+ * init.js
+ *
+ * @author  Mouse Braun         <mouse@sociomantic.com>
+ * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
+ *
+ * @package Microbe
+ */
+
+/**
+ * ## exported
+ *
+ * @return {Function} function that augment Microbe.
+ */
 module.exports = function( Microbe )
 {
     var trigger, _shortSelector;
@@ -3549,14 +3630,14 @@ module.exports = function( Microbe )
     // TODO: Check if we hit the duck
 
     /**
-     * Build
+     * ## _build
      *
-     * builds and returns the final microbe
+     * Builds and returns the final microbe
      *
-     * @param  {Array}              _elements           array of elements
-     * @param  {String}             _selector           selector
+     * @param {Array} _elements           array of elements
+     * @param {String} _selector           selector
      *
-     * @return {Microbe}                                microbe wrapped elements
+     * @return {Microbe} microbe wrapped elements
      */
     function _build( _elements, _selector )
     {
@@ -3579,14 +3660,14 @@ module.exports = function( Microbe )
 
 
     /**
-     * Create Element
+     * ## _create
      *
      * Method creates a Microbe from an element or a new element of the passed string, and
      * returns the Microbe
      *
-     * @param   {Element}           _el                 element to create
+     * @param {Element} _el                 element to create
      *
-     * @return  {Microbe}
+     * @return _Microbe_
      */
     function _create( _el )
     {
@@ -3642,14 +3723,14 @@ module.exports = function( Microbe )
 
 
     /**
-     * Contains
+     * ## _contains
      *
-     * checks if a given element is a child of _scope
+     * Checks if a given element is a child of _scope
      *
-     * @param  {Element}            _el                 element to check
-     * @param  {Element}            _scope              scope
+     * @param {Element} _el                 element to check
+     * @param {Element} _scope              scope
      *
-     * @return {Boolean}                                whether _el is contained in the scope
+     * @return {Boolean} whether _el is contained in the scope
      */
     function _contains( _el, _scope )
     {
@@ -3670,18 +3751,19 @@ module.exports = function( Microbe )
 
 
     /**
-     * Class Microbe
+     * ## \_\_init\_\_
      *
      * Constructor.
+     *
      * Either selects or creates an HTML element and wraps it into a Microbe instance.
      * Usage:   µ('div#test')   ---> selection
      *          µ('<div#test>') ---> creation
      *
-     * @param   {Element String Array}   _selector      HTML selector
-     * @param   {Element String Microbe} _scope         scope to look inside
-     * @param   {Element or Array}       _elements      elements to fill Microbe with (optional)
+     * @param {Element String Array} _selector      HTML selector
+     * @param {Element String Microbe} _scope         scope to look inside
+     * @param {Mixed} _elements      elements to fill Microbe with (optional) _{Element or Array}_
      *
-     * @return  {Microbe}
+     * @return _Microbe_
      */
     Microbe.core.__init__ =  function( _selector, _scope, _elements )
     {
@@ -3895,6 +3977,20 @@ module.exports = function( Microbe )
 };
 
 },{}],17:[function(require,module,exports){
+/**
+ * observe.js
+ *
+ * @author  Mouse Braun         <mouse@sociomantic.com>
+ * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
+ *
+ * @package Microbe
+ */
+
+/**
+ * ## exported
+ *
+ * @return {Function} function that augment Microbe.
+ */
 module.exports = function( Microbe )
 {
     // shim needed for observe
@@ -3907,13 +4003,13 @@ module.exports = function( Microbe )
 
 
     /**
-     * Get data
+     * ## get
      *
      * gets the saved value from each element in the microbe in an array
      *
-     * @param  {String}             _prop               property to get
+     * @param {String} _prop               property to get
      *
-     * @return {Array}                                  array of values
+     * @return {Array} array of values
      */
     Microbe.prototype.get = function( prop )
     {
@@ -3948,15 +4044,15 @@ module.exports = function( Microbe )
 
 
     /**
-     * Observe
+     * ## observe
      *
-     * applies a function to an element if it is changed from within µ
+     * Applies a function to an element if it is changed from within µ
      *
-     * @param  {Function}           function            function to apply
-     * @param  {String}             _prop               property to observe
-     * @param  {Boolean}            _once               bool to trigger auto unobserve
+     * @param {Function} function            function to apply
+     * @param {String} _prop               property to observe
+     * @param {Boolean} _once               bool to trigger auto unobserve
      *
-     * @return  {Microbe}
+     * @return _Microbe_
      */
     Microbe.prototype.observe = function( prop, func, _once )
     {
@@ -4048,14 +4144,14 @@ module.exports = function( Microbe )
 
 
     /**
-     * Observe Once
+     * ## observeOnce
      *
-     * applies a function to an element if it is changed from within µ (once)
+     * Applies a function to an element if it is changed from within µ (once)
      *
-     * @param  {Function}           func                function to apply
-     * @param  {String}             _prop               property to observe
+     * @param {Function} func                function to apply
+     * @param {String} _prop               property to observe
      *
-     * @return  Microbe
+     * @return Microbe
      */
     Microbe.prototype.observeOnce = function( func, _prop )
     {
@@ -4064,14 +4160,14 @@ module.exports = function( Microbe )
 
 
     /**
-     * Set data
+     * ## set
      *
-     * sets the value to the data object in the each element in the microbe
+     * Sets the value to the data object in the each element in the microbe
      *
-     * @param  {String}             prop                property to set
-     * @param  {String}             value               value to set to
+     * @param {String} prop                property to set
+     * @param {String} value               value to set to
      *
-     * @return {Microbe}
+     * @return _Microbe_
      */
     Microbe.prototype.set = function( prop, value )
     {
@@ -4110,13 +4206,13 @@ module.exports = function( Microbe )
 
 
     /**
-     * Stop observing
+     * ## unobserve
      *
-     * stops watching the data changes of a µ onject
+     * Stops watching the data changes of a µ onject
      *
-     * @param   {String}            _prop               property to stop observing
+     * @param {String} _prop               property to stop observing
      *
-     * @return  {Microbe}
+     * @return _Microbe_
      */
     Microbe.prototype.unobserve = function( _prop )
     {
@@ -4159,18 +4255,39 @@ module.exports = function( Microbe )
 };
 
 },{"observe-shim":3,"observe-utils":4,"setimmediate":11}],18:[function(require,module,exports){
+/**
+ * pseudo.js
+ *
+ * @author  Mouse Braun         <mouse@sociomantic.com>
+ * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
+ *
+ * @package Microbe
+ */
+
+/**
+ * ## exported
+ *
+ * @return {Function} function that augment Microbe.
+ */
 module.exports = function( Microbe )
 {
+    /**
+     * ## pseudo
+     *
+     * @return _Object_
+     */
     Microbe.constructor.prototype.pseudo = {
 
         /**
-         * returns only elements that contain the given text.  The supplied text
+         * ### contains
+         *
+         * Returns only elements that contain the given text.  The supplied text
          * is compared ignoring case
          *
-         * @param  {Microbe}        _el                 microbe to be filtered
-         * @param  {String}         _var                string to search for
+         * @param {Microbe} _el                 microbe to be filtered
+         * @param {String} _var                string to search for
          *
-         * @return {Microbe}
+         * @return _Microbe_
          */
         contains : function( _el, _var )
         {
@@ -4191,11 +4308,13 @@ module.exports = function( Microbe )
 
 
         /**
-         * returns the even indexed elements of a microbe (starting at 0)
+         * ### even
          *
-         * @param  {Microbe}        _el                 microbe to be filtered
+         * Returns the even indexed elements of a microbe (starting at 0)
          *
-         * @return {Microbe}
+         * @param {Microbe} _el                 microbe to be filtered
+         *
+         * @return _Microbe_
          */
         even : function( _el )
         {
@@ -4212,11 +4331,13 @@ module.exports = function( Microbe )
 
 
         /**
+         * ### first
+         *
          * returns the first element of a microbe
          *
-         * @param  {Microbe}        _el                 microbe to be filtered
+         * @param {Microbe} _el                 microbe to be filtered
          *
-         * @return {Microbe}
+         * @return _Microbe_
          */
         first : function( _el )
         {
@@ -4225,12 +4346,14 @@ module.exports = function( Microbe )
 
 
         /**
+         * ### gt
+         *
          * returns the last {_var} element
          *
-         * @param  {Microbe}        _el                 microbe to be filtered
-         * @param  {String}         _var                number of elements to return
+         * @param {Microbe} _el                 microbe to be filtered
+         * @param {String} _var                number of elements to return
          *
-         * @return {Microbe}
+         * @return _Microbe_
          */
         gt : function( _el, _var )
         {
@@ -4239,12 +4362,14 @@ module.exports = function( Microbe )
 
 
         /**
+         * ### has
+         *
          * returns elements that have the passed selector as a child
          *
-         * @param  {Microbe}        _el                 microbe to be filtered
-         * @param  {String}         _var                selector string
+         * @param {Microbe} _el                 microbe to be filtered
+         * @param {String} _var                selector string
          *
-         * @return {Microbe}
+         * @return _Microbe_
          */
         has : function( _el, _var )
         {
@@ -4266,11 +4391,13 @@ module.exports = function( Microbe )
 
 
         /**
+         * ### last
+         *
          * returns the last element of a microbe
          *
-         * @param  {Microbe}        _el                 microbe to be filtered
+         * @param {Microbe} _el                 microbe to be filtered
          *
-         * @return {Microbe}
+         * @return _Microbe_
          */
         last : function( _el )
         {
@@ -4279,12 +4406,14 @@ module.exports = function( Microbe )
 
 
         /**
+         * ### lt
+         *
          * returns the first {_var} element
          *
-         * @param  {Microbe}        _el                 microbe to be filtered
-         * @param  {String}         _var                number of elements to return
+         * @param {Microbe} _el                 microbe to be filtered
+         * @param {String} _var                number of elements to return
          *
-         * @return {Microbe}
+         * @return _Microbe_
          */
         lt : function( _el, _var )
         {
@@ -4293,11 +4422,13 @@ module.exports = function( Microbe )
 
 
         /**
+         * ### add
+         *
          * returns the odd indexed elements of a microbe
          *
-         * @param  {Microbe}        _el                 microbe to be filtered
+         * @param {Microbe} _el                 microbe to be filtered
          *
-         * @return {Microbe}
+         * @return _Microbe_
          */
         odd : function( _el )
         {
@@ -4314,11 +4445,13 @@ module.exports = function( Microbe )
 
 
         /**
+         * ### root
+         *
          * returns the root elements of the document
          *
-         * @param  {Microbe}        _el                 microbe to be filtered
+         * @param {Microbe} _el                 microbe to be filtered
          *
-         * @return {Microbe}
+         * @return _Microbe_
          */
         root : function( _el )
         {
@@ -4327,11 +4460,13 @@ module.exports = function( Microbe )
 
 
         /**
+         * ### target
+         *
          * returns a microbe with elements that match both the original selector, and the id of the page hash
          *
-         * @param  {Microbe}        _el                 microbe to be filtered
+         * @param {Microbe} _el                 microbe to be filtered
          *
-         * @return {Microbe}
+         * @return _Microbe_
          */
         target : function( _el )
         {
@@ -4356,6 +4491,20 @@ module.exports = function( Microbe )
 };
 
 },{}],19:[function(require,module,exports){
+/**
+ * root.js
+ *
+ * @author  Mouse Braun         <mouse@sociomantic.com>
+ * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
+ *
+ * @package Microbe
+ */
+
+/**
+ * ## exported
+ *
+ * @return {Function} function that augment Microbe.
+ */
 module.exports = function( Microbe )
 {
     var Types       = require( './utils/types' );
@@ -4363,14 +4512,14 @@ module.exports = function( Microbe )
 
 
     /**
-     * Capitalize String
+     * ## capitalize
      *
      * capitalizes every word in a string or an array of strings and returns the
      * type that it was given
      *
-     * @param  {String or Array}        text                string(s) to capitalize
+     * @param {Mixed} text                string(s) to capitalize _{String or Array}_
      *
-     * @return {String or Array}                            capitalized string(s)
+     * @return {Mixed} {String or Array} capitalized string(s)
      */
     Microbe.capitalize = function( text )
     {
@@ -4396,20 +4545,19 @@ module.exports = function( Microbe )
 
 
     /**
-     * debounce
+     * ## debounce
      *
      *  Returns a function, that, as long as it continues to be invoked, will not
      *  be triggered. The function will be called after it stops being called for
      *  [[wait]] milliseconds. If `immediate` is passed, trigger the function on
      *  the leading edge, instead of the trailing.
      *
-     * @param  {Function}           _func               function to meter
-     * @param  {Number}             wait                milliseconds to wait
-     * @param  {Boolean}            immediate           run function at the start
+     * @param {Function} _func               function to meter
+     * @param {Number} wait                milliseconds to wait
+     * @param {Boolean} immediate           run function at the start
      *                                                  of the timeout
      *
-     * @return {Function}
-     */
+     * @return {Function} */
     Microbe.debounce = function( _func, wait, immediate )
     {
         var timeout;
@@ -4445,37 +4593,37 @@ module.exports = function( Microbe )
 
 
     /**
-     * identity
+     * ## identity
      *
      * returns itself if a value needs to be executed
      *
-     * @param  {any}                    value               any value
+     * @param {any} value               any value
      *
-     * @return {value}
+     * @return _any_
      */
     Microbe.identity = function( value ) { return value; };
 
 
     /**
-     * insertStyle
+     * ## insertStyle
      *
      * builds a style tag for the given selector/ media query.  Reference to the style
      * tag and object is saved in µ.__customCSSRules[ selector ][ media ].
      * next rule with the same selector combines the old and new rules and overwrites
      * the contents
      *
-     * @param {String}              selector            selector to apply it to
-     * @param {String or Object}    cssObj              css object.
-     * @param {String}              media               media query
+     * @param {String} selector            selector to apply it to
+     * @param {Mixed} cssObj              css object. _{String or Object}_
+     * @param {String} media               media query
      *
-     * @return {Microbe or Style }
+     * @return {Mixed} {Microbe or Style }
      */
     Microbe.insertStyle = function( selector, cssObj, media )
     {
         var _s      = selector.replace( / /g, '-' );
         var _clss   = media ? _s +  media.replace( /[\s:\/\[\]\(\)]+/g, '-' ) : _s;
 
-        media       = media || 'none';
+        media       = media || 'none';
 
         var createStyleTag = function()
         {
@@ -4532,6 +4680,8 @@ module.exports = function( Microbe )
 
 
     /**
+     * ## isArray
+     *
      * native isArray for completeness
      *
      * @type {Function}
@@ -4540,13 +4690,13 @@ module.exports = function( Microbe )
 
 
     /**
-     * isEmpty
+     * ## isEmpty
      *
-     * checks if the passed object is empty
+     * Checks if the passed object is empty
      *
-     * @param  {Object}                 obj                 object to check
+     * @param {Object} obj                 object to check
      *
-     * @return {Boolean}                                    empty or not
+     * @return {Boolean} empty or not
      */
     Microbe.isEmpty = function( obj )
     {
@@ -4561,13 +4711,13 @@ module.exports = function( Microbe )
 
 
     /**
-     * isFunction
+     * ## isFunction
      *
-     * checks if the passed parameter is a function
+     * Checks if the passed parameter is a function
      *
-     * @param  {Object}                 obj                 object to check
+     * @param {Object} obj                 object to check
      *
-     * @return {Boolean}                                    function or not
+     * @return {Boolean} function or not
      */
     Microbe.isFunction = function( obj )
     {
@@ -4576,13 +4726,13 @@ module.exports = function( Microbe )
 
 
     /**
-     * isObject
+     * ## isObject
      *
-     * checks if the passed parameter is an object
+     * Checks if the passed parameter is an object
      *
-     * @param  {Object}                 obj                 object to check
+     * @param {Object} obj                 object to check
      *
-     * @return {Boolean}                                    isObject or not
+     * @return {Boolean} isObject or not
      */
     Microbe.isObject = function( obj )
     {
@@ -4596,12 +4746,14 @@ module.exports = function( Microbe )
 
 
     /**
-     * isUndefined
+     * ## isUndefined
      *
-     * @param  {String}                 obj                 property
-     * @param  {Object}                 parent              object to check
+     * Checks if the passed parameter is undefined
      *
-     * @return {Boolean}                                    obj in parent
+     * @param {String} obj                 property
+     * @param {Object} parent              object to check
+     *
+     * @return {Boolean} obj in parent
      */
     Microbe.isUndefined = function( obj, parent )
     {
@@ -4615,13 +4767,13 @@ module.exports = function( Microbe )
 
 
     /**
-     * isWindow
+     * ## isWindow
      *
-     * checks if the passed parameter equals window
+     * Checks if the passed parameter equals window
      *
-     * @param  {Object}                 obj                 object to check
+     * @param {Object} obj                 object to check
      *
-     * @return {Boolean}                                    isWindow or not
+     * @return {Boolean} isWindow or not
      */
     Microbe.isWindow = function( obj )
     {
@@ -4633,22 +4785,24 @@ module.exports = function( Microbe )
 
 
     /**
-     * nothing happens
+     * ## noop
+     *
+     * Nothing happens
      *
      * https://en.wikipedia.org/wiki/Xyzzy_(computing)
      *
-     * @return {void}
-     */
+     * @return {void} */
     Microbe.noop    = function() {};
 
 
     /**
+     * ## once
+     *
      * returns a function that can only be run once
      *
-     * @param {Function}      _func                         function to run once
+     * @param {Function} _func                         function to run once
      *
-     * @return {Function}
-     */
+     * @return {Function} */
     Microbe.once = function( _func, context )
     {
         var result;
@@ -4671,20 +4825,19 @@ module.exports = function( Microbe )
 
 
     /**
-     * poll
+     * ## poll
      *
      * checks a passed function for true every [[interval]] milliseconds.  when
      * true, it will run _success, if [[timeout[[]] is reached without a success,
      * _error is excecuted
      *
-     * @param {Function}      _func                         function to check for true
-     * @param {Function}      _success                      function to run on success
-     * @param {Function}      _error                        function to run on error
-     * @param {Number}        timeout                       time (in ms) to stop polling
-     * @param {Number}        interval                      time (in ms) in between polling
+     * @param {Function} _func                         function to check for true
+     * @param {Function} _success                      function to run on success
+     * @param {Function} _error                        function to run on error
+     * @param {Number} timeout                       time (in ms) to stop polling
+     * @param {Number} interval                      time (in ms) in between polling
      *
-     * @return {Function}
-     */
+     * @return {Function} */
     Microbe.poll = function( _func, _success, _error, timeout, interval )
     {
         var endTime = Number( new Date() ) + ( timeout || 2000 );
@@ -4708,21 +4861,20 @@ module.exports = function( Microbe )
 
 
     /**
-     * removeStyle
+     * ## removeStyle
      *
      * removes a microbe added style tag for the given selector/ media query. If the
      * properties array is passed, rules are removed individually.  If properties is
      * set to true, all tags for this selector are removed.  The media query can
      * also be passed as the second variable
      *
-     * @param {String}              selector            selector to apply it to
-     * @param {String Array}        properties          css properties to remove
+     * @param {String} selector            selector to apply it to
+     * @param {Mixed} properties          css properties to remove
      *                                                  'all' to remove all selector tags
-     *                                                  string as media query
-     * @param {String}              media               media query
+     *                                                  string as media query {String or Array}
+     * @param {String} media               media query
      *
-     * @return {Boolean}
-     */
+     * @return {Boolean} */
     Microbe.removeStyle = function( selector, properties, media )
     {
         if ( !media && typeof properties === 'string' && properties !== 'all' )
@@ -4731,7 +4883,7 @@ module.exports = function( Microbe )
             properties = null;
         }
 
-        media = media || 'none';
+        media = media || 'none';
 
         var _removeStyle = function( _el, _media )
         {
@@ -4796,12 +4948,13 @@ module.exports = function( Microbe )
 
 
     /**
+     * ## removeStyles
+     *
      * removes all microbe added style tags for the given selector
      *
-     * @param {String}              selector            selector to apply it to
+     * @param {String} selector            selector to apply it to
      *
-     * @return {Boolean}
-     */
+     * @return {Boolean} */
     Microbe.removeStyles = function( selector )
     {
         return Microbe.removeStyle( selector, 'all' );
@@ -4809,33 +4962,33 @@ module.exports = function( Microbe )
 
 
     /**
-     * To array
+     * ## toArray
      *
      * Methods returns all the elements in an array.
      *
-     * @return  {Array}
+     * @return _Array_
      */
     Microbe.toArray = Microbe.core.toArray;
 
 
     /**
-     * To string
+     * ## toString
      *
      * Methods returns the type of Microbe.
      *
-     * @return  {String}
+     * @return _String_
      */
     Microbe.toString = Microbe.core.toString;
 
 
     /**
-     * Type
+     * ## type
      *
      * returns the type of the parameter passed to it
      *
-     * @param  {all}                    obj                 parameter to test
+     * @param {all} obj                 parameter to test
      *
-     * @return {String}                                     typeof obj
+     * @return {String} typeof obj
      */
     Microbe.type = function( obj )
     {
@@ -4846,20 +4999,44 @@ module.exports = function( Microbe )
 
         var type = Types[ Object.prototype.toString.call( obj ) ];
             type = !type ? Types[ obj.toString() ] : type;
-        return  type || typeof obj;
+
+        type = type || typeof obj;
+
+        if ( type === 'object' && obj instanceof Promise )
+        {
+            type = 'promise';
+        }
+
+        return  type;
     };
 
 
     /**
-     * nothing happens
+     * ## xyzzy
      *
      * https://en.wikipedia.org/wiki/Xyzzy_(computing)
      *
-     * @return {void}
-     */
+     * @return {void} */
     Microbe.xyzzy   = Microbe.noop;
 };
+
 },{"./utils/types":22}],20:[function(require,module,exports){
+/**
+ * array.js
+ *
+ * @author  Mouse Braun         <mouse@sociomantic.com>
+ * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
+ *
+ * @package Microbe
+ */
+
+/**
+ * ## exported
+ *
+ * Array methods.
+ *
+ * @return _Object_
+ */
 module.exports =
 {
     fill            : Array.prototype.fill,
@@ -4893,6 +5070,22 @@ module.exports =
 };
 
 },{}],21:[function(require,module,exports){
+/**
+ * string.js
+ *
+ * @author  Mouse Braun         <mouse@sociomantic.com>
+ * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
+ *
+ * @package Microbe
+ */
+
+/**
+ * ## exported
+ *
+ * String methods.
+ *
+ * @return _Object_
+ */
 module.exports =
 {
     charAt              : String.prototype.charAt,
@@ -4928,6 +5121,22 @@ module.exports =
 };
 
 },{}],22:[function(require,module,exports){
+/**
+ * types.js
+ *
+ * @author  Mouse Braun         <mouse@sociomantic.com>
+ * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
+ *
+ * @package Microbe
+ */
+
+/**
+ * ## exported
+ *
+ * Type strings.
+ *
+ * @return _Object_
+ */
 module.exports =
 {
     '[object Number]'   : 'number',
