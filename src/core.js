@@ -204,7 +204,7 @@ Microbe.core = Microbe.prototype =
     /**
      * ## children
      *
-     * Gets an array of all the given element's children
+     * Gets a microbe of all the given element's children
      *
      * @return {Array} array of microbes
      */
@@ -223,6 +223,39 @@ Microbe.core = Microbe.prototype =
         }
 
         return childrenArray;
+    },
+
+
+    /**
+     * ## childrenFlat
+     *
+     * Gets an microbe of all children of all element's given
+     *
+     * @return {Microbe} combined children
+     */
+    childrenFlat : function()
+    {
+        var _children = function( _elm )
+        {
+            return Microbe.toArray( _elm.children );
+        };
+
+        var arr, i, len, childrenArray = [];
+
+        for ( i = 0, len = this.length; i < len; i++ )
+        {
+            arr = _children( this[ i ] );
+
+            for ( var j = 0, lenJ = arr.length; j < lenJ; j++ )
+            {
+                if ( childrenArray.indexOf( arr[ j ] ) === -1 )
+                {
+                    childrenArray.push( arr[ j ] );
+                }
+            }
+        }
+
+        return new Microbe( '', undefined, childrenArray );
     },
 
 
@@ -852,6 +885,73 @@ Microbe.core = Microbe.prototype =
             return selectors;
         })();
     },
+
+
+    /**
+     * ## siblings
+     *
+     * Gets an microbe of all of each given element's siblings
+     *
+     * @return {Array} array of microbes
+     */
+    siblings : function()
+    {
+        var _siblings = function( _elm )
+        {
+            var parentsChildren = Microbe.toArray( _elm.parentNode.children );
+            var elIndex = parentsChildren.indexOf( _elm );
+            parentsChildren.splice( elIndex, 1 );
+
+            return parentsChildren;
+        };
+
+        var i, len, siblingArray = new Array( this.length );
+
+        for ( i = 0, len = this.length; i < len; i++ )
+        {
+            siblingArray[ i ] = new Microbe( '', undefined, _siblings( this[ i ] ) );
+        }
+
+        return siblingArray;
+    },
+
+
+    /**
+     * ## siblingsFlat
+     *
+     * Gets an microbe of all siblings of all element's given
+     *
+     * @return {Microbe} combined siblings
+     */
+    siblingsFlat : function()
+    {
+        var _siblings = function( _elm )
+        {
+            var parentsChildren = Microbe.toArray( _elm.parentNode.children );
+            var elIndex = parentsChildren.indexOf( _elm );
+            parentsChildren.splice( elIndex, 1 );
+
+            return parentsChildren;
+        };
+
+        var arr, i, len, siblingArray = [];
+
+        for ( i = 0, len = this.length; i < len; i++ )
+        {
+            arr = _siblings( this[ i ] );
+
+            for ( var j = 0, lenJ = arr.length; j < lenJ; j++ )
+            {
+                if ( siblingArray.indexOf( arr[ j ] ) === -1 )
+                {
+                    siblingArray.push( arr[ j ] );
+                }
+            }
+        }
+
+        return new Microbe( '', undefined, siblingArray );
+    },
+
 
 
     /**
