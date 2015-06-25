@@ -12,67 +12,117 @@
  *
  * @return {void}
  */
-var buildTest = function( _str1, _cb1, _str2, _cb2 )
+var buildTest = function( _str1, _cb1, _str2, _cb2, _console )
 {
     this.count = this.count || 0;
 
-    var µTests  = µ( '#qunit-tests' ).children()[0];
+    var µResult, µLi, µStrong;
 
-    var resDiv  = µTests[ this.count ];
+    var suite = new Benchmark.Suite();
 
-    var µLi      = µ( 'li', resDiv );
-    var µStrong  = µ( 'strong', resDiv );
-    var µResult =  µ( '<div.fastest>' );
+    if ( !_console )
+    {
+        var µTests  = µ( '#qunit-tests' ).children()[0];
 
-    resDiv.insertBefore( µResult[ 0 ], µStrong[ 0 ] );
+        var resDiv  = µTests[ this.count ];
 
-    if ( typeof _cb1 === 'function' )
+        µLi      = µ( 'li', resDiv );
+        µStrong  = µ( 'strong', resDiv );
+        µResult =  µ( '<div.fastest>' );
+
+        resDiv.insertBefore( µResult[ 0 ], µStrong[ 0 ] );
+    }
+
+    var startTheTest = function( e )
+    {
+        if ( e )
+        {
+            e.stopPropagation();
+            e.preventDefault();
+        }
+
+        if ( µResult )
+        {
+            µResult.off();
+        }
+
+        setTimeout( function()
+        {
+            suite.run( { 'async': true } );
+        }, 1 );
+    };
+
+    var setupTest = function()
     {
         var testRes = [];
         var _arr    = [];
         var i       = 0;
         var libraries = [ 'µ', '$' ];
-        var suite = new Benchmark.Suite();
 
         suite.add( _str1, _cb1 )
             .add( _str2, _cb2 )
             .on( 'cycle', function( event )
             {
                 _arr.push( this[ i ].hz );
-                var test = testRes[ i ] = µ( '<span.speed--result.slow>' );
-                µ( µLi[ i ] ).append( test );
-                test.html( String( event.target ) );
+
+                if ( !_console )
+                {
+                    var test = testRes[ i ] = µ( '<span.speed--result.slow>' );
+                    µ( µLi[ i ] ).append( test );
+                    test.html( String( event.target ) );
+                }
 
                 i++;
             } )
             .on( 'complete', function()
             {
                 var fastest = _arr.indexOf( Math.max.apply( Math, _arr ) );
-                testRes[ fastest ].removeClass( 'slow' );
+                var slowest = fastest === 1 ? 0 : 1;
+                var percent = ( _arr[ fastest ] /  _arr[ slowest ] * 100 - 100 ).toFixed( 2 );
 
-                µResult.html( libraries[ fastest ] + ' is the fastest' );
+                if ( !_console )
+                {
+                    testRes[ fastest ].removeClass( 'slow' );
+                    µResult.html( libraries[ fastest ] + ' is ' + percent + '% faster' );
+                }
+                else
+                {
+                    console.log( 'function ' + ( fastest + 1 ) + ' is ' + percent + '% faster' );
+                    console.log( {
+                        raw: _arr,
+                        func1: _cb1,
+                        func2: _cb2
+                    } );
+                }
             } );
 
-        var startTheTest = function( e )
-        {
-            e.stopPropagation();
-            e.preventDefault();
-            µResult.off();
-            setTimeout( function()
+            if ( _console === true )
             {
-                suite.run( { 'async': true } );
-            }, 1 );
-        };
+                console.log( 'test started' );
+                startTheTest();
+            }
+    };
 
-        µResult.html( 'Click to start the speed test' );
-        µResult.on( 'click', startTheTest );
+    if ( !_console )
+    {
+        if ( typeof _cb1 === 'function' )
+        {
+            setupTest();
+
+            µResult.html( 'Click to start the speed test' );
+            µResult.on( 'click', startTheTest );
+        }
+        else
+        {
+            µResult.html( _str1 ).addClass( 'invalid--test' );
+        }
+
+        this.count++;
     }
     else
     {
-        µResult.html( _str1 ).addClass( 'invalid--test' );
+        setupTest();
     }
-
-    this.count++;
 };
 
 require( './init' )( buildTest );
@@ -83,6 +133,8 @@ require( './http' )( buildTest );
 require( './dom' )( buildTest );
 require( './events' )( buildTest );
 require( './observe' )( buildTest );
+
+window.buildTest = buildTest;
 },{"./core":2,"./dom":3,"./events":4,"./http":5,"./init":6,"./observe":7,"./pseudo":8,"./root":9}],2:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 
