@@ -10,7 +10,7 @@
 /**
  * ## exported
  *
- * @return {Function} function that augment Microbe.
+ * @return _Function_ function that augment Microbe.
  */
 module.exports = function( Microbe )
 {
@@ -19,7 +19,7 @@ module.exports = function( Microbe )
      *
      * Waits until the DOM is ready to execute
      *
-     * @param {Function} _cb callback to run on ready
+     * @param _Function_ _cb               callback to run on ready
      *
      * @return _void_
      */
@@ -51,9 +51,9 @@ module.exports = function( Microbe )
      * Appends an element or elements to the microbe.  if there is more than
      * one target the next ones are cloned
      *
-     * @param {Mixed} _ele element(s) to append _{Element, Array or Microbe}_
+     * @param _Mixed_  _ele                element(s) to append _{Element, Array or Microbe}_
      *
-     * @return _Microbe_
+     * @return _Microbe_ new microbe filled with the inserted content
      */
     Microbe.core.append = (function()
     {
@@ -64,28 +64,27 @@ module.exports = function( Microbe )
 
         return function( _el )
         {
+            var elementArray = [];
+
             if ( !_el.length )
             {
                 _el = [ _el ];
             }
 
-            var i, j, leni, lenj;
+            var i, j, leni, lenj, node;
             for ( i = 0, leni = this.length; i < leni; i++ )
             {
                 for ( j = 0, lenj = _el.length; j < lenj; j++ )
                 {
-                    if ( i !== 0 )
-                    {
-                        _append( this[ i ], _el[ j ].cloneNode( true ) );
-                    }
-                    else
-                    {
-                        _append( this[ i ], _el[ j ] );
-                    }
+                    node = i === 0 ? _el[ j ] : _el[ j ].cloneNode( true );
+
+                    elementArray.push( node );
+
+                    _append( this[ i ], node );
                 }
             }
 
-            return this;
+            return this.constructor( elementArray );
         };
     }());
 
@@ -98,26 +97,24 @@ module.exports = function( Microbe )
      *
      * @example `µ( '.elementsInDom' ).insertAfter( µElementToInsert )`
      *
-     * @param {Mixed} _elAfter element to insert _{Object or String}_
+     * @param _Mixed_  _elAfter            element to insert _{Object or String}_
      *
-     * @return _Microbe_
+     * @return _Microbe_ new microbe filled with the inserted content
      */
     Microbe.core.insertAfter = function( _elAfter )
     {
-        var _this = this;
         var elementArray = [];
 
-        var _insertAfter = function( _elm )
+        var _insertAfter = function( _elm, i )
         {
-            var nextIndex;
+            var _arr        = Array.prototype.slice.call( _elm.parentNode.children );
+            var nextIndex   = _arr.indexOf( _elm ) + 1;
 
-            nextIndex = _this.getParentIndex( _elm )[0];
+            var node, nextEle   = _elm.parentNode.children[ nextIndex ];
 
-            var node, nextEle   = _elm.parentNode.children[ nextIndex + 1 ];
-
-            for ( var i = 0, lenI = _elAfter.length; i < lenI; i++ )
+            for ( var j = 0, lenJ = _elAfter.length; j < lenJ; j++ )
             {
-                node = i === 0 ? _elAfter[ i ] : _elAfter[ i ].cloneNode( true );
+                node = i === 0 ? _elAfter[ j ] : _elAfter[ j ].cloneNode( true );
 
                 elementArray.push( node );
 
@@ -144,7 +141,7 @@ module.exports = function( Microbe )
         var i, len;
         for ( i = 0, len = this.length; i < len; i++ )
         {
-            _insertAfter( this[ i ] );
+            _insertAfter( this[ i ], i );
         }
 
         return this.constructor( elementArray );
@@ -157,9 +154,9 @@ module.exports = function( Microbe )
      * Prepends an element or elements to the microbe.  if there is more than
      * one target the next ones are cloned
      *
-     * @param {Mixed} _ele element(s) to prepend _{Element, Array or Microbe}_
+     * @param _Mixed_ _ele element(s) to prepend _{Element, Array or Microbe}_
      *
-     * @return _Microbe_
+     * @return _Microbe_ new microbe filled with the inserted content
      */
     Microbe.core.prepend = (function()
     {
@@ -171,28 +168,26 @@ module.exports = function( Microbe )
 
         return function( _el )
         {
+            var elementArray = [];
+
             if ( !_el.length )
             {
                 _el = [ _el ];
             }
 
-            var i, j, leni, lenj;
+            var i, j, leni, lenj, node;
             for ( i = 0, leni = this.length; i < leni; i++ )
             {
                 for ( j = 0, lenj = _el.length; j < lenj; j++ )
                 {
-                    if ( i !== 0 )
-                    {
-                        _prepend( this[ i ], _el[ j ].cloneNode( true ) );
-                    }
-                    else
-                    {
-                        _prepend( this[ i ], _el[ j ] );
-                    }
+                    node = i === 0 ? _el[ j ] : _el[ j ].cloneNode( true );
+                    elementArray.push( node );
+
+                    _prepend( this[ i ], node );
                 }
             }
 
-            return this;
+            this.constructor( elementArray );
         };
     }());
 
@@ -202,7 +197,7 @@ module.exports = function( Microbe )
      *
      * Removes an element or elements from the dom
      *
-     * @return _Microbe_
+     * @return _Microbe_ reference to original microbe
      */
     Microbe.core.remove = function()
     {

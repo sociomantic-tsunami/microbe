@@ -90,6 +90,13 @@ We gladly accept and review any pull-requests. Feel free! :heart:
 Changelog
 =========
 
+0.3.3
+~~~~~
+
+ + more consistent documentation
+ + more consistent output
+
+
 0.3.2
 ~~~~~
 
