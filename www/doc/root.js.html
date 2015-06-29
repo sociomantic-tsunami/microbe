@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="doc-style.css" />
   <script src="doc-filelist.js"></script>
   <script>
-    var relativeDir = "", thisFile = "Users/nicolasb/workspace/www/microbe/src/rootjs", defaultSidebar = true;
+    var relativeDir = "", thisFile = "Users/mouse/workspace/microbe/src/rootjs", defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
   <script src="microbe.js"></script>
@@ -106,11 +106,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Mouse Braun         <a href="&#x6D;a&#105;&#x6C;&#116;&#111;:m&#x6F;&#117;&#115;&#x65;&#64;s&#x6F;&#x63;&#x69;&#111;&#x6D;&#x61;&#110;&#x74;&#105;c.&#99;&#111;m">m&#x6F;&#117;&#115;&#x65;&#64;s&#x6F;&#x63;&#x69;&#111;&#x6D;&#x61;&#110;&#x74;&#105;c.&#99;&#111;m</a></span>
+      <span>Mouse Braun         <a href="&#109;&#x61;i&#108;&#x74;&#x6F;:&#x6D;o&#x75;&#x73;&#101;&#x40;&#115;&#111;&#99;&#105;&#111;&#x6D;&#x61;&#x6E;&#116;&#105;c.&#x63;&#111;&#x6D;">&#x6D;o&#x75;&#x73;&#101;&#x40;&#115;&#111;&#99;&#105;&#111;&#x6D;&#x61;&#x6E;&#116;&#105;c.&#x63;&#111;&#x6D;</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Nicolas Brugneaux   <a href="m&#x61;&#105;&#x6C;&#116;&#x6F;:&#x6E;&#x69;&#99;&#111;&#x6C;&#97;&#115;&#x2E;&#98;&#114;&#x75;&#x67;&#x6E;&#x65;au&#120;&#x40;&#115;&#x6F;&#99;i&#111;&#x6D;&#97;&#110;&#116;&#x69;&#x63;&#46;&#x63;&#111;&#109;">&#x6E;&#x69;&#99;&#111;&#x6C;&#97;&#115;&#x2E;&#98;&#114;&#x75;&#x67;&#x6E;&#x65;au&#120;&#x40;&#115;&#x6F;&#99;i&#111;&#x6D;&#97;&#110;&#116;&#x69;&#x63;&#46;&#x63;&#111;&#109;</a></span>
+      <span>Nicolas Brugneaux   <a href="&#109;&#97;i&#x6C;&#116;&#x6F;:n&#x69;&#x63;&#x6F;&#108;&#x61;&#115;&#46;&#98;&#114;&#x75;&#103;n&#101;&#97;&#117;&#x78;&#64;&#x73;&#x6F;&#x63;&#105;&#111;&#x6D;&#x61;n&#116;&#x69;c&#46;&#x63;&#x6F;&#109;">n&#x69;&#x63;&#x6F;&#108;&#x61;&#115;&#46;&#98;&#114;&#x75;&#103;n&#101;&#97;&#117;&#x78;&#64;&#x73;&#x6F;&#x63;&#105;&#111;&#x6D;&#x61;n&#116;&#x69;c&#46;&#x63;&#x6F;&#109;</a></span>
     </div>
     <div class="dox_tag_title">package</div>
     <div class="dox_tag_detail">
@@ -139,8 +139,7 @@
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span class="dox_type">Function</span>
-      <span>function that augment Microbe.</span>
+      <span><em>Function</em> function that augment Microbe.</span>
     </div>
   </div>
 </div>
@@ -173,15 +172,13 @@ type that it was given</p>
   <div class="details">
     <div class="dox_tag_title">Params</div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">text</span>
-      <span class="dox_type">Mixed</span>
-      <span>string(s) to capitalize <em>{String or Array}</em></span>
+      <span class="dox_tag_name">_Mixed_</span>
+      <span>text                string(s) to capitalize <em>{String or Array}</em></span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span class="dox_type">Mixed</span>
-      <span>{String or Array} capitalized string(s)</span>
+      <span><em>Mixed</em>  capitalized string(s) values <em>{String or Array}</em></span>
     </div>
   </div>
 </div>
@@ -192,17 +189,19 @@ type that it was given</p>
         <span class="kd">var</span> <span class="nx">array</span>   <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span> <span class="nx">text</span> <span class="p">);</span>
         <span class="nx">text</span>        <span class="o">=</span> <span class="o">!</span><span class="nx">array</span> <span class="o">?</span> <span class="p">[</span> <span class="nx">text</span> <span class="p">]</span> <span class="o">:</span> <span class="nx">text</span><span class="p">;</span>
 
+        <span class="kd">var</span> <span class="nx">str</span><span class="p">,</span> <span class="nx">res</span> <span class="o">=</span> <span class="p">[];</span>
+
         <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">text</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
         <span class="p">{</span>
-            <span class="nx">text</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">text</span><span class="p">[</span> <span class="nx">i</span> <span class="p">].</span><span class="nx">split</span><span class="p">(</span> <span class="s1">&#39; &#39;</span> <span class="p">);</span>
-            <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenJ</span> <span class="o">=</span> <span class="nx">text</span><span class="p">[</span> <span class="nx">i</span> <span class="p">].</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">lenJ</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">)</span>
+            <span class="nx">str</span> <span class="o">=</span> <span class="nx">text</span><span class="p">[</span> <span class="nx">i</span> <span class="p">].</span><span class="nx">split</span><span class="p">(</span> <span class="s1">&#39; &#39;</span> <span class="p">);</span>
+            <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenJ</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">lenJ</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">)</span>
             <span class="p">{</span>
-                <span class="nx">text</span><span class="p">[</span> <span class="nx">i</span> <span class="p">][</span> <span class="nx">j</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">text</span><span class="p">[</span> <span class="nx">i</span> <span class="p">][</span> <span class="nx">j</span> <span class="p">].</span><span class="nx">charAt</span><span class="p">(</span> <span class="mi">0</span> <span class="p">).</span><span class="nx">toUpperCase</span><span class="p">()</span> <span class="o">+</span> <span class="nx">text</span><span class="p">[</span> <span class="nx">i</span> <span class="p">][</span> <span class="nx">j</span> <span class="p">].</span><span class="nx">slice</span><span class="p">(</span> <span class="mi">1</span> <span class="p">);</span>
+                <span class="nx">str</span><span class="p">[</span> <span class="nx">j</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">str</span><span class="p">[</span> <span class="nx">j</span> <span class="p">].</span><span class="nx">charAt</span><span class="p">(</span> <span class="mi">0</span> <span class="p">).</span><span class="nx">toUpperCase</span><span class="p">()</span> <span class="o">+</span> <span class="nx">str</span><span class="p">[</span> <span class="nx">j</span> <span class="p">].</span><span class="nx">slice</span><span class="p">(</span> <span class="mi">1</span> <span class="p">);</span>
             <span class="p">}</span>
-            <span class="nx">text</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">text</span><span class="p">[</span> <span class="nx">i</span> <span class="p">].</span><span class="nx">join</span><span class="p">(</span> <span class="s1">&#39; &#39;</span> <span class="p">);</span>
+            <span class="nx">res</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">str</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span> <span class="s1">&#39; &#39;</span> <span class="p">)</span> <span class="p">);</span>
         <span class="p">}</span>
 
-        <span class="k">return</span> <span class="p">(</span> <span class="nx">array</span> <span class="p">)</span> <span class="o">?</span> <span class="nx">text</span> <span class="o">:</span> <span class="nx">text</span><span class="p">[</span> <span class="mi">0</span> <span class="p">];</span>
+        <span class="k">return</span> <span class="p">(</span> <span class="nx">array</span> <span class="p">)</span> <span class="o">?</span> <span class="nx">res</span> <span class="o">:</span> <span class="nx">res</span><span class="p">[</span> <span class="mi">0</span> <span class="p">];</span>
     <span class="p">};</span>
 
 
@@ -244,26 +243,22 @@ type that it was given</p>
   <div class="details">
     <div class="dox_tag_title">Params</div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">_func</span>
-      <span class="dox_type">Function</span>
-      <span>function to meter</span>
+      <span class="dox_tag_name">_Function_</span>
+      <span>_func               function to meter</span>
     </div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">wait</span>
-      <span class="dox_type">Number</span>
-      <span>milliseconds to wait</span>
+      <span class="dox_tag_name">_Number_</span>
+      <span>wait                milliseconds to wait</span>
     </div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">immediate</span>
-      <span class="dox_type">Boolean</span>
-      <span>run function at the start
+      <span class="dox_tag_name">_Boolean_</span>
+      <span>immediate           run function at the start
                                                  of the timeout</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span class="dox_type">Function</span>
-      <span></span>
+      <span><em>Function</em></span>
     </div>
   </div>
 </div>
@@ -323,9 +318,8 @@ type that it was given</p>
   <div class="details">
     <div class="dox_tag_title">Params</div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">value</span>
-      <span class="dox_type">any</span>
-      <span>any value</span>
+      <span class="dox_tag_name">_any_</span>
+      <span>value               any value</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
@@ -362,25 +356,21 @@ the contents</p>
   <div class="details">
     <div class="dox_tag_title">Params</div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">selector</span>
-      <span class="dox_type">String</span>
-      <span>selector to apply it to</span>
+      <span class="dox_tag_name">_String_</span>
+      <span>selector            selector to apply it to</span>
     </div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">cssObj</span>
-      <span class="dox_type">Mixed</span>
-      <span>css object. <em>{String or Object}</em></span>
+      <span class="dox_tag_name">_Mixed_</span>
+      <span>cssObj              css object. <em>{String or Object}</em></span>
     </div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">media</span>
-      <span class="dox_type">String</span>
-      <span>media query</span>
+      <span class="dox_tag_name">_String_</span>
+      <span>media               media query</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span class="dox_type">Mixed</span>
-      <span>{Microbe or Style }</span>
+      <span><em>Object</em> reference to the appropriate style object</span>
     </div>
   </div>
 </div>
@@ -478,7 +468,7 @@ the contents</p>
   <div class="details">
     <div class="dox_tag_title">Type</div>
     <div class="dox_tag_detail">
-      <span class="dox_type">Function
+      <span class="dox_type">_Function_
 </span>
     </div>
   </div>
@@ -508,15 +498,13 @@ the contents</p>
   <div class="details">
     <div class="dox_tag_title">Params</div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">obj</span>
-      <span class="dox_type">Object</span>
-      <span>object to check</span>
+      <span class="dox_tag_name">_Object_</span>
+      <span>obj                 object to check</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span class="dox_type">Boolean</span>
-      <span>empty or not</span>
+      <span><em>Boolean</em> empty or not</span>
     </div>
   </div>
 </div>
@@ -554,15 +542,13 @@ the contents</p>
   <div class="details">
     <div class="dox_tag_title">Params</div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">obj</span>
-      <span class="dox_type">Object</span>
-      <span>object to check</span>
+      <span class="dox_tag_name">_Object_</span>
+      <span>obj                 object to check</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span class="dox_type">Boolean</span>
-      <span>function or not</span>
+      <span><em>Boolean</em> function or not</span>
     </div>
   </div>
 </div>
@@ -594,15 +580,13 @@ the contents</p>
   <div class="details">
     <div class="dox_tag_title">Params</div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">obj</span>
-      <span class="dox_type">Object</span>
-      <span>object to check</span>
+      <span class="dox_tag_name">_Object_</span>
+      <span>obj                 object to check</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span class="dox_type">Boolean</span>
-      <span>isObject or not</span>
+      <span><em>Boolean</em> isObject or not</span>
     </div>
   </div>
 </div>
@@ -639,20 +623,17 @@ the contents</p>
   <div class="details">
     <div class="dox_tag_title">Params</div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">obj</span>
-      <span class="dox_type">String</span>
-      <span>property</span>
+      <span class="dox_tag_name">_String_</span>
+      <span>obj                 property</span>
     </div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">parent</span>
-      <span class="dox_type">Object</span>
-      <span>object to check</span>
+      <span class="dox_tag_name">_Object_</span>
+      <span>parent              object to check</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span class="dox_type">Boolean</span>
-      <span>obj in parent</span>
+      <span><em>Boolean</em> obj in parent</span>
     </div>
   </div>
 </div>
@@ -689,15 +670,13 @@ the contents</p>
   <div class="details">
     <div class="dox_tag_title">Params</div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">obj</span>
-      <span class="dox_type">Object</span>
-      <span>object to check</span>
+      <span class="dox_tag_name">_Object_</span>
+      <span>obj                 object to check</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span class="dox_type">Boolean</span>
-      <span>isWindow or not</span>
+      <span><em>Boolean</em> isWindow or not</span>
     </div>
   </div>
 </div>
@@ -735,8 +714,7 @@ the contents</p>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span class="dox_type">void</span>
-      <span></span>
+      <span><em>void</em></span>
     </div>
   </div>
 </div>
@@ -765,15 +743,13 @@ the contents</p>
   <div class="details">
     <div class="dox_tag_title">Params</div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">_func</span>
-      <span class="dox_type">Function</span>
-      <span>function to run once</span>
+      <span class="dox_tag_name">_Function_</span>
+      <span>_func                         function to run once</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span class="dox_type">Function</span>
-      <span></span>
+      <span><em>Function</em></span>
     </div>
   </div>
 </div>
@@ -822,35 +798,29 @@ _error is excecuted</p>
   <div class="details">
     <div class="dox_tag_title">Params</div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">_func</span>
-      <span class="dox_type">Function</span>
-      <span>function to check for true</span>
+      <span class="dox_tag_name">_Function_</span>
+      <span>_func                         function to check for true</span>
     </div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">_success</span>
-      <span class="dox_type">Function</span>
-      <span>function to run on success</span>
+      <span class="dox_tag_name">_Function_</span>
+      <span>_success                      function to run on success</span>
     </div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">_error</span>
-      <span class="dox_type">Function</span>
-      <span>function to run on error</span>
+      <span class="dox_tag_name">_Function_</span>
+      <span>_error                        function to run on error</span>
     </div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">timeout</span>
-      <span class="dox_type">Number</span>
-      <span>time (in ms) to stop polling</span>
+      <span class="dox_tag_name">_Number_</span>
+      <span>timeout                       time (in ms) to stop polling</span>
     </div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">interval</span>
-      <span class="dox_type">Number</span>
-      <span>time (in ms) in between polling</span>
+      <span class="dox_tag_name">_Number_</span>
+      <span>interval                      time (in ms) in between polling</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span class="dox_type">Function</span>
-      <span></span>
+      <span><em>Function</em></span>
     </div>
   </div>
 </div>
@@ -901,27 +871,23 @@ also be passed as the second variable</p>
   <div class="details">
     <div class="dox_tag_title">Params</div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">selector</span>
-      <span class="dox_type">String</span>
-      <span>selector to apply it to</span>
+      <span class="dox_tag_name">_String_</span>
+      <span>selector            selector to apply it to</span>
     </div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">properties</span>
-      <span class="dox_type">Mixed</span>
-      <span>css properties to remove
+      <span class="dox_tag_name">_Mixed_</span>
+      <span>properties          css properties to remove
                                                  'all' to remove all selector tags
                                                  string as media query {String or Array}</span>
     </div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">media</span>
-      <span class="dox_type">String</span>
-      <span>media query</span>
+      <span class="dox_tag_name">_String_</span>
+      <span>media               media query</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span class="dox_type">Boolean</span>
-      <span></span>
+      <span><em>Boolean</em> removed or not</span>
     </div>
   </div>
 </div>
@@ -988,7 +954,6 @@ also be passed as the second variable</p>
                     <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
                 <span class="p">}</span>
             <span class="p">}</span>
-
         <span class="p">}</span>
         <span class="k">else</span>
         <span class="p">{</span>
@@ -1019,15 +984,13 @@ also be passed as the second variable</p>
   <div class="details">
     <div class="dox_tag_title">Params</div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">selector</span>
-      <span class="dox_type">String</span>
-      <span>selector to apply it to</span>
+      <span class="dox_tag_name">_String_</span>
+      <span>selector            selector to apply it to</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span class="dox_type">Boolean</span>
-      <span></span>
+      <span><em>Boolean</em> removed or not</span>
     </div>
   </div>
 </div>
@@ -1119,15 +1082,13 @@ also be passed as the second variable</p>
   <div class="details">
     <div class="dox_tag_title">Params</div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">obj</span>
-      <span class="dox_type">all</span>
-      <span>parameter to test</span>
+      <span class="dox_tag_name">_all_</span>
+      <span>obj                 parameter to test</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span class="dox_type">String</span>
-      <span>typeof obj</span>
+      <span><em>String</em> typeof obj</span>
     </div>
   </div>
 </div>
@@ -1142,7 +1103,15 @@ also be passed as the second variable</p>
 
         <span class="kd">var</span> <span class="nx">type</span> <span class="o">=</span> <span class="nx">Types</span><span class="p">[</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">toString</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="nx">obj</span> <span class="p">)</span> <span class="p">];</span>
             <span class="nx">type</span> <span class="o">=</span> <span class="o">!</span><span class="nx">type</span> <span class="o">?</span> <span class="nx">Types</span><span class="p">[</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span> <span class="p">]</span> <span class="o">:</span> <span class="nx">type</span><span class="p">;</span>
-        <span class="k">return</span>  <span class="nx">type</span> <span class="o">||</span> <span class="k">typeof</span> <span class="nx">obj</span><span class="p">;</span>
+
+        <span class="nx">type</span> <span class="o">=</span> <span class="nx">type</span> <span class="o">||</span> <span class="k">typeof</span> <span class="nx">obj</span><span class="p">;</span>
+
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">type</span> <span class="o">===</span> <span class="s1">&#39;object&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">obj</span> <span class="k">instanceof</span> <span class="nx">Promise</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">type</span> <span class="o">=</span> <span class="s1">&#39;promise&#39;</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span>  <span class="nx">type</span><span class="p">;</span>
     <span class="p">};</span>
 
 
@@ -1167,8 +1136,7 @@ also be passed as the second variable</p>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span class="dox_type">void</span>
-      <span></span>
+      <span><em>void</em>   </span>
     </div>
   </div>
 </div>

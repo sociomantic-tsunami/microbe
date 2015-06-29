@@ -10,7 +10,7 @@
 /**
  * ## exported
  *
- * @return {Function} function that augment Microbe.
+ * @return _Function_ function that augment Microbe.
  */
 module.exports = function( Microbe )
 {
@@ -22,13 +22,12 @@ module.exports = function( Microbe )
      * Method takes as many as necessary parameters, with url being the only required.
      * The return then has the methods `.then( _cb )` and `.error( _cb )`
      *
-     * @param {Object} _parameters          http parameters. possible properties
+     * @param _Object_ _parameters          http parameters. possible properties
      *                                                  method, url, data, user, password, headers, async
      */
     Microbe.http = function( _parameters )
     {
-        var fail,
-            req, method, url, data, user, password, headers, async;
+        var fail, req, method, url, data, user, password, headers, async;
 
         if ( !_parameters )
         {
@@ -112,9 +111,9 @@ module.exports = function( Microbe )
                      * Called after `http`, `http.get`, or `http.post`, this is
                      * called passing the result as the first parameter to the callback
                      *
-                     * @param {Function} _cb         function to call after http request
+                     * @param _Function_ _cb         function to call after http request
                      *
-                     * @return {Object} contains the `.catch` method
+                     * @return _Object_ contains the `.catch` method
                      */
                     then: function( _cb )
                     {
@@ -132,9 +131,9 @@ module.exports = function( Microbe )
                      * Called after `http`, `http.get`, or `http.post`, this is
                      * called passing the error as the first parameter to the callback
                      *
-                     * @param {Function} _cb         function to call after http request
+                     * @param _Function_ _cb         function to call after http request
                      *
-                     * @return {Object} contains the `.then` method
+                     * @return _Object_ contains the `.then` method
                      */
                     catch: function( _cb )
                     {
@@ -157,6 +156,7 @@ module.exports = function( Microbe )
                 req.onreadystatechange();
                 return _response( req );
             };
+
             return req.onloadend();
         }
     };
@@ -166,9 +166,9 @@ module.exports = function( Microbe )
      *
      * Syntactic shortcut for simple GET requests
      *
-     * @param {String} _url                file url
+     * @param _String_ _url                file url
      *
-     * @return {Object} contains `.then` and `.catch`
+     * @return _Object_ contains `.then` and `.catch`
      */
     Microbe.http.get = function( _url )
     {
@@ -184,10 +184,10 @@ module.exports = function( Microbe )
      *
      * Syntactic shortcut for simple POST requests
      *
-     * @param {String} _url                file url
-     * @param {Mixed} _data               data to post to location _{Object or String}_
+     * @param _String_ _url                file url
+     * @param _Mixed_ _data               data to post to location _{Object or String}_
      *
-     * @return {Object} contains `.then` and `.catch`
+     * @return _Object_ contains `.then` and `.catch`
      */
     Microbe.http.post = function( _url, _data )
     {

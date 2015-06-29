@@ -27,7 +27,7 @@ var _type       = '[object Microbe]';
  *
  * Builds the µ object
  *
- * @return {Microbe}
+ * @return _Microbe_
  */
 var Microbe = function( selector, scope, elements )
 {
@@ -53,7 +53,7 @@ Microbe.core = Microbe.prototype =
      *
      * Adds the passed class to the current element(s)
      *
-     * @param {Mixed} _class    class to remove.  this accepts
+     * @param _Mixed_ _class    class to remove.  this accepts
      *                  strings and array of strings.
      *                  the strings can be a class or
      *                  classes seperated with spaces _{String or Array}_
@@ -102,8 +102,6 @@ Microbe.core = Microbe.prototype =
 
     /**
      * ## attr
-     *
-     * Alter/Get Attribute
      *
      * Changes the attribute by writing the given property and value to the
      * supplied elements.  If the value is omitted, simply returns the current

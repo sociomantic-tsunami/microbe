@@ -20,12 +20,12 @@ module.exports = function( Microbe )
      *
      * Emits a custom event to the HTMLElements of the current object
      *
-     * @param {String} _event              HTMLEvent
-     * @param {Object} _data               event data
-     * @param {Boolean} _bubbles            event bubbles?
-     * @param {Boolean} _cancelable         cancelable?
+     * @param _String_ _event              HTMLEvent
+     * @param _Object_ _data               event data
+     * @param _Boolean_ _bubbles           event bubbles?
+     * @param _Boolean_ _cancelable        cancelable?
      *
-     * @return _Microbe_
+     * @return _Microbe_ reference to original microbe
      */
     Microbe.prototype.emit = function ( _event, _data, _bubbles, _cancelable )
     {
@@ -56,11 +56,11 @@ module.exports = function( Microbe )
      *
      * Unbinds an/all events.
      *
-     * @param {String} _event                  event name
-     * @param {func} _callback               callback function
-     * @param {Object} _el                     HTML element to modify (optional)
+     * @param _String_ _event                  event name
+     * @param _Function_ _callback             callback function
+     * @param _Object_ _el                     HTML element to modify (optional)
      *
-     * @return Microbe
+     * @return _Microbe_ reference to original microbe
      */
     Microbe.prototype.off = function( _event, _callback )
     {
@@ -135,10 +135,10 @@ module.exports = function( Microbe )
      * Binds an event to the HTMLElements of the current object or to the
      * given element.
      *
-     * @param {String} _event              HTMLEvent
-     * @param {Function} _callback           callback function
+     * @param _String_ _event              HTMLEvent
+     * @param _Function_ _callback           callback function
      *
-     * @return _Microbe_
+     * @return _Microbe_ reference to original microbe
      */
     Microbe.prototype.on = function ( _event, _callback )
     {
@@ -173,18 +173,18 @@ module.exports = function( Microbe )
     /**
      * ## CustomEvent polyfill
      *
-     * CustomEvent polyfill for IE >= 9
+     * CustomEvent polyfill for IE <= 9
      *
-     * @param {String} _event              HTMLEvent
-     * @param {Object} _data               event data
+     * @param _String_ _event              HTMLEvent
+     * @param _Object_ _data               event data
      *
      * @return _void_
      */
     if ( typeof CustomEvent !== 'function' )
     {
-        ( function ()
+        ( function()
         {
-            function CustomEvent ( event, data )
+            function CustomEvent( event, data )
             {
                 data    = data || { bubbles: false, cancelable: false, detail: undefined };
                 var evt = document.createEvent( 'CustomEvent' );

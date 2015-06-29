@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="doc-style.css" />
   <script src="doc-filelist.js"></script>
   <script>
-    var relativeDir = "", thisFile = "Users/nicolasb/workspace/www/microbe/src/corejs", defaultSidebar = true;
+    var relativeDir = "", thisFile = "Users/mouse/workspace/microbe/src/corejs", defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
   <script src="microbe.js"></script>
@@ -32,6 +32,9 @@
       </div>
       <div class="heading h2">
         <a href="#children">children</a>
+      </div>
+      <div class="heading h2">
+        <a href="#childrenflat">childrenFlat</a>
       </div>
       <div class="heading h2">
         <a href="#css">css</a>
@@ -88,6 +91,12 @@
         <a href="#selector">selector</a>
       </div>
       <div class="heading h2">
+        <a href="#siblings">siblings</a>
+      </div>
+      <div class="heading h2">
+        <a href="#siblingsflat">siblingsFlat</a>
+      </div>
+      <div class="heading h2">
         <a href="#splice">splice</a>
       </div>
       <div class="heading h2">
@@ -130,11 +139,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Mouse Braun         <a href="&#x6D;&#97;&#105;&#108;&#x74;&#111;:&#x6D;&#111;&#117;&#115;&#x65;&#64;&#x73;&#111;&#x63;&#x69;&#x6F;&#x6D;&#97;&#x6E;&#x74;&#x69;&#99;&#x2E;&#x63;o&#x6D;">&#x6D;&#111;&#117;&#115;&#x65;&#64;&#x73;&#111;&#x63;&#x69;&#x6F;&#x6D;&#97;&#x6E;&#x74;&#x69;&#99;&#x2E;&#x63;o&#x6D;</a></span>
+      <span>Mouse Braun         <a href="&#109;&#x61;i&#x6C;&#116;&#x6F;:&#109;&#x6F;&#117;s&#101;&#x40;&#115;&#111;c&#x69;&#x6F;&#x6D;&#x61;n&#116;&#105;c&#46;&#99;&#x6F;&#x6D;">&#109;&#x6F;&#117;s&#101;&#x40;&#115;&#111;c&#x69;&#x6F;&#x6D;&#x61;n&#116;&#105;c&#46;&#99;&#x6F;&#x6D;</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Nicolas Brugneaux   <a href="&#109;&#97;&#x69;&#x6C;&#x74;&#111;:&#x6E;&#x69;c&#x6F;&#108;&#x61;&#x73;&#x2E;&#x62;ru&#103;ne&#x61;u&#x78;&#x40;&#115;&#111;&#99;&#105;&#111;&#109;&#x61;&#x6E;&#116;&#x69;&#x63;&#46;c&#111;&#x6D;">&#x6E;&#x69;c&#x6F;&#108;&#x61;&#x73;&#x2E;&#x62;ru&#103;ne&#x61;u&#x78;&#x40;&#115;&#111;&#99;&#105;&#111;&#109;&#x61;&#x6E;&#116;&#x69;&#x63;&#46;c&#111;&#x6D;</a></span>
+      <span>Nicolas Brugneaux   <a href="&#109;&#x61;&#x69;&#x6C;&#x74;&#x6F;:&#x6E;&#x69;&#99;&#111;&#x6C;&#x61;&#115;&#x2E;&#98;&#x72;&#117;&#x67;&#110;&#x65;&#97;&#x75;&#x78;&#x40;&#115;&#x6F;&#x63;&#105;&#x6F;&#109;&#x61;n&#x74;&#105;&#99;&#x2E;&#x63;&#111;&#109;">&#x6E;&#x69;&#99;&#111;&#x6C;&#x61;&#115;&#x2E;&#98;&#x72;&#117;&#x67;&#110;&#x65;&#97;&#x75;&#x78;&#x40;&#115;&#x6F;&#x63;&#105;&#x6F;&#109;&#x61;n&#x74;&#105;&#99;&#x2E;&#x63;&#111;&#109;</a></span>
     </div>
     <div class="dox_tag_title">package</div>
     <div class="dox_tag_detail">
@@ -180,9 +189,7 @@
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span class="dox_type">Microbe
-</span>
-      <span>{Microbe}</span>
+      <span><em>Microbe</em></span>
     </div>
   </div>
 </div>
@@ -227,17 +234,16 @@
   <div class="details">
     <div class="dox_tag_title">Params</div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">_class</span>
-      <span class="dox_type">Mixed</span>
-      <span>class to remove.  this accepts
+      <span class="dox_tag_name">_Mixed_</span>
+      <span><em>class    class to remove.  this accepts
                  strings and array of strings.
                  the strings can be a class or
-                 classes seperated with spaces <em>{String or Array}</em></span>
+                 classes seperated with spaces _{String or Array}</em></span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span><em>Microbe</em></span>
+      <span><em>Microbe</em> reference to original microbe</span>
     </div>
   </div>
 </div>
@@ -260,7 +266,7 @@
                 <span class="p">}</span>
             <span class="p">}</span>
 
-            <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span>                <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span> <span class="o">||</span> <span class="p">{};</span>
+            <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span>                <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span>  <span class="o">||</span> <span class="p">{};</span>
             <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="kr">class</span>          <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="kr">class</span> <span class="o">||</span> <span class="p">{};</span>
             <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="kr">class</span><span class="p">.</span><span class="kr">class</span>    <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">className</span><span class="p">;</span>
         <span class="p">};</span>
@@ -298,9 +304,7 @@
 </div>
 
   </div>
-  <div class="body"><p>Alter/Get Attribute</p>
-
-<p>Changes the attribute by writing the given property and value to the
+  <div class="body"><p>Changes the attribute by writing the given property and value to the
 supplied elements.  If the value is omitted, simply returns the current
 attribute value of the element. Attributes can be bulk added by passing
 an object (property: value)</p>
@@ -308,18 +312,21 @@ an object (property: value)</p>
   <div class="details">
     <div class="dox_tag_title">Params</div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">_{Mixed}</span>
+      <span class="dox_tag_name">_Mixed_</span>
       <span><em>attribute          attribute name {String or Object}</em></span>
     </div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">_value</span>
-      <span class="dox_type">String</span>
-      <span>attribute value (optional)</span>
+      <span class="dox_tag_name">_String_</span>
+      <span>_value              attribute value (optional)</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span><em>Microbe</em> or <em>Array</em></span>
+      <span><em>Microbe</em> reference to original microbe (set)</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Array</em>  array of values (get)</span>
     </div>
   </div>
 </div>
@@ -426,14 +433,13 @@ an object (property: value)</p>
 </div>
 
   </div>
-  <div class="body"><p>Gets an array of all the given element's children</p>
+  <div class="body"><p>Gets a microbe of all the given element's children</p>
   </div>
   <div class="details">
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span class="dox_type">Array</span>
-      <span>array of microbes</span>
+      <span><em>Array</em>  array of microbes (value)</span>
     </div>
   </div>
 </div>
@@ -464,6 +470,59 @@ an object (property: value)</p>
       <tr>
         <td class="docs"><div class="dox">
   <div class="summary">
+<div class="pilwrap" id="childrenflat">
+  <h2>
+    <a href="#childrenflat" name="childrenflat" class="pilcrow">&#182;</a>
+    childrenFlat
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>Gets an microbe of all children of all element's given</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Microbe</em> value array of combined children</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">childrenFlat</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">_children</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_elm</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">toArray</span><span class="p">(</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">children</span> <span class="p">);</span>
+        <span class="p">};</span>
+
+        <span class="kd">var</span> <span class="nx">arr</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">len</span><span class="p">,</span> <span class="nx">childrenArray</span> <span class="o">=</span> <span class="p">[];</span>
+
+        <span class="k">for</span> <span class="p">(</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">len</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">arr</span> <span class="o">=</span> <span class="nx">_children</span><span class="p">(</span> <span class="k">this</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="p">);</span>
+
+            <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenJ</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">lenJ</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span> <span class="nx">childrenArray</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="nx">arr</span><span class="p">[</span> <span class="nx">j</span> <span class="p">]</span> <span class="p">)</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nx">childrenArray</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">arr</span><span class="p">[</span> <span class="nx">j</span> <span class="p">]</span> <span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="k">new</span> <span class="nx">Microbe</span><span class="p">(</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="kc">undefined</span><span class="p">,</span> <span class="nx">childrenArray</span> <span class="p">);</span>
+    <span class="p">},</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
 <div class="pilwrap" id="css">
   <h2>
     <a href="#css" name="css" class="pilcrow">&#182;</a>
@@ -479,19 +538,21 @@ If the value is omitted, simply returns the current css value of the element.</p
   <div class="details">
     <div class="dox_tag_title">Params</div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">_attribute</span>
-      <span class="dox_type">String</span>
-      <span>css property</span>
+      <span class="dox_tag_name">_String_</span>
+      <span>_attribute          css property</span>
     </div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">_value</span>
-      <span class="dox_type">String</span>
-      <span>css value (optional)</span>
+      <span class="dox_tag_name">_String_</span>
+      <span>_value              css value (optional)</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span><em>Microbe</em> or <em>Array</em></span>
+      <span><em>Microbe</em> reference to original microbe (set)</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Array</em>  array of values (get)</span>
     </div>
   </div>
 </div>
@@ -562,7 +623,7 @@ them</p>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span><em>Array</em></span>
+      <span><em>Microbe</em> reference to original microbe</span>
     </div>
   </div>
 </div>
@@ -600,7 +661,8 @@ them</p>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span><em>Object</em></span>
+      <span><em>Object</em> reference to this (microbe) or the first
+                    object passed (root)</span>
     </div>
   </div>
 </div>
@@ -710,7 +772,7 @@ them</p>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span><em>Microbe</em></span>
+      <span><em>Microbe</em> new microbe containing only the filtered values</span>
     </div>
   </div>
 </div>
@@ -801,7 +863,7 @@ them</p>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span><em>Microbe</em></span>
+      <span><em>Microbe</em> new microbe containing only the found children values</span>
     </div>
   </div>
 </div>
@@ -829,16 +891,14 @@ them</p>
 </div>
 
   </div>
-  <div class="body"><p>Methods gets the first HTML Elements of the current object, and wrap it in
+  <div class="body"><p>gets the first Element of the current microbe, and wraps it in
 Microbe.</p>
   </div>
   <div class="details">
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span class="dox_type">Microbe
-</span>
-      <span>{Microbe}</span>
+      <span><em>Microbe</em> new microbe containing only the first value</span>
     </div>
   </div>
 </div>
@@ -876,8 +936,7 @@ Microbe.</p>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span class="dox_type">Array</span>
-      <span>array of indexes</span>
+      <span><em>Array</em> array of index values</span>
     </div>
   </div>
 </div>
@@ -921,14 +980,13 @@ Microbe.</p>
   <div class="details">
     <div class="dox_tag_title">Params</div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">_class</span>
-      <span class="dox_type">String</span>
-      <span>class to check</span>
+      <span class="dox_tag_name">_String_</span>
+      <span>_class              class to check</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span><em>Microbe</em></span>
+      <span><em>Microbe</em> Array of Boolean values</span>
     </div>
   </div>
 </div>
@@ -972,14 +1030,17 @@ omitted, simply returns the current inner html value of the element.</p>
   <div class="details">
     <div class="dox_tag_title">Params</div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">_value</span>
-      <span class="dox_type">MicrobeString</span>
-      <span>html value (optional)</span>
+      <span class="dox_tag_name">_Mixed_</span>
+      <span>_value              html value (accepts Microbe String)</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span><em>Microbe</em> or <em>Array</em></span>
+      <span><em>Microbe</em> reference to original microbe (set)</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Array</em>  array of values (get)</span>
     </div>
   </div>
 </div>
@@ -1055,19 +1116,18 @@ omitted, simply returns the current inner html value of the element.</p>
 </div>
 
   </div>
-  <div class="body"><p>Returns the index of an element in this microbe</p>
+  <div class="body"><p>Finds the index of an element in this microbe</p>
   </div>
   <div class="details">
     <div class="dox_tag_title">Params</div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">_el</span>
-      <span class="dox_type">Element</span>
-      <span>element to check</span>
+      <span class="dox_tag_name">_Element_</span>
+      <span>_el                element to check</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span><em>Number</em></span>
+      <span><em>Number</em> index value of the element inside this microbe</span>
     </div>
   </div>
 </div>
@@ -1094,14 +1154,14 @@ omitted, simply returns the current inner html value of the element.</p>
 </div>
 
   </div>
-  <div class="body"><p>Gets the last HTML Elements of the current object, and wrap it in
+  <div class="body"><p>Gets the last Element of the current microbe, and wrap it in
 Microbe.</p>
   </div>
   <div class="details">
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span><em>Microbe</em></span>
+      <span><em>Microbe</em> new microbe containing only the last value</span>
     </div>
   </div>
 </div>
@@ -1138,15 +1198,13 @@ Microbe.</p>
   <div class="details">
     <div class="dox_tag_title">Params</div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">callback</span>
-      <span class="dox_type">Function</span>
-      <span>function to apply to all element</span>
+      <span class="dox_tag_name">_Function_</span>
+      <span>callback            function to apply to all element</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span class="dox_type">Array</span>
-      <span>array of callback returns</span>
+      <span><em>Array</em> value array of callback returns</span>
     </div>
   </div>
 </div>
@@ -1173,25 +1231,22 @@ Microbe.</p>
 </div>
 
   </div>
-  <div class="body"><p>Combines microbes or array elements.</p>
+  <div class="body"><p>Combines microbes, arrays, and/or array-like objects.</p>
   </div>
   <div class="details">
     <div class="dox_tag_title">Params</div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">first</span>
-      <span class="dox_type">Mixed</span>
-      <span>first array or array-like object <em>{Object or Array}</em></span>
+      <span class="dox_tag_name">_Mixed_</span>
+      <span>first               first object <em>{Array-like Object or Array}</em></span>
     </div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">second</span>
-      <span class="dox_type">Mixed</span>
-      <span>second array or array-like object <em>{Object or Array}</em></span>
+      <span class="dox_tag_name">_Mixed_</span>
+      <span>second              second object <em>{Array-like Object or Array}</em></span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span class="dox_type">Mixed</span>
-      <span><em>{Object or Array}</em> combined arr or obj (based off first)</span>
+      <span><em>Mixed</em> combined array or array-like object (based off first)</span>
     </div>
   </div>
 </div>
@@ -1207,12 +1262,15 @@ Microbe.</p>
 
         <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">first</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
 
-        <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">length</span> <span class="o">=</span> <span class="nx">second</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">length</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="k">typeof</span> <span class="nx">i</span> <span class="o">===</span> <span class="s1">&#39;number&#39;</span> <span class="p">)</span>
         <span class="p">{</span>
-            <span class="nx">first</span><span class="p">[</span> <span class="nx">i</span><span class="o">++</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">second</span><span class="p">[</span> <span class="nx">j</span> <span class="p">];</span>
-        <span class="p">}</span>
+            <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">len</span> <span class="o">=</span> <span class="nx">second</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="nx">first</span><span class="p">[</span> <span class="nx">i</span><span class="o">++</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">second</span><span class="p">[</span> <span class="nx">j</span> <span class="p">];</span>
+            <span class="p">}</span>
 
-        <span class="nx">first</span><span class="p">.</span><span class="nx">length</span> <span class="o">=</span> <span class="nx">i</span><span class="p">;</span>
+            <span class="nx">first</span><span class="p">.</span><span class="nx">length</span> <span class="o">=</span> <span class="nx">i</span><span class="p">;</span>
+        <span class="p">}</span>
 
         <span class="k">return</span> <span class="nx">first</span><span class="p">;</span>
     <span class="p">},</span>
@@ -1233,13 +1291,13 @@ Microbe.</p>
 </div>
 
   </div>
-  <div class="body"><p>Sets all elements in a microbe to their parent nodes</p>
+  <div class="body"><p>gets all elements in a microbe's parent nodes</p>
   </div>
   <div class="details">
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span><em>Microbe</em></span>
+      <span><em>Microbe</em> new microbe containing parent elements (index-preserved)</span>
     </div>
   </div>
 </div>
@@ -1284,14 +1342,13 @@ Microbe.</p>
   <div class="details">
     <div class="dox_tag_title">Params</div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">_el</span>
-      <span class="dox_type">Element</span>
-      <span>element to add</span>
+      <span class="dox_tag_name">_Element_</span>
+      <span>_el                element to add</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span><em>Microbe</em></span>
+      <span><em>Microbe</em> reference of original microbe, with the new element added</span>
     </div>
   </div>
 </div>
@@ -1331,9 +1388,8 @@ Microbe.</p>
   <div class="details">
     <div class="dox_tag_title">Params</div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">_class</span>
-      <span class="dox_type">Mixed</span>
-      <span>class to remove.  this accepts
+      <span class="dox_tag_name">_Mixed_</span>
+      <span>_class    class to remove.  this accepts
                          strings and array of strings.
                          the strings can be a class or
                          classes seperated with spaces {String Array}</span>
@@ -1341,7 +1397,7 @@ Microbe.</p>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span><em>Microbe</em></span>
+      <span><em>Microbe</em> reference of the original microbe</span>
     </div>
   </div>
 </div>
@@ -1408,7 +1464,7 @@ Microbe.</p>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span><em>Microbe</em></span>
+      <span><em>Microbe</em> new microbe containing only the root document element</span>
     </div>
   </div>
 </div>
@@ -1453,8 +1509,7 @@ Microbe.</p>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span class="dox_type">String</span>
-      <span>combined selectors</span>
+      <span><em>String</em> combined selector string</span>
     </div>
   </div>
 </div>
@@ -1486,7 +1541,7 @@ Microbe.</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-24" id="section-24">&#182;</a>
+  <a class="pilcrow" href="#section-25" id="section-25">&#182;</a>
 </div>
 <p>document or window</p>
         </td>
@@ -1521,6 +1576,113 @@ Microbe.</p>
       <tr>
         <td class="docs"><div class="dox">
   <div class="summary">
+<div class="pilwrap" id="siblings">
+  <h2>
+    <a href="#siblings" name="siblings" class="pilcrow">&#182;</a>
+    siblings
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>Gets an microbe of all of each given element's siblings</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Array</em> array of microbes (value)</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">siblings</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">_siblings</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_elm</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">parentsChildren</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">toArray</span><span class="p">(</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">children</span> <span class="p">);</span>
+            <span class="kd">var</span> <span class="nx">elIndex</span> <span class="o">=</span> <span class="nx">parentsChildren</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="nx">_elm</span> <span class="p">);</span>
+            <span class="nx">parentsChildren</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span> <span class="nx">elIndex</span><span class="p">,</span> <span class="mi">1</span> <span class="p">);</span>
+
+            <span class="k">return</span> <span class="nx">parentsChildren</span><span class="p">;</span>
+        <span class="p">};</span>
+
+        <span class="kd">var</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">len</span><span class="p">,</span> <span class="nx">siblingArray</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span> <span class="p">);</span>
+
+        <span class="k">for</span> <span class="p">(</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">len</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">siblingArray</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Microbe</span><span class="p">(</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="kc">undefined</span><span class="p">,</span> <span class="nx">_siblings</span><span class="p">(</span> <span class="k">this</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="p">)</span> <span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="nx">siblingArray</span><span class="p">;</span>
+    <span class="p">},</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="siblingsflat">
+  <h2>
+    <a href="#siblingsflat" name="siblingsflat" class="pilcrow">&#182;</a>
+    siblingsFlat
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>Gets an microbe of all siblings of all element's given</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Microbe</em> value array of combined siblings</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">siblingsFlat</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">_siblings</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_elm</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">parentsChildren</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">toArray</span><span class="p">(</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">children</span> <span class="p">);</span>
+            <span class="kd">var</span> <span class="nx">elIndex</span> <span class="o">=</span> <span class="nx">parentsChildren</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="nx">_elm</span> <span class="p">);</span>
+            <span class="nx">parentsChildren</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span> <span class="nx">elIndex</span><span class="p">,</span> <span class="mi">1</span> <span class="p">);</span>
+
+            <span class="k">return</span> <span class="nx">parentsChildren</span><span class="p">;</span>
+        <span class="p">};</span>
+
+        <span class="kd">var</span> <span class="nx">arr</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">len</span><span class="p">,</span> <span class="nx">siblingArray</span> <span class="o">=</span> <span class="p">[];</span>
+
+        <span class="k">for</span> <span class="p">(</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">len</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">arr</span> <span class="o">=</span> <span class="nx">_siblings</span><span class="p">(</span> <span class="k">this</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="p">);</span>
+
+            <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenJ</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">lenJ</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span> <span class="nx">siblingArray</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="nx">arr</span><span class="p">[</span> <span class="nx">j</span> <span class="p">]</span> <span class="p">)</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nx">siblingArray</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">arr</span><span class="p">[</span> <span class="nx">j</span> <span class="p">]</span> <span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="k">new</span> <span class="nx">Microbe</span><span class="p">(</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="kc">undefined</span><span class="p">,</span> <span class="nx">siblingArray</span> <span class="p">);</span>
+    <span class="p">},</span>
+
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
 <div class="pilwrap" id="splice">
   <h2>
     <a href="#splice" name="splice" class="pilcrow">&#182;</a>
@@ -1535,8 +1697,8 @@ Microbe.</p>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span class="dox_type">Array</span>
-      <span>array of elements</span>
+      <span class="dox_type">Microbe</span>
+      <span>new microbe of the remaining elements</span>
     </div>
   </div>
 </div>
@@ -1566,19 +1728,22 @@ Microbe.</p>
 
   </div>
   <div class="body"><p>Changes the inner text to the supplied string. If the value is omitted,
-simply returns the current inner html value of the element.</p>
+simply returns the current inner text value of each element.</p>
   </div>
   <div class="details">
     <div class="dox_tag_title">Params</div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">_value</span>
-      <span class="dox_type">String</span>
-      <span>Text value (optional)</span>
+      <span class="dox_tag_name">_String_</span>
+      <span>_value              Text value (optional)</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span><em>Microbe</em> or <em>Array</em></span>
+      <span><em>Microbe</em> reference to original microbe (set)</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Array</em>  array of values (get)</span>
     </div>
   </div>
 </div>
@@ -1652,7 +1817,7 @@ simply returns the current inner html value of the element.</p>
 </div>
 
   </div>
-  <div class="body"><p>Methods returns all the elements in an array.</p>
+  <div class="body"><p>returns all the elements in an array.</p>
   </div>
   <div class="details">
     <div class="dox_tag_title">Returns</div>
@@ -1686,7 +1851,8 @@ simply returns the current inner html value of the element.</p>
 </div>
 
   </div>
-  <div class="body"><p>Methods calls removeClass on the current object or given element.</p>
+  <div class="body"><p>adds or removes a class on the current element, depending on
+whether it has it already.</p>
   </div>
   <div class="details">
     <div class="dox_tag_title">Params</div>
@@ -1698,9 +1864,8 @@ simply returns the current inner html value of the element.</p>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span class="dox_type">Microbe
-</span>
-      <span>{Microbe}</span>
+      <span class="dox_type">Microbe</span>
+      <span>reference of the original microbe</span>
     </div>
   </div>
 </div>
@@ -1751,13 +1916,13 @@ simply returns the current inner html value of the element.</p>
 </div>
 
   </div>
-  <div class="body"><p>Methods returns the type of Microbe.</p>
+  <div class="body"><p>returns the type of Microbe.</p>
   </div>
   <div class="details">
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span><em>String</em></span>
+      <span><em>String</em>  type string</span>
     </div>
   </div>
 </div>
