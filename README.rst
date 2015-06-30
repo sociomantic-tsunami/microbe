@@ -93,8 +93,8 @@ Changelog
 0.3.3
 ~~~~~
 
- + more consistent documentation
- + more consistent output
++ more consistent documentation
++ more consistent output
 
 
 0.3.2

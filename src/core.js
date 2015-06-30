@@ -53,7 +53,7 @@ Microbe.core = Microbe.prototype =
      *
      * Adds the passed class to the current element(s)
      *
-     * @param _Mixed_ _class    class to remove.  this accepts
+     * @param {Mixed} _class    class to remove.  this accepts
      *                  strings and array of strings.
      *                  the strings can be a class or
      *                  classes seperated with spaces _{String or Array}_
@@ -108,8 +108,8 @@ Microbe.core = Microbe.prototype =
      * attribute value of the element. Attributes can be bulk added by passing
      * an object (property: value)
      *
-     * @param _Mixed_ _attribute          attribute name {String or Object}_
-     * @param _String_ _value              attribute value (optional)
+     * @param {Mixed} _attribute          attribute name {String or Object}
+     * @param {String} _value              attribute value (optional)
      *
      * @return _Microbe_ reference to original microbe (set)
      * @return _Array_  array of values (get)
@@ -265,8 +265,8 @@ Microbe.core = Microbe.prototype =
      * supplied elements. (properties should be supplied in javascript format).
      * If the value is omitted, simply returns the current css value of the element.
      *
-     * @param _String_ _attribute          css property
-     * @param _String_ _value              css value (optional)
+     * @param {String} _attribute          css property
+     * @param {String} _value              css value (optional)
      *
      * @return _Microbe_ reference to original microbe (set)
      * @return _Array_  array of values (get)
@@ -546,7 +546,7 @@ Microbe.core = Microbe.prototype =
      *
      * Checks if the current object or the given element has the given class
      *
-     * @param _String_ _class              class to check
+     * @param {String} _class              class to check
      *
      * @return _Microbe_ Array of Boolean values
      */
@@ -573,7 +573,7 @@ Microbe.core = Microbe.prototype =
      * Changes the innerHtml to the supplied string or microbe.  If the value is
      * omitted, simply returns the current inner html value of the element.
      *
-     * @param _Mixed_  _value              html value (accepts Microbe String)
+     * @param {Mixed} _value html value (accepts Microbe String)
      *
      * @return _Microbe_ reference to original microbe (set)
      * @return _Array_  array of values (get)
@@ -638,7 +638,7 @@ Microbe.core = Microbe.prototype =
      *
      * Finds the index of an element in this microbe
      *
-     * @param _Element_ _el                element to check
+     * @param {Element} _el                element to check
      *
      * @return _Number_ index value of the element inside this microbe
      */
@@ -672,7 +672,7 @@ Microbe.core = Microbe.prototype =
      *
      * native map function
      *
-     * @param _Function_ callback            function to apply to all element
+     * @param {Function} callback            function to apply to all element
      *
      * @return _Array_ value array of callback returns
      */
@@ -687,8 +687,8 @@ Microbe.core = Microbe.prototype =
      *
      * Combines microbes, arrays, and/or array-like objects.
      *
-     * @param _Mixed_ first               first object _{Array-like Object or Array}_
-     * @param _Mixed_ second              second object _{Array-like Object or Array}_
+     * @param {Mixed} first               first object _{Array-like Object or Array}_
+     * @param {Mixed} second              second object _{Array-like Object or Array}_
      *
      * @return _Mixed_ combined array or array-like object (based off first)
      */
@@ -747,7 +747,7 @@ Microbe.core = Microbe.prototype =
      *
      * Adds a new element to a microbe
      *
-     * @param _Element_ _el                element to add
+     * @param {Element} _el                element to add
      *
      * @return _Microbe_ reference of original microbe, with the new element added
      */
@@ -770,7 +770,7 @@ Microbe.core = Microbe.prototype =
      *
      * Method removes the given class from the current object or the given element.
      *
-     * @param _Mixed_ _class    class to remove.  this accepts
+     * @param {Mixed} _class    class to remove.  this accepts
      *                          strings and array of strings.
      *                          the strings can be a class or
      *                          classes seperated with spaces {String Array}
@@ -868,7 +868,7 @@ Microbe.core = Microbe.prototype =
                     return tag + id + clss;
                 }
 
-                // document or window
+                // return blank for document or window
                 return '';
             };
 
@@ -980,7 +980,7 @@ Microbe.core = Microbe.prototype =
      * Changes the inner text to the supplied string. If the value is omitted,
      * simply returns the current inner text value of each element.
      *
-     * @param _String_ _value              Text value (optional)
+     * @param {String} _value              Text value (optional)
      *
      * @return _Microbe_ reference to original microbe (set)
      * @return _Array_  array of values (get)

@@ -22,7 +22,7 @@ module.exports = function( Microbe )
      * Method takes as many as necessary parameters, with url being the only required.
      * The return then has the methods `.then( _cb )` and `.error( _cb )`
      *
-     * @param _Object_ _parameters          http parameters. possible properties
+     * @param {Object} _parameters http parameters. possible properties
      *                                                  method, url, data, user, password, headers, async
      */
     Microbe.http = function( _parameters )
@@ -111,7 +111,7 @@ module.exports = function( Microbe )
                      * Called after `http`, `http.get`, or `http.post`, this is
                      * called passing the result as the first parameter to the callback
                      *
-                     * @param _Function_ _cb         function to call after http request
+                     * @param {Function} _cb function to call after http request
                      *
                      * @return _Object_ contains the `.catch` method
                      */
@@ -131,7 +131,7 @@ module.exports = function( Microbe )
                      * Called after `http`, `http.get`, or `http.post`, this is
                      * called passing the error as the first parameter to the callback
                      *
-                     * @param _Function_ _cb         function to call after http request
+                     * @param {Function} _cb function to call after http request
                      *
                      * @return _Object_ contains the `.then` method
                      */
@@ -166,7 +166,7 @@ module.exports = function( Microbe )
      *
      * Syntactic shortcut for simple GET requests
      *
-     * @param _String_ _url                file url
+     * @param {String} _url file url
      *
      * @return _Object_ contains `.then` and `.catch`
      */
@@ -184,8 +184,8 @@ module.exports = function( Microbe )
      *
      * Syntactic shortcut for simple POST requests
      *
-     * @param _String_ _url                file url
-     * @param _Mixed_ _data               data to post to location _{Object or String}_
+     * @param {String} _url file url
+     * @param {Mixed} _data data to post to location {Object or String}
      *
      * @return _Object_ contains `.then` and `.catch`
      */

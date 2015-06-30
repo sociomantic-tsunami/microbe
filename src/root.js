@@ -24,7 +24,7 @@ module.exports = function( Microbe )
      * capitalizes every word in a string or an array of strings and returns the
      * type that it was given
      *
-     * @param _Mixed_ text                string(s) to capitalize _{String or Array}_
+     * @param {Mixed} text string(s) to capitalize _{String or Array}_
      *
      * @return _Mixed_  capitalized string(s) values _{String or Array}_
      */
@@ -61,9 +61,9 @@ module.exports = function( Microbe )
      *  [[wait]] milliseconds. If `immediate` is passed, trigger the function on
      *  the leading edge, instead of the trailing.
      *
-     * @param _Function_ _func               function to meter
-     * @param _Number_ wait                milliseconds to wait
-     * @param _Boolean_ immediate           run function at the start
+     * @param {Function} _func function to meter
+     * @param {Number} wait milliseconds to wait
+     * @param {Boolean} immediate run function at the start
      *                                                  of the timeout
      *
      * @return _Function_
@@ -107,7 +107,7 @@ module.exports = function( Microbe )
      *
      * returns itself if a value needs to be executed
      *
-     * @param _any_ value               any value
+     * @param {any} value any value
      *
      * @return _any_
      */
@@ -122,9 +122,9 @@ module.exports = function( Microbe )
      * next rule with the same selector combines the old and new rules and overwrites
      * the contents
      *
-     * @param _String_ selector            selector to apply it to
-     * @param _Mixed_ cssObj              css object. _{String or Object}_
-     * @param _String_ media               media query
+     * @param {String} selector selector to apply it to
+     * @param {Mixed} cssObj css object. _{String or Object}_
+     * @param {String} media media query
      *
      * @return _Object_ reference to the appropriate style object
      */
@@ -204,7 +204,7 @@ module.exports = function( Microbe )
      *
      * Checks if the passed object is empty
      *
-     * @param _Object_ obj                 object to check
+     * @param {Object} obj object to check
      *
      * @return _Boolean_ empty or not
      */
@@ -225,7 +225,7 @@ module.exports = function( Microbe )
      *
      * Checks if the passed parameter is a function
      *
-     * @param _Object_ obj                 object to check
+     * @param {Object} obj object to check
      *
      * @return _Boolean_ function or not
      */
@@ -240,7 +240,7 @@ module.exports = function( Microbe )
      *
      * Checks if the passed parameter is an object
      *
-     * @param _Object_ obj                 object to check
+     * @param {Object} obj object to check
      *
      * @return _Boolean_ isObject or not
      */
@@ -260,8 +260,8 @@ module.exports = function( Microbe )
      *
      * Checks if the passed parameter is undefined
      *
-     * @param _String_ obj                 property
-     * @param _Object_ parent              object to check
+     * @param {String} obj property
+     * @param {Object} parent object to check
      *
      * @return _Boolean_ obj in parent
      */
@@ -281,7 +281,7 @@ module.exports = function( Microbe )
      *
      * Checks if the passed parameter equals window
      *
-     * @param _Object_ obj                 object to check
+     * @param {Object} obj object to check
      *
      * @return _Boolean_ isWindow or not
      */
@@ -311,7 +311,7 @@ module.exports = function( Microbe )
      *
      * returns a function that can only be run once
      *
-     * @param _Function_ _func                         function to run once
+     * @param {Function} _func function to run once
      *
      * @return _Function_
      */
@@ -343,11 +343,11 @@ module.exports = function( Microbe )
      * true, it will run _success, if [[timeout[[]] is reached without a success,
      * _error is excecuted
      *
-     * @param _Function_ _func                         function to check for true
-     * @param _Function_ _success                      function to run on success
-     * @param _Function_ _error                        function to run on error
-     * @param _Number_ timeout                       time (in ms) to stop polling
-     * @param _Number_ interval                      time (in ms) in between polling
+     * @param {Function} _func function to check for true
+     * @param {Function} _success function to run on success
+     * @param {Function} _error function to run on error
+     * @param {Number} timeout time (in ms) to stop polling
+     * @param {Number} interval time (in ms) in between polling
      *
      * @return _Function_
      */
@@ -381,11 +381,11 @@ module.exports = function( Microbe )
      * set to true, all tags for this selector are removed.  The media query can
      * also be passed as the second variable
      *
-     * @param _String_ selector            selector to apply it to
-     * @param _Mixed_ properties          css properties to remove
+     * @param {String} selector selector to apply it to
+     * @param {Mixed} properties css properties to remove
      *                                                  'all' to remove all selector tags
      *                                                  string as media query {String or Array}
-     * @param _String_ media               media query
+     * @param {String} media media query
      *
      * @return _Boolean_ removed or not
      */
@@ -465,7 +465,7 @@ module.exports = function( Microbe )
      *
      * removes all microbe added style tags for the given selector
      *
-     * @param _String_ selector            selector to apply it to
+     * @param {String} selector selector to apply it to
      *
      * @return _Boolean_ removed or not
      */
@@ -500,7 +500,7 @@ module.exports = function( Microbe )
      *
      * returns the type of the parameter passed to it
      *
-     * @param _all_ obj                 parameter to test
+     * @param {all} obj parameter to test
      *
      * @return _String_ typeof obj
      */

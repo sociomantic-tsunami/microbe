@@ -20,10 +20,10 @@ module.exports = function( Microbe )
      *
      * Emits a custom event to the HTMLElements of the current object
      *
-     * @param _String_ _event              HTMLEvent
-     * @param _Object_ _data               event data
-     * @param _Boolean_ _bubbles           event bubbles?
-     * @param _Boolean_ _cancelable        cancelable?
+     * @param {String} _event HTMLEvent
+     * @param {Object} _data event data
+     * @param {Boolean} _bubbles event bubbles?
+     * @param {Boolean} _cancelable cancelable?
      *
      * @return _Microbe_ reference to original microbe
      */
@@ -56,9 +56,9 @@ module.exports = function( Microbe )
      *
      * Unbinds an/all events.
      *
-     * @param _String_ _event                  event name
-     * @param _Function_ _callback             callback function
-     * @param _Object_ _el                     HTML element to modify (optional)
+     * @param {String} _event event name
+     * @param {Function} _callback callback function
+     * @param {Object} _el HTML element to modify (optional)
      *
      * @return _Microbe_ reference to original microbe
      */
@@ -135,8 +135,8 @@ module.exports = function( Microbe )
      * Binds an event to the HTMLElements of the current object or to the
      * given element.
      *
-     * @param _String_ _event              HTMLEvent
-     * @param _Function_ _callback           callback function
+     * @param {String} _event HTMLEvent
+     * @param {Function} _callback callback function
      *
      * @return _Microbe_ reference to original microbe
      */
@@ -175,8 +175,8 @@ module.exports = function( Microbe )
      *
      * CustomEvent polyfill for IE <= 9
      *
-     * @param _String_ _event              HTMLEvent
-     * @param _Object_ _data               event data
+     * @param {String} _event HTMLEvent
+     * @param {Object} _data event data
      *
      * @return _void_
      */

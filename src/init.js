@@ -10,7 +10,7 @@
 /**
  * ## exported
  *
- * @return {Function} function that augment Microbe.
+ * @return _Function_ function that augment Microbe.
  */
 module.exports = function( Microbe )
 {
@@ -25,8 +25,8 @@ module.exports = function( Microbe )
      *
      * Builds and returns the final microbe
      *
-     * @param _Array_ _elements           array of elements
-     * @param _String_ _selector           selector
+     * @param {Array} _elements array of elements
+     * @param {String} _selector selector
      *
      * @return _Microbe_ microbe wrapped elements
      */
@@ -56,7 +56,7 @@ module.exports = function( Microbe )
      * Method creates a Microbe from an element or a new element of the passed string, and
      * returns the Microbe
      *
-     * @param _Element_ _el                 element to create
+     * @param {Element} _el element to create
      *
      * @return _Microbe_
      */
@@ -118,8 +118,8 @@ module.exports = function( Microbe )
      *
      * Checks if a given element is a child of _scope
      *
-     * @param _Element_ _el                 element to check
-     * @param _Element_ _scope              scope
+     * @param {Element} _el element to check
+     * @param {Element} _scope scope
      *
      * @return _Boolean_ whether _el is contained in the scope
      */
@@ -150,9 +150,9 @@ module.exports = function( Microbe )
      * Usage:   µ('div#test')   ---> selection
      *          µ('<div#test>') ---> creation
      *
-     * @param _Element String Array_ _selector      HTML selector
-     * @param _Element String Microbe_ _scope         scope to look inside
-     * @param _Mixed_ _elements      elements to fill Microbe with (optional) _{Element or Array}_
+     * @param {Mixed} _selector HTML selector (Element String Array)
+     * @param {Mixed} _scope scope to look inside (Element String Microbe)
+     * @param {Mixed} _elements elements to fill Microbe with (optional) (Element or Array)
      *
      * @return _Microbe_
      */

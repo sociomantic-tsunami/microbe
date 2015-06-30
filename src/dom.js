@@ -19,7 +19,7 @@ module.exports = function( Microbe )
      *
      * Waits until the DOM is ready to execute
      *
-     * @param _Function_ _cb               callback to run on ready
+     * @param {Function} _cb callback to run on ready
      *
      * @return _void_
      */
@@ -51,7 +51,7 @@ module.exports = function( Microbe )
      * Appends an element or elements to the microbe.  if there is more than
      * one target the next ones are cloned
      *
-     * @param _Mixed_  _ele                element(s) to append _{Element, Array or Microbe}_
+     * @param {Mixed} _ele element(s) to append (Element, Array or Microbe)
      *
      * @return _Microbe_ new microbe filled with the inserted content
      */
@@ -97,7 +97,7 @@ module.exports = function( Microbe )
      *
      * @example `µ( '.elementsInDom' ).insertAfter( µElementToInsert )`
      *
-     * @param _Mixed_  _elAfter            element to insert _{Object or String}_
+     * @param {Mixed} _elAfter element to insert {Object or String}
      *
      * @return _Microbe_ new microbe filled with the inserted content
      */
@@ -154,7 +154,7 @@ module.exports = function( Microbe )
      * Prepends an element or elements to the microbe.  if there is more than
      * one target the next ones are cloned
      *
-     * @param _Mixed_ _ele element(s) to prepend _{Element, Array or Microbe}_
+     * @param {Mixed} _ele element(s) to prepend _{Element, Array or Microbe}_
      *
      * @return _Microbe_ new microbe filled with the inserted content
      */

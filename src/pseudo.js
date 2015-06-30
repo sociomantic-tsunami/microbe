@@ -27,8 +27,8 @@ module.exports = function( Microbe )
          * Returns only elements that contain the given text.  The supplied text
          * is compared ignoring case
          *
-         * @param _Microbe_ _el                 microbe to be filtered
-         * @param _String_ _var                string to search for
+         * @param {Microbe} _el microbe to be filtered
+         * @param {String} _var string to search for
          *
          * @return _Microbe_
          */
@@ -55,7 +55,7 @@ module.exports = function( Microbe )
          *
          * Returns the even indexed elements of a microbe (starting at 0)
          *
-         * @param _Microbe_ _el                 microbe to be filtered
+         * @param {Microbe} _el microbe to be filtered
          *
          * @return _Microbe_
          */
@@ -78,7 +78,7 @@ module.exports = function( Microbe )
          *
          * returns the first element of a microbe
          *
-         * @param _Microbe_ _el                 microbe to be filtered
+         * @param {Microbe} _el microbe to be filtered
          *
          * @return _Microbe_
          */
@@ -93,8 +93,8 @@ module.exports = function( Microbe )
          *
          * returns the last {_var} element
          *
-         * @param _Microbe_ _el                 microbe to be filtered
-         * @param _String_ _var                number of elements to return
+         * @param {Microbe} _el microbe to be filtered
+         * @param {String} _var number of elements to return
          *
          * @return _Microbe_
          */
@@ -109,8 +109,8 @@ module.exports = function( Microbe )
          *
          * returns elements that have the passed selector as a child
          *
-         * @param _Microbe_ _el                 microbe to be filtered
-         * @param _String_ _var                selector string
+         * @param {Microbe} _el microbe to be filtered
+         * @param {String} _var selector string
          *
          * @return _Microbe_
          */
@@ -138,7 +138,7 @@ module.exports = function( Microbe )
          *
          * returns the last element of a microbe
          *
-         * @param _Microbe_ _el                 microbe to be filtered
+         * @param {Microbe} _el microbe to be filtered
          *
          * @return _Microbe_
          */
@@ -153,8 +153,8 @@ module.exports = function( Microbe )
          *
          * returns the first [_var] elements
          *
-         * @param _Microbe_ _el                 microbe to be filtered
-         * @param _String_ _var                number of elements to return
+         * @param {Microbe} _el microbe to be filtered
+         * @param {String} _var number of elements to return
          *
          * @return _Microbe_
          */
@@ -169,7 +169,7 @@ module.exports = function( Microbe )
          *
          * returns the odd indexed elements of a microbe
          *
-         * @param _Microbe_ _el                 microbe to be filtered
+         * @param {Microbe} _el microbe to be filtered
          *
          * @return _Microbe_
          */
@@ -192,7 +192,7 @@ module.exports = function( Microbe )
          *
          * returns the root elements of the document
          *
-         * @param _Microbe_ _el                 microbe to be filtered
+         * @param {Microbe} _el microbe to be filtered
          *
          * @return _Microbe_
          */
@@ -207,7 +207,7 @@ module.exports = function( Microbe )
          *
          * returns a microbe with elements that match both the original selector, and the id of the page hash
          *
-         * @param _Microbe_ _el                 microbe to be filtered
+         * @param {Microbe} _el microbe to be filtered
          *
          * @return _Microbe_
          */
