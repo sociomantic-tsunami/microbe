@@ -427,12 +427,50 @@ Microbe.core = Microbe.prototype =
      */
     filter : function( filter )
     {
-        var pseudo, self = this;
+        var pseudo, filters, self = this, _el, method;
 
-        if ( filter.indexOf( ':' ) !== -1 )
+        if ( self.length === 0 )
         {
-            pseudo = filter.split( ':' );
-            filter = pseudo.splice( 0, 1 ).toString();;
+            return self;
+        }
+
+        var _filter = function( _f, _self, i )
+        {
+            if ( Microbe.pseudo[ _f[ 0 ] ] )
+            {
+                return Microbe.pseudo[ _f[ 0 ] ]( _self, _f[ 1 ] );
+            }
+            else
+            {
+                var resArray = [], _selector;
+                _selector = i === 0 ? _f[ 0 ] : ':' + _f[ 0 ];
+
+                if ( _selector !== '' )
+                {                
+                    if ( _f[ 1 ] !== '' )
+                    {
+                        _selector += '(' + _f[ 1 ] + ')';
+                    }
+
+                    for ( var i = 0, lenI = _self.length; i < lenI; i++ ) 
+                    {
+                        _el = _self[ i ];
+
+                        if ( _el[ method ]( _selector ) === true )
+                        {
+                            resArray.push( _el );
+                        }
+                    }  
+                }
+
+                return new Microbe( resArray );
+            }
+        }
+
+        if ( filter && filter.indexOf( ':' ) !== -1 )
+        {
+            pseudo  = filter.split( ':' );
+            filters = [ [ pseudo.splice( 0, 1 ).toString(), '' ] ];
 
             var _p, pseudoArray;
             
@@ -450,62 +488,53 @@ Microbe.core = Microbe.prototype =
                     _p      = [ _p, '' ];
                 }
 
-                if ( Microbe.pseudo[ _p[ 0 ] ] )
-                {
-                    self = Microbe.pseudo[ _p[ 0 ] ]( self, _p[ 1 ] );
-                }
-                else
-                {
-                    filter += ':' + _p[ 0 ];
-                    if ( _p[ 1 ] !== '' )
-                    {
-                        filter += '(' + _p[ 1 ] + ')';
-                    }
-                }
+                filters.push( _p );
             }
         }
-
-        if ( filter !== '' )
+        else if ( filter )
         {
-            var resArray = [], _el, method;
-
-            for ( var i = 0, lenI = self.length; i < lenI; i++ ) 
-            {
-                _el = self[ i ];
-
-                if ( i === 0 )
-                {
-                    if ( _el.matches )
-                    {
-                        method = 'matches';
-                    }
-                    else if ( _el.msMatchSelector )
-                    {
-                        method = 'msMatchSelector';
-                    }
-                    else if ( _el.mozMatchSelector )
-                    {
-                        method = 'mozMatchSelector';
-                    }
-                    else if ( _el.webkitMatchSelector )
-                    {
-                        method = 'webkitMatchSelector';
-                    }
-                }
-
-                if ( _el[ method ]( filter ) === true )
-                {
-                    resArray.push( _el );
-                }
-            }  
-
-            return new Microbe( resArray );
+            filters = [ [ filter, '' ] ];
         }
         else
         {
-            self = Array.prototype.slice.call( self );
-            return new Microbe( self );
+            return this;
         }
+
+        _el = self[ 0 ];
+
+        if ( _el.matches )
+        {
+            method = 'matches';
+        }
+        else if ( _el.msMatchSelector )
+        {
+            method = 'msMatchSelector';
+        }
+        else if ( _el.mozMatchSelector )
+        {
+            method = 'mozMatchSelector';
+        }
+        else if ( _el.webkitMatchSelector )
+        {
+            method = 'webkitMatchSelector';
+        }
+
+        for ( var i = 0, lenI = filters.length; i < lenI; i++ ) 
+        {
+            if ( self.length !== 0 )
+            {
+                if ( filters[ i ][ 0 ] !== '' )
+                {
+                    self = _filter( filters[ i ], self, i );
+                }
+            }
+            else
+            {
+                return self;
+            }
+        }  
+
+        return self;
     },
 
 

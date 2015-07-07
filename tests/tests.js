@@ -453,17 +453,30 @@ module.exports = function( buildTest )
             $Divs   = $( 'div' );
         };
 
+        // buildTest(
+        // 'µDivs.filter( \'#qunit\' )', function()
+        // {
+        //     resetDivs();
+        //     µDivs.filter( '#qunit' );
+        // },
+
+        // '$Divs.filter( \'#qunit\' )', function()
+        // {
+        //     resetDivs();
+        //     $Divs.filter( '#qunit' );
+        // } );
+         
         buildTest(
         'µDivs.filter( \'#qunit\' )', function()
         {
             resetDivs();
-            µDivs.filter( '#qunit' );
+            µDivs.filter( 'div.fastest:lt(3):first' );
         },
 
-        '$Divs.filter( \'qunit\' )', function()
+        '$Divs.filter( \'#qunit\' )', function()
         {
             resetDivs();
-            $Divs.filter( '#qunit' );
+            $Divs.filter( 'div.fastest:lt(3):first' );
         } );
     });
 
