@@ -95,6 +95,7 @@ Changelog
 
 + more consistent documentation
 + more consistent output
++ updated filter method
 + support for css4 selectors
 
 
