@@ -140,7 +140,7 @@ window.buildTest = buildTest;
 
 module.exports = function( buildTest )
 {
-    var version = '0.3.2';
+    var version = '0.3.3';
 
     QUnit.module( 'core.js' );
 

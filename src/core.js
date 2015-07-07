@@ -37,7 +37,7 @@ var Microbe = function( selector, scope, elements )
 
 Microbe.core = Microbe.prototype =
 {
-    version :       '0.3.2',
+    version :       '0.3.3',
 
     constructor :   Microbe,
 
@@ -417,7 +417,9 @@ Microbe.core = Microbe.prototype =
     /**
      * ## filter
      *
-     * Filters the microbe by the given given selector
+     * Filters the microbe by the given given selector.
+     * unsure if we actually need the webkitMatchSelector and mozMatchSelector
+     * http://caniuse.com/#feat=matchesselector
      *
      * @param {String} selector            selector to filter by
      *
@@ -481,11 +483,11 @@ Microbe.core = Microbe.prototype =
                     {
                         method = 'msMatchSelector';
                     }
-                    else if ( _el.msMatchSelector )
+                    else if ( _el.mozMatchSelector )
                     {
                         method = 'mozMatchSelector';
                     }
-                    else if ( _el.msMatchSelector )
+                    else if ( _el.webkitMatchSelector )
                     {
                         method = 'webkitMatchSelector';
                     }
