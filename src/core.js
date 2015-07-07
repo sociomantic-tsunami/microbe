@@ -425,59 +425,85 @@ Microbe.core = Microbe.prototype =
      */
     filter : function( filter )
     {
-        var originalSelector = this.selector();
+        var pseudo, self = this;
 
-        var selectorRegex   = originalSelector.match( this.__selectorRegex ),
-            filterRegex     = filter.match( this.__selectorRegex );
-
-        var _id = '', _tag = '', _psuedo = '', _class = '', _selector;
-
-        var selectorArray = [ selectorRegex, filterRegex ];
-
-        var i, lenI, j, lenJ;
-        for ( j = 0, lenJ = selectorArray.length; j < lenJ; j++ )
+        if ( filter.indexOf( ':' ) !== -1 )
         {
-            if ( selectorArray[ j ] )
+            pseudo = filter.split( ':' );
+            filter = pseudo.splice( 0, 1 ).toString();;
+
+            var _p, pseudoArray;
+            
+            for ( var i = 0, lenI = pseudo.length; i < lenI; i++ ) 
             {
-                for ( i = 0, lenI = selectorArray[ j ].length; i < lenI; i++ )
+                _p = pseudo[ i ];
+
+                if ( _p.indexOf( '(' ) !== - 1 )
                 {
-                    var trigger = selectorArray[ j ][ i ][ 0 ];
+                    _p      = _p.split( '(' );
+                    _p[ 1 ] = _p[ 1 ].replace( ')', '' ); 
+                }
+                else
+                {
+                    _p      = [ _p, '' ];
+                }
 
-                    switch ( trigger )
+                if ( Microbe.pseudo[ _p[ 0 ] ] )
+                {
+                    self = Microbe.pseudo[ _p[ 0 ] ]( self, _p[ 1 ] );
+                }
+                else
+                {
+                    filter += ':' + _p[ 0 ];
+                    if ( _p[ 1 ] !== '' )
                     {
-                        case '#':
-                            _id      += selectorArray[ j ][ i ];
-                            break;
-
-                        case '.':
-                            _class   += selectorArray[ j ][ i ];
-                            break;
-
-                        case ':':
-                            _psuedo   = selectorArray[ j ][ i ];
-                            break;
-
-                        default:
-                            if ( _tag !== selectorArray[ j ][ i ] )
-                            {
-                                if ( _tag !== '' )
-                                {
-                                    return new Microbe();
-                                }
-                                else
-                                {
-                                    _tag     = selectorArray[ j ][ i ];
-                                }
-                            }
-                            break;
+                        filter += '(' + _p[ 1 ] + ')';
                     }
                 }
             }
         }
 
-        _selector = _tag + _id + _class + _psuedo;
+        if ( filter !== '' )
+        {
+            var resArray = [], _el, method;
 
-        return new Microbe( _selector );
+            for ( var i = 0, lenI = self.length; i < lenI; i++ ) 
+            {
+                _el = self[ i ];
+
+                if ( i === 0 )
+                {
+                    if ( _el.matches )
+                    {
+                        method = 'matches';
+                    }
+                    else if ( _el.msMatchSelector )
+                    {
+                        method = 'msMatchSelector';
+                    }
+                    else if ( _el.msMatchSelector )
+                    {
+                        method = 'mozMatchSelector';
+                    }
+                    else if ( _el.msMatchSelector )
+                    {
+                        method = 'webkitMatchSelector';
+                    }
+                }
+
+                if ( _el[ method ]( filter ) === true )
+                {
+                    resArray.push( _el );
+                }
+            }  
+
+            return new Microbe( resArray );
+        }
+        else
+        {
+            self = Array.prototype.slice.call( self );
+            return new Microbe( self );
+        }
     },
 
 
