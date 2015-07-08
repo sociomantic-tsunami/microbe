@@ -4583,6 +4583,71 @@ module.exports = function( Microbe )
         },
 
 
+        not : function( _el, _var, _method )
+        {
+            var method;
+            if ( !_method )
+            {
+                if ( _el[ 0 ] )
+                {
+                    var _e = _el[ 0 ];
+                    if ( _e.matches )
+                    {
+                        method = 'matches';
+                    }
+                    else if ( _e.msMatchSelector )
+                    {
+                        method = 'msMatchSelector';
+                    }
+                    else if ( _e.mozMatchSelector )
+                    {
+                        method = 'mozMatchSelector';
+                    }
+                    else if ( _e.webkitMatchSelector )
+                    {
+                        method = 'webkitMatchSelector';
+                    } 
+                }
+                else
+                {
+                    return new Microbe( [] );
+                }
+            }
+            else
+            {
+                method = _method;
+            }
+
+            if ( _var.indexOf( ',' ) !== -1 )
+            {
+                _var = _var.split( ',' );
+
+                for ( var i = 0, lenI = _var.length; i < lenI; i++ ) 
+                {
+                    _el = this.not( _el, _var[ i ].trim(), method );
+                }
+                return new Microbe( _el );
+            }
+            else
+            {
+                var resArray = [];
+                for ( var j = 0, lenJ = _el.length; j < lenJ; j++ ) 
+                {
+                    if ( ! _el[ j ][ method ]( _var ) )
+                    {
+                        resArray.push( _el[ j ] );
+                    }
+                }
+            }
+
+            if ( _method )
+            {
+                return resArray;
+            }
+            return new Microbe( resArray );
+        },
+
+
         /**
          * ### add
          *
