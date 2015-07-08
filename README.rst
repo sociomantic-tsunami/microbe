@@ -96,7 +96,9 @@ Changelog
 + more consistent documentation
 + more consistent output
 + updated filter method
++ updated find method
 + support for css4 selectors
++ µ.matches for css selector matching
 
 
 0.3.2

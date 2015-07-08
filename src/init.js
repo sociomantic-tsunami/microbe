@@ -160,6 +160,9 @@ module.exports = function( Microbe )
     {
         if ( !_scope )
         {
+            /*
+             * fast tracks simple queries
+             */
             if ( _selector && typeof _selector === 'string' )
             {
                 var _s = _selector[0];
@@ -215,6 +218,9 @@ module.exports = function( Microbe )
 
         _selector = _selector || '';
 
+        /*
+         * fast tracks element based queries
+         */
         if ( _selector.nodeType === 1 || Object.prototype.toString.call( _selector ) === '[object Array]' ||
             _selector === window || _selector === document )
         {

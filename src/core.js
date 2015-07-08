@@ -446,26 +446,26 @@ Microbe.core = Microbe.prototype =
                 _selector = i === 0 ? _f[ 0 ] : ':' + _f[ 0 ];
 
                 if ( _selector !== '' )
-                {                
+                {
                     if ( _f[ 1 ] !== '' )
                     {
                         _selector += '(' + _f[ 1 ] + ')';
                     }
 
-                    for ( var i = 0, lenI = _self.length; i < lenI; i++ ) 
+                    for ( var j = 0, lenJ = _self.length; j < lenJ; j++ )
                     {
-                        _el = _self[ i ];
+                        _el = _self[ j ];
 
-                        if ( _el[ method ]( _selector ) === true )
+                        if ( Microbe.matches( _el, _selector ) === true )
                         {
                             resArray.push( _el );
                         }
-                    }  
+                    }
                 }
 
                 return new Microbe( resArray );
             }
-        }
+        };
 
         if ( filter && filter.indexOf( ':' ) !== -1 )
         {
@@ -473,15 +473,15 @@ Microbe.core = Microbe.prototype =
             filters = [ [ pseudo.splice( 0, 1 ).toString(), '' ] ];
 
             var _p, pseudoArray;
-            
-            for ( var i = 0, lenI = pseudo.length; i < lenI; i++ ) 
+
+            for ( var i = 0, lenI = pseudo.length; i < lenI; i++ )
             {
                 _p = pseudo[ i ];
 
                 if ( _p.indexOf( '(' ) !== - 1 )
                 {
                     _p      = _p.split( '(' );
-                    _p[ 1 ] = _p[ 1 ].replace( ')', '' ); 
+                    _p[ 1 ] = _p[ 1 ].replace( ')', '' );
                 }
                 else
                 {
@@ -500,39 +500,20 @@ Microbe.core = Microbe.prototype =
             return this;
         }
 
-        _el = self[ 0 ];
-
-        if ( _el.matches )
-        {
-            method = 'matches';
-        }
-        else if ( _el.msMatchSelector )
-        {
-            method = 'msMatchSelector';
-        }
-        else if ( _el.mozMatchSelector )
-        {
-            method = 'mozMatchSelector';
-        }
-        else if ( _el.webkitMatchSelector )
-        {
-            method = 'webkitMatchSelector';
-        }
-
-        for ( var i = 0, lenI = filters.length; i < lenI; i++ ) 
+        for ( var k = 0, lenK = filters.length; k < lenK; k++ )
         {
             if ( self.length !== 0 )
             {
-                if ( filters[ i ][ 0 ] !== '' )
+                if ( filters[ k ][ 0 ] !== '' )
                 {
-                    self = _filter( filters[ i ], self, i );
+                    self = _filter( filters[ k ], self, k );
                 }
             }
             else
             {
                 return self;
             }
-        }  
+        }
 
         return self;
     },
@@ -549,8 +530,7 @@ Microbe.core = Microbe.prototype =
      */
     find : function( selector )
     {
-        var _scope = this.selector();
-        return new Microbe( selector, _scope );
+        return new Microbe( selector, this );
     },
 
 
@@ -562,7 +542,7 @@ Microbe.core = Microbe.prototype =
      *
      * @return _Microbe_ new microbe containing only the first value
      */
-    first : function ()
+    first : function()
     {
         if ( this.length === 1 )
         {

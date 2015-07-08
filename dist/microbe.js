@@ -633,14 +633,11 @@ process.chdir = function (dir) {
 (function (global) {
     'use strict';
 
-    /**
-     * @namespace
-     */
-    var ObserveUtils;
-    if (typeof exports !== 'undefined') {
-        ObserveUtils = exports;
+    var ObserveUtils = {};
+    if ( typeof module === 'object' && typeof exports !== 'undefined') {
+        module.exports = ObserveUtils;
     } else {
-        ObserveUtils = global.ObserveUtils = {};
+        global.ObserveUtils = ObserveUtils;
     }
 
     // Utilities
@@ -2420,26 +2417,26 @@ Microbe.core = Microbe.prototype =
                 _selector = i === 0 ? _f[ 0 ] : ':' + _f[ 0 ];
 
                 if ( _selector !== '' )
-                {                
+                {
                     if ( _f[ 1 ] !== '' )
                     {
                         _selector += '(' + _f[ 1 ] + ')';
                     }
 
-                    for ( var i = 0, lenI = _self.length; i < lenI; i++ ) 
+                    for ( var j = 0, lenJ = _self.length; j < lenJ; j++ )
                     {
-                        _el = _self[ i ];
+                        _el = _self[ j ];
 
-                        if ( _el[ method ]( _selector ) === true )
+                        if ( Microbe.matches( _el, _selector ) === true )
                         {
                             resArray.push( _el );
                         }
-                    }  
+                    }
                 }
 
                 return new Microbe( resArray );
             }
-        }
+        };
 
         if ( filter && filter.indexOf( ':' ) !== -1 )
         {
@@ -2447,15 +2444,15 @@ Microbe.core = Microbe.prototype =
             filters = [ [ pseudo.splice( 0, 1 ).toString(), '' ] ];
 
             var _p, pseudoArray;
-            
-            for ( var i = 0, lenI = pseudo.length; i < lenI; i++ ) 
+
+            for ( var i = 0, lenI = pseudo.length; i < lenI; i++ )
             {
                 _p = pseudo[ i ];
 
                 if ( _p.indexOf( '(' ) !== - 1 )
                 {
                     _p      = _p.split( '(' );
-                    _p[ 1 ] = _p[ 1 ].replace( ')', '' ); 
+                    _p[ 1 ] = _p[ 1 ].replace( ')', '' );
                 }
                 else
                 {
@@ -2474,39 +2471,20 @@ Microbe.core = Microbe.prototype =
             return this;
         }
 
-        _el = self[ 0 ];
-
-        if ( _el.matches )
-        {
-            method = 'matches';
-        }
-        else if ( _el.msMatchSelector )
-        {
-            method = 'msMatchSelector';
-        }
-        else if ( _el.mozMatchSelector )
-        {
-            method = 'mozMatchSelector';
-        }
-        else if ( _el.webkitMatchSelector )
-        {
-            method = 'webkitMatchSelector';
-        }
-
-        for ( var i = 0, lenI = filters.length; i < lenI; i++ ) 
+        for ( var k = 0, lenK = filters.length; k < lenK; k++ )
         {
             if ( self.length !== 0 )
             {
-                if ( filters[ i ][ 0 ] !== '' )
+                if ( filters[ k ][ 0 ] !== '' )
                 {
-                    self = _filter( filters[ i ], self, i );
+                    self = _filter( filters[ k ], self, k );
                 }
             }
             else
             {
                 return self;
             }
-        }  
+        }
 
         return self;
     },
@@ -2523,8 +2501,7 @@ Microbe.core = Microbe.prototype =
      */
     find : function( selector )
     {
-        var _scope = this.selector();
-        return new Microbe( selector, _scope );
+        return new Microbe( selector, this );
     },
 
 
@@ -2536,7 +2513,7 @@ Microbe.core = Microbe.prototype =
      *
      * @return _Microbe_ new microbe containing only the first value
      */
-    first : function ()
+    first : function()
     {
         if ( this.length === 1 )
         {
@@ -3931,6 +3908,9 @@ module.exports = function( Microbe )
     {
         if ( !_scope )
         {
+            /*
+             * fast tracks simple queries
+             */
             if ( _selector && typeof _selector === 'string' )
             {
                 var _s = _selector[0];
@@ -3986,6 +3966,9 @@ module.exports = function( Microbe )
 
         _selector = _selector || '';
 
+        /*
+         * fast tracks element based queries
+         */
         if ( _selector.nodeType === 1 || Object.prototype.toString.call( _selector ) === '[object Array]' ||
             _selector === window || _selector === document )
         {
@@ -4583,68 +4566,52 @@ module.exports = function( Microbe )
         },
 
 
-        not : function( _el, _var, _method )
+        matches : function( _el, _var )
         {
-            var method;
-            if ( !_method )
-            {
-                if ( _el[ 0 ] )
-                {
-                    var _e = _el[ 0 ];
-                    if ( _e.matches )
-                    {
-                        method = 'matches';
-                    }
-                    else if ( _e.msMatchSelector )
-                    {
-                        method = 'msMatchSelector';
-                    }
-                    else if ( _e.mozMatchSelector )
-                    {
-                        method = 'mozMatchSelector';
-                    }
-                    else if ( _e.webkitMatchSelector )
-                    {
-                        method = 'webkitMatchSelector';
-                    } 
-                }
-                else
-                {
-                    return new Microbe( [] );
-                }
-            }
-            else
-            {
-                method = _method;
-            }
+            _var = _var.split( ',' );
+        },
 
+
+        /**
+         * ### not
+         *
+         * returns all elements that do not match the given selector. As per
+         * CSS4 spec, this accepts complex selectors seperated with a comma
+         *
+         * @param {Microbe} _el microbe to be filtered
+         * @param {String} _var number of elements to return
+         * @param {String} _recursive an indicator that it is calling itself. defines output
+         *
+         * @return _Microbe_
+         */
+        not : function( _el, _var, _recursive )
+        {
             if ( _var.indexOf( ',' ) !== -1 )
             {
                 _var = _var.split( ',' );
 
-                for ( var i = 0, lenI = _var.length; i < lenI; i++ ) 
+                for ( var i = 0, lenI = _var.length; i < lenI; i++ )
                 {
-                    _el = this.not( _el, _var[ i ].trim(), method );
+                    _el = this.not( _el, _var[ i ].trim(), true );
                 }
                 return new Microbe( _el );
             }
             else
             {
                 var resArray = [];
-                for ( var j = 0, lenJ = _el.length; j < lenJ; j++ ) 
+                for ( var j = 0, lenJ = _el.length; j < lenJ; j++ )
                 {
-                    if ( ! _el[ j ][ method ]( _var ) )
+                    if ( ! Microbe.matches( _el[ j ], _var ) )
                     {
                         resArray.push( _el[ j ] );
                     }
                 }
+                if ( _recursive )
+                {
+                    return resArray;
+                }
+                return new Microbe( resArray );
             }
-
-            if ( _method )
-            {
-                return resArray;
-            }
-            return new Microbe( resArray );
         },
 
 
@@ -5015,6 +4982,53 @@ module.exports = function( Microbe )
 
 
     /**
+     * ## matches
+     *
+     * checks element an to see if they match a given css selector
+     *
+     * @param  {Object} el element to match
+     *
+     * @return _Booblean matches or not
+     */
+    Microbe.matches = function( el, selector )
+    {
+        var isArray = Microbe.isArray( el ) || ( typeof el !== 'string' && !!( el.length ) ) ? true : false;
+
+        if ( !this.__matchesMethod )
+        {
+            if ( el.matches )
+            {
+                this.__matchesMethod = 'matches';
+            }
+            else if ( el.msMatchSelector )
+            {
+                this.__matchesMethod = 'msMatchSelector';
+            }
+            else if ( el.mozMatchSelector )
+            {
+                this.__matchesMethod = 'mozMatchSelector';
+            }
+            else if ( el.webkitMatchSelector )
+            {
+                this.__matchesMethod = 'webkitMatchSelector';
+            }
+        }
+
+        if ( !isArray && !( typeof el !== 'string' && !!( el.length ) ) )
+        {
+            el = [ el ];
+        }
+        var resArray = [];
+        for ( var i = 0, lenI = el.length; i < lenI; i++ )
+        {
+            resArray.push( el[ i ][ this.__matchesMethod ]( selector ) );
+        }
+
+        return isArray ? resArray : resArray[ 0 ];
+    };
+
+
+    /**
      * ## noop
      *
      * Nothing happens
@@ -5023,7 +5037,7 @@ module.exports = function( Microbe )
      *
      * @return _void_
      */
-    Microbe.noop    = function() {};
+    Microbe.noop = function() {};
 
 
     /**
