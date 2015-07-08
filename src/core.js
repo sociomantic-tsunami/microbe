@@ -880,56 +880,6 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * ## selector
-     *
-     * Returns the css selector from an element
-     *
-     * @return _String_ combined selector string
-     */
-    selector : function()
-    {
-        var self = this;
-
-        return this._selector || (function()
-        {
-            var getSelectorString = function( _elm )
-            {
-                if ( _elm && _elm.tagName )
-                {
-                    var tag = _elm.tagName.toLowerCase(),
-                    id      = ( _elm.id ) ? '#' + _elm.id : '',
-                    clss    = Array.prototype.join.call( _elm.classList, '.' );
-
-                    clss = ( clss !== '' ) ? '.' + clss : clss;
-
-                    return tag + id + clss;
-                }
-
-                // return blank for document or window
-                return '';
-            };
-
-            var _selector, selectors = [];
-
-            for ( var i = 0, lenI = self.length; i < lenI; i++ )
-            {
-                _selector = getSelectorString( self[ i ] );
-
-                if ( selectors.indexOf( _selector ) === -1 )
-                {
-                    selectors.push( _selector );
-                }
-            }
-
-            selectors       = selectors.join( ', ' );
-            self._selector  = selectors;
-
-            return selectors;
-        })();
-    },
-
-
-    /**
      * ## siblings
      *
      * Gets an microbe of all of each given element's siblings

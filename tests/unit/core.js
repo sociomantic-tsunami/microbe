@@ -327,7 +327,7 @@ module.exports = function( buildTest )
         //     resetDivs();
         //     $Divs.filter( '#qunit' );
         // } );
-         
+
         buildTest(
         'µDivs.filter( \'#qunit\' )', function()
         {
@@ -379,7 +379,7 @@ module.exports = function( buildTest )
             µDivs.find( 'h2' );
         },
 
-        '$Divs.find()', function()
+        '$Divs.find( \'h2\')', function()
         {
             resetDivs();
             $Divs.find( 'h2' );
@@ -864,31 +864,6 @@ module.exports = function( buildTest )
 
           resetDivs();
         } );
-    });
-
-
-    /**
-     * µ selector tests
-     *
-     * @test    selector exists
-     * @test    correctly parses classes
-     * @test    correctly parses ids
-     * @test    correctly parses combined
-     */
-    QUnit.test( '.selector()', function( assert )
-    {
-        assert.ok( µ().selector, 'exists' );
-
-        var _el = µ( '.example--class--groups' )[0];
-        assert.equal( µ( _el ).selector(), 'div.example--class.example--class--groups', 'correctly parses classes' );
-
-        _el = µ( '#microbe--example--dom' )[0];
-        assert.equal( µ( _el ).selector(), 'div#microbe--example--dom', 'correctly parses ids' );
-
-        _el = µ( '#example--combined' )[0];
-        assert.equal( µ( _el ).selector(), 'div#example--combined.example--combined', 'correctly parses combined' );
-
-        buildTest( 'No comparison available.' );
     });
 
 

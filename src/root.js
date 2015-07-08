@@ -299,31 +299,33 @@ module.exports = function( Microbe )
      *
      * checks element an to see if they match a given css selector
      *
-     * @param  {Object} el element to match
+     * @param  {Mixed} el element, microbe, or array of elements to match
      *
      * @return _Booblean matches or not
      */
     Microbe.matches = function( el, selector )
     {
+        var method = this.matches.__matchesMethod;
+
         var isArray = Microbe.isArray( el ) || ( typeof el !== 'string' && !!( el.length ) ) ? true : false;
 
-        if ( !this.__matchesMethod )
+        if ( !method )
         {
             if ( el.matches )
             {
-                this.__matchesMethod = 'matches';
+                method = this.matches.__matchesMethod = 'matches';
             }
             else if ( el.msMatchSelector )
             {
-                this.__matchesMethod = 'msMatchSelector';
+                method = this.matches.__matchesMethod = 'msMatchSelector';
             }
             else if ( el.mozMatchSelector )
             {
-                this.__matchesMethod = 'mozMatchSelector';
+                method = this.matches.__matchesMethod = 'mozMatchSelector';
             }
             else if ( el.webkitMatchSelector )
             {
-                this.__matchesMethod = 'webkitMatchSelector';
+                method = this.matches.__matchesMethod = 'webkitMatchSelector';
             }
         }
 
@@ -334,7 +336,7 @@ module.exports = function( Microbe )
         var resArray = [];
         for ( var i = 0, lenI = el.length; i < lenI; i++ )
         {
-            resArray.push( el[ i ][ this.__matchesMethod ]( selector ) );
+            resArray.push( el[ i ][ method ]( selector ) );
         }
 
         return isArray ? resArray : resArray[ 0 ];

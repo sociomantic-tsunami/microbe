@@ -140,7 +140,6 @@ module.exports = function( Microbe )
         return true;
     }
 
-
     /**
      * ## \_\_init\_\_
      *
@@ -163,7 +162,8 @@ module.exports = function( Microbe )
             /*
              * fast tracks simple queries
              */
-            if ( _selector && typeof _selector === 'string' )
+            if ( _selector && typeof _selector === 'string' &&
+                    _selector.indexOf( ':' ) === -1 )
             {
                 var _s = _selector[0];
                 var _i, _c, _p;
@@ -218,6 +218,18 @@ module.exports = function( Microbe )
 
         _selector = _selector || '';
 
+        if ( _scope && _scope.type === '[object Microbe]' )
+        {
+            var res = _build.call( this, [], _selector );
+
+            for ( var n = 0, lenN = _scope.length; n < lenN; n++ )
+            {
+                res.merge( Microbe.core.__init__( _selector, _scope[ n ], _elements ) );
+            }
+
+            return res;
+        }
+
         /*
          * fast tracks element based queries
          */
@@ -232,11 +244,6 @@ module.exports = function( Microbe )
 
         if ( _scope !== document )
         {
-            if ( _scope.type === '[object Microbe]' )
-            {
-                _scope = _scope.selector();
-            }
-
             if ( typeof _scope === 'string' && typeof _selector === 'string' )
             {
                 if ( _selector.indexOf( ',' ) !== -1 || _scope.indexOf( ',' ) !== -1 )
@@ -288,7 +295,7 @@ module.exports = function( Microbe )
 
             var resultsRegex = _selector.match( selectorRegex );
 
-            if ( resultsRegex && resultsRegex.length === 1 )
+            if ( resultsRegex && resultsRegex.length === 1 && resultsRegex[ 0 ][ 0 ] !== ':'  )
             {
                 trigger         = resultsRegex[0][0];
 
@@ -325,49 +332,12 @@ module.exports = function( Microbe )
             return new Microbe.core.__init__( _selector, _scope, _elements );
         }
 
-        var pseudo;
         if ( _selector.indexOf( ':' ) !== -1 )
         {
-            var _pseudoArray;
-             pseudo     = _selector.split( ':' );
-            _selector   = pseudo[ 0 ];
-            pseudo.splice( 0, 1 );
-
-            for ( var k = 0, lenK = pseudo.length; k < lenK; k++ )
-            {
-                _pseudoArray = pseudo[ k ].split( '(' );
-
-                if ( !Microbe.constructor.pseudo[ _pseudoArray[ 0 ] ] )
-                {
-                    _selector += ':' + pseudo[ k ];
-                    pseudo.splice( k, 1 );
-                }
-            }
+            return Microbe.constructor.pseudo( this, _selector, _scope, _build );
         }
 
-        var obj = _build.call( this, _scope.querySelectorAll( _selector ), _selector );
-
-        if ( pseudo )
-        {
-            var _sel, _var;
-            for ( var h = 0, lenH = pseudo.length; h < lenH; h++ )
-            {
-                _sel = pseudo[ h ].split( '(' );
-                _var = _sel[ 1 ];
-                if ( _var )
-                {
-                    _var = _var.slice( 0, _var.length - 1 );
-                }
-                _sel = _sel[ 0 ];
-
-                if ( Microbe.constructor.pseudo[ _sel ] )
-                {
-                    obj = Microbe.constructor.pseudo[ _sel ]( obj, _var );
-                }
-            }
-        }
-
-        return obj;
+        return _build.call( this, _scope.querySelectorAll( _selector ), _selector );
     };
 
     Microbe.core.__init__.prototype = Microbe.core;

@@ -99,6 +99,7 @@ Changelog
 + updated find method
 + support for css4 selectors
 + µ.matches for css selector matching
++ depreciated selector generation
 
 
 0.3.2
