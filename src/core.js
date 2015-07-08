@@ -37,7 +37,7 @@ var Microbe = function( selector, scope, elements )
 
 Microbe.core = Microbe.prototype =
 {
-    version :       '0.3.2',
+    version :       '0.3.3',
 
     constructor :   Microbe,
 
@@ -417,7 +417,9 @@ Microbe.core = Microbe.prototype =
     /**
      * ## filter
      *
-     * Filters the microbe by the given given selector
+     * Filters the microbe by the given given selector.
+     * unsure if we actually need the webkitMatchSelector and mozMatchSelector
+     * http://caniuse.com/#feat=matchesselector
      *
      * @param {String} selector            selector to filter by
      *
@@ -425,59 +427,114 @@ Microbe.core = Microbe.prototype =
      */
     filter : function( filter )
     {
-        var originalSelector = this.selector();
+        var pseudo, filters, self = this, _el, method;
 
-        var selectorRegex   = originalSelector.match( this.__selectorRegex ),
-            filterRegex     = filter.match( this.__selectorRegex );
-
-        var _id = '', _tag = '', _psuedo = '', _class = '', _selector;
-
-        var selectorArray = [ selectorRegex, filterRegex ];
-
-        var i, lenI, j, lenJ;
-        for ( j = 0, lenJ = selectorArray.length; j < lenJ; j++ )
+        if ( self.length === 0 )
         {
-            if ( selectorArray[ j ] )
+            return self;
+        }
+
+        var _filter = function( _f, _self, i )
+        {
+            if ( Microbe.pseudo[ _f[ 0 ] ] )
             {
-                for ( i = 0, lenI = selectorArray[ j ].length; i < lenI; i++ )
-                {
-                    var trigger = selectorArray[ j ][ i ][ 0 ];
+                return Microbe.pseudo[ _f[ 0 ] ]( _self, _f[ 1 ] );
+            }
+            else
+            {
+                var resArray = [], _selector;
+                _selector = i === 0 ? _f[ 0 ] : ':' + _f[ 0 ];
 
-                    switch ( trigger )
+                if ( _selector !== '' )
+                {                
+                    if ( _f[ 1 ] !== '' )
                     {
-                        case '#':
-                            _id      += selectorArray[ j ][ i ];
-                            break;
-
-                        case '.':
-                            _class   += selectorArray[ j ][ i ];
-                            break;
-
-                        case ':':
-                            _psuedo   = selectorArray[ j ][ i ];
-                            break;
-
-                        default:
-                            if ( _tag !== selectorArray[ j ][ i ] )
-                            {
-                                if ( _tag !== '' )
-                                {
-                                    return new Microbe();
-                                }
-                                else
-                                {
-                                    _tag     = selectorArray[ j ][ i ];
-                                }
-                            }
-                            break;
+                        _selector += '(' + _f[ 1 ] + ')';
                     }
+
+                    for ( var i = 0, lenI = _self.length; i < lenI; i++ ) 
+                    {
+                        _el = _self[ i ];
+
+                        if ( _el[ method ]( _selector ) === true )
+                        {
+                            resArray.push( _el );
+                        }
+                    }  
                 }
+
+                return new Microbe( resArray );
             }
         }
 
-        _selector = _tag + _id + _class + _psuedo;
+        if ( filter && filter.indexOf( ':' ) !== -1 )
+        {
+            pseudo  = filter.split( ':' );
+            filters = [ [ pseudo.splice( 0, 1 ).toString(), '' ] ];
 
-        return new Microbe( _selector );
+            var _p, pseudoArray;
+            
+            for ( var i = 0, lenI = pseudo.length; i < lenI; i++ ) 
+            {
+                _p = pseudo[ i ];
+
+                if ( _p.indexOf( '(' ) !== - 1 )
+                {
+                    _p      = _p.split( '(' );
+                    _p[ 1 ] = _p[ 1 ].replace( ')', '' ); 
+                }
+                else
+                {
+                    _p      = [ _p, '' ];
+                }
+
+                filters.push( _p );
+            }
+        }
+        else if ( filter )
+        {
+            filters = [ [ filter, '' ] ];
+        }
+        else
+        {
+            return this;
+        }
+
+        _el = self[ 0 ];
+
+        if ( _el.matches )
+        {
+            method = 'matches';
+        }
+        else if ( _el.msMatchSelector )
+        {
+            method = 'msMatchSelector';
+        }
+        else if ( _el.mozMatchSelector )
+        {
+            method = 'mozMatchSelector';
+        }
+        else if ( _el.webkitMatchSelector )
+        {
+            method = 'webkitMatchSelector';
+        }
+
+        for ( var i = 0, lenI = filters.length; i < lenI; i++ ) 
+        {
+            if ( self.length !== 0 )
+            {
+                if ( filters[ i ][ 0 ] !== '' )
+                {
+                    self = _filter( filters[ i ], self, i );
+                }
+            }
+            else
+            {
+                return self;
+            }
+        }  
+
+        return self;
     },
 
 

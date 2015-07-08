@@ -1,4 +1,4 @@
-Microbe - 0.3.2
+Microbe - 0.3.3
 ===============
 
 Microbe (µ) - a javascript library
@@ -95,6 +95,8 @@ Changelog
 
 + more consistent documentation
 + more consistent output
++ updated filter method
++ support for css4 selectors
 
 
 0.3.2
