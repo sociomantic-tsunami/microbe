@@ -357,6 +357,21 @@ module.exports = function( Microbe )
 
 
     /**
+     * ### required
+     *
+     * returns the root elements of the document
+     *
+     * @param {Microbe} _el microbe to be filtered
+     *
+     * @return _Microbe_
+     */
+    pseudo.required = function( _el )
+    {
+        return _el.filter( '[required=required]' );
+    };
+
+
+    /**
      * ### root
      *
      * returns the root elements of the document
