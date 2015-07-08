@@ -633,11 +633,14 @@ process.chdir = function (dir) {
 (function (global) {
     'use strict';
 
-    var ObserveUtils = {};
-    if ( typeof module === 'object' && typeof exports !== 'undefined') {
-        module.exports = ObserveUtils;
+    /**
+     * @namespace
+     */
+    var ObserveUtils;
+    if (typeof exports !== 'undefined') {
+        ObserveUtils = exports;
     } else {
-        global.ObserveUtils = ObserveUtils;
+        ObserveUtils = global.ObserveUtils = {};
     }
 
     // Utilities
@@ -4528,6 +4531,41 @@ module.exports = function( Microbe )
     pseudo.last = function( _el )
     {
         return _el.last();
+    };
+
+
+
+    /**
+     * ### local-link
+     *
+     * returns all link tags that go to local links. If specified a depth 
+     * filter can be added
+     * 
+     * @param {Microbe} _el microbe to be filtered
+     * @param {String} _var specified depth
+     * 
+     * @return _Microbe_
+     */
+    pseudo[ 'local-link' ] = function( _el, _var )
+    {
+        var links   = document.getElementsByTagName( 'A' );
+        var here    = document.location;
+
+        var url, urlShort, depth, resArray = [];
+        for ( var i = 0, lenI = links.length; i < lenI; i++ ) 
+        {
+            url         = links[ i ].href;
+            urlShort    = url.replace( here.origin, '' ).replace( here.host, '' );
+            urlShort    = urlShort[ 0 ] === '/' ? urlShort.slice( 1 ) : urlShort;
+            depth       = urlShort.split( '/' ).length - 1;
+
+            if ( !_var || parseInt( _var ) === depth )
+            {
+                resArray.push( links[ i ] );
+            }
+        }
+
+        return new Microbe( resArray );
     };
 
 
