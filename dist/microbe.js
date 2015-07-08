@@ -4336,9 +4336,9 @@ module.exports = function( Microbe )
  */
 module.exports = function( Microbe )
 {
-    var pseudo = function( self, _selector, _scope, _build )
+    var pseudo = function( self, selector, _scope, _build )
     {
-        var obj;
+        var obj, _selector = selector;
 
         if ( _selector[ 0 ] === ':' )
         {
@@ -4398,7 +4398,7 @@ module.exports = function( Microbe )
 
             if ( Microbe.constructor.pseudo[ _sel ] )
             {
-                obj = Microbe.constructor.pseudo[ _sel ]( obj, _var );
+                obj = Microbe.constructor.pseudo[ _sel ]( obj, _var, selector );
             }
         }
         return obj;
@@ -4547,10 +4547,34 @@ module.exports = function( Microbe )
     };
 
 
-    // matches : function( _el, _var )
-    // {
-    //     _var = _var.split( ',' );
-    // },
+    /**
+     * ### matches
+     *
+     * returns elements that match either selector
+     *
+     * @param {Microbe} _el microbe to be filtered
+     * @param {String} _var number of elements to return
+     * @param {String} _selector full original selector
+     *
+     * @return _Microbe_
+     */
+    pseudo.matches = function( _el, _var, _selector )
+    {
+        var text = ':matches(' + _var + ')';
+        _var = _var.split( ',' );
+
+        _selector = _selector.replace(  text, '' );
+        _selector = _selector === '*' ? '' : _selector;
+
+        var res = new Microbe( _selector + _var[ 0 ].trim() );
+
+        for ( var i = 1, lenI = _var.length; i < lenI; i++ )
+        {
+            res.merge( new Microbe( _selector + _var[ i ].trim() ) );
+        }
+
+        return res;
+    };
 
 
     /**
