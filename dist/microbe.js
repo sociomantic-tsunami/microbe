@@ -4682,9 +4682,22 @@ module.exports = function( Microbe )
 
 
     /**
+     * ### optional
+     * 
+     * @param  {[type]} _el [description]
+     * 
+     * @return {[type]}     [description]
+     */
+    pseudo.optional = function( _el )
+    {
+        return _el.filter( 'input:not([required=required]), textfield:not([required=required]), [required=optional], [optional]' );
+    };
+
+
+    /**
      * ### required
      *
-     * returns the root elements of the document
+     * returns all required elements
      *
      * @param {Microbe} _el microbe to be filtered
      *
