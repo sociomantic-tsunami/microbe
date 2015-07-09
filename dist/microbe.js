@@ -2009,8 +2009,8 @@ var Microbe = function( selector, scope, elements )
 };
 
 
-Microbe.core = Microbe.prototype =
-{
+Microbe.core = Microbe.prototype ={
+
     version :       '0.3.3',
 
     constructor :   Microbe,
@@ -3925,7 +3925,7 @@ module.exports = function( Microbe )
 
             for ( var n = 0, lenN = _scope.length; n < lenN; n++ )
             {
-                res.merge( Microbe.core.__init__( _selector, _scope[ n ], _elements ) );
+                res.merge( new Microbe.core.__init__( _selector, _scope[ n ], _elements ) );
             }
 
             return res;
@@ -4429,7 +4429,7 @@ module.exports = function( Microbe )
             }
         }
 
-        return new Microbe( resArray );
+        return _el.constructor( resArray );
     };
 
 
@@ -4459,6 +4459,31 @@ module.exports = function( Microbe )
             }
         }
         return _el.constructor( elements );
+    };
+
+
+    /**
+     * ### dir
+     *
+     * 
+     *
+     * @param {Microbe} _el microbe to be filtered
+     * @param {String} _var string to search for
+     *
+     * @return _Microbe_
+     */
+    pseudo.dir = function( _el, _var )
+    {
+        var _e, resArray = [];
+        for ( var i = 0, lenI = _el.length; i < lenI; i++ ) 
+        {
+            _e = _el[ i ];
+            if ( getComputedStyle( _e ).direction === _var )
+            {
+                resArray.push( _e );
+            }
+        }
+        return _el.constructor( resArray );
     };
 
 
@@ -4584,7 +4609,7 @@ module.exports = function( Microbe )
                 }
             }
         }
-        return new Microbe( resArray );
+        return _el.constructor( resArray );
     };
 
 
@@ -4634,7 +4659,7 @@ module.exports = function( Microbe )
             }
         }
 
-        return new Microbe( resArray );
+        return _el.constructor( resArray );
     };
 
 
@@ -4706,7 +4731,7 @@ module.exports = function( Microbe )
             {
                 _el = this.not( _el, _var[ i ].trim(), true );
             }
-            return new Microbe( _el );
+            _el.constructor( _el );
         }
         else
         {
@@ -4722,7 +4747,7 @@ module.exports = function( Microbe )
             {
                 return resArray;
             }
-            return new Microbe( resArray );
+            return _el.constructor( resArray );
         }
     };
 
@@ -4806,7 +4831,7 @@ module.exports = function( Microbe )
             }
         }
 
-        return new Microbe( resArray );
+        return _el.constructor( resArray );
     };
 
 
