@@ -4423,7 +4423,7 @@ module.exports = function( Microbe )
         for ( var i = 0, lenI = text.length; i < lenI; i++ ) 
         {
             var _t = text[ i ];
-            if ( _t.length > 0 && /^\s*$/.test( _t ) )
+            if ( /^\s+$/.test( _t ) )
             {
                 resArray.push( _el[ i ] );
             }
@@ -4541,6 +4541,50 @@ module.exports = function( Microbe )
         }
 
         return _el.constructor( results );
+    };
+
+
+    /**
+     * ### in-range
+     *
+     * select the elements with a value inside the specified range
+     * 
+     * @param {Microbe} _el microbe to be filtered
+     * 
+     * @return _Microbe_
+     */
+    pseudo[ 'in-range' ] = function( _el )
+    {
+        var _el = _el.filter( '[max],[min]' );
+
+        var min, max, _v, _e, resArray = [];
+        for ( var i = 0, lenI = _el.length; i < lenI; i++ ) 
+        {
+            _e = _el[ i ];
+            min = _e.getAttribute( 'min' );
+            max = _e.getAttribute( 'max' );
+            _v = parseInt( _e.value );
+
+            if ( _v )
+            {
+                if ( min && max )
+                {
+                    if ( _v > min && _v < max )
+                    {
+                        resArray.push( _e ); 
+                    }
+                }
+                else if ( min && _v > min )
+                {
+                    resArray.push( _e ); 
+                }
+                else if ( max && _v < max )
+                {
+                    resArray.push( _e ); 
+                }
+            }
+        }
+        return new Microbe( resArray );
     };
 
 
@@ -4718,6 +4762,50 @@ module.exports = function( Microbe )
     pseudo.optional = function( _el )
     {
         return _el.filter( 'input:not([required=required]), textfield:not([required=required]), [required=optional], [optional]' );
+    };
+
+
+    /**
+     * ### out-of-range
+     *
+     * select the elements with a value inside the specified range
+     * 
+     * @param {Microbe} _el microbe to be filtered
+     * 
+     * @return _Microbe_
+     */
+    pseudo[ 'out-of-range' ] = function( _el )
+    {
+        var _el = _el.filter( '[max],[min]' );
+
+        var min, max, _v, _e, resArray = [];
+        for ( var i = 0, lenI = _el.length; i < lenI; i++ ) 
+        {
+            _e = _el[ i ];
+            min = _e.getAttribute( 'min' );
+            max = _e.getAttribute( 'max' );
+            _v = parseInt( _e.value );
+
+            if ( _v )
+            {
+                if ( min && max )
+                {
+                    if ( _v < min || _v > max )
+                    {
+                        resArray.push( _e ); 
+                    }
+                }
+                else if ( min && _v < min )
+                {
+                    resArray.push( _e ); 
+                }
+                else if ( max && _v > max )
+                {
+                    resArray.push( _e ); 
+                }
+            }
+        }
+        return new Microbe( resArray );
     };
 
 
