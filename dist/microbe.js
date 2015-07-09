@@ -4350,6 +4350,48 @@ module.exports = function( Microbe )
  */
 module.exports = function( Microbe )
 {
+    var parseNth = function( _el, _var, _last )
+    {
+        if ( _var.indexOf( 'n' ) === -1 )
+        {
+            switch ( _last )
+            {
+                case true:
+                    return new Microbe( _el[ _el.length - parseInt( _var ) ] );
+                return new Microbe( _el[ parseInt( _var ) - 1 ] );
+            }
+        }
+        else
+        {
+            _var            = _var.split( 'n' );
+            var increment   = parseInt( _var[0] ) || 1;
+            var offset      = parseInt( _var[1] );
+
+            var top;
+            if ( _last === true || _last === 'last' )
+            {
+                top         = _el.length - parseInt( _var[1] );
+                offset      = top % increment;
+            }
+
+            var _e, resArray = [];
+            for ( var i = offset || 0, lenI = top || _el.length; i < lenI; ) 
+            {
+                _e = _el[ i ]
+
+                if ( _e )
+                {
+                    resArray.push( _e );
+                }
+
+                i += increment;
+            }
+        }
+
+        return new Microbe( resArray );
+    };
+
+
     var pseudo = function( self, selector, _scope, _build )
     {
         var obj, _selector = selector;
@@ -4459,6 +4501,12 @@ module.exports = function( Microbe )
     };
 
 
+    pseudo.column = function( _el, _var )
+    {
+        return _el.filter( 'col' ).filter( _var );
+    };
+
+
     /**
      * ### contains
      *
@@ -4491,7 +4539,7 @@ module.exports = function( Microbe )
     /**
      * ### dir
      *
-     * 
+     * match elements by its directionality based on the document language
      *
      * @param {Microbe} _el microbe to be filtered
      * @param {String} _var string to search for
@@ -4813,6 +4861,22 @@ module.exports = function( Microbe )
     };
 
 
+    pseudo[ 'nth-column' ] = function( _el, _var )
+    {
+        _el = _el.filter( 'col' );
+
+        return parseNth( _el, _var );
+    };
+
+
+    pseudo[ 'nth-last-column' ] = function( _el, _var )
+    {
+        _el = _el.filter( 'col' );
+
+        return parseNth( _el, _var, true );
+    };
+
+
     /**
      * ### nth-last-match
      *
@@ -4825,32 +4889,7 @@ module.exports = function( Microbe )
      */
     pseudo[ 'nth-last-match' ] = function( _el, _var )
     {
-        if ( _var.indexOf( 'n' ) === -1 )
-        {
-            return new Microbe( _el[ _el.length - parseInt( _var ) ] );
-        }
-        else
-        {
-            _var            = _var.split( 'n' );
-            var increment   = parseInt( _var[0] ) || 1;
-            var top         = _el.length - parseInt( _var[1] );
-            var offset      = top % increment;
-
-            var _e, resArray = [];
-            for ( var i = offset || 0, lenI = top; i < lenI; ) 
-            {
-                _e = _el[ i ]
-
-                if ( _e )
-                {
-                    resArray.push( _e );
-                }
-
-                i += increment;
-            }
-        }
-
-        return new Microbe( resArray );
+        return parseNth( _el, _var, true );
     };
 
 
@@ -4866,31 +4905,7 @@ module.exports = function( Microbe )
      */
     pseudo[ 'nth-match' ] = function( _el, _var )
     {
-        if ( _var.indexOf( 'n' ) === -1 )
-        {
-            return new Microbe( _el[ parseInt( _var ) - 1 ] );
-        }
-        else
-        {
-            _var            = _var.split( 'n' );
-            var increment   = parseInt( _var[0] );
-            var offset      = parseInt( _var[1] );
-
-            var _e, resArray = [];
-            for ( var i = offset || 0, lenI = _el.length; i < lenI; ) 
-            {
-                _e = _el[ i ]
-
-                if ( _e )
-                {
-                    resArray.push( _e );
-                }
-
-                i += increment;
-            }
-        }
-
-        return new Microbe( resArray );
+        return parseNth( _el, _var );
     };
 
 
