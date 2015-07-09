@@ -4784,7 +4784,7 @@ module.exports = function( Microbe )
             _e = _el[ i ];
             min = _e.getAttribute( 'min' );
             max = _e.getAttribute( 'max' );
-            _v = parseInt( _e.value );
+            _v = parseFloat( _e.value );
 
             if ( _v )
             {
@@ -4805,7 +4805,38 @@ module.exports = function( Microbe )
                 }
             }
         }
+
         return new Microbe( resArray );
+    };
+
+
+    /**
+     * ### read-only
+     *
+     * user-non-alterable content
+     * 
+     * @param {Microbe} _el microbe to be filtered
+     *
+     * @return _Microbe_
+     */
+    pseudo[ 'read-only' ] = function( _el )
+    {
+        return _el.filter( ':not(input,textfield,[contenteditable=false])' );  
+    };
+
+
+    /**
+     * ### read-write
+     *
+     * input elements which are user-alterable or contenteditable
+     * 
+     * @param {Microbe} _el microbe to be filtered
+     *
+     * @return _Microbe_
+     */
+    pseudo[ 'read-write' ] = function( _el )
+    {
+        return _el.filter( 'input,textfield,[contenteditable=true]' );  
     };
 
 
