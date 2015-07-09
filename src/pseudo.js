@@ -84,6 +84,21 @@ module.exports = function( Microbe )
 
 
     /**
+     * ### any-link
+     *
+     * match elements that act as the source anchors of hyperlinks
+     * 
+     * @param {Microbe} _el microbe to be filtered
+     * 
+     * @return _Microbe_
+     */
+    pseudo[ 'any-link' ] = function( _el )
+    {
+        return _el.filter( 'a' );
+    };
+
+
+    /**
      * ### blank
      *
      * matches elements that only contain content which consists of whitespace but are not empty
@@ -140,7 +155,7 @@ module.exports = function( Microbe )
     /**
      * ### dir
      *
-     * 
+     * match elements by its directionality based on the document language
      *
      * @param {Microbe} _el microbe to be filtered
      * @param {String} _var string to search for
