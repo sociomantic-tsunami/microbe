@@ -84,6 +84,31 @@ module.exports = function( Microbe )
 
 
     /**
+     * ### blank
+     *
+     * matches elements that only contain content which consists of whitespace but are not empty
+     * 
+     * @param {Microbe} _el microbe to be filtered
+     * 
+     * @return _Microbe_
+     */
+    pseudo.blank = function( _el )
+    {
+        var resArray = [], text = _el.text();
+        for ( var i = 0, lenI = text.length; i < lenI; i++ ) 
+        {
+            var _t = text[ i ];
+            if ( _t.length > 0 && /^\s*$/.test( _t ) )
+            {
+                resArray.push( _el[ i ] );
+            }
+        }
+
+        return new Microbe( resArray );
+    };
+
+
+    /**
      * ### contains
      *
      * Returns only elements that contain the given text.  The supplied text
@@ -358,6 +383,8 @@ module.exports = function( Microbe )
 
     /**
      * ### optional
+     *
+     * returns all optional elements
      * 
      * @param  {[type]} _el [description]
      * 
