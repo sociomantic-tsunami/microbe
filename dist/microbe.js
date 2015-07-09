@@ -4753,6 +4753,87 @@ module.exports = function( Microbe )
 
 
     /**
+     * ### nth-last-match
+     *
+     * returns the nth match(es) of the current microbe starting from the back
+     * 
+     * @param {Microbe} _el microbe to be filtered
+     * @param {String} _var number of elements to return
+     * 
+     * @return _Microbe_
+     */
+    pseudo[ 'nth-last-match' ] = function( _el, _var )
+    {
+        if ( _var.indexOf( 'n' ) === -1 )
+        {
+            return new Microbe( _el[ _el.length - parseInt( _var ) ] );
+        }
+        else
+        {
+            _var            = _var.split( 'n' );
+            var increment   = parseInt( _var[0] ) || 1;
+            var top         = _el.length - parseInt( _var[1] );
+            var offset      = top % increment;
+
+            var _e, resArray = [];
+            for ( var i = offset || 0, lenI = top; i < lenI; ) 
+            {
+                _e = _el[ i ]
+
+                if ( _e )
+                {
+                    resArray.push( _e );
+                }
+
+                i += increment;
+            }
+        }
+
+        return new Microbe( resArray );
+    };
+
+
+    /**
+     * ### nth-match
+     *
+     * returns the nth match(es) of the current microbe
+     * 
+     * @param {Microbe} _el microbe to be filtered
+     * @param {String} _var number of elements to return
+     * 
+     * @return _Microbe_
+     */
+    pseudo[ 'nth-match' ] = function( _el, _var )
+    {
+        if ( _var.indexOf( 'n' ) === -1 )
+        {
+            return new Microbe( _el[ parseInt( _var ) - 1 ] );
+        }
+        else
+        {
+            _var            = _var.split( 'n' );
+            var increment   = parseInt( _var[0] );
+            var offset      = parseInt( _var[1] );
+
+            var _e, resArray = [];
+            for ( var i = offset || 0, lenI = _el.length; i < lenI; ) 
+            {
+                _e = _el[ i ]
+
+                if ( _e )
+                {
+                    resArray.push( _e );
+                }
+
+                i += increment;
+            }
+        }
+
+        return new Microbe( resArray );
+    };
+
+
+    /**
      * ### add
      *
      * returns the odd indexed elements of a microbe
