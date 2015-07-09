@@ -289,6 +289,41 @@ module.exports = function( Microbe )
 
 
     /**
+     * ### lang
+     *
+     * match the elements based on the document language
+     * 
+     * @param {Microbe} _el microbe to be filtered
+     * @param {String} _var specified language (accepts wildcards as *)
+     * 
+     * @return _Microbe_
+     */
+    pseudo.lang = function( _el, _var )
+    {
+        if ( _var )
+        {
+            _el     = _el.filter( '[lang]' );
+            _var    = _var.replace( '*', '' );
+            var resArray = [], _e;
+            for ( var i = 0; i < _el.length; i++ ) 
+            {
+                _e = _el[ i ];
+                if ( _e.getAttribute( 'lang' ).indexOf( _var ) !== -1 )
+                {
+                    resArray.push( _e );
+                }
+            }
+        }
+        else
+        {
+            return new Microbe( [] );            
+        }
+
+        return new Microbe( resArray );
+    };
+
+
+    /**
      * ### last
      *
      * returns the last element of a microbe
