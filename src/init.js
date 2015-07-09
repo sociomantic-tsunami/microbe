@@ -218,7 +218,7 @@ module.exports = function( Microbe )
         else if ( typeof _scope === 'string' )
         {
             // CSS4 replace
-            _scope = _scope.replace( /(?: )?>>(?: )?/g, ' ' );
+            _scope = _scope.replace( '>>', ' ' );
         }
 
         _selector = _selector || '';
@@ -226,7 +226,7 @@ module.exports = function( Microbe )
         if ( typeof _selector === 'string' )
         {
             // CSS4 replace
-            _selector = _selector.replace( /(?: )?>>(?: )?/g, ' ' );
+            _selector = _selector.replace( '>>', ' ' );
         }
 
         if ( _scope && _scope.type === '[object Microbe]' )

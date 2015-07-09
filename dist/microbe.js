@@ -3919,7 +3919,7 @@ module.exports = function( Microbe )
         else if ( typeof _scope === 'string' )
         {
             // CSS4 replace
-            _scope = _scope.replace( /(?: )?>>(?: )?/g, ' ' );
+            _scope = _scope.replace( '>>', ' ' );
         }
 
         _selector = _selector || '';
@@ -3927,7 +3927,7 @@ module.exports = function( Microbe )
         if ( typeof _selector === 'string' )
         {
             // CSS4 replace
-            _selector = _selector.replace( /(?: )?>>(?: )?/g, ' ' );
+            _selector = _selector.replace( '>>', ' ' );
         }
 
         if ( _scope && _scope.type === '[object Microbe]' )
@@ -4350,6 +4350,18 @@ module.exports = function( Microbe )
  */
 module.exports = function( Microbe )
 {
+    /**
+     * ### parseNth
+     *
+     * when supplied with a microbe and a css style n selector (2n1), filters
+     * and returns the result
+     * 
+     * @param {Microbe} _el microbe to be filtered
+     * @param {String} _var number string
+     * @param {Boolean} _last counting from the font or back
+     * 
+     * @return _Microbe_
+     */
     var parseNth = function( _el, _var, _last )
     {
         if ( _var.indexOf( 'n' ) === -1 )
@@ -4357,6 +4369,7 @@ module.exports = function( Microbe )
             switch ( _last )
             {
                 case true:
+                case 'last':
                     return new Microbe( _el[ _el.length - parseInt( _var ) ] );
                 return new Microbe( _el[ parseInt( _var ) - 1 ] );
             }
@@ -4392,6 +4405,18 @@ module.exports = function( Microbe )
     };
 
 
+    /**
+     * ### pseudo
+     *
+     * an extension to core.__init_ to handle custom pseusoselectors
+     * 
+     * @param  {Microbe} self half built microbe
+     * @param  {String} selector pseudo-selector string
+     * @param  {Object} _scope scope element
+     * @param  {Function} _build build function from core
+     * 
+     * @return _Microbe_
+     */
     var pseudo = function( self, selector, _scope, _build )
     {
         var obj, _selector = selector;
@@ -4501,9 +4526,53 @@ module.exports = function( Microbe )
     };
 
 
+    /**
+     * ### column
+     *
+     * filters for columns with a suplied selector
+     * 
+     * @param {Microbe} _el microbe to be filtered
+     * @param {String} _var string to search for
+     *
+     * @return _Microbe_
+     */
     pseudo.column = function( _el, _var )
     {
         return _el.filter( 'col' ).filter( _var );
+    };
+
+
+    /**
+     * ### drop
+     *
+     * returns all elements that are drop targets. HTML has a dropzone 
+     * attribute which specifies that an element is a drop target.
+     * 
+     * @param {Microbe} _el microbe to be filtered
+     * @param {String} _var trigger string
+     * 
+     * @return _Microbe_
+     */
+    pseudo.drop = function( _el, _var )
+    {
+        _el = _el.filter( '[dropzone]' );
+
+        if ( !_var )
+        {
+            return _el;
+        }
+        else
+        {
+            switch ( _var )
+            {
+                case 'active':
+                    return _el.filter( ':active' );
+                case 'invalid':
+                    return _el.filter();
+                case 'valid':
+                    return _el.filter();
+            }
+        }
     };
 
 
@@ -4861,6 +4930,16 @@ module.exports = function( Microbe )
     };
 
 
+    /**
+     * ### nth-column
+     *
+     * returns the nth column of the current microbe
+     * 
+     * @param {Microbe} _el microbe to be filtered
+     * @param {String} _var number of elements to return
+     * 
+     * @return _Microbe_
+     */
     pseudo[ 'nth-column' ] = function( _el, _var )
     {
         _el = _el.filter( 'col' );
@@ -4869,6 +4948,16 @@ module.exports = function( Microbe )
     };
 
 
+    /**
+     * ### nth-last-column
+     *
+     * returns the nth column of the current microbe starting from the back
+     * 
+     * @param {Microbe} _el microbe to be filtered
+     * @param {String} _var number of elements to return
+     * 
+     * @return _Microbe_
+     */
     pseudo[ 'nth-last-column' ] = function( _el, _var )
     {
         _el = _el.filter( 'col' );
