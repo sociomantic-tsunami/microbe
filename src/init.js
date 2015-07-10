@@ -251,28 +251,6 @@ module.exports = function( Microbe )
             if ( typeof _scope === 'string' && typeof _selector === 'string' )
             {
                 return new Microbe( _scope ).find( _selector );
-                // if ( _selector.indexOf( ',' ) !== -1 || _scope.indexOf( ',' ) !== -1 )
-                // {
-                //     var newSelector = '';
-                //     _selector   = _selector.split( ',' );
-                //     _scope      = _scope.split( ',' );
-
-                //     for ( var i = 0, lenI = _scope.length; i < lenI; i++ )
-                //     {
-                //         for ( var j = 0, lenJ = _selector.length; j < lenJ; j++ )
-                //         {
-                //             newSelector += _scope[ i ] + ' ' + _selector[ j ] + ', ';
-                //         }
-                //     }
-
-                //     newSelector = newSelector.trim();
-                //     newSelector = newSelector.slice( 0, newSelector.length - 1 );
-                // }
-                // else
-                // {
-                //     _selector   = _scope + ' ' + _selector;
-                //     _scope      = document;
-                // }
             }
         }
 
@@ -319,7 +297,7 @@ module.exports = function( Microbe )
                     case '#': // non-document scoped id search
                         var _id = document.getElementById( _shortSelector );
 
-                        if ( _scope.ownerDocument && _contains( _id, _scope ) )
+                        if ( _scope.ownerDocument && this.__contains__( _id, _scope ) )
                         {
                             return _build( [ _id ], this );
                         }

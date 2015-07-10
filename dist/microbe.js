@@ -3969,28 +3969,6 @@ module.exports = function( Microbe )
             if ( typeof _scope === 'string' && typeof _selector === 'string' )
             {
                 return new Microbe( _scope ).find( _selector );
-                // if ( _selector.indexOf( ',' ) !== -1 || _scope.indexOf( ',' ) !== -1 )
-                // {
-                //     var newSelector = '';
-                //     _selector   = _selector.split( ',' );
-                //     _scope      = _scope.split( ',' );
-
-                //     for ( var i = 0, lenI = _scope.length; i < lenI; i++ )
-                //     {
-                //         for ( var j = 0, lenJ = _selector.length; j < lenJ; j++ )
-                //         {
-                //             newSelector += _scope[ i ] + ' ' + _selector[ j ] + ', ';
-                //         }
-                //     }
-
-                //     newSelector = newSelector.trim();
-                //     newSelector = newSelector.slice( 0, newSelector.length - 1 );
-                // }
-                // else
-                // {
-                //     _selector   = _scope + ' ' + _selector;
-                //     _scope      = document;
-                // }
             }
         }
 
@@ -4037,7 +4015,7 @@ module.exports = function( Microbe )
                     case '#': // non-document scoped id search
                         var _id = document.getElementById( _shortSelector );
 
-                        if ( _scope.ownerDocument && _contains( _id, _scope ) )
+                        if ( _scope.ownerDocument && this.__contains__( _id, _scope ) )
                         {
                             return _build( [ _id ], this );
                         }
@@ -5163,7 +5141,19 @@ module.exports = function( Microbe )
      */
     pseudo.parent = function( _el )
     {
-        return _el.parent();
+        _el =  _el.parent();
+
+        var _e, elements = [];
+        for ( var i = 0, lenI = _el.length; i < lenI; i++ )
+        {
+            _e = _el[ i ];
+            
+            if ( elements.indexOf( _e ) === -1 )
+            {
+                elements.push( _e );
+            }
+        }
+        return _el.constructor( elements );
     };
 
 
@@ -5256,11 +5246,6 @@ module.exports = function( Microbe )
         return _el.constructor( elements );
     };
 
-
-    pseudo.valid = function( _el )
-    {
-        return _el.filter( '[valid], .valid' );
-    };
 
 
     Microbe.constructor.prototype.pseudo = pseudo;

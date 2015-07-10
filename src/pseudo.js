@@ -816,7 +816,19 @@ module.exports = function( Microbe )
      */
     pseudo.parent = function( _el )
     {
-        return _el.parent();
+        _el =  _el.parent();
+
+        var _e, elements = [];
+        for ( var i = 0, lenI = _el.length; i < lenI; i++ )
+        {
+            _e = _el[ i ];
+            
+            if ( elements.indexOf( _e ) === -1 )
+            {
+                elements.push( _e );
+            }
+        }
+        return _el.constructor( elements );
     };
 
 
