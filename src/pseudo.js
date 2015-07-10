@@ -115,9 +115,14 @@ module.exports = function( Microbe )
                         obj = obj.childrenFlat();
                         connect = true;
                     }
+                    else if ( filter[ 0 ] === '+' )
+                    {
+                        obj = obj.siblingsFlat( 'next' );
+                        connect = true;
+                    }
                     else if ( connect )
                     {
-                        obj === obj.filter( filter );
+                        obj = obj.filter( filter );
                         connect = false;
                     }
                     else

@@ -30,7 +30,7 @@ module.exports = function( Microbe )
      *
      * @return _Microbe_ microbe wrapped elements
      */
-    function _build( _elements, _selector )
+    function _build( _elements )
     {
         var i = 0, lenI = _elements.length;
 
@@ -43,7 +43,6 @@ module.exports = function( Microbe )
             }
         }
 
-        this._selector  = _selector;
         this.length     = i;
 
         return this;
@@ -63,7 +62,7 @@ module.exports = function( Microbe )
     function _create( _el )
     {
         var resultsRegex    = _el.match( selectorRegex ),
-            _id = '', _tag = '', _class = '', _selector = '';
+            _id = '', _tag = '', _class = '';
 
         var i, lenI;
         for ( i = 0, lenI = resultsRegex.length; i < lenI; i++ )
@@ -88,17 +87,14 @@ module.exports = function( Microbe )
         if ( typeof _tag === 'string' )
         {
             _el = document.createElement( _tag );
-            _selector = _tag;
 
             if ( _id )
             {
-                _selector += _id;
                 _el.id = _id.slice( 1 );
             }
 
             if ( _class )
             {
-                _selector += _class;
                 _class = _class.split( '.' );
 
                 for ( i = 1, lenI = _class.length; i < lenI; i++ )
@@ -109,7 +105,7 @@ module.exports = function( Microbe )
 
         }
 
-        return _build.call( this, [ _el ],  _selector );
+        return _build.call( this, [ _el ] );
     }
 
 
@@ -194,7 +190,7 @@ module.exports = function( Microbe )
                                     id = [];
                                 }
 
-                                return _build.call( this, id, _selector );
+                                return _build.call( this, id );
                             }
                             break;
                         case '.':
@@ -206,7 +202,7 @@ module.exports = function( Microbe )
                                 {
                                     clss = document.getElementsByClassName( clss );
 
-                                    return _build.call( this, clss, _selector );
+                                    return _build.call( this, clss );
                                 }
                             }
                             break;
@@ -216,7 +212,7 @@ module.exports = function( Microbe )
                             {
                                 var tag = document.getElementsByTagName( _selector );
 
-                                return _build.call( this, tag, _selector );
+                                return _build.call( this, tag );
                             }
                     }
                 }
@@ -234,7 +230,7 @@ module.exports = function( Microbe )
 
         if ( _scope && _scope.type === '[object Microbe]' )
         {
-            var res = _build.call( this, [], _selector );
+            var res = _build.call( this, [] );
 
             for ( var n = 0, lenN = _scope.length; n < lenN; n++ )
             {
@@ -251,7 +247,7 @@ module.exports = function( Microbe )
             _selector === window || _selector === document )
         {
             _selector = Microbe.isArray( _selector ) ? _selector : [ _selector ];
-            return _build.call( this, _selector,  '' );
+            return _build.call( this, _selector );
         }
 
         _scope = _scope === undefined ?  document : _scope;
@@ -292,11 +288,11 @@ module.exports = function( Microbe )
         {
             if ( Object.prototype.toString.call( _elements ) === '[object Array]' )
             {
-                return _build.call( this, _elements, _selector );
+                return _build.call( this, _elements );
             }
             else
             {
-                return _build.call( this, [ _elements ], _selector );
+                return _build.call( this, [ _elements ] );
             }
         }
         else
@@ -304,7 +300,7 @@ module.exports = function( Microbe )
             if ( ( !_selector || typeof _selector !== 'string' ) ||
                 ( scopeNodeType !== 1 && scopeNodeType !== 9 ) )
             {
-                return _build.call( this, [], _selector );
+                return _build.call( this, [] );
             }
 
             var resultsRegex = _selector.match( selectorRegex );
@@ -322,7 +318,7 @@ module.exports = function( Microbe )
 
                         if ( _classesCount === 1 )
                         {
-                            return _build.call( this, _scope.getElementsByClassName( _shortSelector ), _selector );
+                            return _build.call( this, _scope.getElementsByClassName( _shortSelector ) );
                         }
                         break;
                     case '#': // non-document scoped id search
@@ -330,13 +326,13 @@ module.exports = function( Microbe )
 
                         if ( _scope.ownerDocument && _contains( _id, _scope ) )
                         {
-                            return _build.call( this, [ _id ], _selector );
+                            return _build.call( this, [ _id ] );
                         }
                         break;
                     case '<': // element creation
                         return _create.call( this, _selector.substring( 1, _selector.length - 1 ) );
                     default:
-                        return _build.call( this, _scope.getElementsByTagName( _selector ), _selector );
+                        return _build.call( this, _scope.getElementsByTagName( _selector ) );
                 }
             }
         }
@@ -351,7 +347,7 @@ module.exports = function( Microbe )
             return Microbe.constructor.pseudo( this, _selector, _scope, _build );
         }
 
-        return _build.call( this, _scope.querySelectorAll( _selector ), _selector );
+        return _build.call( this, _scope.querySelectorAll( _selector ) );
     };
 
     Microbe.core.__init__.prototype = Microbe.core;

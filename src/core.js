@@ -45,8 +45,6 @@ Microbe.core = Microbe.prototype ={
 
     length :        0,
 
-    _selector:      '',
-
 
     /**
      * ## addClass
@@ -232,7 +230,7 @@ Microbe.core = Microbe.prototype ={
      *
      * @return _Microbe_ value array of combined children
      */
-    childrenFlat : function()
+    childrenFlat : function( direction )
     {
         var _children = function( _elm )
         {
@@ -892,6 +890,7 @@ Microbe.core = Microbe.prototype ={
         {
             var parentsChildren = Microbe.toArray( _elm.parentNode.children );
             var elIndex = parentsChildren.indexOf( _elm );
+
             parentsChildren.splice( elIndex, 1 );
 
             return parentsChildren;
@@ -911,19 +910,37 @@ Microbe.core = Microbe.prototype ={
     /**
      * ## siblingsFlat
      *
-     * Gets an microbe of all siblings of all element's given
+     * Gets an microbe of all siblings of all element's given. 'next' and 'prev' 
+     * passed as direction return only the next or previous siblings of each element
      *
+     * @paran {String} direction direction modifier (optional)
+     * 
      * @return _Microbe_ value array of combined siblings
      */
-    siblingsFlat : function()
+    siblingsFlat : function( direction )
     {
         var _siblings = function( _elm )
         {
             var parentsChildren = Microbe.toArray( _elm.parentNode.children );
             var elIndex = parentsChildren.indexOf( _elm );
-            parentsChildren.splice( elIndex, 1 );
 
-            return parentsChildren;
+            if ( direction === 'next' )
+            {
+                var next = parentsChildren[ elIndex + 1 ];
+
+                return next ? [ next ] : [];
+            }
+            else if ( direction === 'prev' )
+            {
+                var prev = parentsChildren[ elIndex - 1 ];
+                
+                return prev ? [ prev ] : [];
+            }
+            else
+            {
+                parentsChildren.splice( elIndex, 1 );
+                return parentsChildren;
+            }
         };
 
         var arr, i, len, siblingArray = [];
