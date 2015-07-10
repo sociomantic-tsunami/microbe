@@ -2502,7 +2502,18 @@ Microbe.core = Microbe.prototype ={
      */
     find : function( selector )
     {
-        return new Microbe( selector, this );
+        var _selector = selector.trim();
+
+        if ( _selector[ 0 ] !== '>' )
+        {
+            return new Microbe( _selector, this );
+        }
+        else
+        {
+            selector = selector.slice( 1 );
+
+            return this.childrenFlat().filter( selector );
+        }
     },
 
 
