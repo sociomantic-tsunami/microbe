@@ -528,18 +528,39 @@ Microbe.core = Microbe.prototype ={
      */
     find : function( selector )
     {
-        var _selector = selector.trim();
+        var _selector   = selector.trim();
+        var _s          = _selector[ 0 ];
 
-        if ( _selector[ 0 ] !== '>' )
+        if ( _s === '>' )
         {
-            return new Microbe( _selector, this );
+            _selector = _selector.slice( 1 );
+            return this.childrenFlat().filter( _selector );
         }
-        else
+        else if ( _s === '~' )
         {
-            selector = selector.slice( 1 );
+            _selector = _selector.slice( 1 );
+            return this.siblingsFlat().filter( _selector );
+        }
+        else if ( _s === '+' )
+        {
+            _selector       = _selector.slice( 1 );
+            var resArray    = [],
+                _el, els    = this.children();
 
-            return this.childrenFlat().filter( selector );
+            for ( var i = 0, lenI = els.length; i < lenI; i++ ) 
+            {
+                _el = els[ i ][ 0 ];
+
+                if ( _el )
+                {
+                    resArray.push( _el );
+                }
+            }
+
+            return new Microbe( resArray ).filter( _selector );
         }
+
+        return new Microbe( _selector, this );
     },
 
 
