@@ -160,7 +160,7 @@ module.exports = function( Microbe )
             }
         }
 
-        obj = _build.call( self, _scope.querySelectorAll( _selector ), _selector );
+        obj = _build( _scope.querySelectorAll( _selector ), self );
 
         var _sel, _var;
         for ( var h = 0, lenH = pseudo.length; h < lenH; h++ )
