@@ -4586,6 +4586,88 @@ module.exports = function( Microbe )
 
 
     /**
+     * ### contains
+     *
+     * Returns only elements that contain the given text.  The supplied text
+     * is compared ignoring case
+     *
+     * @param {Microbe} _el microbe to be filtered
+     * @param {String} _var string to search for
+     *
+     * @return _Microbe_
+     */
+    pseudo.contains = function( _el, _var )
+    {
+        _var            = _var.toLowerCase();
+
+        var textArray   = _el.text();
+        var elements    = [];
+
+        for ( var i = 0, lenI = _el.length; i < lenI; i++ )
+        {
+            if ( textArray[ i ].toLowerCase().indexOf( _var ) !== -1 )
+            {
+                elements.push( _el[ i ] );
+            }
+        }
+        return _el.constructor( elements );
+    };
+
+
+    /**
+     * ### default
+     *
+     * selects all inputs and select boxes that are checked by dafeult
+     * 
+     * @param {Microbe} _el microbe to be filtered
+     *
+     * @return _Microbe_
+     */
+    pseudo.default = function( _el )
+    {
+        _el = _el.filter( 'input, option' );
+
+        var _e, resArray = [];
+        for ( var i = 0, lenI = _el.length; i < lenI; i++ ) 
+        {
+            _e = _el[ i ];
+
+            if ( _e.defaultChecked === true )
+            {
+                resArray.push( _e );
+            }
+        }
+
+        return _el.constructor( resArray );
+    };
+
+
+    /**
+     * ### dir
+     *
+     * match elements by its directionality based on the document language
+     *
+     * @param {Microbe} _el microbe to be filtered
+     * @param {String} _var string to search for
+     *
+     * @return _Microbe_
+     */
+    pseudo.dir = function( _el, _var )
+    {
+        var _e, resArray = [];
+        for ( var i = 0, lenI = _el.length; i < lenI; i++ ) 
+        {
+            _e = _el[ i ];
+            if ( getComputedStyle( _e ).direction === _var )
+            {
+                resArray.push( _e );
+            }
+        }
+        return _el.constructor( resArray );
+    };
+
+
+    /**
      * ### drop
      *
      * returns all elements that are drop targets. HTML has a dropzone 
@@ -4616,60 +4698,6 @@ module.exports = function( Microbe )
                     return _el.filter();
             }
         }
-    };
-
-
-    /**
-     * ### contains
-     *
-     * Returns only elements that contain the given text.  The supplied text
-     * is compared ignoring case
-     *
-     * @param {Microbe} _el microbe to be filtered
-     * @param {String} _var string to search for
-     *
-     * @return _Microbe_
-     */
-    pseudo.contains = function( _el, _var )
-    {
-        _var            = _var.toLowerCase();
-
-        var textArray   = _el.text();
-        var elements    = [];
-
-        for ( var i = 0, lenI = _el.length; i < lenI; i++ )
-        {
-            if ( textArray[ i ].toLowerCase().indexOf( _var ) !== -1 )
-            {
-                elements.push( _el[ i ] );
-            }
-        }
-        return _el.constructor( elements );
-    };
-
-
-    /**
-     * ### dir
-     *
-     * match elements by its directionality based on the document language
-     *
-     * @param {Microbe} _el microbe to be filtered
-     * @param {String} _var string to search for
-     *
-     * @return _Microbe_
-     */
-    pseudo.dir = function( _el, _var )
-    {
-        var _e, resArray = [];
-        for ( var i = 0, lenI = _el.length; i < lenI; i++ ) 
-        {
-            _e = _el[ i ];
-            if ( getComputedStyle( _e ).direction === _var )
-            {
-                resArray.push( _e );
-            }
-        }
-        return _el.constructor( resArray );
     };
 
 
@@ -5226,6 +5254,12 @@ module.exports = function( Microbe )
         }
 
         return _el.constructor( elements );
+    };
+
+
+    pseudo.valid = function( _el )
+    {
+        return _el.filter( '[valid], .valid' );
     };
 
 

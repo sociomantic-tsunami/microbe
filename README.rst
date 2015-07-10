@@ -101,6 +101,7 @@ Changelog
 + µ.matches for css selector matching
 + depreciated selector generation
 + fixed a bug in microbe creation when the scope was a microbe
++ many core speed fixes
 
 
 0.3.2
