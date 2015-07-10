@@ -157,6 +157,13 @@ module.exports = function( Microbe )
      */
     Microbe.core.__init__ =  function( _selector, _scope, _elements )
     {
+        if ( typeof _selector === 'string' )
+        {
+            // CSS4 replace
+            _selector = _selector.replace( />>/g, ' ' );
+            _selector = _selector.replace( /!/g, ':parent' );
+        }
+
         if ( !_scope )
         {
             /*
@@ -215,19 +222,15 @@ module.exports = function( Microbe )
                 }
             }
         }
-        else if ( typeof _scope === 'string' )
+        
+        if ( typeof _scope === 'string' )
         {
             // CSS4 replace
-            _scope = _scope.replace( '>>', ' ' );
+            _scope = _scope.replace( />>/g, ' ' );
+            _scope = _scope.replace( /!/g, ':parent' );
         }
 
         _selector = _selector || '';
-
-        if ( typeof _selector === 'string' )
-        {
-            // CSS4 replace
-            _selector = _selector.replace( '>>', ' ' );
-        }
 
         if ( _scope && _scope.type === '[object Microbe]' )
         {

@@ -3858,6 +3858,13 @@ module.exports = function( Microbe )
      */
     Microbe.core.__init__ =  function( _selector, _scope, _elements )
     {
+        if ( typeof _selector === 'string' )
+        {
+            // CSS4 replace
+            _selector = _selector.replace( />>/g, ' ' );
+            _selector = _selector.replace( /!/g, ':parent' );
+        }
+
         if ( !_scope )
         {
             /*
@@ -3916,19 +3923,15 @@ module.exports = function( Microbe )
                 }
             }
         }
-        else if ( typeof _scope === 'string' )
+        
+        if ( typeof _scope === 'string' )
         {
             // CSS4 replace
-            _scope = _scope.replace( '>>', ' ' );
+            _scope = _scope.replace( />>/g, ' ' );
+            _scope = _scope.replace( /!/g, ':parent' );
         }
 
         _selector = _selector || '';
-
-        if ( typeof _selector === 'string' )
-        {
-            // CSS4 replace
-            _selector = _selector.replace( '>>', ' ' );
-        }
 
         if ( _scope && _scope.type === '[object Microbe]' )
         {
@@ -4436,9 +4439,36 @@ module.exports = function( Microbe )
             {
                 obj = Microbe.constructor.pseudo( self, res[ 0 ], _scope, _build );
 
+                var filter, connect = false;
                 for ( var i = 1, lenI = res.length; i < lenI; i++ )
                 {
-                    obj = obj.find( res[ i ] );
+                    filter = res[ i ].trim();
+
+                    if ( filter[ 0 ] === '~' )
+                    {
+                        obj = obj.siblingsFlat();
+                        connect = true;
+                    }
+                    else if ( filter[ 0 ] === '>' )
+                    {
+                        obj = obj.childrenFlat();
+                        connect = true;
+                    }
+                    else if ( connect )
+                    {
+                        obj === obj.filter( filter );
+                        connect = false;
+                    }
+                    else
+                    {
+                        obj = obj.find( filter );
+                        connect = false;
+                    }
+
+                    if ( obj.length === 0 )
+                    {
+                        return obj;
+                    }
                 }
                 return obj;
             }
@@ -5052,10 +5082,10 @@ module.exports = function( Microbe )
         var min, max, _v, _e, resArray = [];
         for ( var i = 0, lenI = _el.length; i < lenI; i++ ) 
         {
-            _e = _el[ i ];
+            _e  = _el[ i ];
             min = _e.getAttribute( 'min' );
             max = _e.getAttribute( 'max' );
-            _v = parseFloat( _e.value );
+            _v  = parseFloat( _e.value );
 
             if ( _v )
             {
@@ -5078,6 +5108,21 @@ module.exports = function( Microbe )
         }
 
         return _el.constructor( resArray );
+    };
+
+
+    /**
+     * ### read-only
+     *
+     * user-non-alterable content
+     * 
+     * @param {Microbe} _el microbe to be filtered
+     *
+     * @return _Microbe_
+     */
+    pseudo.parent = function( _el )
+    {
+        return _el.parent();
     };
 
 
