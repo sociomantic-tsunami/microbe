@@ -36,6 +36,20 @@ module.exports = function( buildTest )
     {
         assert.ok( µ.debounce, 'exists' );
 
+        var i   = 1;
+        var _f  = µ.debounce( function(){ i++; return i; }, 50 );
+        _f();
+        _f();
+        _f();
+        
+        var multiplesTest      = assert.async();
+        
+        setTimeout( function( _f )
+        {
+            assert.equal( i, 2, 'runs on it\'s timer' );
+            multiplesTest();
+        }, 60 );
+        
         buildTest( 'No speed tests available.' );
     });
 
@@ -64,50 +78,6 @@ module.exports = function( buildTest )
     QUnit.test( '.insertStyle()', function( assert )
     {
         assert.ok( µ.insertStyle, 'exists' );
-
-        buildTest( 'No speed tests available.' );
-    });
-
-
-    /**
-     * µ matches tests
-     *
-     * @test    matches exists
-     * @test    accepts a microbe
-     * @test    accepts an element
-     */
-    QUnit.test( '.matches()', function( assert )
-    {
-        var qunit           = document.getElementById( 'qunit' );
-        var µMatchesDivs    = µ.matches( µ( 'div' ), '#qunit' );
-
-        assert.ok( µ.matches, 'exists' );
-        assert.equal( µMatchesDivs[ 4 ], true, 'finds the right div' );
-        assert.equal( µMatchesDivs[ 1 ], false, 'accepts a microbe' );
-        assert.equal( µ.matches( qunit, '#qunit' ), true, 'accepts an element' );
-
-        buildTest( 'No comparison available.' );
-    });
-
-
-    /**
-     * µ noop tests
-     *
-     * @test    noop exists
-     * @test    nothing happens
-     *
-     * µ xyzzy tests
-     *
-     * @test    xyzzy exists
-     * @test    nothing happens
-     */
-    QUnit.test( '.noop()', function( assert )
-    {
-        assert.ok( µ.noop, 'noop exists' );
-        assert.equal( µ.noop(), undefined, 'nothing happens' );
-
-        assert.ok( µ.xyzzy, 'xyzzy exists' );
-        assert.equal( µ.xyzzy(), undefined, 'nothing happens' );
 
         buildTest( 'No speed tests available.' );
     });
@@ -272,6 +242,50 @@ module.exports = function( buildTest )
 
 
     /**
+     * µ matches tests
+     *
+     * @test    matches exists
+     * @test    accepts a microbe
+     * @test    accepts an element
+     */
+    QUnit.test( '.matches()', function( assert )
+    {
+        var qunit           = document.getElementById( 'qunit' );
+        var µMatchesDivs    = µ.matches( µ( 'div' ), '#qunit' );
+
+        assert.ok( µ.matches, 'exists' );
+        assert.equal( µMatchesDivs[ 4 ], true, 'finds the right div' );
+        assert.equal( µMatchesDivs[ 1 ], false, 'accepts a microbe' );
+        assert.equal( µ.matches( qunit, '#qunit' ), true, 'accepts an element' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
+     * µ noop tests
+     *
+     * @test    noop exists
+     * @test    nothing happens
+     *
+     * µ xyzzy tests
+     *
+     * @test    xyzzy exists
+     * @test    nothing happens
+     */
+    QUnit.test( '.noop()', function( assert )
+    {
+        assert.ok( µ.noop, 'noop exists' );
+        assert.equal( µ.noop(), undefined, 'nothing happens' );
+
+        assert.ok( µ.xyzzy, 'xyzzy exists' );
+        assert.equal( µ.xyzzy(), undefined, 'nothing happens' );
+
+        buildTest( 'No speed tests available.' );
+    });
+
+
+    /**
      * µ once tests
      *
      * @test    once exists
@@ -279,9 +293,10 @@ module.exports = function( buildTest )
     QUnit.test( '.once()', function( assert )
     {
         assert.ok( µ.once, 'exists' );
-        var _f = µ.once( function(){ return 'moon'; } );
-        assert.equal( _f(), 'moon', 'runs once' );
-        assert.equal( _f(), undefined, 'and only once' );
+        var i   = 1;
+        var _f  = µ.once( function(){ i++; return i; } );
+        assert.equal( _f(), 2, 'runs once' );
+        assert.equal( _f(), 2, 'and only once' );
 
         buildTest( 'No speed tests available.' );
     });

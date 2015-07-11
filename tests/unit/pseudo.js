@@ -5,6 +5,26 @@ module.exports = function( buildTest )
 
 
     /**
+     * pseudo custom connectors tests
+     *
+     * @test    any-link exists
+     * @test    gets links
+     * @test    gets scoped links
+     */
+    QUnit.test( 'pseudo custom connectors', function( assert )
+    {
+        assert.ok( µ( 'div:first ~ div' ), 'µ( \'div:first ~ div\' )' );
+        assert.ok( µ( 'div:first' ).find( '~ div' ), 'µ( \'div:first\' ).find( \'~ div\' )' );
+        assert.ok( µ( 'div ~ :first' ), 'µ( \'div ~ :first\' )' );
+        assert.ok( µ( 'div:first' ).find( '> div' ), 'µ( \'div:first\' ).find( \'> div\' )' );
+        assert.ok( µ( 'div:first' ).find( '+ div' ), 'µ( \'div:first\' ).find( \'+ div\' )' );
+        assert.ok( µ( 'div! ~ :lt(3) >> div' ).filter( '.invalid--test:contains(comparison)' ).find( '> b' ), 'µ( \'div! ~ :lt(3) >> div\' ).filter( \'.invalid--test:contains(comparison)\' ).find( \'> b\' )' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
      * µ any-link tests
      *
      * @test    any-link exists
