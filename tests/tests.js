@@ -2652,6 +2652,25 @@ module.exports = function( buildTest )
 
 
     /**
+     * µ optional selector tests
+     *
+     * @test    optional exists
+     * @test    finds the correct number of elements
+     */
+    QUnit.test( ':optional', function( assert )
+    {
+        var µOptional   = µ( ':optional' );
+        var byQuery     = µ( 'input:not([required=required]), textfield:not([required=required]), [required=optional], [optional]' );
+
+        assert.ok( µ.pseudo.optional, 'exists' );
+        assert.equal( µOptional.length, byQuery.length, 'finds the correct number of elements' );
+        assert.equal( µOptional.length, 8, 'finds the correct elements' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
      * µ out-of-range tests
      *
      * @test    out-of-range exists
@@ -2666,6 +2685,80 @@ module.exports = function( buildTest )
         assert.ok( µ.pseudo[ 'out-of-range' ], 'exists' );
         assert.equal( µInRangeDiv.length, 1, 'grabs the correct amount of elements' );
         assert.deepEqual( µInRangeDiv[0], byElement, 'grabs the correct element' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
+     * µ parent tests
+     *
+     * @test    parent exists
+     * @test    gets the correct parent as pseudo
+     * @test    gets the correct parent as connector
+     */
+    QUnit.test( '! || :parent', function( assert )
+    {
+        var emailInput3         = µ( '#emailInput3' ).parent(); 
+        var emailParent         = µ( '#emailInput3:parent' ); 
+        var emailExclamation    = µ( '#emailInput3!' ); 
+
+        assert.ok( µ.pseudo[ 'parent' ], 'exists' );
+        assert.deepEqual( emailInput3[0], emailParent[0], 'gets the correct parent as pseudo' );
+        assert.deepEqual( emailInput3[0], emailExclamation[0], 'gets the correct parent as connector' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
+     * µ read-only selector tests
+     *
+     * @test    read-only exists
+     * @test    finds the correct number of elements
+     */
+    QUnit.test( ':read-only', function( assert )
+    {
+        var µReadOnly  = µ( 'div:drop :read-only' );
+
+        assert.ok( µ.pseudo[ 'read-only' ], 'exists' );
+        assert.equal( µReadOnly.length, 11, 'finds the correct elements' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
+     * µ read-write selector tests
+     *
+     * @test    read-write exists
+     * @test    finds the correct number of elements
+     */
+    QUnit.test( ':read-write', function( assert )
+    {
+        var µReadWrite  = µ( 'div:drop :read-write' );
+
+        assert.ok( µ.pseudo[ 'read-write' ], 'exists' );
+        assert.equal( µReadWrite.length, 5, 'finds the correct elements' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
+     * µ required selector tests
+     *
+     * @test    required exists
+     * @test    finds the correct number of elements
+     */
+    QUnit.test( ':required', function( assert )
+    {
+        var µRequired   = µ( ':required' );
+        var byQuery     = µ( '[required=required]' );
+
+        assert.ok( µ.pseudo.required, 'exists' );
+        assert.equal( µRequired.length, byQuery.length, 'finds the correct number of elements' );
+        assert.equal( µRequired.length, 1, 'finds the correct elements' );
 
         buildTest( 'No comparison available.' );
     });

@@ -183,13 +183,6 @@ module.exports = function( Microbe )
                             }
                         }
                         break;
-                    default:
-                        if ( _selector.indexOf( '#' ) === -1 &&
-                             _selector.indexOf( '.' ) === -1 &&
-                             _selector[0] !== '<' )
-                        {
-                            return _build( document.getElementsByTagName( _selector ), this );
-                        }
                 }
             }
         }

@@ -83,6 +83,32 @@ module.exports = function( Microbe )
      */
     var pseudo = function( self, selector, _scope, _build )
     {
+        if ( selector.indexOf( ',' ) !== -1 )
+        {
+            selector = selector.split( /,(?![a-zA-Z0-9-#.]+\))/g );
+
+            if ( selector.length > 1 )
+            {
+                var _el, resArray = [];
+                for ( var i = 0, lenI = selector.length; i < lenI; i++ ) 
+                {
+                    if ( i === 0 )
+                    {
+                        var that = pseudo( self, selector[ i ], _scope, _build );
+                        resArray = new Microbe( that );
+                    }
+
+                    resArray.merge( pseudo( self, selector[ i ], _scope, _build ), null, true );
+                }
+                
+                return resArray;
+            }
+            else
+            {
+                selector = selector[ 0 ];
+            }
+        }
+
         var obj, _selector = selector;
 
         if ( _selector[ 0 ] === ':' )
@@ -145,27 +171,27 @@ module.exports = function( Microbe )
         }
 
         var _pseudoArray;
-         pseudo     = _selector.split( ':' );
-        _selector   = pseudo[ 0 ];
-        pseudo.splice( 0, 1 );
+         var _pseudo    = _selector.split( ':' );
+        _selector       = _pseudo[ 0 ];
+        _pseudo.splice( 0, 1 );
 
-        for ( var k = 0, lenK = pseudo.length; k < lenK; k++ )
+        for ( var k = 0, lenK = _pseudo.length; k < lenK; k++ )
         {
-            _pseudoArray = pseudo[ k ].split( '(' );
+            _pseudoArray = _pseudo[ k ].split( '(' );
 
             if ( !Microbe.constructor.pseudo[ _pseudoArray[ 0 ] ] )
             {
-                _selector += ':' + pseudo[ k ];
-                pseudo.splice( k, 1 );
+                _selector += ':' + _pseudo[ k ];
+                _pseudo.splice( k, 1 );
             }
         }
 
         obj = _build( _scope.querySelectorAll( _selector ), self );
 
         var _sel, _var;
-        for ( var h = 0, lenH = pseudo.length; h < lenH; h++ )
+        for ( var h = 0, lenH = _pseudo.length; h < lenH; h++ )
         {
-            _sel = pseudo[ h ].split( '(' );
+            _sel = _pseudo[ h ].split( '(' );
             _var = _sel[ 1 ];
             if ( _var )
             {
@@ -818,9 +844,10 @@ module.exports = function( Microbe )
 
 
     /**
-     * ### read-only
+     * ### parent
      *
-     * user-non-alterable content
+     * returns the parents of an _el match.  
+     * normally triggered using the ! selector
      * 
      * @param {Microbe} _el microbe to be filtered
      *
@@ -840,6 +867,7 @@ module.exports = function( Microbe )
                 elements.push( _e );
             }
         }
+
         return _el.constructor( elements );
     };
 
