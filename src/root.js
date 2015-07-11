@@ -309,30 +309,31 @@ module.exports = function( Microbe )
 
         var isArray = Microbe.isArray( el ) || ( typeof el !== 'string' && !!( el.length ) ) ? true : false;
 
-        if ( !method )
+        if ( !isArray && !( typeof el !== 'string' && !!( el.length ) ) )
         {
-            if ( el.matches )
+            el = [ el ];
+        }
+
+        if ( !method && el[ 0 ] )
+        {
+            if ( el[ 0 ].matches )
             {
                 method = this.matches.__matchesMethod = 'matches';
             }
-            else if ( el.msMatchSelector )
+            else if ( el[ 0 ].msMatchSelector )
             {
                 method = this.matches.__matchesMethod = 'msMatchSelector';
             }
-            else if ( el.mozMatchSelector )
+            else if ( el[ 0 ].mozMatchSelector )
             {
                 method = this.matches.__matchesMethod = 'mozMatchSelector';
             }
-            else if ( el.webkitMatchSelector )
+            else if ( el[ 0 ].webkitMatchSelector )
             {
                 method = this.matches.__matchesMethod = 'webkitMatchSelector';
             }
         }
 
-        if ( !isArray && !( typeof el !== 'string' && !!( el.length ) ) )
-        {
-            el = [ el ];
-        }
         var resArray = [];
         for ( var i = 0, lenI = el.length; i < lenI; i++ )
         {

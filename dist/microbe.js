@@ -4866,24 +4866,31 @@ module.exports = function( Microbe )
     {
         if ( _var )
         {
-            _el     = _el.filter( '[lang]' );
-            _var    = _var.replace( '*', '' );
-            var resArray = [], _e;
-            for ( var i = 0; i < _el.length; i++ ) 
+            if ( _var.indexOf( '*' ) !== -1 )
             {
-                _e = _el[ i ];
-                if ( _e.getAttribute( 'lang' ).indexOf( _var ) !== -1 )
+                _el     = _el.filter( '[lang]' );
+                _var    = _var.replace( '*', '' );
+                var resArray = [], _e;
+                for ( var i = 0; i < _el.length; i++ ) 
                 {
-                    resArray.push( _e );
+                    _e = _el[ i ];
+                    if ( _e.getAttribute( 'lang' ).indexOf( _var ) !== -1 )
+                    {
+                        resArray.push( _e );
+                    }
                 }
+
+                return new Microbe( resArray );
             }
+
+            var res = document.querySelectorAll( ':lang(' + _var + ')' );
+                res = Array.prototype.slice.call( res, 0 );
+            return new Microbe( res );
         }
         else
         {
             return new Microbe( [] );            
         }
-
-        return new Microbe( resArray );
     };
 
 
@@ -4976,7 +4983,7 @@ module.exports = function( Microbe )
 
         for ( var i = 1, lenI = _var.length; i < lenI; i++ )
         {
-            res.merge( new Microbe( _selector + _var[ i ].trim() ) );
+            res.merge( new Microbe( _selector + _var[ i ].trim() ), null, true );
         }
 
         return res;
@@ -5005,7 +5012,7 @@ module.exports = function( Microbe )
             {
                 _el = this.not( _el, _var[ i ].trim(), true );
             }
-            _el.constructor( _el );
+            return new Microbe( _el );
         }
         else
         {
@@ -5610,30 +5617,31 @@ module.exports = function( Microbe )
 
         var isArray = Microbe.isArray( el ) || ( typeof el !== 'string' && !!( el.length ) ) ? true : false;
 
-        if ( !method )
+        if ( !isArray && !( typeof el !== 'string' && !!( el.length ) ) )
         {
-            if ( el.matches )
+            el = [ el ];
+        }
+
+        if ( !method && el[ 0 ] )
+        {
+            if ( el[ 0 ].matches )
             {
                 method = this.matches.__matchesMethod = 'matches';
             }
-            else if ( el.msMatchSelector )
+            else if ( el[ 0 ].msMatchSelector )
             {
                 method = this.matches.__matchesMethod = 'msMatchSelector';
             }
-            else if ( el.mozMatchSelector )
+            else if ( el[ 0 ].mozMatchSelector )
             {
                 method = this.matches.__matchesMethod = 'mozMatchSelector';
             }
-            else if ( el.webkitMatchSelector )
+            else if ( el[ 0 ].webkitMatchSelector )
             {
                 method = this.matches.__matchesMethod = 'webkitMatchSelector';
             }
         }
 
-        if ( !isArray && !( typeof el !== 'string' && !!( el.length ) ) )
-        {
-            el = [ el ];
-        }
         var resArray = [];
         for ( var i = 0, lenI = el.length; i < lenI; i++ )
         {

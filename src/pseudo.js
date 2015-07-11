@@ -499,24 +499,31 @@ module.exports = function( Microbe )
     {
         if ( _var )
         {
-            _el     = _el.filter( '[lang]' );
-            _var    = _var.replace( '*', '' );
-            var resArray = [], _e;
-            for ( var i = 0; i < _el.length; i++ ) 
+            if ( _var.indexOf( '*' ) !== -1 )
             {
-                _e = _el[ i ];
-                if ( _e.getAttribute( 'lang' ).indexOf( _var ) !== -1 )
+                _el     = _el.filter( '[lang]' );
+                _var    = _var.replace( '*', '' );
+                var resArray = [], _e;
+                for ( var i = 0; i < _el.length; i++ ) 
                 {
-                    resArray.push( _e );
+                    _e = _el[ i ];
+                    if ( _e.getAttribute( 'lang' ).indexOf( _var ) !== -1 )
+                    {
+                        resArray.push( _e );
+                    }
                 }
+
+                return new Microbe( resArray );
             }
+
+            var res = document.querySelectorAll( ':lang(' + _var + ')' );
+                res = Array.prototype.slice.call( res, 0 );
+            return new Microbe( res );
         }
         else
         {
             return new Microbe( [] );            
         }
-
-        return new Microbe( resArray );
     };
 
 
@@ -609,7 +616,7 @@ module.exports = function( Microbe )
 
         for ( var i = 1, lenI = _var.length; i < lenI; i++ )
         {
-            res.merge( new Microbe( _selector + _var[ i ].trim() ) );
+            res.merge( new Microbe( _selector + _var[ i ].trim() ), null, true );
         }
 
         return res;
@@ -638,7 +645,7 @@ module.exports = function( Microbe )
             {
                 _el = this.not( _el, _var[ i ].trim(), true );
             }
-            _el.constructor( _el );
+            return new Microbe( _el );
         }
         else
         {

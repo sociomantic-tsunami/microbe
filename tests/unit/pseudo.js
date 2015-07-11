@@ -293,6 +293,38 @@ module.exports = function( buildTest )
 
 
     /**
+     * µ lang tests
+     *
+     * @test    lang exists
+     * @test    finds the right div
+     * @test    only returns one div
+     */
+    QUnit.test( ':lang', function( assert )
+    {
+        var µlangDiv        = µ( 'div:lang(gb-en)' );
+        var µWildcardDiv    = µ( 'div:lang(*-en)' );
+
+        assert.ok( µ.pseudo.lang, 'exists' );
+        assert.equal( µlangDiv.length, 1, 'finds a specified language' );
+        assert.equal( µWildcardDiv.length, 2, 'finds a wildcard language' );
+
+        // this is css2 spec and it works. µ is slower, but $ cant do *
+        // buildTest(
+        // 'µ( \':lang(gb-en)\' )', function()
+        // {
+        //     return µ( ':lang(gb-en)' );
+        // },
+
+        // '$( \':lang(gb-en)\' )', function()
+        // {
+        //     return $( ':lang(gb-en)' );
+        // } );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
      * µ last tests
      *
      * @test    last exists
@@ -322,6 +354,29 @@ module.exports = function( buildTest )
 
 
     /**
+     * µ local-link tests
+     *
+     * @test    local-link exists
+     * @test    finds the right div
+     * @test    only returns one div
+     */
+    QUnit.test( ':local-link', function( assert )
+    {
+        var µLinks      = µ( ':local-link' );
+        var allLinks    = µ( 'a' ); 
+        var µDepth1     = µ( ':local-link(1)' );
+        var µDepth2     = µ( ':local-link(2)' );
+
+        assert.ok( µ.pseudo[ 'local-link'], 'exists' );
+        assert.equal( µLinks.length, allLinks.length, 'get links' );
+        assert.equal( µDepth1.length, 0, 'correctly specifies depth' );
+        assert.equal( µDepth2.length, allLinks.length, 'correctly specifies depth' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
      * µ lt tests
      *
      * @test    lt exists
@@ -335,7 +390,7 @@ module.exports = function( buildTest )
 
         assert.ok( µ.pseudo.lt, 'exists' );
         assert.deepEqual( µDivs[ 1 ], µLtDivs[ 1 ], 'finds the right divs' );
-        assert.equal( µLtDivs.length, 3, 'finds the correct number if elements' );
+        assert.equal( µLtDivs.length, 3, 'finds the correct number of elements' );
 
         buildTest(
         'µ( \'div:lt(2)\' )', function()
@@ -351,13 +406,53 @@ module.exports = function( buildTest )
 
 
     /**
-     * ### nth-column
+     * µ matches tests
+     *
+     * @test    matches exists
+     * @test    finds the right div
+     * @test    works with pseudoselectors
+     */
+    QUnit.test( ':matches', function( assert )
+    {
+        var qunit           = document.getElementById( 'qunit' );
+        var µMatchesDivs    = µ( 'div:matches(#qunit)' );
+
+        assert.ok( µ.pseudo.matches, 'exists' );
+        assert.deepEqual( µMatchesDivs[ 0 ], qunit, 'finds the right div' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
+     * ### not
      * 
-     * µ column selector tests
+     * µ complex not selector tests
      *
      * @test    blank exists
      * @test    gets links
      * @test    gets scoped links
+     */
+    QUnit.test( ':not', function( assert )
+    {
+        assert.ok( µ.pseudo.not, 'exists' );
+
+        var col2 = document.getElementById( 'col2' );
+        assert.equal( µ( 'col:not(#col2)' ).indexOf( col2 ), -1, 'filter with single selector' );
+        assert.equal( µ( 'col:not(#col2,#col3)' ).indexOf( col2 ), -1, 'filter with multiple selectors' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
+     * ### nth-column
+     * 
+     * µ column selector tests
+     *
+     * @test    nth-column exists
+     * @test    filter with number
+     * @test    filter with n-number
      */
     QUnit.test( ':nth-column', function( assert )
     {
@@ -384,9 +479,51 @@ module.exports = function( buildTest )
     {
         assert.ok( µ.pseudo[ 'nth-last-column' ], 'exists' );
     
+        var col1 = document.getElementById( 'col1' );
+        assert.equal( µ( ':nth-last-column(3)' )[0], col1, 'filter with number' );
+        assert.equal( µ( ':nth-last-column(2n1)' )[0], col1, 'filter with n-number' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
+     * ### nth-last-match
+     * 
+     * µ match selector tests
+     *
+     * @test    blank exists
+     * @test    gets links
+     * @test    gets scoped links
+     */
+    QUnit.test( ':nth-last-match', function( assert )
+    {
+        assert.ok( µ.pseudo[ 'nth-last-match' ], 'exists' );
+    
+        var col1 = document.getElementById( 'col1' );
+        assert.equal( µ( 'col:nth-last-match(3)' )[0], col1, 'filter with number' );
+        assert.equal( µ( 'col:nth-last-match(2n1)' )[0], col1, 'filter with n-number' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
+     * ### nth-match
+     * 
+     * µ match selector tests
+     *
+     * @test    nth-match exists
+     * @test    filter with number
+     * @test    filter with n-number
+     */
+    QUnit.test( ':nth-match', function( assert )
+    {
+        assert.ok( µ.pseudo[ 'nth-match' ], 'exists' );
+
         var col2 = document.getElementById( 'col2' );
-        assert.equal( µ( ':nth-column(2)' )[0], col2, 'filter with number' );
-        assert.equal( µ( ':nth-column(2n1)' )[0], col2, 'filter with n-number' );
+        assert.equal( µ( 'col:nth-match(2)' )[0], col2, 'filter with number' );
+        assert.equal( µ( 'col:nth-match(2n1)' )[0], col2, 'filter with n-number' );
 
         buildTest( 'No comparison available.' );
     });
