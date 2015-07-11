@@ -4445,7 +4445,7 @@ module.exports = function( Microbe )
     {
         if ( selector.indexOf( ',' ) !== -1 )
         {
-            selector = selector.split( /,(?![a-zA-Z0-9-#.]+\))/g );
+            selector = selector.split( /,(?![a-zA-Z0-9-#.\s]+\))/g );
 
             if ( selector.length > 1 )
             {
