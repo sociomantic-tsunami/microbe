@@ -35,8 +35,8 @@ module.exports = function( Microbe )
                 case true:
                 case 'last':
                     return new Microbe( _el[ _el.length - parseInt( _var ) ] );
-                return new Microbe( _el[ parseInt( _var ) - 1 ] );
             }
+            return new Microbe( _el[ parseInt( _var ) - 1 ] );
         }
         else
         {
@@ -200,7 +200,7 @@ module.exports = function( Microbe )
     /**
      * ### blank
      *
-     * matches elements that only contain content which consists of whitespace but are not empty
+     * matches elements that only contain content which consists of whitespace
      * 
      * @param {Microbe} _el microbe to be filtered
      * 
@@ -208,13 +208,18 @@ module.exports = function( Microbe )
      */
     pseudo.blank = function( _el )
     {
-        var resArray = [], text = _el.text();
-        for ( var i = 0, lenI = text.length; i < lenI; i++ ) 
+        var resArray = [], _e, _t;
+        for ( var i = 0, lenI = _el.length; i < lenI; i++ ) 
         {
-            var _t = text[ i ];
-            if ( /^\s+$/.test( _t ) )
+            _e = _el[ i ];
+            _t = document.all ? _e.innerText : _e.textContent;
+
+            if ( resArray.indexOf( _e ) === -1 )
             {
-                resArray.push( _el[ i ] );
+                if ( /^\s*$/.test( _t || _e.value ) )
+                {
+                    resArray.push( _e );
+                }
             }
         }
 

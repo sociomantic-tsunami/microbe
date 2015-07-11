@@ -434,11 +434,10 @@ module.exports = function( buildTest )
 
         var setup       = µ( '#example--combined' ).parent().children()[0];
 
-        var literal     = setup[3];
+        var literal     = setup[4];
         var _function   = setup[ µ( '#example--combined' ).getParentIndex()[0] ];
 
         assert.deepEqual( literal, _function, 'parent index is correctly determined' );
-
 
         var µDiv = µ( 'div' ).first();
         var $Div = $( 'div' ).first();

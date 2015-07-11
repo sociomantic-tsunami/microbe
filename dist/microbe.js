@@ -2733,7 +2733,7 @@ Microbe.core = Microbe.prototype ={
      *
      * @return _Mixed_ combined array or array-like object (based off first)
      */
-    merge : function( first, second )
+    merge : function( first, second, unique )
     {
         if ( !second )
         {
@@ -2747,7 +2747,17 @@ Microbe.core = Microbe.prototype ={
         {
             for ( var j = 0, len = second.length; j < len; j++ )
             {
-                first[ i++ ] = second[ j ];
+                if ( unique === true )
+                {
+                    if ( first.indexOf( second[ j ] ) === -1 )
+                    {
+                        first[ i++ ] = second[ j ];                    
+                    }
+                }
+                else
+                {
+                    first[ i++ ] = second[ j ];
+                }
             }
 
             first.length = i;
@@ -3978,7 +3988,7 @@ module.exports = function( Microbe )
 
             for ( var n = 0, lenN = _scope.length; n < lenN; n++ )
             {
-                res.merge( new Microbe.core.__init__( _selector, _scope[ n ], _elements ) );
+                res.merge( new Microbe.core.__init__( _selector, _scope[ n ], _elements ), null, true );
             }
 
             return res;
@@ -4392,8 +4402,8 @@ module.exports = function( Microbe )
                 case true:
                 case 'last':
                     return new Microbe( _el[ _el.length - parseInt( _var ) ] );
-                return new Microbe( _el[ parseInt( _var ) - 1 ] );
             }
+            return new Microbe( _el[ parseInt( _var ) - 1 ] );
         }
         else
         {
@@ -4557,7 +4567,7 @@ module.exports = function( Microbe )
     /**
      * ### blank
      *
-     * matches elements that only contain content which consists of whitespace but are not empty
+     * matches elements that only contain content which consists of whitespace
      * 
      * @param {Microbe} _el microbe to be filtered
      * 
@@ -4565,13 +4575,18 @@ module.exports = function( Microbe )
      */
     pseudo.blank = function( _el )
     {
-        var resArray = [], text = _el.text();
-        for ( var i = 0, lenI = text.length; i < lenI; i++ ) 
+        var resArray = [], _e, _t;
+        for ( var i = 0, lenI = _el.length; i < lenI; i++ ) 
         {
-            var _t = text[ i ];
-            if ( /^\s+$/.test( _t ) )
+            _e = _el[ i ];
+            _t = document.all ? _e.innerText : _e.textContent;
+
+            if ( resArray.indexOf( _e ) === -1 )
             {
-                resArray.push( _el[ i ] );
+                if ( /^\s*$/.test( _t || _e.value ) )
+                {
+                    resArray.push( _e );
+                }
             }
         }
 

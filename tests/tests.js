@@ -572,11 +572,10 @@ module.exports = function( buildTest )
 
         var setup       = µ( '#example--combined' ).parent().children()[0];
 
-        var literal     = setup[3];
+        var literal     = setup[4];
         var _function   = setup[ µ( '#example--combined' ).getParentIndex()[0] ];
 
         assert.deepEqual( literal, _function, 'parent index is correctly determined' );
-
 
         var µDiv = µ( 'div' ).first();
         var $Div = $( 'div' ).first();
@@ -2099,6 +2098,74 @@ module.exports = function( buildTest )
 
 
     /**
+     * µ any-link tests
+     *
+     * @test    any-link exists
+     * @test    gets links
+     * @test    gets scoped links
+     */
+    QUnit.test( ':any-link', function( assert )
+    {
+        assert.ok( µ.pseudo[ 'any-link' ], 'exists' );
+        assert.equal( µ( ':any-link' ).length, document.getElementsByTagName( 'A' ).length, 'gets links' );
+        assert.equal( µ( 'div ~ *:any-link' ).length, document.querySelectorAll( 'div ~ a' ).length, 'gets scoped links' );
+
+        buildTest(
+        'µ( \'.fastest:any-link\' )', function()
+        {
+            return µ( '.fastest:any-link' );
+        },
+
+        '$( \'.fastest:link\' )', function()
+        {
+            return $( '.fastest:link' );
+        } );
+    });
+
+
+    /**
+     * ### blank
+     * 
+     * µ blank tests
+     *
+     * @test    blank exists
+     * @test    gets links
+     * @test    gets scoped links
+     */
+    QUnit.test( ':blank', function( assert )
+    {
+        assert.ok( µ.pseudo.blank, 'exists' );
+
+        assert.equal( µ( ':blank' ).length, 4, 'gets blanks' );
+        assert.equal( µ( 'div *:blank' ).length, 4, 'gets scoped blanks' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
+     * ### column
+     * 
+     * µ column selector tests
+     *
+     * @test    blank exists
+     * @test    gets links
+     * @test    gets scoped links
+     */
+    QUnit.test( ':column', function( assert )
+    {
+        assert.ok( µ.pseudo.column, 'exists' );
+
+        var col1 = document.getElementById( 'col1' );
+        assert.equal( µ( '#col1:column' )[0], col1, 'as pseudo' );
+        assert.equal( µ( ':column(#col1)' )[0], col1, 'filter with variable' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+
+    /**
      * µ contains tests
      *
      * @test    contains exists
@@ -2123,6 +2190,65 @@ module.exports = function( buildTest )
         {
             return $( '#example--combined:contains(I am)' );
         } );
+    });
+
+
+    /**
+     * µ default tests
+     *
+     * @test    default exists
+     * @test    selects only the default inputs
+     * @test    selects only the default inputs from a scoped selector
+     */
+    QUnit.test( ':default', function( assert )
+    {
+        var µDefaults       = µ( ':default' );
+        var µScopedDefaults = µ( 'div *:default' );
+
+        assert.ok( µ.pseudo.even, 'exists' );
+        assert.deepEqual( µDefaults.length, 2, 'selects the default inputs' );
+        assert.deepEqual( µScopedDefaults.length, 2, 'selects the default inputs scoped' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
+     * µ default tests
+     *
+     * @test    dir exists
+     * @test    selects ltr
+     * @test    selects rtl
+     */
+    QUnit.test( ':dir', function( assert )
+    {
+        var µLTR    = µ( 'div:dir(ltr)' );
+        var µRTL    = µ( 'div:dir(rtl)' );
+
+        assert.ok( µ.pseudo.dir, 'exists' );
+        assert.deepEqual( µLTR.length, µ( 'div' ).length, 'selects ltr' );
+        assert.equal( µRTL.length, 0, 'selects rtl' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+
+    /**
+     * µ drop tests
+     *
+     * @test    default exists
+     * @test    selects only the default inputs
+     * @test    selects only the default inputs from a scoped selector
+     */
+    QUnit.test( ':drop', function( assert )
+    {
+        var µDrop    = µ( 'div:drop' );
+
+        assert.ok( µ.pseudo.drop, 'exists' );
+        assert.equal( µDrop.length, 1, 'selects dropzone' );
+
+        buildTest( 'No comparison available.' );
     });
 
 
@@ -2240,6 +2366,26 @@ module.exports = function( buildTest )
 
 
     /**
+     * µ in-range tests
+     *
+     * @test    in-range exists
+     * @test    finds the correct number of elements
+     * @test    finds the correct element
+     */
+    QUnit.test( ':in-range', function( assert )
+    {
+        var µInRangeDiv = µ( ':in-range' );
+        var byElement   = µ( '#emailInput2' )[0]; 
+
+        assert.ok( µ.pseudo[ 'in-range' ], 'exists' );
+        assert.equal( µInRangeDiv.length, 1, 'grabs the correct amount of elements' );
+        assert.deepEqual( µInRangeDiv[0], byElement, 'grabs the correct element' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
      * µ last tests
      *
      * @test    last exists
@@ -2298,6 +2444,48 @@ module.exports = function( buildTest )
 
 
     /**
+     * ### nth-column
+     * 
+     * µ column selector tests
+     *
+     * @test    blank exists
+     * @test    gets links
+     * @test    gets scoped links
+     */
+    QUnit.test( ':nth-column', function( assert )
+    {
+        assert.ok( µ.pseudo[ 'nth-column' ], 'exists' );
+
+        var col2 = document.getElementById( 'col2' );
+        assert.equal( µ( ':nth-column(2)' )[0], col2, 'filter with number' );
+        assert.equal( µ( ':nth-column(2n1)' )[0], col2, 'filter with n-number' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
+     * ### nth-last-column
+     * 
+     * µ column selector tests
+     *
+     * @test    blank exists
+     * @test    gets links
+     * @test    gets scoped links
+     */
+    QUnit.test( ':nth-last-column', function( assert )
+    {
+        assert.ok( µ.pseudo[ 'nth-last-column' ], 'exists' );
+    
+        var col2 = document.getElementById( 'col2' );
+        assert.equal( µ( ':nth-column(2)' )[0], col2, 'filter with number' );
+        assert.equal( µ( ':nth-column(2n1)' )[0], col2, 'filter with n-number' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
      * µ odd tests
      *
      * @test    odd exists
@@ -2323,6 +2511,26 @@ module.exports = function( buildTest )
         {
             return $( 'div:odd' );
         } );
+    });
+
+
+    /**
+     * µ out-of-range tests
+     *
+     * @test    out-of-range exists
+     * @test    finds the correct number of elements
+     * @test    finds the correct element
+     */
+    QUnit.test( ':out-of-range', function( assert )
+    {
+        var µInRangeDiv = µ( ':out-of-range' );
+        var byElement   = µ( '#emailInput3' )[0]; 
+
+        assert.ok( µ.pseudo[ 'out-of-range' ], 'exists' );
+        assert.equal( µInRangeDiv.length, 1, 'grabs the correct amount of elements' );
+        assert.deepEqual( µInRangeDiv[0], byElement, 'grabs the correct element' );
+
+        buildTest( 'No comparison available.' );
     });
 
 

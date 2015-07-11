@@ -228,7 +228,7 @@ module.exports = function( Microbe )
 
             for ( var n = 0, lenN = _scope.length; n < lenN; n++ )
             {
-                res.merge( new Microbe.core.__init__( _selector, _scope[ n ], _elements ) );
+                res.merge( new Microbe.core.__init__( _selector, _scope[ n ], _elements ), null, true );
             }
 
             return res;

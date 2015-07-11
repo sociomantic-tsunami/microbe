@@ -759,7 +759,7 @@ Microbe.core = Microbe.prototype ={
      *
      * @return _Mixed_ combined array or array-like object (based off first)
      */
-    merge : function( first, second )
+    merge : function( first, second, unique )
     {
         if ( !second )
         {
@@ -773,7 +773,17 @@ Microbe.core = Microbe.prototype ={
         {
             for ( var j = 0, len = second.length; j < len; j++ )
             {
-                first[ i++ ] = second[ j ];
+                if ( unique === true )
+                {
+                    if ( first.indexOf( second[ j ] ) === -1 )
+                    {
+                        first[ i++ ] = second[ j ];                    
+                    }
+                }
+                else
+                {
+                    first[ i++ ] = second[ j ];
+                }
             }
 
             first.length = i;
