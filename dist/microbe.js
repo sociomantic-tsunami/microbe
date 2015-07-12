@@ -2515,6 +2515,10 @@ Microbe.core = Microbe.prototype ={
             _selector = _selector.slice( 1 );
             return this.siblingsFlat().filter( _selector );
         }
+        else if ( _s === '!' )
+        {
+            return this.parent();
+        }
         else if ( _s === '+' )
         {
             _selector       = _selector.slice( 1 );
@@ -4443,25 +4447,162 @@ module.exports = function( Microbe )
      */
     var pseudo = function( self, selector, _scope, _build )
     {
+        /**
+         * ## _breakUpSelector
+         *
+         * pushes each selector through the pseudo-selector engine
+         * 
+         * @param  {Array} _selectors split selectors
+         * 
+         * @return _Microbe_
+         */
+        function _breakUpSelector( _selectors )
+        {
+            var _el, resArray = [];
+            for ( var i = 0, lenI = _selectors.length; i < lenI; i++ ) 
+            {
+                if ( i === 0 )
+                {
+                    resArray = pseudo( self, _selectors[ i ], _scope, _build );
+                }
+                else
+                {
+                    Microbe.merge( resArray, pseudo( self, _selectors[ i ], _scope, _build ), true );
+                }
+            }
+            
+            return resArray;
+        }
+
+
+        /**
+         * ## _buildObject
+         *
+         * builds the microbe ready for return
+         * 
+         * @return _Microbe_
+         */
+        function _buildObject()
+        {
+            var _pseudo = _parsePseudo( _selector );
+
+            obj = _build( _scope.querySelectorAll( _pseudo[0] ), self );
+            _pseudo = _pseudo[ 1 ];
+
+            var _sel, _var;
+            for ( var h = 0, lenH = _pseudo.length; h < lenH; h++ )
+            {
+                _sel = _pseudo[ h ].split( '(' );
+                _var = _sel[ 1 ];
+                if ( _var )
+                {
+                    _var = _var.slice( 0, _var.length - 1 );
+                }
+                _sel = _sel[ 0 ];
+
+                if ( Microbe.constructor.pseudo[ _sel ] )
+                {
+                    obj = Microbe.constructor.pseudo[ _sel ]( obj, _var, selector );
+                }
+            }
+
+            return obj;
+        }
+
+
+        /**
+         * ## _cycleFilters
+         *
+         * filters multiple pseudo-selector selectors
+         * 
+         * @param {Array} res array of results to be filtered
+         * 
+         * @return _Microbe_
+         */
+        function _cycleFilters( res )
+        {
+            obj = Microbe.constructor.pseudo( self, res[ 0 ], _scope, _build );
+
+            var filter, connect = false;
+            for ( var i = 1, lenI = res.length; i < lenI; i++ )
+            {
+                filter = res[ i ].trim();
+
+                if ( filter[ 0 ] === '~' )
+                {
+                    obj = obj.siblingsFlat();
+                    connect = true;
+                }
+                else if ( filter[ 0 ] === '>' )
+                {
+                    obj = obj.childrenFlat();
+                    connect = true;
+                }
+                else if ( filter[ 0 ] === '+' )
+                {
+                    obj = obj.siblingsFlat( 'next' );
+                    connect = true;
+                }
+                else if ( connect )
+                {
+                    obj = obj.filter( filter );
+                    connect = false;
+                }
+                else
+                {
+                    obj = obj.find( filter );
+                    connect = false;
+                }
+
+                if ( obj.length === 0 )
+                {
+                    return obj;
+                }
+            }
+            return obj;
+        }
+
+
+        /**
+         * ## _parsePseudo
+         *
+         * checks all pseudo-selectors to see if they're custom and
+         * otherwise it reattaches it 
+         * 
+         * @param  {String} _sel selector string
+         * 
+         * @return _String_ modified selector
+         */
+        function _parsePseudo( _sel )
+        {
+            var _pseudoArray;
+            var _pseudo = _sel.split( ':' );
+            _sel        = _pseudo[ 0 ];
+            _pseudo.splice( 0, 1 );
+
+            for ( var k = 0, lenK = _pseudo.length; k < lenK; k++ )
+            {
+                _pseudoArray = _pseudo[ k ].split( '(' );
+
+                if ( !Microbe.constructor.pseudo[ _pseudoArray[ 0 ] ] )
+                {
+                    _sel += ':' + _pseudo[ k ];
+                    _pseudo.splice( k, 1 );
+                }
+            }
+
+            return [ _sel, _pseudo ];
+        }
+
+
+
         if ( selector.indexOf( ',' ) !== -1 )
         {
             selector = selector.split( /,(?![a-zA-Z0-9-#.,\s]+\))/g );
 
             if ( selector.length > 1 )
             {
-                var _el, resArray = [];
-                for ( var i = 0, lenI = selector.length; i < lenI; i++ ) 
-                {
-                    if ( i === 0 )
-                    {
-                        var that = pseudo( self, selector[ i ], _scope, _build );
-                        resArray = new Microbe( that );
-                    }
-
-                    resArray.merge( pseudo( self, selector[ i ], _scope, _build ), null, true );
-                }
-                
-                return resArray;
+                return _breakUpSelector( selector );
             }
             else
             {
@@ -4469,7 +4610,7 @@ module.exports = function( Microbe )
             }
         }
 
-        var obj, _selector = selector;
+        var _selector = selector;
 
         if ( _selector[ 0 ] === ':' )
         {
@@ -4484,45 +4625,7 @@ module.exports = function( Microbe )
 
             if ( res.length > 1 )
             {
-                obj = Microbe.constructor.pseudo( self, res[ 0 ], _scope, _build );
-
-                var filter, connect = false;
-                for ( var i = 1, lenI = res.length; i < lenI; i++ )
-                {
-                    filter = res[ i ].trim();
-
-                    if ( filter[ 0 ] === '~' )
-                    {
-                        obj = obj.siblingsFlat();
-                        connect = true;
-                    }
-                    else if ( filter[ 0 ] === '>' )
-                    {
-                        obj = obj.childrenFlat();
-                        connect = true;
-                    }
-                    else if ( filter[ 0 ] === '+' )
-                    {
-                        obj = obj.siblingsFlat( 'next' );
-                        connect = true;
-                    }
-                    else if ( connect )
-                    {
-                        obj = obj.filter( filter );
-                        connect = false;
-                    }
-                    else
-                    {
-                        obj = obj.find( filter );
-                        connect = false;
-                    }
-
-                    if ( obj.length === 0 )
-                    {
-                        return obj;
-                    }
-                }
-                return obj;
+                return _cycleFilters( res );
             }
             else
             {
@@ -4530,41 +4633,8 @@ module.exports = function( Microbe )
             }
         }
 
-        var _pseudoArray;
-         var _pseudo    = _selector.split( ':' );
-        _selector       = _pseudo[ 0 ];
-        _pseudo.splice( 0, 1 );
 
-        for ( var k = 0, lenK = _pseudo.length; k < lenK; k++ )
-        {
-            _pseudoArray = _pseudo[ k ].split( '(' );
-
-            if ( !Microbe.constructor.pseudo[ _pseudoArray[ 0 ] ] )
-            {
-                _selector += ':' + _pseudo[ k ];
-                _pseudo.splice( k, 1 );
-            }
-        }
-
-        obj = _build( _scope.querySelectorAll( _selector ), self );
-
-        var _sel, _var;
-        for ( var h = 0, lenH = _pseudo.length; h < lenH; h++ )
-        {
-            _sel = _pseudo[ h ].split( '(' );
-            _var = _sel[ 1 ];
-            if ( _var )
-            {
-                _var = _var.slice( 0, _var.length - 1 );
-            }
-            _sel = _sel[ 0 ];
-
-            if ( Microbe.constructor.pseudo[ _sel ] )
-            {
-                obj = Microbe.constructor.pseudo[ _sel ]( obj, _var, selector );
-            }
-        }
-        return obj;
+        return _buildObject();
     };
 
 

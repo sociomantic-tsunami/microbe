@@ -541,6 +541,10 @@ Microbe.core = Microbe.prototype ={
             _selector = _selector.slice( 1 );
             return this.siblingsFlat().filter( _selector );
         }
+        else if ( _s === '!' )
+        {
+            return this.parent();
+        }
         else if ( _s === '+' )
         {
             _selector       = _selector.slice( 1 );

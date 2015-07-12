@@ -81,6 +81,13 @@ Dev Installation
 -  gulp
 
 
+Generating www docs
+===================
+
+- cd src
+- ../node_modules/.bin/docker -o ../www/doc/ -i ./ --sidebar true --watch --js ../dist/microbe.js --extras fileSearch -c manni
+
+
 Contributing
 ============
 
