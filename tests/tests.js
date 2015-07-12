@@ -1190,10 +1190,9 @@ module.exports = function( buildTest )
      * @test    append exists
      * @test    attached microbe
      * @test    attached element
-     * @test    attached by creation string                 // future feature
-     * @test    attached by array of microbes               // future feature
+     * @test    attached by creation string
+     * @test    attached by selector string
      * @test    attached by array of elements
-     * @test    attached by array of creation strings       // future feature
      */
     QUnit.test( '.append()', function( assert )
     {
@@ -1212,6 +1211,10 @@ module.exports = function( buildTest )
 
         µTarget.append( '<div.a--new--div>' );
         assert.deepEqual( µ( '.a--new--div' )[0], µTarget.childrenFlat()[0], 'attached by creation string' );
+
+        µTarget.append( 'div.a--new--div' );
+        assert.deepEqual( µ( '.a--new--div' )[0], µTarget.childrenFlat()[0], 'attached by creation string' );
+
         µ( '.a--new--div' ).remove();
 
         var µAnotherNewDiv = µ( '<div.a--new--div>' );
@@ -1330,10 +1333,9 @@ module.exports = function( buildTest )
      * @test    prepend exists
      * @test    attached microbe
      * @test    attached element
-     * @test    attached by creation string                 // future feature
-     * @test    attached by array of microbes               // future feature
+     * @test    attached by creation string
+     * @test    attached by microbe string
      * @test    attached by array of elements
-     * @test    attached by array of creation strings       // future feature
      */
     QUnit.test( '.prepend()', function( assert )
     {
@@ -1352,6 +1354,10 @@ module.exports = function( buildTest )
 
         µTarget.prepend( '<div.a--new--div>' );
         assert.deepEqual( µ( '.a--new--div' )[0], µTarget.childrenFlat()[0], 'attached by creation string' );
+
+        µTarget.prepend( 'div.a--new--div' );
+        assert.deepEqual( µ( '.a--new--div' )[0], µTarget.childrenFlat()[0], 'attached by creation string' );
+
         µ( '.a--new--div' ).remove();
 
         var µAnotherNewDiv = µ( '<div.a--new--div>' );
@@ -2839,6 +2845,7 @@ module.exports = function( buildTest )
      * µ debounce tests
      *
      * @test    debounce exists
+     * @test    reuns on it's timer
      */
     QUnit.test( '.debounce()', function( assert )
     {
@@ -2886,6 +2893,20 @@ module.exports = function( buildTest )
     QUnit.test( '.insertStyle()', function( assert )
     {
         assert.ok( µ.insertStyle, 'exists' );
+
+        µ.insertStyle( '#qunit', { 'color':'#f0f' } )
+        var savedColor = µ.__customCSSRules[ '#qunit' ].none.obj.color;
+
+        assert.equal( µ( '#qunit' ).css( 'color' )[0], 'rgb(255, 0, 255)', 'sets the rule' );
+        assert.equal( savedColor, '#f0f', 'saves the reference' );
+
+        µ.removeStyle( '#qunit' );
+
+        var media = 'screen and (min-width : 600px)';
+        µ.insertStyle( '#qunit', { 'color':'#f0f' }, media );
+
+        assert.ok( µ.__customCSSRules[ '#qunit' ][ media ], 'inserts media queries' );
+        µ.removeStyle( '#qunit' );
 
         buildTest( 'No speed tests available.' );
     });
@@ -3154,6 +3175,17 @@ module.exports = function( buildTest )
     {
         assert.ok( µ.removeStyle, 'exists' );
 
+        µ.insertStyle( '#qunit', { 'color':'#f0f' } );
+
+        var media = 'screen and (min-width : 600px)';
+        µ.insertStyle( '#qunit', { 'display':'none' }, media );
+        µ.removeStyle( '#qunit', media );
+
+        assert.equal( µ( '#qunit' ).css( 'display' )[0], 'block', 'removes individual media queries' );
+        µ.removeStyle( '#qunit' );
+
+        assert.ok( !µ.__customCSSRules[ '#qunit' ].none, 'removes base references' );
+
         buildTest( 'No speed tests available.' );
     });
 
@@ -3166,6 +3198,15 @@ module.exports = function( buildTest )
     QUnit.test( '.removeStyles()', function( assert )
     {
         assert.ok( µ.removeStyles, 'exists' );
+
+        µ.insertStyle( '#qunit', { 'color':'#f0f' } );
+
+        var media = 'screen and (min-width : 600px)';
+        µ.insertStyle( '#qunit', { 'display':'none' }, media );
+        µ.removeStyles( '#qunit' );
+
+        assert.equal( µ( '#qunit' ).css( 'display' )[0], 'block', 'removes all tags' );
+        assert.ok( !µ.__customCSSRules[ '#qunit' ].none && !µ.__customCSSRules[ '#qunit' ][ media ], 'removes all references' );
 
         buildTest( 'No speed tests available.' );
     });

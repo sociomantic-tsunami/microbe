@@ -35,10 +35,9 @@ module.exports = function( buildTest )
      * @test    append exists
      * @test    attached microbe
      * @test    attached element
-     * @test    attached by creation string                 // future feature
-     * @test    attached by array of microbes               // future feature
+     * @test    attached by creation string
+     * @test    attached by selector string
      * @test    attached by array of elements
-     * @test    attached by array of creation strings       // future feature
      */
     QUnit.test( '.append()', function( assert )
     {
@@ -57,6 +56,10 @@ module.exports = function( buildTest )
 
         µTarget.append( '<div.a--new--div>' );
         assert.deepEqual( µ( '.a--new--div' )[0], µTarget.childrenFlat()[0], 'attached by creation string' );
+
+        µTarget.append( 'div.a--new--div' );
+        assert.deepEqual( µ( '.a--new--div' )[0], µTarget.childrenFlat()[0], 'attached by creation string' );
+
         µ( '.a--new--div' ).remove();
 
         var µAnotherNewDiv = µ( '<div.a--new--div>' );
@@ -175,10 +178,9 @@ module.exports = function( buildTest )
      * @test    prepend exists
      * @test    attached microbe
      * @test    attached element
-     * @test    attached by creation string                 // future feature
-     * @test    attached by array of microbes               // future feature
+     * @test    attached by creation string
+     * @test    attached by microbe string
      * @test    attached by array of elements
-     * @test    attached by array of creation strings       // future feature
      */
     QUnit.test( '.prepend()', function( assert )
     {
@@ -197,6 +199,10 @@ module.exports = function( buildTest )
 
         µTarget.prepend( '<div.a--new--div>' );
         assert.deepEqual( µ( '.a--new--div' )[0], µTarget.childrenFlat()[0], 'attached by creation string' );
+
+        µTarget.prepend( 'div.a--new--div' );
+        assert.deepEqual( µ( '.a--new--div' )[0], µTarget.childrenFlat()[0], 'attached by creation string' );
+
         µ( '.a--new--div' ).remove();
 
         var µAnotherNewDiv = µ( '<div.a--new--div>' );
