@@ -35,8 +35,8 @@ var Microbe = function( selector, scope, elements )
 };
 
 
-Microbe.core = Microbe.prototype =
-{
+Microbe.core = Microbe.prototype ={
+
     version :       '0.3.3',
 
     constructor :   Microbe,
@@ -44,8 +44,6 @@ Microbe.core = Microbe.prototype =
     type :          _type,
 
     length :        0,
-
-    _selector:      '',
 
 
     /**
@@ -232,7 +230,7 @@ Microbe.core = Microbe.prototype =
      *
      * @return _Microbe_ value array of combined children
      */
-    childrenFlat : function()
+    childrenFlat : function( direction )
     {
         var _children = function( _elm )
         {
@@ -530,7 +528,43 @@ Microbe.core = Microbe.prototype =
      */
     find : function( selector )
     {
-        return new Microbe( selector, this );
+        var _selector   = selector.trim();
+        var _s          = _selector[ 0 ];
+
+        if ( _s === '>' )
+        {
+            _selector = _selector.slice( 1 );
+            return this.childrenFlat().filter( _selector );
+        }
+        else if ( _s === '~' )
+        {
+            _selector = _selector.slice( 1 );
+            return this.siblingsFlat().filter( _selector );
+        }
+        else if ( _s === '!' )
+        {
+            return this.parent();
+        }
+        else if ( _s === '+' )
+        {
+            _selector       = _selector.slice( 1 );
+            var resArray    = [],
+                _el, els    = this.children();
+
+            for ( var i = 0, lenI = els.length; i < lenI; i++ ) 
+            {
+                _el = els[ i ][ 0 ];
+
+                if ( _el )
+                {
+                    resArray.push( _el );
+                }
+            }
+
+            return new Microbe( resArray ).filter( _selector );
+        }
+
+        return new Microbe( _selector, this );
     },
 
 
@@ -729,7 +763,7 @@ Microbe.core = Microbe.prototype =
      *
      * @return _Mixed_ combined array or array-like object (based off first)
      */
-    merge : function( first, second )
+    merge : function( first, second, unique )
     {
         if ( !second )
         {
@@ -743,7 +777,17 @@ Microbe.core = Microbe.prototype =
         {
             for ( var j = 0, len = second.length; j < len; j++ )
             {
-                first[ i++ ] = second[ j ];
+                if ( unique === true )
+                {
+                    if ( first.indexOf( second[ j ] ) === -1 )
+                    {
+                        first[ i++ ] = second[ j ];                    
+                    }
+                }
+                else
+                {
+                    first[ i++ ] = second[ j ];
+                }
             }
 
             first.length = i;
@@ -892,6 +936,7 @@ Microbe.core = Microbe.prototype =
         {
             var parentsChildren = Microbe.toArray( _elm.parentNode.children );
             var elIndex = parentsChildren.indexOf( _elm );
+
             parentsChildren.splice( elIndex, 1 );
 
             return parentsChildren;
@@ -911,19 +956,37 @@ Microbe.core = Microbe.prototype =
     /**
      * ## siblingsFlat
      *
-     * Gets an microbe of all siblings of all element's given
+     * Gets an microbe of all siblings of all element's given. 'next' and 'prev' 
+     * passed as direction return only the next or previous siblings of each element
      *
+     * @paran {String} direction direction modifier (optional)
+     * 
      * @return _Microbe_ value array of combined siblings
      */
-    siblingsFlat : function()
+    siblingsFlat : function( direction )
     {
         var _siblings = function( _elm )
         {
             var parentsChildren = Microbe.toArray( _elm.parentNode.children );
             var elIndex = parentsChildren.indexOf( _elm );
-            parentsChildren.splice( elIndex, 1 );
 
-            return parentsChildren;
+            if ( direction === 'next' )
+            {
+                var next = parentsChildren[ elIndex + 1 ];
+
+                return next ? [ next ] : [];
+            }
+            else if ( direction === 'prev' )
+            {
+                var prev = parentsChildren[ elIndex - 1 ];
+                
+                return prev ? [ prev ] : [];
+            }
+            else
+            {
+                parentsChildren.splice( elIndex, 1 );
+                return parentsChildren;
+            }
         };
 
         var arr, i, len, siblingArray = [];

@@ -81,6 +81,13 @@ Dev Installation
 -  gulp
 
 
+Generating www docs
+===================
+
+- cd src
+- ../node_modules/.bin/docker -o ../www/doc/ -i ./ --sidebar true --watch --js ../dist/microbe.js --extras fileSearch -c manni
+
+
 Contributing
 ============
 
@@ -100,6 +107,8 @@ Changelog
 + support for css4 selectors
 + µ.matches for css selector matching
 + depreciated selector generation
++ fixed a bug in microbe creation when the scope was a microbe
++ many core speed fixes
 
 
 0.3.2
