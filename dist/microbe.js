@@ -2941,25 +2941,22 @@ Microbe.core = Microbe.prototype ={
     {
         var _siblings = function( _elm )
         {
-            var parentsChildren = Microbe.toArray( _elm.parentNode.children );
-            var elIndex = parentsChildren.indexOf( _elm );
-
-            if ( direction === 'next' )
+            if ( !direction )
             {
-                var next = parentsChildren[ elIndex + 1 ];
-
+                var parentsChildren = Microbe.toArray( _elm.parentNode.children );
+                var elIndex = parentsChildren.indexOf( _elm );
+                parentsChildren.splice( elIndex, 1 );
+                return parentsChildren;
+            }
+            else if ( direction === 'next' )
+            {
+                var next = _elm.nextElementSibling;
                 return next ? [ next ] : [];
             }
             else if ( direction === 'prev' )
             {
-                var prev = parentsChildren[ elIndex - 1 ];
-                
+                var prev = _elm.prevElementSibling;
                 return prev ? [ prev ] : [];
-            }
-            else
-            {
-                parentsChildren.splice( elIndex, 1 );
-                return parentsChildren;
             }
         };
 

@@ -285,6 +285,30 @@ module.exports = function( buildTest )
 
 
     /**
+     * µ childrenFlat tests
+     *
+     * @test    childrenFlat exists
+     * @test    childrenFlat returns an array
+     * @test    with itself removed
+     * @test    that are correct
+     */
+    QUnit.test( '.childrenFlat()', function( assert )
+    {
+        assert.ok( µ().childrenFlat, 'exists' );
+
+        var childrenFlat = µ( '.example--class' ).childrenFlat();
+
+        assert.ok( childrenFlat.type === '[object Microbe]', 'returns an microbe' );
+
+        var nodeChildren = Array.prototype.slice.call( µ( '.example--class' )[0].children );
+
+        assert.equal( childrenFlat.length, nodeChildren.length, 'correct number of elements' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
      * µ css tests
      *
      * @test    css exists
@@ -1002,6 +1026,64 @@ module.exports = function( buildTest )
 
           resetDivs();
         } );
+    });
+
+
+    /**
+     * µ siblings tests
+     *
+     * @test    siblings exists
+     * @test    siblings returns an array
+     * @test    full of microbes
+     * @test    with itself removed
+     * @test    that are correct
+     */
+    QUnit.test( '.siblings()', function( assert )
+    {
+        assert.ok( µ().siblings, 'exists' );
+
+        var siblings = µ( '.example--class' ).siblings();
+
+        assert.ok( µ.isArray( siblings ), 'returns an array' );
+        assert.ok( siblings[0].type === '[object Microbe]', 'full of microbes' );
+
+        var nodeChildren = Array.prototype.slice.call( µ( '.example--class' )[0].parentNode.children );
+
+        assert.equal( siblings[0].indexOf( µ( '.example--class' )[0] ), -1, 'removed self' );
+        assert.equal( siblings[0].length, nodeChildren.length - 1, 'correct number of elements' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
+     * µ siblingsFlat tests
+     *
+     * @test    siblingsFlat exists
+     * @test    siblingsFlat returns an array
+     * @test    with itself removed
+     * @test    that are correct
+     */
+    QUnit.test( '.siblingsFlat()', function( assert )
+    {
+        assert.ok( µ().siblingsFlat, 'exists' );
+
+        var siblingsFlat = µ( '.example--class' ).siblingsFlat();
+
+        assert.ok( siblingsFlat.type === '[object Microbe]', 'returns an microbe' );
+
+        var nodeChildren = Array.prototype.slice.call( µ( '.example--class' )[0].parentNode.children );
+
+        assert.equal( siblingsFlat.indexOf( µ( '.example--class' )[0] ), -1, 'removed self' );
+        assert.equal( siblingsFlat.length, nodeChildren.length - 1, 'correct number of elements' );
+
+        var prev = µ( '#qunit' )[0].prevElementSibling;
+        var next = µ( '#qunit' )[0].nextElementSibling;
+
+        assert.deepEqual( prev, µ( '#qunit' ).siblingsFlat( 'prev' )[0], 'gets previous element' );
+        assert.deepEqual( next, µ( '#qunit' ).siblingsFlat( 'next' )[0], 'gets next element' );
+
+        buildTest( 'No comparison available.' );
     });
 
 
