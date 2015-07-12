@@ -136,11 +136,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Mouse Braun         <a href="&#109;&#97;&#x69;&#x6C;&#x74;&#111;:&#x6D;&#111;&#117;&#x73;e&#64;&#115;o&#x63;&#105;&#111;&#109;&#x61;&#x6E;&#x74;&#x69;&#99;.&#99;o&#x6D;">&#x6D;&#111;&#117;&#x73;e&#64;&#115;o&#x63;&#105;&#111;&#109;&#x61;&#x6E;&#x74;&#x69;&#99;.&#99;o&#x6D;</a></span>
+      <span>Mouse Braun         <a href="&#x6D;&#97;&#x69;&#x6C;&#x74;&#x6F;:&#x6D;&#111;&#117;&#115;e&#x40;&#115;o&#x63;&#105;o&#x6D;&#x61;&#x6E;&#x74;i&#99;.&#99;&#111;&#109;">&#x6D;&#111;&#117;&#115;e&#x40;&#115;o&#x63;&#105;o&#x6D;&#x61;&#x6E;&#x74;i&#99;.&#99;&#111;&#109;</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Nicolas Brugneaux   <a href="&#109;&#x61;&#x69;&#108;&#x74;&#x6F;:&#110;&#x69;&#x63;&#111;&#x6C;&#x61;&#115;&#46;&#98;r&#117;&#x67;&#110;&#101;&#x61;u&#x78;&#x40;&#115;&#x6F;&#99;&#105;&#x6F;&#x6D;&#97;&#x6E;&#x74;&#105;&#x63;&#x2E;&#x63;&#111;&#x6D;">&#110;&#x69;&#x63;&#111;&#x6C;&#x61;&#115;&#46;&#98;r&#117;&#x67;&#110;&#101;&#x61;u&#x78;&#x40;&#115;&#x6F;&#99;&#105;&#x6F;&#x6D;&#97;&#x6E;&#x74;&#105;&#x63;&#x2E;&#x63;&#111;&#x6D;</a></span>
+      <span>Nicolas Brugneaux   <a href="&#109;&#97;&#105;&#x6C;&#x74;&#111;:&#x6E;&#x69;&#x63;&#111;&#x6C;&#97;&#115;&#46;&#x62;&#x72;&#x75;&#x67;n&#x65;&#97;&#x75;&#120;&#x40;&#x73;&#x6F;&#99;&#x69;&#x6F;&#109;&#97;&#110;&#x74;&#x69;&#x63;&#x2E;&#x63;&#111;m">&#x6E;&#x69;&#x63;&#111;&#x6C;&#97;&#115;&#46;&#x62;&#x72;&#x75;&#x67;n&#x65;&#97;&#x75;&#120;&#x40;&#x73;&#x6F;&#99;&#x69;&#x6F;&#109;&#97;&#110;&#x74;&#x69;&#x63;&#x2E;&#x63;&#111;m</a></span>
     </div>
     <div class="dox_tag_title">package</div>
     <div class="dox_tag_detail">
@@ -200,7 +200,7 @@
 
 <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span><span class="p">{</span>
 
-    <span class="nx">version</span> <span class="o">:</span>       <span class="s1">&#39;0.3.3&#39;</span><span class="p">,</span>
+    <span class="nx">version</span> <span class="o">:</span>       <span class="s1">&#39;0.3.4&#39;</span><span class="p">,</span>
 
     <span class="nx">constructor</span> <span class="o">:</span>   <span class="nx">Microbe</span><span class="p">,</span>
 
@@ -1666,25 +1666,22 @@ passed as direction return only the next or previous siblings of each element</p
     <span class="p">{</span>
         <span class="kd">var</span> <span class="nx">_siblings</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_elm</span> <span class="p">)</span>
         <span class="p">{</span>
-            <span class="kd">var</span> <span class="nx">parentsChildren</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">toArray</span><span class="p">(</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">children</span> <span class="p">);</span>
-            <span class="kd">var</span> <span class="nx">elIndex</span> <span class="o">=</span> <span class="nx">parentsChildren</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="nx">_elm</span> <span class="p">);</span>
-
-            <span class="k">if</span> <span class="p">(</span> <span class="nx">direction</span> <span class="o">===</span> <span class="s1">&#39;next&#39;</span> <span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nx">direction</span> <span class="p">)</span>
             <span class="p">{</span>
-                <span class="kd">var</span> <span class="nx">next</span> <span class="o">=</span> <span class="nx">parentsChildren</span><span class="p">[</span> <span class="nx">elIndex</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">];</span>
-
+                <span class="kd">var</span> <span class="nx">parentsChildren</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">toArray</span><span class="p">(</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">children</span> <span class="p">);</span>
+                <span class="kd">var</span> <span class="nx">elIndex</span> <span class="o">=</span> <span class="nx">parentsChildren</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="nx">_elm</span> <span class="p">);</span>
+                <span class="nx">parentsChildren</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span> <span class="nx">elIndex</span><span class="p">,</span> <span class="mi">1</span> <span class="p">);</span>
+                <span class="k">return</span> <span class="nx">parentsChildren</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">direction</span> <span class="o">===</span> <span class="s1">&#39;next&#39;</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">next</span> <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">nextElementSibling</span><span class="p">;</span>
                 <span class="k">return</span> <span class="nx">next</span> <span class="o">?</span> <span class="p">[</span> <span class="nx">next</span> <span class="p">]</span> <span class="o">:</span> <span class="p">[];</span>
             <span class="p">}</span>
             <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">direction</span> <span class="o">===</span> <span class="s1">&#39;prev&#39;</span> <span class="p">)</span>
             <span class="p">{</span>
-                <span class="kd">var</span> <span class="nx">prev</span> <span class="o">=</span> <span class="nx">parentsChildren</span><span class="p">[</span> <span class="nx">elIndex</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">];</span>
-                
+                <span class="kd">var</span> <span class="nx">prev</span> <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">prevElementSibling</span><span class="p">;</span>
                 <span class="k">return</span> <span class="nx">prev</span> <span class="o">?</span> <span class="p">[</span> <span class="nx">prev</span> <span class="p">]</span> <span class="o">:</span> <span class="p">[];</span>
-            <span class="p">}</span>
-            <span class="k">else</span>
-            <span class="p">{</span>
-                <span class="nx">parentsChildren</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span> <span class="nx">elIndex</span><span class="p">,</span> <span class="mi">1</span> <span class="p">);</span>
-                <span class="k">return</span> <span class="nx">parentsChildren</span><span class="p">;</span>
             <span class="p">}</span>
         <span class="p">};</span>
 

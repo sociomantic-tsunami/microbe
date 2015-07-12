@@ -103,6 +103,7 @@ Change log
 ~~~~~
 
 + small bug fixes
++ updated documantation and tests
 
 
 0.3.3

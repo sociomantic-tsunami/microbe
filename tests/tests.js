@@ -1996,8 +1996,11 @@ module.exports = function( buildTest )
     QUnit.test( 'query with string scope', function( assert )
     {
         var µDiv = µ( 'div', '.example--class--groups' );
-        assert.equal( µDiv.length, 2, 'two divs' );
+        assert.equal( µDiv.length, 2, 'two divs from 2 strings' );
 
+
+        µDiv = µ( µDiv[0], '.example--class--groups' );
+        assert.equal( µDiv.length, 1, '1 divs from a string and an element' );
 
         buildTest(
         'µ( \'div\', \'.example--class--groups\' )', function()
