@@ -136,11 +136,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Mouse Braun         <a href="&#x6D;&#97;&#x69;&#x6C;&#116;&#x6F;:&#109;&#111;u&#x73;&#101;&#x40;&#115;&#111;&#99;&#105;&#x6F;&#x6D;&#x61;&#110;&#x74;i&#99;&#46;&#99;&#111;m">&#109;&#111;u&#x73;&#101;&#x40;&#115;&#111;&#99;&#105;&#x6F;&#x6D;&#x61;&#110;&#x74;i&#99;&#46;&#99;&#111;m</a></span>
+      <span>Mouse Braun         <a href="&#109;&#97;&#x69;&#x6C;&#x74;&#111;:&#x6D;&#111;&#117;&#x73;e&#64;&#115;o&#x63;&#105;&#111;&#109;&#x61;&#x6E;&#x74;&#x69;&#99;.&#99;o&#x6D;">&#x6D;&#111;&#117;&#x73;e&#64;&#115;o&#x63;&#105;&#111;&#109;&#x61;&#x6E;&#x74;&#x69;&#99;.&#99;o&#x6D;</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Nicolas Brugneaux   <a href="&#x6D;&#x61;i&#x6C;&#116;&#111;:&#x6E;&#x69;c&#x6F;&#x6C;&#x61;&#x73;&#x2E;&#98;&#114;&#x75;&#103;&#x6E;&#101;&#x61;&#x75;&#x78;&#x40;&#115;&#111;&#x63;&#105;&#x6F;&#109;&#x61;&#x6E;&#116;&#105;&#x63;.c&#111;&#x6D;">&#x6E;&#x69;c&#x6F;&#x6C;&#x61;&#x73;&#x2E;&#98;&#114;&#x75;&#103;&#x6E;&#101;&#x61;&#x75;&#x78;&#x40;&#115;&#111;&#x63;&#105;&#x6F;&#109;&#x61;&#x6E;&#116;&#105;&#x63;.c&#111;&#x6D;</a></span>
+      <span>Nicolas Brugneaux   <a href="&#109;&#x61;&#x69;&#108;&#x74;&#x6F;:&#110;&#x69;&#x63;&#111;&#x6C;&#x61;&#115;&#46;&#98;r&#117;&#x67;&#110;&#101;&#x61;u&#x78;&#x40;&#115;&#x6F;&#99;&#105;&#x6F;&#x6D;&#97;&#x6E;&#x74;&#105;&#x63;&#x2E;&#x63;&#111;&#x6D;">&#110;&#x69;&#x63;&#111;&#x6C;&#x61;&#115;&#46;&#98;r&#117;&#x67;&#110;&#101;&#x61;u&#x78;&#x40;&#115;&#x6F;&#99;&#105;&#x6F;&#x6D;&#97;&#x6E;&#x74;&#105;&#x63;&#x2E;&#x63;&#111;&#x6D;</a></span>
     </div>
     <div class="dox_tag_title">package</div>
     <div class="dox_tag_detail">
@@ -921,6 +921,10 @@ unsure if we actually need the webkitMatchSelector and mozMatchSelector
         <span class="p">{</span>
             <span class="nx">_selector</span> <span class="o">=</span> <span class="nx">_selector</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span> <span class="mi">1</span> <span class="p">);</span>
             <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">siblingsFlat</span><span class="p">().</span><span class="nx">filter</span><span class="p">(</span> <span class="nx">_selector</span> <span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">_s</span> <span class="o">===</span> <span class="s1">&#39;!&#39;</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">parent</span><span class="p">();</span>
         <span class="p">}</span>
         <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">_s</span> <span class="o">===</span> <span class="s1">&#39;+&#39;</span> <span class="p">)</span>
         <span class="p">{</span>
