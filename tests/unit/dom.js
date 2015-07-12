@@ -55,36 +55,16 @@ module.exports = function( buildTest )
         assert.deepEqual( µNewDiv[0], µTarget.children()[0][0], 'attached element' );
         µNewDiv.remove();
 
-        // NON FUNCTIONAL TEST
-        // this is a future ability and cannot be tested yet
-        //
-        // µTarget.append( '<div.a--new--div>' );
-        // assert.deepEqual( µ( '.a--new--div' )[0], µTarget.children()[0], 'attached by creation string' );
-        // µ( '.a--new--div' ).remove();
+        µTarget.append( '<div.a--new--div>' );
+        assert.deepEqual( µ( '.a--new--div' )[0], µTarget.childrenFlat()[0], 'attached by creation string' );
+        µ( '.a--new--div' ).remove();
 
         var µAnotherNewDiv = µ( '<div.a--new--div>' );
-
-        // NON FUNCTIONAL TEST
-        // this is a future ability and cannot be tested yet
-        //
-        // µTarget.append( [ µNewDiv, µAnotherNewDiv ] );
-        // assert.equal( µ( '.a--new--div' ).length, 2, 'attached 2 microbes' );
-        // µNewDiv.remove();
-        // µAnotherNewDiv.remove();
 
         µTarget.append( [ µNewDiv[0], µAnotherNewDiv[0] ] );
         assert.equal( µ( '.a--new--div' ).length, 2, 'attached 2 elements' );
         µNewDiv.remove();
         µAnotherNewDiv.remove();
-
-        // NON FUNCTIONAL TEST
-        // this is a future ability and cannot be tested yet
-        //
-        // µTarget.append( [ '<div.a--new--div>', '<div.a--new--div>' ] );
-        // assert.equal( µ( '.a--new--div' ).length, 2, 'attached 2 creation strings' );
-        // µNewDiv.remove();
-        // µAnotherNewDiv.remove();
-
 
         var el;
         var µDiv = µ( 'div' ).first();
@@ -215,35 +195,16 @@ module.exports = function( buildTest )
         assert.deepEqual( µNewDiv[0], µTarget.children()[0][0], 'attached element' );
         µNewDiv.remove();
 
-        // NON FUNCTIONAL TEST
-        // this is a future ability and cannot be tested yet
-        //
-        // µTarget.prepend( '<div.a--new--div>' );
-        // assert.deepEqual( µ( '.a--new--div' )[0], µTarget.children()[0], 'attached by creation string' );
-        // µ( '.a--new--div' ).remove();
+        µTarget.prepend( '<div.a--new--div>' );
+        assert.deepEqual( µ( '.a--new--div' )[0], µTarget.childrenFlat()[0], 'attached by creation string' );
+        µ( '.a--new--div' ).remove();
 
         var µAnotherNewDiv = µ( '<div.a--new--div>' );
-
-        // NON FUNCTIONAL TEST
-        // this is a future ability and cannot be tested yet
-        //
-        // µTarget.prepend( [ µNewDiv, µAnotherNewDiv ] );
-        // assert.equal( µ( '.a--new--div' ).length, 2, 'attached 2 microbes' );
-        // µNewDiv.remove();
-        // µAnotherNewDiv.remove();
 
         µTarget.prepend( [ µNewDiv[0], µAnotherNewDiv[0] ] );
         assert.equal( µ( '.a--new--div' ).length, 2, 'attached 2 elements' );
         µNewDiv.remove();
         µAnotherNewDiv.remove();
-
-        // NON FUNCTIONAL TEST
-        // this is a future ability and cannot be tested yet
-        //
-        // µTarget.prepend( [ '<div.a--new--div>', '<div.a--new--div>' ] );
-        // assert.equal( µ( '.a--new--div' ).length, 2, 'attached 2 creation strings' );
-        // µNewDiv.remove();
-        // µAnotherNewDiv.remove();
 
 
         var el;

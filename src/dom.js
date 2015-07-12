@@ -62,13 +62,25 @@ module.exports = function( Microbe )
             _parentEl.appendChild( _elm );
         };
 
-        return function( _el )
+
+        var _prepend = function( _parentEl, _elm )
+        {
+            var firstChild = _parentEl.children[ 0 ];
+            _parentEl.insertBefore( _elm, firstChild );
+        };
+
+
+        return function( _el, prepend )
         {
             var elementArray = [];
 
             if ( !_el.length )
             {
                 _el = [ _el ];
+            }
+            if ( typeof _el === 'string' )
+            {
+                _el = new Microbe( _el );
             }
 
             var i, j, leni, lenj, node;
@@ -80,7 +92,14 @@ module.exports = function( Microbe )
 
                     elementArray.push( node );
 
-                    _append( this[ i ], node );
+                    if ( prepend === true )
+                    {
+                        _prepend( this[ i ], node );
+                    }
+                    else
+                    {
+                        _append( this[ i ], node );
+                    }
                 }
             }
 
@@ -88,7 +107,7 @@ module.exports = function( Microbe )
         };
     }());
 
-
+        
     /**
      * ## insertAfter
      *
@@ -158,38 +177,10 @@ module.exports = function( Microbe )
      *
      * @return _Microbe_ new microbe filled with the inserted content
      */
-    Microbe.core.prepend = (function()
+    Microbe.core.prepend = function( _el )
     {
-        var _prepend = function( _parentEl, _elm )
-        {
-            var firstChild = _parentEl.children[ 0 ];
-            _parentEl.insertBefore( _elm, firstChild );
-        };
-
-        return function( _el )
-        {
-            var elementArray = [];
-
-            if ( !_el.length )
-            {
-                _el = [ _el ];
-            }
-
-            var i, j, leni, lenj, node;
-            for ( i = 0, leni = this.length; i < leni; i++ )
-            {
-                for ( j = 0, lenj = _el.length; j < lenj; j++ )
-                {
-                    node = i === 0 ? _el[ j ] : _el[ j ].cloneNode( true );
-                    elementArray.push( node );
-
-                    _prepend( this[ i ], node );
-                }
-            }
-
-            this.constructor( elementArray );
-        };
-    }());
+        return this.append( _el, true );
+    };
 
 
     /**

@@ -1,4 +1,4 @@
-Microbe - 0.3.3
+Microbe - 0.3.4
 ===============
 
 Microbe (µ) - a javascript library
@@ -13,17 +13,19 @@ into several categories:
 
 + Core helpers (iterator, each, … )
 
-- DOM helpers such as appending and removing things from the DOM, getting parents and children, and class, attribute, and css manipulation,
+- Extended CSS4 selector support
 
-+ Types (isUnidentified, isArray, isWindow, etc)
++ DOM helpers such as appending and removing things from the DOM, getting parents and children, and class, attribute, and css manipulation,
 
-- HTTP helpers making use of Promises (get, post, … )
+- Types (isUnidentified, isArray, isWindow, etc)
 
-+ Object Observe watches objects for changes.  It can also watch itself for changes in element get/set data
++ HTTP helpers making use of Promises (get, post, … )
 
-- Events binding and emitting custom events
+- Object Observe watches objects for changes.  It can also watch itself for changes in element get/set data
 
-+ See the full list in the wiki https://github.com/sociomantic/microbe/wiki
++ Events binding and emitting custom events
+
+- See the full list at http://m.icro.be or in the wiki https://github.com/sociomantic/microbe/wiki
 
 Microbes are always array like for consistency and can be extended and merged very easily.
 
@@ -94,8 +96,14 @@ Contributing
 We gladly accept and review any pull-requests. Feel free! :heart:
 
 
-Changelog
-=========
+Change log
+==========
+    
+0.3.4
+~~~~~
+
++ small bug fixes
+
 
 0.3.3
 ~~~~~
@@ -137,4 +145,4 @@ Changelog
 + many documentation updates
 
 
-No one should be using less than 0.3.  Changes past that will be posted here.
+No one should be using less than 0.3  Changes past that will be posted here.

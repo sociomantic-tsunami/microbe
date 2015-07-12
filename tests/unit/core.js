@@ -2,7 +2,7 @@
 
 module.exports = function( buildTest )
 {
-    var version = '0.3.3';
+    var version = '0.3.4';
 
     QUnit.module( 'core.js' );
 
