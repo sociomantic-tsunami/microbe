@@ -107,7 +107,7 @@ module.exports = function( Microbe )
         };
     }());
 
-        
+
     /**
      * ## insertAfter
      *

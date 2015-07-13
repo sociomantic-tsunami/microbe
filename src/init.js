@@ -104,7 +104,7 @@ module.exports = function( Microbe )
         }
 
         return _build( [ _el ], self );
-    };
+    }
 
 
     /**
@@ -132,7 +132,7 @@ module.exports = function( Microbe )
         }
 
         return true;
-    };
+    }
 
 
     function _css4StringReplace( _string )
@@ -148,22 +148,22 @@ module.exports = function( Microbe )
         }
 
         return _string;
-    };
+    }
 
 
     /**
      * ## _noScopeSimple
      *
      * if ther is no scope and there is only a simple selector
-     * 
+     *
      * @param  {String} _s   selector string
      * @param  {Object} self this empty Microbe
-     * 
+     *
      * @return _Microbe_
      */
     function _noScopeSimple( _s, self )
     {
-        if ( typeof _s === 'string' && _s.indexOf( ':' ) === -1 && 
+        if ( typeof _s === 'string' && _s.indexOf( ':' ) === -1 &&
                 _s.indexOf( '!' ) === -1 && _s.indexOf( ' ' ) === -1 )
         {
             switch ( _s[0] )
@@ -211,17 +211,18 @@ module.exports = function( Microbe )
      */
     Microbe.core.__init__ =  function( _selector, _scope, _elements )
     {
+        var res;
         if ( !_scope )
         {
 
-            var res = _noScopeSimple( _selector, this );
+            res = _noScopeSimple( _selector, this );
 
             if( res )
             {
                 return res;
             }
         }
-        
+
         if ( typeof _selector === 'string' )
         {
             _selector = _css4StringReplace( _selector );
@@ -236,7 +237,7 @@ module.exports = function( Microbe )
 
         if ( _scope && _scope.type === '[object Microbe]' )
         {
-            var res = _build( [], this );
+            res = _build( [], this );
 
             for ( var n = 0, lenN = _scope.length; n < lenN; n++ )
             {

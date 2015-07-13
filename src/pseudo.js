@@ -19,11 +19,11 @@ module.exports = function( Microbe )
      *
      * when supplied with a microbe and a css style n selector (2n1), filters
      * and returns the result
-     * 
+     *
      * @param {Microbe} _el microbe to be filtered
      * @param {String} _var number string
      * @param {Boolean} _last counting from the font or back
-     * 
+     *
      * @return _Microbe_
      */
     var parseNth = function( _el, _var, _last )
@@ -52,9 +52,9 @@ module.exports = function( Microbe )
             }
 
             var _e, resArray = [];
-            for ( var i = offset || 0, lenI = top || _el.length; i < lenI; ) 
+            for ( var i = offset || 0, lenI = top || _el.length; i < lenI; )
             {
-                _e = _el[ i ]
+                _e = _el[ i ];
 
                 if ( _e )
                 {
@@ -63,9 +63,8 @@ module.exports = function( Microbe )
 
                 i += increment;
             }
+            return new Microbe( resArray );
         }
-
-        return new Microbe( resArray );
     };
 
 
@@ -73,12 +72,12 @@ module.exports = function( Microbe )
      * ### pseudo
      *
      * an extension to core.__init_ to handle custom pseusoselectors
-     * 
+     *
      * @param  {Microbe} self half built microbe
      * @param  {String} selector pseudo-selector string
      * @param  {Object} _scope scope element
      * @param  {Function} _build build function from core
-     * 
+     *
      * @return _Microbe_
      */
     var pseudo = function( self, selector, _scope, _build )
@@ -87,15 +86,15 @@ module.exports = function( Microbe )
          * ## _breakUpSelector
          *
          * pushes each selector through the pseudo-selector engine
-         * 
+         *
          * @param  {Array} _selectors split selectors
-         * 
+         *
          * @return _Microbe_
          */
         function _breakUpSelector( _selectors )
         {
             var _el, resArray = [];
-            for ( var i = 0, lenI = _selectors.length; i < lenI; i++ ) 
+            for ( var i = 0, lenI = _selectors.length; i < lenI; i++ )
             {
                 if ( i === 0 )
                 {
@@ -106,7 +105,7 @@ module.exports = function( Microbe )
                     Microbe.merge( resArray, pseudo( self, _selectors[ i ], _scope, _build ), true );
                 }
             }
-            
+
             return resArray;
         }
 
@@ -115,14 +114,14 @@ module.exports = function( Microbe )
          * ## _buildObject
          *
          * builds the microbe ready for return
-         * 
+         *
          * @return _Microbe_
          */
         function _buildObject()
         {
             var _pseudo = _parsePseudo( _selector );
 
-            obj = _build( _scope.querySelectorAll( _pseudo[0] ), self );
+            var obj = _build( _scope.querySelectorAll( _pseudo[0] ), self );
             _pseudo = _pseudo[ 1 ];
 
             var _sel, _var;
@@ -150,14 +149,14 @@ module.exports = function( Microbe )
          * ## _cycleFilters
          *
          * filters multiple pseudo-selector selectors
-         * 
+         *
          * @param {Array} res array of results to be filtered
-         * 
+         *
          * @return _Microbe_
          */
         function _cycleFilters( res )
         {
-            obj = Microbe.constructor.pseudo( self, res[ 0 ], _scope, _build );
+            var obj = Microbe.constructor.pseudo( self, res[ 0 ], _scope, _build );
 
             var filter, connect = false;
             for ( var i = 1, lenI = res.length; i < lenI; i++ )
@@ -203,10 +202,10 @@ module.exports = function( Microbe )
          * ## _parsePseudo
          *
          * checks all pseudo-selectors to see if they're custom and
-         * otherwise it reattaches it 
-         * 
+         * otherwise it reattaches it
+         *
          * @param  {String} _sel selector string
-         * 
+         *
          * @return _String_ modified selector
          */
         function _parsePseudo( _sel )
@@ -277,9 +276,9 @@ module.exports = function( Microbe )
      * ### any-link
      *
      * match elements that act as the source anchors of hyperlinks
-     * 
+     *
      * @param {Microbe} _el microbe to be filtered
-     * 
+     *
      * @return _Microbe_
      */
     pseudo[ 'any-link' ] = function( _el )
@@ -292,15 +291,15 @@ module.exports = function( Microbe )
      * ### blank
      *
      * matches elements that only contain content which consists of whitespace
-     * 
+     *
      * @param {Microbe} _el microbe to be filtered
-     * 
+     *
      * @return _Microbe_
      */
     pseudo.blank = function( _el )
     {
         var resArray = [], _e, _t;
-        for ( var i = 0, lenI = _el.length; i < lenI; i++ ) 
+        for ( var i = 0, lenI = _el.length; i < lenI; i++ )
         {
             _e = _el[ i ];
             _t = document.all ? _e.innerText : _e.textContent;
@@ -322,7 +321,7 @@ module.exports = function( Microbe )
      * ### column
      *
      * filters for columns with a suplied selector
-     * 
+     *
      * @param {Microbe} _el microbe to be filtered
      * @param {String} _var string to search for
      *
@@ -367,7 +366,7 @@ module.exports = function( Microbe )
      * ### default
      *
      * selects all inputs and select boxes that are checked by dafeult
-     * 
+     *
      * @param {Microbe} _el microbe to be filtered
      *
      * @return _Microbe_
@@ -377,7 +376,7 @@ module.exports = function( Microbe )
         _el = _el.filter( 'input, option' );
 
         var _e, resArray = [];
-        for ( var i = 0, lenI = _el.length; i < lenI; i++ ) 
+        for ( var i = 0, lenI = _el.length; i < lenI; i++ )
         {
             _e = _el[ i ];
 
@@ -404,7 +403,7 @@ module.exports = function( Microbe )
     pseudo.dir = function( _el, _var )
     {
         var _e, resArray = [];
-        for ( var i = 0, lenI = _el.length; i < lenI; i++ ) 
+        for ( var i = 0, lenI = _el.length; i < lenI; i++ )
         {
             _e = _el[ i ];
             if ( getComputedStyle( _e ).direction === _var )
@@ -419,12 +418,12 @@ module.exports = function( Microbe )
     /**
      * ### drop
      *
-     * returns all elements that are drop targets. HTML has a dropzone 
+     * returns all elements that are drop targets. HTML has a dropzone
      * attribute which specifies that an element is a drop target.
-     * 
+     *
      * @param {Microbe} _el microbe to be filtered
      * @param {String} _var trigger string
-     * 
+     *
      * @return _Microbe_
      */
     pseudo.drop = function( _el, _var )
@@ -536,17 +535,17 @@ module.exports = function( Microbe )
      * ### in-range
      *
      * select the elements with a value inside the specified range
-     * 
+     *
      * @param {Microbe} _el microbe to be filtered
-     * 
+     *
      * @return _Microbe_
      */
     pseudo[ 'in-range' ] = function( _el )
     {
-        var _el = _el.filter( '[max],[min]' );
+        _el = _el.filter( '[max],[min]' );
 
         var min, max, _v, _e, resArray = [];
-        for ( var i = 0, lenI = _el.length; i < lenI; i++ ) 
+        for ( var i = 0, lenI = _el.length; i < lenI; i++ )
         {
             _e = _el[ i ];
             min = _e.getAttribute( 'min' );
@@ -559,16 +558,16 @@ module.exports = function( Microbe )
                 {
                     if ( _v > min && _v < max )
                     {
-                        resArray.push( _e ); 
+                        resArray.push( _e );
                     }
                 }
                 else if ( min && _v > min )
                 {
-                    resArray.push( _e ); 
+                    resArray.push( _e );
                 }
                 else if ( max && _v < max )
                 {
-                    resArray.push( _e ); 
+                    resArray.push( _e );
                 }
             }
         }
@@ -580,10 +579,10 @@ module.exports = function( Microbe )
      * ### lang
      *
      * match the elements based on the document language
-     * 
+     *
      * @param {Microbe} _el microbe to be filtered
      * @param {String} _var specified language (accepts wildcards as *)
-     * 
+     *
      * @return _Microbe_
      */
     pseudo.lang = function( _el, _var )
@@ -595,7 +594,7 @@ module.exports = function( Microbe )
                 _el     = _el.filter( '[lang]' );
                 _var    = _var.replace( '*', '' );
                 var resArray = [], _e;
-                for ( var i = 0; i < _el.length; i++ ) 
+                for ( var i = 0; i < _el.length; i++ )
                 {
                     _e = _el[ i ];
                     if ( _e.getAttribute( 'lang' ).indexOf( _var ) !== -1 )
@@ -613,7 +612,7 @@ module.exports = function( Microbe )
         }
         else
         {
-            return new Microbe( [] );            
+            return new Microbe( [] );
         }
     };
 
@@ -637,12 +636,12 @@ module.exports = function( Microbe )
     /**
      * ### local-link
      *
-     * returns all link tags that go to local links. If specified a depth 
+     * returns all link tags that go to local links. If specified a depth
      * filter can be added
-     * 
+     *
      * @param {Microbe} _el microbe to be filtered
      * @param {String} _var specified depth
-     * 
+     *
      * @return _Microbe_
      */
     pseudo[ 'local-link' ] = function( _el, _var )
@@ -651,7 +650,7 @@ module.exports = function( Microbe )
         var here    = document.location;
 
         var url, urlShort, depth, resArray = [];
-        for ( var i = 0, lenI = links.length; i < lenI; i++ ) 
+        for ( var i = 0, lenI = links.length; i < lenI; i++ )
         {
             url         = links[ i ].href;
             urlShort    = url.replace( here.origin, '' ).replace( here.host, '' );
@@ -761,10 +760,10 @@ module.exports = function( Microbe )
      * ### nth-column
      *
      * returns the nth column of the current microbe
-     * 
+     *
      * @param {Microbe} _el microbe to be filtered
      * @param {String} _var number of elements to return
-     * 
+     *
      * @return _Microbe_
      */
     pseudo[ 'nth-column' ] = function( _el, _var )
@@ -779,10 +778,10 @@ module.exports = function( Microbe )
      * ### nth-last-column
      *
      * returns the nth column of the current microbe starting from the back
-     * 
+     *
      * @param {Microbe} _el microbe to be filtered
      * @param {String} _var number of elements to return
-     * 
+     *
      * @return _Microbe_
      */
     pseudo[ 'nth-last-column' ] = function( _el, _var )
@@ -797,10 +796,10 @@ module.exports = function( Microbe )
      * ### nth-last-match
      *
      * returns the nth match(es) of the current microbe starting from the back
-     * 
+     *
      * @param {Microbe} _el microbe to be filtered
      * @param {String} _var number of elements to return
-     * 
+     *
      * @return _Microbe_
      */
     pseudo[ 'nth-last-match' ] = function( _el, _var )
@@ -813,10 +812,10 @@ module.exports = function( Microbe )
      * ### nth-match
      *
      * returns the nth match(es) of the current microbe
-     * 
+     *
      * @param {Microbe} _el microbe to be filtered
      * @param {String} _var number of elements to return
-     * 
+     *
      * @return _Microbe_
      */
     pseudo[ 'nth-match' ] = function( _el, _var )
@@ -852,9 +851,9 @@ module.exports = function( Microbe )
      * ### optional
      *
      * returns all optional elements
-     * 
+     *
      * @param  {[type]} _el [description]
-     * 
+     *
      * @return {[type]}     [description]
      */
     pseudo.optional = function( _el )
@@ -867,17 +866,17 @@ module.exports = function( Microbe )
      * ### out-of-range
      *
      * select the elements with a value inside the specified range
-     * 
+     *
      * @param {Microbe} _el microbe to be filtered
-     * 
+     *
      * @return _Microbe_
      */
     pseudo[ 'out-of-range' ] = function( _el )
     {
-        var _el = _el.filter( '[max],[min]' );
+        _el = _el.filter( '[max],[min]' );
 
         var min, max, _v, _e, resArray = [];
-        for ( var i = 0, lenI = _el.length; i < lenI; i++ ) 
+        for ( var i = 0, lenI = _el.length; i < lenI; i++ )
         {
             _e  = _el[ i ];
             min = _e.getAttribute( 'min' );
@@ -890,16 +889,16 @@ module.exports = function( Microbe )
                 {
                     if ( _v < min || _v > max )
                     {
-                        resArray.push( _e ); 
+                        resArray.push( _e );
                     }
                 }
                 else if ( min && _v < min )
                 {
-                    resArray.push( _e ); 
+                    resArray.push( _e );
                 }
                 else if ( max && _v > max )
                 {
-                    resArray.push( _e ); 
+                    resArray.push( _e );
                 }
             }
         }
@@ -911,9 +910,9 @@ module.exports = function( Microbe )
     /**
      * ### parent
      *
-     * returns the parents of an _el match.  
+     * returns the parents of an _el match.
      * normally triggered using the ! selector
-     * 
+     *
      * @param {Microbe} _el microbe to be filtered
      *
      * @return _Microbe_
@@ -926,7 +925,7 @@ module.exports = function( Microbe )
         for ( var i = 0, lenI = _el.length; i < lenI; i++ )
         {
             _e = _el[ i ];
-            
+
             if ( elements.indexOf( _e ) === -1 )
             {
                 elements.push( _e );
@@ -941,14 +940,14 @@ module.exports = function( Microbe )
      * ### read-only
      *
      * user-non-alterable content
-     * 
+     *
      * @param {Microbe} _el microbe to be filtered
      *
      * @return _Microbe_
      */
     pseudo[ 'read-only' ] = function( _el )
     {
-        return _el.filter( ':not(input,textfield,[contenteditable=false])' );  
+        return _el.filter( ':not(input,textfield,[contenteditable=false])' );
     };
 
 
@@ -956,14 +955,14 @@ module.exports = function( Microbe )
      * ### read-write
      *
      * input elements which are user-alterable or contenteditable
-     * 
+     *
      * @param {Microbe} _el microbe to be filtered
      *
      * @return _Microbe_
      */
     pseudo[ 'read-write' ] = function( _el )
     {
-        return _el.filter( 'input,textfield,[contenteditable=true]' );  
+        return _el.filter( 'input,textfield,[contenteditable=true]' );
     };
 
 

@@ -554,7 +554,7 @@ Microbe.core = Microbe.prototype ={
             var resArray    = [],
                 _el, els    = this.children();
 
-            for ( var i = 0, lenI = els.length; i < lenI; i++ ) 
+            for ( var i = 0, lenI = els.length; i < lenI; i++ )
             {
                 _el = els[ i ][ 0 ];
 
@@ -782,7 +782,7 @@ Microbe.core = Microbe.prototype ={
             {
                 if ( !unique || first.indexOf( second[ j ] ) === -1 )
                 {
-                    first[ i++ ] = second[ j ];                    
+                    first[ i++ ] = second[ j ];
                 }
             }
 
@@ -952,11 +952,11 @@ Microbe.core = Microbe.prototype ={
     /**
      * ## siblingsFlat
      *
-     * Gets an microbe of all siblings of all element's given. 'next' and 'prev' 
+     * Gets an microbe of all siblings of all element's given. 'next' and 'prev'
      * passed as direction return only the next or previous siblings of each element
      *
      * @paran {String} direction direction modifier (optional)
-     * 
+     *
      * @return _Microbe_ value array of combined siblings
      */
     siblingsFlat : function( direction )

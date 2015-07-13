@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="doc-style.css" />
   <script src="doc-filelist.js"></script>
   <script>
-    var relativeDir = "", thisFile = "Library/WebServer/Documents/microbe/src/pseudojs", defaultSidebar = true;
+    var relativeDir = "", thisFile = "Users/mouse/workspace/microbe/src/pseudojs", defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
   <script src="microbe.js"></script>
@@ -160,11 +160,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Mouse Braun         <a href="&#109;a&#x69;&#x6C;&#116;&#111;:&#x6D;&#111;&#x75;&#x73;&#x65;&#x40;&#x73;&#111;&#99;&#105;&#x6F;&#x6D;&#x61;&#110;t&#x69;&#x63;&#46;&#x63;&#111;&#109;">&#x6D;&#111;&#x75;&#x73;&#x65;&#x40;&#x73;&#111;&#99;&#105;&#x6F;&#x6D;&#x61;&#110;t&#x69;&#x63;&#46;&#x63;&#111;&#109;</a></span>
+      <span>Mouse Braun         <a href="&#x6D;&#x61;&#x69;&#x6C;&#x74;&#111;:&#109;&#x6F;&#x75;&#x73;&#x65;&#64;&#x73;&#111;&#x63;&#x69;&#111;&#109;&#x61;&#x6E;t&#105;&#x63;&#x2E;&#x63;&#111;&#109;">&#109;&#x6F;&#x75;&#x73;&#x65;&#64;&#x73;&#111;&#x63;&#x69;&#111;&#109;&#x61;&#x6E;t&#105;&#x63;&#x2E;&#x63;&#111;&#109;</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Nicolas Brugneaux   <a href="m&#97;&#x69;&#108;to:&#110;&#x69;&#99;o&#x6C;&#x61;&#x73;.&#x62;&#114;&#117;&#103;&#110;&#x65;&#x61;&#117;&#120;&#64;&#x73;o&#x63;&#x69;o&#x6D;a&#110;&#116;&#x69;c&#46;&#x63;&#111;&#109;">&#110;&#x69;&#99;o&#x6C;&#x61;&#x73;.&#x62;&#114;&#117;&#103;&#110;&#x65;&#x61;&#117;&#120;&#64;&#x73;o&#x63;&#x69;o&#x6D;a&#110;&#116;&#x69;c&#46;&#x63;&#111;&#109;</a></span>
+      <span>Nicolas Brugneaux   <a href="&#x6D;&#x61;&#105;&#108;&#x74;&#x6F;:&#110;&#105;c&#x6F;&#x6C;&#97;&#115;&#x2E;&#x62;&#x72;&#x75;&#103;&#110;&#x65;&#x61;&#117;&#120;&#64;&#x73;&#111;&#99;&#x69;o&#109;&#x61;&#x6E;&#x74;&#105;&#99;&#46;&#x63;&#x6F;&#x6D;">&#110;&#105;c&#x6F;&#x6C;&#97;&#115;&#x2E;&#x62;&#x72;&#x75;&#103;&#110;&#x65;&#x61;&#117;&#120;&#64;&#x73;&#111;&#99;&#x69;o&#109;&#x61;&#x6E;&#x74;&#105;&#99;&#46;&#x63;&#x6F;&#x6D;</a></span>
     </div>
     <div class="dox_tag_title">package</div>
     <div class="dox_tag_detail">
@@ -271,9 +271,9 @@ and returns the result</p>
             <span class="p">}</span>
 
             <span class="kd">var</span> <span class="nx">_e</span><span class="p">,</span> <span class="nx">resArray</span> <span class="o">=</span> <span class="p">[];</span>
-            <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">offset</span> <span class="o">||</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">top</span> <span class="o">||</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="p">)</span> 
+            <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">offset</span> <span class="o">||</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">top</span> <span class="o">||</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="p">)</span>
             <span class="p">{</span>
-                <span class="nx">_e</span> <span class="o">=</span> <span class="nx">_el</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span>
+                <span class="nx">_e</span> <span class="o">=</span> <span class="nx">_el</span><span class="p">[</span> <span class="nx">i</span> <span class="p">];</span>
 
                 <span class="k">if</span> <span class="p">(</span> <span class="nx">_e</span> <span class="p">)</span>
                 <span class="p">{</span>
@@ -282,9 +282,8 @@ and returns the result</p>
 
                 <span class="nx">i</span> <span class="o">+=</span> <span class="nx">increment</span><span class="p">;</span>
             <span class="p">}</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="nx">Microbe</span><span class="p">(</span> <span class="nx">resArray</span> <span class="p">);</span>
         <span class="p">}</span>
-
-        <span class="k">return</span> <span class="k">new</span> <span class="nx">Microbe</span><span class="p">(</span> <span class="nx">resArray</span> <span class="p">);</span>
     <span class="p">};</span>
 
 
@@ -369,7 +368,7 @@ and returns the result</p>
         <span class="kd">function</span> <span class="nx">_breakUpSelector</span><span class="p">(</span> <span class="nx">_selectors</span> <span class="p">)</span>
         <span class="p">{</span>
             <span class="kd">var</span> <span class="nx">_el</span><span class="p">,</span> <span class="nx">resArray</span> <span class="o">=</span> <span class="p">[];</span>
-            <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">_selectors</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span> 
+            <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">_selectors</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
             <span class="p">{</span>
                 <span class="k">if</span> <span class="p">(</span> <span class="nx">i</span> <span class="o">===</span> <span class="mi">0</span> <span class="p">)</span>
                 <span class="p">{</span>
@@ -380,7 +379,7 @@ and returns the result</p>
                     <span class="nx">Microbe</span><span class="p">.</span><span class="nx">merge</span><span class="p">(</span> <span class="nx">resArray</span><span class="p">,</span> <span class="nx">pseudo</span><span class="p">(</span> <span class="nx">self</span><span class="p">,</span> <span class="nx">_selectors</span><span class="p">[</span> <span class="nx">i</span> <span class="p">],</span> <span class="nx">_scope</span><span class="p">,</span> <span class="nx">_build</span> <span class="p">),</span> <span class="kc">true</span> <span class="p">);</span>
                 <span class="p">}</span>
             <span class="p">}</span>
-            
+
             <span class="k">return</span> <span class="nx">resArray</span><span class="p">;</span>
         <span class="p">}</span>
 
@@ -416,7 +415,7 @@ and returns the result</p>
         <span class="p">{</span>
             <span class="kd">var</span> <span class="nx">_pseudo</span> <span class="o">=</span> <span class="nx">_parsePseudo</span><span class="p">(</span> <span class="nx">_selector</span> <span class="p">);</span>
 
-            <span class="nx">obj</span> <span class="o">=</span> <span class="nx">_build</span><span class="p">(</span> <span class="nx">_scope</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span> <span class="nx">_pseudo</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">),</span> <span class="nx">self</span> <span class="p">);</span>
+            <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="nx">_build</span><span class="p">(</span> <span class="nx">_scope</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span> <span class="nx">_pseudo</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">),</span> <span class="nx">self</span> <span class="p">);</span>
             <span class="nx">_pseudo</span> <span class="o">=</span> <span class="nx">_pseudo</span><span class="p">[</span> <span class="mi">1</span> <span class="p">];</span>
 
             <span class="kd">var</span> <span class="nx">_sel</span><span class="p">,</span> <span class="nx">_var</span><span class="p">;</span>
@@ -475,7 +474,7 @@ and returns the result</p>
         <td class="code highlight"><div class="highlight"><pre>
         <span class="kd">function</span> <span class="nx">_cycleFilters</span><span class="p">(</span> <span class="nx">res</span> <span class="p">)</span>
         <span class="p">{</span>
-            <span class="nx">obj</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">pseudo</span><span class="p">(</span> <span class="nx">self</span><span class="p">,</span> <span class="nx">res</span><span class="p">[</span> <span class="mi">0</span> <span class="p">],</span> <span class="nx">_scope</span><span class="p">,</span> <span class="nx">_build</span> <span class="p">);</span>
+            <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">pseudo</span><span class="p">(</span> <span class="nx">self</span><span class="p">,</span> <span class="nx">res</span><span class="p">[</span> <span class="mi">0</span> <span class="p">],</span> <span class="nx">_scope</span><span class="p">,</span> <span class="nx">_build</span> <span class="p">);</span>
 
             <span class="kd">var</span> <span class="nx">filter</span><span class="p">,</span> <span class="nx">connect</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
             <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">res</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
@@ -533,7 +532,7 @@ and returns the result</p>
 
   </div>
   <div class="body"><p>checks all pseudo-selectors to see if they're custom and
-otherwise it reattaches it </p>
+otherwise it reattaches it</p>
   </div>
   <div class="details">
     <div class="dox_tag_title">Params</div>
@@ -689,7 +688,7 @@ otherwise it reattaches it </p>
     <span class="nx">pseudo</span><span class="p">.</span><span class="nx">blank</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_el</span> <span class="p">)</span>
     <span class="p">{</span>
         <span class="kd">var</span> <span class="nx">resArray</span> <span class="o">=</span> <span class="p">[],</span> <span class="nx">_e</span><span class="p">,</span> <span class="nx">_t</span><span class="p">;</span>
-        <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span> 
+        <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
         <span class="p">{</span>
             <span class="nx">_e</span> <span class="o">=</span> <span class="nx">_el</span><span class="p">[</span> <span class="nx">i</span> <span class="p">];</span>
             <span class="nx">_t</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">all</span> <span class="o">?</span> <span class="nx">_e</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">:</span> <span class="nx">_e</span><span class="p">.</span><span class="nx">textContent</span><span class="p">;</span>
@@ -846,7 +845,7 @@ is compared ignoring case</p>
         <span class="nx">_el</span> <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span> <span class="s1">&#39;input, option&#39;</span> <span class="p">);</span>
 
         <span class="kd">var</span> <span class="nx">_e</span><span class="p">,</span> <span class="nx">resArray</span> <span class="o">=</span> <span class="p">[];</span>
-        <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span> 
+        <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
         <span class="p">{</span>
             <span class="nx">_e</span> <span class="o">=</span> <span class="nx">_el</span><span class="p">[</span> <span class="nx">i</span> <span class="p">];</span>
 
@@ -901,7 +900,7 @@ is compared ignoring case</p>
     <span class="nx">pseudo</span><span class="p">.</span><span class="nx">dir</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_el</span><span class="p">,</span> <span class="nx">_var</span> <span class="p">)</span>
     <span class="p">{</span>
         <span class="kd">var</span> <span class="nx">_e</span><span class="p">,</span> <span class="nx">resArray</span> <span class="o">=</span> <span class="p">[];</span>
-        <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span> 
+        <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
         <span class="p">{</span>
             <span class="nx">_e</span> <span class="o">=</span> <span class="nx">_el</span><span class="p">[</span> <span class="nx">i</span> <span class="p">];</span>
             <span class="k">if</span> <span class="p">(</span> <span class="nx">getComputedStyle</span><span class="p">(</span> <span class="nx">_e</span> <span class="p">).</span><span class="nx">direction</span> <span class="o">===</span> <span class="nx">_var</span> <span class="p">)</span>
@@ -928,7 +927,7 @@ is compared ignoring case</p>
 </div>
 
   </div>
-  <div class="body"><p>returns all elements that are drop targets. HTML has a dropzone 
+  <div class="body"><p>returns all elements that are drop targets. HTML has a dropzone
 attribute which specifies that an element is a drop target.</p>
   </div>
   <div class="details">
@@ -1196,10 +1195,10 @@ attribute which specifies that an element is a drop target.</p>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">pseudo</span><span class="p">[</span> <span class="s1">&#39;in-range&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_el</span> <span class="p">)</span>
     <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">_el</span> <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span> <span class="s1">&#39;[max],[min]&#39;</span> <span class="p">);</span>
+        <span class="nx">_el</span> <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span> <span class="s1">&#39;[max],[min]&#39;</span> <span class="p">);</span>
 
         <span class="kd">var</span> <span class="nx">min</span><span class="p">,</span> <span class="nx">max</span><span class="p">,</span> <span class="nx">_v</span><span class="p">,</span> <span class="nx">_e</span><span class="p">,</span> <span class="nx">resArray</span> <span class="o">=</span> <span class="p">[];</span>
-        <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span> 
+        <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
         <span class="p">{</span>
             <span class="nx">_e</span> <span class="o">=</span> <span class="nx">_el</span><span class="p">[</span> <span class="nx">i</span> <span class="p">];</span>
             <span class="nx">min</span> <span class="o">=</span> <span class="nx">_e</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span> <span class="s1">&#39;min&#39;</span> <span class="p">);</span>
@@ -1212,16 +1211,16 @@ attribute which specifies that an element is a drop target.</p>
                 <span class="p">{</span>
                     <span class="k">if</span> <span class="p">(</span> <span class="nx">_v</span> <span class="o">&gt;</span> <span class="nx">min</span> <span class="o">&amp;&amp;</span> <span class="nx">_v</span> <span class="o">&lt;</span> <span class="nx">max</span> <span class="p">)</span>
                     <span class="p">{</span>
-                        <span class="nx">resArray</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">_e</span> <span class="p">);</span> 
+                        <span class="nx">resArray</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">_e</span> <span class="p">);</span>
                     <span class="p">}</span>
                 <span class="p">}</span>
                 <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">min</span> <span class="o">&amp;&amp;</span> <span class="nx">_v</span> <span class="o">&gt;</span> <span class="nx">min</span> <span class="p">)</span>
                 <span class="p">{</span>
-                    <span class="nx">resArray</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">_e</span> <span class="p">);</span> 
+                    <span class="nx">resArray</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">_e</span> <span class="p">);</span>
                 <span class="p">}</span>
                 <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">max</span> <span class="o">&amp;&amp;</span> <span class="nx">_v</span> <span class="o">&lt;</span> <span class="nx">max</span> <span class="p">)</span>
                 <span class="p">{</span>
-                    <span class="nx">resArray</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">_e</span> <span class="p">);</span> 
+                    <span class="nx">resArray</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">_e</span> <span class="p">);</span>
                 <span class="p">}</span>
             <span class="p">}</span>
         <span class="p">}</span>
@@ -1276,7 +1275,7 @@ attribute which specifies that an element is a drop target.</p>
                 <span class="nx">_el</span>     <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span> <span class="s1">&#39;[lang]&#39;</span> <span class="p">);</span>
                 <span class="nx">_var</span>    <span class="o">=</span> <span class="nx">_var</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span> <span class="p">);</span>
                 <span class="kd">var</span> <span class="nx">resArray</span> <span class="o">=</span> <span class="p">[],</span> <span class="nx">_e</span><span class="p">;</span>
-                <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span> 
+                <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
                 <span class="p">{</span>
                     <span class="nx">_e</span> <span class="o">=</span> <span class="nx">_el</span><span class="p">[</span> <span class="nx">i</span> <span class="p">];</span>
                     <span class="k">if</span> <span class="p">(</span> <span class="nx">_e</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span> <span class="s1">&#39;lang&#39;</span> <span class="p">).</span><span class="nx">indexOf</span><span class="p">(</span> <span class="nx">_var</span> <span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span> <span class="p">)</span>
@@ -1294,7 +1293,7 @@ attribute which specifies that an element is a drop target.</p>
         <span class="p">}</span>
         <span class="k">else</span>
         <span class="p">{</span>
-            <span class="k">return</span> <span class="k">new</span> <span class="nx">Microbe</span><span class="p">(</span> <span class="p">[]</span> <span class="p">);</span>            
+            <span class="k">return</span> <span class="k">new</span> <span class="nx">Microbe</span><span class="p">(</span> <span class="p">[]</span> <span class="p">);</span>
         <span class="p">}</span>
     <span class="p">};</span>
 
@@ -1354,7 +1353,7 @@ attribute which specifies that an element is a drop target.</p>
 </div>
 
   </div>
-  <div class="body"><p>returns all link tags that go to local links. If specified a depth 
+  <div class="body"><p>returns all link tags that go to local links. If specified a depth
 filter can be added</p>
   </div>
   <div class="details">
@@ -1384,7 +1383,7 @@ filter can be added</p>
         <span class="kd">var</span> <span class="nx">here</span>    <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">location</span><span class="p">;</span>
 
         <span class="kd">var</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">urlShort</span><span class="p">,</span> <span class="nx">depth</span><span class="p">,</span> <span class="nx">resArray</span> <span class="o">=</span> <span class="p">[];</span>
-        <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">links</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span> 
+        <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">links</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
         <span class="p">{</span>
             <span class="nx">url</span>         <span class="o">=</span> <span class="nx">links</span><span class="p">[</span> <span class="nx">i</span> <span class="p">].</span><span class="nx">href</span><span class="p">;</span>
             <span class="nx">urlShort</span>    <span class="o">=</span> <span class="nx">url</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span> <span class="nx">here</span><span class="p">.</span><span class="nx">origin</span><span class="p">,</span> <span class="s1">&#39;&#39;</span> <span class="p">).</span><span class="nx">replace</span><span class="p">(</span> <span class="nx">here</span><span class="p">.</span><span class="nx">host</span><span class="p">,</span> <span class="s1">&#39;&#39;</span> <span class="p">);</span>
@@ -1883,10 +1882,10 @@ CSS4 spec, this accepts complex selectors seperated with a comma</p>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">pseudo</span><span class="p">[</span> <span class="s1">&#39;out-of-range&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_el</span> <span class="p">)</span>
     <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">_el</span> <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span> <span class="s1">&#39;[max],[min]&#39;</span> <span class="p">);</span>
+        <span class="nx">_el</span> <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span> <span class="s1">&#39;[max],[min]&#39;</span> <span class="p">);</span>
 
         <span class="kd">var</span> <span class="nx">min</span><span class="p">,</span> <span class="nx">max</span><span class="p">,</span> <span class="nx">_v</span><span class="p">,</span> <span class="nx">_e</span><span class="p">,</span> <span class="nx">resArray</span> <span class="o">=</span> <span class="p">[];</span>
-        <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span> 
+        <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
         <span class="p">{</span>
             <span class="nx">_e</span>  <span class="o">=</span> <span class="nx">_el</span><span class="p">[</span> <span class="nx">i</span> <span class="p">];</span>
             <span class="nx">min</span> <span class="o">=</span> <span class="nx">_e</span><span class="p">.</span><span class="nx">getAttribute</span><span class="p">(</span> <span class="s1">&#39;min&#39;</span> <span class="p">);</span>
@@ -1899,16 +1898,16 @@ CSS4 spec, this accepts complex selectors seperated with a comma</p>
                 <span class="p">{</span>
                     <span class="k">if</span> <span class="p">(</span> <span class="nx">_v</span> <span class="o">&lt;</span> <span class="nx">min</span> <span class="o">||</span> <span class="nx">_v</span> <span class="o">&gt;</span> <span class="nx">max</span> <span class="p">)</span>
                     <span class="p">{</span>
-                        <span class="nx">resArray</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">_e</span> <span class="p">);</span> 
+                        <span class="nx">resArray</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">_e</span> <span class="p">);</span>
                     <span class="p">}</span>
                 <span class="p">}</span>
                 <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">min</span> <span class="o">&amp;&amp;</span> <span class="nx">_v</span> <span class="o">&lt;</span> <span class="nx">min</span> <span class="p">)</span>
                 <span class="p">{</span>
-                    <span class="nx">resArray</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">_e</span> <span class="p">);</span> 
+                    <span class="nx">resArray</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">_e</span> <span class="p">);</span>
                 <span class="p">}</span>
                 <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">max</span> <span class="o">&amp;&amp;</span> <span class="nx">_v</span> <span class="o">&gt;</span> <span class="nx">max</span> <span class="p">)</span>
                 <span class="p">{</span>
-                    <span class="nx">resArray</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">_e</span> <span class="p">);</span> 
+                    <span class="nx">resArray</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">_e</span> <span class="p">);</span>
                 <span class="p">}</span>
             <span class="p">}</span>
         <span class="p">}</span>
@@ -1932,7 +1931,7 @@ CSS4 spec, this accepts complex selectors seperated with a comma</p>
 </div>
 
   </div>
-  <div class="body"><p>returns the parents of an _el match. <br />
+  <div class="body"><p>returns the parents of an _el match.
 normally triggered using the ! selector</p>
   </div>
   <div class="details">
@@ -1959,7 +1958,7 @@ normally triggered using the ! selector</p>
         <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
         <span class="p">{</span>
             <span class="nx">_e</span> <span class="o">=</span> <span class="nx">_el</span><span class="p">[</span> <span class="nx">i</span> <span class="p">];</span>
-            
+
             <span class="k">if</span> <span class="p">(</span> <span class="nx">elements</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="nx">_e</span> <span class="p">)</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span> <span class="p">)</span>
             <span class="p">{</span>
                 <span class="nx">elements</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">_e</span> <span class="p">);</span>
@@ -2005,7 +2004,7 @@ normally triggered using the ! selector</p>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">pseudo</span><span class="p">[</span> <span class="s1">&#39;read-only&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_el</span> <span class="p">)</span>
     <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span> <span class="s1">&#39;:not(input,textfield,[contenteditable=false])&#39;</span> <span class="p">);</span>  
+        <span class="k">return</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span> <span class="s1">&#39;:not(input,textfield,[contenteditable=false])&#39;</span> <span class="p">);</span>
     <span class="p">};</span>
 
 
@@ -2044,7 +2043,7 @@ normally triggered using the ! selector</p>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">pseudo</span><span class="p">[</span> <span class="s1">&#39;read-write&#39;</span> <span class="p">]</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_el</span> <span class="p">)</span>
     <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span> <span class="s1">&#39;input,textfield,[contenteditable=true]&#39;</span> <span class="p">);</span>  
+        <span class="k">return</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span> <span class="s1">&#39;input,textfield,[contenteditable=true]&#39;</span> <span class="p">);</span>
     <span class="p">};</span>
 
 

@@ -3,7 +3,6 @@ module.exports = function( buildTest )
 {
     QUnit.module( 'pseudo.js' );
 
-
     /**
      * pseudo custom connectors tests
      *
@@ -52,7 +51,7 @@ module.exports = function( buildTest )
 
     /**
      * ### blank
-     * 
+     *
      * µ blank tests
      *
      * @test    blank exists
@@ -72,7 +71,7 @@ module.exports = function( buildTest )
 
     /**
      * ### column
-     * 
+     *
      * µ column selector tests
      *
      * @test    blank exists
@@ -302,7 +301,7 @@ module.exports = function( buildTest )
     QUnit.test( ':in-range', function( assert )
     {
         var µInRangeDiv = µ( ':in-range' );
-        var byElement   = µ( '#emailInput2' )[0]; 
+        var byElement   = µ( '#emailInput2' )[0];
 
         assert.ok( µ.pseudo[ 'in-range' ], 'exists' );
         assert.equal( µInRangeDiv.length, 1, 'grabs the correct amount of elements' );
@@ -383,7 +382,7 @@ module.exports = function( buildTest )
     QUnit.test( ':local-link', function( assert )
     {
         var µLinks      = µ( ':local-link' );
-        var allLinks    = µ( 'a' ); 
+        var allLinks    = µ( 'a' );
         var µDepth1     = µ( ':local-link(1)' );
         var µDepth2     = µ( ':local-link(2)' );
 
@@ -446,7 +445,7 @@ module.exports = function( buildTest )
 
     /**
      * ### not
-     * 
+     *
      * µ complex not selector tests
      *
      * @test    blank exists
@@ -467,7 +466,7 @@ module.exports = function( buildTest )
 
     /**
      * ### nth-column
-     * 
+     *
      * µ column selector tests
      *
      * @test    nth-column exists
@@ -488,7 +487,7 @@ module.exports = function( buildTest )
 
     /**
      * ### nth-last-column
-     * 
+     *
      * µ column selector tests
      *
      * @test    blank exists
@@ -498,7 +497,7 @@ module.exports = function( buildTest )
     QUnit.test( ':nth-last-column', function( assert )
     {
         assert.ok( µ.pseudo[ 'nth-last-column' ], 'exists' );
-    
+
         var col1 = document.getElementById( 'col1' );
         assert.equal( µ( ':nth-last-column(3)' )[0], col1, 'filter with number' );
         assert.equal( µ( ':nth-last-column(2n1)' )[0], col1, 'filter with n-number' );
@@ -509,7 +508,7 @@ module.exports = function( buildTest )
 
     /**
      * ### nth-last-match
-     * 
+     *
      * µ match selector tests
      *
      * @test    blank exists
@@ -519,7 +518,7 @@ module.exports = function( buildTest )
     QUnit.test( ':nth-last-match', function( assert )
     {
         assert.ok( µ.pseudo[ 'nth-last-match' ], 'exists' );
-    
+
         var col1 = document.getElementById( 'col1' );
         assert.equal( µ( 'col:nth-last-match(3)' )[0], col1, 'filter with number' );
         assert.equal( µ( 'col:nth-last-match(2n1)' )[0], col1, 'filter with n-number' );
@@ -530,7 +529,7 @@ module.exports = function( buildTest )
 
     /**
      * ### nth-match
-     * 
+     *
      * µ match selector tests
      *
      * @test    nth-match exists
@@ -607,7 +606,7 @@ module.exports = function( buildTest )
     QUnit.test( ':out-of-range', function( assert )
     {
         var µInRangeDiv = µ( ':out-of-range' );
-        var byElement   = µ( '#emailInput3' )[0]; 
+        var byElement   = µ( '#emailInput3' )[0];
 
         assert.ok( µ.pseudo[ 'out-of-range' ], 'exists' );
         assert.equal( µInRangeDiv.length, 1, 'grabs the correct amount of elements' );
@@ -626,9 +625,9 @@ module.exports = function( buildTest )
      */
     QUnit.test( '! || :parent', function( assert )
     {
-        var emailInput3         = µ( '#emailInput3' ).parent(); 
-        var emailParent         = µ( '#emailInput3:parent' ); 
-        var emailExclamation    = µ( '#emailInput3!' ); 
+        var emailInput3         = µ( '#emailInput3' ).parent();
+        var emailParent         = µ( '#emailInput3:parent' );
+        var emailExclamation    = µ( '#emailInput3!' );
 
         assert.ok( µ.pseudo[ 'parent' ], 'exists' );
         assert.deepEqual( emailInput3[0], emailParent[0], 'gets the correct parent as pseudo' );
