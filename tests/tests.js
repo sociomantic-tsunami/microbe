@@ -137,11 +137,11 @@ require( './observe' )( buildTest );
 
 window.buildTest = buildTest;
 },{"./core":2,"./dom":3,"./events":4,"./http":5,"./init":6,"./observe":7,"./pseudo":8,"./root":9}],2:[function(require,module,exports){
-/* global document, window, µ, $, QUnit, Benchmark, test  */
+ // global document, window, µ, $, QUnit, Benchmark, test  
 
 module.exports = function( buildTest )
 {
-    var version = '0.3.3';
+    var version = '0.3.4';
 
     QUnit.module( 'core.js' );
 
@@ -279,6 +279,30 @@ module.exports = function( buildTest )
         assert.ok( µ.isArray( children ), 'returns an array' );
         assert.ok( children[0].type === '[object Microbe]', 'full of microbes' );
         assert.deepEqual( µ( '.example--class' )[0].children[0], children[0][0], 'the correct children' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
+     * µ childrenFlat tests
+     *
+     * @test    childrenFlat exists
+     * @test    childrenFlat returns an array
+     * @test    with itself removed
+     * @test    that are correct
+     */
+    QUnit.test( '.childrenFlat()', function( assert )
+    {
+        assert.ok( µ().childrenFlat, 'exists' );
+
+        var childrenFlat = µ( '.example--class' ).childrenFlat();
+
+        assert.ok( childrenFlat.type === '[object Microbe]', 'returns an microbe' );
+
+        var nodeChildren = Array.prototype.slice.call( µ( '.example--class' )[0].children );
+
+        assert.equal( childrenFlat.length, nodeChildren.length, 'correct number of elements' );
 
         buildTest( 'No comparison available.' );
     });
@@ -1006,6 +1030,64 @@ module.exports = function( buildTest )
 
 
     /**
+     * µ siblings tests
+     *
+     * @test    siblings exists
+     * @test    siblings returns an array
+     * @test    full of microbes
+     * @test    with itself removed
+     * @test    that are correct
+     */
+    QUnit.test( '.siblings()', function( assert )
+    {
+        assert.ok( µ().siblings, 'exists' );
+
+        var siblings = µ( '.example--class' ).siblings();
+
+        assert.ok( µ.isArray( siblings ), 'returns an array' );
+        assert.ok( siblings[0].type === '[object Microbe]', 'full of microbes' );
+
+        var nodeChildren = Array.prototype.slice.call( µ( '.example--class' )[0].parentNode.children );
+
+        assert.equal( siblings[0].indexOf( µ( '.example--class' )[0] ), -1, 'removed self' );
+        assert.equal( siblings[0].length, nodeChildren.length - 1, 'correct number of elements' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
+     * µ siblingsFlat tests
+     *
+     * @test    siblingsFlat exists
+     * @test    siblingsFlat returns an array
+     * @test    with itself removed
+     * @test    that are correct
+     */
+    QUnit.test( '.siblingsFlat()', function( assert )
+    {
+        assert.ok( µ().siblingsFlat, 'exists' );
+
+        var siblingsFlat = µ( '.example--class' ).siblingsFlat();
+
+        assert.ok( siblingsFlat.type === '[object Microbe]', 'returns an microbe' );
+
+        var nodeChildren = Array.prototype.slice.call( µ( '.example--class' )[0].parentNode.children );
+
+        assert.equal( siblingsFlat.indexOf( µ( '.example--class' )[0] ), -1, 'removed self' );
+        assert.equal( siblingsFlat.length, nodeChildren.length - 1, 'correct number of elements' );
+
+        var prev = µ( '#qunit' )[0].prevElementSibling;
+        var next = µ( '#qunit' )[0].nextElementSibling;
+
+        assert.deepEqual( prev, µ( '#qunit' ).siblingsFlat( 'prev' )[0], 'siblingsFlat( \'prev\' ) gets previous element' );
+        assert.deepEqual( next, µ( '#qunit' ).siblingsFlat( 'next' )[0], 'siblingsFlat( \'next\' ) gets next element' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
      * µ splice tests
      *
      * @test    splice exists
@@ -1190,10 +1272,9 @@ module.exports = function( buildTest )
      * @test    append exists
      * @test    attached microbe
      * @test    attached element
-     * @test    attached by creation string                 // future feature
-     * @test    attached by array of microbes               // future feature
+     * @test    attached by creation string
+     * @test    attached by selector string
      * @test    attached by array of elements
-     * @test    attached by array of creation strings       // future feature
      */
     QUnit.test( '.append()', function( assert )
     {
@@ -1210,36 +1291,20 @@ module.exports = function( buildTest )
         assert.deepEqual( µNewDiv[0], µTarget.children()[0][0], 'attached element' );
         µNewDiv.remove();
 
-        // NON FUNCTIONAL TEST
-        // this is a future ability and cannot be tested yet
-        //
-        // µTarget.append( '<div.a--new--div>' );
-        // assert.deepEqual( µ( '.a--new--div' )[0], µTarget.children()[0], 'attached by creation string' );
-        // µ( '.a--new--div' ).remove();
+        µTarget.append( '<div.a--new--div>' );
+        assert.deepEqual( µ( '.a--new--div' )[0], µTarget.childrenFlat()[0], 'attached by creation string' );
+
+        µTarget.append( 'div.a--new--div' );
+        assert.deepEqual( µ( '.a--new--div' )[0], µTarget.childrenFlat()[0], 'attached by creation string' );
+
+        µ( '.a--new--div' ).remove();
 
         var µAnotherNewDiv = µ( '<div.a--new--div>' );
-
-        // NON FUNCTIONAL TEST
-        // this is a future ability and cannot be tested yet
-        //
-        // µTarget.append( [ µNewDiv, µAnotherNewDiv ] );
-        // assert.equal( µ( '.a--new--div' ).length, 2, 'attached 2 microbes' );
-        // µNewDiv.remove();
-        // µAnotherNewDiv.remove();
 
         µTarget.append( [ µNewDiv[0], µAnotherNewDiv[0] ] );
         assert.equal( µ( '.a--new--div' ).length, 2, 'attached 2 elements' );
         µNewDiv.remove();
         µAnotherNewDiv.remove();
-
-        // NON FUNCTIONAL TEST
-        // this is a future ability and cannot be tested yet
-        //
-        // µTarget.append( [ '<div.a--new--div>', '<div.a--new--div>' ] );
-        // assert.equal( µ( '.a--new--div' ).length, 2, 'attached 2 creation strings' );
-        // µNewDiv.remove();
-        // µAnotherNewDiv.remove();
-
 
         var el;
         var µDiv = µ( 'div' ).first();
@@ -1350,10 +1415,9 @@ module.exports = function( buildTest )
      * @test    prepend exists
      * @test    attached microbe
      * @test    attached element
-     * @test    attached by creation string                 // future feature
-     * @test    attached by array of microbes               // future feature
+     * @test    attached by creation string
+     * @test    attached by microbe string
      * @test    attached by array of elements
-     * @test    attached by array of creation strings       // future feature
      */
     QUnit.test( '.prepend()', function( assert )
     {
@@ -1370,35 +1434,20 @@ module.exports = function( buildTest )
         assert.deepEqual( µNewDiv[0], µTarget.children()[0][0], 'attached element' );
         µNewDiv.remove();
 
-        // NON FUNCTIONAL TEST
-        // this is a future ability and cannot be tested yet
-        //
-        // µTarget.prepend( '<div.a--new--div>' );
-        // assert.deepEqual( µ( '.a--new--div' )[0], µTarget.children()[0], 'attached by creation string' );
-        // µ( '.a--new--div' ).remove();
+        µTarget.prepend( '<div.a--new--div>' );
+        assert.deepEqual( µ( '.a--new--div' )[0], µTarget.childrenFlat()[0], 'attached by creation string' );
+
+        µTarget.prepend( 'div.a--new--div' );
+        assert.deepEqual( µ( '.a--new--div' )[0], µTarget.childrenFlat()[0], 'attached by creation string' );
+
+        µ( '.a--new--div' ).remove();
 
         var µAnotherNewDiv = µ( '<div.a--new--div>' );
-
-        // NON FUNCTIONAL TEST
-        // this is a future ability and cannot be tested yet
-        //
-        // µTarget.prepend( [ µNewDiv, µAnotherNewDiv ] );
-        // assert.equal( µ( '.a--new--div' ).length, 2, 'attached 2 microbes' );
-        // µNewDiv.remove();
-        // µAnotherNewDiv.remove();
 
         µTarget.prepend( [ µNewDiv[0], µAnotherNewDiv[0] ] );
         assert.equal( µ( '.a--new--div' ).length, 2, 'attached 2 elements' );
         µNewDiv.remove();
         µAnotherNewDiv.remove();
-
-        // NON FUNCTIONAL TEST
-        // this is a future ability and cannot be tested yet
-        //
-        // µTarget.prepend( [ '<div.a--new--div>', '<div.a--new--div>' ] );
-        // assert.equal( µ( '.a--new--div' ).length, 2, 'attached 2 creation strings' );
-        // µNewDiv.remove();
-        // µAnotherNewDiv.remove();
 
 
         var el;
@@ -1803,6 +1852,33 @@ module.exports = function( buildTest )
 
 
     /**
+     * µ init query multiple classes tests
+     *
+     * @test    one div
+     * @test    passes
+     */
+    QUnit.test( 'query multiple classes', function( assert )
+    {
+        var _div    = document.getElementsByClassName( 'example--class' );
+        var µDiv    = µ( '.example--class.example--class--groups' );
+
+        assert.equal( µDiv.length, 1, 'one div' );
+        assert.deepEqual( µDiv[ 0 ], _div[0], 'passes' );
+
+        buildTest(
+        'µ( \'.example--class.example--class--groups\' )', function()
+        {
+            return µ( '.example--class.example--class--groups' );
+        },
+
+        '$( \'.example--class.example--class--groups\' )', function()
+        {
+            return $( '.example--class.example--class--groups' );
+        } );
+    });
+
+
+    /**
      * µ init query id tests
      *
      * @test    one body
@@ -1825,6 +1901,33 @@ module.exports = function( buildTest )
         '$( \'#example--id\' )', function()
         {
             return $( '#example--id' );
+        } );
+    });
+
+
+    /**
+     * µ init query id and class tests
+     *
+     * @test    one body
+     * @test    passes
+     */
+    QUnit.test( 'query id and class', function( assert )
+    {
+        var _div    = document.getElementById( 'example--combined' ); 
+        var µDiv    = µ( '#example--combined.example--combined' );
+
+        assert.equal( µDiv.length, 1, 'one div' );
+        assert.deepEqual( µDiv[ 0 ], _div, 'passes' );
+
+        buildTest(
+        'µ( \'#example--combined.example--combined\' )', function()
+        {
+            return µ( '#example--combined.example--combined' );
+        },
+
+        '$( \'#example--combined.example--combined\' )', function()
+        {
+            return $( '#example--combined.example--combined' );
         } );
     });
 
@@ -1947,8 +2050,11 @@ module.exports = function( buildTest )
     QUnit.test( 'query with string scope', function( assert )
     {
         var µDiv = µ( 'div', '.example--class--groups' );
-        assert.equal( µDiv.length, 2, 'two divs' );
+        assert.equal( µDiv.length, 2, 'two divs from 2 strings' );
 
+
+        µDiv = µ( µDiv[0], '.example--class--groups' );
+        assert.equal( µDiv.length, 1, '1 divs from a string and an element' );
 
         buildTest(
         'µ( \'div\', \'.example--class--groups\' )', function()
@@ -2878,6 +2984,7 @@ module.exports = function( buildTest )
      * µ debounce tests
      *
      * @test    debounce exists
+     * @test    reuns on it's timer
      */
     QUnit.test( '.debounce()', function( assert )
     {
@@ -2925,6 +3032,20 @@ module.exports = function( buildTest )
     QUnit.test( '.insertStyle()', function( assert )
     {
         assert.ok( µ.insertStyle, 'exists' );
+
+        µ.insertStyle( '#qunit', { 'color':'#f0f' } )
+        var savedColor = µ.__customCSSRules[ '#qunit' ].none.obj.color;
+
+        assert.equal( µ( '#qunit' ).css( 'color' )[0], 'rgb(255, 0, 255)', 'sets the rule' );
+        assert.equal( savedColor, '#f0f', 'saves the reference' );
+
+        µ.removeStyle( '#qunit' );
+
+        var media = 'screen and (min-width : 600px)';
+        µ.insertStyle( '#qunit', { 'color':'#f0f' }, media );
+
+        assert.ok( µ.__customCSSRules[ '#qunit' ][ media ], 'inserts media queries' );
+        µ.removeStyle( '#qunit' );
 
         buildTest( 'No speed tests available.' );
     });
@@ -3193,6 +3314,17 @@ module.exports = function( buildTest )
     {
         assert.ok( µ.removeStyle, 'exists' );
 
+        µ.insertStyle( '#qunit', { 'color':'#f0f' } );
+
+        var media = 'screen and (min-width : 600px)';
+        µ.insertStyle( '#qunit', { 'display':'none' }, media );
+        µ.removeStyle( '#qunit', media );
+
+        assert.equal( µ( '#qunit' ).css( 'display' )[0], 'block', 'removes individual media queries' );
+        µ.removeStyle( '#qunit' );
+
+        assert.ok( !µ.__customCSSRules[ '#qunit' ].none, 'removes base references' );
+
         buildTest( 'No speed tests available.' );
     });
 
@@ -3205,6 +3337,15 @@ module.exports = function( buildTest )
     QUnit.test( '.removeStyles()', function( assert )
     {
         assert.ok( µ.removeStyles, 'exists' );
+
+        µ.insertStyle( '#qunit', { 'color':'#f0f' } );
+
+        var media = 'screen and (min-width : 600px)';
+        µ.insertStyle( '#qunit', { 'display':'none' }, media );
+        µ.removeStyles( '#qunit' );
+
+        assert.equal( µ( '#qunit' ).css( 'display' )[0], 'block', 'removes all tags' );
+        assert.ok( !µ.__customCSSRules[ '#qunit' ].none && !µ.__customCSSRules[ '#qunit' ][ media ], 'removes all references' );
 
         buildTest( 'No speed tests available.' );
     });

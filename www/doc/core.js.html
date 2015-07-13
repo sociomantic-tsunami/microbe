@@ -136,11 +136,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Mouse Braun         <a href="&#x6D;&#97;&#x69;&#x6C;&#116;&#x6F;:&#109;&#111;u&#x73;&#101;&#x40;&#115;&#111;&#99;&#105;&#x6F;&#x6D;&#x61;&#110;&#x74;i&#99;&#46;&#99;&#111;m">&#109;&#111;u&#x73;&#101;&#x40;&#115;&#111;&#99;&#105;&#x6F;&#x6D;&#x61;&#110;&#x74;i&#99;&#46;&#99;&#111;m</a></span>
+      <span>Mouse Braun         <a href="&#109;&#x61;&#x69;&#108;&#116;&#x6F;:&#109;&#x6F;&#x75;&#115;&#101;&#64;&#115;&#111;&#x63;&#x69;&#x6F;&#109;&#97;&#x6E;&#x74;&#105;c&#x2E;&#x63;&#x6F;&#109;">&#109;&#x6F;&#x75;&#115;&#101;&#64;&#115;&#111;&#x63;&#x69;&#x6F;&#109;&#97;&#x6E;&#x74;&#105;c&#x2E;&#x63;&#x6F;&#109;</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Nicolas Brugneaux   <a href="&#x6D;&#x61;i&#x6C;&#116;&#111;:&#x6E;&#x69;c&#x6F;&#x6C;&#x61;&#x73;&#x2E;&#98;&#114;&#x75;&#103;&#x6E;&#101;&#x61;&#x75;&#x78;&#x40;&#115;&#111;&#x63;&#105;&#x6F;&#109;&#x61;&#x6E;&#116;&#105;&#x63;.c&#111;&#x6D;">&#x6E;&#x69;c&#x6F;&#x6C;&#x61;&#x73;&#x2E;&#98;&#114;&#x75;&#103;&#x6E;&#101;&#x61;&#x75;&#x78;&#x40;&#115;&#111;&#x63;&#105;&#x6F;&#109;&#x61;&#x6E;&#116;&#105;&#x63;.c&#111;&#x6D;</a></span>
+      <span>Nicolas Brugneaux   <a href="&#109;&#97;&#x69;&#108;&#116;&#111;:ni&#x63;&#x6F;&#108;&#x61;&#115;&#x2E;&#x62;&#x72;&#117;&#103;&#110;&#101;&#x61;&#117;&#x78;&#x40;&#x73;&#x6F;&#99;&#x69;&#x6F;&#109;a&#x6E;&#x74;&#x69;&#99;&#46;&#x63;&#x6F;&#109;">ni&#x63;&#x6F;&#108;&#x61;&#115;&#x2E;&#x62;&#x72;&#117;&#103;&#110;&#101;&#x61;&#117;&#x78;&#x40;&#x73;&#x6F;&#99;&#x69;&#x6F;&#109;a&#x6E;&#x74;&#x69;&#99;&#46;&#x63;&#x6F;&#109;</a></span>
     </div>
     <div class="dox_tag_title">package</div>
     <div class="dox_tag_detail">
@@ -200,7 +200,7 @@
 
 <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span><span class="p">{</span>
 
-    <span class="nx">version</span> <span class="o">:</span>       <span class="s1">&#39;0.3.3&#39;</span><span class="p">,</span>
+    <span class="nx">version</span> <span class="o">:</span>       <span class="s1">&#39;0.3.4&#39;</span><span class="p">,</span>
 
     <span class="nx">constructor</span> <span class="o">:</span>   <span class="nx">Microbe</span><span class="p">,</span>
 
@@ -336,6 +336,23 @@ an object (property: value)</p>
 
         <span class="kd">var</span> <span class="nx">_setAttr</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_elm</span> <span class="p">)</span>
         <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">_set</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_a</span><span class="p">,</span> <span class="nx">_v</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nx">_elm</span><span class="p">.</span><span class="nx">getAttribute</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nx">_elm</span><span class="p">[</span> <span class="nx">_a</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">_v</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="k">else</span>
+                <span class="p">{</span>
+                    <span class="nx">_elm</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span> <span class="nx">_a</span><span class="p">,</span> <span class="nx">_v</span> <span class="p">);</span>
+                <span class="p">}</span>
+
+                <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span>                   <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span> <span class="o">||</span> <span class="p">{};</span>
+                <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">attr</span>              <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">attr</span> <span class="o">||</span> <span class="p">{};</span>
+                <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">attr</span><span class="p">.</span><span class="nx">attr</span>         <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">attr</span><span class="p">.</span><span class="nx">attr</span> <span class="o">||</span> <span class="p">{};</span>
+                <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">attr</span><span class="p">.</span><span class="nx">attr</span><span class="p">[</span> <span class="nx">_a</span> <span class="p">]</span>   <span class="o">=</span> <span class="nx">_v</span><span class="p">;</span>
+            <span class="p">};</span>
+
             <span class="k">if</span> <span class="p">(</span> <span class="nx">_value</span> <span class="o">===</span> <span class="kc">null</span> <span class="p">)</span>
             <span class="p">{</span>
                 <span class="nx">_removeAttr</span><span class="p">(</span> <span class="nx">_elm</span> <span class="p">);</span>
@@ -345,28 +362,15 @@ an object (property: value)</p>
                 <span class="kd">var</span> <span class="nx">_attr</span><span class="p">;</span>
                 <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nx">attrObject</span> <span class="p">)</span>
                 <span class="p">{</span>
-                    <span class="nx">_attr</span>               <span class="o">=</span> <span class="nx">_attribute</span><span class="p">;</span>
-                     <span class="nx">_attribute</span>         <span class="o">=</span> <span class="p">{};</span>
-                    <span class="nx">_attribute</span><span class="p">[</span> <span class="nx">_attr</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">_value</span><span class="p">;</span>
+                    <span class="nx">_set</span><span class="p">(</span> <span class="nx">_attribute</span><span class="p">,</span> <span class="nx">_value</span> <span class="p">);</span>
                 <span class="p">}</span>
-
-                <span class="k">for</span> <span class="p">(</span> <span class="nx">_attr</span> <span class="k">in</span> <span class="nx">_attribute</span> <span class="p">)</span>
+                <span class="k">else</span>
                 <span class="p">{</span>
-                    <span class="nx">_value</span> <span class="o">=</span> <span class="nx">_attribute</span><span class="p">[</span> <span class="nx">_attr</span> <span class="p">];</span>
-
-                    <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nx">_elm</span><span class="p">.</span><span class="nx">getAttribute</span> <span class="p">)</span>
+                    <span class="k">for</span> <span class="p">(</span> <span class="nx">_attr</span> <span class="k">in</span> <span class="nx">_attribute</span> <span class="p">)</span>
                     <span class="p">{</span>
-                        <span class="nx">_elm</span><span class="p">[</span> <span class="nx">_attr</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">_value</span><span class="p">;</span>
+                        <span class="nx">_value</span> <span class="o">=</span> <span class="nx">_attribute</span><span class="p">[</span> <span class="nx">_attr</span> <span class="p">];</span>
+                        <span class="nx">_set</span><span class="p">(</span> <span class="nx">_attr</span><span class="p">,</span> <span class="nx">_value</span> <span class="p">);</span>
                     <span class="p">}</span>
-                    <span class="k">else</span>
-                    <span class="p">{</span>
-                        <span class="nx">_elm</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span> <span class="nx">_attr</span><span class="p">,</span> <span class="nx">_value</span> <span class="p">);</span>
-                    <span class="p">}</span>
-
-                    <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span>                           <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span> <span class="o">||</span> <span class="p">{};</span>
-                    <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">attr</span>                      <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">attr</span> <span class="o">||</span> <span class="p">{};</span>
-                    <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">attr</span><span class="p">.</span><span class="nx">attr</span>                 <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">attr</span><span class="p">.</span><span class="nx">attr</span> <span class="o">||</span> <span class="p">{};</span>
-                    <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">attr</span><span class="p">.</span><span class="nx">attr</span><span class="p">[</span> <span class="nx">_attribute</span> <span class="p">]</span>   <span class="o">=</span> <span class="nx">_value</span><span class="p">;</span>
                 <span class="p">}</span>
             <span class="p">}</span>
         <span class="p">};</span>
@@ -390,8 +394,7 @@ an object (property: value)</p>
             <span class="p">{</span>
                 <span class="nx">_elm</span><span class="p">.</span><span class="nx">removeAttribute</span><span class="p">(</span> <span class="nx">_attribute</span> <span class="p">);</span>
             <span class="p">}</span>
-
-                <span class="k">delete</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">attr</span><span class="p">.</span><span class="nx">attr</span><span class="p">[</span> <span class="nx">_attribute</span> <span class="p">];</span>
+            <span class="k">delete</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">attr</span><span class="p">.</span><span class="nx">attr</span><span class="p">[</span> <span class="nx">_attribute</span> <span class="p">];</span>
         <span class="p">};</span>
 
         <span class="k">if</span> <span class="p">(</span> <span class="nx">_value</span> <span class="o">!==</span> <span class="kc">undefined</span> <span class="o">||</span> <span class="nx">attrObject</span> <span class="p">)</span>
@@ -922,6 +925,10 @@ unsure if we actually need the webkitMatchSelector and mozMatchSelector
             <span class="nx">_selector</span> <span class="o">=</span> <span class="nx">_selector</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span> <span class="mi">1</span> <span class="p">);</span>
             <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">siblingsFlat</span><span class="p">().</span><span class="nx">filter</span><span class="p">(</span> <span class="nx">_selector</span> <span class="p">);</span>
         <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">_s</span> <span class="o">===</span> <span class="s1">&#39;!&#39;</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">parent</span><span class="p">();</span>
+        <span class="p">}</span>
         <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">_s</span> <span class="o">===</span> <span class="s1">&#39;+&#39;</span> <span class="p">)</span>
         <span class="p">{</span>
             <span class="nx">_selector</span>       <span class="o">=</span> <span class="nx">_selector</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span> <span class="mi">1</span> <span class="p">);</span>
@@ -1341,16 +1348,9 @@ Microbe.</p>
         <span class="p">{</span>
             <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">len</span> <span class="o">=</span> <span class="nx">second</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">)</span>
             <span class="p">{</span>
-                <span class="k">if</span> <span class="p">(</span> <span class="nx">unique</span> <span class="o">===</span> <span class="kc">true</span> <span class="p">)</span>
+                <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nx">unique</span> <span class="o">||</span> <span class="nx">first</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="nx">second</span><span class="p">[</span> <span class="nx">j</span> <span class="p">]</span> <span class="p">)</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span> <span class="p">)</span>
                 <span class="p">{</span>
-                    <span class="k">if</span> <span class="p">(</span> <span class="nx">first</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="nx">second</span><span class="p">[</span> <span class="nx">j</span> <span class="p">]</span> <span class="p">)</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span> <span class="p">)</span>
-                    <span class="p">{</span>
-                        <span class="nx">first</span><span class="p">[</span> <span class="nx">i</span><span class="o">++</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">second</span><span class="p">[</span> <span class="nx">j</span> <span class="p">];</span>                    
-                    <span class="p">}</span>
-                <span class="p">}</span>
-                <span class="k">else</span>
-                <span class="p">{</span>
-                    <span class="nx">first</span><span class="p">[</span> <span class="nx">i</span><span class="o">++</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">second</span><span class="p">[</span> <span class="nx">j</span> <span class="p">];</span>
+                    <span class="nx">first</span><span class="p">[</span> <span class="nx">i</span><span class="o">++</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">second</span><span class="p">[</span> <span class="nx">j</span> <span class="p">];</span>                    
                 <span class="p">}</span>
             <span class="p">}</span>
 
@@ -1662,25 +1662,22 @@ passed as direction return only the next or previous siblings of each element</p
     <span class="p">{</span>
         <span class="kd">var</span> <span class="nx">_siblings</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_elm</span> <span class="p">)</span>
         <span class="p">{</span>
-            <span class="kd">var</span> <span class="nx">parentsChildren</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">toArray</span><span class="p">(</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">children</span> <span class="p">);</span>
-            <span class="kd">var</span> <span class="nx">elIndex</span> <span class="o">=</span> <span class="nx">parentsChildren</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="nx">_elm</span> <span class="p">);</span>
-
-            <span class="k">if</span> <span class="p">(</span> <span class="nx">direction</span> <span class="o">===</span> <span class="s1">&#39;next&#39;</span> <span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nx">direction</span> <span class="p">)</span>
             <span class="p">{</span>
-                <span class="kd">var</span> <span class="nx">next</span> <span class="o">=</span> <span class="nx">parentsChildren</span><span class="p">[</span> <span class="nx">elIndex</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">];</span>
-
+                <span class="kd">var</span> <span class="nx">parentsChildren</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">toArray</span><span class="p">(</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">children</span> <span class="p">);</span>
+                <span class="kd">var</span> <span class="nx">elIndex</span> <span class="o">=</span> <span class="nx">parentsChildren</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="nx">_elm</span> <span class="p">);</span>
+                <span class="nx">parentsChildren</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span> <span class="nx">elIndex</span><span class="p">,</span> <span class="mi">1</span> <span class="p">);</span>
+                <span class="k">return</span> <span class="nx">parentsChildren</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">direction</span> <span class="o">===</span> <span class="s1">&#39;next&#39;</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">next</span> <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">nextElementSibling</span><span class="p">;</span>
                 <span class="k">return</span> <span class="nx">next</span> <span class="o">?</span> <span class="p">[</span> <span class="nx">next</span> <span class="p">]</span> <span class="o">:</span> <span class="p">[];</span>
             <span class="p">}</span>
             <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">direction</span> <span class="o">===</span> <span class="s1">&#39;prev&#39;</span> <span class="p">)</span>
             <span class="p">{</span>
-                <span class="kd">var</span> <span class="nx">prev</span> <span class="o">=</span> <span class="nx">parentsChildren</span><span class="p">[</span> <span class="nx">elIndex</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">];</span>
-                
+                <span class="kd">var</span> <span class="nx">prev</span> <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">prevElementSibling</span><span class="p">;</span>
                 <span class="k">return</span> <span class="nx">prev</span> <span class="o">?</span> <span class="p">[</span> <span class="nx">prev</span> <span class="p">]</span> <span class="o">:</span> <span class="p">[];</span>
-            <span class="p">}</span>
-            <span class="k">else</span>
-            <span class="p">{</span>
-                <span class="nx">parentsChildren</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span> <span class="nx">elIndex</span><span class="p">,</span> <span class="mi">1</span> <span class="p">);</span>
-                <span class="k">return</span> <span class="nx">parentsChildren</span><span class="p">;</span>
             <span class="p">}</span>
         <span class="p">};</span>
 

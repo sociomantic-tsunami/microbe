@@ -30,6 +30,18 @@
       <div class="heading h3">
         <a href="#pseudo">pseudo</a>
       </div>
+      <div class="heading h2">
+        <a href="#_breakupselector">_breakUpSelector</a>
+      </div>
+      <div class="heading h2">
+        <a href="#_buildobject">_buildObject</a>
+      </div>
+      <div class="heading h2">
+        <a href="#_cyclefilters">_cycleFilters</a>
+      </div>
+      <div class="heading h2">
+        <a href="#_parsepseudo">_parsePseudo</a>
+      </div>
       <div class="heading h3">
         <a href="#any-link">any-link</a>
       </div>
@@ -148,11 +160,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Mouse Braun         <a href="&#109;a&#105;&#x6C;&#x74;&#x6F;:mo&#x75;&#x73;&#x65;&#64;&#115;&#x6F;&#x63;&#x69;&#x6F;&#109;&#x61;&#110;&#x74;&#x69;&#x63;&#46;&#x63;&#x6F;&#x6D;">mo&#x75;&#x73;&#x65;&#64;&#115;&#x6F;&#x63;&#x69;&#x6F;&#109;&#x61;&#110;&#x74;&#x69;&#x63;&#46;&#x63;&#x6F;&#x6D;</a></span>
+      <span>Mouse Braun         <a href="&#109;a&#x69;&#x6C;&#116;&#111;:&#x6D;&#111;&#x75;&#x73;&#x65;&#x40;&#x73;&#111;&#99;&#105;&#x6F;&#x6D;&#x61;&#110;t&#x69;&#x63;&#46;&#x63;&#111;&#109;">&#x6D;&#111;&#x75;&#x73;&#x65;&#x40;&#x73;&#111;&#99;&#105;&#x6F;&#x6D;&#x61;&#110;t&#x69;&#x63;&#46;&#x63;&#111;&#109;</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Nicolas Brugneaux   <a href="&#109;&#x61;i&#108;&#x74;&#111;:&#110;&#105;&#99;&#111;&#x6C;&#x61;&#x73;&#46;&#x62;&#x72;&#x75;&#x67;&#110;&#x65;&#97;&#x75;&#x78;&#x40;&#x73;&#x6F;&#x63;i&#x6F;&#x6D;&#97;&#110;&#116;&#105;&#x63;&#x2E;&#99;&#111;&#x6D;">&#110;&#105;&#99;&#111;&#x6C;&#x61;&#x73;&#46;&#x62;&#x72;&#x75;&#x67;&#110;&#x65;&#97;&#x75;&#x78;&#x40;&#x73;&#x6F;&#x63;i&#x6F;&#x6D;&#97;&#110;&#116;&#105;&#x63;&#x2E;&#99;&#111;&#x6D;</a></span>
+      <span>Nicolas Brugneaux   <a href="m&#97;&#x69;&#108;to:&#110;&#x69;&#99;o&#x6C;&#x61;&#x73;.&#x62;&#114;&#117;&#103;&#110;&#x65;&#x61;&#117;&#120;&#64;&#x73;o&#x63;&#x69;o&#x6D;a&#110;&#116;&#x69;c&#46;&#x63;&#111;&#109;">&#110;&#x69;&#99;o&#x6C;&#x61;&#x73;.&#x62;&#114;&#117;&#103;&#110;&#x65;&#x61;&#117;&#120;&#64;&#x73;o&#x63;&#x69;o&#x6D;a&#110;&#116;&#x69;c&#46;&#x63;&#111;&#109;</a></span>
     </div>
     <div class="dox_tag_title">package</div>
     <div class="dox_tag_detail">
@@ -322,25 +334,252 @@ and returns the result</p>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="kd">var</span> <span class="nx">pseudo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">self</span><span class="p">,</span> <span class="nx">selector</span><span class="p">,</span> <span class="nx">_scope</span><span class="p">,</span> <span class="nx">_build</span> <span class="p">)</span>
     <span class="p">{</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="_breakupselector">
+  <h2>
+    <a href="#_breakupselector" name="_breakupselector" class="pilcrow">&#182;</a>
+    _breakUpSelector
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>pushes each selector through the pseudo-selector engine</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span>{Array} _selectors split selectors</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Microbe</em></span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="kd">function</span> <span class="nx">_breakUpSelector</span><span class="p">(</span> <span class="nx">_selectors</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">_el</span><span class="p">,</span> <span class="nx">resArray</span> <span class="o">=</span> <span class="p">[];</span>
+            <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">_selectors</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span> 
+            <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span> <span class="nx">i</span> <span class="o">===</span> <span class="mi">0</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nx">resArray</span> <span class="o">=</span> <span class="nx">pseudo</span><span class="p">(</span> <span class="nx">self</span><span class="p">,</span> <span class="nx">_selectors</span><span class="p">[</span> <span class="nx">i</span> <span class="p">],</span> <span class="nx">_scope</span><span class="p">,</span> <span class="nx">_build</span> <span class="p">);</span>
+                <span class="p">}</span>
+                <span class="k">else</span>
+                <span class="p">{</span>
+                    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">merge</span><span class="p">(</span> <span class="nx">resArray</span><span class="p">,</span> <span class="nx">pseudo</span><span class="p">(</span> <span class="nx">self</span><span class="p">,</span> <span class="nx">_selectors</span><span class="p">[</span> <span class="nx">i</span> <span class="p">],</span> <span class="nx">_scope</span><span class="p">,</span> <span class="nx">_build</span> <span class="p">),</span> <span class="kc">true</span> <span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            
+            <span class="k">return</span> <span class="nx">resArray</span><span class="p">;</span>
+        <span class="p">}</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="_buildobject">
+  <h2>
+    <a href="#_buildobject" name="_buildobject" class="pilcrow">&#182;</a>
+    _buildObject
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>builds the microbe ready for return</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Microbe</em></span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="kd">function</span> <span class="nx">_buildObject</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">_pseudo</span> <span class="o">=</span> <span class="nx">_parsePseudo</span><span class="p">(</span> <span class="nx">_selector</span> <span class="p">);</span>
+
+            <span class="nx">obj</span> <span class="o">=</span> <span class="nx">_build</span><span class="p">(</span> <span class="nx">_scope</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span> <span class="nx">_pseudo</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">),</span> <span class="nx">self</span> <span class="p">);</span>
+            <span class="nx">_pseudo</span> <span class="o">=</span> <span class="nx">_pseudo</span><span class="p">[</span> <span class="mi">1</span> <span class="p">];</span>
+
+            <span class="kd">var</span> <span class="nx">_sel</span><span class="p">,</span> <span class="nx">_var</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">h</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenH</span> <span class="o">=</span> <span class="nx">_pseudo</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">h</span> <span class="o">&lt;</span> <span class="nx">lenH</span><span class="p">;</span> <span class="nx">h</span><span class="o">++</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="nx">_sel</span> <span class="o">=</span> <span class="nx">_pseudo</span><span class="p">[</span> <span class="nx">h</span> <span class="p">].</span><span class="nx">split</span><span class="p">(</span> <span class="s1">&#39;(&#39;</span> <span class="p">);</span>
+                <span class="nx">_var</span> <span class="o">=</span> <span class="nx">_sel</span><span class="p">[</span> <span class="mi">1</span> <span class="p">];</span>
+                <span class="k">if</span> <span class="p">(</span> <span class="nx">_var</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nx">_var</span> <span class="o">=</span> <span class="nx">_var</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">_var</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">);</span>
+                <span class="p">}</span>
+                <span class="nx">_sel</span> <span class="o">=</span> <span class="nx">_sel</span><span class="p">[</span> <span class="mi">0</span> <span class="p">];</span>
+
+                <span class="k">if</span> <span class="p">(</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">pseudo</span><span class="p">[</span> <span class="nx">_sel</span> <span class="p">]</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nx">obj</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">pseudo</span><span class="p">[</span> <span class="nx">_sel</span> <span class="p">](</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">_var</span><span class="p">,</span> <span class="nx">selector</span> <span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+
+            <span class="k">return</span> <span class="nx">obj</span><span class="p">;</span>
+        <span class="p">}</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="_cyclefilters">
+  <h2>
+    <a href="#_cyclefilters" name="_cyclefilters" class="pilcrow">&#182;</a>
+    _cycleFilters
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>filters multiple pseudo-selector selectors</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">res</span>
+      <span class="dox_type">Array</span>
+      <span>array of results to be filtered</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Microbe</em></span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="kd">function</span> <span class="nx">_cycleFilters</span><span class="p">(</span> <span class="nx">res</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">obj</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">pseudo</span><span class="p">(</span> <span class="nx">self</span><span class="p">,</span> <span class="nx">res</span><span class="p">[</span> <span class="mi">0</span> <span class="p">],</span> <span class="nx">_scope</span><span class="p">,</span> <span class="nx">_build</span> <span class="p">);</span>
+
+            <span class="kd">var</span> <span class="nx">filter</span><span class="p">,</span> <span class="nx">connect</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">res</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="nx">filter</span> <span class="o">=</span> <span class="nx">res</span><span class="p">[</span> <span class="nx">i</span> <span class="p">].</span><span class="nx">trim</span><span class="p">();</span>
+
+                <span class="k">if</span> <span class="p">(</span> <span class="nx">filter</span><span class="p">[</span> <span class="mi">0</span> <span class="p">]</span> <span class="o">===</span> <span class="s1">&#39;~&#39;</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nx">obj</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">siblingsFlat</span><span class="p">();</span>
+                    <span class="nx">connect</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">filter</span><span class="p">[</span> <span class="mi">0</span> <span class="p">]</span> <span class="o">===</span> <span class="s1">&#39;&gt;&#39;</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nx">obj</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">childrenFlat</span><span class="p">();</span>
+                    <span class="nx">connect</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">filter</span><span class="p">[</span> <span class="mi">0</span> <span class="p">]</span> <span class="o">===</span> <span class="s1">&#39;+&#39;</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nx">obj</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">siblingsFlat</span><span class="p">(</span> <span class="s1">&#39;next&#39;</span> <span class="p">);</span>
+                    <span class="nx">connect</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">connect</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nx">obj</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span> <span class="nx">filter</span> <span class="p">);</span>
+                    <span class="nx">connect</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="k">else</span>
+                <span class="p">{</span>
+                    <span class="nx">obj</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span> <span class="nx">filter</span> <span class="p">);</span>
+                    <span class="nx">connect</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+                <span class="p">}</span>
+
+                <span class="k">if</span> <span class="p">(</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">0</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="k">return</span> <span class="nx">obj</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="k">return</span> <span class="nx">obj</span><span class="p">;</span>
+        <span class="p">}</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="_parsepseudo">
+  <h2>
+    <a href="#_parsepseudo" name="_parsepseudo" class="pilcrow">&#182;</a>
+    _parsePseudo
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>checks all pseudo-selectors to see if they're custom and
+otherwise it reattaches it </p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span>{String} _sel selector string</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>String</em> modified selector</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="kd">function</span> <span class="nx">_parsePseudo</span><span class="p">(</span> <span class="nx">_sel</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">_pseudoArray</span><span class="p">;</span>
+            <span class="kd">var</span> <span class="nx">_pseudo</span> <span class="o">=</span> <span class="nx">_sel</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span> <span class="s1">&#39;:&#39;</span> <span class="p">);</span>
+            <span class="nx">_sel</span>        <span class="o">=</span> <span class="nx">_pseudo</span><span class="p">[</span> <span class="mi">0</span> <span class="p">];</span>
+            <span class="nx">_pseudo</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span> <span class="p">);</span>
+
+            <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenK</span> <span class="o">=</span> <span class="nx">_pseudo</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">k</span> <span class="o">&lt;</span> <span class="nx">lenK</span><span class="p">;</span> <span class="nx">k</span><span class="o">++</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="nx">_pseudoArray</span> <span class="o">=</span> <span class="nx">_pseudo</span><span class="p">[</span> <span class="nx">k</span> <span class="p">].</span><span class="nx">split</span><span class="p">(</span> <span class="s1">&#39;(&#39;</span> <span class="p">);</span>
+
+                <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nx">Microbe</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">pseudo</span><span class="p">[</span> <span class="nx">_pseudoArray</span><span class="p">[</span> <span class="mi">0</span> <span class="p">]</span> <span class="p">]</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nx">_sel</span> <span class="o">+=</span> <span class="s1">&#39;:&#39;</span> <span class="o">+</span> <span class="nx">_pseudo</span><span class="p">[</span> <span class="nx">k</span> <span class="p">];</span>
+                    <span class="nx">_pseudo</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span> <span class="nx">k</span><span class="p">,</span> <span class="mi">1</span> <span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+
+            <span class="k">return</span> <span class="p">[</span><span class="err"> </span><span class="nx">_sel</span><span class="p">,</span> <span class="nx">_pseudo</span> <span class="p">];</span>
+        <span class="p">}</span>
+
+
+
         <span class="k">if</span> <span class="p">(</span> <span class="nx">selector</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="s1">&#39;,&#39;</span> <span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span> <span class="p">)</span>
         <span class="p">{</span>
             <span class="nx">selector</span> <span class="o">=</span> <span class="nx">selector</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span> <span class="sr">/,(?![a-zA-Z0-9-#.,\s]+\))/g</span> <span class="p">);</span>
 
             <span class="k">if</span> <span class="p">(</span> <span class="nx">selector</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="p">)</span>
             <span class="p">{</span>
-                <span class="kd">var</span> <span class="nx">_el</span><span class="p">,</span> <span class="nx">resArray</span> <span class="o">=</span> <span class="p">[];</span>
-                <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">selector</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span> 
-                <span class="p">{</span>
-                    <span class="k">if</span> <span class="p">(</span> <span class="nx">i</span> <span class="o">===</span> <span class="mi">0</span> <span class="p">)</span>
-                    <span class="p">{</span>
-                        <span class="kd">var</span> <span class="nx">that</span> <span class="o">=</span> <span class="nx">pseudo</span><span class="p">(</span> <span class="nx">self</span><span class="p">,</span> <span class="nx">selector</span><span class="p">[</span> <span class="nx">i</span> <span class="p">],</span> <span class="nx">_scope</span><span class="p">,</span> <span class="nx">_build</span> <span class="p">);</span>
-                        <span class="nx">resArray</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Microbe</span><span class="p">(</span> <span class="nx">that</span> <span class="p">);</span>
-                    <span class="p">}</span>
-
-                    <span class="nx">resArray</span><span class="p">.</span><span class="nx">merge</span><span class="p">(</span> <span class="nx">pseudo</span><span class="p">(</span> <span class="nx">self</span><span class="p">,</span> <span class="nx">selector</span><span class="p">[</span> <span class="nx">i</span> <span class="p">],</span> <span class="nx">_scope</span><span class="p">,</span> <span class="nx">_build</span> <span class="p">),</span> <span class="kc">null</span><span class="p">,</span> <span class="kc">true</span> <span class="p">);</span>
-                <span class="p">}</span>
-                
-                <span class="k">return</span> <span class="nx">resArray</span><span class="p">;</span>
+                <span class="k">return</span> <span class="nx">_breakUpSelector</span><span class="p">(</span> <span class="nx">selector</span> <span class="p">);</span>
             <span class="p">}</span>
             <span class="k">else</span>
             <span class="p">{</span>
@@ -348,7 +587,7 @@ and returns the result</p>
             <span class="p">}</span>
         <span class="p">}</span>
 
-        <span class="kd">var</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">_selector</span> <span class="o">=</span> <span class="nx">selector</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">_selector</span> <span class="o">=</span> <span class="nx">selector</span><span class="p">;</span>
 
         <span class="k">if</span> <span class="p">(</span> <span class="nx">_selector</span><span class="p">[</span> <span class="mi">0</span> <span class="p">]</span> <span class="o">===</span> <span class="s1">&#39;:&#39;</span> <span class="p">)</span>
         <span class="p">{</span>
@@ -363,45 +602,7 @@ and returns the result</p>
 
             <span class="k">if</span> <span class="p">(</span> <span class="nx">res</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="p">)</span>
             <span class="p">{</span>
-                <span class="nx">obj</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">pseudo</span><span class="p">(</span> <span class="nx">self</span><span class="p">,</span> <span class="nx">res</span><span class="p">[</span> <span class="mi">0</span> <span class="p">],</span> <span class="nx">_scope</span><span class="p">,</span> <span class="nx">_build</span> <span class="p">);</span>
-
-                <span class="kd">var</span> <span class="nx">filter</span><span class="p">,</span> <span class="nx">connect</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
-                <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">res</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
-                <span class="p">{</span>
-                    <span class="nx">filter</span> <span class="o">=</span> <span class="nx">res</span><span class="p">[</span> <span class="nx">i</span> <span class="p">].</span><span class="nx">trim</span><span class="p">();</span>
-
-                    <span class="k">if</span> <span class="p">(</span> <span class="nx">filter</span><span class="p">[</span> <span class="mi">0</span> <span class="p">]</span> <span class="o">===</span> <span class="s1">&#39;~&#39;</span> <span class="p">)</span>
-                    <span class="p">{</span>
-                        <span class="nx">obj</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">siblingsFlat</span><span class="p">();</span>
-                        <span class="nx">connect</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-                    <span class="p">}</span>
-                    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">filter</span><span class="p">[</span> <span class="mi">0</span> <span class="p">]</span> <span class="o">===</span> <span class="s1">&#39;&gt;&#39;</span> <span class="p">)</span>
-                    <span class="p">{</span>
-                        <span class="nx">obj</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">childrenFlat</span><span class="p">();</span>
-                        <span class="nx">connect</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-                    <span class="p">}</span>
-                    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">filter</span><span class="p">[</span> <span class="mi">0</span> <span class="p">]</span> <span class="o">===</span> <span class="s1">&#39;+&#39;</span> <span class="p">)</span>
-                    <span class="p">{</span>
-                        <span class="nx">obj</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">siblingsFlat</span><span class="p">(</span> <span class="s1">&#39;next&#39;</span> <span class="p">);</span>
-                        <span class="nx">connect</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-                    <span class="p">}</span>
-                    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">connect</span> <span class="p">)</span>
-                    <span class="p">{</span>
-                        <span class="nx">obj</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span> <span class="nx">filter</span> <span class="p">);</span>
-                        <span class="nx">connect</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
-                    <span class="p">}</span>
-                    <span class="k">else</span>
-                    <span class="p">{</span>
-                        <span class="nx">obj</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span> <span class="nx">filter</span> <span class="p">);</span>
-                        <span class="nx">connect</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
-                    <span class="p">}</span>
-
-                    <span class="k">if</span> <span class="p">(</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">0</span> <span class="p">)</span>
-                    <span class="p">{</span>
-                        <span class="k">return</span> <span class="nx">obj</span><span class="p">;</span>
-                    <span class="p">}</span>
-                <span class="p">}</span>
-                <span class="k">return</span> <span class="nx">obj</span><span class="p">;</span>
+                <span class="k">return</span> <span class="nx">_cycleFilters</span><span class="p">(</span> <span class="nx">res</span> <span class="p">);</span>
             <span class="p">}</span>
             <span class="k">else</span>
             <span class="p">{</span>
@@ -409,41 +610,7 @@ and returns the result</p>
             <span class="p">}</span>
         <span class="p">}</span>
 
-        <span class="kd">var</span> <span class="nx">_pseudoArray</span><span class="p">;</span>
-         <span class="kd">var</span> <span class="nx">_pseudo</span>    <span class="o">=</span> <span class="nx">_selector</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span> <span class="s1">&#39;:&#39;</span> <span class="p">);</span>
-        <span class="nx">_selector</span>       <span class="o">=</span> <span class="nx">_pseudo</span><span class="p">[</span> <span class="mi">0</span> <span class="p">];</span>
-        <span class="nx">_pseudo</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span> <span class="p">);</span>
-
-        <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenK</span> <span class="o">=</span> <span class="nx">_pseudo</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">k</span> <span class="o">&lt;</span> <span class="nx">lenK</span><span class="p">;</span> <span class="nx">k</span><span class="o">++</span> <span class="p">)</span>
-        <span class="p">{</span>
-            <span class="nx">_pseudoArray</span> <span class="o">=</span> <span class="nx">_pseudo</span><span class="p">[</span> <span class="nx">k</span> <span class="p">].</span><span class="nx">split</span><span class="p">(</span> <span class="s1">&#39;(&#39;</span> <span class="p">);</span>
-
-            <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nx">Microbe</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">pseudo</span><span class="p">[</span> <span class="nx">_pseudoArray</span><span class="p">[</span> <span class="mi">0</span> <span class="p">]</span> <span class="p">]</span> <span class="p">)</span>
-            <span class="p">{</span>
-                <span class="nx">_selector</span> <span class="o">+=</span> <span class="s1">&#39;:&#39;</span> <span class="o">+</span> <span class="nx">_pseudo</span><span class="p">[</span> <span class="nx">k</span> <span class="p">];</span>
-                <span class="nx">_pseudo</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span> <span class="nx">k</span><span class="p">,</span> <span class="mi">1</span> <span class="p">);</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-
-        <span class="nx">obj</span> <span class="o">=</span> <span class="nx">_build</span><span class="p">(</span> <span class="nx">_scope</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span> <span class="nx">_selector</span> <span class="p">),</span> <span class="nx">self</span> <span class="p">);</span>
-
-        <span class="kd">var</span> <span class="nx">_sel</span><span class="p">,</span> <span class="nx">_var</span><span class="p">;</span>
-        <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">h</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenH</span> <span class="o">=</span> <span class="nx">_pseudo</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">h</span> <span class="o">&lt;</span> <span class="nx">lenH</span><span class="p">;</span> <span class="nx">h</span><span class="o">++</span> <span class="p">)</span>
-        <span class="p">{</span>
-            <span class="nx">_sel</span> <span class="o">=</span> <span class="nx">_pseudo</span><span class="p">[</span> <span class="nx">h</span> <span class="p">].</span><span class="nx">split</span><span class="p">(</span> <span class="s1">&#39;(&#39;</span> <span class="p">);</span>
-            <span class="nx">_var</span> <span class="o">=</span> <span class="nx">_sel</span><span class="p">[</span> <span class="mi">1</span> <span class="p">];</span>
-            <span class="k">if</span> <span class="p">(</span> <span class="nx">_var</span> <span class="p">)</span>
-            <span class="p">{</span>
-                <span class="nx">_var</span> <span class="o">=</span> <span class="nx">_var</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">_var</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">);</span>
-            <span class="p">}</span>
-            <span class="nx">_sel</span> <span class="o">=</span> <span class="nx">_sel</span><span class="p">[</span> <span class="mi">0</span> <span class="p">];</span>
-
-            <span class="k">if</span> <span class="p">(</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">pseudo</span><span class="p">[</span> <span class="nx">_sel</span> <span class="p">]</span> <span class="p">)</span>
-            <span class="p">{</span>
-                <span class="nx">obj</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">pseudo</span><span class="p">[</span> <span class="nx">_sel</span> <span class="p">](</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">_var</span><span class="p">,</span> <span class="nx">selector</span> <span class="p">);</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="nx">obj</span><span class="p">;</span>
+        <span class="k">return</span> <span class="nx">_buildObject</span><span class="p">();</span>
     <span class="p">};</span>
 
 

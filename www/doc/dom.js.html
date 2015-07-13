@@ -64,11 +64,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Mouse Braun         <a href="&#109;&#x61;&#105;&#x6C;&#116;&#111;:&#x6D;&#x6F;&#117;&#115;&#x65;&#x40;s&#111;&#x63;&#x69;&#x6F;&#109;&#97;&#x6E;&#x74;&#105;&#x63;&#x2E;c&#111;&#109;">&#x6D;&#x6F;&#117;&#115;&#x65;&#x40;s&#111;&#x63;&#x69;&#x6F;&#109;&#97;&#x6E;&#x74;&#105;&#x63;&#x2E;c&#111;&#109;</a></span>
+      <span>Mouse Braun         <a href="m&#97;il&#x74;&#111;:&#109;&#x6F;&#x75;&#x73;&#x65;&#x40;&#x73;&#x6F;&#99;&#105;&#x6F;&#109;&#x61;&#x6E;&#116;&#105;&#99;&#46;&#x63;&#x6F;&#x6D;">&#109;&#x6F;&#x75;&#x73;&#x65;&#x40;&#x73;&#x6F;&#99;&#105;&#x6F;&#109;&#x61;&#x6E;&#116;&#105;&#99;&#46;&#x63;&#x6F;&#x6D;</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Nicolas Brugneaux   <a href="&#109;&#x61;&#x69;&#x6C;&#x74;&#x6F;:&#110;&#x69;&#99;&#111;&#108;&#x61;&#115;&#46;&#x62;&#x72;&#x75;&#x67;&#110;&#101;&#97;&#x75;&#x78;&#x40;&#115;&#x6F;c&#105;&#x6F;&#109;&#x61;&#110;&#x74;&#x69;&#99;&#46;&#x63;&#111;&#109;">&#110;&#x69;&#99;&#111;&#108;&#x61;&#115;&#46;&#x62;&#x72;&#x75;&#x67;&#110;&#101;&#97;&#x75;&#x78;&#x40;&#115;&#x6F;c&#105;&#x6F;&#109;&#x61;&#110;&#x74;&#x69;&#99;&#46;&#x63;&#111;&#109;</a></span>
+      <span>Nicolas Brugneaux   <a href="&#109;&#x61;&#x69;&#x6C;&#116;&#x6F;:&#110;&#x69;&#99;&#111;&#108;&#97;&#x73;&#x2E;&#98;&#114;&#x75;&#103;&#110;&#101;&#97;u&#120;&#x40;&#115;&#x6F;&#x63;&#x69;o&#109;&#97;&#110;&#116;i&#99;&#x2E;&#x63;&#x6F;&#x6D;">&#110;&#x69;&#99;&#111;&#108;&#97;&#x73;&#x2E;&#98;&#114;&#x75;&#103;&#110;&#101;&#97;u&#120;&#x40;&#115;&#x6F;&#x63;&#x69;o&#109;&#97;&#110;&#116;i&#99;&#x2E;&#x63;&#x6F;&#x6D;</a></span>
     </div>
     <div class="dox_tag_title">package</div>
     <div class="dox_tag_detail">
@@ -201,13 +201,25 @@ one target the next ones are cloned</p>
             <span class="nx">_parentEl</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">_elm</span> <span class="p">);</span>
         <span class="p">};</span>
 
-        <span class="k">return</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_el</span> <span class="p">)</span>
+
+        <span class="kd">var</span> <span class="nx">_prepend</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_parentEl</span><span class="p">,</span> <span class="nx">_elm</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">firstChild</span> <span class="o">=</span> <span class="nx">_parentEl</span><span class="p">.</span><span class="nx">children</span><span class="p">[</span> <span class="mi">0</span> <span class="p">];</span>
+            <span class="nx">_parentEl</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span> <span class="nx">_elm</span><span class="p">,</span> <span class="nx">firstChild</span> <span class="p">);</span>
+        <span class="p">};</span>
+
+
+        <span class="k">return</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_el</span><span class="p">,</span> <span class="nx">prepend</span> <span class="p">)</span>
         <span class="p">{</span>
             <span class="kd">var</span> <span class="nx">elementArray</span> <span class="o">=</span> <span class="p">[];</span>
 
             <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nx">_el</span><span class="p">.</span><span class="nx">length</span> <span class="p">)</span>
             <span class="p">{</span>
                 <span class="nx">_el</span> <span class="o">=</span> <span class="p">[</span> <span class="nx">_el</span> <span class="p">];</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="p">(</span> <span class="k">typeof</span> <span class="nx">_el</span> <span class="o">===</span> <span class="s1">&#39;string&#39;</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="nx">_el</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Microbe</span><span class="p">(</span> <span class="nx">_el</span> <span class="p">);</span>
             <span class="p">}</span>
 
             <span class="kd">var</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">j</span><span class="p">,</span> <span class="nx">leni</span><span class="p">,</span> <span class="nx">lenj</span><span class="p">,</span> <span class="nx">node</span><span class="p">;</span>
@@ -219,7 +231,14 @@ one target the next ones are cloned</p>
 
                     <span class="nx">elementArray</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">node</span> <span class="p">);</span>
 
-                    <span class="nx">_append</span><span class="p">(</span> <span class="k">this</span><span class="p">[</span> <span class="nx">i</span> <span class="p">],</span> <span class="nx">node</span> <span class="p">);</span>
+                    <span class="k">if</span> <span class="p">(</span> <span class="nx">prepend</span> <span class="o">===</span> <span class="kc">true</span> <span class="p">)</span>
+                    <span class="p">{</span>
+                        <span class="nx">_prepend</span><span class="p">(</span> <span class="k">this</span><span class="p">[</span> <span class="nx">i</span> <span class="p">],</span> <span class="nx">node</span> <span class="p">);</span>
+                    <span class="p">}</span>
+                    <span class="k">else</span>
+                    <span class="p">{</span>
+                        <span class="nx">_append</span><span class="p">(</span> <span class="k">this</span><span class="p">[</span> <span class="nx">i</span> <span class="p">],</span> <span class="nx">node</span> <span class="p">);</span>
+                    <span class="p">}</span>
                 <span class="p">}</span>
             <span class="p">}</span>
 
@@ -227,7 +246,7 @@ one target the next ones are cloned</p>
         <span class="p">};</span>
     <span class="p">}());</span>
 
-
+        
 
 </pre></div>
         </td>
@@ -347,38 +366,10 @@ one target the next ones are cloned</p>
 </div>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">prepend</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">()</span>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">prepend</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_el</span> <span class="p">)</span>
     <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">_prepend</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_parentEl</span><span class="p">,</span> <span class="nx">_elm</span> <span class="p">)</span>
-        <span class="p">{</span>
-            <span class="kd">var</span> <span class="nx">firstChild</span> <span class="o">=</span> <span class="nx">_parentEl</span><span class="p">.</span><span class="nx">children</span><span class="p">[</span> <span class="mi">0</span> <span class="p">];</span>
-            <span class="nx">_parentEl</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span> <span class="nx">_elm</span><span class="p">,</span> <span class="nx">firstChild</span> <span class="p">);</span>
-        <span class="p">};</span>
-
-        <span class="k">return</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_el</span> <span class="p">)</span>
-        <span class="p">{</span>
-            <span class="kd">var</span> <span class="nx">elementArray</span> <span class="o">=</span> <span class="p">[];</span>
-
-            <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nx">_el</span><span class="p">.</span><span class="nx">length</span> <span class="p">)</span>
-            <span class="p">{</span>
-                <span class="nx">_el</span> <span class="o">=</span> <span class="p">[</span> <span class="nx">_el</span> <span class="p">];</span>
-            <span class="p">}</span>
-
-            <span class="kd">var</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">j</span><span class="p">,</span> <span class="nx">leni</span><span class="p">,</span> <span class="nx">lenj</span><span class="p">,</span> <span class="nx">node</span><span class="p">;</span>
-            <span class="k">for</span> <span class="p">(</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">leni</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">leni</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
-            <span class="p">{</span>
-                <span class="k">for</span> <span class="p">(</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenj</span> <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">lenj</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">)</span>
-                <span class="p">{</span>
-                    <span class="nx">node</span> <span class="o">=</span> <span class="nx">i</span> <span class="o">===</span> <span class="mi">0</span> <span class="o">?</span> <span class="nx">_el</span><span class="p">[</span> <span class="nx">j</span> <span class="p">]</span> <span class="o">:</span> <span class="nx">_el</span><span class="p">[</span> <span class="nx">j</span> <span class="p">].</span><span class="nx">cloneNode</span><span class="p">(</span> <span class="kc">true</span> <span class="p">);</span>
-                    <span class="nx">elementArray</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">node</span> <span class="p">);</span>
-
-                    <span class="nx">_prepend</span><span class="p">(</span> <span class="k">this</span><span class="p">[</span> <span class="nx">i</span> <span class="p">],</span> <span class="nx">node</span> <span class="p">);</span>
-                <span class="p">}</span>
-            <span class="p">}</span>
-
-            <span class="k">this</span><span class="p">.</span><span class="nx">constructor</span><span class="p">(</span> <span class="nx">elementArray</span> <span class="p">);</span>
-        <span class="p">};</span>
-    <span class="p">}());</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span> <span class="nx">_el</span><span class="p">,</span> <span class="kc">true</span> <span class="p">);</span>
+    <span class="p">};</span>
 
 
 

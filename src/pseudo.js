@@ -269,7 +269,6 @@ module.exports = function( Microbe )
             }
         }
 
-
         return _buildObject();
     };
 
