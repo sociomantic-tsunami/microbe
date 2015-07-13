@@ -103,8 +103,7 @@ module.exports = function( Microbe )
         {
             var _response = function( _val )
             {
-                var _responses =
-                {
+                var _responses = {
                     /**
                      * ### .then
                      *
@@ -172,10 +171,10 @@ module.exports = function( Microbe )
      */
     Microbe.http.get = function( _url )
     {
-        return this({
+        return this( {
             url     : _url,
             method  : 'GET'
-        });
+        } );
     };
 
 
@@ -191,10 +190,10 @@ module.exports = function( Microbe )
      */
     Microbe.http.post = function( _url, _data )
     {
-        return this({
+        return this( {
             url     : _url,
             data    : _data,
             method  : 'POST'
-        });
+        } );
     };
 };

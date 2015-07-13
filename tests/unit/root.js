@@ -31,11 +31,26 @@ module.exports = function( buildTest )
      * µ debounce tests
      *
      * @test    debounce exists
+     * @test    reuns on it's timer
      */
     QUnit.test( '.debounce()', function( assert )
     {
         assert.ok( µ.debounce, 'exists' );
 
+        var i   = 1;
+        var _f  = µ.debounce( function(){ i++; return i; }, 50 );
+        _f();
+        _f();
+        _f();
+        
+        var multiplesTest      = assert.async();
+        
+        setTimeout( function( _f )
+        {
+            assert.equal( i, 2, 'runs on it\'s timer' );
+            multiplesTest();
+        }, 60 );
+        
         buildTest( 'No speed tests available.' );
     });
 
@@ -65,28 +80,19 @@ module.exports = function( buildTest )
     {
         assert.ok( µ.insertStyle, 'exists' );
 
-        buildTest( 'No speed tests available.' );
-    });
+        µ.insertStyle( '#qunit', { 'color':'#f0f' } )
+        var savedColor = µ.__customCSSRules[ '#qunit' ].none.obj.color;
 
+        assert.equal( µ( '#qunit' ).css( 'color' )[0], 'rgb(255, 0, 255)', 'sets the rule' );
+        assert.equal( savedColor, '#f0f', 'saves the reference' );
 
-    /**
-     * µ noop tests
-     *
-     * @test    noop exists
-     * @test    nothing happens
-     *
-     * µ xyzzy tests
-     *
-     * @test    xyzzy exists
-     * @test    nothing happens
-     */
-    QUnit.test( '.noop()', function( assert )
-    {
-        assert.ok( µ.noop, 'noop exists' );
-        assert.equal( µ.noop(), undefined, 'nothing happens' );
+        µ.removeStyle( '#qunit' );
 
-        assert.ok( µ.xyzzy, 'xyzzy exists' );
-        assert.equal( µ.xyzzy(), undefined, 'nothing happens' );
+        var media = 'screen and (min-width : 600px)';
+        µ.insertStyle( '#qunit', { 'color':'#f0f' }, media );
+
+        assert.ok( µ.__customCSSRules[ '#qunit' ][ media ], 'inserts media queries' );
+        µ.removeStyle( '#qunit' );
 
         buildTest( 'No speed tests available.' );
     });
@@ -251,6 +257,50 @@ module.exports = function( buildTest )
 
 
     /**
+     * µ matches tests
+     *
+     * @test    matches exists
+     * @test    accepts a microbe
+     * @test    accepts an element
+     */
+    QUnit.test( '.matches()', function( assert )
+    {
+        var qunit           = document.getElementById( 'qunit' );
+        var µMatchesDivs    = µ.matches( µ( 'div' ), '#qunit' );
+
+        assert.ok( µ.matches, 'exists' );
+        assert.equal( µMatchesDivs[ 4 ], true, 'finds the right div' );
+        assert.equal( µMatchesDivs[ 1 ], false, 'accepts a microbe' );
+        assert.equal( µ.matches( qunit, '#qunit' ), true, 'accepts an element' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
+     * µ noop tests
+     *
+     * @test    noop exists
+     * @test    nothing happens
+     *
+     * µ xyzzy tests
+     *
+     * @test    xyzzy exists
+     * @test    nothing happens
+     */
+    QUnit.test( '.noop()', function( assert )
+    {
+        assert.ok( µ.noop, 'noop exists' );
+        assert.equal( µ.noop(), undefined, 'nothing happens' );
+
+        assert.ok( µ.xyzzy, 'xyzzy exists' );
+        assert.equal( µ.xyzzy(), undefined, 'nothing happens' );
+
+        buildTest( 'No speed tests available.' );
+    });
+
+
+    /**
      * µ once tests
      *
      * @test    once exists
@@ -258,9 +308,10 @@ module.exports = function( buildTest )
     QUnit.test( '.once()', function( assert )
     {
         assert.ok( µ.once, 'exists' );
-        var _f = µ.once( function(){ return 'moon'; } );
-        assert.equal( _f(), 'moon', 'runs once' );
-        assert.equal( _f(), undefined, 'and only once' );
+        var i   = 1;
+        var _f  = µ.once( function(){ i++; return i; } );
+        assert.equal( _f(), 2, 'runs once' );
+        assert.equal( _f(), 2, 'and only once' );
 
         buildTest( 'No speed tests available.' );
     });
@@ -310,6 +361,17 @@ module.exports = function( buildTest )
     {
         assert.ok( µ.removeStyle, 'exists' );
 
+        µ.insertStyle( '#qunit', { 'color':'#f0f' } );
+
+        var media = 'screen and (min-width : 600px)';
+        µ.insertStyle( '#qunit', { 'display':'none' }, media );
+        µ.removeStyle( '#qunit', media );
+
+        assert.equal( µ( '#qunit' ).css( 'display' )[0], 'block', 'removes individual media queries' );
+        µ.removeStyle( '#qunit' );
+
+        assert.ok( !µ.__customCSSRules[ '#qunit' ].none, 'removes base references' );
+
         buildTest( 'No speed tests available.' );
     });
 
@@ -322,6 +384,15 @@ module.exports = function( buildTest )
     QUnit.test( '.removeStyles()', function( assert )
     {
         assert.ok( µ.removeStyles, 'exists' );
+
+        µ.insertStyle( '#qunit', { 'color':'#f0f' } );
+
+        var media = 'screen and (min-width : 600px)';
+        µ.insertStyle( '#qunit', { 'display':'none' }, media );
+        µ.removeStyles( '#qunit' );
+
+        assert.equal( µ( '#qunit' ).css( 'display' )[0], 'block', 'removes all tags' );
+        assert.ok( !µ.__customCSSRules[ '#qunit' ].none && !µ.__customCSSRules[ '#qunit' ][ media ], 'removes all references' );
 
         buildTest( 'No speed tests available.' );
     });

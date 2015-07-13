@@ -2006,17 +2006,15 @@ var Microbe = function( selector, scope, elements )
 };
 
 
-Microbe.core = Microbe.prototype =
-{
-    version :       '0.3.2',
+Microbe.core = Microbe.prototype ={
+
+    version :       '0.3.4',
 
     constructor :   Microbe,
 
     type :          _type,
 
     length :        0,
-
-    _selector:      '',
 
 
     /**
@@ -2091,6 +2089,23 @@ Microbe.core = Microbe.prototype =
 
         var _setAttr = function( _elm )
         {
+            var _set = function( _a, _v )
+            {
+                if ( !_elm.getAttribute )
+                {
+                    _elm[ _a ] = _v;
+                }
+                else
+                {
+                    _elm.setAttribute( _a, _v );
+                }
+
+                _elm.data                   = _elm.data || {};
+                _elm.data.attr              = _elm.data.attr || {};
+                _elm.data.attr.attr         = _elm.data.attr.attr || {};
+                _elm.data.attr.attr[ _a ]   = _v;
+            };
+
             if ( _value === null )
             {
                 _removeAttr( _elm );
@@ -2100,28 +2115,15 @@ Microbe.core = Microbe.prototype =
                 var _attr;
                 if ( !attrObject )
                 {
-                    _attr               = _attribute;
-                     _attribute         = {};
-                    _attribute[ _attr ] = _value;
+                    _set( _attribute, _value );
                 }
-
-                for ( _attr in _attribute )
+                else
                 {
-                    _value = _attribute[ _attr ];
-
-                    if ( !_elm.getAttribute )
+                    for ( _attr in _attribute )
                     {
-                        _elm[ _attr ] = _value;
+                        _value = _attribute[ _attr ];
+                        _set( _attr, _value );
                     }
-                    else
-                    {
-                        _elm.setAttribute( _attr, _value );
-                    }
-
-                    _elm.data                           = _elm.data || {};
-                    _elm.data.attr                      = _elm.data.attr || {};
-                    _elm.data.attr.attr                 = _elm.data.attr.attr || {};
-                    _elm.data.attr.attr[ _attribute ]   = _value;
                 }
             }
         };
@@ -2145,8 +2147,7 @@ Microbe.core = Microbe.prototype =
             {
                 _elm.removeAttribute( _attribute );
             }
-
-                delete _elm.data.attr.attr[ _attribute ];
+            delete _elm.data.attr.attr[ _attribute ];
         };
 
         if ( _value !== undefined || attrObject )
@@ -2203,7 +2204,7 @@ Microbe.core = Microbe.prototype =
      *
      * @return _Microbe_ value array of combined children
      */
-    childrenFlat : function()
+    childrenFlat : function( direction )
     {
         var _children = function( _elm )
         {
@@ -2388,7 +2389,9 @@ Microbe.core = Microbe.prototype =
     /**
      * ## filter
      *
-     * Filters the microbe by the given given selector
+     * Filters the microbe by the given given selector.
+     * unsure if we actually need the webkitMatchSelector and mozMatchSelector
+     * http://caniuse.com/#feat=matchesselector
      *
      * @param {String} selector            selector to filter by
      *
@@ -2396,59 +2399,95 @@ Microbe.core = Microbe.prototype =
      */
     filter : function( filter )
     {
-        var originalSelector = this.selector();
+        var pseudo, filters, self = this, _el, method;
 
-        var selectorRegex   = originalSelector.match( this.__selectorRegex ),
-            filterRegex     = filter.match( this.__selectorRegex );
-
-        var _id = '', _tag = '', _psuedo = '', _class = '', _selector;
-
-        var selectorArray = [ selectorRegex, filterRegex ];
-
-        var i, lenI, j, lenJ;
-        for ( j = 0, lenJ = selectorArray.length; j < lenJ; j++ )
+        if ( self.length === 0 )
         {
-            if ( selectorArray[ j ] )
+            return self;
+        }
+
+        var _filter = function( _f, _self, i )
+        {
+            if ( Microbe.pseudo[ _f[ 0 ] ] )
             {
-                for ( i = 0, lenI = selectorArray[ j ].length; i < lenI; i++ )
+                return Microbe.pseudo[ _f[ 0 ] ]( _self, _f[ 1 ] );
+            }
+            else
+            {
+                var resArray = [], _selector;
+                _selector = i === 0 ? _f[ 0 ] : ':' + _f[ 0 ];
+
+                if ( _selector !== '' )
                 {
-                    var trigger = selectorArray[ j ][ i ][ 0 ];
-
-                    switch ( trigger )
+                    if ( _f[ 1 ] !== '' )
                     {
-                        case '#':
-                            _id      += selectorArray[ j ][ i ];
-                            break;
+                        _selector += '(' + _f[ 1 ] + ')';
+                    }
 
-                        case '.':
-                            _class   += selectorArray[ j ][ i ];
-                            break;
+                    for ( var j = 0, lenJ = _self.length; j < lenJ; j++ )
+                    {
+                        _el = _self[ j ];
 
-                        case ':':
-                            _psuedo   = selectorArray[ j ][ i ];
-                            break;
-
-                        default:
-                            if ( _tag !== selectorArray[ j ][ i ] )
-                            {
-                                if ( _tag !== '' )
-                                {
-                                    return new Microbe();
-                                }
-                                else
-                                {
-                                    _tag     = selectorArray[ j ][ i ];
-                                }
-                            }
-                            break;
+                        if ( Microbe.matches( _el, _selector ) === true )
+                        {
+                            resArray.push( _el );
+                        }
                     }
                 }
+
+                return new Microbe( resArray );
+            }
+        };
+
+        if ( filter && filter.indexOf( ':' ) !== -1 )
+        {
+            pseudo  = filter.split( ':' );
+            filters = [ [ pseudo.splice( 0, 1 ).toString(), '' ] ];
+
+            var _p, pseudoArray;
+
+            for ( var i = 0, lenI = pseudo.length; i < lenI; i++ )
+            {
+                _p = pseudo[ i ];
+
+                if ( _p.indexOf( '(' ) !== - 1 )
+                {
+                    _p      = _p.split( '(' );
+                    _p[ 1 ] = _p[ 1 ].replace( ')', '' );
+                }
+                else
+                {
+                    _p      = [ _p, '' ];
+                }
+
+                filters.push( _p );
+            }
+        }
+        else if ( filter )
+        {
+            filters = [ [ filter, '' ] ];
+        }
+        else
+        {
+            return this;
+        }
+
+        for ( var k = 0, lenK = filters.length; k < lenK; k++ )
+        {
+            if ( self.length !== 0 )
+            {
+                if ( filters[ k ][ 0 ] !== '' )
+                {
+                    self = _filter( filters[ k ], self, k );
+                }
+            }
+            else
+            {
+                return self;
             }
         }
 
-        _selector = _tag + _id + _class + _psuedo;
-
-        return new Microbe( _selector );
+        return self;
     },
 
 
@@ -2463,8 +2502,43 @@ Microbe.core = Microbe.prototype =
      */
     find : function( selector )
     {
-        var _scope = this.selector();
-        return new Microbe( selector, _scope );
+        var _selector   = selector.trim();
+        var _s          = _selector[ 0 ];
+
+        if ( _s === '>' )
+        {
+            _selector = _selector.slice( 1 );
+            return this.childrenFlat().filter( _selector );
+        }
+        else if ( _s === '~' )
+        {
+            _selector = _selector.slice( 1 );
+            return this.siblingsFlat().filter( _selector );
+        }
+        else if ( _s === '!' )
+        {
+            return this.parent();
+        }
+        else if ( _s === '+' )
+        {
+            _selector       = _selector.slice( 1 );
+            var resArray    = [],
+                _el, els    = this.children();
+
+            for ( var i = 0, lenI = els.length; i < lenI; i++ )
+            {
+                _el = els[ i ][ 0 ];
+
+                if ( _el )
+                {
+                    resArray.push( _el );
+                }
+            }
+
+            return new Microbe( resArray ).filter( _selector );
+        }
+
+        return new Microbe( _selector, this );
     },
 
 
@@ -2476,7 +2550,7 @@ Microbe.core = Microbe.prototype =
      *
      * @return _Microbe_ new microbe containing only the first value
      */
-    first : function ()
+    first : function()
     {
         if ( this.length === 1 )
         {
@@ -2663,7 +2737,7 @@ Microbe.core = Microbe.prototype =
      *
      * @return _Mixed_ combined array or array-like object (based off first)
      */
-    merge : function( first, second )
+    merge : function( first, second, unique )
     {
         if ( !second )
         {
@@ -2677,7 +2751,10 @@ Microbe.core = Microbe.prototype =
         {
             for ( var j = 0, len = second.length; j < len; j++ )
             {
-                first[ i++ ] = second[ j ];
+                if ( !unique || first.indexOf( second[ j ] ) === -1 )
+                {
+                    first[ i++ ] = second[ j ];
+                }
             }
 
             first.length = i;
@@ -2814,56 +2891,6 @@ Microbe.core = Microbe.prototype =
 
 
     /**
-     * ## selector
-     *
-     * Returns the css selector from an element
-     *
-     * @return _String_ combined selector string
-     */
-    selector : function()
-    {
-        var self = this;
-
-        return this._selector || (function()
-        {
-            var getSelectorString = function( _elm )
-            {
-                if ( _elm && _elm.tagName )
-                {
-                    var tag = _elm.tagName.toLowerCase(),
-                    id      = ( _elm.id ) ? '#' + _elm.id : '',
-                    clss    = Array.prototype.join.call( _elm.classList, '.' );
-
-                    clss = ( clss !== '' ) ? '.' + clss : clss;
-
-                    return tag + id + clss;
-                }
-
-                // return blank for document or window
-                return '';
-            };
-
-            var _selector, selectors = [];
-
-            for ( var i = 0, lenI = self.length; i < lenI; i++ )
-            {
-                _selector = getSelectorString( self[ i ] );
-
-                if ( selectors.indexOf( _selector ) === -1 )
-                {
-                    selectors.push( _selector );
-                }
-            }
-
-            selectors       = selectors.join( ', ' );
-            self._selector  = selectors;
-
-            return selectors;
-        })();
-    },
-
-
-    /**
      * ## siblings
      *
      * Gets an microbe of all of each given element's siblings
@@ -2876,6 +2903,7 @@ Microbe.core = Microbe.prototype =
         {
             var parentsChildren = Microbe.toArray( _elm.parentNode.children );
             var elIndex = parentsChildren.indexOf( _elm );
+
             parentsChildren.splice( elIndex, 1 );
 
             return parentsChildren;
@@ -2895,19 +2923,34 @@ Microbe.core = Microbe.prototype =
     /**
      * ## siblingsFlat
      *
-     * Gets an microbe of all siblings of all element's given
+     * Gets an microbe of all siblings of all element's given. 'next' and 'prev'
+     * passed as direction return only the next or previous siblings of each element
+     *
+     * @paran {String} direction direction modifier (optional)
      *
      * @return _Microbe_ value array of combined siblings
      */
-    siblingsFlat : function()
+    siblingsFlat : function( direction )
     {
         var _siblings = function( _elm )
         {
-            var parentsChildren = Microbe.toArray( _elm.parentNode.children );
-            var elIndex = parentsChildren.indexOf( _elm );
-            parentsChildren.splice( elIndex, 1 );
-
-            return parentsChildren;
+            if ( !direction )
+            {
+                var parentsChildren = Microbe.toArray( _elm.parentNode.children );
+                var elIndex = parentsChildren.indexOf( _elm );
+                parentsChildren.splice( elIndex, 1 );
+                return parentsChildren;
+            }
+            else if ( direction === 'next' )
+            {
+                var next = _elm.nextElementSibling;
+                return next ? [ next ] : [];
+            }
+            else if ( direction === 'prev' )
+            {
+                var prev = _elm.prevElementSibling;
+                return prev ? [ prev ] : [];
+            }
         };
 
         var arr, i, len, siblingArray = [];
@@ -3148,13 +3191,25 @@ module.exports = function( Microbe )
             _parentEl.appendChild( _elm );
         };
 
-        return function( _el )
+
+        var _prepend = function( _parentEl, _elm )
+        {
+            var firstChild = _parentEl.children[ 0 ];
+            _parentEl.insertBefore( _elm, firstChild );
+        };
+
+
+        return function( _el, prepend )
         {
             var elementArray = [];
 
             if ( !_el.length )
             {
                 _el = [ _el ];
+            }
+            if ( typeof _el === 'string' )
+            {
+                _el = new Microbe( _el );
             }
 
             var i, j, leni, lenj, node;
@@ -3166,7 +3221,14 @@ module.exports = function( Microbe )
 
                     elementArray.push( node );
 
-                    _append( this[ i ], node );
+                    if ( prepend === true )
+                    {
+                        _prepend( this[ i ], node );
+                    }
+                    else
+                    {
+                        _append( this[ i ], node );
+                    }
                 }
             }
 
@@ -3244,38 +3306,10 @@ module.exports = function( Microbe )
      *
      * @return _Microbe_ new microbe filled with the inserted content
      */
-    Microbe.core.prepend = (function()
+    Microbe.core.prepend = function( _el )
     {
-        var _prepend = function( _parentEl, _elm )
-        {
-            var firstChild = _parentEl.children[ 0 ];
-            _parentEl.insertBefore( _elm, firstChild );
-        };
-
-        return function( _el )
-        {
-            var elementArray = [];
-
-            if ( !_el.length )
-            {
-                _el = [ _el ];
-            }
-
-            var i, j, leni, lenj, node;
-            for ( i = 0, leni = this.length; i < leni; i++ )
-            {
-                for ( j = 0, lenj = _el.length; j < lenj; j++ )
-                {
-                    node = i === 0 ? _el[ j ] : _el[ j ].cloneNode( true );
-                    elementArray.push( node );
-
-                    _prepend( this[ i ], node );
-                }
-            }
-
-            this.constructor( elementArray );
-        };
-    }());
+        return this.append( _el, true );
+    };
 
 
     /**
@@ -3612,8 +3646,7 @@ module.exports = function( Microbe )
         {
             var _response = function( _val )
             {
-                var _responses =
-                {
+                var _responses = {
                     /**
                      * ### .then
                      *
@@ -3681,10 +3714,10 @@ module.exports = function( Microbe )
      */
     Microbe.http.get = function( _url )
     {
-        return this({
+        return this( {
             url     : _url,
             method  : 'GET'
-        });
+        } );
     };
 
 
@@ -3700,11 +3733,11 @@ module.exports = function( Microbe )
      */
     Microbe.http.post = function( _url, _data )
     {
-        return this({
+        return this( {
             url     : _url,
             data    : _data,
             method  : 'POST'
-        });
+        } );
     };
 };
 
@@ -3741,23 +3774,20 @@ module.exports = function( Microbe )
      *
      * @return _Microbe_ microbe wrapped elements
      */
-    function _build( _elements, _selector )
+    function _build( _elements, self )
     {
+
         var i = 0, lenI = _elements.length;
 
         for ( ; i < lenI; i++ )
         {
-            if ( _elements[ i ] )
-            {
-                _elements[ i ].data = _elements[ i ].data || {};
-                this[ i ]           = _elements[ i ];
-            }
+            _elements[ i ].data = _elements[ i ].data || {};
+            self[ i ]           = _elements[ i ];
         }
 
-        this._selector  = _selector;
-        this.length     = i;
+        self.length     = i;
 
-        return this;
+        return self;
     }
 
 
@@ -3771,10 +3801,10 @@ module.exports = function( Microbe )
      *
      * @return _Microbe_
      */
-    function _create( _el )
+    function _create( _el, self )
     {
         var resultsRegex    = _el.match( selectorRegex ),
-            _id = '', _tag = '', _class = '', _selector = '';
+            _id = '', _tag = '', _class = '';
 
         var i, lenI;
         for ( i = 0, lenI = resultsRegex.length; i < lenI; i++ )
@@ -3799,17 +3829,14 @@ module.exports = function( Microbe )
         if ( typeof _tag === 'string' )
         {
             _el = document.createElement( _tag );
-            _selector = _tag;
 
             if ( _id )
             {
-                _selector += _id;
                 _el.id = _id.slice( 1 );
             }
 
             if ( _class )
             {
-                _selector += _class;
                 _class = _class.split( '.' );
 
                 for ( i = 1, lenI = _class.length; i < lenI; i++ )
@@ -3820,7 +3847,7 @@ module.exports = function( Microbe )
 
         }
 
-        return _build.call( this, [ _el ],  _selector );
+        return _build( [ _el ], self );
     }
 
 
@@ -3852,6 +3879,65 @@ module.exports = function( Microbe )
     }
 
 
+    function _css4StringReplace( _string )
+    {
+        // CSS4 replace
+        if ( _string.indexOf( '>>' ) !== -1 )
+        {
+            _string = _string.replace( />>/g, ' ' );
+        }
+        if ( _string.indexOf( '!' ) !== -1 )
+        {
+            _string = _string.replace( /!/g, ':parent' );
+        }
+
+        return _string;
+    }
+
+
+    /**
+     * ## _noScopeSimple
+     *
+     * if ther is no scope and there is only a simple selector
+     *
+     * @param  {String} _s   selector string
+     * @param  {Object} self this empty Microbe
+     *
+     * @return _Microbe_
+     */
+    function _noScopeSimple( _s, self )
+    {
+        if ( typeof _s === 'string' && _s.indexOf( ':' ) === -1 &&
+                _s.indexOf( '!' ) === -1 && _s.indexOf( ' ' ) === -1 )
+        {
+            switch ( _s[0] )
+            {
+                case '#':
+                    if ( _s.indexOf( '.' ) === -1 )
+                    {
+                        var id = document.getElementById( _s.slice( 1 ) );
+
+                        return id === null ? _build( [] ) : _build( [ id ], self );
+                    }
+                    break;
+                case '.':
+                    if ( _s.indexOf( '#' ) === -1 )
+                    {
+                        var clss = _s.slice( 1 );
+
+                        if ( clss.indexOf( '.' ) === -1 )
+                        {
+                            return _build( document.getElementsByClassName( clss ), self );
+                        }
+                    }
+                    break;
+            }
+        }
+
+        return false;
+    }
+
+
     /**
      * ## \_\_init\_\_
      *
@@ -3869,103 +3955,59 @@ module.exports = function( Microbe )
      */
     Microbe.core.__init__ =  function( _selector, _scope, _elements )
     {
+        var res;
         if ( !_scope )
         {
-            if ( _selector && typeof _selector === 'string' )
+
+            res = _noScopeSimple( _selector, this );
+
+            if( res )
             {
-                var _s = _selector[0];
-                var _i, _c, _p;
-
-                if ( _s !== '<' &&  _selector.indexOf( ':' ) === -1 &&
-                                _selector.indexOf( ' ' ) === -1 )
-                {
-                    switch ( _s )
-                    {
-                        case '#':
-                            if ( _selector.indexOf( '.' ) === -1 )
-                            {
-                                var id = document.getElementById( _selector.slice( 1 ) );
-
-                                if ( id )
-                                {
-                                    id = [ id ];
-                                }
-                                else
-                                {
-                                    id = [];
-                                }
-
-                                return _build.call( this, id, _selector );
-                            }
-                            break;
-                        case '.':
-                            if ( _selector.indexOf( '#' ) === -1 )
-                            {
-                                var clss = _selector.slice( 1 );
-
-                                if ( clss.indexOf( '.' ) === -1 )
-                                {
-                                    clss = document.getElementsByClassName( clss );
-
-                                    return _build.call( this, clss, _selector );
-                                }
-                            }
-                            break;
-                        default:
-                            if ( _selector.indexOf( '#' ) === -1 &&
-                                 _selector.indexOf( '.' ) === -1 )
-                            {
-                                var tag = document.getElementsByTagName( _selector );
-
-                                return _build.call( this, tag, _selector );
-                            }
-                    }
-                }
+                return res;
             }
+        }
+
+        if ( typeof _selector === 'string' )
+        {
+            _selector = _css4StringReplace( _selector );
+        }
+
+        if ( typeof _scope === 'string' )
+        {
+            _scope = _css4StringReplace( _scope );
         }
 
         _selector = _selector || '';
 
+        if ( _scope && _scope.type === '[object Microbe]' )
+        {
+            res = _build( [], this );
+
+            for ( var n = 0, lenN = _scope.length; n < lenN; n++ )
+            {
+                res.merge( new Microbe.core.__init__( _selector, _scope[ n ], _elements ), null, true );
+            }
+
+            return res;
+        }
+
+        /*
+         * fast tracks element based queries
+         */
         if ( _selector.nodeType === 1 || Object.prototype.toString.call( _selector ) === '[object Array]' ||
             _selector === window || _selector === document )
         {
             _selector = Microbe.isArray( _selector ) ? _selector : [ _selector ];
-            return _build.call( this, _selector,  '' );
+            return _build( _selector, this );
         }
 
         _scope = _scope === undefined ?  document : _scope;
 
         if ( _scope !== document )
         {
-            if ( _scope.type === '[object Microbe]' )
-            {
-                _scope = _scope.selector();
-            }
-
             if ( typeof _scope === 'string' && typeof _selector === 'string' )
             {
-                if ( _selector.indexOf( ',' ) !== -1 || _scope.indexOf( ',' ) !== -1 )
-                {
-                    var newSelector = '';
-                    _selector   = _selector.split( ',' );
-                    _scope      = _scope.split( ',' );
-
-                    for ( var i = 0, lenI = _scope.length; i < lenI; i++ )
-                    {
-                        for ( var j = 0, lenJ = _selector.length; j < lenJ; j++ )
-                        {
-                            newSelector += _scope[ i ] + ' ' + _selector[ j ] + ', ';
-                        }
-                    }
-
-                    newSelector = newSelector.trim();
-                    newSelector = newSelector.slice( 0, newSelector.length - 1 );
-                }
-                else
-                {
-                    _selector   = _scope + ' ' + _selector;
-                    _scope      = document;
-                }
+                return new Microbe( _scope ).find( _selector );
             }
         }
 
@@ -3976,11 +4018,11 @@ module.exports = function( Microbe )
         {
             if ( Object.prototype.toString.call( _elements ) === '[object Array]' )
             {
-                return _build.call( this, _elements, _selector );
+                return _build( _elements, this );
             }
             else
             {
-                return _build.call( this, [ _elements ], _selector );
+                return _build( [ _elements ], this );
             }
         }
         else
@@ -3988,12 +4030,12 @@ module.exports = function( Microbe )
             if ( ( !_selector || typeof _selector !== 'string' ) ||
                 ( scopeNodeType !== 1 && scopeNodeType !== 9 ) )
             {
-                return _build.call( this, [], _selector );
+                return _build( [], this );
             }
 
             var resultsRegex = _selector.match( selectorRegex );
 
-            if ( resultsRegex && resultsRegex.length === 1 )
+            if ( resultsRegex && resultsRegex.length === 1 && resultsRegex[ 0 ][ 0 ] !== ':'  )
             {
                 trigger         = resultsRegex[0][0];
 
@@ -4006,7 +4048,7 @@ module.exports = function( Microbe )
 
                         if ( _classesCount === 1 )
                         {
-                            return _build.call( this, _scope.getElementsByClassName( _shortSelector ), _selector );
+                            return _build( _scope.getElementsByClassName( _shortSelector ), this );
                         }
                         break;
                     case '#': // non-document scoped id search
@@ -4014,13 +4056,13 @@ module.exports = function( Microbe )
 
                         if ( _scope.ownerDocument && _contains( _id, _scope ) )
                         {
-                            return _build.call( this, [ _id ], _selector );
+                            return _build( [ _id ], this );
                         }
                         break;
                     case '<': // element creation
-                        return _create.call( this, _selector.substring( 1, _selector.length - 1 ) );
+                        return _create( _selector.substring( 1, _selector.length - 1 ), this );
                     default:
-                        return _build.call( this, _scope.getElementsByTagName( _selector ), _selector );
+                        return _build( _scope.getElementsByTagName( _selector ), this );
                 }
             }
         }
@@ -4030,49 +4072,12 @@ module.exports = function( Microbe )
             return new Microbe.core.__init__( _selector, _scope, _elements );
         }
 
-        var pseudo;
         if ( _selector.indexOf( ':' ) !== -1 )
         {
-            var _pseudoArray;
-             pseudo     = _selector.split( ':' );
-            _selector   = pseudo[ 0 ];
-            pseudo.splice( 0, 1 );
-
-            for ( var k = 0, lenK = pseudo.length; k < lenK; k++ )
-            {
-                _pseudoArray = pseudo[ k ].split( '(' );
-
-                if ( !Microbe.constructor.pseudo[ _pseudoArray[ 0 ] ] )
-                {
-                    _selector += ':' + pseudo[ k ];
-                    pseudo.splice( k, 1 );
-                }
-            }
+            return Microbe.constructor.pseudo( this, _selector, _scope, _build );
         }
 
-        var obj = _build.call( this, _scope.querySelectorAll( _selector ), _selector );
-
-        if ( pseudo )
-        {
-            var _sel, _var;
-            for ( var h = 0, lenH = pseudo.length; h < lenH; h++ )
-            {
-                _sel = pseudo[ h ].split( '(' );
-                _var = _sel[ 1 ];
-                if ( _var )
-                {
-                    _var = _var.slice( 0, _var.length - 1 );
-                }
-                _sel = _sel[ 0 ];
-
-                if ( Microbe.constructor.pseudo[ _sel ] )
-                {
-                    obj = Microbe.constructor.pseudo[ _sel ]( obj, _var );
-                }
-            }
-        }
-
-        return obj;
+        return _build( _scope.querySelectorAll( _selector ), this );
     };
 
     Microbe.core.__init__.prototype = Microbe.core;
@@ -4374,222 +4379,1019 @@ module.exports = function( Microbe )
 module.exports = function( Microbe )
 {
     /**
-     * ## pseudo
+     * ### parseNth
      *
-     * @return _Object_
+     * when supplied with a microbe and a css style n selector (2n1), filters
+     * and returns the result
+     *
+     * @param {Microbe} _el microbe to be filtered
+     * @param {String} _var number string
+     * @param {Boolean} _last counting from the font or back
+     *
+     * @return _Microbe_
      */
-    Microbe.constructor.prototype.pseudo = {
-
-        /**
-         * ### contains
-         *
-         * Returns only elements that contain the given text.  The supplied text
-         * is compared ignoring case
-         *
-         * @param {Microbe} _el microbe to be filtered
-         * @param {String} _var string to search for
-         *
-         * @return _Microbe_
-         */
-        contains : function( _el, _var )
+    var parseNth = function( _el, _var, _last )
+    {
+        if ( _var.indexOf( 'n' ) === -1 )
         {
-            _var            = _var.toLowerCase();
-
-            var textArray   = _el.text();
-            var elements    = [];
-
-            for ( var i = 0, lenI = _el.length; i < lenI; i++ )
+            switch ( _last )
             {
-                if ( textArray[ i ].toLowerCase().indexOf( _var ) !== -1 )
-                {
-                    elements.push( _el[ i ] );
-                }
+                case true:
+                case 'last':
+                    return new Microbe( _el[ _el.length - parseInt( _var ) ] );
             }
-            return _el.constructor( elements );
-        },
-
-
-        /**
-         * ### even
-         *
-         * Returns the even indexed elements of a microbe (starting at 0)
-         *
-         * @param {Microbe} _el microbe to be filtered
-         *
-         * @return _Microbe_
-         */
-        even : function( _el )
+            return new Microbe( _el[ parseInt( _var ) - 1 ] );
+        }
+        else
         {
-            var elements = [];
-            for ( var i = 0, lenI = _el.length; i < lenI; i++ )
+            _var            = _var.split( 'n' );
+            var increment   = parseInt( _var[0] ) || 1;
+            var offset      = parseInt( _var[1] );
+
+            var top;
+            if ( _last === true || _last === 'last' )
             {
-                if ( ( i + 1 ) % 2 === 0 )
-                {
-                    elements.push( _el[ i ] );
-                }
-            }
-            return _el.constructor( elements );
-        },
-
-
-        /**
-         * ### first
-         *
-         * returns the first element of a microbe
-         *
-         * @param {Microbe} _el microbe to be filtered
-         *
-         * @return _Microbe_
-         */
-        first : function( _el )
-        {
-            return _el.first();
-        },
-
-
-        /**
-         * ### gt
-         *
-         * returns the last {_var} element
-         *
-         * @param {Microbe} _el microbe to be filtered
-         * @param {String} _var number of elements to return
-         *
-         * @return _Microbe_
-         */
-        gt : function( _el, _var )
-        {
-            return _el.splice( _var, _el.length );
-        },
-
-
-        /**
-         * ### has
-         *
-         * returns elements that have the passed selector as a child
-         *
-         * @param {Microbe} _el microbe to be filtered
-         * @param {String} _var selector string
-         *
-         * @return _Microbe_
-         */
-        has : function( _el, _var )
-        {
-            var i, lenI, _obj, results = [];
-
-            for ( i = 0, lenI = _el.length; i < lenI; i++ )
-            {
-                _obj = _el.constructor( _var, _el[ i ] );
-
-                if ( _obj.length !== 0 )
-                {
-                    results.push( _el[ i ] );
-                }
+                top         = _el.length - parseInt( _var[1] );
+                offset      = top % increment;
             }
 
-            return _el.constructor( results );
-
-        },
-
-
-        /**
-         * ### last
-         *
-         * returns the last element of a microbe
-         *
-         * @param {Microbe} _el microbe to be filtered
-         *
-         * @return _Microbe_
-         */
-        last : function( _el )
-        {
-            return _el.last();
-        },
-
-
-        /**
-         * ### lt
-         *
-         * returns the first [_var] elements
-         *
-         * @param {Microbe} _el microbe to be filtered
-         * @param {String} _var number of elements to return
-         *
-         * @return _Microbe_
-         */
-        lt : function( _el, _var )
-        {
-            return _el.splice( 0, _var );
-        },
-
-
-        /**
-         * ### add
-         *
-         * returns the odd indexed elements of a microbe
-         *
-         * @param {Microbe} _el microbe to be filtered
-         *
-         * @return _Microbe_
-         */
-        odd : function( _el )
-        {
-            var elements = [];
-            for ( var i = 0, lenI = _el.length; i < lenI; i++ )
+            var _e, resArray = [];
+            for ( var i = offset || 0, lenI = top || _el.length; i < lenI; )
             {
-                if ( ( i + 1 ) % 2 !== 0 )
+                _e = _el[ i ];
+
+                if ( _e )
                 {
-                    elements.push( _el[ i ] );
+                    resArray.push( _e );
                 }
+
+                i += increment;
             }
-            return _el.constructor( elements );
-        },
-
-
-        /**
-         * ### root
-         *
-         * returns the root elements of the document
-         *
-         * @param {Microbe} _el microbe to be filtered
-         *
-         * @return _Microbe_
-         */
-        root : function( _el )
-        {
-            return _el.root();
-        },
-
-
-        /**
-         * ### target
-         *
-         * returns a microbe with elements that match both the original selector, and the id of the page hash
-         *
-         * @param {Microbe} _el microbe to be filtered
-         *
-         * @return _Microbe_
-         */
-        target : function( _el )
-        {
-            var hash = ( location.href.split( '#' )[ 1 ] );
-
-            var elements = [];
-
-            if ( hash )
-            {
-                for ( var i = 0, lenI = _el.length; i < lenI; i++ )
-                {
-                    if ( _el[ i ].id === hash  )
-                    {
-                        elements.push( _el[ i ] );
-                    }
-                }
-            }
-
-            return _el.constructor( elements );
+            return new Microbe( resArray );
         }
     };
+
+
+    /**
+     * ### pseudo
+     *
+     * an extension to core.__init_ to handle custom pseusoselectors
+     *
+     * @param  {Microbe} self half built microbe
+     * @param  {String} selector pseudo-selector string
+     * @param  {Object} _scope scope element
+     * @param  {Function} _build build function from core
+     *
+     * @return _Microbe_
+     */
+    var pseudo = function( self, selector, _scope, _build )
+    {
+        /**
+         * ## _breakUpSelector
+         *
+         * pushes each selector through the pseudo-selector engine
+         *
+         * @param  {Array} _selectors split selectors
+         *
+         * @return _Microbe_
+         */
+        function _breakUpSelector( _selectors )
+        {
+            var _el, resArray = [];
+            for ( var i = 0, lenI = _selectors.length; i < lenI; i++ )
+            {
+                if ( i === 0 )
+                {
+                    resArray = pseudo( self, _selectors[ i ], _scope, _build );
+                }
+                else
+                {
+                    Microbe.merge( resArray, pseudo( self, _selectors[ i ], _scope, _build ), true );
+                }
+            }
+
+            return resArray;
+        }
+
+
+        /**
+         * ## _buildObject
+         *
+         * builds the microbe ready for return
+         *
+         * @return _Microbe_
+         */
+        function _buildObject()
+        {
+            var _pseudo = _parsePseudo( _selector );
+
+            var obj = _build( _scope.querySelectorAll( _pseudo[0] ), self );
+            _pseudo = _pseudo[ 1 ];
+
+            var _sel, _var;
+            for ( var h = 0, lenH = _pseudo.length; h < lenH; h++ )
+            {
+                _sel = _pseudo[ h ].split( '(' );
+                _var = _sel[ 1 ];
+                if ( _var )
+                {
+                    _var = _var.slice( 0, _var.length - 1 );
+                }
+                _sel = _sel[ 0 ];
+
+                if ( Microbe.constructor.pseudo[ _sel ] )
+                {
+                    obj = Microbe.constructor.pseudo[ _sel ]( obj, _var, selector );
+                }
+            }
+
+            return obj;
+        }
+
+
+        /**
+         * ## _cycleFilters
+         *
+         * filters multiple pseudo-selector selectors
+         *
+         * @param {Array} res array of results to be filtered
+         *
+         * @return _Microbe_
+         */
+        function _cycleFilters( res )
+        {
+            var obj = Microbe.constructor.pseudo( self, res[ 0 ], _scope, _build );
+
+            var filter, connect = false;
+            for ( var i = 1, lenI = res.length; i < lenI; i++ )
+            {
+                filter = res[ i ].trim();
+
+                if ( filter[ 0 ] === '~' )
+                {
+                    obj = obj.siblingsFlat();
+                    connect = true;
+                }
+                else if ( filter[ 0 ] === '>' )
+                {
+                    obj = obj.childrenFlat();
+                    connect = true;
+                }
+                else if ( filter[ 0 ] === '+' )
+                {
+                    obj = obj.siblingsFlat( 'next' );
+                    connect = true;
+                }
+                else if ( connect )
+                {
+                    obj = obj.filter( filter );
+                    connect = false;
+                }
+                else
+                {
+                    obj = obj.find( filter );
+                    connect = false;
+                }
+
+                if ( obj.length === 0 )
+                {
+                    return obj;
+                }
+            }
+            return obj;
+        }
+
+
+        /**
+         * ## _parsePseudo
+         *
+         * checks all pseudo-selectors to see if they're custom and
+         * otherwise it reattaches it
+         *
+         * @param  {String} _sel selector string
+         *
+         * @return _String_ modified selector
+         */
+        function _parsePseudo( _sel )
+        {
+            var _pseudoArray;
+            var _pseudo = _sel.split( ':' );
+            _sel        = _pseudo[ 0 ];
+            _pseudo.splice( 0, 1 );
+
+            for ( var k = 0, lenK = _pseudo.length; k < lenK; k++ )
+            {
+                _pseudoArray = _pseudo[ k ].split( '(' );
+
+                if ( !Microbe.constructor.pseudo[ _pseudoArray[ 0 ] ] )
+                {
+                    _sel += ':' + _pseudo[ k ];
+                    _pseudo.splice( k, 1 );
+                }
+            }
+
+            return [ _sel, _pseudo ];
+        }
+
+
+
+        if ( selector.indexOf( ',' ) !== -1 )
+        {
+            selector = selector.split( /,(?![a-zA-Z0-9-#.,\s]+\))/g );
+
+            if ( selector.length > 1 )
+            {
+                return _breakUpSelector( selector );
+            }
+            else
+            {
+                selector = selector[ 0 ];
+            }
+        }
+
+        var _selector = selector;
+
+        if ( _selector[ 0 ] === ':' )
+        {
+            _selector = '*' + _selector;
+        }
+
+        if ( _selector.trim().indexOf( ' ' ) !== -1 )
+        {
+            var filterFunction = function( e ){ return e === ' ' ? false : e; };
+            var res = _selector.split( /((?:[A-Za-z0-9.#*\-_]+)?(?:\:[A-Za-z\-]+(?:\([\s\S]+\))?)?)?( )?/ );
+                res = res.filter( filterFunction );
+
+            if ( res.length > 1 )
+            {
+                return _cycleFilters( res );
+            }
+            else
+            {
+                _selector = res[ 0 ];
+            }
+        }
+
+        return _buildObject();
+    };
+
+
+    /**
+     * ### any-link
+     *
+     * match elements that act as the source anchors of hyperlinks
+     *
+     * @param {Microbe} _el microbe to be filtered
+     *
+     * @return _Microbe_
+     */
+    pseudo[ 'any-link' ] = function( _el )
+    {
+        return _el.filter( 'a' );
+    };
+
+
+    /**
+     * ### blank
+     *
+     * matches elements that only contain content which consists of whitespace
+     *
+     * @param {Microbe} _el microbe to be filtered
+     *
+     * @return _Microbe_
+     */
+    pseudo.blank = function( _el )
+    {
+        var resArray = [], _e, _t;
+        for ( var i = 0, lenI = _el.length; i < lenI; i++ )
+        {
+            _e = _el[ i ];
+            _t = document.all ? _e.innerText : _e.textContent;
+
+            if ( resArray.indexOf( _e ) === -1 )
+            {
+                if ( /^\s*$/.test( _t || _e.value ) )
+                {
+                    resArray.push( _e );
+                }
+            }
+        }
+
+        return _el.constructor( resArray );
+    };
+
+
+    /**
+     * ### column
+     *
+     * filters for columns with a suplied selector
+     *
+     * @param {Microbe} _el microbe to be filtered
+     * @param {String} _var string to search for
+     *
+     * @return _Microbe_
+     */
+    pseudo.column = function( _el, _var )
+    {
+        return _el.filter( 'col' ).filter( _var );
+    };
+
+
+    /**
+     * ### contains
+     *
+     * Returns only elements that contain the given text.  The supplied text
+     * is compared ignoring case
+     *
+     * @param {Microbe} _el microbe to be filtered
+     * @param {String} _var string to search for
+     *
+     * @return _Microbe_
+     */
+    pseudo.contains = function( _el, _var )
+    {
+        _var            = _var.toLowerCase();
+
+        var textArray   = _el.text();
+        var elements    = [];
+
+        for ( var i = 0, lenI = _el.length; i < lenI; i++ )
+        {
+            if ( textArray[ i ].toLowerCase().indexOf( _var ) !== -1 )
+            {
+                elements.push( _el[ i ] );
+            }
+        }
+        return _el.constructor( elements );
+    };
+
+
+    /**
+     * ### default
+     *
+     * selects all inputs and select boxes that are checked by dafeult
+     *
+     * @param {Microbe} _el microbe to be filtered
+     *
+     * @return _Microbe_
+     */
+    pseudo.default = function( _el )
+    {
+        _el = _el.filter( 'input, option' );
+
+        var _e, resArray = [];
+        for ( var i = 0, lenI = _el.length; i < lenI; i++ )
+        {
+            _e = _el[ i ];
+
+            if ( _e.defaultChecked === true )
+            {
+                resArray.push( _e );
+            }
+        }
+
+        return _el.constructor( resArray );
+    };
+
+
+    /**
+     * ### dir
+     *
+     * match elements by its directionality based on the document language
+     *
+     * @param {Microbe} _el microbe to be filtered
+     * @param {String} _var string to search for
+     *
+     * @return _Microbe_
+     */
+    pseudo.dir = function( _el, _var )
+    {
+        var _e, resArray = [];
+        for ( var i = 0, lenI = _el.length; i < lenI; i++ )
+        {
+            _e = _el[ i ];
+            if ( getComputedStyle( _e ).direction === _var )
+            {
+                resArray.push( _e );
+            }
+        }
+        return _el.constructor( resArray );
+    };
+
+
+    /**
+     * ### drop
+     *
+     * returns all elements that are drop targets. HTML has a dropzone
+     * attribute which specifies that an element is a drop target.
+     *
+     * @param {Microbe} _el microbe to be filtered
+     * @param {String} _var trigger string
+     *
+     * @return _Microbe_
+     */
+    pseudo.drop = function( _el, _var )
+    {
+        _el = _el.filter( '[dropzone]' );
+
+        if ( !_var )
+        {
+            return _el;
+        }
+        else
+        {
+            switch ( _var )
+            {
+                case 'active':
+                    return _el.filter( ':active' );
+                case 'invalid':
+                    return _el.filter();
+                case 'valid':
+                    return _el.filter();
+            }
+        }
+    };
+
+
+    /**
+     * ### even
+     *
+     * Returns the even indexed elements of a microbe (starting at 0)
+     *
+     * @param {Microbe} _el microbe to be filtered
+     *
+     * @return _Microbe_
+     */
+    pseudo.even = function( _el )
+    {
+        var elements = [];
+        for ( var i = 0, lenI = _el.length; i < lenI; i++ )
+        {
+            if ( ( i + 1 ) % 2 === 0 )
+            {
+                elements.push( _el[ i ] );
+            }
+        }
+        return _el.constructor( elements );
+    };
+
+
+    /**
+     * ### first
+     *
+     * returns the first element of a microbe
+     *
+     * @param {Microbe} _el microbe to be filtered
+     *
+     * @return _Microbe_
+     */
+    pseudo.first = function( _el )
+    {
+        return _el.first();
+    };
+
+
+    /**
+     * ### gt
+     *
+     * returns the last {_var} element
+     *
+     * @param {Microbe} _el microbe to be filtered
+     * @param {String} _var number of elements to return
+     *
+     * @return _Microbe_
+     */
+    pseudo.gt = function( _el, _var )
+    {
+        return _el.splice( _var, _el.length );
+    };
+
+
+    /**
+     * ### has
+     *
+     * returns elements that have the passed selector as a child
+     *
+     * @param {Microbe} _el microbe to be filtered
+     * @param {String} _var selector string
+     *
+     * @return _Microbe_
+     */
+    pseudo.has = function( _el, _var )
+    {
+        var i, lenI, _obj, results = [];
+
+        for ( i = 0, lenI = _el.length; i < lenI; i++ )
+        {
+            _obj = _el.constructor( _var, _el[ i ] );
+
+            if ( _obj.length !== 0 )
+            {
+                results.push( _el[ i ] );
+            }
+        }
+
+        return _el.constructor( results );
+    };
+
+
+    /**
+     * ### in-range
+     *
+     * select the elements with a value inside the specified range
+     *
+     * @param {Microbe} _el microbe to be filtered
+     *
+     * @return _Microbe_
+     */
+    pseudo[ 'in-range' ] = function( _el )
+    {
+        _el = _el.filter( '[max],[min]' );
+
+        var min, max, _v, _e, resArray = [];
+        for ( var i = 0, lenI = _el.length; i < lenI; i++ )
+        {
+            _e = _el[ i ];
+            min = _e.getAttribute( 'min' );
+            max = _e.getAttribute( 'max' );
+            _v = parseInt( _e.value );
+
+            if ( _v )
+            {
+                if ( min && max )
+                {
+                    if ( _v > min && _v < max )
+                    {
+                        resArray.push( _e );
+                    }
+                }
+                else if ( min && _v > min )
+                {
+                    resArray.push( _e );
+                }
+                else if ( max && _v < max )
+                {
+                    resArray.push( _e );
+                }
+            }
+        }
+        return _el.constructor( resArray );
+    };
+
+
+    /**
+     * ### lang
+     *
+     * match the elements based on the document language
+     *
+     * @param {Microbe} _el microbe to be filtered
+     * @param {String} _var specified language (accepts wildcards as *)
+     *
+     * @return _Microbe_
+     */
+    pseudo.lang = function( _el, _var )
+    {
+        if ( _var )
+        {
+            if ( _var.indexOf( '*' ) !== -1 )
+            {
+                _el     = _el.filter( '[lang]' );
+                _var    = _var.replace( '*', '' );
+                var resArray = [], _e;
+                for ( var i = 0; i < _el.length; i++ )
+                {
+                    _e = _el[ i ];
+                    if ( _e.getAttribute( 'lang' ).indexOf( _var ) !== -1 )
+                    {
+                        resArray.push( _e );
+                    }
+                }
+
+                return new Microbe( resArray );
+            }
+
+            var res = document.querySelectorAll( ':lang(' + _var + ')' );
+                res = Array.prototype.slice.call( res, 0 );
+            return new Microbe( res );
+        }
+        else
+        {
+            return new Microbe( [] );
+        }
+    };
+
+
+    /**
+     * ### last
+     *
+     * returns the last element of a microbe
+     *
+     * @param {Microbe} _el microbe to be filtered
+     *
+     * @return _Microbe_
+     */
+    pseudo.last = function( _el )
+    {
+        return _el.last();
+    };
+
+
+
+    /**
+     * ### local-link
+     *
+     * returns all link tags that go to local links. If specified a depth
+     * filter can be added
+     *
+     * @param {Microbe} _el microbe to be filtered
+     * @param {String} _var specified depth
+     *
+     * @return _Microbe_
+     */
+    pseudo[ 'local-link' ] = function( _el, _var )
+    {
+        var links   = document.getElementsByTagName( 'A' );
+        var here    = document.location;
+
+        var url, urlShort, depth, resArray = [];
+        for ( var i = 0, lenI = links.length; i < lenI; i++ )
+        {
+            url         = links[ i ].href;
+            urlShort    = url.replace( here.origin, '' ).replace( here.host, '' );
+            urlShort    = urlShort[ 0 ] === '/' ? urlShort.slice( 1 ) : urlShort;
+            depth       = urlShort.split( '/' ).length - 1;
+
+            if ( !_var || parseInt( _var ) === depth )
+            {
+                resArray.push( links[ i ] );
+            }
+        }
+
+        return _el.constructor( resArray );
+    };
+
+
+    /**
+     * ### lt
+     *
+     * returns the first [_var] elements
+     *
+     * @param {Microbe} _el microbe to be filtered
+     * @param {String} _var number of elements to return
+     *
+     * @return _Microbe_
+     */
+    pseudo.lt = function( _el, _var )
+    {
+        return _el.splice( 0, _var );
+    };
+
+
+    /**
+     * ### matches
+     *
+     * returns elements that match either selector
+     *
+     * @param {Microbe} _el microbe to be filtered
+     * @param {String} _var number of elements to return
+     * @param {String} _selector full original selector
+     *
+     * @return _Microbe_
+     */
+    pseudo.matches = function( _el, _var, _selector )
+    {
+        var text = ':matches(' + _var + ')';
+        _var = _var.split( ',' );
+
+        _selector = _selector.replace(  text, '' );
+        _selector = _selector === '*' ? '' : _selector;
+
+        var res = new Microbe( _selector + _var[ 0 ].trim() );
+
+        for ( var i = 1, lenI = _var.length; i < lenI; i++ )
+        {
+            res.merge( new Microbe( _selector + _var[ i ].trim() ), null, true );
+        }
+
+        return res;
+    };
+
+
+    /**
+     * ### not
+     *
+     * returns all elements that do not match the given selector. As per
+     * CSS4 spec, this accepts complex selectors seperated with a comma
+     *
+     * @param {Microbe} _el microbe to be filtered
+     * @param {String} _var number of elements to return
+     * @param {String} _recursive an indicator that it is calling itself. defines output
+     *
+     * @return _Microbe_
+     */
+    pseudo.not = function( _el, _var, _recursive )
+    {
+        if ( _var.indexOf( ',' ) !== -1 )
+        {
+            _var = _var.split( ',' );
+
+            for ( var i = 0, lenI = _var.length; i < lenI; i++ )
+            {
+                _el = this.not( _el, _var[ i ].trim(), true );
+            }
+            return new Microbe( _el );
+        }
+        else
+        {
+            var resArray = [];
+            for ( var j = 0, lenJ = _el.length; j < lenJ; j++ )
+            {
+                if ( ! Microbe.matches( _el[ j ], _var ) )
+                {
+                    resArray.push( _el[ j ] );
+                }
+            }
+            if ( _recursive )
+            {
+                return resArray;
+            }
+            return _el.constructor( resArray );
+        }
+    };
+
+
+    /**
+     * ### nth-column
+     *
+     * returns the nth column of the current microbe
+     *
+     * @param {Microbe} _el microbe to be filtered
+     * @param {String} _var number of elements to return
+     *
+     * @return _Microbe_
+     */
+    pseudo[ 'nth-column' ] = function( _el, _var )
+    {
+        _el = _el.filter( 'col' );
+
+        return parseNth( _el, _var );
+    };
+
+
+    /**
+     * ### nth-last-column
+     *
+     * returns the nth column of the current microbe starting from the back
+     *
+     * @param {Microbe} _el microbe to be filtered
+     * @param {String} _var number of elements to return
+     *
+     * @return _Microbe_
+     */
+    pseudo[ 'nth-last-column' ] = function( _el, _var )
+    {
+        _el = _el.filter( 'col' );
+
+        return parseNth( _el, _var, true );
+    };
+
+
+    /**
+     * ### nth-last-match
+     *
+     * returns the nth match(es) of the current microbe starting from the back
+     *
+     * @param {Microbe} _el microbe to be filtered
+     * @param {String} _var number of elements to return
+     *
+     * @return _Microbe_
+     */
+    pseudo[ 'nth-last-match' ] = function( _el, _var )
+    {
+        return parseNth( _el, _var, true );
+    };
+
+
+    /**
+     * ### nth-match
+     *
+     * returns the nth match(es) of the current microbe
+     *
+     * @param {Microbe} _el microbe to be filtered
+     * @param {String} _var number of elements to return
+     *
+     * @return _Microbe_
+     */
+    pseudo[ 'nth-match' ] = function( _el, _var )
+    {
+        return parseNth( _el, _var );
+    };
+
+
+    /**
+     * ### add
+     *
+     * returns the odd indexed elements of a microbe
+     *
+     * @param {Microbe} _el microbe to be filtered
+     *
+     * @return _Microbe_
+     */
+    pseudo.odd = function( _el )
+    {
+        var elements = [];
+        for ( var i = 0, lenI = _el.length; i < lenI; i++ )
+        {
+            if ( ( i + 1 ) % 2 !== 0 )
+            {
+                elements.push( _el[ i ] );
+            }
+        }
+        return _el.constructor( elements );
+    };
+
+
+    /**
+     * ### optional
+     *
+     * returns all optional elements
+     *
+     * @param  {[type]} _el [description]
+     *
+     * @return {[type]}     [description]
+     */
+    pseudo.optional = function( _el )
+    {
+        return _el.filter( 'input:not([required=required]), textfield:not([required=required]), [required=optional], [optional]' );
+    };
+
+
+    /**
+     * ### out-of-range
+     *
+     * select the elements with a value inside the specified range
+     *
+     * @param {Microbe} _el microbe to be filtered
+     *
+     * @return _Microbe_
+     */
+    pseudo[ 'out-of-range' ] = function( _el )
+    {
+        _el = _el.filter( '[max],[min]' );
+
+        var min, max, _v, _e, resArray = [];
+        for ( var i = 0, lenI = _el.length; i < lenI; i++ )
+        {
+            _e  = _el[ i ];
+            min = _e.getAttribute( 'min' );
+            max = _e.getAttribute( 'max' );
+            _v  = parseFloat( _e.value );
+
+            if ( _v )
+            {
+                if ( min && max )
+                {
+                    if ( _v < min || _v > max )
+                    {
+                        resArray.push( _e );
+                    }
+                }
+                else if ( min && _v < min )
+                {
+                    resArray.push( _e );
+                }
+                else if ( max && _v > max )
+                {
+                    resArray.push( _e );
+                }
+            }
+        }
+
+        return _el.constructor( resArray );
+    };
+
+
+    /**
+     * ### parent
+     *
+     * returns the parents of an _el match.
+     * normally triggered using the ! selector
+     *
+     * @param {Microbe} _el microbe to be filtered
+     *
+     * @return _Microbe_
+     */
+    pseudo.parent = function( _el )
+    {
+        _el =  _el.parent();
+
+        var _e, elements = [];
+        for ( var i = 0, lenI = _el.length; i < lenI; i++ )
+        {
+            _e = _el[ i ];
+
+            if ( elements.indexOf( _e ) === -1 )
+            {
+                elements.push( _e );
+            }
+        }
+
+        return _el.constructor( elements );
+    };
+
+
+    /**
+     * ### read-only
+     *
+     * user-non-alterable content
+     *
+     * @param {Microbe} _el microbe to be filtered
+     *
+     * @return _Microbe_
+     */
+    pseudo[ 'read-only' ] = function( _el )
+    {
+        return _el.filter( ':not(input,textfield,[contenteditable=false])' );
+    };
+
+
+    /**
+     * ### read-write
+     *
+     * input elements which are user-alterable or contenteditable
+     *
+     * @param {Microbe} _el microbe to be filtered
+     *
+     * @return _Microbe_
+     */
+    pseudo[ 'read-write' ] = function( _el )
+    {
+        return _el.filter( 'input,textfield,[contenteditable=true]' );
+    };
+
+
+    /**
+     * ### required
+     *
+     * returns all required elements
+     *
+     * @param {Microbe} _el microbe to be filtered
+     *
+     * @return _Microbe_
+     */
+    pseudo.required = function( _el )
+    {
+        return _el.filter( '[required=required]' );
+    };
+
+
+    /**
+     * ### root
+     *
+     * returns the root elements of the document
+     *
+     * @param {Microbe} _el microbe to be filtered
+     *
+     * @return _Microbe_
+     */
+    pseudo.root = function( _el )
+    {
+        return _el.root();
+    };
+
+
+    /**
+     * ### target
+     *
+     * returns a microbe with elements that match both the original selector, and the id of the page hash
+     *
+     * @param {Microbe} _el microbe to be filtered
+     *
+     * @return _Microbe_
+     */
+    pseudo.target = function( _el )
+    {
+        var hash = ( location.href.split( '#' )[ 1 ] );
+
+        var elements = [];
+
+        if ( hash )
+        {
+            for ( var i = 0, lenI = _el.length; i < lenI; i++ )
+            {
+                if ( _el[ i ].id === hash  )
+                {
+                    elements.push( _el[ i ] );
+                }
+            }
+        }
+
+        return _el.constructor( elements );
+    };
+
+
+
+    Microbe.constructor.prototype.pseudo = pseudo;
 };
 
 },{}],19:[function(require,module,exports){
@@ -4890,6 +5692,56 @@ module.exports = function( Microbe )
 
 
     /**
+     * ## matches
+     *
+     * checks element an to see if they match a given css selector
+     *
+     * @param  {Mixed} el element, microbe, or array of elements to match
+     *
+     * @return _Booblean matches or not
+     */
+    Microbe.matches = function( el, selector )
+    {
+        var method = this.matches.__matchesMethod;
+
+        var isArray = Microbe.isArray( el ) || ( typeof el !== 'string' && !!( el.length ) ) ? true : false;
+
+        if ( !isArray && !( typeof el !== 'string' && !!( el.length ) ) )
+        {
+            el = [ el ];
+        }
+
+        if ( !method && el[ 0 ] )
+        {
+            if ( el[ 0 ].matches )
+            {
+                method = this.matches.__matchesMethod = 'matches';
+            }
+            else if ( el[ 0 ].msMatchSelector )
+            {
+                method = this.matches.__matchesMethod = 'msMatchSelector';
+            }
+            else if ( el[ 0 ].mozMatchSelector )
+            {
+                method = this.matches.__matchesMethod = 'mozMatchSelector';
+            }
+            else if ( el[ 0 ].webkitMatchSelector )
+            {
+                method = this.matches.__matchesMethod = 'webkitMatchSelector';
+            }
+        }
+
+        var resArray = [];
+        for ( var i = 0, lenI = el.length; i < lenI; i++ )
+        {
+            resArray.push( el[ i ][ method ]( selector ) );
+        }
+
+        return isArray ? resArray : resArray[ 0 ];
+    };
+
+
+    /**
      * ## noop
      *
      * Nothing happens
@@ -4898,7 +5750,7 @@ module.exports = function( Microbe )
      *
      * @return _void_
      */
-    Microbe.noop    = function() {};
+    Microbe.noop = function() {};
 
 
     /**
@@ -4920,10 +5772,6 @@ module.exports = function( Microbe )
             {
                 result  = _func.apply( context || this, arguments );
                 _func   = null;
-            }
-            else
-            {
-                result  = null;
             }
 
             return result;

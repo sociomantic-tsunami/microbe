@@ -34,6 +34,7 @@ var buildTest = function( _str1, _cb1, _str2, _cb2, _console )
 
     var startTheTest = function( e )
     {
+        µ( e.target ).text( 'Speed test started...' );
         if ( e )
         {
             e.stopPropagation();

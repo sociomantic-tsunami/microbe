@@ -295,6 +295,56 @@ module.exports = function( Microbe )
 
 
     /**
+     * ## matches
+     *
+     * checks element an to see if they match a given css selector
+     *
+     * @param  {Mixed} el element, microbe, or array of elements to match
+     *
+     * @return _Booblean matches or not
+     */
+    Microbe.matches = function( el, selector )
+    {
+        var method = this.matches.__matchesMethod;
+
+        var isArray = Microbe.isArray( el ) || ( typeof el !== 'string' && !!( el.length ) ) ? true : false;
+
+        if ( !isArray && !( typeof el !== 'string' && !!( el.length ) ) )
+        {
+            el = [ el ];
+        }
+
+        if ( !method && el[ 0 ] )
+        {
+            if ( el[ 0 ].matches )
+            {
+                method = this.matches.__matchesMethod = 'matches';
+            }
+            else if ( el[ 0 ].msMatchSelector )
+            {
+                method = this.matches.__matchesMethod = 'msMatchSelector';
+            }
+            else if ( el[ 0 ].mozMatchSelector )
+            {
+                method = this.matches.__matchesMethod = 'mozMatchSelector';
+            }
+            else if ( el[ 0 ].webkitMatchSelector )
+            {
+                method = this.matches.__matchesMethod = 'webkitMatchSelector';
+            }
+        }
+
+        var resArray = [];
+        for ( var i = 0, lenI = el.length; i < lenI; i++ )
+        {
+            resArray.push( el[ i ][ method ]( selector ) );
+        }
+
+        return isArray ? resArray : resArray[ 0 ];
+    };
+
+
+    /**
      * ## noop
      *
      * Nothing happens
@@ -303,7 +353,7 @@ module.exports = function( Microbe )
      *
      * @return _void_
      */
-    Microbe.noop    = function() {};
+    Microbe.noop = function() {};
 
 
     /**
@@ -325,10 +375,6 @@ module.exports = function( Microbe )
             {
                 result  = _func.apply( context || this, arguments );
                 _func   = null;
-            }
-            else
-            {
-                result  = null;
             }
 
             return result;
