@@ -59,6 +59,33 @@ module.exports = function( buildTest )
 
 
     /**
+     * µ init query multiple classes tests
+     *
+     * @test    one div
+     * @test    passes
+     */
+    QUnit.test( 'query multiple classes', function( assert )
+    {
+        var _div    = document.getElementsByClassName( 'example--class' );
+        var µDiv    = µ( '.example--class.example--class--groups' );
+
+        assert.equal( µDiv.length, 1, 'one div' );
+        assert.deepEqual( µDiv[ 0 ], _div[0], 'passes' );
+
+        buildTest(
+        'µ( \'.example--class.example--class--groups\' )', function()
+        {
+            return µ( '.example--class.example--class--groups' );
+        },
+
+        '$( \'.example--class.example--class--groups\' )', function()
+        {
+            return $( '.example--class.example--class--groups' );
+        } );
+    });
+
+
+    /**
      * µ init query id tests
      *
      * @test    one body
@@ -81,6 +108,33 @@ module.exports = function( buildTest )
         '$( \'#example--id\' )', function()
         {
             return $( '#example--id' );
+        } );
+    });
+
+
+    /**
+     * µ init query id and class tests
+     *
+     * @test    one body
+     * @test    passes
+     */
+    QUnit.test( 'query id and class', function( assert )
+    {
+        var _div    = document.getElementById( 'example--combined' ); 
+        var µDiv    = µ( '#example--combined.example--combined' );
+
+        assert.equal( µDiv.length, 1, 'one div' );
+        assert.deepEqual( µDiv[ 0 ], _div, 'passes' );
+
+        buildTest(
+        'µ( \'#example--combined.example--combined\' )', function()
+        {
+            return µ( '#example--combined.example--combined' );
+        },
+
+        '$( \'#example--combined.example--combined\' )', function()
+        {
+            return $( '#example--combined.example--combined' );
         } );
     });
 

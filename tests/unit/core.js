@@ -1,4 +1,4 @@
-/* global document, window, µ, $, QUnit, Benchmark, test  */
+ // global document, window, µ, $, QUnit, Benchmark, test  
 
 module.exports = function( buildTest )
 {
@@ -941,8 +941,8 @@ module.exports = function( buildTest )
         var prev = µ( '#qunit' )[0].prevElementSibling;
         var next = µ( '#qunit' )[0].nextElementSibling;
 
-        assert.deepEqual( prev, µ( '#qunit' ).siblingsFlat( 'prev' )[0], 'gets previous element' );
-        assert.deepEqual( next, µ( '#qunit' ).siblingsFlat( 'next' )[0], 'gets next element' );
+        assert.deepEqual( prev, µ( '#qunit' ).siblingsFlat( 'prev' )[0], 'siblingsFlat( \'prev\' ) gets previous element' );
+        assert.deepEqual( next, µ( '#qunit' ).siblingsFlat( 'next' )[0], 'siblingsFlat( \'next\' ) gets next element' );
 
         buildTest( 'No comparison available.' );
     });

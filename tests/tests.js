@@ -137,7 +137,7 @@ require( './observe' )( buildTest );
 
 window.buildTest = buildTest;
 },{"./core":2,"./dom":3,"./events":4,"./http":5,"./init":6,"./observe":7,"./pseudo":8,"./root":9}],2:[function(require,module,exports){
-/* global document, window, µ, $, QUnit, Benchmark, test  */
+ // global document, window, µ, $, QUnit, Benchmark, test  
 
 module.exports = function( buildTest )
 {
@@ -1080,8 +1080,8 @@ module.exports = function( buildTest )
         var prev = µ( '#qunit' )[0].prevElementSibling;
         var next = µ( '#qunit' )[0].nextElementSibling;
 
-        assert.deepEqual( prev, µ( '#qunit' ).siblingsFlat( 'prev' )[0], 'gets previous element' );
-        assert.deepEqual( next, µ( '#qunit' ).siblingsFlat( 'next' )[0], 'gets next element' );
+        assert.deepEqual( prev, µ( '#qunit' ).siblingsFlat( 'prev' )[0], 'siblingsFlat( \'prev\' ) gets previous element' );
+        assert.deepEqual( next, µ( '#qunit' ).siblingsFlat( 'next' )[0], 'siblingsFlat( \'next\' ) gets next element' );
 
         buildTest( 'No comparison available.' );
     });
@@ -1852,6 +1852,33 @@ module.exports = function( buildTest )
 
 
     /**
+     * µ init query multiple classes tests
+     *
+     * @test    one div
+     * @test    passes
+     */
+    QUnit.test( 'query multiple classes', function( assert )
+    {
+        var _div    = document.getElementsByClassName( 'example--class' );
+        var µDiv    = µ( '.example--class.example--class--groups' );
+
+        assert.equal( µDiv.length, 1, 'one div' );
+        assert.deepEqual( µDiv[ 0 ], _div[0], 'passes' );
+
+        buildTest(
+        'µ( \'.example--class.example--class--groups\' )', function()
+        {
+            return µ( '.example--class.example--class--groups' );
+        },
+
+        '$( \'.example--class.example--class--groups\' )', function()
+        {
+            return $( '.example--class.example--class--groups' );
+        } );
+    });
+
+
+    /**
      * µ init query id tests
      *
      * @test    one body
@@ -1874,6 +1901,33 @@ module.exports = function( buildTest )
         '$( \'#example--id\' )', function()
         {
             return $( '#example--id' );
+        } );
+    });
+
+
+    /**
+     * µ init query id and class tests
+     *
+     * @test    one body
+     * @test    passes
+     */
+    QUnit.test( 'query id and class', function( assert )
+    {
+        var _div    = document.getElementById( 'example--combined' ); 
+        var µDiv    = µ( '#example--combined.example--combined' );
+
+        assert.equal( µDiv.length, 1, 'one div' );
+        assert.deepEqual( µDiv[ 0 ], _div, 'passes' );
+
+        buildTest(
+        'µ( \'#example--combined.example--combined\' )', function()
+        {
+            return µ( '#example--combined.example--combined' );
+        },
+
+        '$( \'#example--combined.example--combined\' )', function()
+        {
+            return $( '#example--combined.example--combined' );
         } );
     });
 
