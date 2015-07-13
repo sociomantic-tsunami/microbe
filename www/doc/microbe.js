@@ -2092,6 +2092,23 @@ Microbe.core = Microbe.prototype ={
 
         var _setAttr = function( _elm )
         {
+            var _set = function( _a, _v )
+            {
+                if ( !_elm.getAttribute )
+                {
+                    _elm[ _a ] = _v;
+                }
+                else
+                {
+                    _elm.setAttribute( _a, _v );
+                }
+
+                _elm.data                   = _elm.data || {};
+                _elm.data.attr              = _elm.data.attr || {};
+                _elm.data.attr.attr         = _elm.data.attr.attr || {};
+                _elm.data.attr.attr[ _a ]   = _v;
+            };
+
             if ( _value === null )
             {
                 _removeAttr( _elm );
@@ -2101,28 +2118,15 @@ Microbe.core = Microbe.prototype ={
                 var _attr;
                 if ( !attrObject )
                 {
-                    _attr               = _attribute;
-                     _attribute         = {};
-                    _attribute[ _attr ] = _value;
+                    _set( _attribute, _value );
                 }
-
-                for ( _attr in _attribute )
+                else
                 {
-                    _value = _attribute[ _attr ];
-
-                    if ( !_elm.getAttribute )
+                    for ( _attr in _attribute )
                     {
-                        _elm[ _attr ] = _value;
+                        _value = _attribute[ _attr ];
+                        _set( _attr, _value );
                     }
-                    else
-                    {
-                        _elm.setAttribute( _attr, _value );
-                    }
-
-                    _elm.data                           = _elm.data || {};
-                    _elm.data.attr                      = _elm.data.attr || {};
-                    _elm.data.attr.attr                 = _elm.data.attr.attr || {};
-                    _elm.data.attr.attr[ _attribute ]   = _value;
                 }
             }
         };
@@ -2146,8 +2150,7 @@ Microbe.core = Microbe.prototype ={
             {
                 _elm.removeAttribute( _attribute );
             }
-
-                delete _elm.data.attr.attr[ _attribute ];
+            delete _elm.data.attr.attr[ _attribute ];
         };
 
         if ( _value !== undefined || attrObject )
@@ -2751,16 +2754,9 @@ Microbe.core = Microbe.prototype ={
         {
             for ( var j = 0, len = second.length; j < len; j++ )
             {
-                if ( unique === true )
+                if ( !unique || first.indexOf( second[ j ] ) === -1 )
                 {
-                    if ( first.indexOf( second[ j ] ) === -1 )
-                    {
-                        first[ i++ ] = second[ j ];                    
-                    }
-                }
-                else
-                {
-                    first[ i++ ] = second[ j ];
+                    first[ i++ ] = second[ j ];                    
                 }
             }
 
@@ -3809,7 +3805,7 @@ module.exports = function( Microbe )
      *
      * @return _Microbe_
      */
-    Microbe.core.__create__ = function( _el )
+    function _create( _el, self )
     {
         var resultsRegex    = _el.match( selectorRegex ),
             _id = '', _tag = '', _class = '';
@@ -3855,7 +3851,7 @@ module.exports = function( Microbe )
 
         }
 
-        return _build( [ _el ], this );
+        return _build( [ _el ], self );
     };
 
 
@@ -3869,7 +3865,7 @@ module.exports = function( Microbe )
      *
      * @return _Boolean_ whether _el is contained in the scope
      */
-    Microbe.core.__contains__ = function( _el, _scope )
+    function _contains( _el, _scope )
     {
         var parent = _el.parentNode;
 
@@ -3885,6 +3881,65 @@ module.exports = function( Microbe )
 
         return true;
     };
+
+
+    function _css4StringReplace( _string )
+    {
+        // CSS4 replace
+        if ( _string.indexOf( '>>' ) !== -1 )
+        {
+            _string = _string.replace( />>/g, ' ' );
+        }
+        if ( _string.indexOf( '!' ) !== -1 )
+        {
+            _string = _string.replace( /!/g, ':parent' );
+        }
+
+        return _string;
+    };
+
+
+    /**
+     * ## _noScopeSimple
+     *
+     * if ther is no scope and there is only a simple selector
+     * 
+     * @param  {String} _s   selector string
+     * @param  {Object} self this empty Microbe
+     * 
+     * @return _Microbe_
+     */
+    function _noScopeSimple( _s, self )
+    {
+        if ( typeof _s === 'string' && _s.indexOf( ':' ) === -1 && 
+                _s.indexOf( '!' ) === -1 && _s.indexOf( ' ' ) === -1 )
+        {
+            switch ( _s[0] )
+            {
+                case '#':
+                    if ( _s.indexOf( '.' ) === -1 )
+                    {
+                        var id = document.getElementById( _s.slice( 1 ) );
+
+                        return id === null ? _build( [] ) : _build( [ id ], self );
+                    }
+                    break;
+                case '.':
+                    if ( _s.indexOf( '#' ) === -1 )
+                    {
+                        var clss = _s.slice( 1 );
+
+                        if ( clss.indexOf( '.' ) === -1 )
+                        {
+                            return _build( document.getElementsByClassName( clss ), self );
+                        }
+                    }
+                    break;
+            }
+        }
+
+        return false;
+    }
 
 
     /**
@@ -3906,63 +3961,23 @@ module.exports = function( Microbe )
     {
         if ( !_scope )
         {
-            /*
-             * fast tracks simple queries
-             */
-            if ( _selector && typeof _selector === 'string' &&
-                    _selector.indexOf( ':' ) === -1 && 
-                    _selector.indexOf( '!' ) === -1 &&
-                    _selector.indexOf( ' ' ) === -1 )
+
+            var res = _noScopeSimple( _selector, this );
+
+            if( res )
             {
-                switch ( _selector[0] )
-                {
-                    case '#':
-                        if ( _selector.indexOf( '.' ) === -1 )
-                        {
-                            var id = document.getElementById( _selector.slice( 1 ) );
-
-                            return id === null ? _build( [] ) : _build( [ id ], this );
-                        }
-                        break;
-                    case '.':
-                        if ( _selector.indexOf( '#' ) === -1 )
-                        {
-                            var clss = _selector.slice( 1 );
-
-                            if ( clss.indexOf( '.' ) === -1 )
-                            {
-                                return _build( document.getElementsByClassName( clss ), this );
-                            }
-                        }
-                        break;
-                }
+                return res;
             }
         }
         
         if ( typeof _selector === 'string' )
         {
-            // CSS4 replace
-            if ( _selector.indexOf( '>>' ) !== -1 )
-            {
-                _selector = _selector.replace( />>/g, ' ' );
-            }
-            if ( _selector.indexOf( '!' ) !== -1 )
-            {
-                _selector = _selector.replace( /!/g, ':parent' );
-            }
+            _selector = _css4StringReplace( _selector );
         }
 
         if ( typeof _scope === 'string' )
         {
-            // CSS4 replace
-            if ( _scope.indexOf( '>>' ) !== -1 )
-            {
-                _scope = _scope.replace( />>/g, ' ' );
-            }
-            if ( _scope.indexOf( '!' ) !== -1 )
-            {
-                _scope = _scope.replace( /!/g, ':parent' );
-            }
+            _scope = _css4StringReplace( _scope );
         }
 
         _selector = _selector || '';
@@ -4042,13 +4057,13 @@ module.exports = function( Microbe )
                     case '#': // non-document scoped id search
                         var _id = document.getElementById( _shortSelector );
 
-                        if ( _scope.ownerDocument && this.__contains__( _id, _scope ) )
+                        if ( _scope.ownerDocument && _contains( _id, _scope ) )
                         {
                             return _build( [ _id ], this );
                         }
                         break;
                     case '<': // element creation
-                        return this.__create__( _selector.substring( 1, _selector.length - 1 ) );
+                        return _create( _selector.substring( 1, _selector.length - 1 ), this );
                     default:
                         return _build( _scope.getElementsByTagName( _selector ), this );
                 }
