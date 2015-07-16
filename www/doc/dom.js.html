@@ -25,9 +25,6 @@
         <a href="#exported">exported</a>
       </div>
       <div class="heading h2">
-        <a href="#ready">ready</a>
-      </div>
-      <div class="heading h2">
         <a href="#append">append</a>
       </div>
       <div class="heading h2">
@@ -35,6 +32,9 @@
       </div>
       <div class="heading h2">
         <a href="#prepend">prepend</a>
+      </div>
+      <div class="heading h2">
+        <a href="#ready">ready</a>
       </div>
       <div class="heading h2">
         <a href="#remove">remove</a>
@@ -64,11 +64,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Mouse Braun         <a href="&#109;&#x61;&#105;&#108;t&#x6F;:m&#111;u&#115;&#x65;&#x40;&#x73;o&#99;&#105;&#x6F;&#109;a&#110;t&#105;c&#x2E;&#x63;&#111;&#109;">m&#111;u&#115;&#x65;&#x40;&#x73;o&#99;&#105;&#x6F;&#109;a&#110;t&#105;c&#x2E;&#x63;&#111;&#109;</a></span>
+      <span>Mouse Braun         <a href="&#109;&#97;&#x69;&#x6C;&#116;&#x6F;:m&#x6F;&#117;&#x73;&#101;&#x40;&#x73;o&#99;&#x69;&#x6F;&#x6D;a&#x6E;t&#x69;&#99;&#46;&#x63;&#x6F;m">m&#x6F;&#117;&#x73;&#101;&#x40;&#x73;o&#99;&#x69;&#x6F;&#x6D;a&#x6E;t&#x69;&#99;&#46;&#x63;&#x6F;m</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Nicolas Brugneaux   <a href="&#x6D;&#97;&#x69;&#108;&#116;&#x6F;:&#110;&#105;&#99;&#x6F;&#108;&#x61;s&#46;&#x62;&#114;&#117;&#103;&#x6E;&#101;&#97;&#x75;&#120;&#x40;s&#x6F;&#x63;&#x69;&#111;&#109;&#x61;&#110;&#x74;&#105;&#99;&#x2E;&#x63;&#111;&#109;">&#110;&#105;&#99;&#x6F;&#108;&#x61;s&#46;&#x62;&#114;&#117;&#103;&#x6E;&#101;&#97;&#x75;&#120;&#x40;s&#x6F;&#x63;&#x69;&#111;&#109;&#x61;&#110;&#x74;&#105;&#99;&#x2E;&#x63;&#111;&#109;</a></span>
+      <span>Nicolas Brugneaux   <a href="&#109;&#97;&#x69;&#108;&#116;&#111;:&#110;&#x69;&#99;&#111;&#x6C;&#x61;&#115;&#x2E;b&#114;&#117;&#103;&#110;&#101;&#x61;&#x75;&#x78;&#64;&#x73;&#111;&#x63;i&#111;&#x6D;&#x61;n&#x74;&#x69;&#x63;&#x2E;&#x63;&#x6F;&#x6D;">&#110;&#x69;&#99;&#111;&#x6C;&#x61;&#115;&#x2E;b&#114;&#117;&#103;&#110;&#101;&#x61;&#x75;&#x78;&#64;&#x73;&#111;&#x63;i&#111;&#x6D;&#x61;n&#x74;&#x69;&#x63;&#x2E;&#x63;&#x6F;&#x6D;</a></span>
     </div>
     <div class="dox_tag_title">package</div>
     <div class="dox_tag_detail">
@@ -105,61 +105,6 @@
         <td class="code highlight"><div class="highlight"><pre>
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">Microbe</span> <span class="p">)</span>
 <span class="p">{</span>
-
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs"><div class="dox">
-  <div class="summary">
-<div class="pilwrap" id="ready">
-  <h2>
-    <a href="#ready" name="ready" class="pilcrow">&#182;</a>
-    ready
-  </h2>
-</div>
-
-  </div>
-  <div class="body"><p>Waits until the DOM is ready to execute</p>
-  </div>
-  <div class="details">
-    <div class="dox_tag_title">Params</div>
-    <div class="dox_tag_detail">
-      <span class="dox_tag_name">_cb</span>
-      <span class="dox_type">Function</span>
-      <span>callback to run on ready</span>
-    </div>
-    <div class="dox_tag_title">Returns</div>
-    <div class="dox_tag_detail">
-      <span class="dox_tag_name"></span>
-      <span><em>void</em></span>
-    </div>
-  </div>
-</div>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">ready</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_cb</span> <span class="p">)</span>
-    <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span> <span class="nb">document</span><span class="p">.</span><span class="nx">readyState</span> <span class="o">===</span> <span class="s1">&#39;complete&#39;</span> <span class="p">)</span>
-        <span class="p">{</span>
-            <span class="k">return</span> <span class="nx">_cb</span><span class="p">();</span>
-        <span class="p">}</span>
-
-        <span class="k">if</span> <span class="p">(</span> <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span> <span class="p">)</span>
-        <span class="p">{</span>
-            <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span> <span class="s1">&#39;load&#39;</span><span class="p">,</span> <span class="nx">_cb</span><span class="p">,</span> <span class="kc">false</span> <span class="p">);</span>
-        <span class="p">}</span>
-        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nb">window</span><span class="p">.</span><span class="nx">attachEvent</span> <span class="p">)</span>
-        <span class="p">{</span>
-            <span class="nb">window</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">(</span> <span class="s1">&#39;onload&#39;</span><span class="p">,</span> <span class="nx">_cb</span> <span class="p">);</span>
-        <span class="p">}</span>
-        <span class="k">else</span>
-        <span class="p">{</span>
-            <span class="nb">window</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="nx">_cb</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">};</span>
-
-
 
 </pre></div>
         </td>
@@ -369,6 +314,61 @@ one target the next ones are cloned</p>
     <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">prepend</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_el</span> <span class="p">)</span>
     <span class="p">{</span>
         <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span> <span class="nx">_el</span><span class="p">,</span> <span class="kc">true</span> <span class="p">);</span>
+    <span class="p">};</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="ready">
+  <h2>
+    <a href="#ready" name="ready" class="pilcrow">&#182;</a>
+    ready
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>Waits until the DOM is ready to execute</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">_cb</span>
+      <span class="dox_type">Function</span>
+      <span>callback to run on ready</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>void</em></span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">ready</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_cb</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="nb">document</span><span class="p">.</span><span class="nx">readyState</span> <span class="o">===</span> <span class="s1">&#39;complete&#39;</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">_cb</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="p">(</span> <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span> <span class="s1">&#39;load&#39;</span><span class="p">,</span> <span class="nx">_cb</span><span class="p">,</span> <span class="kc">false</span> <span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nb">window</span><span class="p">.</span><span class="nx">attachEvent</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nb">window</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">(</span> <span class="s1">&#39;onload&#39;</span><span class="p">,</span> <span class="nx">_cb</span> <span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+            <span class="nb">window</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="nx">_cb</span><span class="p">;</span>
+        <span class="p">}</span>
     <span class="p">};</span>
 
 

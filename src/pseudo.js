@@ -45,7 +45,7 @@ module.exports = function( Microbe )
             var offset      = parseInt( _var[1] );
 
             var top;
-            if ( _last === true || _last === 'last' )
+            if ( _last === true || _last === 'last' )
             {
                 top         = _el.length - parseInt( _var[1] );
                 offset      = top % increment;
@@ -1029,3 +1029,4 @@ module.exports = function( Microbe )
 
     Microbe.constructor.prototype.pseudo = pseudo;
 };
+

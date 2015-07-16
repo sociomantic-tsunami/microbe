@@ -15,37 +15,6 @@
 module.exports = function( Microbe )
 {
     /**
-     * ## ready
-     *
-     * Waits until the DOM is ready to execute
-     *
-     * @param {Function} _cb callback to run on ready
-     *
-     * @return _void_
-     */
-    Microbe.ready = function( _cb )
-    {
-        if ( document.readyState === 'complete' )
-        {
-            return _cb();
-        }
-
-        if ( window.addEventListener )
-        {
-            window.addEventListener( 'load', _cb, false );
-        }
-        else if ( window.attachEvent )
-        {
-            window.attachEvent( 'onload', _cb );
-        }
-        else
-        {
-            window.onload = _cb;
-        }
-    };
-
-
-    /**
      * ## append
      *
      * Appends an element or elements to the microbe.  if there is more than
@@ -180,6 +149,37 @@ module.exports = function( Microbe )
     Microbe.core.prepend = function( _el )
     {
         return this.append( _el, true );
+    };
+
+
+    /**
+     * ## ready
+     *
+     * Waits until the DOM is ready to execute
+     *
+     * @param {Function} _cb callback to run on ready
+     *
+     * @return _void_
+     */
+    Microbe.ready = function( _cb )
+    {
+        if ( document.readyState === 'complete' )
+        {
+            return _cb();
+        }
+
+        if ( window.addEventListener )
+        {
+            window.addEventListener( 'load', _cb, false );
+        }
+        else if ( window.attachEvent )
+        {
+            window.attachEvent( 'onload', _cb );
+        }
+        else
+        {
+            window.onload = _cb;
+        }
     };
 
 

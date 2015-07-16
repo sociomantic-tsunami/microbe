@@ -581,12 +581,12 @@ Microbe.core = Microbe.prototype ={
      */
     first : function()
     {
-        if ( this.length === 1 )
+        if ( this.length !== 0 )
         {
-            return this;
+            return new Microbe( [ this[ 0 ] ] );
         }
 
-        return new Microbe( [ this[ 0 ] ] );
+        return new Microbe( [] );
     },
 
 

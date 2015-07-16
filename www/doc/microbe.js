@@ -2552,12 +2552,12 @@ Microbe.core = Microbe.prototype ={
      */
     first : function()
     {
-        if ( this.length === 1 )
+        if ( this.length !== 0 )
         {
-            return this;
+            return new Microbe( [ this[ 0 ] ] );
         }
 
-        return new Microbe( [ this[ 0 ] ] );
+        return new Microbe( [] );
     },
 
 
@@ -3144,37 +3144,6 @@ module.exports = Microbe;
 module.exports = function( Microbe )
 {
     /**
-     * ## ready
-     *
-     * Waits until the DOM is ready to execute
-     *
-     * @param {Function} _cb callback to run on ready
-     *
-     * @return _void_
-     */
-    Microbe.ready = function( _cb )
-    {
-        if ( document.readyState === 'complete' )
-        {
-            return _cb();
-        }
-
-        if ( window.addEventListener )
-        {
-            window.addEventListener( 'load', _cb, false );
-        }
-        else if ( window.attachEvent )
-        {
-            window.attachEvent( 'onload', _cb );
-        }
-        else
-        {
-            window.onload = _cb;
-        }
-    };
-
-
-    /**
      * ## append
      *
      * Appends an element or elements to the microbe.  if there is more than
@@ -3309,6 +3278,37 @@ module.exports = function( Microbe )
     Microbe.core.prepend = function( _el )
     {
         return this.append( _el, true );
+    };
+
+
+    /**
+     * ## ready
+     *
+     * Waits until the DOM is ready to execute
+     *
+     * @param {Function} _cb callback to run on ready
+     *
+     * @return _void_
+     */
+    Microbe.ready = function( _cb )
+    {
+        if ( document.readyState === 'complete' )
+        {
+            return _cb();
+        }
+
+        if ( window.addEventListener )
+        {
+            window.addEventListener( 'load', _cb, false );
+        }
+        else if ( window.attachEvent )
+        {
+            window.attachEvent( 'onload', _cb );
+        }
+        else
+        {
+            window.onload = _cb;
+        }
     };
 
 
@@ -4409,7 +4409,7 @@ module.exports = function( Microbe )
             var offset      = parseInt( _var[1] );
 
             var top;
-            if ( _last === true || _last === 'last' )
+            if ( _last === true || _last === 'last' )
             {
                 top         = _el.length - parseInt( _var[1] );
                 offset      = top % increment;
@@ -5393,6 +5393,7 @@ module.exports = function( Microbe )
 
     Microbe.constructor.prototype.pseudo = pseudo;
 };
+
 
 },{}],19:[function(require,module,exports){
 /**
