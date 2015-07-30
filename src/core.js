@@ -529,10 +529,15 @@ Microbe.core = Microbe.prototype ={
      *
      * @return _Microbe_ new microbe containing only the found children values
      */
-    find : function( selector )
+    find : function( _selector )
     {
-        var _selector   = selector.trim();
         var _s          = _selector[ 0 ];
+
+        if ( _s === ' ' )
+        {
+            _selector   = _selector.trim();
+            _s          = _selector[ 0 ];
+        }
 
         if ( _s === '>' )
         {
@@ -1036,7 +1041,7 @@ Microbe.core = Microbe.prototype ={
     {
         var _setText = function( _value, _el )
         {
-            if( document.all )
+            if ( document.all )
             {
                 _el.innerText = _value;
             }
@@ -1052,7 +1057,7 @@ Microbe.core = Microbe.prototype ={
 
         var _getText = function( _el )
         {
-            if( document.all )
+            if ( document.all )
             {
                 return _el.innerText;
             }

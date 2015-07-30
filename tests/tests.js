@@ -526,25 +526,17 @@ module.exports = function( buildTest )
 
         assert.equal( µH2.length, 1, 'accepts pseudo selectors' );
 
-
-        var µDivs, $Divs;
-
-        var resetDivs = function()
-        {
-            µDivs   = µ( 'div' );
-            $Divs   = $( 'div' );
-        };
+        var µDivs   = µ( 'div' );
+        var $Divs   = $( 'div' );
 
         buildTest(
         'µDivs.find( \'h2\' )', function()
         {
-            resetDivs();
             µDivs.find( 'h2' );
         },
 
         '$Divs.find( \'h2\')', function()
         {
-            resetDivs();
             $Divs.find( 'h2' );
         } );
     });
