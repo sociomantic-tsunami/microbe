@@ -14,34 +14,33 @@
  *
  * @return _Object_
  */
-module.exports =
-{
-    fill            : Array.prototype.fill,
-    pop             : Array.prototype.pop,
-    push            : Array.prototype.push,
-    reverse         : Array.prototype.reverse,
-    shift           : Array.prototype.shift,
-    sort            : Array.prototype.sort,
-    splice          : Array.prototype.splice,
-    unshift         : Array.prototype.unshift,
+module.exports = {
     concat          : Array.prototype.concat,
-    join            : Array.prototype.join,
-    slice           : Array.prototype.slice,
-    toSource        : Array.prototype.toSource,
-    toString        : Array.prototype.toString,
-    toLocaleString  : Array.prototype.toLocaleString,
-    indexOf         : Array.prototype.indexOf,
-    lastIndexOf     : Array.prototype.lastIndexOf,
-    forEach         : Array.prototype.forEach,
+    copyWithin      : Array.prototype.copyWithin,
     entries         : Array.prototype.entries,
     every           : Array.prototype.every,
-    some            : Array.prototype.some,
+    fill            : Array.prototype.fill,
     filter          : Array.prototype.filter,
     find            : Array.prototype.find,
     findIndex       : Array.prototype.findIndex,
+    forEach         : Array.prototype.forEach,
+    indexOf         : Array.prototype.indexOf,
+    join            : Array.prototype.join,
     keys            : Array.prototype.keys,
+    lastIndexOf     : Array.prototype.lastIndexOf,
     map             : Array.prototype.map,
+    pop             : Array.prototype.pop,
+    push            : Array.prototype.push,
     reduce          : Array.prototype.reduce,
     reduceRight     : Array.prototype.reduceRight,
-    copyWithin      : Array.prototype.copyWithin
+    reverse         : Array.prototype.reverse,
+    shift           : Array.prototype.shift,
+    some            : Array.prototype.some,
+    sort            : Array.prototype.sort,
+    slice           : Array.prototype.slice,
+    splice          : Array.prototype.splice,
+    toLocaleString  : Array.prototype.toLocaleString,
+    toSource        : Array.prototype.toSource,
+    toString        : Array.prototype.toString,
+    unshift         : Array.prototype.unshift
 };

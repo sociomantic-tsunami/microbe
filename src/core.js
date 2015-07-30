@@ -255,7 +255,7 @@ Microbe.core = Microbe.prototype ={
             }
         }
 
-        return new Microbe( '', undefined, childrenArray );
+        return this.constructor( childrenArray );
     },
 
 
@@ -567,7 +567,7 @@ Microbe.core = Microbe.prototype ={
             return new Microbe( resArray ).filter( _selector );
         }
 
-        return new Microbe( _selector, this );
+        return this.constructor( _selector, this );
     },
 
 
@@ -583,10 +583,10 @@ Microbe.core = Microbe.prototype ={
     {
         if ( this.length !== 0 )
         {
-            return new Microbe( [ this[ 0 ] ] );
+            return this.constructor( this[ 0 ] );
         }
 
-        return new Microbe( [] );
+        return this.constructor( [] );
     },
 
 
@@ -601,7 +601,7 @@ Microbe.core = Microbe.prototype ={
     {
         var _getParentIndex = function( _elm )
         {
-            return Array.prototype.indexOf.call( _elm.parentNode.children, _elm );
+            return indexOf.call( _elm.parentNode.children, _elm );
         };
 
         var i, len, indexes = new Array( this.length );
@@ -718,7 +718,7 @@ Microbe.core = Microbe.prototype ={
      */
     indexOf : function( _el )
     {
-        return this.toArray().indexOf( _el );
+        return indexOf.call( this, _el );
     },
 
 
@@ -736,8 +736,12 @@ Microbe.core = Microbe.prototype ={
         {
             return this;
         }
+        else if ( this.length !== 0 )
+        {
+            return this.constructor( this[ this.length - 1 ] );
+        }
 
-        return new Microbe( [ this[ this.length - 1 ] ] );
+        return this.constructor( [] );
     },
 
 
@@ -997,7 +1001,7 @@ Microbe.core = Microbe.prototype ={
             }
         }
 
-        return new Microbe( '', undefined, siblingArray );
+        return this.constructor( siblingArray );
     },
 
 
@@ -1013,7 +1017,7 @@ Microbe.core = Microbe.prototype ={
     {
         var arr = splice.call( this, _start, _end );
 
-        return new Microbe( arr );
+        return this.constructor( arr );
     },
 
 
@@ -1088,11 +1092,10 @@ Microbe.core = Microbe.prototype ={
      *
      * @return _Array_
      */
-    toArray : function( _arr )
-    {
-        _arr = _arr || this;
-        return Array.prototype.slice.call( _arr );
-    },
+     toArray : function( _arr )
+     {
+         return slice.call( _arr || this );
+     },
 
 
     /**

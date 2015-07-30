@@ -36,16 +36,7 @@ module.exports = function( buildTest )
         assert.equal( µ( ':any-link' ).length, document.getElementsByTagName( 'A' ).length, 'gets links' );
         assert.equal( µ( 'div ~ *:any-link' ).length, document.querySelectorAll( 'div ~ a' ).length, 'gets scoped links' );
 
-        buildTest(
-        'µ( \'.fastest:any-link\' )', function()
-        {
-            return µ( '.fastest:any-link' );
-        },
-
-        '$( \'.fastest:link\' )', function()
-        {
-            return $( '.fastest:link' );
-        } );
+        buildTest( 'No comparison available.' );
     });
 
 
@@ -629,7 +620,7 @@ module.exports = function( buildTest )
         var emailParent         = µ( '#emailInput3:parent' );
         var emailExclamation    = µ( '#emailInput3!' );
 
-        assert.ok( µ.pseudo[ 'parent' ], 'exists' );
+        assert.ok( µ.pseudo.parent, 'exists' );
         assert.deepEqual( emailInput3[0], emailParent[0], 'gets the correct parent as pseudo' );
         assert.deepEqual( emailInput3[0], emailExclamation[0], 'gets the correct parent as connector' );
 
@@ -713,38 +704,6 @@ module.exports = function( buildTest )
         {
             return $( 'div:root' );
         } );
-    });
-
-
-    /**
-     * µ target tests
-     *
-     * @test    target exists
-     * @test    finds the correct element
-     * @test    and only that one
-     */
-    QUnit.test( ':target', function( assert )
-    {
-        window.location.hash = 'example--combined';
-        var µTarget = µ( 'div:target' );
-        var µIdSearch = µ( '#example--combined' );
-
-        assert.ok( µ.pseudo.target, 'exists' );
-        assert.deepEqual( µTarget[ 0 ], µIdSearch[ 0 ], 'finds the correct element' );
-        assert.equal( µTarget.length, 1, 'and only that one' );
-
-        buildTest(
-        'µ( \'div:target\' )', function()
-        {
-            return µ( 'div:target' );
-        },
-
-        '$( \'div:target\' )', function()
-        {
-            return $( 'div:target' );
-        } );
-
-        window.location.hash = '';
     });
 };
 

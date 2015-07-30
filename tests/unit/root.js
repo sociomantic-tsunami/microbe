@@ -42,15 +42,15 @@ module.exports = function( buildTest )
         _f();
         _f();
         _f();
-        
+
         var multiplesTest      = assert.async();
-        
+
         setTimeout( function( _f )
         {
             assert.equal( i, 2, 'runs on it\'s timer' );
             multiplesTest();
         }, 60 );
-        
+
         buildTest( 'No speed tests available.' );
     });
 
@@ -399,6 +399,24 @@ module.exports = function( buildTest )
 
 
     /**
+     * µ toArray tests
+     *
+     * @test    µ().toArray exists
+     * @test    µ.toArray exists
+     * @test    makes arrays
+     */
+    QUnit.test( '.toArray()', function( assert )
+    {
+        assert.ok( µ.toArray, 'exists' );
+
+        var µArr = µ( 'div' );
+        assert.equal( µ.type( µ.toArray( µArr ) ), 'array', 'makes arrays' );
+
+        buildTest( 'No speed tests available.' );
+    });
+
+
+    /**
      * µ toString tests
      *
      * @test    µ().toString exists
@@ -423,25 +441,6 @@ module.exports = function( buildTest )
             $.toString( $ );
             $.toString( [ 1, 2, 3 ] );
         } );
-    });
-
-
-    /**
-     * µ toArray tests
-     *
-     * @test    µ().toArray exists
-     * @test    µ.toArray exists
-     * @test    makes arrays
-     */
-    QUnit.test( '.toArray()', function( assert )
-    {
-        assert.ok( µ().toArray, 'exists' );
-        assert.ok( µ.toArray, 'exists' );
-
-        var arr = µ( 'div' ).toArray();
-        assert.equal( µ.type( arr ), 'array', 'makes arrays' );
-
-        buildTest( 'No comparison available.' );
     });
 
 

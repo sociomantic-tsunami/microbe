@@ -98,12 +98,13 @@ We gladly accept and review any pull-requests. Feel free! :heart:
 
 Change log
 ==========
-    
+
 0.3.4
 ~~~~~
 
 + small bug fixes
 + updated documantation and tests
++ speed updates
 
 
 0.3.3

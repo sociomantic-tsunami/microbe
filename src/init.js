@@ -214,7 +214,6 @@ module.exports = function( Microbe )
         var res;
         if ( !_scope )
         {
-
             res = _noScopeSimple( _selector, this );
 
             if( res )

@@ -996,36 +996,6 @@ module.exports = function( Microbe )
     };
 
 
-    /**
-     * ### target
-     *
-     * returns a microbe with elements that match both the original selector, and the id of the page hash
-     *
-     * @param {Microbe} _el microbe to be filtered
-     *
-     * @return _Microbe_
-     */
-    pseudo.target = function( _el )
-    {
-        var hash = ( location.href.split( '#' )[ 1 ] );
-
-        var elements = [];
-
-        if ( hash )
-        {
-            for ( var i = 0, lenI = _el.length; i < lenI; i++ )
-            {
-                if ( _el[ i ].id === hash  )
-                {
-                    elements.push( _el[ i ] );
-                }
-            }
-        }
-
-        return _el.constructor( elements );
-    };
-
-
 
     Microbe.constructor.prototype.pseudo = pseudo;
 };

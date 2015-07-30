@@ -1,4 +1,4 @@
- // global document, window, µ, $, QUnit, Benchmark, test  
+ /* global document, window, µ, $, QUnit, Benchmark, test  */
 
 module.exports = function( buildTest )
 {
@@ -676,7 +676,7 @@ module.exports = function( buildTest )
 
 
         buildTest(
-        'µDivs.last( function(){} )', function()
+        'µDivs.map( function(){} )', function()
         {
             resetDivs();
 
@@ -966,7 +966,7 @@ module.exports = function( buildTest )
             µDiv.splice( 0, 5 );
         },
 
-        'µDiv.splice( 0, 5 )', function()
+        '$Div.splice( 0, 5 )', function()
         {
             $Div.splice( 0, 5 );
         } );
@@ -1029,6 +1029,34 @@ module.exports = function( buildTest )
             $Target.text();
         } );
     });
+
+
+     /**
+      * µ toArray tests
+      *
+      * @test    µ().toArray exists
+      * @test    µ.toArray exists
+      * @test    makes arrays
+      */
+     QUnit.test( '.toArray()', function( assert )
+     {
+         assert.ok( µ().toArray, 'exists' );
+
+         var µArr = µ( 'div' );
+         var $arr = $( 'div' );
+         assert.equal( µ.type( µArr.toArray() ), 'array', 'makes arrays' );
+
+         buildTest(
+         'µ.toArray', function()
+         {
+             µArr.toArray();
+         },
+
+         '$.toArray', function()
+         {
+             $arr.toArray();
+         } );
+     });
 
 
     /**

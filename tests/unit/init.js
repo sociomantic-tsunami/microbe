@@ -32,6 +32,35 @@ module.exports = function( buildTest )
 
 
     /**
+     * µ init wrap element tests
+     *
+     * @test    one body
+     * @test    passes
+     */
+    QUnit.test( 'wrap an array of elements', function( assert )
+    {
+        var _body = document.getElementsByTagName( 'body' )[0];
+        var µBody = µ( _body );
+
+        assert.equal( µBody.length, 1, 'one body' );
+        assert.deepEqual( µBody[ 0 ], _body, 'passes' );
+
+        var _divs = Array.prototype.slice.call( document.getElementsByTagName( 'div' ) );
+
+        buildTest(
+        'µ( _divs )', function()
+        {
+            return µ( _divs );
+        },
+
+        '$( _divs )', function()
+        {
+            return $( _divs );
+        } );
+    });
+
+
+    /**
      * µ init query class tests
      *
      * @test    one div
@@ -120,7 +149,7 @@ module.exports = function( buildTest )
      */
     QUnit.test( 'query id and class', function( assert )
     {
-        var _div    = document.getElementById( 'example--combined' ); 
+        var _div    = document.getElementById( 'example--combined' );
         var µDiv    = µ( '#example--combined.example--combined' );
 
         assert.equal( µDiv.length, 1, 'one div' );
