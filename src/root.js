@@ -298,6 +298,8 @@ module.exports = function( Microbe )
      * ## matches
      *
      * checks element an to see if they match a given css selector
+     * unsure if we actually need the webkitMatchSelector and mozMatchSelector
+     * http://caniuse.com/#feat=matchesselector
      *
      * @param  {Mixed} el element, microbe, or array of elements to match
      *

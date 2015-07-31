@@ -571,8 +571,25 @@ Microbe.core = Microbe.prototype ={
 
             return new Microbe( resArray ).filter( _selector );
         }
+        else if ( _selector.indexOf( ':' ) !== -1 )
+        {
+            return this.constructor( _selector, this );
+        }
 
-        return this.constructor( _selector, this );
+        var _children = new Microbe( _selector ), res = [];
+
+        for ( var j = 0, lenJ = this.length; j < lenJ; j++ )
+        {
+            for ( var k = 0, lenK = _children.length; k < lenK; k++ )
+            {
+                if ( Microbe.contains( _children[ k ], this[ j ] ) )
+                {
+                    res.push( _children[ k ] );
+                }
+            }
+        }
+
+        return this.constructor( res );
     },
 
 

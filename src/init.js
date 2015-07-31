@@ -32,7 +32,6 @@ module.exports = function( Microbe )
      */
     function _build( _elements, self )
     {
-
         var i = 0, lenI = _elements.length;
 
         for ( ; i < lenI; i++ )
@@ -117,7 +116,7 @@ module.exports = function( Microbe )
      *
      * @return _Boolean_ whether _el is contained in the scope
      */
-    function _contains( _el, _scope )
+    Microbe.contains = function _contains( _el, _scope )
     {
         var parent = _el.parentNode;
 
@@ -132,12 +131,20 @@ module.exports = function( Microbe )
         }
 
         return true;
-    }
+    };
 
 
+    /**
+     * ## _css4StringReplace
+     *
+     * translates css4 strings
+     *
+     * @param  {String} _string pre substitution string
+     *
+     * @param  {String} post substitution string
+     */
     function _css4StringReplace( _string )
     {
-        // CSS4 replace
         if ( _string.indexOf( '>>' ) !== -1 )
         {
             _string = _string.replace( />>/g, ' ' );
@@ -209,7 +216,7 @@ module.exports = function( Microbe )
      *
      * @return _Microbe_
      */
-    Microbe.core.__init__ =  function( _selector, _scope, _elements )
+    var Init = Microbe.core.__init__ =  function( _selector, _scope, _elements )
     {
         var res;
         if ( !_scope )
@@ -240,7 +247,7 @@ module.exports = function( Microbe )
 
             for ( var n = 0, lenN = _scope.length; n < lenN; n++ )
             {
-                res.merge( new Microbe.core.__init__( _selector, _scope[ n ], _elements ), null, true );
+                res.merge( new Init( _selector, _scope[ n ], _elements ), null, true );
             }
 
             return res;
@@ -249,7 +256,7 @@ module.exports = function( Microbe )
         /*
          * fast tracks element based queries
          */
-        if ( _selector.nodeType === 1 || Object.prototype.toString.call( _selector ) === '[object Array]' ||
+        if ( _selector.nodeType === 1 || Microbe.isArray( _selector ) ||
             _selector === window || _selector === document )
         {
             _selector = Microbe.isArray( _selector ) ? _selector : [ _selector ];
@@ -271,7 +278,7 @@ module.exports = function( Microbe )
 
         if ( _elements )
         {
-            if ( Object.prototype.toString.call( _elements ) === '[object Array]' )
+            if ( Microbe.isArray( _elements ) )
             {
                 return _build( _elements, this );
             }
@@ -322,9 +329,9 @@ module.exports = function( Microbe )
             }
         }
 
-        if ( !( this instanceof Microbe.core.__init__ ) )
+        if ( !( this instanceof Init ) )
         {
-            return new Microbe.core.__init__( _selector, _scope, _elements );
+            return new Init( _selector, _scope, _elements );
         }
 
         if ( _selector.indexOf( ':' ) !== -1 )
