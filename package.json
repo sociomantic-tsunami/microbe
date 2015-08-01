@@ -1,17 +1,11 @@
 {
-  "name": "microbe.js",
+  "name": "microbe",
   "version": "0.3.4",
   "author": "Mouse Braun <mouse@sociomantic.com>",
   "description": "micro-library front-end",
   "contributors": [
-    {
-      "name": "Nicolas Brugneaux",
-      "email": "nicolas.brugneaux@sociomantic.com"
-    },
-    {
-      "name": "Michele Guido",
-      "email": "michele.guido@sociomantic.com"
-    }
+    "Nicolas Brugneaux <nicolas.brugneaux@sociomantic.com>",
+    "Michele Guido <michele.guido@sociomantic.com>"
   ],
   "repository": {
     "type": "git",
@@ -19,11 +13,10 @@
   },
   "scripts": {
     "get-dependencies": "npm install . && echo \"Installation complete.\"",
-    "build": "./node_modules/.bin/gulp && echo \"Build complete.\"",
-    "test": "./node_modules/.bin/gulp test && echo \"Tests complete.\"",
-    "watch": "./node_modules/.bin/gulp watch",
-    "buildDoc": "cd src && ../node_modules/.bin/docker -o ../www/doc/ -i ./ --sidebar true --watch --js ../dist/microbe.js --extras fileSearch -c manni",
-    "serve": "cd www && python -m SimpleHTTPServer 8000"
+    "build": "gulp && echo \"Build complete.\"",
+    "test": "gulp test && echo \"Tests complete.\"",
+    "watch": "gulp watch",
+    "buildDoc": "cd src && ../node_modules/.bin/docker -o ../www/doc/ -i ./ --sidebar true --watch --js ../dist/microbe.js --extras fileSearch -c manni"
   },
   "devDependencies": {
     "browserify": "^5.11.2",
@@ -39,5 +32,37 @@
     "qunitjs": "^1.18.0",
     "setimmediate": "^1.0.2"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sociomantic/microbe/issues"
+  },
+  "homepage": "http://m.icro.be",
+  "main": "gulpfile.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "browserify": "^5.13.1",
+    "docker": "^0.2.14",
+    "gulp-replace": "^0.4.0",
+    "observe-utils": "^0.3.2",
+    "observe-shim": "^0.4.1",
+    "gulp-uglify": "^1.2.0",
+    "gulp": "^3.9.0",
+    "promise": "^6.1.0",
+    "gulp-rimraf": "^0.1.1",
+    "qunitjs": "^1.18.0",
+    "setimmediate": "^1.0.2",
+    "gulp-rename": "^1.2.2"
+  },
+  "keywords": [
+    "microbe",
+    "dom",
+    "javascript",
+    "observe",
+    "selector",
+    "css4",
+    "http",
+    "event"
+  ]
 }
