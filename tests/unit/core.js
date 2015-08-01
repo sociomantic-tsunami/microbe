@@ -331,13 +331,11 @@ module.exports = function( buildTest )
 
         assert.equal( µId.length, 3, 'accepts pseudo selectors' );
 
-        var $Divs;
+        µId         = µDivs.filter( function(){ return this.id === 'qunit'; } );
 
-        var resetDivs = function()
-        {
-            µDivs   = µ( 'div' );
-            $Divs   = $( 'div' );
-        };
+        assert.equal( µId.length, 1, 'accepts functions' );
+
+        var $Divs   = $( 'div' );
 
         // buildTest(
         // 'µDivs.filter( \'#qunit\' )', function()
@@ -355,13 +353,11 @@ module.exports = function( buildTest )
         buildTest(
         'µDivs.filter( \'#qunit\' )', function()
         {
-            resetDivs();
             µDivs.filter( 'div.fastest:lt(3):first' );
         },
 
         '$Divs.filter( \'#qunit\' )', function()
         {
-            resetDivs();
             $Divs.filter( 'div.fastest:lt(3):first' );
         } );
     });

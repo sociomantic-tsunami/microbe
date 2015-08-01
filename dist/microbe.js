@@ -633,11 +633,14 @@ process.chdir = function (dir) {
 (function (global) {
     'use strict';
 
-    var ObserveUtils = {};
-    if ( typeof module === 'object' && typeof exports !== 'undefined') {
-        module.exports = ObserveUtils;
+    /**
+     * @namespace
+     */
+    var ObserveUtils;
+    if (typeof exports !== 'undefined') {
+        ObserveUtils = exports;
     } else {
-        global.ObserveUtils = ObserveUtils;
+        ObserveUtils = global.ObserveUtils = {};
     }
 
     // Utilities
@@ -2401,93 +2404,109 @@ Microbe.core = Microbe.prototype ={
     {
         var pseudo, filters, self = this, _el, method;
 
-        if ( self.length === 0 )
-        {
-            return self;
-        }
-
-        var _filter = function( _f, _self, i )
-        {
-            if ( Microbe.pseudo[ _f[ 0 ] ] )
-            {
-                return Microbe.pseudo[ _f[ 0 ] ]( _self, _f[ 1 ] );
-            }
-            else
-            {
-                var resArray = [], _selector;
-                _selector = i === 0 ? _f[ 0 ] : ':' + _f[ 0 ];
-
-                if ( _selector !== '' )
-                {
-                    if ( _f[ 1 ] !== '' )
-                    {
-                        _selector += '(' + _f[ 1 ] + ')';
-                    }
-
-                    for ( var j = 0, lenJ = _self.length; j < lenJ; j++ )
-                    {
-                        _el = _self[ j ];
-
-                        if ( Microbe.matches( _el, _selector ) === true )
-                        {
-                            resArray.push( _el );
-                        }
-                    }
-                }
-
-                return new Microbe( resArray );
-            }
-        };
-
-        if ( filter && filter.indexOf( ':' ) !== -1 )
-        {
-            pseudo  = filter.split( ':' );
-            filters = [ [ pseudo.splice( 0, 1 ).toString(), '' ] ];
-
-            var _p, pseudoArray;
-
-            for ( var i = 0, lenI = pseudo.length; i < lenI; i++ )
-            {
-                _p = pseudo[ i ];
-
-                if ( _p.indexOf( '(' ) !== - 1 )
-                {
-                    _p      = _p.split( '(' );
-                    _p[ 1 ] = _p[ 1 ].replace( ')', '' );
-                }
-                else
-                {
-                    _p      = [ _p, '' ];
-                }
-
-                filters.push( _p );
-            }
-        }
-        else if ( filter )
-        {
-            filters = [ [ filter, '' ] ];
-        }
-        else
+        if ( this.length === 0 )
         {
             return this;
         }
 
-        for ( var k = 0, lenK = filters.length; k < lenK; k++ )
+        if ( typeof filter === 'function' )
         {
-            if ( self.length !== 0 )
+            var res = [];
+
+            for ( var i = 0; i < this.length; i++ ) 
             {
-                if ( filters[ k ][ 0 ] !== '' )
+                if ( filter.call( this[ i ], i ) )
                 {
-                    self = _filter( filters[ k ], self, k );
+                    res.push( this[ i ] );
                 }
+            }
+            return new Microbe( res )
+        }
+        else
+        {
+            var _filter = function( _f, _self, i )
+            {
+                if ( Microbe.pseudo[ _f[ 0 ] ] )
+                {
+                    return Microbe.pseudo[ _f[ 0 ] ]( _self, _f[ 1 ] );
+                }
+                else
+                {
+                    var resArray = [], _selector;
+                    _selector = i === 0 ? _f[ 0 ] : ':' + _f[ 0 ];
+
+                    if ( _selector !== '' )
+                    {
+                        if ( _f[ 1 ] !== '' )
+                        {
+                            _selector += '(' + _f[ 1 ] + ')';
+                        }
+
+                        for ( var j = 0, lenJ = _self.length; j < lenJ; j++ )
+                        {
+                            _el = _self[ j ];
+
+                            if ( Microbe.matches( _el, _selector ) === true )
+                            {
+                                resArray.push( _el );
+                            }
+                        }
+                    }
+
+                    return new Microbe( resArray );
+                }
+            };
+
+            if ( filter && filter.indexOf( ':' ) !== -1 )
+            {
+                pseudo  = filter.split( ':' );
+                filters = [ [ pseudo.splice( 0, 1 ).toString(), '' ] ];
+
+                var _p, pseudoArray;
+
+                for ( var i = 0, lenI = pseudo.length; i < lenI; i++ )
+                {
+                    _p = pseudo[ i ];
+
+                    if ( _p.indexOf( '(' ) !== - 1 )
+                    {
+                        _p      = _p.split( '(' );
+                        _p[ 1 ] = _p[ 1 ].replace( ')', '' );
+                    }
+                    else
+                    {
+                        _p      = [ _p, '' ];
+                    }
+
+                    filters.push( _p );
+                }
+            }
+            else if ( filter )
+            {
+                filters = [ [ filter, '' ] ];
             }
             else
             {
-                return self;
+                return this;
             }
-        }
 
-        return self;
+            for ( var k = 0, lenK = filters.length; k < lenK; k++ )
+            {
+                if ( self.length !== 0 )
+                {
+                    if ( filters[ k ][ 0 ] !== '' )
+                    {
+                        self = _filter( filters[ k ], self, k );
+                    }
+                }
+                else
+                {
+                    return self;
+                }
+            }
+
+            return self;
+        }
     },
 
 

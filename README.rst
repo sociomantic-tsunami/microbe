@@ -105,6 +105,8 @@ Change log
 + small bug fixes
 + updated documantation and tests
 + speed updates
++ added filter by function
++ updated find to include elements not in the dom
 
 
 0.3.3
