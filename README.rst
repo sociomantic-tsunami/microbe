@@ -79,16 +79,17 @@ Dev Installation
 
 -  Clone repo
 -  Make sure npm is installed
--  npm install
--  gulp
+- ``npm install``
+- ``npm start``
 
 
 Generating www docs
 ===================
 
-- cd src
-- ../node_modules/.bin/docker -o ../www/doc/ -i ./ --sidebar true --watch --js ../dist/microbe.js --extras fileSearch -c manni
+- ``cd src``
+- ``npm run docs``
 
+(this command will watch for changes)
 
 Contributing
 ============
