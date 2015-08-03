@@ -116,7 +116,7 @@ module.exports = function( Microbe )
      *
      * @return _Boolean_ whether _el is contained in the scope
      */
-    Microbe.contains = function _contains( _el, _scope )
+    var _contains = Microbe.contains = function( _el, _scope )
     {
         var parent = _el.parentNode;
 

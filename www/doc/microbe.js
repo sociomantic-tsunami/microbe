@@ -2226,7 +2226,7 @@ Microbe.core = Microbe.prototype ={
             }
         }
 
-        return new Microbe( '', undefined, childrenArray );
+        return this.constructor( childrenArray );
     },
 
 
@@ -2401,93 +2401,109 @@ Microbe.core = Microbe.prototype ={
     {
         var pseudo, filters, self = this, _el, method;
 
-        if ( self.length === 0 )
-        {
-            return self;
-        }
-
-        var _filter = function( _f, _self, i )
-        {
-            if ( Microbe.pseudo[ _f[ 0 ] ] )
-            {
-                return Microbe.pseudo[ _f[ 0 ] ]( _self, _f[ 1 ] );
-            }
-            else
-            {
-                var resArray = [], _selector;
-                _selector = i === 0 ? _f[ 0 ] : ':' + _f[ 0 ];
-
-                if ( _selector !== '' )
-                {
-                    if ( _f[ 1 ] !== '' )
-                    {
-                        _selector += '(' + _f[ 1 ] + ')';
-                    }
-
-                    for ( var j = 0, lenJ = _self.length; j < lenJ; j++ )
-                    {
-                        _el = _self[ j ];
-
-                        if ( Microbe.matches( _el, _selector ) === true )
-                        {
-                            resArray.push( _el );
-                        }
-                    }
-                }
-
-                return new Microbe( resArray );
-            }
-        };
-
-        if ( filter && filter.indexOf( ':' ) !== -1 )
-        {
-            pseudo  = filter.split( ':' );
-            filters = [ [ pseudo.splice( 0, 1 ).toString(), '' ] ];
-
-            var _p, pseudoArray;
-
-            for ( var i = 0, lenI = pseudo.length; i < lenI; i++ )
-            {
-                _p = pseudo[ i ];
-
-                if ( _p.indexOf( '(' ) !== - 1 )
-                {
-                    _p      = _p.split( '(' );
-                    _p[ 1 ] = _p[ 1 ].replace( ')', '' );
-                }
-                else
-                {
-                    _p      = [ _p, '' ];
-                }
-
-                filters.push( _p );
-            }
-        }
-        else if ( filter )
-        {
-            filters = [ [ filter, '' ] ];
-        }
-        else
+        if ( this.length === 0 )
         {
             return this;
         }
 
-        for ( var k = 0, lenK = filters.length; k < lenK; k++ )
+        if ( typeof filter === 'function' )
         {
-            if ( self.length !== 0 )
+            var res = [];
+
+            for ( var i = 0; i < this.length; i++ ) 
             {
-                if ( filters[ k ][ 0 ] !== '' )
+                if ( filter.call( this[ i ], i ) )
                 {
-                    self = _filter( filters[ k ], self, k );
+                    res.push( this[ i ] );
                 }
+            }
+            return new Microbe( res )
+        }
+        else
+        {
+            var _filter = function( _f, _self, i )
+            {
+                if ( Microbe.pseudo[ _f[ 0 ] ] )
+                {
+                    return Microbe.pseudo[ _f[ 0 ] ]( _self, _f[ 1 ] );
+                }
+                else
+                {
+                    var resArray = [], _selector;
+                    _selector = i === 0 ? _f[ 0 ] : ':' + _f[ 0 ];
+
+                    if ( _selector !== '' )
+                    {
+                        if ( _f[ 1 ] !== '' )
+                        {
+                            _selector += '(' + _f[ 1 ] + ')';
+                        }
+
+                        for ( var j = 0, lenJ = _self.length; j < lenJ; j++ )
+                        {
+                            _el = _self[ j ];
+
+                            if ( Microbe.matches( _el, _selector ) === true )
+                            {
+                                resArray.push( _el );
+                            }
+                        }
+                    }
+
+                    return new Microbe( resArray );
+                }
+            };
+
+            if ( filter && filter.indexOf( ':' ) !== -1 )
+            {
+                pseudo  = filter.split( ':' );
+                filters = [ [ pseudo.splice( 0, 1 ).toString(), '' ] ];
+
+                var _p, pseudoArray;
+
+                for ( var i = 0, lenI = pseudo.length; i < lenI; i++ )
+                {
+                    _p = pseudo[ i ];
+
+                    if ( _p.indexOf( '(' ) !== - 1 )
+                    {
+                        _p      = _p.split( '(' );
+                        _p[ 1 ] = _p[ 1 ].replace( ')', '' );
+                    }
+                    else
+                    {
+                        _p      = [ _p, '' ];
+                    }
+
+                    filters.push( _p );
+                }
+            }
+            else if ( filter )
+            {
+                filters = [ [ filter, '' ] ];
             }
             else
             {
-                return self;
+                return this;
             }
-        }
 
-        return self;
+            for ( var k = 0, lenK = filters.length; k < lenK; k++ )
+            {
+                if ( self.length !== 0 )
+                {
+                    if ( filters[ k ][ 0 ] !== '' )
+                    {
+                        self = _filter( filters[ k ], self, k );
+                    }
+                }
+                else
+                {
+                    return self;
+                }
+            }
+
+            return self;
+        }
     },
 
 
@@ -2500,10 +2516,15 @@ Microbe.core = Microbe.prototype ={
      *
      * @return _Microbe_ new microbe containing only the found children values
      */
-    find : function( selector )
+    find : function( _selector )
     {
-        var _selector   = selector.trim();
         var _s          = _selector[ 0 ];
+
+        if ( _s === ' ' )
+        {
+            _selector   = _selector.trim();
+            _s          = _selector[ 0 ];
+        }
 
         if ( _s === '>' )
         {
@@ -2537,8 +2558,25 @@ Microbe.core = Microbe.prototype ={
 
             return new Microbe( resArray ).filter( _selector );
         }
+        else if ( _selector.indexOf( ':' ) !== -1 )
+        {
+            return this.constructor( _selector, this );
+        }
 
-        return new Microbe( _selector, this );
+        var _children = new Microbe( _selector ), res = [];
+
+        for ( var j = 0, lenJ = this.length; j < lenJ; j++ )
+        {
+            for ( var k = 0, lenK = _children.length; k < lenK; k++ )
+            {
+                if ( Microbe.contains( _children[ k ], this[ j ] ) )
+                {
+                    res.push( _children[ k ] );
+                }
+            }
+        }
+
+        return this.constructor( res );
     },
 
 
@@ -2554,10 +2592,10 @@ Microbe.core = Microbe.prototype ={
     {
         if ( this.length !== 0 )
         {
-            return new Microbe( [ this[ 0 ] ] );
+            return this.constructor( this[ 0 ] );
         }
 
-        return new Microbe( [] );
+        return this.constructor( [] );
     },
 
 
@@ -2572,7 +2610,7 @@ Microbe.core = Microbe.prototype ={
     {
         var _getParentIndex = function( _elm )
         {
-            return Array.prototype.indexOf.call( _elm.parentNode.children, _elm );
+            return indexOf.call( _elm.parentNode.children, _elm );
         };
 
         var i, len, indexes = new Array( this.length );
@@ -2689,7 +2727,7 @@ Microbe.core = Microbe.prototype ={
      */
     indexOf : function( _el )
     {
-        return this.toArray().indexOf( _el );
+        return indexOf.call( this, _el );
     },
 
 
@@ -2707,8 +2745,12 @@ Microbe.core = Microbe.prototype ={
         {
             return this;
         }
+        else if ( this.length !== 0 )
+        {
+            return this.constructor( this[ this.length - 1 ] );
+        }
 
-        return new Microbe( [ this[ this.length - 1 ] ] );
+        return this.constructor( [] );
     },
 
 
@@ -2968,7 +3010,7 @@ Microbe.core = Microbe.prototype ={
             }
         }
 
-        return new Microbe( '', undefined, siblingArray );
+        return this.constructor( siblingArray );
     },
 
 
@@ -2984,7 +3026,7 @@ Microbe.core = Microbe.prototype ={
     {
         var arr = splice.call( this, _start, _end );
 
-        return new Microbe( arr );
+        return this.constructor( arr );
     },
 
 
@@ -3003,7 +3045,7 @@ Microbe.core = Microbe.prototype ={
     {
         var _setText = function( _value, _el )
         {
-            if( document.all )
+            if ( document.all )
             {
                 _el.innerText = _value;
             }
@@ -3019,7 +3061,7 @@ Microbe.core = Microbe.prototype ={
 
         var _getText = function( _el )
         {
-            if( document.all )
+            if ( document.all )
             {
                 return _el.innerText;
             }
@@ -3059,11 +3101,10 @@ Microbe.core = Microbe.prototype ={
      *
      * @return _Array_
      */
-    toArray : function( _arr )
-    {
-        _arr = _arr || this;
-        return Array.prototype.slice.call( _arr );
-    },
+     toArray : function( _arr )
+     {
+         return slice.call( _arr || this );
+     },
 
 
     /**
@@ -3135,7 +3176,6 @@ module.exports = Microbe;
  *
  * @package Microbe
  */
-
 /**
  * ## exported
  *
@@ -3776,7 +3816,6 @@ module.exports = function( Microbe )
      */
     function _build( _elements, self )
     {
-
         var i = 0, lenI = _elements.length;
 
         for ( ; i < lenI; i++ )
@@ -3861,7 +3900,7 @@ module.exports = function( Microbe )
      *
      * @return _Boolean_ whether _el is contained in the scope
      */
-    function _contains( _el, _scope )
+    Microbe.contains = function _contains( _el, _scope )
     {
         var parent = _el.parentNode;
 
@@ -3876,12 +3915,20 @@ module.exports = function( Microbe )
         }
 
         return true;
-    }
+    };
 
 
+    /**
+     * ## _css4StringReplace
+     *
+     * translates css4 strings
+     *
+     * @param  {String} _string pre substitution string
+     *
+     * @param  {String} post substitution string
+     */
     function _css4StringReplace( _string )
     {
-        // CSS4 replace
         if ( _string.indexOf( '>>' ) !== -1 )
         {
             _string = _string.replace( />>/g, ' ' );
@@ -3953,12 +4000,11 @@ module.exports = function( Microbe )
      *
      * @return _Microbe_
      */
-    Microbe.core.__init__ =  function( _selector, _scope, _elements )
+    var Init = Microbe.core.__init__ =  function( _selector, _scope, _elements )
     {
         var res;
         if ( !_scope )
         {
-
             res = _noScopeSimple( _selector, this );
 
             if( res )
@@ -3985,7 +4031,7 @@ module.exports = function( Microbe )
 
             for ( var n = 0, lenN = _scope.length; n < lenN; n++ )
             {
-                res.merge( new Microbe.core.__init__( _selector, _scope[ n ], _elements ), null, true );
+                res.merge( new Init( _selector, _scope[ n ], _elements ), null, true );
             }
 
             return res;
@@ -3994,7 +4040,7 @@ module.exports = function( Microbe )
         /*
          * fast tracks element based queries
          */
-        if ( _selector.nodeType === 1 || Object.prototype.toString.call( _selector ) === '[object Array]' ||
+        if ( _selector.nodeType === 1 || Microbe.isArray( _selector ) ||
             _selector === window || _selector === document )
         {
             _selector = Microbe.isArray( _selector ) ? _selector : [ _selector ];
@@ -4016,7 +4062,7 @@ module.exports = function( Microbe )
 
         if ( _elements )
         {
-            if ( Object.prototype.toString.call( _elements ) === '[object Array]' )
+            if ( Microbe.isArray( _elements ) )
             {
                 return _build( _elements, this );
             }
@@ -4067,9 +4113,9 @@ module.exports = function( Microbe )
             }
         }
 
-        if ( !( this instanceof Microbe.core.__init__ ) )
+        if ( !( this instanceof Init ) )
         {
-            return new Microbe.core.__init__( _selector, _scope, _elements );
+            return new Init( _selector, _scope, _elements );
         }
 
         if ( _selector.indexOf( ':' ) !== -1 )
@@ -5360,36 +5406,6 @@ module.exports = function( Microbe )
     };
 
 
-    /**
-     * ### target
-     *
-     * returns a microbe with elements that match both the original selector, and the id of the page hash
-     *
-     * @param {Microbe} _el microbe to be filtered
-     *
-     * @return _Microbe_
-     */
-    pseudo.target = function( _el )
-    {
-        var hash = ( location.href.split( '#' )[ 1 ] );
-
-        var elements = [];
-
-        if ( hash )
-        {
-            for ( var i = 0, lenI = _el.length; i < lenI; i++ )
-            {
-                if ( _el[ i ].id === hash  )
-                {
-                    elements.push( _el[ i ] );
-                }
-            }
-        }
-
-        return _el.constructor( elements );
-    };
-
-
 
     Microbe.constructor.prototype.pseudo = pseudo;
 };
@@ -5696,6 +5712,8 @@ module.exports = function( Microbe )
      * ## matches
      *
      * checks element an to see if they match a given css selector
+     * unsure if we actually need the webkitMatchSelector and mozMatchSelector
+     * http://caniuse.com/#feat=matchesselector
      *
      * @param  {Mixed} el element, microbe, or array of elements to match
      *
@@ -5995,36 +6013,35 @@ module.exports = function( Microbe )
  *
  * @return _Object_
  */
-module.exports =
-{
-    fill            : Array.prototype.fill,
-    pop             : Array.prototype.pop,
-    push            : Array.prototype.push,
-    reverse         : Array.prototype.reverse,
-    shift           : Array.prototype.shift,
-    sort            : Array.prototype.sort,
-    splice          : Array.prototype.splice,
-    unshift         : Array.prototype.unshift,
+module.exports = {
     concat          : Array.prototype.concat,
-    join            : Array.prototype.join,
-    slice           : Array.prototype.slice,
-    toSource        : Array.prototype.toSource,
-    toString        : Array.prototype.toString,
-    toLocaleString  : Array.prototype.toLocaleString,
-    indexOf         : Array.prototype.indexOf,
-    lastIndexOf     : Array.prototype.lastIndexOf,
-    forEach         : Array.prototype.forEach,
+    copyWithin      : Array.prototype.copyWithin,
     entries         : Array.prototype.entries,
     every           : Array.prototype.every,
-    some            : Array.prototype.some,
+    fill            : Array.prototype.fill,
     filter          : Array.prototype.filter,
     find            : Array.prototype.find,
     findIndex       : Array.prototype.findIndex,
+    forEach         : Array.prototype.forEach,
+    indexOf         : Array.prototype.indexOf,
+    join            : Array.prototype.join,
     keys            : Array.prototype.keys,
+    lastIndexOf     : Array.prototype.lastIndexOf,
     map             : Array.prototype.map,
+    pop             : Array.prototype.pop,
+    push            : Array.prototype.push,
     reduce          : Array.prototype.reduce,
     reduceRight     : Array.prototype.reduceRight,
-    copyWithin      : Array.prototype.copyWithin
+    reverse         : Array.prototype.reverse,
+    shift           : Array.prototype.shift,
+    some            : Array.prototype.some,
+    sort            : Array.prototype.sort,
+    slice           : Array.prototype.slice,
+    splice          : Array.prototype.splice,
+    toLocaleString  : Array.prototype.toLocaleString,
+    toSource        : Array.prototype.toSource,
+    toString        : Array.prototype.toString,
+    unshift         : Array.prototype.unshift
 };
 
 },{}],21:[function(require,module,exports){
