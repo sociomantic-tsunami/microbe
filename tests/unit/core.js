@@ -383,6 +383,10 @@ module.exports = function( buildTest )
 
         assert.equal( µH2.length, 1, 'accepts pseudo selectors' );
 
+        var µADiv = $( '<div>' );
+        var µAH1 = µADiv.append( '<h1>' );
+        assert.equal( µADiv.find( 'h1' ).length, 1, 'finds unattached elements' );
+
         var µDivs   = µ( 'div' );
         var $Divs   = $( 'div' );
 
