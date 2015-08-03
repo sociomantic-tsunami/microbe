@@ -2623,8 +2623,9 @@ module.exports = function( buildTest )
     {
         var µLinks      = µ( ':local-link' );
         var allLinks    = µ( 'a' );
-        var µDepth1     = µ( ':local-link(1)' );
-        var µDepth2     = µ( ':local-link(2)' );
+        var depth       = window.location.pathname.slice( 1 ).split( '/' ).length - 1;
+        var µDepth1     = µ( ':local-link(' + ( depth - 1 ) + ')' );
+        var µDepth2     = µ( ':local-link(' + depth + ')' );
 
         assert.ok( µ.pseudo[ 'local-link'], 'exists' );
         assert.equal( µLinks.length, allLinks.length, 'get links' );
