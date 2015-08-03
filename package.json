@@ -1,84 +1,40 @@
 {
-  "name": "microbejs",
+  "name": "microbe",
   "version": "0.3.4",
-  "author": "Mouse Braun <mouse@sociomantic.com>",
-  "description": "micro-library front-end",
-  "contributors": [
-    "Nicolas Brugneaux <nicolas.brugneaux@sociomantic.com>",
-    "Michele Guido <michele.guido@sociomantic.com>"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/sociomantic/microbe"
-  },
-  "scripts": {
-    "get-dependencies": "npm install . && echo \"Installation complete.\"",
-    "build": "gulp && echo \"Build complete.\"",
-    "test": "gulp test && echo \"Tests complete.\"",
-    "start": "gulp",
-    "watch": "gulp watch",
-    "buildDoc": "cd src && ../node_modules/.bin/docker -o ../www/doc/ -i ./ --sidebar true --watch --js ../dist/microbe.js --extras fileSearch -c manni",
-    "docs": "docker -o www/doc/ -i src --sidebar true --watch --js dist/microbe.js --extras fileSearch -c manni"
-  },
-  "devDependencies": {
-    "browserify": "^5.11.2",
-    "docker": "git://github.com/nicolasbrugneaux/docker.git#patch-1",
-    "gulp": "^3.8.7",
-    "gulp-rename": "^1.2.2",
-    "gulp-replace": "^0.4.0",
-    "gulp-rimraf": "^0.1.0",
-    "gulp-uglify": "^1.2.0",
-    "observe-shim": "^0.4.1",
-    "observe-utils": "^0.3.2",
-    "promise": "^6.0.0",
-    "qunitjs": "^1.18.0",
-    "setimmediate": "^1.0.2"
-  },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/sociomantic/microbe/issues"
-  },
-  "homepage": "http://m.icro.be",
-  "main": "gulpfile.js",
+  "description": "das",
+  "main": "./dist/microbe.min.js",
   "directories": {
     "test": "tests"
   },
-  "browserDependencies": {
-    "browserify": "^5.13.1",
-    "docker": "^0.2.14",
-    "gulp-replace": "^0.4.0",
-    "observe-utils": "^0.3.2",
-    "observe-shim": "^0.4.1",
-    "gulp-uglify": "^1.2.0",
-    "gulp": "^3.9.0",
-    "promise": "^6.1.0",
-    "gulp-rimraf": "^0.1.1",
-    "qunitjs": "^1.18.0",
-    "setimmediate": "^1.0.2",
-    "gulp-rename": "^1.2.2"
-  },
   "dependencies": {
     "browserify": "^5.13.1",
-    "docker": "^0.2.14",
+    "gulp": "^3.8.11",
     "gulp-replace": "^0.4.0",
-    "observe-utils": "^0.3.2",
-    "observe-shim": "^0.4.1",
+    "gulp-rename": "^1.2.2",
     "gulp-uglify": "^1.2.0",
-    "gulp": "^3.9.0",
-    "promise": "^6.1.0",
-    "gulp-rimraf": "^0.1.1",
-    "qunitjs": "^1.18.0",
+    "observe-shim": "^0.4.1",
+    "observe-utils": "^0.3.2",
     "setimmediate": "^1.0.2",
-    "gulp-rename": "^1.2.2"
+    "gulp-rimraf": "^0.1.1",
+    "promise": "^6.1.0",
+    "docker": "^0.2.14",
+    "qunitjs": "^1.18.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "das"
+  },
+  "repository": {
+    "type": "git",
+    "url": "asd"
   },
   "keywords": [
-    "microbe",
-    "dom",
-    "javascript",
-    "observe",
-    "selector",
-    "css4",
-    "http",
-    "event"
-  ]
+    "jghc",
+    "uzf",
+    "hjf",
+    "u",
+    "fiu"
+  ],
+  "author": "Mouse Braun <mouse@knoblau.ch> (http://knoblau.ch)",
+  "license": "ISC"
 }
