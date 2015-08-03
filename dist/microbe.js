@@ -2008,7 +2008,7 @@ var Microbe = function( selector, scope, elements )
 
 Microbe.core = Microbe.prototype ={
 
-    version :       '0.3.6',
+    version :       '0.3.7',
 
     constructor :   Microbe,
 
@@ -2311,78 +2311,73 @@ Microbe.core = Microbe.prototype ={
      */
     extend : function()
     {
-        var args    = slice.call( arguments );
+        var µIsObject   = Microbe.isObject;
+        var µIsArray    = Microbe.isArray;
 
-        var index   = 0;
-        var length  = args.length;
+        var res     = arguments[ 0 ] || {};
+        var i       = 1;
+        var length  = arguments.length;
         var deep    = false;
-        var isArray;
-        var target;
-        var options;
-        var src;
-        var copy;
-        var clone;
 
-        if ( args[ index ] === true )
+        if ( typeof res === 'boolean' )
         {
-            deep    = true;
-            index   += 1;
+            deep    = res;
+            res     = arguments[ i ] || {};
+            i++;
         }
 
-        if ( this.type === '[object Microbe]' )
+        if ( typeof res !== 'object' && !Microbe.isFunction( res ) )
         {
-            target = this;
-        }
-        else
-        {
-            if ( Microbe.isObject( args[ index ] ) )
-            {
-                target = args[ index ];
-            }
-            else
-            {
-                target = {};
-            }
+            res = {};
         }
 
-        for ( ; index < length; index++ )
+        if ( i === length )
         {
-            if ( ( options = args[ index ] ) !== null )
+            res = this;
+            i--;
+        }
+
+        var _object, _p, src, copy, isArray, clone;
+        for ( ; i < length; i++ )
+        {
+            _object = arguments[ i ];
+
+            if ( _object !== null && _object !== undefined )
             {
-                for ( var name in options )
+                for ( _p in _object )
                 {
-                    if ( options.hasOwnProperty( name ) )
+                    src     = res[ _p ];
+                    copy    = _object[ _p ];
+
+                    if ( res === copy )
                     {
-                        isArray = false;
-                        src     = target[ name ];
-                        copy    = options[ name ];
+                        continue;
+                    }
 
-                        if ( target === copy || typeof copy === undefined )
+                    if ( deep && copy && ( µIsObject( copy ) ||
+                            ( isArray = µIsArray( copy ) ) ) )
+                    {
+                        if ( isArray )
                         {
-                            continue;
+                            isArray = false;
+                            clone   = src && µIsArray( src ) ? src : [];
+                        }
+                        else
+                        {
+                            clone = src && µIsObject( src ) ? src : {};
                         }
 
-                        if ( deep && copy && Microbe.isObject( copy ) )
-                        {
-                            if ( Microbe.isArray( copy ) )
-                            {
-                                clone = src && Microbe.isArray( src ) ? src : [];
-                            }
-                            else
-                            {
-                                clone = src && Microbe.isObject( src ) ? src : {};
-                            }
-
-                            target[ name ] = Microbe.extend( deep, clone, copy );
-                        }
-
-                        target[ name ] = copy;
+                        res[ _p ] = Microbe.extend( deep, clone, copy );
+                    }
+                    else if ( copy !== undefined )
+                    {
+                        res[ _p ] = copy;
                     }
                 }
             }
         }
 
-        return target;
+        return res;
     },
 
 

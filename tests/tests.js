@@ -141,7 +141,7 @@ window.buildTest = buildTest;
 
 module.exports = function( buildTest )
 {
-    var version = '0.3.6';
+    var version = '0.3.7';
 
     QUnit.module( 'core.js' );
 
@@ -409,8 +409,8 @@ module.exports = function( buildTest )
      */
     QUnit.test( '.extend()', function( assert )
     {
-        assert.ok( µ().extend, 'exists' );
-        assert.ok( µ.extend, 'exists' );
+        assert.ok( µ().extend, 'core exists' );
+        assert.ok( µ.extend, 'root exists' );
 
         var µDivs = µ( 'div' );
         var extension = { more: function(){ return 'MOAR!!!'; } };
@@ -421,30 +421,22 @@ module.exports = function( buildTest )
         µ.extend( _obj, extension );
         assert.equal( _obj.more(), 'MOAR!!!', 'extends objects' );
 
+            µDivs = µ( 'divs' );
+        var $Divs = µ( 'divs' );
 
         buildTest(
         'µ.extend( _obj, extension );', function()
         {
-            /* these are commented out to draw attention to how slow the
-               other function is comparatively.  this one is quite a bit faster */
-            // extension = { more: function(){ return 'MOAR!!!'; } };
-            // _obj = µ( 'div' );
-            // _obj.extend( extension );
-
-            extension   = { more: function(){ return 'MOAR!!!'; } };
+            extension = { more: function(){ return 'MOAR!!!'; } };
+            // µDivs.extend( extension );
             _obj        = { a: 1, b: 2, c:3 };
             µ.extend( _obj, extension );
         },
 
         '$.extend( _obj, extension )', function()
         {
-            /* these are commented out to draw attention to how slow the
-               other function is comparatively.  this one is quite a bit faster */
-            // extension   = { more: function(){ return 'MOAR!!!'; } };
-            // _obj = $( 'div' );
-            // _obj.extend( extension );
-
             extension   = { more: function(){ return 'MOAR!!!'; } };
+            // $Divs.extend( extension );
             _obj        = { a: 1, b: 2, c:3 };
             $.extend( _obj, extension );
         } );
