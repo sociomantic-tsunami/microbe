@@ -11,7 +11,7 @@ The next goal being to convert the library to ES6 to be ready for the future.
 Microbe aims to be somewhat general and expandable.  It's separated
 into several categories:
 
-+ Core helpers (iterator, each, … )
++ Core helpers (class manipulation, find, filter, etc )
 
 - Extended CSS4 selector support
 

@@ -167,3 +167,17 @@ ul p
     margin:                         0;
     line-height:                    0.7rem
 }
+
+
+.license--wrapper
+{
+    display:        block;
+    width:          100%;
+    text-align:     center;
+}
+
+.license--wrapper div
+{
+    display:        inline-block;
+    width:          40%;
+}
