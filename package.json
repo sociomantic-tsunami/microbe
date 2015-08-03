@@ -1,9 +1,8 @@
 {
   "name": "microbejs",
-  "version": "0.3.4",
+  "version": "0.3.6",
   "author": "Mouse Braun <mouse@sociomantic.com>",
   "description": "micro-library front-end",
-  "main": "./dist/microbe.min.js",
   "contributors": [
     "Nicolas Brugneaux <nicolas.brugneaux@sociomantic.com>",
     "Michele Guido <michele.guido@sociomantic.com>"
@@ -40,37 +39,13 @@
     "url": "https://github.com/sociomantic/microbe/issues"
   },
   "homepage": "http://m.icro.be",
-  "main": "gulpfile.js",
+  "main": "dist/microbe.min.js",
   "directories": {
     "test": "tests"
   },
   "browserDependencies": {
-    "browserify": "^5.13.1",
-    "docker": "^0.2.14",
-    "gulp-replace": "^0.4.0",
-    "observe-utils": "^0.3.2",
-    "observe-shim": "^0.4.1",
-    "gulp-uglify": "^1.2.0",
-    "gulp": "^3.9.0",
-    "promise": "^6.1.0",
-    "gulp-rimraf": "^0.1.1",
-    "qunitjs": "^1.18.0",
-    "setimmediate": "^1.0.2",
-    "gulp-rename": "^1.2.2"
   },
   "dependencies": {
-    "browserify": "^5.13.1",
-    "docker": "^0.2.14",
-    "gulp-replace": "^0.4.0",
-    "observe-utils": "^0.3.2",
-    "observe-shim": "^0.4.1",
-    "gulp-uglify": "^1.2.0",
-    "gulp": "^3.9.0",
-    "promise": "^6.1.0",
-    "gulp-rimraf": "^0.1.1",
-    "qunitjs": "^1.18.0",
-    "setimmediate": "^1.0.2",
-    "gulp-rename": "^1.2.2"
   },
   "keywords": [
     "microbe",

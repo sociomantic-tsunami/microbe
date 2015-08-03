@@ -2008,7 +2008,7 @@ var Microbe = function( selector, scope, elements )
 
 Microbe.core = Microbe.prototype ={
 
-    version :       '0.3.4',
+    version :       '0.3.6',
 
     constructor :   Microbe,
 
@@ -2389,11 +2389,11 @@ Microbe.core = Microbe.prototype ={
     /**
      * ## filter
      *
-     * Filters the microbe by the given given selector.
-     * unsure if we actually need the webkitMatchSelector and mozMatchSelector
-     * http://caniuse.com/#feat=matchesselector
+     * Filters the microbe by the given given selector or function.  In the case
+     * of a function, the element is passed as this. The inclusion on an element
+     * into the set is based on the return of the function
      *
-     * @param {String} selector            selector to filter by
+     * @param {Mixed} selector selector or function to filter by
      *
      * @return _Microbe_ new microbe containing only the filtered values
      */
@@ -2410,14 +2410,14 @@ Microbe.core = Microbe.prototype ={
         {
             var res = [];
 
-            for ( var i = 0; i < this.length; i++ ) 
+            for ( var i = 0; i < this.length; i++ )
             {
                 if ( filter.call( this[ i ], i ) )
                 {
                     res.push( this[ i ] );
                 }
             }
-            return new Microbe( res )
+            return new Microbe( res );
         }
         else
         {
@@ -2461,9 +2461,9 @@ Microbe.core = Microbe.prototype ={
 
                 var _p, pseudoArray;
 
-                for ( var i = 0, lenI = pseudo.length; i < lenI; i++ )
+                for ( var h = 0, lenH = pseudo.length; h < lenH; h++ )
                 {
-                    _p = pseudo[ i ];
+                    _p = pseudo[ h ];
 
                     if ( _p.indexOf( '(' ) !== - 1 )
                     {
@@ -3900,7 +3900,7 @@ module.exports = function( Microbe )
      *
      * @return _Boolean_ whether _el is contained in the scope
      */
-    Microbe.contains = function _contains( _el, _scope )
+    var _contains = Microbe.contains = function( _el, _scope )
     {
         var parent = _el.parentNode;
 
