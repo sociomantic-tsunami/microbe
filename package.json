@@ -24,6 +24,7 @@
     "browserify": "^5.11.2",
     "docker": "git://github.com/nicolasbrugneaux/docker.git#patch-1",
     "gulp": "^3.8.7",
+    "gulp-header": "^1.2.2",
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.4.0",
     "gulp-rimraf": "^0.1.0",
@@ -43,10 +44,8 @@
   "directories": {
     "test": "tests"
   },
-  "browserDependencies": {
-  },
-  "dependencies": {
-  },
+  "browserDependencies": {},
+  "dependencies": {},
   "keywords": [
     "microbe",
     "dom",

@@ -36,8 +36,9 @@ Don’t hesitate to file issues and features requests!  Or change things yoursel
 Usage
 =====
 
-- include microbe.js or microbe.min.js
-- that's it!
+- ``require( 'microbejs' );``
+    _or_
+- include microbe.js or microbe.min.js in a script tag
 
 
 Example use
@@ -86,10 +87,9 @@ Dev Installation
 Generating www docs
 ===================
 
-- ``cd src``
 - ``npm run docs``
-
 (this command will watch for changes)
+
 
 Contributing
 ============
@@ -104,7 +104,8 @@ Change log
 ~~~~~
 
 + speed fixes
-+ extend overhaul
++ extend updated
++ updated gulp file for inclusion of liscence
 
 
 0.3.4
