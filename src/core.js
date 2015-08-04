@@ -236,16 +236,11 @@ Microbe.core = Microbe.prototype ={
      */
     childrenFlat : function( direction )
     {
-        var _children = function( _elm )
-        {
-            return Microbe.toArray( _elm.children );
-        };
-
         var arr, i, len, childrenArray = [];
 
         for ( i = 0, len = this.length; i < len; i++ )
         {
-            arr = _children( this[ i ] );
+            arr = this[ i ].children;
 
             for ( var j = 0, lenJ = arr.length; j < lenJ; j++ )
             {

@@ -304,7 +304,17 @@ module.exports = function( buildTest )
 
         assert.equal( childrenFlat.length, nodeChildren.length, 'correct number of elements' );
 
-        buildTest( 'No comparison available.' );
+        var $Div = $( 'div' ), µDiv = µ( 'div' );
+        buildTest(
+        'µDiv.childrenFlat()', function()
+        {
+            µDiv.childrenFlat();
+        },
+
+        '$Div.children()', function()
+        {
+            $Div.children();
+        } );
     });
 
 
@@ -1067,7 +1077,17 @@ module.exports = function( buildTest )
         assert.deepEqual( prev, µ( '#qunit' ).siblingsFlat( 'prev' )[0], 'siblingsFlat( \'prev\' ) gets previous element' );
         assert.deepEqual( next, µ( '#qunit' ).siblingsFlat( 'next' )[0], 'siblingsFlat( \'next\' ) gets next element' );
 
-        buildTest( 'No comparison available.' );
+        var $Div = $( 'div' ), µDiv = µ( 'div' );
+        buildTest(
+        'µDiv.siblingsFlat()', function()
+        {
+            µDiv.siblingsFlat();
+        },
+
+        '$Div.siblings()', function()
+        {
+            $Div.siblings();
+        } );
     });
 
 
