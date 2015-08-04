@@ -6,7 +6,7 @@
  * Released under the MIT license
  * http://m.icro.be/license
  *
- * Date: Mon Aug 03 2015
+ * Date: Tue Aug 04 2015
  */
 !function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.µ=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /**
@@ -1987,7 +1987,8 @@ module.exports = asap;
  *
  * @package Microbe
  */
-'use strict';
+ /*jshint globalstrict: true*/
+ 'use strict';
 
 var Arrays      = require( './utils/array' );
 var Strings     = require( './utils/string' );
@@ -2200,7 +2201,7 @@ Microbe.core = Microbe.prototype ={
 
         for ( i = 0, len = this.length; i < len; i++ )
         {
-            childrenArray[ i ] = new Microbe( '', undefined, _children( this[ i ] ) );
+            childrenArray[ i ] = this.constructor( _children( this[ i ] ) );
         }
 
         return childrenArray;
@@ -2415,14 +2416,14 @@ Microbe.core = Microbe.prototype ={
         {
             var res = [];
 
-            for ( var i = 0; i < this.length; i++ )
+            for ( var i = 0, lenI = this.length; i < lenI; i++ )
             {
                 if ( filter.call( this[ i ], i ) )
                 {
                     res.push( this[ i ] );
                 }
             }
-            return new Microbe( res );
+            return this.constructor( res );
         }
         else
         {
@@ -2960,7 +2961,7 @@ Microbe.core = Microbe.prototype ={
 
         for ( i = 0, len = this.length; i < len; i++ )
         {
-            siblingArray[ i ] = new Microbe( '', undefined, _siblings( this[ i ] ) );
+            siblingArray[ i ] = this.constructor( _siblings( this[ i ] ) );
         }
 
         return siblingArray;
@@ -3188,6 +3189,8 @@ module.exports = Microbe;
  */
 module.exports = function( Microbe )
 {
+    'use strict';
+
     /**
      * ## append
      *
@@ -3393,7 +3396,6 @@ module.exports = function( Microbe )
  *
  * @package Microbe
  */
-
 /**
  * ## exported
  *
@@ -3401,6 +3403,7 @@ module.exports = function( Microbe )
  */
 module.exports = function( Microbe )
 {
+    'use strict';
 
     /**
      * ## emit
@@ -3451,15 +3454,25 @@ module.exports = function( Microbe )
      */
     Microbe.prototype.off = function( _event, _callback )
     {
+        var filterFunction = function( e ){ return e; };
+
         var _off = function( _e, _elm )
         {
-            _cb = _callback;
+            var _cb = _callback;
             var prop = '_' + _e + '-bound-function';
 
             if ( ! _cb && _elm.data && _elm.data[ prop ] &&
                     _elm.data[ prop ][ prop ] )
             {
                 _cb = _elm.data[ prop ][ prop ];
+            }
+            else if ( ! ( _elm.data && _elm.data[ prop ] &&
+                    _elm.data[ prop ][ prop ] ) )
+            {
+                _elm.data                   = _elm.data || {};
+                _elm.data[ prop ]           = _elm.data[ prop ] || {};
+                _elm.data[ prop ][ prop ]   = _elm.data[ prop ][ prop ] || [];
+                return null;
             }
 
             if ( _cb )
@@ -3469,20 +3482,22 @@ module.exports = function( Microbe )
                     _cb = [ _cb ];
                 }
 
-                for ( var j = 0, lenJ = _cb.length; j < lenJ; j++ )
+                var _index, _d;
+                for ( var k = 0, lenK = _cb.length; k < lenK; k++ )
                 {
-                    _elm.removeEventListener( _e, _cb[ j ] );
-                    _cb[ j ] = null;
-                }
+                    _d      = _elm.data[ prop ][ prop ];
+                    _index  = _d.indexOf( _cb[ k ] );
 
-                _elm.data                   = _elm.data || {};
-                _elm.data[ prop ]           = _elm.data[ prop ] || {};
-                _elm.data[ prop ][ prop ]   = _cb;
+                    if ( _index !== -1 )
+                    {
+                        _elm.removeEventListener( _e, _cb[ k ] );
+                        _d[ _index ] = null;
+                    }
+                }
+                _elm.data[ prop ][ prop ] = _elm.data[ prop ][ prop ].filter( filterFunction );
             }
-            _cb = null;
         };
 
-        var _cb, filterFunction = function( e ){ return e; };
         for ( var i = 0, len = this.length; i < len; i++ )
         {
             var _elm = this[ i ];
@@ -3505,9 +3520,7 @@ module.exports = function( Microbe )
             for ( var j = 0, lenJ = _event.length; j < lenJ; j++ )
             {
                 _off( _event[ j ], _elm );
-                _event[ j ] = null;
             }
-
 
             _elm.data.__boundEvents.__boundEvents = _event.filter( filterFunction );
         }
@@ -3532,7 +3545,6 @@ module.exports = function( Microbe )
         var _on = function( _elm )
         {
             var prop = '_' + _event + '-bound-function';
-
 
             _elm.data                   = _elm.data || {};
             _elm.data[ prop ]           = _elm.data[ prop ] || {};
@@ -3594,7 +3606,6 @@ module.exports = function( Microbe )
  *
  * @package Microbe
  */
-
 /**
  * ## exported
  *
@@ -3602,6 +3613,8 @@ module.exports = function( Microbe )
  */
 module.exports = function( Microbe )
 {
+    'use strict';
+
     var Promise = require( 'promise' );
 
     /**
@@ -3803,6 +3816,8 @@ module.exports = function( Microbe )
  */
 module.exports = function( Microbe )
 {
+    'use strict';
+
     var trigger, _shortSelector;
 
     var selectorRegex = Microbe.prototype.__selectorRegex =  /(?:[\s]*\.([\w-_\.]+)|#([\w-_]+)|([^#\.:<][\w-_]*)|(<[\w-_#\.]+>)|:([^#\.<][\w-()_]*))/g;
@@ -3825,7 +3840,7 @@ module.exports = function( Microbe )
 
         for ( ; i < lenI; i++ )
         {
-            _elements[ i ].data = _elements[ i ].data || {};
+            // _elements[ i ].data = _elements[ i ].data || {};
             self[ i ]           = _elements[ i ];
         }
 
@@ -3850,8 +3865,8 @@ module.exports = function( Microbe )
         var resultsRegex    = _el.match( selectorRegex ),
             _id = '', _tag = '', _class = '';
 
-        var i, lenI;
-        for ( i = 0, lenI = resultsRegex.length; i < lenI; i++ )
+        var i = 0, lenI = resultsRegex.length;
+        for ( ; i < lenI; i++ )
         {
             var trigger = resultsRegex[ i ][ 0 ];
             switch ( trigger )
@@ -3983,6 +3998,13 @@ module.exports = function( Microbe )
                         }
                     }
                     break;
+                default:
+                    if ( _s && _s.indexOf( '[' ) === -1 && _s.indexOf( '<' ) === -1 &&
+                            _s.indexOf( '#' ) === -1 && _s.indexOf( '.' ) === -1 )
+                    {
+                        return _build( document.getElementsByTagName( _s ), self );
+                    }
+                    break;
             }
         }
 
@@ -3996,8 +4018,8 @@ module.exports = function( Microbe )
      * Constructor.
      *
      * Either selects or creates an HTML element and wraps it into a Microbe instance.
-     * Usage:   µ('div#test')   ---> selection
-     *          µ('<div#test>') ---> creation
+     * Usage:   µ( 'div#test' )   ---> selection
+     *          µ( '<div#test>' ) ---> creation
      *
      * @param {Mixed} _selector HTML selector (Element String Array)
      * @param {Mixed} _scope scope to look inside (Element String Microbe)
@@ -4012,7 +4034,7 @@ module.exports = function( Microbe )
         {
             res = _noScopeSimple( _selector, this );
 
-            if( res )
+            if ( res )
             {
                 return res;
             }
@@ -4036,7 +4058,7 @@ module.exports = function( Microbe )
 
             for ( var n = 0, lenN = _scope.length; n < lenN; n++ )
             {
-                res.merge( new Init( _selector, _scope[ n ], _elements ), null, true );
+                res.merge( new Init( _selector, _scope[ n ] ), null, true );
             }
 
             return res;
@@ -4058,63 +4080,53 @@ module.exports = function( Microbe )
         {
             if ( typeof _scope === 'string' && typeof _selector === 'string' )
             {
-                return new Microbe( _scope ).find( _selector );
+                return this.constructor( _scope ).find( _selector );
             }
         }
 
         var scopeNodeType   = _scope.nodeType,
             nodeType        = ( _selector ) ? _selector.nodeType || typeof _selector : null;
 
-        if ( _elements )
+        if ( ( !_selector || typeof _selector !== 'string' ) ||
+            ( scopeNodeType !== 1 && scopeNodeType !== 9 ) )
         {
-            if ( Microbe.isArray( _elements ) )
-            {
-                return _build( _elements, this );
-            }
-            else
-            {
-                return _build( [ _elements ], this );
-            }
+            return _build( [], this );
         }
-        else
+
+        var resultsRegex = _selector.match( selectorRegex );
+
+        if ( resultsRegex && resultsRegex.length === 1 && resultsRegex[ 0 ][ 0 ] !== ':'  )
         {
-            if ( ( !_selector || typeof _selector !== 'string' ) ||
-                ( scopeNodeType !== 1 && scopeNodeType !== 9 ) )
+            trigger         = resultsRegex[0][0];
+
+            _shortSelector  = _selector.slice( 1 );
+
+            switch( trigger )
             {
-                return _build( [], this );
-            }
+                case '.': // non-document scoped classname search
+                    var _classesCount   = ( _selector || '' ).slice( 1 ).split( '.' ).length;
 
-            var resultsRegex = _selector.match( selectorRegex );
+                    if ( _classesCount === 1 )
+                    {
+                        return _build( _scope.getElementsByClassName( _shortSelector ), this );
+                    }
+                    break;
+                case '#': // non-document scoped id search
+                    var _id = document.getElementById( _shortSelector );
 
-            if ( resultsRegex && resultsRegex.length === 1 && resultsRegex[ 0 ][ 0 ] !== ':'  )
-            {
-                trigger         = resultsRegex[0][0];
-
-                _shortSelector  = _selector.slice( 1 );
-
-                switch( trigger )
-                {
-                    case '.': // non-document scoped classname search
-                        var _classesCount   = ( _selector || '' ).slice( 1 ).split( '.' ).length;
-
-                        if ( _classesCount === 1 )
-                        {
-                            return _build( _scope.getElementsByClassName( _shortSelector ), this );
-                        }
-                        break;
-                    case '#': // non-document scoped id search
-                        var _id = document.getElementById( _shortSelector );
-
-                        if ( _scope.ownerDocument && _contains( _id, _scope ) )
-                        {
-                            return _build( [ _id ], this );
-                        }
-                        break;
-                    case '<': // element creation
-                        return _create( _selector.substring( 1, _selector.length - 1 ), this );
-                    default:
-                        return _build( _scope.getElementsByTagName( _selector ), this );
-                }
+                    if ( _scope.ownerDocument && _contains( _id, _scope ) )
+                    {
+                        return _build( [ _id ], this );
+                    }
+                    else
+                    {
+                        return _build( [], this );
+                    }
+                    break;
+                case '<': // element creation
+                    return _create( _selector.substring( 1, _selector.length - 1 ), this );
+                default:
+                    return _build( _scope.getElementsByTagName( _selector ), this );
             }
         }
 
@@ -4151,6 +4163,8 @@ module.exports = function( Microbe )
  */
 module.exports = function( Microbe )
 {
+    'use strict';
+
     // shim needed for observe
     if ( ! Object.observe )
     {
@@ -4429,6 +4443,8 @@ module.exports = function( Microbe )
  */
 module.exports = function( Microbe )
 {
+    'use strict';
+
     /**
      * ### parseNth
      *
@@ -5433,6 +5449,8 @@ module.exports = function( Microbe )
  */
 module.exports = function( Microbe )
 {
+    'use strict';
+
     var Types       = require( './utils/types' );
     var _type       = Microbe.core.type;
 
