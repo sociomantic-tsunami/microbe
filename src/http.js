@@ -6,7 +6,6 @@
  *
  * @package Microbe
  */
-
 /**
  * ## exported
  *
@@ -14,6 +13,8 @@
  */
 module.exports = function( Microbe )
 {
+    'use strict';
+
     var Promise = require( 'promise' );
 
     /**

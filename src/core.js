@@ -6,7 +6,8 @@
  *
  * @package Microbe
  */
-'use strict';
+ /*jshint globalstrict: true*/
+ 'use strict';
 
 var Arrays      = require( './utils/array' );
 var Strings     = require( './utils/string' );

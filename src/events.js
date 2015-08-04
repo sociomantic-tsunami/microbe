@@ -6,7 +6,6 @@
  *
  * @package Microbe
  */
-
 /**
  * ## exported
  *
@@ -14,6 +13,7 @@
  */
 module.exports = function( Microbe )
 {
+    'use strict';
 
     /**
      * ## emit
@@ -74,6 +74,14 @@ module.exports = function( Microbe )
             {
                 _cb = _elm.data[ prop ][ prop ];
             }
+            else if ( ! ( _elm.data && _elm.data[ prop ] &&
+                    _elm.data[ prop ][ prop ] ) )
+            {
+                _elm.data                   = _elm.data || {};
+                _elm.data[ prop ]           = _elm.data[ prop ] || {};
+                _elm.data[ prop ][ prop ]   = _elm.data[ prop ][ prop ] || [];
+                return null;
+            }
 
             if ( _cb )
             {
@@ -82,16 +90,20 @@ module.exports = function( Microbe )
                     _cb = [ _cb ];
                 }
 
+                var _index;
                 for ( var j = 0, lenJ = _cb.length; j < lenJ; j++ )
                 {
-                    _elm.removeEventListener( _e, _cb[ j ] );
-                    _cb[ j ] = null;
-                }
+                    _index = _elm.data[ prop ][ prop ].indexOf( _cb[ j ] );
 
-                _elm.data                   = _elm.data || {};
-                _elm.data[ prop ]           = _elm.data[ prop ] || {};
-                _elm.data[ prop ][ prop ]   = _cb;
+                    if ( _index !== -1 )
+                    {
+                        _elm.removeEventListener( _e, _cb[ j ] );
+                        _elm.data[ prop ][ prop ][ _index ] = null;
+                    }
+                }
+                _elm.data[ prop ][ prop ] = _elm.data[ prop ][ prop ].filter( filterFunction );
             }
+
             _cb = null;
         };
 
@@ -145,7 +157,6 @@ module.exports = function( Microbe )
         var _on = function( _elm )
         {
             var prop = '_' + _event + '-bound-function';
-
 
             _elm.data                   = _elm.data || {};
             _elm.data[ prop ]           = _elm.data[ prop ] || {};

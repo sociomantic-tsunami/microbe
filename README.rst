@@ -105,6 +105,7 @@ Change log
 
 + speed fixes
 + extend updated
++ upgrades to .off() event removal
 + updated gulp file for inclusion of liscence
 
 

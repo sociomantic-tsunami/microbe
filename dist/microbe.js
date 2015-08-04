@@ -6,7 +6,7 @@
  * Released under the MIT license
  * http://m.icro.be/license
  *
- * Date: Mon Aug 03 2015
+ * Date: Tue Aug 04 2015
  */
 !function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.µ=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /**
@@ -1987,7 +1987,8 @@ module.exports = asap;
  *
  * @package Microbe
  */
-'use strict';
+ /*jshint globalstrict: true*/
+ 'use strict';
 
 var Arrays      = require( './utils/array' );
 var Strings     = require( './utils/string' );
@@ -3188,6 +3189,8 @@ module.exports = Microbe;
  */
 module.exports = function( Microbe )
 {
+    'use strict';
+
     /**
      * ## append
      *
@@ -3393,7 +3396,6 @@ module.exports = function( Microbe )
  *
  * @package Microbe
  */
-
 /**
  * ## exported
  *
@@ -3401,6 +3403,7 @@ module.exports = function( Microbe )
  */
 module.exports = function( Microbe )
 {
+    'use strict';
 
     /**
      * ## emit
@@ -3461,6 +3464,14 @@ module.exports = function( Microbe )
             {
                 _cb = _elm.data[ prop ][ prop ];
             }
+            else if ( ! ( _elm.data && _elm.data[ prop ] &&
+                    _elm.data[ prop ][ prop ] ) )
+            {
+                _elm.data                   = _elm.data || {};
+                _elm.data[ prop ]           = _elm.data[ prop ] || {};
+                _elm.data[ prop ][ prop ]   = _elm.data[ prop ][ prop ] || [];
+                return null;
+            }
 
             if ( _cb )
             {
@@ -3469,16 +3480,20 @@ module.exports = function( Microbe )
                     _cb = [ _cb ];
                 }
 
+                var _index;
                 for ( var j = 0, lenJ = _cb.length; j < lenJ; j++ )
                 {
-                    _elm.removeEventListener( _e, _cb[ j ] );
-                    _cb[ j ] = null;
-                }
+                    _index = _elm.data[ prop ][ prop ].indexOf( _cb[ j ] );
 
-                _elm.data                   = _elm.data || {};
-                _elm.data[ prop ]           = _elm.data[ prop ] || {};
-                _elm.data[ prop ][ prop ]   = _cb;
+                    if ( _index !== -1 )
+                    {
+                        _elm.removeEventListener( _e, _cb[ j ] );
+                        _elm.data[ prop ][ prop ][ _index ] = null;
+                    }
+                }
+                _elm.data[ prop ][ prop ] = _elm.data[ prop ][ prop ].filter( filterFunction );
             }
+
             _cb = null;
         };
 
@@ -3532,7 +3547,6 @@ module.exports = function( Microbe )
         var _on = function( _elm )
         {
             var prop = '_' + _event + '-bound-function';
-
 
             _elm.data                   = _elm.data || {};
             _elm.data[ prop ]           = _elm.data[ prop ] || {};
@@ -3594,7 +3608,6 @@ module.exports = function( Microbe )
  *
  * @package Microbe
  */
-
 /**
  * ## exported
  *
@@ -3602,6 +3615,8 @@ module.exports = function( Microbe )
  */
 module.exports = function( Microbe )
 {
+    'use strict';
+
     var Promise = require( 'promise' );
 
     /**
@@ -3803,6 +3818,8 @@ module.exports = function( Microbe )
  */
 module.exports = function( Microbe )
 {
+    'use strict';
+
     var trigger, _shortSelector;
 
     var selectorRegex = Microbe.prototype.__selectorRegex =  /(?:[\s]*\.([\w-_\.]+)|#([\w-_]+)|([^#\.:<][\w-_]*)|(<[\w-_#\.]+>)|:([^#\.<][\w-()_]*))/g;
@@ -4151,6 +4168,8 @@ module.exports = function( Microbe )
  */
 module.exports = function( Microbe )
 {
+    'use strict';
+
     // shim needed for observe
     if ( ! Object.observe )
     {
@@ -4429,6 +4448,8 @@ module.exports = function( Microbe )
  */
 module.exports = function( Microbe )
 {
+    'use strict';
+
     /**
      * ### parseNth
      *
@@ -5433,6 +5454,8 @@ module.exports = function( Microbe )
  */
 module.exports = function( Microbe )
 {
+    'use strict';
+
     var Types       = require( './utils/types' );
     var _type       = Microbe.core.type;
 

@@ -14,6 +14,8 @@
  */
 module.exports = function( Microbe )
 {
+    'use strict';
+
     // shim needed for observe
     if ( ! Object.observe )
     {

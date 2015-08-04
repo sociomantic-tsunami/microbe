@@ -13,6 +13,8 @@
  */
 module.exports = function( Microbe )
 {
+    'use strict';
+
     /**
      * ## append
      *

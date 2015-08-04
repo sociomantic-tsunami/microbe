@@ -97,15 +97,17 @@ module.exports = function( buildTest )
         assert.equal( µ( '#example--combined:contains(i am)' ).length, 1, 'ignores case' );
         assert.equal( µ( '#example--combined:contains(moon)' ).length, 0, 'ignores false returns' );
 
+        var µEx = µ( '#example--combined' );
+        var $Ex = $( '#example--combined' );
         buildTest(
-        'µ( \'#example--combined:contains(I am)\' )', function()
+        'µ( \'#example--combined\' ).filter( \':contains(I am)\' )', function()
         {
-            return µ( '#example--combined:contains(I am)' );
+            return µEx.filter( ':contains(I am)' );
         },
 
-        '$( \'#example--combined:contains(I am)\' )', function()
+        '$( \'#example--combined\' ).filter( \':contains(I am)\' )', function()
         {
-            return $( '#example--combined:contains(I am)' );
+            return $Ex.filter( ':contains(I am)' );
         } );
     });
 
