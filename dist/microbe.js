@@ -2787,6 +2787,12 @@ Microbe.core = Microbe.prototype ={
      */
     merge : function( first, second, unique )
     {
+        if ( typeof second === 'boolean' )
+        {
+            unique = second;
+            second = null;
+        }
+
         if ( !second )
         {
             second  = first;
@@ -4058,7 +4064,7 @@ module.exports = function( Microbe )
 
             for ( var n = 0, lenN = _scope.length; n < lenN; n++ )
             {
-                res.merge( new Init( _selector, _scope[ n ] ), null, true );
+                res.merge( new Init( _selector, _scope[ n ] ), true );
             }
 
             return res;

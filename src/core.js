@@ -806,6 +806,12 @@ Microbe.core = Microbe.prototype ={
      */
     merge : function( first, second, unique )
     {
+        if ( typeof second === 'boolean' )
+        {
+            unique = second;
+            second = null;
+        }
+
         if ( !second )
         {
             second  = first;

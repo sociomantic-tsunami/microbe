@@ -708,7 +708,7 @@ module.exports = function( Microbe )
 
         for ( var i = 1, lenI = _var.length; i < lenI; i++ )
         {
-            res.merge( new Microbe( _selector + _var[ i ].trim() ), null, true );
+            res.merge( new Microbe( _selector + _var[ i ].trim() ), true );
         }
 
         return res;
