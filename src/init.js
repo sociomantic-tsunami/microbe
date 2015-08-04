@@ -38,7 +38,7 @@ module.exports = function( Microbe )
 
         for ( ; i < lenI; i++ )
         {
-            _elements[ i ].data = _elements[ i ].data || {};
+            // _elements[ i ].data = _elements[ i ].data || {};
             self[ i ]           = _elements[ i ];
         }
 
@@ -63,8 +63,8 @@ module.exports = function( Microbe )
         var resultsRegex    = _el.match( selectorRegex ),
             _id = '', _tag = '', _class = '';
 
-        var i, lenI;
-        for ( i = 0, lenI = resultsRegex.length; i < lenI; i++ )
+        var i = 0, lenI = resultsRegex.length;
+        for ( ; i < lenI; i++ )
         {
             var trigger = resultsRegex[ i ][ 0 ];
             switch ( trigger )
@@ -196,6 +196,13 @@ module.exports = function( Microbe )
                         }
                     }
                     break;
+                default:
+                    if ( _s && _s.indexOf( '[' ) === -1 && _s.indexOf( '<' ) === -1 &&
+                            _s.indexOf( '#' ) === -1 && _s.indexOf( '.' ) === -1 )
+                    {
+                        return _build( document.getElementsByTagName( _s ), self );
+                    }
+                    break;
             }
         }
 
@@ -209,8 +216,8 @@ module.exports = function( Microbe )
      * Constructor.
      *
      * Either selects or creates an HTML element and wraps it into a Microbe instance.
-     * Usage:   µ('div#test')   ---> selection
-     *          µ('<div#test>') ---> creation
+     * Usage:   µ( 'div#test' )   ---> selection
+     *          µ( '<div#test>' ) ---> creation
      *
      * @param {Mixed} _selector HTML selector (Element String Array)
      * @param {Mixed} _scope scope to look inside (Element String Microbe)
@@ -225,7 +232,7 @@ module.exports = function( Microbe )
         {
             res = _noScopeSimple( _selector, this );
 
-            if( res )
+            if ( res )
             {
                 return res;
             }
@@ -249,7 +256,7 @@ module.exports = function( Microbe )
 
             for ( var n = 0, lenN = _scope.length; n < lenN; n++ )
             {
-                res.merge( new Init( _selector, _scope[ n ], _elements ), null, true );
+                res.merge( new Init( _selector, _scope[ n ] ), null, true );
             }
 
             return res;
@@ -271,63 +278,53 @@ module.exports = function( Microbe )
         {
             if ( typeof _scope === 'string' && typeof _selector === 'string' )
             {
-                return new Microbe( _scope ).find( _selector );
+                return this.constructor( _scope ).find( _selector );
             }
         }
 
         var scopeNodeType   = _scope.nodeType,
             nodeType        = ( _selector ) ? _selector.nodeType || typeof _selector : null;
 
-        if ( _elements )
+        if ( ( !_selector || typeof _selector !== 'string' ) ||
+            ( scopeNodeType !== 1 && scopeNodeType !== 9 ) )
         {
-            if ( Microbe.isArray( _elements ) )
-            {
-                return _build( _elements, this );
-            }
-            else
-            {
-                return _build( [ _elements ], this );
-            }
+            return _build( [], this );
         }
-        else
+
+        var resultsRegex = _selector.match( selectorRegex );
+
+        if ( resultsRegex && resultsRegex.length === 1 && resultsRegex[ 0 ][ 0 ] !== ':'  )
         {
-            if ( ( !_selector || typeof _selector !== 'string' ) ||
-                ( scopeNodeType !== 1 && scopeNodeType !== 9 ) )
+            trigger         = resultsRegex[0][0];
+
+            _shortSelector  = _selector.slice( 1 );
+
+            switch( trigger )
             {
-                return _build( [], this );
-            }
+                case '.': // non-document scoped classname search
+                    var _classesCount   = ( _selector || '' ).slice( 1 ).split( '.' ).length;
 
-            var resultsRegex = _selector.match( selectorRegex );
+                    if ( _classesCount === 1 )
+                    {
+                        return _build( _scope.getElementsByClassName( _shortSelector ), this );
+                    }
+                    break;
+                case '#': // non-document scoped id search
+                    var _id = document.getElementById( _shortSelector );
 
-            if ( resultsRegex && resultsRegex.length === 1 && resultsRegex[ 0 ][ 0 ] !== ':'  )
-            {
-                trigger         = resultsRegex[0][0];
-
-                _shortSelector  = _selector.slice( 1 );
-
-                switch( trigger )
-                {
-                    case '.': // non-document scoped classname search
-                        var _classesCount   = ( _selector || '' ).slice( 1 ).split( '.' ).length;
-
-                        if ( _classesCount === 1 )
-                        {
-                            return _build( _scope.getElementsByClassName( _shortSelector ), this );
-                        }
-                        break;
-                    case '#': // non-document scoped id search
-                        var _id = document.getElementById( _shortSelector );
-
-                        if ( _scope.ownerDocument && _contains( _id, _scope ) )
-                        {
-                            return _build( [ _id ], this );
-                        }
-                        break;
-                    case '<': // element creation
-                        return _create( _selector.substring( 1, _selector.length - 1 ), this );
-                    default:
-                        return _build( _scope.getElementsByTagName( _selector ), this );
-                }
+                    if ( _scope.ownerDocument && _contains( _id, _scope ) )
+                    {
+                        return _build( [ _id ], this );
+                    }
+                    else
+                    {
+                        return _build( [], this );
+                    }
+                    break;
+                case '<': // element creation
+                    return _create( _selector.substring( 1, _selector.length - 1 ), this );
+                default:
+                    return _build( _scope.getElementsByTagName( _selector ), this );
             }
         }
 

@@ -1684,9 +1684,9 @@ module.exports = function( buildTest )
             for ( var i = 0, lenI = divs.length; i < lenI; i++ )
             {
                 divs[ i ].addEventListener( 'click', _func );
-                divs[ i ].data = divs[ i ].data || {};
-                divs[ i ].data[ '_click-bound-function' ] = divs[ i ].data[ '_click-bound-function' ] || {};
-                divs[ i ].data[ '_click-bound-function' ][ '_click-bound-function' ] = _func;
+                var aDiv = divs[ i ].data       = divs[ i ].data || {};
+                aDiv[ '_click-bound-function' ] = aDiv[ '_click-bound-function' ] || {};
+                aDiv[ '_click-bound-function' ][ '_click-bound-function' ] = [ _func ];
             }
         };
 
@@ -1697,16 +1697,16 @@ module.exports = function( buildTest )
         };
 
         buildTest(
-        'µ( \'div\' ).on( \'click\', function(){} )', function()
+        'µ( \'div\' ).off( \'click\', _func )', function()
         {
             vanillaAddListener( µDiv );
-            µDiv.off( 'click' );
+            µDiv.off( 'click', _func );
         },
 
-        '$( \'div\' ).on( \'click\', function(){} )', function()
+        '$( \'div\' ).off( \'click\', _func )', function()
         {
             vanillaAddListener( $Div );
-            $Div.off( 'click' );
+            $Div.off( 'click', _func );
         } );
     });
 };
@@ -1845,7 +1845,7 @@ module.exports = function( buildTest )
     QUnit.test( 'wrap an array of elements', function( assert )
     {
         var _body = document.getElementsByTagName( 'body' )[0];
-        var µBody = µ( _body );
+        var µBody = µ( [ _body ] );
 
         assert.equal( µBody.length, 1, 'one body' );
         assert.deepEqual( µBody[ 0 ], _body, 'passes' );
@@ -2069,15 +2069,17 @@ module.exports = function( buildTest )
         assert.equal( µDiv.length, 2, 'two divs' );
         assert.deepEqual( µDiv.first().parent()[0], _scopeEl, 'correct parent' );
 
+        var _el = µ( 'div' )[1];
+
         buildTest(
-        'µ( \'div\', _scopeEl )', function()
+        'µ( \'h1\', _el )', function()
         {
-            return µ( 'div', _scopeEl );
+            return µ( 'h1', _el );
         },
 
-        '$( \'div\', _scopeEl )', function()
+        '$( \'h1\', _el )', function()
         {
-            return $( 'div', _scopeEl );
+            return $( 'h1', _el );
         } );
     });
 
@@ -2098,14 +2100,14 @@ module.exports = function( buildTest )
         assert.equal( µDiv.length, 1, '1 divs from a string and an element' );
 
         buildTest(
-        'µ( \'div\', \'.example--class--groups\' )', function()
+        'µ( \'h1\', \'div\' )', function()
         {
-            return µ( 'div', '.example--class--groups' );
+            return µ( 'h1', 'div' );
         },
 
-        '$( \'div\', \'.example--class--groups\' )', function()
+        '$( \'h1\', \'div\' )', function()
         {
-            return $( 'div', '.example--class--groups' );
+            return $( 'h1', 'div' );
         } );
     });
 };

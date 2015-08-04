@@ -37,7 +37,7 @@ Usage
 =====
 
 - ``require( 'microbejs' );``
-    _or_
+    or
 - include microbe.js or microbe.min.js in a script tag
 
 

@@ -146,9 +146,9 @@ module.exports = function( buildTest )
             for ( var i = 0, lenI = divs.length; i < lenI; i++ )
             {
                 divs[ i ].addEventListener( 'click', _func );
-                divs[ i ].data = divs[ i ].data || {};
-                divs[ i ].data[ '_click-bound-function' ] = divs[ i ].data[ '_click-bound-function' ] || {};
-                divs[ i ].data[ '_click-bound-function' ][ '_click-bound-function' ] = _func;
+                var aDiv = divs[ i ].data       = divs[ i ].data || {};
+                aDiv[ '_click-bound-function' ] = aDiv[ '_click-bound-function' ] || {};
+                aDiv[ '_click-bound-function' ][ '_click-bound-function' ] = [ _func ];
             }
         };
 
@@ -159,16 +159,16 @@ module.exports = function( buildTest )
         };
 
         buildTest(
-        'µ( \'div\' ).on( \'click\', function(){} )', function()
+        'µ( \'div\' ).off( \'click\', _func )', function()
         {
             vanillaAddListener( µDiv );
-            µDiv.off( 'click' );
+            µDiv.off( 'click', _func );
         },
 
-        '$( \'div\' ).on( \'click\', function(){} )', function()
+        '$( \'div\' ).off( \'click\', _func )', function()
         {
             vanillaAddListener( $Div );
-            $Div.off( 'click' );
+            $Div.off( 'click', _func );
         } );
     });
 };

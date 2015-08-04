@@ -220,7 +220,7 @@ Microbe.core = Microbe.prototype ={
 
         for ( i = 0, len = this.length; i < len; i++ )
         {
-            childrenArray[ i ] = new Microbe( '', undefined, _children( this[ i ] ) );
+            childrenArray[ i ] = this.constructor( _children( this[ i ] ) );
         }
 
         return childrenArray;
@@ -435,14 +435,14 @@ Microbe.core = Microbe.prototype ={
         {
             var res = [];
 
-            for ( var i = 0; i < this.length; i++ )
+            for ( var i = 0, lenI = this.length; i < lenI; i++ )
             {
                 if ( filter.call( this[ i ], i ) )
                 {
                     res.push( this[ i ] );
                 }
             }
-            return new Microbe( res );
+            return this.constructor( res );
         }
         else
         {
@@ -980,7 +980,7 @@ Microbe.core = Microbe.prototype ={
 
         for ( i = 0, len = this.length; i < len; i++ )
         {
-            siblingArray[ i ] = new Microbe( '', undefined, _siblings( this[ i ] ) );
+            siblingArray[ i ] = this.constructor( _siblings( this[ i ] ) );
         }
 
         return siblingArray;
