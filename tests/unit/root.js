@@ -15,15 +15,31 @@ module.exports = function( buildTest )
      */
     QUnit.test( '.capitalize()', function( assert )
     {
-        assert.ok( µ.capitalize, 'exists' );
-        assert.ok( µ.capitalise, 'exists' );
+        assert.ok( µ.capitalize, 'capitalize exists' );
+        assert.ok( µ.capitalise, 'capitalise exists' );
         assert.ok( µ.capitalise( 'i dont know' ) === 'I Dont Know', 'capitalizes strings' );
 
         var strArr = [ 'i dont know', 'for real' ];
             strArr = µ.capitalize( strArr );
         assert.ok( strArr[0] === 'I Dont Know' && strArr[1] === 'For Real', 'capitalizes string arrays' );
 
-        buildTest( 'No comparison available.' );
+        var str = 'i dont know';
+        // http://stackoverflow.com/questions/22576425/capitalize-first-letter-in-a-string-with-letters-and-numbers-using-jquery#22576505
+        buildTest( 'µ.capitalize()', function()
+        {
+            return µ.capitalize( str );
+        }, 'stack overflow accepted answer', function()
+        {
+            strArr = str.split( ' ' );
+            strArr = strArr.map( function( val )
+            {
+                return val.replace( /([a-z])/, function ( match, value )
+                {
+                    return value.toUpperCase();
+                } );
+            } );
+            return strArr.join( ' ' );
+        } );
     });
 
 
@@ -80,7 +96,7 @@ module.exports = function( buildTest )
     {
         assert.ok( µ.insertStyle, 'exists' );
 
-        µ.insertStyle( '#qunit', { 'color':'#f0f' } )
+        µ.insertStyle( '#qunit', { 'color':'#f0f' } );
         var savedColor = µ.__customCSSRules[ '#qunit' ].none.obj.color;
 
         assert.equal( µ( '#qunit' ).css( 'color' )[0], 'rgb(255, 0, 255)', 'sets the rule' );
@@ -282,21 +298,22 @@ module.exports = function( buildTest )
      *
      * @test    noop exists
      * @test    nothing happens
-     *
-     * µ xyzzy tests
-     *
-     * @test    xyzzy exists
-     * @test    nothing happens
      */
     QUnit.test( '.noop()', function( assert )
     {
         assert.ok( µ.noop, 'noop exists' );
         assert.equal( µ.noop(), undefined, 'nothing happens' );
 
-        assert.ok( µ.xyzzy, 'xyzzy exists' );
-        assert.equal( µ.xyzzy(), undefined, 'nothing happens' );
+        buildTest(
+        'µ.noop()', function()
+        {
+            µ.noop();
+        },
 
-        buildTest( 'No speed tests available.' );
+        '$.noop()', function()
+        {
+            $.noop();
+        } );
     });
 
 
@@ -508,6 +525,30 @@ module.exports = function( buildTest )
             $.type( new Boolean( true ) );
             $.type( new Error() );
             $.type( new Promise(function(){}) );
+        } );
+    });
+
+
+    /**
+     * µ xyzzy tests
+     *
+     * @test    xyzzy exists
+     * @test    nothing happens
+     */
+    QUnit.test( '.xyzzy()', function( assert )
+    {
+        assert.ok( µ.xyzzy, 'xyzzy exists' );
+        assert.equal( µ.xyzzy(), undefined, 'nothing happens' );
+
+        buildTest(
+        'µ.xyzzy()', function()
+        {
+            µ.xyzzy();
+        },
+
+        '$.noop()', function()
+        {
+            $.noop();
         } );
     });
 };

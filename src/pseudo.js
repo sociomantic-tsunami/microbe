@@ -727,7 +727,7 @@ module.exports = function( Microbe )
      *
      * @return _Microbe_
      */
-    pseudo.not = function( _el, _var, _recursive )
+    pseudo.not = function( _el, _var, _selector, _recursive )
     {
         if ( _var.indexOf( ',' ) !== -1 )
         {
@@ -735,8 +735,9 @@ module.exports = function( Microbe )
 
             for ( var i = 0, lenI = _var.length; i < lenI; i++ )
             {
-                _el = this.not( _el, _var[ i ].trim(), true );
+                _el = this.not( _el, _var[ i ].trim(), _selector, true );
             }
+
             return new Microbe( _el );
         }
         else
@@ -749,6 +750,7 @@ module.exports = function( Microbe )
                     resArray.push( _el[ j ] );
                 }
             }
+
             if ( _recursive )
             {
                 return resArray;
@@ -854,9 +856,9 @@ module.exports = function( Microbe )
      *
      * returns all optional elements
      *
-     * @param  {[type]} _el [description]
+     * @param  {[Microbe} _el base elements set
      *
-     * @return {[type]}     [description]
+     * @return _Microbe_
      */
     pseudo.optional = function( _el )
     {

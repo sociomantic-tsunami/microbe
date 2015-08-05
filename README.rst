@@ -1,4 +1,4 @@
-Microbe - 0.3.7
+Microbe - 0.3.8
 ===============
 
 Microbe (µ) - a javascript library
@@ -99,6 +99,16 @@ We gladly accept and review any pull-requests. Feel free! :heart:
 
 Change log
 ==========
+
+0.3.8
+~~~~~
+
++ many more comparative speed test
++ children and siblings speed fixes
++ init support for HTML collections
++ pseudo selector speed improvements
++ fixed an issue in .match() that incorrectly detected forms as arrays
+
 
 0.3.7
 ~~~~~

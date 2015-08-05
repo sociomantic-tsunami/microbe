@@ -38,7 +38,6 @@ module.exports = function( Microbe )
 
         for ( ; i < lenI; i++ )
         {
-            // _elements[ i ].data = _elements[ i ].data || {};
             self[ i ]           = _elements[ i ];
         }
 
@@ -265,10 +264,16 @@ module.exports = function( Microbe )
         /*
          * fast tracks element based queries
          */
-        if ( _selector.nodeType === 1 || Microbe.isArray( _selector ) ||
-            _selector === window || _selector === document )
+        var isArr, isHTMLCollection;
+        if ( _selector.nodeType === 1 || ( isArr = Microbe.isArray( _selector ) ) ||
+            _selector === window || _selector === document ||
+            ( isHTMLCollection = _selector.toString() === '[object HTMLCollection]' ) )
         {
-            _selector = Microbe.isArray( _selector ) ? _selector : [ _selector ];
+            if ( !isArr && !isHTMLCollection )
+            {
+                _selector = [ _selector ];
+            }
+
             return _build( _selector, this );
         }
 

@@ -454,7 +454,16 @@ module.exports = function( buildTest )
         assert.equal( µ( 'col:not(#col2)' ).indexOf( col2 ), -1, 'filter with single selector' );
         assert.equal( µ( 'col:not(#col2,#col3)' ).indexOf( col2 ), -1, 'filter with multiple selectors' );
 
-        buildTest( 'No comparison available.' );
+        buildTest(
+        'µ( \'div:not(.fastest).\' )', function()
+        {
+            return µ( 'div:not(.fastest,.invalid--test)' );
+        },
+
+        '$( \'div:not(.fastest).\' )', function()
+        {
+            return $( 'div:not(.fastest,.invalid--test)' );
+        } );
     });
 
 
@@ -680,7 +689,17 @@ module.exports = function( buildTest )
         assert.equal( µRequired.length, byQuery.length, 'finds the correct number of elements' );
         assert.equal( µRequired.length, 1, 'finds the correct elements' );
 
-        buildTest( 'No comparison available.' );
+        buildTest(
+        'µ( \'input:required\' )', function()
+        {
+            return µ( 'input:required' );
+        },
+
+        '$( \'input:required\' )', function()
+        {
+            return $( 'input:required' );
+        } );
+        // buildTest( 'No comparison available.' );
     });
 
 

@@ -36,9 +36,9 @@ var Microbe = function( selector, scope, elements )
 };
 
 
-Microbe.core = Microbe.prototype ={
+Microbe.core = Microbe.prototype = {
 
-    version :       '0.3.7',
+    version :       '0.3.8',
 
     constructor :   Microbe,
 
@@ -211,16 +211,11 @@ Microbe.core = Microbe.prototype ={
      */
     children : function()
     {
-        var _children = function( _elm )
-        {
-            return Microbe.toArray( _elm.children );
-        };
-
         var i, len, childrenArray = new Array( this.length );
 
         for ( i = 0, len = this.length; i < len; i++ )
         {
-            childrenArray[ i ] = this.constructor( _children( this[ i ] ) );
+            childrenArray[ i ] = this.constructor( this[ i ].children );
         }
 
         return childrenArray;
@@ -969,12 +964,20 @@ Microbe.core = Microbe.prototype ={
     {
         var _siblings = function( _elm )
         {
-            var parentsChildren = Microbe.toArray( _elm.parentNode.children );
-            var elIndex = parentsChildren.indexOf( _elm );
-
-            parentsChildren.splice( elIndex, 1 );
-
-            return parentsChildren;
+            var res     = [];
+            var sibling = _elm.parentNode.firstElementChild;
+            for ( ; sibling; )
+            {
+                if ( sibling !== _elm )
+                {
+                    res.push( sibling );
+                }
+                sibling = sibling.nextElementSibling;
+                if ( !sibling )
+                {
+                    return res;
+                }
+            }
         };
 
         var i, len, siblingArray = new Array( this.length );
@@ -1004,10 +1007,20 @@ Microbe.core = Microbe.prototype ={
         {
             if ( !direction )
             {
-                var parentsChildren = Microbe.toArray( _elm.parentNode.children );
-                var elIndex = parentsChildren.indexOf( _elm );
-                parentsChildren.splice( elIndex, 1 );
-                return parentsChildren;
+                var res     = [];
+                var sibling = _elm.parentNode.firstElementChild;
+                for ( ; sibling; )
+                {
+                    if ( sibling !== _elm )
+                    {
+                        res.push( sibling );
+                    }
+                    sibling = sibling.nextElementSibling;
+                    if ( !sibling )
+                    {
+                        return res;
+                    }
+                }
             }
             else if ( direction === 'next' )
             {

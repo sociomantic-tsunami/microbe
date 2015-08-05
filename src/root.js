@@ -42,7 +42,7 @@ module.exports = function( Microbe )
             str = text[ i ].split( ' ' );
             for ( var j = 0, lenJ = str.length; j < lenJ; j++ )
             {
-                str[ j ] = str[ j ].charAt( 0 ).toUpperCase() + str[ j ].slice( 1 );
+                str[ j ] = str[ j ][ 0 ].toUpperCase() + str[ j ].slice( 1 );
             }
             res.push( str.join( ' ' ) );
         }
@@ -310,10 +310,12 @@ module.exports = function( Microbe )
     Microbe.matches = function( el, selector )
     {
         var method = this.matches.__matchesMethod;
+        var notForm = ( typeof el !== 'string' && !!( el.length ) &&
+                        el.toString() !== '[object HTMLFormElement]' );
 
-        var isArray = Microbe.isArray( el ) || ( typeof el !== 'string' && !!( el.length ) ) ? true : false;
+        var isArray = Microbe.isArray( el ) || notForm ? true : false;
 
-        if ( !isArray && !( typeof el !== 'string' && !!( el.length ) ) )
+        if ( !isArray && !notForm )
         {
             el = [ el ];
         }

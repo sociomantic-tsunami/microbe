@@ -2,7 +2,7 @@
 
 module.exports = function( buildTest )
 {
-    var version = '0.3.7';
+    var version = '0.3.8';
 
     QUnit.module( 'core.js' );
 
@@ -141,7 +141,24 @@ module.exports = function( buildTest )
         assert.ok( children[0].type === '[object Microbe]', 'full of microbes' );
         assert.deepEqual( µ( '.example--class' )[0].children[0], children[0][0], 'the correct children' );
 
-        buildTest( 'No comparison available.' );
+
+        var $Div = $( 'div' ), µDiv = µ( 'div' );
+        buildTest(
+        'µDiv.children()', function()
+        {
+            µDiv.children();
+        },
+
+        '$Div for loop', function()
+        {
+            var res = new Array( $Div.length );
+            for ( var i = 0, lenI = $Div.length; i < lenI; i++ )
+            {
+                res[ i ] = $( $Div[ i ].children );
+            }
+
+            return res;
+        } );
     });
 
 
@@ -457,8 +474,7 @@ module.exports = function( buildTest )
 
         assert.deepEqual( literal, _function, 'parent index is correctly determined' );
 
-        var µDiv = µ( 'div' ).first();
-        var $Div = $( 'div' ).first();
+        var µDiv = µ( 'div' ), $Div = $( 'div' );
 
         buildTest(
         'µDiv.getParentIndex()', function()
@@ -466,10 +482,15 @@ module.exports = function( buildTest )
             µDiv.getParentIndex();
         },
 
-        '$Div.index()', function()
+        '$Div for loop', function()
         {
-            var $DivParent  = $Div.parent();
-            $DivParent.index( $Div );
+            var res = new Array( $Div.length );
+            for ( var i = 0, lenI = $Div.length; i < lenI; i++ )
+            {
+                res[ i ] = $( $Div[ i ] ).index();
+            }
+
+            return res;
         } );
     });
 
@@ -502,8 +523,23 @@ module.exports = function( buildTest )
         }
         assert.ok( correct, 'correctly' );
 
+        var µDiv = µ( 'div' ), $Div = $( 'div' );
+        buildTest(
+        'µDiv.hasClass()', function()
+        {
+            µDiv.hasClass();
+        },
 
-        buildTest( 'No comparison available.' );
+        '$Div for loop', function()
+        {
+            var res = new Array( $Div.length );
+            for ( var i = 0, lenI = $Div.length; i < lenI; i++ )
+            {
+                res[ i ] = $( $Div[ i ] ).hasClass();
+            }
+
+            return res;
+        } );
     });
 
 
@@ -633,7 +669,7 @@ module.exports = function( buildTest )
         assert.equal( µ().length, 0, 'length initializes' );
         assert.equal( µ( 'head' ).length, 1, 'length reports correctly' );
 
-        buildTest( 'No speed tests available.' );
+        buildTest( 'No speed tests available for non-functions' );
     });
 
 
@@ -907,7 +943,23 @@ module.exports = function( buildTest )
         assert.equal( siblings[0].indexOf( µ( '.example--class' )[0] ), -1, 'removed self' );
         assert.equal( siblings[0].length, nodeChildren.length - 1, 'correct number of elements' );
 
-        buildTest( 'No comparison available.' );
+        var $Div = $( 'div' ), µDiv = µ( 'div' );
+        buildTest(
+        'µDiv.siblings()', function()
+        {
+            µDiv.siblings();
+        },
+
+        '$Div for loop', function()
+        {
+            var res = new Array( $Div.length );
+            for ( var i = 0, lenI = $Div.length; i < lenI; i++ )
+            {
+                res[ i ] = $( $Div[ i ] ).siblings();
+            }
+
+            return res;
+        } );
     });
 
 
@@ -1109,7 +1161,7 @@ module.exports = function( buildTest )
 
         assert.equal( µ().type, type, 'type is ' + type );
 
-        buildTest( 'No speed tests available.' );
+        buildTest( 'No speed tests available for non-functions' );
     });
 
 
@@ -1122,7 +1174,7 @@ module.exports = function( buildTest )
     {
         assert.equal( µ().version, version, 'version is ' + version );
 
-        buildTest( 'No speed tests available.' );
+        buildTest( 'No speed tests available for non-functions' );
     });
 };
 
