@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>µ - 0.3.8 - QUnit</title>
+        <title></title>
 
         <link rel="stylesheet" href="../node_modules/qunitjs/qunit/qunit.css">
         <link rel="stylesheet" href="tests.css">
@@ -47,6 +47,9 @@
 
     </body>
     <script src="../dist/microbe.js"></script>
+    <script type="text/javascript">
+        µ( 'title' ).text( 'µ - ' + µ.version + ' QUnit' );
+    </script>
     <script src="../node_modules/qunitjs/qunit/qunit.js"></script>
     <script src="vendor/benchmark.js"></script>
     <script src="vendor/jquery-2.1.3.js"></script>

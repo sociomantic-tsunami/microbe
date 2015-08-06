@@ -577,6 +577,9 @@ module.exports = function( Microbe )
     };
 
 
+    Microbe.version = Microbe.core.version;
+
+
     /**
      * ## xyzzy
      *

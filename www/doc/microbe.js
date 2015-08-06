@@ -1,12 +1,12 @@
 /*!
- * Microbe JavaScript Library v0.3.8
+ * Microbe JavaScript Library v0.3.9
  * http://m.icro.be
  *
  * Copyright 2014-2015 Sociomantic Labs and other contributors
  * Released under the MIT license
  * http://m.icro.be/license
  *
- * Date: Wed Aug 05 2015
+ * Date: Thu Aug 06 2015
  */
 !function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.µ=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /**
@@ -2019,7 +2019,7 @@ var Microbe = function( selector, scope, elements )
 
 Microbe.core = Microbe.prototype = {
 
-    version :       '0.3.8',
+    version :       '0.3.9',
 
     constructor :   Microbe,
 
@@ -3206,6 +3206,7 @@ module.exports = function( Microbe )
     'use strict';
 
     /**
+     *
      * ## append
      *
      * Appends an element or elements to the microbe.  if there is more than
@@ -3217,6 +3218,26 @@ module.exports = function( Microbe )
      */
     Microbe.core.append = (function()
     {
+        var _appendHTML = function( _html, _pre )
+        {
+            var _el;
+            for ( var k = 0, lenK = this.length; k < lenK; k++ )
+            {
+                _el = this[ k ];
+
+                if ( _pre )
+                {
+                    _el.innerHTML = _html + _el.innerHTML;
+                }
+                else
+                {
+                    _el.innerHTML += _html;
+                }
+            }
+            return this;
+        };
+
+
         var _append = function( _parentEl, _elm )
         {
             _parentEl.appendChild( _elm );
@@ -3240,7 +3261,14 @@ module.exports = function( Microbe )
             }
             if ( typeof _el === 'string' )
             {
-                _el = new Microbe( _el );
+                if ( _el.indexOf( '/' ) !== -1 )
+                {
+                    return _appendHTML.call( this, _el, prepend );
+                }
+                else
+                {
+                    _el = new Microbe( _el );
+                }
             }
 
             var i, j, leni, lenj, node;
@@ -6031,6 +6059,9 @@ module.exports = function( Microbe )
 
         return  type;
     };
+
+
+    Microbe.version = Microbe.core.version;
 
 
     /**

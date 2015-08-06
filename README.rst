@@ -1,4 +1,4 @@
-Microbe - 0.3.8
+Microbe - 0.3.9
 ===============
 
 Microbe (µ) - a javascript library
@@ -99,6 +99,13 @@ We gladly accept and review any pull-requests. Feel free! :heart:
 
 Change log
 ==========
+
+0.3.9
+~~~~~
+
++ automated version scaling in static pages
++ append and prepend now accept html
+
 
 0.3.8
 ~~~~~

@@ -16,6 +16,7 @@ module.exports = function( Microbe )
     'use strict';
 
     /**
+     *
      * ## append
      *
      * Appends an element or elements to the microbe.  if there is more than
@@ -27,6 +28,26 @@ module.exports = function( Microbe )
      */
     Microbe.core.append = (function()
     {
+        var _appendHTML = function( _html, _pre )
+        {
+            var _el;
+            for ( var k = 0, lenK = this.length; k < lenK; k++ )
+            {
+                _el = this[ k ];
+
+                if ( _pre )
+                {
+                    _el.innerHTML = _html + _el.innerHTML;
+                }
+                else
+                {
+                    _el.innerHTML += _html;
+                }
+            }
+            return this;
+        };
+
+
         var _append = function( _parentEl, _elm )
         {
             _parentEl.appendChild( _elm );
@@ -50,7 +71,14 @@ module.exports = function( Microbe )
             }
             if ( typeof _el === 'string' )
             {
-                _el = new Microbe( _el );
+                if ( _el.indexOf( '/' ) !== -1 )
+                {
+                    return _appendHTML.call( this, _el, prepend );
+                }
+                else
+                {
+                    _el = new Microbe( _el );
+                }
             }
 
             var i, j, leni, lenj, node;

@@ -38,7 +38,7 @@ var Microbe = function( selector, scope, elements )
 
 Microbe.core = Microbe.prototype = {
 
-    version :       '0.3.8',
+    version :       '0.3.9',
 
     constructor :   Microbe,
 
