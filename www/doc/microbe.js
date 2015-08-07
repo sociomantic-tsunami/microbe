@@ -6,7 +6,7 @@
  * Released under the MIT license
  * http://m.icro.be/license
  *
- * Date: Thu Aug 06 2015
+ * Date: Fri Aug 07 2015
  */
 !function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.µ=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /**
@@ -3196,6 +3196,7 @@ module.exports = Microbe;
  *
  * @package Microbe
  */
+
 /**
  * ## exported
  *
@@ -3206,18 +3207,29 @@ module.exports = function( Microbe )
     'use strict';
 
     /**
-     *
      * ## append
      *
      * Appends an element or elements to the microbe.  if there is more than
-     * one target the next ones are cloned
+     * one target the next ones are cloned.  The strings this accepts can be
+     * a selector string, an element creation string, or an html string
      *
-     * @param {Mixed} _ele element(s) to append (Element, Array or Microbe)
+     * @param {Mixed} _ele element(s) to append (Element, Array, string, or Microbe)
      *
      * @return _Microbe_ new microbe filled with the inserted content
      */
     Microbe.core.append = (function()
     {
+        /**
+         * ## _appendHTML
+         *
+         * in the case of html passed in it will get appended or prepended to the
+         * innerHTML
+         *
+         * @param  {String} _html html string
+         * @param  {Boolean} _pre prepend or not
+         *
+         * @return _Microbe_
+         */
         var _appendHTML = function( _html, _pre )
         {
             var _el;
@@ -3238,15 +3250,35 @@ module.exports = function( Microbe )
         };
 
 
+        /**
+         * ## _append
+         *
+         * in the case of an element or array passed in it will get appended directly
+         *
+         * @param  {Element} _html html string
+         * @param  {Boolean} _pre prepend or not
+         *
+         * @return _Microbe_
+         */
         var _append = function( _parentEl, _elm )
         {
             _parentEl.appendChild( _elm );
         };
 
 
+        /**
+         * ## _prepend
+         *
+         * in the case of an element or array passed in it will get prepended directly
+         *
+         * @param  {Element} _html html string
+         * @param  {Boolean} _pre prepend or not
+         *
+         * @return _Microbe_
+         */
         var _prepend = function( _parentEl, _elm )
         {
-            var firstChild = _parentEl.children[ 0 ];
+            var firstChild = _parentEl.firstElementChild;
             _parentEl.insertBefore( _elm, firstChild );
         };
 
@@ -3359,9 +3391,10 @@ module.exports = function( Microbe )
      * ## prepend
      *
      * Prepends an element or elements to the microbe.  if there is more than
-     * one target the next ones are cloned
+     * one target the next ones are cloned. The strings this accepts can be
+     * a selector string, an element creation string, or an html string
      *
-     * @param {Mixed} _ele element(s) to prepend _{Element, Array or Microbe}_
+     * @param {Mixed} _ele element(s) to prepend _{Element, Array, String, or Microbe}_
      *
      * @return _Microbe_ new microbe filled with the inserted content
      */
@@ -4506,6 +4539,15 @@ module.exports = function( Microbe )
      */
     var parseNth = function( _el, _var, _last )
     {
+        if ( _var === 'odd' )
+        {
+            _var = '2n';
+        }
+        else if ( _var === 'even' )
+        {
+            _var = '2n1';
+        }
+
         if ( _var.indexOf( 'n' ) === -1 )
         {
             switch ( _last )

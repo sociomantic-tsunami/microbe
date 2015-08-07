@@ -157,11 +157,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Mouse Braun         <a href="&#x6D;&#97;&#x69;&#108;&#116;&#111;:&#x6D;&#111;&#117;s&#101;&#64;&#x73;&#111;&#99;&#x69;&#x6F;m&#x61;&#110;&#x74;i&#x63;.&#99;&#x6F;&#109;">&#x6D;&#111;&#117;s&#101;&#64;&#x73;&#111;&#99;&#x69;&#x6F;m&#x61;&#110;&#x74;i&#x63;.&#99;&#x6F;&#109;</a></span>
+      <span>Mouse Braun         <a href="&#x6D;&#x61;&#x69;&#108;&#116;&#111;:&#109;&#x6F;&#117;&#x73;&#x65;&#64;s&#x6F;&#x63;&#x69;o&#x6D;&#x61;&#110;&#x74;&#x69;&#99;&#x2E;&#99;&#111;&#109;">&#109;&#x6F;&#117;&#x73;&#x65;&#64;s&#x6F;&#x63;&#x69;o&#x6D;&#x61;&#110;&#x74;&#x69;&#99;&#x2E;&#99;&#111;&#109;</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Nicolas Brugneaux   <a href="m&#x61;i&#108;&#116;&#111;:&#x6E;&#x69;&#99;o&#108;&#97;&#x73;&#46;&#98;&#x72;&#117;&#103;&#110;&#x65;&#97;&#117;&#x78;&#64;&#x73;&#111;&#99;&#105;&#111;&#x6D;&#97;&#110;&#x74;&#x69;&#x63;&#46;&#x63;&#111;&#x6D;">&#x6E;&#x69;&#99;o&#108;&#97;&#x73;&#46;&#98;&#x72;&#117;&#103;&#110;&#x65;&#97;&#117;&#x78;&#64;&#x73;&#111;&#99;&#105;&#111;&#x6D;&#97;&#110;&#x74;&#x69;&#x63;&#46;&#x63;&#111;&#x6D;</a></span>
+      <span>Nicolas Brugneaux   <a href="&#x6D;&#97;i&#x6C;&#116;o:&#110;&#105;&#x63;&#x6F;&#108;&#97;&#x73;&#46;&#x62;r&#x75;&#x67;&#110;&#x65;&#x61;&#117;&#120;&#64;&#x73;&#x6F;&#x63;io&#x6D;&#97;&#110;&#116;&#x69;&#x63;&#x2E;&#99;&#x6F;&#x6D;">&#110;&#105;&#x63;&#x6F;&#108;&#97;&#x73;&#46;&#x62;r&#x75;&#x67;&#110;&#x65;&#x61;&#117;&#120;&#64;&#x73;&#x6F;&#x63;io&#x6D;&#97;&#110;&#116;&#x69;&#x63;&#x2E;&#99;&#x6F;&#x6D;</a></span>
     </div>
     <div class="dox_tag_title">package</div>
     <div class="dox_tag_detail">
@@ -246,6 +246,15 @@ and returns the result</p>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="kd">var</span> <span class="nx">parseNth</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_el</span><span class="p">,</span> <span class="nx">_var</span><span class="p">,</span> <span class="nx">_last</span> <span class="p">)</span>
     <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">_var</span> <span class="o">===</span> <span class="s1">&#39;odd&#39;</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">_var</span> <span class="o">=</span> <span class="s1">&#39;2n&#39;</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">_var</span> <span class="o">===</span> <span class="s1">&#39;even&#39;</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">_var</span> <span class="o">=</span> <span class="s1">&#39;2n1&#39;</span><span class="p">;</span>
+        <span class="p">}</span>
+
         <span class="k">if</span> <span class="p">(</span> <span class="nx">_var</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="s1">&#39;n&#39;</span> <span class="p">)</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span> <span class="p">)</span>
         <span class="p">{</span>
             <span class="k">switch</span> <span class="p">(</span> <span class="nx">_last</span> <span class="p">)</span>

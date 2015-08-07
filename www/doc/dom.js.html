@@ -28,6 +28,15 @@
         <a href="#append">append</a>
       </div>
       <div class="heading h2">
+        <a href="#_appendhtml">_appendHTML</a>
+      </div>
+      <div class="heading h2">
+        <a href="#_append">_append</a>
+      </div>
+      <div class="heading h2">
+        <a href="#_prepend">_prepend</a>
+      </div>
+      <div class="heading h2">
         <a href="#insertafter">insertAfter</a>
       </div>
       <div class="heading h2">
@@ -46,7 +55,17 @@
 <table cellpadding="0" cellspacing="0">
   <tbody>
       <tr>
-        <td class="docs"><div class="dox">
+        <td class="docs">
+          <h1>dom.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+<div class="dox">
   <div class="summary"><p>dom.js</p>
   </div>
   <div class="body">
@@ -54,11 +73,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Mouse Braun         <a href="&#109;&#x61;&#x69;&#x6C;&#116;&#x6F;:&#x6D;&#111;u&#115;&#101;&#64;&#x73;&#x6F;&#x63;&#x69;&#x6F;&#x6D;&#97;&#110;&#116;&#x69;&#99;&#46;&#x63;&#x6F;&#109;">&#x6D;&#111;u&#115;&#101;&#64;&#x73;&#x6F;&#x63;&#x69;&#x6F;&#x6D;&#97;&#110;&#116;&#x69;&#99;&#46;&#x63;&#x6F;&#109;</a></span>
+      <span>Mouse Braun         <a href="&#109;&#97;&#105;&#x6C;&#x74;o:&#109;&#x6F;&#117;&#x73;&#101;&#64;&#115;&#x6F;&#99;&#x69;&#111;&#109;&#97;&#110;&#x74;&#x69;&#99;&#x2E;&#x63;&#x6F;&#x6D;">&#109;&#x6F;&#117;&#x73;&#101;&#64;&#115;&#x6F;&#99;&#x69;&#111;&#109;&#97;&#110;&#x74;&#x69;&#99;&#x2E;&#x63;&#x6F;&#x6D;</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Nicolas Brugneaux   <a href="&#109;&#x61;&#x69;&#108;&#x74;&#x6F;:&#x6E;i&#99;&#111;&#108;&#97;&#115;&#46;&#x62;&#x72;&#x75;g&#110;&#x65;&#97;&#x75;&#x78;&#x40;&#x73;&#x6F;&#99;&#x69;&#111;&#109;&#x61;&#110;&#x74;&#105;&#99;&#46;&#99;&#x6F;&#109;">&#x6E;i&#99;&#111;&#108;&#97;&#115;&#46;&#x62;&#x72;&#x75;g&#110;&#x65;&#97;&#x75;&#x78;&#x40;&#x73;&#x6F;&#99;&#x69;&#111;&#109;&#x61;&#110;&#x74;&#105;&#99;&#46;&#99;&#x6F;&#109;</a></span>
+      <span>Nicolas Brugneaux   <a href="&#109;&#97;&#x69;&#x6C;&#x74;o:&#110;&#105;&#99;&#111;&#108;a&#115;&#46;b&#x72;&#117;&#x67;&#x6E;&#x65;&#97;&#x75;&#x78;&#64;&#115;&#111;&#99;&#105;&#x6F;&#x6D;&#x61;&#x6E;&#x74;&#x69;&#99;&#x2E;&#99;&#111;&#109;">&#110;&#105;&#99;&#111;&#108;a&#115;&#46;b&#x72;&#117;&#x67;&#x6E;&#x65;&#97;&#x75;&#x78;&#64;&#115;&#111;&#99;&#105;&#x6F;&#x6D;&#x61;&#x6E;&#x74;&#x69;&#99;&#x2E;&#99;&#111;&#109;</a></span>
     </div>
     <div class="dox_tag_title">package</div>
     <div class="dox_tag_detail">
@@ -66,8 +85,12 @@
     </div>
   </div>
 </div>
-
-<div class="dox">
+        </td>
+        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
   <div class="summary">
 <div class="pilwrap" id="exported">
   <h2>
@@ -88,7 +111,8 @@
   </div>
 </div>
         </td>
-        <td class="code highlight"><div class="highlight"><pre><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">Microbe</span> <span class="p">)</span>
+        <td class="code highlight"><div class="highlight"><pre>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">Microbe</span> <span class="p">)</span>
 <span class="p">{</span>
     <span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
 
@@ -99,8 +123,6 @@
       <tr>
         <td class="docs"><div class="dox">
   <div class="summary">
-  </div>
-  <div class="body">
 <div class="pilwrap" id="append">
   <h2>
     <a href="#append" name="append" class="pilcrow">&#182;</a>
@@ -108,16 +130,17 @@
   </h2>
 </div>
 
-
-<p>Appends an element or elements to the microbe.  if there is more than
-one target the next ones are cloned</p>
+  </div>
+  <div class="body"><p>Appends an element or elements to the microbe.  if there is more than
+one target the next ones are cloned.  The strings this accepts can be
+a selector string, an element creation string, or an html string</p>
   </div>
   <div class="details">
     <div class="dox_tag_title">Params</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name">_ele</span>
       <span class="dox_type">Mixed</span>
-      <span>element(s) to append (Element, Array or Microbe)</span>
+      <span>element(s) to append (Element, Array, string, or Microbe)</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
@@ -130,6 +153,43 @@ one target the next ones are cloned</p>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">append</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">()</span>
     <span class="p">{</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="_appendhtml">
+  <h2>
+    <a href="#_appendhtml" name="_appendhtml" class="pilcrow">&#182;</a>
+    _appendHTML
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>in the case of html passed in it will get appended or prepended to the
+innerHTML</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span>{String} _html html string</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span>{Boolean} _pre prepend or not</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Microbe</em></span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
         <span class="kd">var</span> <span class="nx">_appendHTML</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_html</span><span class="p">,</span> <span class="nx">_pre</span> <span class="p">)</span>
         <span class="p">{</span>
             <span class="kd">var</span> <span class="nx">_el</span><span class="p">;</span>
@@ -150,15 +210,87 @@ one target the next ones are cloned</p>
         <span class="p">};</span>
 
 
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="_append">
+  <h2>
+    <a href="#_append" name="_append" class="pilcrow">&#182;</a>
+    _append
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>in the case of an element or array passed in it will get appended directly</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span>{Element} _html html string</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span>{Boolean} _pre prepend or not</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Microbe</em></span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
         <span class="kd">var</span> <span class="nx">_append</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_parentEl</span><span class="p">,</span> <span class="nx">_elm</span> <span class="p">)</span>
         <span class="p">{</span>
             <span class="nx">_parentEl</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">_elm</span> <span class="p">);</span>
         <span class="p">};</span>
 
 
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="_prepend">
+  <h2>
+    <a href="#_prepend" name="_prepend" class="pilcrow">&#182;</a>
+    _prepend
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>in the case of an element or array passed in it will get prepended directly</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span>{Element} _html html string</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span>{Boolean} _pre prepend or not</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Microbe</em></span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
         <span class="kd">var</span> <span class="nx">_prepend</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_parentEl</span><span class="p">,</span> <span class="nx">_elm</span> <span class="p">)</span>
         <span class="p">{</span>
-            <span class="kd">var</span> <span class="nx">firstChild</span> <span class="o">=</span> <span class="nx">_parentEl</span><span class="p">.</span><span class="nx">children</span><span class="p">[</span> <span class="mi">0</span> <span class="p">];</span>
+            <span class="kd">var</span> <span class="nx">firstChild</span> <span class="o">=</span> <span class="nx">_parentEl</span><span class="p">.</span><span class="nx">firstElementChild</span><span class="p">;</span>
             <span class="nx">_parentEl</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span> <span class="nx">_elm</span><span class="p">,</span> <span class="nx">firstChild</span> <span class="p">);</span>
         <span class="p">};</span>
 
@@ -309,14 +441,15 @@ if it is an elemnet it is wrapped in a microbe object.  if it is a string it is 
 
   </div>
   <div class="body"><p>Prepends an element or elements to the microbe.  if there is more than
-one target the next ones are cloned</p>
+one target the next ones are cloned. The strings this accepts can be
+a selector string, an element creation string, or an html string</p>
   </div>
   <div class="details">
     <div class="dox_tag_title">Params</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name">_ele</span>
       <span class="dox_type">Mixed</span>
-      <span>element(s) to prepend <em>{Element, Array or Microbe}</em></span>
+      <span>element(s) to prepend <em>{Element, Array, String, or Microbe}</em></span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
