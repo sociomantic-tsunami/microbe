@@ -57,9 +57,14 @@ module.exports = function( buildTest )
         assert.deepEqual( µ( '.a--new--div' )[0], µTarget.childrenFlat()[0], 'attached by creation string' );
 
         µTarget.append( 'div.a--new--div' );
-        assert.deepEqual( µ( '.a--new--div' )[0], µTarget.childrenFlat()[0], 'attached by creation string' );
+        assert.deepEqual( µ( '.a--new--div' )[0], µTarget.childrenFlat()[0], 'attached by selection string' );
 
         µ( '.a--new--div' ).remove();
+
+        µTarget.append( '<div><span class="an--example--span">hello</span></div>' );
+        assert.equal( µ( '.an--example--span' ).length, 1, 'attached by html' );
+
+        µ( '.an--example--span!' ).remove();
 
         var µAnotherNewDiv = µ( '<div.a--new--div>' );
 
@@ -200,9 +205,14 @@ module.exports = function( buildTest )
         assert.deepEqual( µ( '.a--new--div' )[0], µTarget.childrenFlat()[0], 'attached by creation string' );
 
         µTarget.prepend( 'div.a--new--div' );
-        assert.deepEqual( µ( '.a--new--div' )[0], µTarget.childrenFlat()[0], 'attached by creation string' );
+        assert.deepEqual( µ( '.a--new--div' )[0], µTarget.childrenFlat()[0], 'attached by selection string' );
 
         µ( '.a--new--div' ).remove();
+
+        µTarget.prepend( '<div><span class="an--example--span">hello</span></div>' );
+        assert.equal( µ( '.an--example--span' ).length, 1, 'attached by html' );
+
+        µ( '.an--example--span!' ).remove();
 
         var µAnotherNewDiv = µ( '<div.a--new--div>' );
 
