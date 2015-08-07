@@ -36,6 +36,7 @@ module.exports = function( buildTest )
      * @test    attached element
      * @test    attached by creation string
      * @test    attached by selector string
+     * @test    attached by html
      * @test    attached by array of elements
      */
     QUnit.test( '.append()', function( assert )
@@ -183,7 +184,8 @@ module.exports = function( buildTest )
      * @test    attached microbe
      * @test    attached element
      * @test    attached by creation string
-     * @test    attached by microbe string
+     * @test    attached by selection string
+     * @test    attached by html
      * @test    attached by array of elements
      */
     QUnit.test( '.prepend()', function( assert )

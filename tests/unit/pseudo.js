@@ -699,7 +699,6 @@ module.exports = function( buildTest )
         {
             return $( 'input:required' );
         } );
-        // buildTest( 'No comparison available.' );
     });
 
 
@@ -717,14 +716,14 @@ module.exports = function( buildTest )
         assert.deepEqual( µRoot[ 0 ], µ( 'html' )[ 0 ], 'selects the root' );
 
         buildTest(
-        'µ( \'div:root\' )', function()
+        'µ( \'body:root\' )', function()
         {
-            return µ( 'div:root' );
+            return µ( 'body:root' );
         },
 
-        '$( \'div:root\' )', function()
+        '$( \':root\' )', function()
         {
-            return $( 'div:root' );
+            return $( ':root' );
         } );
     });
 };
