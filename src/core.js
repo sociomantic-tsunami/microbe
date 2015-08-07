@@ -929,31 +929,6 @@ Microbe.core = Microbe.prototype = {
 
 
     /**
-     * ## root
-     *
-     * Returns the root elements of the document
-     *
-     * @return _Microbe_ new microbe containing only the root document element
-     */
-    root : function()
-    {
-        var _root = this[ 0 ];
-
-        if ( _root )
-        {
-            while ( _root.parentNode !== document )
-            {
-                _root = _root.parentNode;
-            }
-
-            return new Microbe( [ _root ] );
-        }
-
-        return new Microbe( [] );
-    },
-
-
-    /**
      * ## siblings
      *
      * Gets an microbe of all of each given element's siblings

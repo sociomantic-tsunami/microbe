@@ -526,15 +526,15 @@ module.exports = function( Microbe )
      */
     pseudo.has = function( _el, _var )
     {
-        var i, lenI, _obj, results = [];
+        var i, lenI, _obj, results = [], _e;
 
         for ( i = 0, lenI = _el.length; i < lenI; i++ )
         {
-            _obj = _el.constructor( _var, _el[ i ] );
-
-            if ( _obj.length !== 0 )
+            _e      = _el[ i ];
+            _obj    = _e.querySelector( _var );
+            if ( _obj )
             {
-                results.push( _el[ i ] );
+                results.push( _e );
             }
         }
 
@@ -700,7 +700,7 @@ module.exports = function( Microbe )
      * returns elements that match either selector
      *
      * @param {Microbe} _el microbe to be filtered
-     * @param {String} _var number of elements to return
+     * @param {String} _var selector filter
      * @param {String} _selector full original selector
      *
      * @return _Microbe_
@@ -731,7 +731,7 @@ module.exports = function( Microbe )
      * CSS4 spec, this accepts complex selectors seperated with a comma
      *
      * @param {Microbe} _el microbe to be filtered
-     * @param {String} _var number of elements to return
+     * @param {String} _var null selector
      * @param {String} _recursive an indicator that it is calling itself. defines output
      *
      * @return _Microbe_
@@ -775,7 +775,7 @@ module.exports = function( Microbe )
      * returns the nth column of the current microbe
      *
      * @param {Microbe} _el microbe to be filtered
-     * @param {String} _var number of elements to return
+     * @param {String} _var column number(s) return
      *
      * @return _Microbe_
      */
@@ -793,7 +793,7 @@ module.exports = function( Microbe )
      * returns the nth column of the current microbe starting from the back
      *
      * @param {Microbe} _el microbe to be filtered
-     * @param {String} _var number of elements to return
+     * @param {String} _var column number(s) return
      *
      * @return _Microbe_
      */
@@ -811,7 +811,7 @@ module.exports = function( Microbe )
      * returns the nth match(es) of the current microbe starting from the back
      *
      * @param {Microbe} _el microbe to be filtered
-     * @param {String} _var number of elements to return
+     * @param {String} _var match number(s) return
      *
      * @return _Microbe_
      */
@@ -827,7 +827,7 @@ module.exports = function( Microbe )
      * returns the nth match(es) of the current microbe
      *
      * @param {Microbe} _el microbe to be filtered
-     * @param {String} _var number of elements to return
+     * @param {String} _var match number(s) return
      *
      * @return _Microbe_
      */
@@ -1005,7 +1005,7 @@ module.exports = function( Microbe )
      */
     pseudo.root = function( _el )
     {
-        return _el.root();
+        return _el.constructor( document.body.parentNode );
     };
 
 
