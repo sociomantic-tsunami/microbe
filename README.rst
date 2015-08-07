@@ -105,6 +105,8 @@ Change log
 
 + automated version scaling in static pages
 + append and prepend now accept html
++ prepend tweaks and docs
++ custom nth selectors now support 'even' and 'odd' keywords
 
 
 0.3.8

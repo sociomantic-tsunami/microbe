@@ -1345,7 +1345,6 @@ module.exports = function( buildTest )
 
         µ.ready( loaded );
 
-
         buildTest( 'No speed tests available.' );
     });
 

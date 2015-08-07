@@ -30,6 +30,15 @@ module.exports = function( Microbe )
      */
     var parseNth = function( _el, _var, _last )
     {
+        if ( _var === 'odd' )
+        {
+            _var = '2n';
+        }
+        else if ( _var === 'even' )
+        {
+            _var = '2n1';
+        }
+
         if ( _var.indexOf( 'n' ) === -1 )
         {
             switch ( _last )

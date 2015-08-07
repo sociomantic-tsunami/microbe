@@ -6,6 +6,7 @@
  *
  * @package Microbe
  */
+
 /**
  * ## exported
  *
@@ -16,18 +17,29 @@ module.exports = function( Microbe )
     'use strict';
 
     /**
-     *
      * ## append
      *
      * Appends an element or elements to the microbe.  if there is more than
-     * one target the next ones are cloned
+     * one target the next ones are cloned.  The strings this accepts can be
+     * a selector string, an element creation string, or an html string
      *
-     * @param {Mixed} _ele element(s) to append (Element, Array or Microbe)
+     * @param {Mixed} _ele element(s) to append (Element, Array, string, or Microbe)
      *
      * @return _Microbe_ new microbe filled with the inserted content
      */
     Microbe.core.append = (function()
     {
+        /**
+         * ## _appendHTML
+         *
+         * in the case of html passed in it will get appended or prepended to the
+         * innerHTML
+         *
+         * @param  {String} _html html string
+         * @param  {Boolean} _pre prepend or not
+         *
+         * @return _Microbe_
+         */
         var _appendHTML = function( _html, _pre )
         {
             var _el;
@@ -48,15 +60,35 @@ module.exports = function( Microbe )
         };
 
 
+        /**
+         * ## _append
+         *
+         * in the case of an element or array passed in it will get appended directly
+         *
+         * @param  {Element} _html html string
+         * @param  {Boolean} _pre prepend or not
+         *
+         * @return _Microbe_
+         */
         var _append = function( _parentEl, _elm )
         {
             _parentEl.appendChild( _elm );
         };
 
 
+        /**
+         * ## _prepend
+         *
+         * in the case of an element or array passed in it will get prepended directly
+         *
+         * @param  {Element} _html html string
+         * @param  {Boolean} _pre prepend or not
+         *
+         * @return _Microbe_
+         */
         var _prepend = function( _parentEl, _elm )
         {
-            var firstChild = _parentEl.children[ 0 ];
+            var firstChild = _parentEl.firstElementChild;
             _parentEl.insertBefore( _elm, firstChild );
         };
 
@@ -169,9 +201,10 @@ module.exports = function( Microbe )
      * ## prepend
      *
      * Prepends an element or elements to the microbe.  if there is more than
-     * one target the next ones are cloned
+     * one target the next ones are cloned. The strings this accepts can be
+     * a selector string, an element creation string, or an html string
      *
-     * @param {Mixed} _ele element(s) to prepend _{Element, Array or Microbe}_
+     * @param {Mixed} _ele element(s) to prepend _{Element, Array, String, or Microbe}_
      *
      * @return _Microbe_ new microbe filled with the inserted content
      */
