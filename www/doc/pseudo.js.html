@@ -157,11 +157,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Mouse Braun         <a href="&#x6D;&#x61;&#x69;&#108;&#116;&#111;:&#109;&#x6F;&#117;&#x73;&#x65;&#64;s&#x6F;&#x63;&#x69;o&#x6D;&#x61;&#110;&#x74;&#x69;&#99;&#x2E;&#99;&#111;&#109;">&#109;&#x6F;&#117;&#x73;&#x65;&#64;s&#x6F;&#x63;&#x69;o&#x6D;&#x61;&#110;&#x74;&#x69;&#99;&#x2E;&#99;&#111;&#109;</a></span>
+      <span>Mouse Braun         <a href="&#x6D;&#97;&#x69;&#x6C;&#x74;&#111;:&#x6D;&#111;&#117;se&#64;&#115;&#111;&#x63;&#105;&#x6F;&#x6D;&#x61;&#x6E;&#x74;&#x69;&#x63;&#x2E;c&#x6F;&#109;">&#x6D;&#111;&#117;se&#64;&#115;&#111;&#x63;&#105;&#x6F;&#x6D;&#x61;&#x6E;&#x74;&#x69;&#x63;&#x2E;c&#x6F;&#109;</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Nicolas Brugneaux   <a href="&#x6D;&#97;i&#x6C;&#116;o:&#110;&#105;&#x63;&#x6F;&#108;&#97;&#x73;&#46;&#x62;r&#x75;&#x67;&#110;&#x65;&#x61;&#117;&#120;&#64;&#x73;&#x6F;&#x63;io&#x6D;&#97;&#110;&#116;&#x69;&#x63;&#x2E;&#99;&#x6F;&#x6D;">&#110;&#105;&#x63;&#x6F;&#108;&#97;&#x73;&#46;&#x62;r&#x75;&#x67;&#110;&#x65;&#x61;&#117;&#120;&#64;&#x73;&#x6F;&#x63;io&#x6D;&#97;&#110;&#116;&#x69;&#x63;&#x2E;&#99;&#x6F;&#x6D;</a></span>
+      <span>Nicolas Brugneaux   <a href="&#x6D;a&#105;&#108;&#x74;&#x6F;:&#110;&#x69;&#99;&#x6F;&#x6C;&#97;&#115;&#46;&#x62;&#x72;&#117;&#x67;&#110;&#101;&#x61;&#117;&#x78;&#64;&#115;&#111;&#x63;&#105;&#x6F;&#109;&#x61;&#x6E;&#x74;i&#x63;&#46;&#99;&#111;&#x6D;">&#110;&#x69;&#99;&#x6F;&#x6C;&#97;&#115;&#46;&#x62;&#x72;&#117;&#x67;&#110;&#101;&#x61;&#117;&#x78;&#64;&#115;&#111;&#x63;&#105;&#x6F;&#109;&#x61;&#x6E;&#x74;i&#x63;&#46;&#99;&#111;&#x6D;</a></span>
     </div>
     <div class="dox_tag_title">package</div>
     <div class="dox_tag_detail">
@@ -1152,15 +1152,15 @@ attribute which specifies that an element is a drop target.</p>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">pseudo</span><span class="p">.</span><span class="nx">has</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_el</span><span class="p">,</span> <span class="nx">_var</span> <span class="p">)</span>
     <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">lenI</span><span class="p">,</span> <span class="nx">_obj</span><span class="p">,</span> <span class="nx">results</span> <span class="o">=</span> <span class="p">[];</span>
+        <span class="kd">var</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">lenI</span><span class="p">,</span> <span class="nx">_obj</span><span class="p">,</span> <span class="nx">results</span> <span class="o">=</span> <span class="p">[],</span> <span class="nx">_e</span><span class="p">;</span>
 
         <span class="k">for</span> <span class="p">(</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
         <span class="p">{</span>
-            <span class="nx">_obj</span> <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">constructor</span><span class="p">(</span> <span class="nx">_var</span><span class="p">,</span> <span class="nx">_el</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="p">);</span>
-
-            <span class="k">if</span> <span class="p">(</span> <span class="nx">_obj</span><span class="p">.</span><span class="nx">length</span> <span class="o">!==</span> <span class="mi">0</span> <span class="p">)</span>
+            <span class="nx">_e</span>      <span class="o">=</span> <span class="nx">_el</span><span class="p">[</span> <span class="nx">i</span> <span class="p">];</span>
+            <span class="nx">_obj</span>    <span class="o">=</span> <span class="nx">_e</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span> <span class="nx">_var</span> <span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span> <span class="nx">_obj</span> <span class="p">)</span>
             <span class="p">{</span>
-                <span class="nx">results</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">_el</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="p">);</span>
+                <span class="nx">results</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">_e</span> <span class="p">);</span>
             <span class="p">}</span>
         <span class="p">}</span>
 
@@ -1479,7 +1479,7 @@ filter can be added</p>
     <div class="dox_tag_detail">
       <span class="dox_tag_name">_var</span>
       <span class="dox_type">String</span>
-      <span>number of elements to return</span>
+      <span>selector filter</span>
     </div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name">_selector</span>
@@ -1542,7 +1542,7 @@ CSS4 spec, this accepts complex selectors seperated with a comma</p>
     <div class="dox_tag_detail">
       <span class="dox_tag_name">_var</span>
       <span class="dox_type">String</span>
-      <span>number of elements to return</span>
+      <span>null selector</span>
     </div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name">_recursive</span>
@@ -1618,7 +1618,7 @@ CSS4 spec, this accepts complex selectors seperated with a comma</p>
     <div class="dox_tag_detail">
       <span class="dox_tag_name">_var</span>
       <span class="dox_type">String</span>
-      <span>number of elements to return</span>
+      <span>column number(s) return</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
@@ -1664,7 +1664,7 @@ CSS4 spec, this accepts complex selectors seperated with a comma</p>
     <div class="dox_tag_detail">
       <span class="dox_tag_name">_var</span>
       <span class="dox_type">String</span>
-      <span>number of elements to return</span>
+      <span>column number(s) return</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
@@ -1710,7 +1710,7 @@ CSS4 spec, this accepts complex selectors seperated with a comma</p>
     <div class="dox_tag_detail">
       <span class="dox_tag_name">_var</span>
       <span class="dox_type">String</span>
-      <span>number of elements to return</span>
+      <span>match number(s) return</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
@@ -1754,7 +1754,7 @@ CSS4 spec, this accepts complex selectors seperated with a comma</p>
     <div class="dox_tag_detail">
       <span class="dox_tag_name">_var</span>
       <span class="dox_type">String</span>
-      <span>number of elements to return</span>
+      <span>match number(s) return</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
@@ -2130,7 +2130,7 @@ normally triggered using the ! selector</p>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">pseudo</span><span class="p">.</span><span class="nx">root</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_el</span> <span class="p">)</span>
     <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">root</span><span class="p">();</span>
+        <span class="k">return</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">constructor</span><span class="p">(</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">parentNode</span> <span class="p">);</span>
     <span class="p">};</span>
 
 

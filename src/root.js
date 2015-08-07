@@ -65,8 +65,7 @@ module.exports = function( Microbe )
      *
      * @param {Function} _func function to meter
      * @param {Number} wait milliseconds to wait
-     * @param {Boolean} immediate run function at the start
-     *                                                  of the timeout
+     * @param {Boolean} immediate run function at the start of the timeout
      *
      * @return _Function_
      */
@@ -107,7 +106,7 @@ module.exports = function( Microbe )
     /**
      * ## identity
      *
-     * returns itself if a value needs to be executed
+     * returns itself.  useful in functional programmnig when a function must be executed
      *
      * @param {any} value any value
      *
