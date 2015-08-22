@@ -1,36 +1,35 @@
 /**
- * init.js
+ * MicrobeCore.js
  *
  * @author  Mouse Braun         <mouse@sociomantic.com>
  * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
  *
- * @package Microbe
+ * @package MicrobeCore
  */
-
 /**
  * ## exported
  *
- * @return _Function_ function that augment Microbe.
+ * @return _Function_ function that augment MicrobeCore.
  */
-module.exports = function( Microbe )
+module.exports = function( MicrobeCore, _type )
 {
     'use strict';
 
     var trigger, _shortSelector;
 
-    var selectorRegex = Microbe.prototype.__selectorRegex =  /(?:[\s]*\.([\w-_\.]+)|#([\w-_]+)|([^#\.:<][\w-_]*)|(<[\w-_#\.]+>)|:([^#\.<][\w-()_]*))/g;
+    var selectorRegex = MicrobeCore.prototype.__selectorRegex =  /(?:[\s]*\.([\w-_\.]+)|#([\w-_]+)|([^#\.:<][\w-_]*)|(<[\w-_#\.]+>)|:([^#\.<][\w-()_]*))/g;
 
     // TODO: Check if we hit the duck
 
     /**
      * ## _build
      *
-     * Builds and returns the final microbe
+     * Builds and returns the final MicrobeCore
      *
      * @param {Array} _elements array of elements
      * @param {String} _selector selector
      *
-     * @return _Microbe_ microbe wrapped elements
+     * @return PMicrobeCore_ MicrobeCore wrapped elements
      */
     function _build( _elements, self )
     {
@@ -50,12 +49,12 @@ module.exports = function( Microbe )
     /**
      * ## _create
      *
-     * Method creates a Microbe from an element or a new element of the passed string, and
-     * returns the Microbe
+     * Method creates a MicrobeCore from an element or a new element of the passed string, and
+     * returns the MicrobeCore
      *
      * @param {Element} _el element to create
      *
-     * @return _Microbe_
+     * @return PMicrobeCore_
      */
     function _create( _el, self )
     {
@@ -117,7 +116,7 @@ module.exports = function( Microbe )
      *
      * @return _Boolean_ whether _el is contained in the scope
      */
-    var _contains = Microbe.contains = function( _el, _scope )
+    var _contains = MicrobeCore.contains = function( _el, _scope )
     {
         var parent = _el.parentNode;
 
@@ -165,9 +164,9 @@ module.exports = function( Microbe )
      * if ther is no scope and there is only a simple selector
      *
      * @param  {String} _s   selector string
-     * @param  {Object} self this empty Microbe
+     * @param  {Object} self this empty MicrobeCore
      *
-     * @return _Microbe_
+     * @return PMicrobeCore_
      */
     function _noScopeSimple( _s, self )
     {
@@ -209,22 +208,24 @@ module.exports = function( Microbe )
     }
 
 
+    var _pseudo = MicrobeCore.constructor.pseudo;
+
     /**
      * ## \_\_init\_\_
      *
      * Constructor.
      *
-     * Either selects or creates an HTML element and wraps it into a Microbe instance.
+     * Either selects or creates an HTML element and wraps it into a MicrobeCore instance.
      * Usage:   µ( 'div#test' )   ---> selection
      *          µ( '<div#test>' ) ---> creation
      *
      * @param {Mixed} _selector HTML selector (Element String Array)
-     * @param {Mixed} _scope scope to look inside (Element String Microbe)
-     * @param {Mixed} _elements elements to fill Microbe with (optional) (Element or Array)
+     * @param {Mixed} _scope scope to look inside (Element String MicrobeCore)
+     * @param {Mixed} _elements elements to fill MicrobeCore with (optional) (Element or Array)
      *
-     * @return _Microbe_
+     * @return PMicrobeCore_
      */
-    var Init = Microbe.core.__init__ =  function( _selector, _scope, _elements )
+    var Init = MicrobeCore.core.__init__ =  function( _selector, _scope, _elements )
     {
         var res;
         if ( !_scope )
@@ -249,7 +250,7 @@ module.exports = function( Microbe )
 
         _selector = _selector || '';
 
-        if ( _scope && _scope.type === '[object Microbe]' )
+        if ( _scope && _scope.type === _type )
         {
             res = _build( [], this );
 
@@ -265,7 +266,7 @@ module.exports = function( Microbe )
          * fast tracks element based queries
          */
         var isArr, isHTMLCollection;
-        if ( _selector.nodeType === 1 || ( isArr = Microbe.isArray( _selector ) ) ||
+        if ( _selector.nodeType === 1 || ( isArr = MicrobeCore.isArray( _selector ) ) ||
             _selector === window || _selector === document ||
             ( isHTMLCollection = _selector.toString() === '[object HTMLCollection]' ) )
         {
@@ -338,13 +339,13 @@ module.exports = function( Microbe )
             return new Init( _selector, _scope, _elements );
         }
 
-        if ( _selector.indexOf( ':' ) !== -1 )
+        if ( _selector.indexOf( ':' ) !== -1 && _pseudo )
         {
-            return Microbe.constructor.pseudo( this, _selector, _scope, _build );
+            return _pseudo( this, _selector, _scope, _build );
         }
 
         return _build( _scope.querySelectorAll( _selector ), this );
     };
 
-    Microbe.core.__init__.prototype = Microbe.core;
+    MicrobeCore.core.__init__.prototype = MicrobeCore.core;
 };

@@ -17,8 +17,6 @@ module.exports = function( Microbe )
     'use strict';
 
     var Types       = require( './utils/types' );
-    var _type       = Microbe.core.type;
-
 
     /**
      * ## capitalize
