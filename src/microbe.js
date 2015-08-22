@@ -12,7 +12,7 @@
 'use strict';
 
 var _type       = '[object Microbe]';
-var _version    = '0.3.10';
+var _version    = '0.4.0';
 
 var Microbe = function( selector, scope, elements )
 {
@@ -23,12 +23,12 @@ Microbe.core    = {};
 Microbe.version = _version;
 Microbe.type    = _type;
 
-require( './core' )( Microbe );
-require( './root' )( Microbe );
-require( './dom' )( Microbe );
-require( './http' )( Microbe );
-require( './observe' )( Microbe );
-require( './events' )( Microbe );
+// require( './core' )( Microbe );
+// require( './root' )( Microbe );
+// require( './dom' )( Microbe );
+// require( './http' )( Microbe );
+// require( './observe' )( Microbe );
+// require( './events' )( Microbe );
 require( './pseudo' )( Microbe );
 
 
