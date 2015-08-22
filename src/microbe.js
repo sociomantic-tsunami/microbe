@@ -23,13 +23,13 @@ Microbe.core    = {};
 Microbe.version = _version;
 Microbe.type    = _type;
 
-// require( './core' )( Microbe );
-// require( './root' )( Microbe );
-// require( './dom' )( Microbe );
-// require( './http' )( Microbe );
-// require( './observe' )( Microbe );
-// require( './events' )( Microbe );
-// require( './pseudo' )( Microbe );
+require( './core' )( Microbe );
+require( './root' )( Microbe );
+require( './dom' )( Microbe );
+require( './http' )( Microbe );
+require( './observe' )( Microbe );
+require( './events' )( Microbe );
+require( './pseudo' )( Microbe );
 
 
 require( './pristella' )( Microbe, _type );
