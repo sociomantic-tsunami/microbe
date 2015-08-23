@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="doc-style.css" />
   <script src="doc-filelist.js"></script>
   <script>
-    var relativeDir = "", thisFile = "Library/WebServer/Documents/microbe/src/microbejs", defaultSidebar = true;
+    var relativeDir = "", thisFile = "Library/WebServer/Documents/microbe//microbe.js", defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
   <script src="microbe.js"></script>
@@ -46,11 +46,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Mouse Braun         <a href="&#x6D;&#x61;&#x69;&#108;&#x74;&#111;:m&#x6F;&#117;&#115;&#101;&#64;&#115;&#x6F;c&#105;&#111;&#x6D;&#x61;&#110;t&#105;&#99;&#x2E;&#x63;&#111;&#109;">m&#x6F;&#117;&#115;&#101;&#64;&#115;&#x6F;c&#105;&#111;&#x6D;&#x61;&#110;t&#105;&#99;&#x2E;&#x63;&#111;&#109;</a></span>
+      <span>Mouse Braun         <a href="&#x6D;&#x61;&#x69;&#108;&#116;&#x6F;:&#109;&#111;&#x75;&#115;&#x65;&#64;&#115;&#111;&#99;&#x69;&#x6F;&#x6D;&#x61;&#x6E;&#116;&#x69;&#x63;&#x2E;&#x63;&#111;&#109;">&#109;&#111;&#x75;&#115;&#x65;&#64;&#115;&#111;&#99;&#x69;&#x6F;&#x6D;&#x61;&#x6E;&#116;&#x69;&#x63;&#x2E;&#x63;&#111;&#109;</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Nicolas Brugneaux   <a href="&#x6D;&#97;&#x69;&#108;&#x74;&#111;:&#110;&#x69;&#x63;&#x6F;l&#97;&#x73;&#x2E;&#x62;&#x72;&#117;&#x67;&#x6E;&#101;&#x61;u&#120;&#x40;&#x73;&#111;&#x63;&#105;&#x6F;&#109;&#x61;n&#x74;&#x69;&#x63;&#x2E;&#x63;&#111;&#x6D;">&#110;&#x69;&#x63;&#x6F;l&#97;&#x73;&#x2E;&#x62;&#x72;&#117;&#x67;&#x6E;&#101;&#x61;u&#120;&#x40;&#x73;&#111;&#x63;&#105;&#x6F;&#109;&#x61;n&#x74;&#x69;&#x63;&#x2E;&#x63;&#111;&#x6D;</a></span>
+      <span>Nicolas Brugneaux   <a href="&#109;&#97;&#105;&#x6C;&#116;&#x6F;:&#x6E;&#105;&#99;&#x6F;&#108;&#x61;s&#46;&#x62;&#114;&#117;&#103;&#x6E;&#101;&#x61;&#117;&#x78;&#x40;&#115;&#111;&#99;&#105;&#x6F;&#x6D;&#x61;n&#x74;&#x69;&#x63;&#x2E;&#99;&#111;&#109;">&#x6E;&#105;&#99;&#x6F;&#108;&#x61;s&#46;&#x62;&#114;&#117;&#103;&#x6E;&#101;&#x61;&#117;&#x78;&#x40;&#115;&#111;&#99;&#105;&#x6F;&#x6D;&#x61;n&#x74;&#x69;&#x63;&#x2E;&#99;&#111;&#109;</a></span>
     </div>
     <div class="dox_tag_title">package</div>
     <div class="dox_tag_detail">
@@ -63,7 +63,7 @@
 <span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
 
 <span class="kd">var</span> <span class="nx">_type</span>       <span class="o">=</span> <span class="s1">&#39;[object Microbe]&#39;</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">_version</span>    <span class="o">=</span> <span class="s1">&#39;0.3.10&#39;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">_version</span>    <span class="o">=</span> <span class="s1">&#39;0.4.0&#39;</span><span class="p">;</span>
 
 <span class="kd">var</span> <span class="nx">Microbe</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">selector</span><span class="p">,</span> <span class="nx">scope</span><span class="p">,</span> <span class="nx">elements</span> <span class="p">)</span>
 <span class="p">{</span>
@@ -80,10 +80,9 @@
 <span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./http&#39;</span> <span class="p">)(</span> <span class="nx">Microbe</span> <span class="p">);</span>
 <span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./observe&#39;</span> <span class="p">)(</span> <span class="nx">Microbe</span> <span class="p">);</span>
 <span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./events&#39;</span> <span class="p">)(</span> <span class="nx">Microbe</span> <span class="p">);</span>
-<span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./pseudo&#39;</span> <span class="p">)(</span> <span class="nx">Microbe</span> <span class="p">);</span>
 
 
-<span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./pristella&#39;</span> <span class="p">)(</span> <span class="nx">Microbe</span><span class="p">,</span> <span class="nx">_type</span> <span class="p">);</span>
+<span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./pristella/pristella&#39;</span> <span class="p">)(</span> <span class="nx">Microbe</span><span class="p">,</span> <span class="nx">_type</span> <span class="p">);</span>
 
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">constructor</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">;</span>
 </pre></div>
