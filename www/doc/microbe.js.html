@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="doc-style.css" />
   <script src="doc-filelist.js"></script>
   <script>
-    var relativeDir = "", thisFile = "Users/mouse/workspace/microbe//microbe.js", defaultSidebar = true;
+    var relativeDir = "", thisFile = "Library/WebServer/Documents/microbe//microbe.js", defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
   <script src="microbe.js"></script>
@@ -22,7 +22,7 @@
     <div id="tree"></div>
     <div id="headings">
       <div class="heading h2">
-        <a href="#exported">exported</a>
+        <a href="#microbe">Microbe</a>
       </div>
     </div>
   </div>
@@ -31,29 +31,26 @@
 <table cellpadding="0" cellspacing="0">
   <tbody>
       <tr>
-        <td class="docs">
-          <h1>microbe.js</h1>
-        </td>
-        <td class="code highlight"></td>
-      </tr>
-      <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="microbe">
+  <h2>
+    <a href="#microbe" name="microbe" class="pilcrow">&#182;</a>
+    Microbe
+  </h2>
 </div>
-<div class="dox">
-  <div class="summary"><p>microbe.js</p>
+
   </div>
-  <div class="body">
+  <div class="body"><p>Builds the Microbe object</p>
   </div>
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Mouse Braun         <a href="&#x6D;&#x61;&#105;&#108;&#116;&#x6F;:m&#111;&#x75;&#115;&#101;&#x40;&#115;&#111;&#99;&#105;&#111;&#109;&#x61;&#110;&#116;&#x69;&#x63;.&#x63;&#111;&#x6D;">m&#111;&#x75;&#115;&#101;&#x40;&#115;&#111;&#99;&#105;&#111;&#109;&#x61;&#110;&#116;&#x69;&#x63;.&#x63;&#111;&#x6D;</a></span>
+      <span>Mouse Braun         <a href="&#x6D;&#x61;&#x69;&#108;&#116;&#x6F;:&#109;&#111;&#x75;&#115;&#x65;&#64;&#115;&#111;&#99;&#x69;&#x6F;&#x6D;&#x61;&#x6E;&#116;&#x69;&#x63;&#x2E;&#x63;&#111;&#109;">&#109;&#111;&#x75;&#115;&#x65;&#64;&#115;&#111;&#99;&#x69;&#x6F;&#x6D;&#x61;&#x6E;&#116;&#x69;&#x63;&#x2E;&#x63;&#111;&#109;</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Nicolas Brugneaux   <a href="&#109;&#97;&#105;&#108;t&#111;:&#110;&#105;&#x63;&#x6F;&#x6C;&#x61;&#115;&#46;&#98;&#x72;u&#x67;ne&#x61;&#x75;x&#x40;&#x73;o&#99;&#x69;&#111;&#109;&#x61;n&#116;i&#x63;&#46;&#99;&#111;m">&#110;&#105;&#x63;&#x6F;&#x6C;&#x61;&#115;&#46;&#98;&#x72;u&#x67;ne&#x61;&#x75;x&#x40;&#x73;o&#99;&#x69;&#111;&#109;&#x61;n&#116;i&#x63;&#46;&#99;&#111;m</a></span>
+      <span>Nicolas Brugneaux   <a href="&#109;&#97;&#105;&#x6C;&#116;&#x6F;:&#x6E;&#105;&#99;&#x6F;&#108;&#x61;s&#46;&#x62;&#114;&#117;&#103;&#x6E;&#101;&#x61;&#117;&#x78;&#x40;&#115;&#111;&#99;&#105;&#x6F;&#x6D;&#x61;n&#x74;&#x69;&#x63;&#x2E;&#99;&#111;&#109;">&#x6E;&#105;&#99;&#x6F;&#108;&#x61;s&#46;&#x62;&#114;&#117;&#103;&#x6E;&#101;&#x61;&#117;&#x78;&#x40;&#115;&#111;&#99;&#105;&#x6F;&#x6D;&#x61;n&#x74;&#x69;&#x63;&#x2E;&#99;&#111;&#109;</a></span>
     </div>
     <div class="dox_tag_title">package</div>
     <div class="dox_tag_detail">
@@ -62,44 +59,32 @@
   </div>
 </div>
         </td>
-        <td class="code highlight"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">Microbe</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./core&#39;</span> <span class="p">);</span>
-<span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./init&#39;</span> <span class="p">)(</span> <span class="nx">Microbe</span> <span class="p">);</span>
+        <td class="code highlight"><div class="highlight"><pre> <span class="cm">/*jshint globalstrict: true*/</span>
+<span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">_type</span>       <span class="o">=</span> <span class="s1">&#39;[object Microbe]&#39;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">_version</span>    <span class="o">=</span> <span class="s1">&#39;0.4.0&#39;</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">Microbe</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">selector</span><span class="p">,</span> <span class="nx">scope</span><span class="p">,</span> <span class="nx">elements</span> <span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">__init__</span><span class="p">(</span> <span class="nx">selector</span><span class="p">,</span> <span class="nx">scope</span><span class="p">,</span> <span class="nx">elements</span> <span class="p">);</span>
+<span class="p">};</span>
+
+<span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span>    <span class="o">=</span> <span class="p">{};</span>
+<span class="nx">Microbe</span><span class="p">.</span><span class="nx">version</span> <span class="o">=</span> <span class="nx">_version</span><span class="p">;</span>
+<span class="nx">Microbe</span><span class="p">.</span><span class="nx">type</span>    <span class="o">=</span> <span class="nx">_type</span><span class="p">;</span>
+
+<span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./core&#39;</span> <span class="p">)(</span> <span class="nx">Microbe</span> <span class="p">);</span>
 <span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./root&#39;</span> <span class="p">)(</span> <span class="nx">Microbe</span> <span class="p">);</span>
 <span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./dom&#39;</span> <span class="p">)(</span> <span class="nx">Microbe</span> <span class="p">);</span>
 <span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./http&#39;</span> <span class="p">)(</span> <span class="nx">Microbe</span> <span class="p">);</span>
 <span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./observe&#39;</span> <span class="p">)(</span> <span class="nx">Microbe</span> <span class="p">);</span>
 <span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./events&#39;</span> <span class="p">)(</span> <span class="nx">Microbe</span> <span class="p">);</span>
-<span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./pseudo&#39;</span> <span class="p">)(</span> <span class="nx">Microbe</span> <span class="p">);</span>
 
 
+<span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./pristella/pristella&#39;</span> <span class="p">)(</span> <span class="nx">Microbe</span><span class="p">,</span> <span class="nx">_type</span> <span class="p">);</span>
 
-</pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs"><div class="dox">
-  <div class="summary">
-<div class="pilwrap" id="exported">
-  <h2>
-    <a href="#exported" name="exported" class="pilcrow">&#182;</a>
-    exported
-  </h2>
-</div>
-
-  </div>
-  <div class="body">
-  </div>
-  <div class="details">
-    <div class="dox_tag_title">Returns</div>
-    <div class="dox_tag_detail">
-      <span class="dox_tag_name"></span>
-      <span><em>Microbe</em></span>
-    </div>
-  </div>
-</div>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">;</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">constructor</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">;</span>
 </pre></div>
         </td>
       </tr>

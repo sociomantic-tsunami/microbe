@@ -125,7 +125,7 @@ var buildTest = function( _str1, _cb1, _str2, _cb2, _console )
     }
 };
 
-require( './init' )( buildTest );
+require( './pristella' )( buildTest );
 require( './pseudo' )( buildTest );
 require( './core' )( buildTest );
 require( './root' )( buildTest );

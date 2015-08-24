@@ -1,4 +1,4 @@
-Microbe - 0.3.9
+Microbe - 0.4.0
 ===============
 
 Microbe (µ) - a javascript library
@@ -99,6 +99,13 @@ We gladly accept and review any pull-requests. Feel free! :heart:
 
 Change log
 ==========
+
+0.4.0
+~~~~~
+
++ selector engine abstracted
++ modular building now supported
+
 
 0.3.9
 ~~~~~

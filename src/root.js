@@ -17,8 +17,6 @@ module.exports = function( Microbe )
     'use strict';
 
     var Types       = require( './utils/types' );
-    var _type       = Microbe.core.type;
-
 
     /**
      * ## capitalize
@@ -409,16 +407,30 @@ module.exports = function( Microbe )
 
         ( function p()
         {
-            if( _func() )
+            if ( _func() )
             {
-                _success();
+                try
+                {
+                    _success();
+                }
+                catch( e ) 
+                {
+                    throw 'No argument given for success function';
+                }
             }
             else if ( Number( new Date() ) < endTime )
             {
                 setTimeout( p, interval );
             }
             else {
-                _error( new Error( 'timed out for ' + _func + ': ' + arguments ) );
+                try
+                {
+                    _error( new Error( 'timed out for ' + _func + ': ' + arguments ) );
+                }
+                catch( e )
+                {
+                    throw 'No argument given for error function.';
+                }
             }
         } )();
     };

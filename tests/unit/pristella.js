@@ -1,7 +1,7 @@
 /* global document, window, µ, $, QUnit, Benchmark, buildTest  */
 module.exports = function( buildTest )
 {
-    QUnit.module( 'init.js' );
+    QUnit.module( 'pristella.js' );
 
 
     /**
