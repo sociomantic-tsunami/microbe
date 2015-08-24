@@ -1,35 +1,38 @@
 /**
- * MicrobeCore.js
+ * Cytoplasm.js
  *
  * @author  Mouse Braun         <mouse@sociomantic.com>
  * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
  *
- * @package MicrobeCore
+ * @package Cytoplasm
  */
 /**
  * ## exported
  *
- * @return _Function_ function that augment MicrobeCore.
+ * @return _Function_ function that augment Cytoplasm.
  */
-module.exports = function( MicrobeCore, _type )
+module.exports = function( Cytoplasm, _type, _version )
 {
     'use strict';
 
+    Cytoplasm.core.type       = Cytoplasm.type    = _type;
+    Cytoplasm.core.version    = Cytoplasm.version = _version;
+
     var trigger, _shortSelector;
 
-    var selectorRegex = MicrobeCore.prototype.__selectorRegex =  /(?:[\s]*\.([\w-_\.]+)|#([\w-_]+)|([^#\.:<][\w-_]*)|(<[\w-_#\.]+>)|:([^#\.<][\w-()_]*))/g;
+    var selectorRegex = Cytoplasm.prototype.__selectorRegex =  /(?:[\s]*\.([\w-_\.]+)|#([\w-_]+)|([^#\.:<][\w-_]*)|(<[\w-_#\.]+>)|:([^#\.<][\w-()_]*))/g;
 
     // TODO: Check if we hit the duck
 
     /**
      * ## _build
      *
-     * Builds and returns the final MicrobeCore
+     * Builds and returns the final Cytoplasm
      *
      * @param {Array} _elements array of elements
      * @param {String} _selector selector
      *
-     * @return PMicrobeCore_ MicrobeCore wrapped elements
+     * @return PCytoplasm_ Cytoplasm wrapped elements
      */
     function _build( _elements, self )
     {
@@ -49,12 +52,12 @@ module.exports = function( MicrobeCore, _type )
     /**
      * ## _create
      *
-     * Method creates a MicrobeCore from an element or a new element of the passed string, and
-     * returns the MicrobeCore
+     * Method creates a Cytoplasm from an element or a new element of the passed string, and
+     * returns the Cytoplasm
      *
      * @param {Element} _el element to create
      *
-     * @return PMicrobeCore_
+     * @return PCytoplasm_
      */
     function _create( _el, self )
     {
@@ -136,9 +139,9 @@ module.exports = function( MicrobeCore, _type )
      * if ther is no scope and there is only a simple selector
      *
      * @param  {String} _s   selector string
-     * @param  {Object} self this empty MicrobeCore
+     * @param  {Object} self this empty Cytoplasm
      *
-     * @return PMicrobeCore_
+     * @return PCytoplasm_
      */
     function _noScopeSimple( _s, self )
     {
@@ -185,17 +188,17 @@ module.exports = function( MicrobeCore, _type )
      *
      * Constructor.
      *
-     * Either selects or creates an HTML element and wraps it into a MicrobeCore instance.
+     * Either selects or creates an HTML element and wraps it into a Cytoplasm instance.
      * Usage:   µ( 'div#test' )   ---> selection
      *          µ( '<div#test>' ) ---> creation
      *
      * @param {Mixed} _selector HTML selector (Element String Array)
-     * @param {Mixed} _scope scope to look inside (Element String MicrobeCore)
-     * @param {Mixed} _elements elements to fill MicrobeCore with (optional) (Element or Array)
+     * @param {Mixed} _scope scope to look inside (Element String Cytoplasm)
+     * @param {Mixed} _elements elements to fill Cytoplasm with (optional) (Element or Array)
      *
-     * @return PMicrobeCore_
+     * @return PCytoplasm_
      */
-    var Init = MicrobeCore.core.__init__ =  function( _selector, _scope, _elements )
+    var Init = Cytoplasm.core.__init__ =  function( _selector, _scope, _elements )
     {
         var res;
         if ( !_scope )
@@ -318,11 +321,11 @@ module.exports = function( MicrobeCore, _type )
     };
 
 
-    MicrobeCore.core.__init__.prototype = MicrobeCore.core;
+    Cytoplasm.core.__init__.prototype = Cytoplasm.core;
 
 
-    require( './pristella.utils' )( MicrobeCore );
-    require( './pristella.pseudo' )( MicrobeCore );
+    require( './cytoplasm.utils' )( Cytoplasm );
+    require( './cytoplasm.pseudo' )( Cytoplasm );
 
-    var _pseudo = MicrobeCore.constructor.pseudo;
+    var _pseudo = Cytoplasm.constructor.pseudo;
 };

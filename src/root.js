@@ -413,7 +413,7 @@ module.exports = function( Microbe )
                 {
                     _success();
                 }
-                catch( e ) 
+                catch( e )
                 {
                     throw 'No argument given for success function';
                 }
@@ -586,9 +586,6 @@ module.exports = function( Microbe )
 
         return  type;
     };
-
-
-    Microbe.version = Microbe.core.version;
 
 
     /**

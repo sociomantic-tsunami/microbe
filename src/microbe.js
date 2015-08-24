@@ -19,18 +19,15 @@ var Microbe = function( selector, scope, elements )
     return new Microbe.core.__init__( selector, scope, elements );
 };
 
-Microbe.core    = {};
-Microbe.version = _version;
-Microbe.type    = _type;
+Microbe.core    = Microbe.core || {};
 
-require( './core' )( Microbe );
+// require( './core' )( Microbe );
 require( './root' )( Microbe );
-require( './dom' )( Microbe );
-require( './http' )( Microbe );
-require( './observe' )( Microbe );
-require( './events' )( Microbe );
+// require( './dom' )( Microbe );
+// require( './http' )( Microbe );
+// require( './observe' )( Microbe );
+// require( './events' )( Microbe );
 
-
-require( './pristella/pristella' )( Microbe, _type );
+require( './cytoplasm/cytoplasm' )( Microbe, _type, _version );
 
 module.exports = Microbe.core.constructor = Microbe;

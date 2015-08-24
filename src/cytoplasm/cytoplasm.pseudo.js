@@ -4,29 +4,29 @@
  * @author  Mouse Braun         <mouse@sociomantic.com>
  * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
  *
- * @package Microbe
+ * @package Cytoplasm
  */
 
 /**
  * ## exported
  *
- * @return _Function_ function that augment Microbe.
+ * @return _Function_ function that augment Cytoplasm.
  */
-module.exports = function( Microbe )
+module.exports = function( Cytoplasm )
 {
     'use strict';
 
     /**
      * ### parseNth
      *
-     * when supplied with a microbe and a css style n selector (2n1), filters
+     * when supplied with a Cytoplasm and a css style n selector (2n1), filters
      * and returns the result
      *
-     * @param {Microbe} _el microbe to be filtered
+     * @param {Cytoplasm} _el Cytoplasm to be filtered
      * @param {String} _var number string
      * @param {Boolean} _last counting from the font or back
      *
-     * @return _Microbe_
+     * @return _Cytoplasm_
      */
     var parseNth = function( _el, _var, _last )
     {
@@ -45,9 +45,9 @@ module.exports = function( Microbe )
             {
                 case true:
                 case 'last':
-                    return new Microbe( _el[ _el.length - parseInt( _var ) ] );
+                    return new Cytoplasm( _el[ _el.length - parseInt( _var ) ] );
             }
-            return new Microbe( _el[ parseInt( _var ) - 1 ] );
+            return new Cytoplasm( _el[ parseInt( _var ) - 1 ] );
         }
         else
         {
@@ -74,7 +74,7 @@ module.exports = function( Microbe )
 
                 i += increment;
             }
-            return new Microbe( resArray );
+            return new Cytoplasm( resArray );
         }
     };
 
@@ -84,12 +84,12 @@ module.exports = function( Microbe )
      *
      * an extension to core.__init_ to handle custom pseusoselectors
      *
-     * @param  {Microbe} self half built microbe
+     * @param  {Cytoplasm} self half built Cytoplasm
      * @param  {String} selector pseudo-selector string
      * @param  {Object} _scope scope element
      * @param  {Function} _build build function from core
      *
-     * @return _Microbe_
+     * @return _Cytoplasm_
      */
     var pseudo = function( self, selector, _scope, _build )
     {
@@ -100,7 +100,7 @@ module.exports = function( Microbe )
          *
          * @param  {Array} _selectors split selectors
          *
-         * @return _Microbe_
+         * @return _Cytoplasm_
          */
         function _breakUpSelector( _selectors )
         {
@@ -113,7 +113,7 @@ module.exports = function( Microbe )
                 }
                 else
                 {
-                    Microbe.merge( resArray, pseudo( self, _selectors[ i ], _scope, _build ), true );
+                    Cytoplasm.merge( resArray, pseudo( self, _selectors[ i ], _scope, _build ), true );
                 }
             }
 
@@ -124,9 +124,9 @@ module.exports = function( Microbe )
         /**
          * ## _buildObject
          *
-         * builds the microbe ready for return
+         * builds the Cytoplasm ready for return
          *
-         * @return _Microbe_
+         * @return _Cytoplasm_
          */
         function _buildObject()
         {
@@ -146,9 +146,9 @@ module.exports = function( Microbe )
                 }
                 _sel = _sel[ 0 ];
 
-                if ( Microbe.constructor.pseudo[ _sel ] )
+                if ( Cytoplasm.constructor.pseudo[ _sel ] )
                 {
-                    obj = Microbe.constructor.pseudo[ _sel ]( obj, _var, selector );
+                    obj = Cytoplasm.constructor.pseudo[ _sel ]( obj, _var, selector );
                 }
             }
 
@@ -163,11 +163,11 @@ module.exports = function( Microbe )
          *
          * @param {Array} res array of results to be filtered
          *
-         * @return _Microbe_
+         * @return _Cytoplasm_
          */
         function _cycleFilters( res )
         {
-            var obj = Microbe.constructor.pseudo( self, res[ 0 ], _scope, _build );
+            var obj = Cytoplasm.constructor.pseudo( self, res[ 0 ], _scope, _build );
 
             var filter, connect = false;
             for ( var i = 1, lenI = res.length; i < lenI; i++ )
@@ -230,7 +230,7 @@ module.exports = function( Microbe )
             {
                 _pseudoArray = _pseudo[ k ].split( '(' );
 
-                if ( !Microbe.constructor.pseudo[ _pseudoArray[ 0 ] ] )
+                if ( !Cytoplasm.constructor.pseudo[ _pseudoArray[ 0 ] ] )
                 {
                     _sel += ':' + _pseudo[ k ];
                     _pseudo.splice( k, 1 );
@@ -288,9 +288,9 @@ module.exports = function( Microbe )
      *
      * match elements that act as the source anchors of hyperlinks
      *
-     * @param {Microbe} _el microbe to be filtered
+     * @param {Cytoplasm} _el Cytoplasm to be filtered
      *
-     * @return _Microbe_
+     * @return _Cytoplasm_
      */
     pseudo[ 'any-link' ] = function( _el )
     {
@@ -303,9 +303,9 @@ module.exports = function( Microbe )
      *
      * matches elements that only contain content which consists of whitespace
      *
-     * @param {Microbe} _el microbe to be filtered
+     * @param {Cytoplasm} _el Cytoplasm to be filtered
      *
-     * @return _Microbe_
+     * @return _Cytoplasm_
      */
     pseudo.blank = function( _el )
     {
@@ -333,10 +333,10 @@ module.exports = function( Microbe )
      *
      * filters for columns with a suplied selector
      *
-     * @param {Microbe} _el microbe to be filtered
+     * @param {Cytoplasm} _el Cytoplasm to be filtered
      * @param {String} _var string to search for
      *
-     * @return _Microbe_
+     * @return _Cytoplasm_
      */
     pseudo.column = function( _el, _var )
     {
@@ -350,10 +350,10 @@ module.exports = function( Microbe )
      * Returns only elements that contain the given text.  The supplied text
      * is compared ignoring case
      *
-     * @param {Microbe} _el microbe to be filtered
+     * @param {Cytoplasm} _el Cytoplasm to be filtered
      * @param {String} _var string to search for
      *
-     * @return _Microbe_
+     * @return _Cytoplasm_
      */
     pseudo.contains = function( _el, _var )
     {
@@ -375,7 +375,7 @@ module.exports = function( Microbe )
 
         for ( var i = 0, lenI = _el.length; i < lenI; i++ )
         {
-            _e      = _el[ i ]; 
+            _e      = _el[ i ];
             _elText = _getText( _e );
 
             if ( _elText.toLowerCase().indexOf( _var ) !== -1 )
@@ -392,9 +392,9 @@ module.exports = function( Microbe )
      *
      * selects all inputs and select boxes that are checked by dafeult
      *
-     * @param {Microbe} _el microbe to be filtered
+     * @param {Cytoplasm} _el Cytoplasm to be filtered
      *
-     * @return _Microbe_
+     * @return _Cytoplasm_
      */
     pseudo.default = function( _el )
     {
@@ -420,10 +420,10 @@ module.exports = function( Microbe )
      *
      * match elements by its directionality based on the document language
      *
-     * @param {Microbe} _el microbe to be filtered
+     * @param {Cytoplasm} _el Cytoplasm to be filtered
      * @param {String} _var string to search for
      *
-     * @return _Microbe_
+     * @return _Cytoplasm_
      */
     pseudo.dir = function( _el, _var )
     {
@@ -446,10 +446,10 @@ module.exports = function( Microbe )
      * returns all elements that are drop targets. HTML has a dropzone
      * attribute which specifies that an element is a drop target.
      *
-     * @param {Microbe} _el microbe to be filtered
+     * @param {Cytoplasm} _el Cytoplasm to be filtered
      * @param {String} _var trigger string
      *
-     * @return _Microbe_
+     * @return _Cytoplasm_
      */
     pseudo.drop = function( _el, _var )
     {
@@ -477,11 +477,11 @@ module.exports = function( Microbe )
     /**
      * ### even
      *
-     * Returns the even indexed elements of a microbe (starting at 0)
+     * Returns the even indexed elements of a Cytoplasm (starting at 0)
      *
-     * @param {Microbe} _el microbe to be filtered
+     * @param {Cytoplasm} _el Cytoplasm to be filtered
      *
-     * @return _Microbe_
+     * @return _Cytoplasm_
      */
     pseudo.even = function( _el )
     {
@@ -500,11 +500,11 @@ module.exports = function( Microbe )
     /**
      * ### first
      *
-     * returns the first element of a microbe
+     * returns the first element of a Cytoplasm
      *
-     * @param {Microbe} _el microbe to be filtered
+     * @param {Cytoplasm} _el Cytoplasm to be filtered
      *
-     * @return _Microbe_
+     * @return _Cytoplasm_
      */
     pseudo.first = function( _el )
     {
@@ -517,10 +517,10 @@ module.exports = function( Microbe )
      *
      * returns the last {_var} element
      *
-     * @param {Microbe} _el microbe to be filtered
+     * @param {Cytoplasm} _el Cytoplasm to be filtered
      * @param {String} _var number of elements to return
      *
-     * @return _Microbe_
+     * @return _Cytoplasm_
      */
     pseudo.gt = function( _el, _var )
     {
@@ -533,10 +533,10 @@ module.exports = function( Microbe )
      *
      * returns elements that have the passed selector as a child
      *
-     * @param {Microbe} _el microbe to be filtered
+     * @param {Cytoplasm} _el Cytoplasm to be filtered
      * @param {String} _var selector string
      *
-     * @return _Microbe_
+     * @return _Cytoplasm_
      */
     pseudo.has = function( _el, _var )
     {
@@ -561,9 +561,9 @@ module.exports = function( Microbe )
      *
      * select the elements with a value inside the specified range
      *
-     * @param {Microbe} _el microbe to be filtered
+     * @param {Cytoplasm} _el Cytoplasm to be filtered
      *
-     * @return _Microbe_
+     * @return _Cytoplasm_
      */
     pseudo[ 'in-range' ] = function( _el )
     {
@@ -605,10 +605,10 @@ module.exports = function( Microbe )
      *
      * match the elements based on the document language
      *
-     * @param {Microbe} _el microbe to be filtered
+     * @param {Cytoplasm} _el Cytoplasm to be filtered
      * @param {String} _var specified language (accepts wildcards as *)
      *
-     * @return _Microbe_
+     * @return _Cytoplasm_
      */
     pseudo.lang = function( _el, _var )
     {
@@ -628,16 +628,16 @@ module.exports = function( Microbe )
                     }
                 }
 
-                return new Microbe( resArray );
+                return new Cytoplasm( resArray );
             }
 
             var res = document.querySelectorAll( ':lang(' + _var + ')' );
                 res = Array.prototype.slice.call( res, 0 );
-            return new Microbe( res );
+            return new Cytoplasm( res );
         }
         else
         {
-            return new Microbe( [] );
+            return new Cytoplasm( [] );
         }
     };
 
@@ -645,11 +645,11 @@ module.exports = function( Microbe )
     /**
      * ### last
      *
-     * returns the last element of a microbe
+     * returns the last element of a Cytoplasm
      *
-     * @param {Microbe} _el microbe to be filtered
+     * @param {Cytoplasm} _el Cytoplasm to be filtered
      *
-     * @return _Microbe_
+     * @return _Cytoplasm_
      */
     pseudo.last = function( _el )
     {
@@ -664,10 +664,10 @@ module.exports = function( Microbe )
      * returns all link tags that go to local links. If specified a depth
      * filter can be added
      *
-     * @param {Microbe} _el microbe to be filtered
+     * @param {Cytoplasm} _el Cytoplasm to be filtered
      * @param {String} _var specified depth
      *
-     * @return _Microbe_
+     * @return _Cytoplasm_
      */
     pseudo[ 'local-link' ] = function( _el, _var )
     {
@@ -697,10 +697,10 @@ module.exports = function( Microbe )
      *
      * returns the first [_var] elements
      *
-     * @param {Microbe} _el microbe to be filtered
+     * @param {Cytoplasm} _el Cytoplasm to be filtered
      * @param {String} _var number of elements to return
      *
-     * @return _Microbe_
+     * @return _Cytoplasm_
      */
     pseudo.lt = function( _el, _var )
     {
@@ -713,11 +713,11 @@ module.exports = function( Microbe )
      *
      * returns elements that match either selector
      *
-     * @param {Microbe} _el microbe to be filtered
+     * @param {Cytoplasm} _el Cytoplasm to be filtered
      * @param {String} _var selector filter
      * @param {String} _selector full original selector
      *
-     * @return _Microbe_
+     * @return _Cytoplasm_
      */
     pseudo.matches = function( _el, _var, _selector )
     {
@@ -727,11 +727,11 @@ module.exports = function( Microbe )
         _selector = _selector.replace(  text, '' );
         _selector = _selector === '*' ? '' : _selector;
 
-        var res = new Microbe( _selector + _var[ 0 ].trim() );
+        var res = new Cytoplasm( _selector + _var[ 0 ].trim() );
 
         for ( var i = 1, lenI = _var.length; i < lenI; i++ )
         {
-            res.merge( new Microbe( _selector + _var[ i ].trim() ), true );
+            res.merge( new Cytoplasm( _selector + _var[ i ].trim() ), true );
         }
 
         return res;
@@ -744,11 +744,11 @@ module.exports = function( Microbe )
      * returns all elements that do not match the given selector. As per
      * CSS4 spec, this accepts complex selectors seperated with a comma
      *
-     * @param {Microbe} _el microbe to be filtered
+     * @param {Cytoplasm} _el Cytoplasm to be filtered
      * @param {String} _var null selector
      * @param {String} _recursive an indicator that it is calling itself. defines output
      *
-     * @return _Microbe_
+     * @return _Cytoplasm_
      */
     pseudo.not = function( _el, _var, _selector, _recursive )
     {
@@ -761,14 +761,14 @@ module.exports = function( Microbe )
                 _el = this.not( _el, _var[ i ].trim(), _selector, true );
             }
 
-            return new Microbe( _el );
+            return new Cytoplasm( _el );
         }
         else
         {
             var resArray = [];
             for ( var j = 0, lenJ = _el.length; j < lenJ; j++ )
             {
-                if ( ! Microbe.matches( _el[ j ], _var ) )
+                if ( ! Cytoplasm.matches( _el[ j ], _var ) )
                 {
                     resArray.push( _el[ j ] );
                 }
@@ -786,12 +786,12 @@ module.exports = function( Microbe )
     /**
      * ### nth-column
      *
-     * returns the nth column of the current microbe
+     * returns the nth column of the current Cytoplasm
      *
-     * @param {Microbe} _el microbe to be filtered
+     * @param {Cytoplasm} _el Cytoplasm to be filtered
      * @param {String} _var column number(s) return
      *
-     * @return _Microbe_
+     * @return _Cytoplasm_
      */
     pseudo[ 'nth-column' ] = function( _el, _var )
     {
@@ -804,12 +804,12 @@ module.exports = function( Microbe )
     /**
      * ### nth-last-column
      *
-     * returns the nth column of the current microbe starting from the back
+     * returns the nth column of the current Cytoplasm starting from the back
      *
-     * @param {Microbe} _el microbe to be filtered
+     * @param {Cytoplasm} _el Cytoplasm to be filtered
      * @param {String} _var column number(s) return
      *
-     * @return _Microbe_
+     * @return _Cytoplasm_
      */
     pseudo[ 'nth-last-column' ] = function( _el, _var )
     {
@@ -822,12 +822,12 @@ module.exports = function( Microbe )
     /**
      * ### nth-last-match
      *
-     * returns the nth match(es) of the current microbe starting from the back
+     * returns the nth match(es) of the current Cytoplasm starting from the back
      *
-     * @param {Microbe} _el microbe to be filtered
+     * @param {Cytoplasm} _el Cytoplasm to be filtered
      * @param {String} _var match number(s) return
      *
-     * @return _Microbe_
+     * @return _Cytoplasm_
      */
     pseudo[ 'nth-last-match' ] = function( _el, _var )
     {
@@ -838,12 +838,12 @@ module.exports = function( Microbe )
     /**
      * ### nth-match
      *
-     * returns the nth match(es) of the current microbe
+     * returns the nth match(es) of the current Cytoplasm
      *
-     * @param {Microbe} _el microbe to be filtered
+     * @param {Cytoplasm} _el Cytoplasm to be filtered
      * @param {String} _var match number(s) return
      *
-     * @return _Microbe_
+     * @return _Cytoplasm_
      */
     pseudo[ 'nth-match' ] = function( _el, _var )
     {
@@ -854,11 +854,11 @@ module.exports = function( Microbe )
     /**
      * ### add
      *
-     * returns the odd indexed elements of a microbe
+     * returns the odd indexed elements of a Cytoplasm
      *
-     * @param {Microbe} _el microbe to be filtered
+     * @param {Cytoplasm} _el Cytoplasm to be filtered
      *
-     * @return _Microbe_
+     * @return _Cytoplasm_
      */
     pseudo.odd = function( _el )
     {
@@ -879,9 +879,9 @@ module.exports = function( Microbe )
      *
      * returns all optional elements
      *
-     * @param  {[Microbe} _el base elements set
+     * @param  {[Cytoplasm} _el base elements set
      *
-     * @return _Microbe_
+     * @return _Cytoplasm_
      */
     pseudo.optional = function( _el )
     {
@@ -894,9 +894,9 @@ module.exports = function( Microbe )
      *
      * select the elements with a value inside the specified range
      *
-     * @param {Microbe} _el microbe to be filtered
+     * @param {Cytoplasm} _el Cytoplasm to be filtered
      *
-     * @return _Microbe_
+     * @return _Cytoplasm_
      */
     pseudo[ 'out-of-range' ] = function( _el )
     {
@@ -940,9 +940,9 @@ module.exports = function( Microbe )
      * returns the parents of an _el match.
      * normally triggered using the ! selector
      *
-     * @param {Microbe} _el microbe to be filtered
+     * @param {Cytoplasm} _el Cytoplasm to be filtered
      *
-     * @return _Microbe_
+     * @return _Cytoplasm_
      */
     pseudo.parent = function( _el )
     {
@@ -968,9 +968,9 @@ module.exports = function( Microbe )
      *
      * user-non-alterable content
      *
-     * @param {Microbe} _el microbe to be filtered
+     * @param {Cytoplasm} _el Cytoplasm to be filtered
      *
-     * @return _Microbe_
+     * @return _Cytoplasm_
      */
     pseudo[ 'read-only' ] = function( _el )
     {
@@ -983,9 +983,9 @@ module.exports = function( Microbe )
      *
      * input elements which are user-alterable or contenteditable
      *
-     * @param {Microbe} _el microbe to be filtered
+     * @param {Cytoplasm} _el Cytoplasm to be filtered
      *
-     * @return _Microbe_
+     * @return _Cytoplasm_
      */
     pseudo[ 'read-write' ] = function( _el )
     {
@@ -998,9 +998,9 @@ module.exports = function( Microbe )
      *
      * returns all required elements
      *
-     * @param {Microbe} _el microbe to be filtered
+     * @param {Cytoplasm} _el Cytoplasm to be filtered
      *
-     * @return _Microbe_
+     * @return _Cytoplasm_
      */
     pseudo.required = function( _el )
     {
@@ -1013,9 +1013,9 @@ module.exports = function( Microbe )
      *
      * returns the root elements of the document
      *
-     * @param {Microbe} _el microbe to be filtered
+     * @param {Cytoplasm} _el Cytoplasm to be filtered
      *
-     * @return _Microbe_
+     * @return _Cytoplasm_
      */
     pseudo.root = function( _el )
     {
@@ -1024,6 +1024,6 @@ module.exports = function( Microbe )
 
 
 
-    Microbe.constructor.prototype.pseudo = pseudo;
+    Cytoplasm.constructor.prototype.pseudo = pseudo;
 };
 
