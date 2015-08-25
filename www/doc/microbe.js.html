@@ -46,11 +46,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Mouse Braun         <a href="&#x6D;&#x61;&#x69;&#108;&#116;&#x6F;:&#109;&#111;&#x75;&#115;&#x65;&#64;&#115;&#111;&#99;&#x69;&#x6F;&#x6D;&#x61;&#x6E;&#116;&#x69;&#x63;&#x2E;&#x63;&#111;&#109;">&#109;&#111;&#x75;&#115;&#x65;&#64;&#115;&#111;&#99;&#x69;&#x6F;&#x6D;&#x61;&#x6E;&#116;&#x69;&#x63;&#x2E;&#x63;&#111;&#109;</a></span>
+      <span>Mouse Braun         <a href="&#109;&#97;&#x69;l&#116;&#x6F;:&#109;&#111;&#117;&#115;&#x65;&#x40;&#115;&#x6F;&#x63;&#x69;&#111;&#109;&#97;&#x6E;&#x74;&#105;&#x63;&#x2E;&#x63;&#x6F;&#x6D;">&#109;&#111;&#117;&#115;&#x65;&#x40;&#115;&#x6F;&#x63;&#x69;&#111;&#109;&#97;&#x6E;&#x74;&#105;&#x63;&#x2E;&#x63;&#x6F;&#x6D;</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Nicolas Brugneaux   <a href="&#109;&#97;&#105;&#x6C;&#116;&#x6F;:&#x6E;&#105;&#99;&#x6F;&#108;&#x61;s&#46;&#x62;&#114;&#117;&#103;&#x6E;&#101;&#x61;&#117;&#x78;&#x40;&#115;&#111;&#99;&#105;&#x6F;&#x6D;&#x61;n&#x74;&#x69;&#x63;&#x2E;&#99;&#111;&#109;">&#x6E;&#105;&#99;&#x6F;&#108;&#x61;s&#46;&#x62;&#114;&#117;&#103;&#x6E;&#101;&#x61;&#117;&#x78;&#x40;&#115;&#111;&#99;&#105;&#x6F;&#x6D;&#x61;n&#x74;&#x69;&#x63;&#x2E;&#99;&#111;&#109;</a></span>
+      <span>Nicolas Brugneaux   <a href="m&#x61;i&#108;t&#x6F;:&#110;&#105;&#x63;&#111;&#x6C;&#x61;&#x73;&#46;&#98;&#114;&#117;g&#110;&#101;&#x61;u&#x78;&#64;&#115;&#x6F;c&#105;&#x6F;&#109;&#x61;&#110;&#116;i&#x63;&#x2E;&#99;&#x6F;&#109;">&#110;&#105;&#x63;&#111;&#x6C;&#x61;&#x73;&#46;&#98;&#114;&#117;g&#110;&#101;&#x61;u&#x78;&#64;&#115;&#x6F;c&#105;&#x6F;&#109;&#x61;&#110;&#116;i&#x63;&#x2E;&#99;&#x6F;&#109;</a></span>
     </div>
     <div class="dox_tag_title">package</div>
     <div class="dox_tag_detail">
@@ -70,9 +70,10 @@
     <span class="k">return</span> <span class="k">new</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">__init__</span><span class="p">(</span> <span class="nx">selector</span><span class="p">,</span> <span class="nx">scope</span><span class="p">,</span> <span class="nx">elements</span> <span class="p">);</span>
 <span class="p">};</span>
 
-<span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span>    <span class="o">=</span> <span class="p">{};</span>
+<span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span>    <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span> <span class="o">||</span><span class="err"> </span><span class="p">{};</span>
 <span class="nx">Microbe</span><span class="p">.</span><span class="nx">version</span> <span class="o">=</span> <span class="nx">_version</span><span class="p">;</span>
 <span class="nx">Microbe</span><span class="p">.</span><span class="nx">type</span>    <span class="o">=</span> <span class="nx">_type</span><span class="p">;</span>
+
 
 <span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./core&#39;</span> <span class="p">)(</span> <span class="nx">Microbe</span> <span class="p">);</span>
 <span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./root&#39;</span> <span class="p">)(</span> <span class="nx">Microbe</span> <span class="p">);</span>
@@ -82,7 +83,7 @@
 <span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./events&#39;</span> <span class="p">)(</span> <span class="nx">Microbe</span> <span class="p">);</span>
 
 
-<span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./pristella/pristella&#39;</span> <span class="p">)(</span> <span class="nx">Microbe</span><span class="p">,</span> <span class="nx">_type</span> <span class="p">);</span>
+<span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./cytoplasm/cytoplasm&#39;</span> <span class="p">)(</span> <span class="nx">Microbe</span><span class="p">,</span> <span class="nx">_type</span><span class="p">,</span> <span class="nx">_version</span> <span class="p">);</span>
 
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">constructor</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">;</span>
 </pre></div>

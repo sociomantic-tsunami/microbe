@@ -7,11 +7,6 @@
  * @package Cytoplasm
  */
 
-/**
- * ## exported
- *
- * @return _Function_ function that augment Cytoplasm.
- */
 module.exports = function( Cytoplasm )
 {
     'use strict';
@@ -215,7 +210,7 @@ module.exports = function( Cytoplasm )
          * checks all pseudo-selectors to see if they're custom and
          * otherwise it reattaches it
          *
-         * @param  {String} _sel selector string
+         * @param {String} _sel selector string
          *
          * @return _String_ modified selector
          */
@@ -879,7 +874,7 @@ module.exports = function( Cytoplasm )
      *
      * returns all optional elements
      *
-     * @param  {[Cytoplasm} _el base elements set
+     * @param {Cytoplasm} _el base elements set
      *
      * @return _Cytoplasm_
      */

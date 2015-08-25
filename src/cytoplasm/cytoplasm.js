@@ -109,9 +109,9 @@ module.exports = function( Cytoplasm )
      *
      * translates css4 strings
      *
-     * @param  {String} _string pre substitution string
+     * @param {String} _string pre substitution string
      *
-     * @return  _String_ post substitution string
+     * @return _String_ post substitution string
      */
     function _css4StringReplace( _string )
     {
@@ -133,8 +133,8 @@ module.exports = function( Cytoplasm )
      *
      * if ther is no scope and there is only a simple selector
      *
-     * @param  {String} _s   selector string
-     * @param  {Object} self this empty Cytoplasm
+     * @param {String} _s   selector string
+     * @param {Object} self this empty Cytoplasm
      *
      * @return _Cytoplasm_
      */

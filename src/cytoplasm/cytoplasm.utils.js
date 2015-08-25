@@ -7,11 +7,7 @@
  * @package Microbe
  */
 var splice      = Array.prototype.splice;
-/**
- * ## exported
- *
- * @return _Function_ function that augment Microbe.
- */
+
 module.exports = function( Cytoplasm )
 {
     'use strict';
@@ -50,9 +46,9 @@ module.exports = function( Cytoplasm )
      * unsure if we actually need the webkitMatchSelector and mozMatchSelector
      * http://caniuse.com/#feat=matchesselector
      *
-     * @param  {Mixed} el element, microbe, or array of elements to match
+     * @param {Mixed} el element, microbe, or array of elements to match
      *
-     * @return _Booblean matches or not
+     * @return _Booblean_ matches or not
      */
     Cytoplasm.matches = function( el, selector )
     {

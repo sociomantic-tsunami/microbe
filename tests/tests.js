@@ -127,8 +127,8 @@ var buildTest = function( _str1, _cb1, _str2, _cb2, _console )
 };
 
 require( './cytoplasm/cytoplasm' )( buildTest );
-require( './cytoplasm/cytoplasm.pseudo' )( buildTest );
-require( './cytoplasm/cytoplasm.utils' )( buildTest );
+require( './cytoplasm/pseudo' )( buildTest );
+require( './cytoplasm/utils' )( buildTest );
 require( './core' )( buildTest );
 require( './root' )( buildTest );
 require( './http' )( buildTest );
@@ -137,7 +137,7 @@ require( './events' )( buildTest );
 require( './observe' )( buildTest );
 
 window.buildTest = buildTest;
-},{"./core":2,"./cytoplasm/cytoplasm":3,"./cytoplasm/cytoplasm.pseudo":4,"./cytoplasm/cytoplasm.utils":5,"./dom":6,"./events":7,"./http":8,"./observe":9,"./root":10}],2:[function(require,module,exports){
+},{"./core":2,"./cytoplasm/cytoplasm":3,"./cytoplasm/pseudo":4,"./cytoplasm/utils":5,"./dom":6,"./events":7,"./http":8,"./observe":9,"./root":10}],2:[function(require,module,exports){
  /* global document, window, µ, $, QUnit, Benchmark, test  */
 
 module.exports = function( buildTest )
@@ -1412,7 +1412,7 @@ module.exports = function( buildTest )
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 module.exports = function( buildTest )
 {
-    QUnit.module( 'cytoplasm/cytoplasm.pseudo.js' );
+    QUnit.module( 'cytoplasm/pseudo.js' );
 
     /**
      * pseudo custom connectors tests
@@ -2144,7 +2144,7 @@ module.exports = function( buildTest )
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 module.exports = function( buildTest )
 {
-    QUnit.module( 'cytoplasm/cytoplasm.utils.js' );
+    QUnit.module( 'cytoplasm/utils.js' );
 
     /**
      * pseudo custom connectors tests

@@ -7,11 +7,6 @@
  * @package Microbe
  */
 
-/**
- * ## exported
- *
- * @return _Function_ function that augment Microbe.
- */
 module.exports = function( Microbe )
 {
     'use strict';
@@ -294,60 +289,6 @@ module.exports = function( Microbe )
 
 
     /**
-     * ## matches
-     *
-     * checks element an to see if they match a given css selector
-     * unsure if we actually need the webkitMatchSelector and mozMatchSelector
-     * http://caniuse.com/#feat=matchesselector
-     *
-     * @param  {Mixed} el element, microbe, or array of elements to match
-     *
-     * @return _Booblean matches or not
-     */
-    Microbe.matches = function( el, selector )
-    {
-        var method = this.matches.__matchesMethod;
-        var notForm = ( typeof el !== 'string' && !!( el.length ) &&
-                        el.toString() !== '[object HTMLFormElement]' );
-
-        var isArray = Microbe.isArray( el ) || notForm ? true : false;
-
-        if ( !isArray && !notForm )
-        {
-            el = [ el ];
-        }
-
-        if ( !method && el[ 0 ] )
-        {
-            if ( el[ 0 ].matches )
-            {
-                method = this.matches.__matchesMethod = 'matches';
-            }
-            else if ( el[ 0 ].msMatchSelector )
-            {
-                method = this.matches.__matchesMethod = 'msMatchSelector';
-            }
-            else if ( el[ 0 ].mozMatchSelector )
-            {
-                method = this.matches.__matchesMethod = 'mozMatchSelector';
-            }
-            else if ( el[ 0 ].webkitMatchSelector )
-            {
-                method = this.matches.__matchesMethod = 'webkitMatchSelector';
-            }
-        }
-
-        var resArray = [];
-        for ( var i = 0, lenI = el.length; i < lenI; i++ )
-        {
-            resArray.push( el[ i ][ method ]( selector ) );
-        }
-
-        return isArray ? resArray : resArray[ 0 ];
-    };
-
-
-    /**
      * ## noop
      *
      * Nothing happens
@@ -591,6 +532,8 @@ module.exports = function( Microbe )
     /**
      * ## xyzzy
      *
+     * nothing happens
+     * 
      * https://en.wikipedia.org/wiki/Xyzzy_(computing)
      *
      * @return _void_ */

@@ -6,11 +6,7 @@
  *
  * @package Microbe
  */
-/**
- * ## exported
- *
- * @return _Function_ function that augment Microbe.
- */
+
 module.exports = function( Microbe )
 {
     'use strict';
@@ -24,7 +20,7 @@ module.exports = function( Microbe )
      * The return then has the methods `.then( _cb )` and `.error( _cb )`
      *
      * @param {Object} _parameters http parameters. possible properties
-     *                                                  method, url, data, user, password, headers, async
+     *                             method, url, data, user, password, headers, async
      */
     Microbe.http = function( _parameters )
     {
@@ -160,6 +156,7 @@ module.exports = function( Microbe )
             return req.onloadend();
         }
     };
+
 
     /**
      * ## http.get

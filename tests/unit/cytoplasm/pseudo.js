@@ -1,7 +1,7 @@
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 module.exports = function( buildTest )
 {
-    QUnit.module( 'cytoplasm/cytoplasm.pseudo.js' );
+    QUnit.module( 'cytoplasm/pseudo.js' );
 
     /**
      * pseudo custom connectors tests

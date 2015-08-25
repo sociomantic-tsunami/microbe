@@ -6,6 +6,7 @@
  *
  * @package Microbe
  */
+
  /*jshint globalstrict: true*/
  'use strict';
 
@@ -33,9 +34,9 @@ module.exports = function( Microbe )
          * Adds the passed class to the current element(s)
          *
          * @param {Mixed} _class    class to remove.  this accepts
-         *                  strings and array of strings.
-         *                  the strings can be a class or
-         *                  classes seperated with spaces _{String or Array}_
+         *                          strings and array of strings.
+         *                          the strings can be a class or
+         *                          classes seperated with spaces _{String or Array}_
          *
          * @return _Microbe_ reference to original microbe
          */
@@ -691,7 +692,7 @@ module.exports = function( Microbe )
          * Gets an microbe of all siblings of all element's given. 'next' and 'prev'
          * passed as direction return only the next or previous siblings of each element
          *
-         * @paran {String} direction direction modifier (optional)
+         * @param {String} direction direction modifier (optional)
          *
          * @return _Microbe_ value array of combined siblings
          */
