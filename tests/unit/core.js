@@ -465,40 +465,6 @@ module.exports = function( buildTest )
 
 
     /**
-     * µ indexOf tests
-     *
-     * @test    indexOf exists
-     * @test    indexOf correctly determines the index
-     */
-    QUnit.test( '.indexOf()', function( assert )
-    {
-        assert.ok( µ().indexOf, 'exists' );
-
-        var µTarget = µ( '#example--id' );
-
-        var target  = document.getElementById( 'example--id' );
-        var index   = µTarget.indexOf( target );
-
-        assert.deepEqual( µTarget[ index ], target, 'index correctly determined' );
-
-        var µDivs   = µ( 'div' );
-        var $Divs   = $( 'div' );
-        var _el     = document.getElementById( 'QUnit' );
-
-        buildTest(
-        'µDivs.indexOf( _el )', function()
-        {
-            µDivs.indexOf( _el );
-        },
-
-        '$Divs.index( _el )', function()
-        {
-            $Divs.index( _el );
-        } );
-    });
-
-
-    /**
      * µ map tests
      *
      * @test    map exists

@@ -6,12 +6,9 @@
  *
  * @package Cytoplasm
  */
-module.exports = function( Cytoplasm )
+module.exports = function( Cytoplasm, _type, _version )
 {
     'use strict';
-
-    var _type       = Cytoplasm.core.type;
-    var _version    = Cytoplasm.core.version;
 
     var trigger, _shortSelector;
 
@@ -222,13 +219,26 @@ module.exports = function( Cytoplasm )
         {
             res = _build( [], this );
 
+            var next;
+
             for ( var n = 0, lenN = _scope.length; n < lenN; n++ )
             {
-                res.merge( new Init( _selector, _scope[ n ] ), true );
+                next = new Init( _selector, _scope[ n ] );
+
+                for ( var i = 0, lenI = next.length; i < lenI; i++ ) 
+                {
+                    if ( Array.prototype.indexOf.call( res, next[ i ] ) === -1 )
+                    {
+                        res[ res.length ] = next[ i ];
+                        res.length++;
+                    }
+                }
+                // res.merge( new Init( _selector, _scope[ n ] ), true );
             }
 
             return res;
         }
+
 
         /*
          * fast tracks element based queries
@@ -315,12 +325,11 @@ module.exports = function( Cytoplasm )
         return _build( _scope.querySelectorAll( _selector ), this );
     };
 
+    Cytoplasm.core.type                 = _type;
+    Cytoplasm.core.__init__.prototype   = Cytoplasm.core;
 
-    Cytoplasm.core.__init__.prototype = Cytoplasm.core;
-
-
-    require( './cytoplasm.utils' )( Cytoplasm );
-    require( './cytoplasm.pseudo' )( Cytoplasm );
+    require( './utils' )( Cytoplasm );
+    require( './pseudo' )( Cytoplasm );
 
     var _pseudo = Cytoplasm.constructor.pseudo;
 };

@@ -5,6 +5,9 @@
 /**
  * benchmark tests
  *
+ * this function is weird.  it must mix between µ and $ so it can 
+ * test µ without all modules present
+ *
  * @param  {str}                    _str1               test 1 name
  * @param  {func}                   _cb1                test 1
  * @param  {str}                    _str2               test 2 name
@@ -16,35 +19,36 @@ var buildTest = function( _str1, _cb1, _str2, _cb2, _console )
 {
     this.count = this.count || 0;
 
-    var µResult, µLi, µStrong;
+    var $Result, µLi, µStrong;
 
     var suite = new Benchmark.Suite();
 
     if ( !_console )
     {
-        var µTests  = µ( '#qunit-tests' ).children()[0];
+        var µTests  = $( '#qunit-tests' ).first().children();
 
         var resDiv  = µTests[ this.count ];
 
         µLi      = µ( 'li', resDiv );
         µStrong  = µ( 'strong', resDiv );
-        µResult =  µ( '<div.fastest>' );
+        $Result =  $( '<div class="fastest">' );
 
-        resDiv.insertBefore( µResult[ 0 ], µStrong[ 0 ] );
+        resDiv.insertBefore( $Result[ 0 ], µStrong[ 0 ] );
     }
 
     var startTheTest = function( e )
     {
         if ( e )
         {
-            µ( e.target ).text( 'Speed test started...' );
+            // µ( e.target ).text( 'Speed test started...' );
+            $( e.target ).text( 'Speed test started...' );
             e.stopPropagation();
             e.preventDefault();
         }
 
-        if ( µResult )
+        if ( $Result )
         {
-            µResult.off();
+            $Result.off();
         }
 
         setTimeout( function()
@@ -68,8 +72,8 @@ var buildTest = function( _str1, _cb1, _str2, _cb2, _console )
 
                 if ( !_console )
                 {
-                    var test = testRes[ i ] = µ( '<span.speed--result.slow>' );
-                    µ( µLi[ i ] ).append( test );
+                    var test = testRes[ i ] = $( '<span class="slow  speed--result">' );
+                    $( µLi[ i ] ).append( test );
                     test.html( String( event.target ) );
                 }
 
@@ -84,7 +88,7 @@ var buildTest = function( _str1, _cb1, _str2, _cb2, _console )
                 if ( !_console )
                 {
                     testRes[ fastest ].removeClass( 'slow' );
-                    µResult.html( libraries[ fastest ] + ' is ' + percent + '% faster' );
+                    $Result.html( libraries[ fastest ] + ' is ' + percent + '% faster' );
                 }
                 else
                 {
@@ -110,12 +114,12 @@ var buildTest = function( _str1, _cb1, _str2, _cb2, _console )
         {
             setupTest();
 
-            µResult.html( 'Click to start the speed test' );
-            µResult.on( 'click', startTheTest );
+            $Result.html( 'Click to start the speed test' );
+            $Result.on( 'click', startTheTest );
         }
         else
         {
-            µResult.html( _str1 ).addClass( 'invalid--test' );
+            $Result.html( _str1 ).addClass( 'invalid--test' );
         }
 
         this.count++;
@@ -600,40 +604,6 @@ module.exports = function( buildTest )
         {
             $Target.html( 'blarg' );
             $Target.html();
-        } );
-    });
-
-
-    /**
-     * µ indexOf tests
-     *
-     * @test    indexOf exists
-     * @test    indexOf correctly determines the index
-     */
-    QUnit.test( '.indexOf()', function( assert )
-    {
-        assert.ok( µ().indexOf, 'exists' );
-
-        var µTarget = µ( '#example--id' );
-
-        var target  = document.getElementById( 'example--id' );
-        var index   = µTarget.indexOf( target );
-
-        assert.deepEqual( µTarget[ index ], target, 'index correctly determined' );
-
-        var µDivs   = µ( 'div' );
-        var $Divs   = $( 'div' );
-        var _el     = document.getElementById( 'QUnit' );
-
-        buildTest(
-        'µDivs.indexOf( _el )', function()
-        {
-            µDivs.indexOf( _el );
-        },
-
-        '$Divs.index( _el )', function()
-        {
-            $Divs.index( _el );
         } );
     });
 
@@ -1349,7 +1319,7 @@ module.exports = function( buildTest )
         var µDiv = µ( 'div', _scopeEl );
 
         assert.equal( µDiv.length, 2, 'two divs' );
-        assert.deepEqual( µDiv.first().parent()[0], _scopeEl, 'correct parent' );
+        assert.deepEqual( µDiv[0].parentNode, _scopeEl, 'correct parent' );
 
         var _el = µ( 'div' )[1];
 
@@ -2308,6 +2278,40 @@ module.exports = function( buildTest )
     });
 
 
+    /**
+     * µ indexOf tests
+     *
+     * @test    indexOf exists
+     * @test    indexOf correctly determines the index
+     */
+    QUnit.test( '.indexOf()', function( assert )
+    {
+        assert.ok( µ().indexOf, 'exists' );
+
+        var µTarget = µ( '#example--id' );
+
+        var target  = document.getElementById( 'example--id' );
+        var index   = µTarget.indexOf( target );
+
+        assert.deepEqual( µTarget[ index ], target, 'index correctly determined' );
+
+        var µDivs   = µ( 'div' );
+        var $Divs   = $( 'div' );
+        var _el     = document.getElementById( 'QUnit' );
+
+        buildTest(
+        'µDivs.indexOf( _el )', function()
+        {
+            µDivs.indexOf( _el );
+        },
+
+        '$Divs.index( _el )', function()
+        {
+            $Divs.index( _el );
+        } );
+    });
+
+    
     /**
      * µ last tests
      *

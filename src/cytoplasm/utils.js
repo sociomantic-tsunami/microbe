@@ -7,6 +7,7 @@
  * @package Microbe
  */
 var splice      = Array.prototype.splice;
+var indexOf     = Array.prototype.indexOf;
 
 module.exports = function( Cytoplasm )
 {

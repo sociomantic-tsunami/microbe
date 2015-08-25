@@ -172,12 +172,7 @@ module.exports = function( Cytoplasm )
                 if ( filter[ 0 ] === '~' )
                 {
                     obj = obj.siblingsFlat();
-                    connect = true;
-                }
-                else if ( filter[ 0 ] === '>' )
-                {
-                    obj = obj.childrenFlat();
-                    connect = true;
+                    connect = true; 
                 }
                 else if ( filter[ 0 ] === '+' )
                 {

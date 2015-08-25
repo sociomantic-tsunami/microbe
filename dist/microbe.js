@@ -6,7 +6,7 @@
  * Released under the MIT license
  * http://m.icro.be/license
  *
- * Date: Tue Aug 25 2015
+ * Date: Wed Aug 26 2015
  */
 !function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.µ=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /**
@@ -2890,12 +2890,9 @@ module.exports = function( Microbe )
  *
  * @package Cytoplasm
  */
-module.exports = function( Cytoplasm )
+module.exports = function( Cytoplasm, _type, _version )
 {
     'use strict';
-
-    var _type       = Cytoplasm.core.type;
-    var _version    = Cytoplasm.core.version;
 
     var trigger, _shortSelector;
 
@@ -3106,13 +3103,26 @@ module.exports = function( Cytoplasm )
         {
             res = _build( [], this );
 
+            var next;
+
             for ( var n = 0, lenN = _scope.length; n < lenN; n++ )
             {
-                res.merge( new Init( _selector, _scope[ n ] ), true );
+                next = new Init( _selector, _scope[ n ] );
+
+                for ( var i = 0, lenI = next.length; i < lenI; i++ ) 
+                {
+                    if ( Array.prototype.indexOf.call( res, next[ i ] ) === -1 )
+                    {
+                        res[ res.length ] = next[ i ];
+                        res.length++;
+                    }
+                }
+                // res.merge( new Init( _selector, _scope[ n ] ), true );
             }
 
             return res;
         }
+
 
         /*
          * fast tracks element based queries
@@ -3199,17 +3209,16 @@ module.exports = function( Cytoplasm )
         return _build( _scope.querySelectorAll( _selector ), this );
     };
 
+    Cytoplasm.core.type                 = _type;
+    Cytoplasm.core.__init__.prototype   = Cytoplasm.core;
 
-    Cytoplasm.core.__init__.prototype = Cytoplasm.core;
-
-
-    require( './cytoplasm.utils' )( Cytoplasm );
-    require( './cytoplasm.pseudo' )( Cytoplasm );
+    require( './utils' )( Cytoplasm );
+    require( './pseudo' )( Cytoplasm );
 
     var _pseudo = Cytoplasm.constructor.pseudo;
 };
 
-},{"./cytoplasm.pseudo":14,"./cytoplasm.utils":15}],14:[function(require,module,exports){
+},{"./pseudo":14,"./utils":15}],14:[function(require,module,exports){
 /**
  * pseudo.js
  *
@@ -3384,12 +3393,7 @@ module.exports = function( Cytoplasm )
                 if ( filter[ 0 ] === '~' )
                 {
                     obj = obj.siblingsFlat();
-                    connect = true;
-                }
-                else if ( filter[ 0 ] === '>' )
-                {
-                    obj = obj.childrenFlat();
-                    connect = true;
+                    connect = true; 
                 }
                 else if ( filter[ 0 ] === '+' )
                 {
@@ -4245,6 +4249,7 @@ module.exports = function( Cytoplasm )
  * @package Microbe
  */
 var splice      = Array.prototype.splice;
+var indexOf     = Array.prototype.indexOf;
 
 module.exports = function( Cytoplasm )
 {
