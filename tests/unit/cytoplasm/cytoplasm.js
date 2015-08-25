@@ -1,7 +1,7 @@
 /* global document, window, µ, $, QUnit, Benchmark, buildTest  */
 module.exports = function( buildTest )
 {
-    QUnit.module( 'pristella.js' );
+    QUnit.module( 'cytoplasm/cytoplasm.js' );
 
 
     /**
@@ -304,5 +304,19 @@ module.exports = function( buildTest )
         {
             return $( 'h1', 'div' );
         } );
+    });
+
+
+    /*
+     * µ length test
+     *
+     * @test    length exists
+     */
+    QUnit.test( '.length', function( assert )
+    {
+        assert.equal( µ().length, 0, 'length initializes' );
+        assert.equal( µ( 'head' ).length, 1, 'length reports correctly' );
+
+        buildTest( 'No speed tests available for non-functions' );
     });
 };

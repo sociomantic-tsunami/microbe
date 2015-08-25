@@ -6,17 +6,12 @@
  *
  * @package Cytoplasm
  */
-/**
- * ## exported
- *
- * @return _Function_ function that augment Cytoplasm.
- */
-module.exports = function( Cytoplasm, _type, _version )
+module.exports = function( Cytoplasm )
 {
     'use strict';
 
-    Cytoplasm.core.type       = Cytoplasm.type    = _type;
-    Cytoplasm.core.version    = Cytoplasm.version = _version;
+    var _type       = Cytoplasm.core.type;
+    var _version    = Cytoplasm.core.version;
 
     var trigger, _shortSelector;
 
@@ -32,7 +27,7 @@ module.exports = function( Cytoplasm, _type, _version )
      * @param {Array} _elements array of elements
      * @param {String} _selector selector
      *
-     * @return PCytoplasm_ Cytoplasm wrapped elements
+     * @return _Cytoplasm_ Cytoplasm wrapped elements
      */
     function _build( _elements, self )
     {
@@ -57,7 +52,7 @@ module.exports = function( Cytoplasm, _type, _version )
      *
      * @param {Element} _el element to create
      *
-     * @return PCytoplasm_
+     * @return _Cytoplasm_
      */
     function _create( _el, self )
     {
@@ -116,7 +111,7 @@ module.exports = function( Cytoplasm, _type, _version )
      *
      * @param  {String} _string pre substitution string
      *
-     * @param  {String} post substitution string
+     * @return  _String_ post substitution string
      */
     function _css4StringReplace( _string )
     {
@@ -141,7 +136,7 @@ module.exports = function( Cytoplasm, _type, _version )
      * @param  {String} _s   selector string
      * @param  {Object} self this empty Cytoplasm
      *
-     * @return PCytoplasm_
+     * @return _Cytoplasm_
      */
     function _noScopeSimple( _s, self )
     {
@@ -196,7 +191,7 @@ module.exports = function( Cytoplasm, _type, _version )
      * @param {Mixed} _scope scope to look inside (Element String Cytoplasm)
      * @param {Mixed} _elements elements to fill Cytoplasm with (optional) (Element or Array)
      *
-     * @return PCytoplasm_
+     * @return _Cytoplasm_
      */
     var Init = Cytoplasm.core.__init__ =  function( _selector, _scope, _elements )
     {

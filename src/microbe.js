@@ -20,13 +20,17 @@ var Microbe = function( selector, scope, elements )
 };
 
 Microbe.core    = Microbe.core || {};
+Microbe.version = _version;
+Microbe.type    = _type;
 
-// require( './core' )( Microbe );
+
+require( './core' )( Microbe );
 require( './root' )( Microbe );
-// require( './dom' )( Microbe );
-// require( './http' )( Microbe );
-// require( './observe' )( Microbe );
-// require( './events' )( Microbe );
+require( './dom' )( Microbe );
+require( './http' )( Microbe );
+require( './observe' )( Microbe );
+require( './events' )( Microbe );
+
 
 require( './cytoplasm/cytoplasm' )( Microbe, _type, _version );
 

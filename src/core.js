@@ -24,7 +24,7 @@ var toString    = Strings.toString;
 module.exports = function( Microbe )
 {
     var _type       = Microbe.type;
-    
+
     Microbe.core    = Microbe.prototype = {
 
         /**
@@ -446,6 +446,7 @@ module.exports = function( Microbe )
         html : function ( _value )
         {
             var _append;
+
             if ( _value && _value.type === _type )
             {
                 _append = _value;
@@ -878,7 +879,7 @@ module.exports = function( Microbe )
 
         type : _type,
 
-        
+
         version : Microbe.version
     };
 };

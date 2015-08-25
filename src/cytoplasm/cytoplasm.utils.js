@@ -56,7 +56,7 @@ module.exports = function( Cytoplasm )
      */
     Cytoplasm.matches = function( el, selector )
     {
-        var method = this.matches.__matchesMethod;
+        var method  = this.matches.__matchesMethod;
         var notForm = ( typeof el !== 'string' && !!( el.length ) &&
                         el.toString() !== '[object HTMLFormElement]' );
 
@@ -239,12 +239,12 @@ module.exports = function( Cytoplasm )
 
         if ( _s === '>' )
         {
-            _selector = _selector.slice( 1 );
+            _selector = _selector.slice( 1 ).trim();
             return this.childrenFlat().filter( _selector );
         }
         else if ( _s === '~' )
         {
-            _selector = _selector.slice( 1 );
+            _selector = _selector.slice( 1 ).trim();
             return this.siblingsFlat().filter( _selector );
         }
         else if ( _s === '!' )
@@ -253,7 +253,7 @@ module.exports = function( Cytoplasm )
         }
         else if ( _s === '+' )
         {
-            _selector       = _selector.slice( 1 );
+            _selector       = _selector.slice( 1 ).trim();
             var resArray    = [],
                 _el, els    = this.children();
 

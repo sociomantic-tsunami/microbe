@@ -105,6 +105,7 @@ Change log
 
 + selector engine abstracted
 + modular building now supported
++ fixed a bug in find that left illegal whitespace
 
 
 0.3.9
