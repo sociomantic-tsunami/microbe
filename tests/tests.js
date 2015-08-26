@@ -609,6 +609,40 @@ module.exports = function( buildTest )
 
 
     /**
+     * µ indexOf tests
+     *
+     * @test    indexOf exists
+     * @test    indexOf correctly determines the index
+     */
+    QUnit.test( '.indexOf()', function( assert )
+    {
+        assert.ok( µ().indexOf, 'exists' );
+
+        var µTarget = µ( '#example--id' );
+
+        var target  = document.getElementById( 'example--id' );
+        var index   = µTarget.indexOf( target );
+
+        assert.deepEqual( µTarget[ index ], target, 'index correctly determined' );
+
+        var µDivs   = µ( 'div' );
+        var $Divs   = $( 'div' );
+        var _el     = document.getElementById( 'QUnit' );
+
+        buildTest(
+        'µDivs.indexOf( _el )', function()
+        {
+            µDivs.indexOf( _el );
+        },
+
+        '$Divs.index( _el )', function()
+        {
+            $Divs.index( _el );
+        } );
+    });
+
+    
+    /**
      * µ map tests
      *
      * @test    map exists
@@ -1380,6 +1414,8 @@ module.exports = function( buildTest )
 
 },{}],4:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, test  */
+var indexOf = Array.prototype.indexOf
+
 module.exports = function( buildTest )
 {
     QUnit.module( 'cytoplasm/pseudo.js' );
@@ -1832,8 +1868,8 @@ module.exports = function( buildTest )
         assert.ok( µ.pseudo.not, 'exists' );
 
         var col2 = document.getElementById( 'col2' );
-        assert.equal( µ( 'col:not(#col2)' ).indexOf( col2 ), -1, 'filter with single selector' );
-        assert.equal( µ( 'col:not(#col2,#col3)' ).indexOf( col2 ), -1, 'filter with multiple selectors' );
+        assert.equal( indexOf.call( µ( 'col:not(#col2)'), col2 ), -1, 'filter with single selector' );
+        assert.equal( indexOf.call( µ( 'col:not(#col2,#col3)' ), col2 ), -1, 'filter with multiple selectors' );
 
         buildTest(
         'µ( \'div:not(.fastest).\' )', function()
@@ -2274,40 +2310,6 @@ module.exports = function( buildTest )
         '$Divs.first()', function()
         {
             $Divs.first();
-        } );
-    });
-
-
-    /**
-     * µ indexOf tests
-     *
-     * @test    indexOf exists
-     * @test    indexOf correctly determines the index
-     */
-    QUnit.test( '.indexOf()', function( assert )
-    {
-        assert.ok( µ().indexOf, 'exists' );
-
-        var µTarget = µ( '#example--id' );
-
-        var target  = document.getElementById( 'example--id' );
-        var index   = µTarget.indexOf( target );
-
-        assert.deepEqual( µTarget[ index ], target, 'index correctly determined' );
-
-        var µDivs   = µ( 'div' );
-        var $Divs   = $( 'div' );
-        var _el     = document.getElementById( 'QUnit' );
-
-        buildTest(
-        'µDivs.indexOf( _el )', function()
-        {
-            µDivs.indexOf( _el );
-        },
-
-        '$Divs.index( _el )', function()
-        {
-            $Divs.index( _el );
         } );
     });
 

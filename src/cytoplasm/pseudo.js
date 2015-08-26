@@ -99,7 +99,7 @@ module.exports = function( Cytoplasm )
          */
         function _breakUpSelector( _selectors )
         {
-            var _el, resArray = [];
+            var next, _el, resArray = [];
             for ( var i = 0, lenI = _selectors.length; i < lenI; i++ )
             {
                 if ( i === 0 )
@@ -108,7 +108,16 @@ module.exports = function( Cytoplasm )
                 }
                 else
                 {
-                    Cytoplasm.merge( resArray, pseudo( self, _selectors[ i ], _scope, _build ), true );
+                    next = pseudo( self, _selectors[ i ], _scope, _build );
+
+                    for ( var i = 0, lenI = next.length; i < lenI; i++ ) 
+                    {
+                        if ( Array.prototype.indexOf.call( resArray, next[ i ] ) === -1 )
+                        {
+                            resArray[ resArray.length ] = next[ i ];
+                            resArray.length++;
+                        }
+                    }
                 }
             }
 
