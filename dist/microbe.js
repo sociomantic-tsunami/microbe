@@ -655,14 +655,11 @@ process.chdir = function (dir) {
 (function (global) {
     'use strict';
 
-    /**
-     * @namespace
-     */
-    var ObserveUtils;
-    if (typeof exports !== 'undefined') {
-        ObserveUtils = exports;
+    var ObserveUtils = {};
+    if ( typeof module === 'object' && typeof exports !== 'undefined') {
+        module.exports = ObserveUtils;
     } else {
-        ObserveUtils = global.ObserveUtils = {};
+        global.ObserveUtils = ObserveUtils;
     }
 
     // Utilities
@@ -1393,6 +1390,7 @@ process.chdir = function (dir) {
     ObserveUtils.List = List;
 
 })(this);
+
 },{}],5:[function(require,module,exports){
 'use strict';
 
