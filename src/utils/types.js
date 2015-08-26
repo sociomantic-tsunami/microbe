@@ -6,16 +6,10 @@
  *
  * @package Microbe
  */
+ /*jshint globalstrict: true*/
+'use strict';
 
-/**
- * ## exported
- *
- * Type strings.
- *
- * @return _Object_
- */
-module.exports =
-{
+module.exports = {
     '[object Number]'   : 'number',
     '[object String]'   : 'string',
     '[object Function]' : 'function',

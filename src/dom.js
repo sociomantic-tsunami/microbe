@@ -7,11 +7,6 @@
  * @package Microbe
  */
 
-/**
- * ## exported
- *
- * @return _Function_ function that augment Microbe.
- */
 module.exports = function( Microbe )
 {
     'use strict';
@@ -35,8 +30,8 @@ module.exports = function( Microbe )
          * in the case of html passed in it will get appended or prepended to the
          * innerHTML
          *
-         * @param  {String} _html html string
-         * @param  {Boolean} _pre prepend or not
+         * @param {String} _html html string
+         * @param {Boolean} _pre prepend or not
          *
          * @return _Microbe_
          */
@@ -65,8 +60,8 @@ module.exports = function( Microbe )
          *
          * in the case of an element or array passed in it will get appended directly
          *
-         * @param  {Element} _html html string
-         * @param  {Boolean} _pre prepend or not
+         * @param {Element} _html html string
+         * @param {Boolean} _pre prepend or not
          *
          * @return _Microbe_
          */
@@ -81,8 +76,8 @@ module.exports = function( Microbe )
          *
          * in the case of an element or array passed in it will get prepended directly
          *
-         * @param  {Element} _html html string
-         * @param  {Boolean} _pre prepend or not
+         * @param {Element} _html html string
+         * @param {Boolean} _pre prepend or not
          *
          * @return _Microbe_
          */

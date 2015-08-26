@@ -1,7 +1,7 @@
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 module.exports = function( buildTest )
 {
-    QUnit.module( 'cytoplasm/cytoplasm.utils.js' );
+    QUnit.module( 'cytoplasm/utils.js' );
 
     /**
      * pseudo custom connectors tests
@@ -164,7 +164,7 @@ module.exports = function( buildTest )
         } );
     });
 
-
+    
     /**
      * µ last tests
      *

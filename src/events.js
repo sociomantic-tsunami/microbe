@@ -6,11 +6,7 @@
  *
  * @package Microbe
  */
-/**
- * ## exported
- *
- * @return {Function} function that augment Microbe.
- */
+
 module.exports = function( Microbe )
 {
     'use strict';

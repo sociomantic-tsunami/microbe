@@ -262,7 +262,7 @@ module.exports = function( buildTest )
         var µDiv = µ( 'div', _scopeEl );
 
         assert.equal( µDiv.length, 2, 'two divs' );
-        assert.deepEqual( µDiv.first().parent()[0], _scopeEl, 'correct parent' );
+        assert.deepEqual( µDiv[0].parentNode, _scopeEl, 'correct parent' );
 
         var _el = µ( 'div' )[1];
 

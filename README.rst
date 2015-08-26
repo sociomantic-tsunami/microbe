@@ -103,6 +103,7 @@ Change log
 0.4.0
 ~~~~~
 
++ namespace bug fixed in Observe Utils shim
 + selector engine abstracted
 + modular building now supported
 + fixed a bug in find that left illegal whitespace

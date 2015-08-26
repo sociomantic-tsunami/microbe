@@ -7,11 +7,6 @@
  * @package Cytoplasm
  */
 
-/**
- * ## exported
- *
- * @return _Function_ function that augment Cytoplasm.
- */
 module.exports = function( Cytoplasm )
 {
     'use strict';
@@ -104,7 +99,7 @@ module.exports = function( Cytoplasm )
          */
         function _breakUpSelector( _selectors )
         {
-            var _el, resArray = [];
+            var next, _el, resArray = [];
             for ( var i = 0, lenI = _selectors.length; i < lenI; i++ )
             {
                 if ( i === 0 )
@@ -113,7 +108,16 @@ module.exports = function( Cytoplasm )
                 }
                 else
                 {
-                    Cytoplasm.merge( resArray, pseudo( self, _selectors[ i ], _scope, _build ), true );
+                    next = pseudo( self, _selectors[ i ], _scope, _build );
+
+                    for ( var i = 0, lenI = next.length; i < lenI; i++ ) 
+                    {
+                        if ( Array.prototype.indexOf.call( resArray, next[ i ] ) === -1 )
+                        {
+                            resArray[ resArray.length ] = next[ i ];
+                            resArray.length++;
+                        }
+                    }
                 }
             }
 
@@ -177,12 +181,7 @@ module.exports = function( Cytoplasm )
                 if ( filter[ 0 ] === '~' )
                 {
                     obj = obj.siblingsFlat();
-                    connect = true;
-                }
-                else if ( filter[ 0 ] === '>' )
-                {
-                    obj = obj.childrenFlat();
-                    connect = true;
+                    connect = true; 
                 }
                 else if ( filter[ 0 ] === '+' )
                 {
@@ -215,7 +214,7 @@ module.exports = function( Cytoplasm )
          * checks all pseudo-selectors to see if they're custom and
          * otherwise it reattaches it
          *
-         * @param  {String} _sel selector string
+         * @param {String} _sel selector string
          *
          * @return _String_ modified selector
          */
@@ -879,7 +878,7 @@ module.exports = function( Cytoplasm )
      *
      * returns all optional elements
      *
-     * @param  {[Cytoplasm} _el base elements set
+     * @param {Cytoplasm} _el base elements set
      *
      * @return _Cytoplasm_
      */

@@ -1,7 +1,9 @@
 /* global document, window, µ, $, QUnit, Benchmark, test  */
+var indexOf = Array.prototype.indexOf
+
 module.exports = function( buildTest )
 {
-    QUnit.module( 'cytoplasm/cytoplasm.pseudo.js' );
+    QUnit.module( 'cytoplasm/pseudo.js' );
 
     /**
      * pseudo custom connectors tests
@@ -451,8 +453,8 @@ module.exports = function( buildTest )
         assert.ok( µ.pseudo.not, 'exists' );
 
         var col2 = document.getElementById( 'col2' );
-        assert.equal( µ( 'col:not(#col2)' ).indexOf( col2 ), -1, 'filter with single selector' );
-        assert.equal( µ( 'col:not(#col2,#col3)' ).indexOf( col2 ), -1, 'filter with multiple selectors' );
+        assert.equal( indexOf.call( µ( 'col:not(#col2)'), col2 ), -1, 'filter with single selector' );
+        assert.equal( indexOf.call( µ( 'col:not(#col2,#col3)' ), col2 ), -1, 'filter with multiple selectors' );
 
         buildTest(
         'µ( \'div:not(.fastest).\' )', function()

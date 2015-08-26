@@ -21,9 +21,6 @@
     </div>
     <div id="tree"></div>
     <div id="headings">
-      <div class="heading h2">
-        <a href="#exported">exported</a>
-      </div>
     </div>
   </div>
   <div id="sidebar-toggle"></div>
@@ -49,11 +46,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Mouse Braun         <a href="m&#97;&#x69;&#x6C;&#x74;&#x6F;:&#x6D;&#x6F;&#x75;&#115;&#101;&#x40;&#115;&#111;&#99;&#x69;o&#x6D;&#x61;n&#116;&#105;&#99;&#x2E;c&#x6F;&#x6D;">&#x6D;&#x6F;&#x75;&#115;&#101;&#x40;&#115;&#111;&#99;&#x69;o&#x6D;&#x61;n&#116;&#105;&#99;&#x2E;c&#x6F;&#x6D;</a></span>
+      <span>Mouse Braun         <a href="&#x6D;&#x61;&#x69;&#108;&#116;&#111;:&#x6D;&#x6F;u&#115;&#101;&#x40;&#x73;&#x6F;&#99;&#105;&#111;&#x6D;&#x61;&#x6E;&#116;&#x69;&#99;.&#x63;&#x6F;&#x6D;">&#x6D;&#x6F;u&#115;&#101;&#x40;&#x73;&#x6F;&#99;&#105;&#111;&#x6D;&#x61;&#x6E;&#116;&#x69;&#99;.&#x63;&#x6F;&#x6D;</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Nicolas Brugneaux   <a href="&#x6D;&#97;&#105;&#108;&#116;&#111;:&#x6E;&#x69;c&#x6F;&#108;&#97;&#x73;&#x2E;b&#114;ug&#x6E;&#x65;&#x61;&#x75;&#120;&#64;s&#111;&#x63;&#x69;&#x6F;m&#97;&#110;&#116;&#105;&#99;.&#99;&#111;&#109;">&#x6E;&#x69;c&#x6F;&#108;&#97;&#x73;&#x2E;b&#114;ug&#x6E;&#x65;&#x61;&#x75;&#120;&#64;s&#111;&#x63;&#x69;&#x6F;m&#97;&#110;&#116;&#105;&#99;.&#99;&#111;&#109;</a></span>
+      <span>Nicolas Brugneaux   <a href="&#x6D;&#97;&#x69;&#x6C;&#116;&#111;:&#x6E;&#105;c&#111;l&#97;&#x73;&#46;&#x62;&#x72;&#x75;&#103;&#110;&#x65;&#97;ux&#x40;&#115;&#111;&#99;&#105;&#111;&#109;&#x61;&#x6E;&#x74;&#x69;&#x63;&#46;&#99;&#x6F;&#x6D;">&#x6E;&#105;c&#111;l&#97;&#x73;&#46;&#x62;&#x72;&#x75;&#103;&#110;&#x65;&#97;ux&#x40;&#115;&#111;&#99;&#105;&#111;&#109;&#x61;&#x6E;&#x74;&#x69;&#x63;&#46;&#99;&#x6F;&#x6D;</a></span>
     </div>
     <div class="dox_tag_title">package</div>
     <div class="dox_tag_detail">
@@ -62,61 +59,103 @@
   </div>
 </div>
         </td>
-        <td class="code highlight"><div class="highlight"><pre></pre></div>
+        <td class="code highlight"><div class="highlight"><pre> <span class="cm">/*jshint globalstrict: true*/</span>
+<span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+
+</pre></div>
         </td>
       </tr>
       <tr>
-        <td class="docs"><div class="dox">
-  <div class="summary">
-<div class="pilwrap" id="exported">
-  <h2>
-    <a href="#exported" name="exported" class="pilcrow">&#182;</a>
-    exported
-  </h2>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
 </div>
-
-  </div>
-  <div class="body"><p>Array methods.</p>
-  </div>
-  <div class="details">
-    <div class="dox_tag_title">Returns</div>
-    <div class="dox_tag_detail">
-      <span class="dox_tag_name"></span>
-      <span><em>Object</em></span>
-    </div>
-  </div>
-</div>
+<p>concat          : Array.prototype.concat,
+copyWithin      : Array.prototype.copyWithin,
+entries         : Array.prototype.entries,
+every           : Array.prototype.every,
+fill            : Array.prototype.fill,
+filter          : Array.prototype.filter,
+find            : Array.prototype.find,
+findIndex       : Array.prototype.findIndex,</p>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="nx">concat</span>          <span class="o">:</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">concat</span><span class="p">,</span>
-    <span class="nx">copyWithin</span>      <span class="o">:</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">copyWithin</span><span class="p">,</span>
-    <span class="nx">entries</span>         <span class="o">:</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">entries</span><span class="p">,</span>
-    <span class="nx">every</span>           <span class="o">:</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">every</span><span class="p">,</span>
-    <span class="nx">fill</span>            <span class="o">:</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">fill</span><span class="p">,</span>
-    <span class="nx">filter</span>          <span class="o">:</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">filter</span><span class="p">,</span>
-    <span class="nx">find</span>            <span class="o">:</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">find</span><span class="p">,</span>
-    <span class="nx">findIndex</span>       <span class="o">:</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">findIndex</span><span class="p">,</span>
     <span class="nx">forEach</span>         <span class="o">:</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">forEach</span><span class="p">,</span>
     <span class="nx">indexOf</span>         <span class="o">:</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">,</span>
-    <span class="nx">join</span>            <span class="o">:</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">join</span><span class="p">,</span>
-    <span class="nx">keys</span>            <span class="o">:</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">keys</span><span class="p">,</span>
-    <span class="nx">lastIndexOf</span>     <span class="o">:</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">lastIndexOf</span><span class="p">,</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>join            : Array.prototype.join,
+keys            : Array.prototype.keys,
+lastIndexOf     : Array.prototype.lastIndexOf,</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">map</span>             <span class="o">:</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">map</span><span class="p">,</span>
-    <span class="nx">pop</span>             <span class="o">:</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">pop</span><span class="p">,</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-4" id="section-4">&#182;</a>
+</div>
+<p>pop             : Array.prototype.pop,</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">push</span>            <span class="o">:</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">push</span><span class="p">,</span>
-    <span class="nx">reduce</span>          <span class="o">:</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">reduce</span><span class="p">,</span>
-    <span class="nx">reduceRight</span>     <span class="o">:</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">reduceRight</span><span class="p">,</span>
-    <span class="nx">reverse</span>         <span class="o">:</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">reverse</span><span class="p">,</span>
-    <span class="nx">shift</span>           <span class="o">:</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">shift</span><span class="p">,</span>
-    <span class="nx">some</span>            <span class="o">:</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">some</span><span class="p">,</span>
-    <span class="nx">sort</span>            <span class="o">:</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">sort</span><span class="p">,</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-5" id="section-5">&#182;</a>
+</div>
+<p>reduce          : Array.prototype.reduce,
+reduceRight     : Array.prototype.reduceRight,
+reverse         : Array.prototype.reverse,
+shift           : Array.prototype.shift,
+some            : Array.prototype.some,
+sort            : Array.prototype.sort,</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">slice</span>           <span class="o">:</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">,</span>
     <span class="nx">splice</span>          <span class="o">:</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">splice</span><span class="p">,</span>
-    <span class="nx">toLocaleString</span>  <span class="o">:</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">toLocaleString</span><span class="p">,</span>
-    <span class="nx">toSource</span>        <span class="o">:</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">toSource</span><span class="p">,</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+</div>
+<p>toLocaleString  : Array.prototype.toLocaleString,
+toSource        : Array.prototype.toSource,</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">toString</span>        <span class="o">:</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">toString</span><span class="p">,</span>
-    <span class="nx">unshift</span>         <span class="o">:</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">unshift</span>
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+</div>
+<p>unshift         : Array.prototype.unshift</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
 <span class="p">};</span>
 </pre></div>
         </td>

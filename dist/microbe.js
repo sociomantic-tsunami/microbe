@@ -6,7 +6,7 @@
  * Released under the MIT license
  * http://m.icro.be/license
  *
- * Date: Tue Aug 25 2015
+ * Date: Wed Aug 26 2015
  */
 !function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.µ=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /**
@@ -1390,6 +1390,7 @@ process.chdir = function (dir) {
     ObserveUtils.List = List;
 
 })(this);
+
 },{}],5:[function(require,module,exports){
 'use strict';
 
@@ -1999,6 +2000,7 @@ module.exports = asap;
  *
  * @package Microbe
  */
+
  /*jshint globalstrict: true*/
  'use strict';
 
@@ -2026,9 +2028,9 @@ module.exports = function( Microbe )
          * Adds the passed class to the current element(s)
          *
          * @param {Mixed} _class    class to remove.  this accepts
-         *                  strings and array of strings.
-         *                  the strings can be a class or
-         *                  classes seperated with spaces _{String or Array}_
+         *                          strings and array of strings.
+         *                          the strings can be a class or
+         *                          classes seperated with spaces _{String or Array}_
          *
          * @return _Microbe_ reference to original microbe
          */
@@ -2684,7 +2686,7 @@ module.exports = function( Microbe )
          * Gets an microbe of all siblings of all element's given. 'next' and 'prev'
          * passed as direction return only the next or previous siblings of each element
          *
-         * @paran {String} direction direction modifier (optional)
+         * @param {String} direction direction modifier (optional)
          *
          * @return _Microbe_ value array of combined siblings
          */
@@ -2886,12 +2888,9 @@ module.exports = function( Microbe )
  *
  * @package Cytoplasm
  */
-module.exports = function( Cytoplasm )
+module.exports = function( Cytoplasm, _type, _version )
 {
     'use strict';
-
-    var _type       = Cytoplasm.core.type;
-    var _version    = Cytoplasm.core.version;
 
     var trigger, _shortSelector;
 
@@ -2989,9 +2988,9 @@ module.exports = function( Cytoplasm )
      *
      * translates css4 strings
      *
-     * @param  {String} _string pre substitution string
+     * @param {String} _string pre substitution string
      *
-     * @return  _String_ post substitution string
+     * @return _String_ post substitution string
      */
     function _css4StringReplace( _string )
     {
@@ -3013,8 +3012,8 @@ module.exports = function( Cytoplasm )
      *
      * if ther is no scope and there is only a simple selector
      *
-     * @param  {String} _s   selector string
-     * @param  {Object} self this empty Cytoplasm
+     * @param {String} _s   selector string
+     * @param {Object} self this empty Cytoplasm
      *
      * @return _Cytoplasm_
      */
@@ -3102,13 +3101,26 @@ module.exports = function( Cytoplasm )
         {
             res = _build( [], this );
 
+            var next;
+
             for ( var n = 0, lenN = _scope.length; n < lenN; n++ )
             {
-                res.merge( new Init( _selector, _scope[ n ] ), true );
+                next = new Init( _selector, _scope[ n ] );
+
+                for ( var i = 0, lenI = next.length; i < lenI; i++ ) 
+                {
+                    if ( Array.prototype.indexOf.call( res, next[ i ] ) === -1 )
+                    {
+                        res[ res.length ] = next[ i ];
+                        res.length++;
+                    }
+                }
+                // res.merge( new Init( _selector, _scope[ n ] ), true );
             }
 
             return res;
         }
+
 
         /*
          * fast tracks element based queries
@@ -3195,17 +3207,16 @@ module.exports = function( Cytoplasm )
         return _build( _scope.querySelectorAll( _selector ), this );
     };
 
+    Cytoplasm.core.type                 = _type;
+    Cytoplasm.core.__init__.prototype   = Cytoplasm.core;
 
-    Cytoplasm.core.__init__.prototype = Cytoplasm.core;
-
-
-    require( './cytoplasm.utils' )( Cytoplasm );
-    require( './cytoplasm.pseudo' )( Cytoplasm );
+    require( './utils' )( Cytoplasm );
+    require( './pseudo' )( Cytoplasm );
 
     var _pseudo = Cytoplasm.constructor.pseudo;
 };
 
-},{"./cytoplasm.pseudo":14,"./cytoplasm.utils":15}],14:[function(require,module,exports){
+},{"./pseudo":14,"./utils":15}],14:[function(require,module,exports){
 /**
  * pseudo.js
  *
@@ -3215,11 +3226,6 @@ module.exports = function( Cytoplasm )
  * @package Cytoplasm
  */
 
-/**
- * ## exported
- *
- * @return _Function_ function that augment Cytoplasm.
- */
 module.exports = function( Cytoplasm )
 {
     'use strict';
@@ -3312,7 +3318,7 @@ module.exports = function( Cytoplasm )
          */
         function _breakUpSelector( _selectors )
         {
-            var _el, resArray = [];
+            var next, _el, resArray = [];
             for ( var i = 0, lenI = _selectors.length; i < lenI; i++ )
             {
                 if ( i === 0 )
@@ -3321,7 +3327,16 @@ module.exports = function( Cytoplasm )
                 }
                 else
                 {
-                    Cytoplasm.merge( resArray, pseudo( self, _selectors[ i ], _scope, _build ), true );
+                    next = pseudo( self, _selectors[ i ], _scope, _build );
+
+                    for ( var i = 0, lenI = next.length; i < lenI; i++ ) 
+                    {
+                        if ( Array.prototype.indexOf.call( resArray, next[ i ] ) === -1 )
+                        {
+                            resArray[ resArray.length ] = next[ i ];
+                            resArray.length++;
+                        }
+                    }
                 }
             }
 
@@ -3385,12 +3400,7 @@ module.exports = function( Cytoplasm )
                 if ( filter[ 0 ] === '~' )
                 {
                     obj = obj.siblingsFlat();
-                    connect = true;
-                }
-                else if ( filter[ 0 ] === '>' )
-                {
-                    obj = obj.childrenFlat();
-                    connect = true;
+                    connect = true; 
                 }
                 else if ( filter[ 0 ] === '+' )
                 {
@@ -3423,7 +3433,7 @@ module.exports = function( Cytoplasm )
          * checks all pseudo-selectors to see if they're custom and
          * otherwise it reattaches it
          *
-         * @param  {String} _sel selector string
+         * @param {String} _sel selector string
          *
          * @return _String_ modified selector
          */
@@ -4087,7 +4097,7 @@ module.exports = function( Cytoplasm )
      *
      * returns all optional elements
      *
-     * @param  {[Cytoplasm} _el base elements set
+     * @param {Cytoplasm} _el base elements set
      *
      * @return _Cytoplasm_
      */
@@ -4246,11 +4256,8 @@ module.exports = function( Cytoplasm )
  * @package Microbe
  */
 var splice      = Array.prototype.splice;
-/**
- * ## exported
- *
- * @return _Function_ function that augment Microbe.
- */
+var indexOf     = Array.prototype.indexOf;
+
 module.exports = function( Cytoplasm )
 {
     'use strict';
@@ -4289,9 +4296,9 @@ module.exports = function( Cytoplasm )
      * unsure if we actually need the webkitMatchSelector and mozMatchSelector
      * http://caniuse.com/#feat=matchesselector
      *
-     * @param  {Mixed} el element, microbe, or array of elements to match
+     * @param {Mixed} el element, microbe, or array of elements to match
      *
-     * @return _Booblean matches or not
+     * @return _Booblean_ matches or not
      */
     Cytoplasm.matches = function( el, selector )
     {
@@ -4621,11 +4628,6 @@ module.exports = function( Cytoplasm )
  * @package Microbe
  */
 
-/**
- * ## exported
- *
- * @return _Function_ function that augment Microbe.
- */
 module.exports = function( Microbe )
 {
     'use strict';
@@ -4649,8 +4651,8 @@ module.exports = function( Microbe )
          * in the case of html passed in it will get appended or prepended to the
          * innerHTML
          *
-         * @param  {String} _html html string
-         * @param  {Boolean} _pre prepend or not
+         * @param {String} _html html string
+         * @param {Boolean} _pre prepend or not
          *
          * @return _Microbe_
          */
@@ -4679,8 +4681,8 @@ module.exports = function( Microbe )
          *
          * in the case of an element or array passed in it will get appended directly
          *
-         * @param  {Element} _html html string
-         * @param  {Boolean} _pre prepend or not
+         * @param {Element} _html html string
+         * @param {Boolean} _pre prepend or not
          *
          * @return _Microbe_
          */
@@ -4695,8 +4697,8 @@ module.exports = function( Microbe )
          *
          * in the case of an element or array passed in it will get prepended directly
          *
-         * @param  {Element} _html html string
-         * @param  {Boolean} _pre prepend or not
+         * @param {Element} _html html string
+         * @param {Boolean} _pre prepend or not
          *
          * @return _Microbe_
          */
@@ -4895,11 +4897,7 @@ module.exports = function( Microbe )
  *
  * @package Microbe
  */
-/**
- * ## exported
- *
- * @return {Function} function that augment Microbe.
- */
+
 module.exports = function( Microbe )
 {
     'use strict';
@@ -5105,11 +5103,7 @@ module.exports = function( Microbe )
  *
  * @package Microbe
  */
-/**
- * ## exported
- *
- * @return _Function_ function that augment Microbe.
- */
+
 module.exports = function( Microbe )
 {
     'use strict';
@@ -5123,7 +5117,7 @@ module.exports = function( Microbe )
      * The return then has the methods `.then( _cb )` and `.error( _cb )`
      *
      * @param {Object} _parameters http parameters. possible properties
-     *                                                  method, url, data, user, password, headers, async
+     *                             method, url, data, user, password, headers, async
      */
     Microbe.http = function( _parameters )
     {
@@ -5260,6 +5254,7 @@ module.exports = function( Microbe )
         }
     };
 
+
     /**
      * ## http.get
      *
@@ -5308,11 +5303,6 @@ module.exports = function( Microbe )
  * @package Microbe
  */
 
-/**
- * ## exported
- *
- * @return _Function_ function that augment Microbe.
- */
 module.exports = function( Microbe )
 {
     'use strict';
@@ -5588,11 +5578,6 @@ module.exports = function( Microbe )
  * @package Microbe
  */
 
-/**
- * ## exported
- *
- * @return _Function_ function that augment Microbe.
- */
 module.exports = function( Microbe )
 {
     'use strict';
@@ -5875,60 +5860,6 @@ module.exports = function( Microbe )
 
 
     /**
-     * ## matches
-     *
-     * checks element an to see if they match a given css selector
-     * unsure if we actually need the webkitMatchSelector and mozMatchSelector
-     * http://caniuse.com/#feat=matchesselector
-     *
-     * @param  {Mixed} el element, microbe, or array of elements to match
-     *
-     * @return _Booblean matches or not
-     */
-    Microbe.matches = function( el, selector )
-    {
-        var method = this.matches.__matchesMethod;
-        var notForm = ( typeof el !== 'string' && !!( el.length ) &&
-                        el.toString() !== '[object HTMLFormElement]' );
-
-        var isArray = Microbe.isArray( el ) || notForm ? true : false;
-
-        if ( !isArray && !notForm )
-        {
-            el = [ el ];
-        }
-
-        if ( !method && el[ 0 ] )
-        {
-            if ( el[ 0 ].matches )
-            {
-                method = this.matches.__matchesMethod = 'matches';
-            }
-            else if ( el[ 0 ].msMatchSelector )
-            {
-                method = this.matches.__matchesMethod = 'msMatchSelector';
-            }
-            else if ( el[ 0 ].mozMatchSelector )
-            {
-                method = this.matches.__matchesMethod = 'mozMatchSelector';
-            }
-            else if ( el[ 0 ].webkitMatchSelector )
-            {
-                method = this.matches.__matchesMethod = 'webkitMatchSelector';
-            }
-        }
-
-        var resArray = [];
-        for ( var i = 0, lenI = el.length; i < lenI; i++ )
-        {
-            resArray.push( el[ i ][ method ]( selector ) );
-        }
-
-        return isArray ? resArray : resArray[ 0 ];
-    };
-
-
-    /**
      * ## noop
      *
      * Nothing happens
@@ -6172,6 +6103,8 @@ module.exports = function( Microbe )
     /**
      * ## xyzzy
      *
+     * nothing happens
+     * 
      * https://en.wikipedia.org/wiki/Xyzzy_(computing)
      *
      * @return _void_ */
@@ -6188,42 +6121,37 @@ module.exports = function( Microbe )
  * @package Microbe
  */
 
-/**
- * ## exported
- *
- * Array methods.
- *
- * @return _Object_
- */
+ /*jshint globalstrict: true*/
+'use strict';
 module.exports = {
-    concat          : Array.prototype.concat,
-    copyWithin      : Array.prototype.copyWithin,
-    entries         : Array.prototype.entries,
-    every           : Array.prototype.every,
-    fill            : Array.prototype.fill,
-    filter          : Array.prototype.filter,
-    find            : Array.prototype.find,
-    findIndex       : Array.prototype.findIndex,
+    // concat          : Array.prototype.concat,
+    // copyWithin      : Array.prototype.copyWithin,
+    // entries         : Array.prototype.entries,
+    // every           : Array.prototype.every,
+    // fill            : Array.prototype.fill,
+    // filter          : Array.prototype.filter,
+    // find            : Array.prototype.find,
+    // findIndex       : Array.prototype.findIndex,
     forEach         : Array.prototype.forEach,
     indexOf         : Array.prototype.indexOf,
-    join            : Array.prototype.join,
-    keys            : Array.prototype.keys,
-    lastIndexOf     : Array.prototype.lastIndexOf,
+    // join            : Array.prototype.join,
+    // keys            : Array.prototype.keys,
+    // lastIndexOf     : Array.prototype.lastIndexOf,
     map             : Array.prototype.map,
-    pop             : Array.prototype.pop,
+    // pop             : Array.prototype.pop,
     push            : Array.prototype.push,
-    reduce          : Array.prototype.reduce,
-    reduceRight     : Array.prototype.reduceRight,
-    reverse         : Array.prototype.reverse,
-    shift           : Array.prototype.shift,
-    some            : Array.prototype.some,
-    sort            : Array.prototype.sort,
+    // reduce          : Array.prototype.reduce,
+    // reduceRight     : Array.prototype.reduceRight,
+    // reverse         : Array.prototype.reverse,
+    // shift           : Array.prototype.shift,
+    // some            : Array.prototype.some,
+    // sort            : Array.prototype.sort,
     slice           : Array.prototype.slice,
     splice          : Array.prototype.splice,
-    toLocaleString  : Array.prototype.toLocaleString,
-    toSource        : Array.prototype.toSource,
+    // toLocaleString  : Array.prototype.toLocaleString,
+    // toSource        : Array.prototype.toSource,
     toString        : Array.prototype.toString,
-    unshift         : Array.prototype.unshift
+    // unshift         : Array.prototype.unshift
 };
 
 },{}],22:[function(require,module,exports){
@@ -6236,45 +6164,39 @@ module.exports = {
  * @package Microbe
  */
 
-/**
- * ## exported
- *
- * String methods.
- *
- * @return _Object_
- */
-module.exports =
-{
-    charAt              : String.prototype.charAt,
-    charCodeAt          : String.prototype.charCodeAt,
-    codePointAt         : String.prototype.codePointAt,
-    concat              : String.prototype.concat,
-    contains            : String.prototype.contains,
-    endsWith            : String.prototype.endsWith,
-    indexOf             : String.prototype.indexOf,
-    lastIndexOf         : String.prototype.lastIndexOf,
-    localeCompare       : String.prototype.localeCompare,
-    match               : String.prototype.match,
-    normalize           : String.prototype.normalize,
-    quote               : String.prototype.quote,
-    repeat              : String.prototype.repeat,
-    replace             : String.prototype.replace,
-    search              : String.prototype.search,
+ /*jshint globalstrict: true*/
+'use strict';
+module.exports = {
+    // charAt              : String.prototype.charAt,
+    // charCodeAt          : String.prototype.charCodeAt,
+    // codePointAt         : String.prototype.codePointAt,
+    // concat              : String.prototype.concat,
+    // contains            : String.prototype.contains,
+    // endsWith            : String.prototype.endsWith,
+    // indexOf             : String.prototype.indexOf,
+    // lastIndexOf         : String.prototype.lastIndexOf,
+    // localeCompare       : String.prototype.localeCompare,
+    // match               : String.prototype.match,
+    // normalize           : String.prototype.normalize,
+    // quote               : String.prototype.quote,
+    // repeat              : String.prototype.repeat,
+    // replace             : String.prototype.replace,
+    // search              : String.prototype.search,
     slice               : String.prototype.slice,
-    split               : String.prototype.split,
-    startsWith          : String.prototype.startsWith,
-    substr              : String.prototype.substr,
-    substring           : String.prototype.substring,
-    toLocaleLowerCase   : String.prototype.toLocaleLowerCase,
-    toLocaleUpperCase   : String.prototype.toLocaleUpperCase,
-    toLowerCase         : String.prototype.toLowerCase,
-    toSource            : String.prototype.toSource,
-    toString            : String.prototype.toString,
-    toUpperCase         : String.prototype.toUpperCase,
-    trim                : String.prototype.trim,
-    trimLeft            : String.prototype.trimLeft,
-    trimRight           : String.prototype.trimRight,
-    valueOf             : String.prototype.valueOf
+    // split               : String.prototype.split,
+    // startsWith          : String.prototype.startsWith,
+    // substr              : String.prototype.substr,
+    // substring           : String.prototype.substring,
+    // toLocaleLowerCase   : String.prototype.toLocaleLowerCase,
+    // toLocaleUpperCase   : String.prototype.toLocaleUpperCase,
+    // toLowerCase         : String.prototype.toLowerCase,
+    // toSource            : String.prototype.toSource,
+    // toString            : String.prototype.toString,
+    // toUpperCase         : String.prototype.toUpperCase,
+    // trim                : String.prototype.trim,
+    // trimLeft            : String.prototype.trimLeft,
+    // trimRight           : String.prototype.trimRight,
+    // valueOf             : String.prototype.valueOf
 };
 
 },{}],23:[function(require,module,exports){
@@ -6286,16 +6208,10 @@ module.exports =
  *
  * @package Microbe
  */
+ /*jshint globalstrict: true*/
+'use strict';
 
-/**
- * ## exported
- *
- * Type strings.
- *
- * @return _Object_
- */
-module.exports =
-{
+module.exports = {
     '[object Number]'   : 'number',
     '[object String]'   : 'string',
     '[object Function]' : 'function',

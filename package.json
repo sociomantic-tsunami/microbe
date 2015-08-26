@@ -30,7 +30,7 @@
     "gulp-rimraf": "^0.1.0",
     "gulp-uglify": "^1.2.0",
     "observe-shim": "^0.4.1",
-    "observe-utils": "^0.3.2",
+    "observe-utils": "git://github.com/jason-braun-sociomantic-mouse/observe-utils.git#patch-1",
     "promise": "^6.0.0",
     "qunitjs": "^1.18.0",
     "setimmediate": "^1.0.2"
