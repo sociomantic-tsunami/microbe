@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "Library/WebServer/Documents/microbe//cytoplasm/cytoplasm.js", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "Users/mouse/workspace/microbe//cytoplasm/cytoplasm.js", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../microbe.js"></script>
@@ -61,11 +61,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Mouse Braun         <a href="&#109;&#x61;&#105;&#x6C;&#x74;o:&#109;&#x6F;&#117;s&#101;&#64;&#115;&#111;&#99;&#x69;&#x6F;&#x6D;&#x61;n&#116;&#x69;&#x63;&#46;c&#x6F;&#x6D;">&#109;&#x6F;&#117;s&#101;&#64;&#115;&#111;&#99;&#x69;&#x6F;&#x6D;&#x61;n&#116;&#x69;&#x63;&#46;c&#x6F;&#x6D;</a></span>
+      <span>Mouse Braun         <a href="&#x6D;&#97;&#105;&#108;&#x74;&#111;:&#x6D;&#x6F;&#117;&#115;&#x65;&#64;&#x73;&#x6F;&#99;&#105;&#111;&#109;&#97;&#110;&#x74;&#105;&#x63;.&#x63;&#x6F;m">&#x6D;&#x6F;&#117;&#115;&#x65;&#64;&#x73;&#x6F;&#99;&#105;&#111;&#109;&#97;&#110;&#x74;&#105;&#x63;.&#x63;&#x6F;m</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Nicolas Brugneaux   <a href="&#109;&#97;i&#x6C;&#x74;&#111;:&#110;&#x69;&#99;&#x6F;&#x6C;&#97;&#x73;&#46;&#x62;&#x72;&#x75;&#103;&#x6E;e&#97;&#x75;&#120;&#x40;&#x73;o&#99;&#105;&#x6F;&#109;&#97;&#x6E;t&#x69;&#x63;&#x2E;&#x63;&#x6F;m">&#110;&#x69;&#99;&#x6F;&#x6C;&#97;&#x73;&#46;&#x62;&#x72;&#x75;&#103;&#x6E;e&#97;&#x75;&#120;&#x40;&#x73;o&#99;&#105;&#x6F;&#109;&#97;&#x6E;t&#x69;&#x63;&#x2E;&#x63;&#x6F;m</a></span>
+      <span>Nicolas Brugneaux   <a href="&#x6D;&#x61;&#105;&#x6C;&#x74;&#x6F;:&#110;&#x69;&#x63;&#x6F;l&#97;&#x73;&#x2E;&#98;&#114;&#117;&#x67;&#110;&#x65;&#x61;u&#120;&#x40;&#x73;&#111;&#99;&#105;&#x6F;&#109;&#97;n&#x74;&#105;&#x63;.&#x63;&#111;&#109;">&#110;&#x69;&#x63;&#x6F;l&#97;&#x73;&#x2E;&#98;&#114;&#117;&#x67;&#110;&#x65;&#x61;u&#120;&#x40;&#x73;&#111;&#99;&#105;&#x6F;&#109;&#97;n&#x74;&#105;&#x63;.&#x63;&#111;&#109;</a></span>
     </div>
     <div class="dox_tag_title">package</div>
     <div class="dox_tag_detail">
@@ -74,12 +74,9 @@
   </div>
 </div>
         </td>
-        <td class="code highlight"><div class="highlight"><pre><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">Cytoplasm</span> <span class="p">)</span>
+        <td class="code highlight"><div class="highlight"><pre><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">Cytoplasm</span><span class="p">,</span> <span class="nx">_type</span><span class="p">,</span> <span class="nx">_version</span> <span class="p">)</span>
 <span class="p">{</span>
     <span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
-
-    <span class="kd">var</span> <span class="nx">_type</span>       <span class="o">=</span> <span class="nx">Cytoplasm</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">type</span><span class="p">;</span>
-    <span class="kd">var</span> <span class="nx">_version</span>    <span class="o">=</span> <span class="nx">Cytoplasm</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">version</span><span class="p">;</span>
 
     <span class="kd">var</span> <span class="nx">trigger</span><span class="p">,</span> <span class="nx">_shortSelector</span><span class="p">;</span>
 
@@ -437,14 +434,20 @@ Usage:   µ( 'div#test' )   ---> selection
         <span class="p">{</span>
             <span class="nx">res</span> <span class="o">=</span> <span class="nx">_build</span><span class="p">(</span> <span class="p">[],</span> <span class="k">this</span> <span class="p">);</span>
 
+            <span class="kd">var</span> <span class="nx">next</span><span class="p">;</span>
+
             <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenN</span> <span class="o">=</span> <span class="nx">_scope</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">n</span> <span class="o">&lt;</span> <span class="nx">lenN</span><span class="p">;</span> <span class="nx">n</span><span class="o">++</span> <span class="p">)</span>
             <span class="p">{</span>
-                <span class="nx">res</span><span class="p">.</span><span class="nx">merge</span><span class="p">(</span> <span class="k">new</span> <span class="nx">Init</span><span class="p">(</span> <span class="nx">_selector</span><span class="p">,</span> <span class="nx">_scope</span><span class="p">[</span> <span class="nx">n</span> <span class="p">]</span> <span class="p">),</span> <span class="kc">true</span> <span class="p">);</span>
-            <span class="p">}</span>
+                <span class="nx">next</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Init</span><span class="p">(</span> <span class="nx">_selector</span><span class="p">,</span> <span class="nx">_scope</span><span class="p">[</span> <span class="nx">n</span> <span class="p">]</span> <span class="p">);</span>
 
-            <span class="k">return</span> <span class="nx">res</span><span class="p">;</span>
-        <span class="p">}</span>
-
+                <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">next</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span> 
+                <span class="p">{</span>
+                    <span class="k">if</span> <span class="p">(</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="p">)</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span> <span class="p">)</span>
+                    <span class="p">{</span>
+                        <span class="nx">res</span><span class="p">[</span> <span class="nx">res</span><span class="p">.</span><span class="nx">length</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">next</span><span class="p">[</span> <span class="nx">i</span> <span class="p">];</span>
+                        <span class="nx">res</span><span class="p">.</span><span class="nx">length</span><span class="o">++</span><span class="p">;</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
 
 </pre></div>
         </td>
@@ -453,6 +456,24 @@ Usage:   µ( 'div#test' )   ---> selection
         <td class="docs">
 <div class="pilwrap">
   <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+</div>
+<p>res.merge( new Init( _selector, _scope[ n ] ), true );</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+            <span class="p">}</span>
+
+            <span class="k">return</span> <span class="nx">res</span><span class="p">;</span>
+        <span class="p">}</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
 </div>
 <div class="dox">
   <div class="summary"><p>fast tracks element based queries</p>
@@ -544,12 +565,11 @@ Usage:   µ( 'div#test' )   ---> selection
         <span class="k">return</span> <span class="nx">_build</span><span class="p">(</span> <span class="nx">_scope</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span> <span class="nx">_selector</span> <span class="p">),</span> <span class="k">this</span> <span class="p">);</span>
     <span class="p">};</span>
 
+    <span class="nx">Cytoplasm</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">type</span>                 <span class="o">=</span> <span class="nx">_type</span><span class="p">;</span>
+    <span class="nx">Cytoplasm</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">__init__</span><span class="p">.</span><span class="nx">prototype</span>   <span class="o">=</span> <span class="nx">Cytoplasm</span><span class="p">.</span><span class="nx">core</span><span class="p">;</span>
 
-    <span class="nx">Cytoplasm</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">__init__</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="nx">Cytoplasm</span><span class="p">.</span><span class="nx">core</span><span class="p">;</span>
-
-
-    <span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./cytoplasm.utils&#39;</span> <span class="p">)(</span> <span class="nx">Cytoplasm</span> <span class="p">);</span>
-    <span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./cytoplasm.pseudo&#39;</span> <span class="p">)(</span> <span class="nx">Cytoplasm</span> <span class="p">);</span>
+    <span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./utils&#39;</span> <span class="p">)(</span> <span class="nx">Cytoplasm</span> <span class="p">);</span>
+    <span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./pseudo&#39;</span> <span class="p">)(</span> <span class="nx">Cytoplasm</span> <span class="p">);</span>
 
     <span class="kd">var</span> <span class="nx">_pseudo</span> <span class="o">=</span> <span class="nx">Cytoplasm</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">pseudo</span><span class="p">;</span>
 <span class="p">};</span>

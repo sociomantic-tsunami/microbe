@@ -17,7 +17,6 @@
     "test": "gulp test && echo \"Tests complete.\"",
     "start": "gulp",
     "watch": "gulp watch",
-    "buildDoc": "cd src && ../node_modules/.bin/docker -o ../www/doc/ -i ./ --sidebar true --watch --js ../dist/microbe.js --extras fileSearch -c manni",
     "docs": "docker -o www/doc/ -i src --sidebar true --watch --js dist/microbe.js --extras fileSearch -c manni"
   },
   "devDependencies": {
