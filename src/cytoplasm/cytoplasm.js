@@ -6,7 +6,7 @@
  *
  * @package Cytoplasm
  */
-module.exports = function( Cytoplasm, _type, _version )
+module.exports = function( Cytoplasm, _type )
 {
     'use strict';
 
@@ -225,7 +225,7 @@ module.exports = function( Cytoplasm, _type, _version )
             {
                 next = new Init( _selector, _scope[ n ] );
 
-                for ( var i = 0, lenI = next.length; i < lenI; i++ ) 
+                for ( var i = 0, lenI = next.length; i < lenI; i++ )
                 {
                     if ( Array.prototype.indexOf.call( res, next[ i ] ) === -1 )
                     {

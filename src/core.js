@@ -42,7 +42,7 @@ module.exports = function( Microbe )
          */
         addClass : (function()
         {
-            var _addClass = function( _class, _el )
+            var _addClass = function( _class, _el, _observables )
             {
                 for ( var i = 0, lenI = _class.length; i < lenI; i++ )
                 {
@@ -57,13 +57,18 @@ module.exports = function( Microbe )
                     }
                 }
 
-                _el.data                = _el.data  || {};
-                _el.data.class          = _el.data.class || {};
-                _el.data.class.class    = _el.className;
+                if ( _observables )
+                {
+                    _el.data                = _el.data  || {};
+                    _el.data.class          = _el.data.class || {};
+                    _el.data.class.class    = _el.className;
+                }
             };
 
             return function( _class )
             {
+                var _observables = this.get ? true : false;
+
                 if ( typeof _class === 'string' )
                 {
                     _class = [ _class ];
@@ -72,7 +77,7 @@ module.exports = function( Microbe )
                 var i, len;
                 for ( i = 0, len = this.length; i < len; i++ )
                 {
-                    _addClass( _class, this[ i ] );
+                    _addClass( _class, this[ i ], _observables );
                 }
 
                 return this;
@@ -180,54 +185,6 @@ module.exports = function( Microbe )
             }
 
             return attributes;
-        },
-
-
-        /**
-         * ## children
-         *
-         * Gets a microbe of all the given element's children
-         *
-         * @return _Array_  array of microbes (value)
-         */
-        children : function()
-        {
-            var i, len, childrenArray = new Array( this.length );
-
-            for ( i = 0, len = this.length; i < len; i++ )
-            {
-                childrenArray[ i ] = this.constructor( this[ i ].children );
-            }
-
-            return childrenArray;
-        },
-
-
-        /**
-         * ## childrenFlat
-         *
-         * Gets an microbe of all children of all element's given
-         *
-         * @return _Microbe_ value array of combined children
-         */
-        childrenFlat : function( direction )
-        {
-            var arr, i, len, childrenArray = [];
-
-            for ( i = 0, len = this.length; i < len; i++ )
-            {
-                arr = this[ i ].children;
-
-                for ( var j = 0, lenJ = arr.length; j < lenJ; j++ )
-                {
-                    if ( childrenArray.indexOf( arr[ j ] ) === -1 )
-                    {
-                        childrenArray.push( arr[ j ] );
-                    }
-                }
-            }
-
-            return this.constructor( childrenArray );
         },
 
 
@@ -646,106 +603,6 @@ module.exports = function( Microbe )
                 return this;
             };
         }()),
-
-
-        /**
-         * ## siblings
-         *
-         * Gets an microbe of all of each given element's siblings
-         *
-         * @return _Array_ array of microbes (value)
-         */
-        siblings : function()
-        {
-            var _siblings = function( _elm )
-            {
-                var res     = [];
-                var sibling = _elm.parentNode.firstElementChild;
-                for ( ; sibling; )
-                {
-                    if ( sibling !== _elm )
-                    {
-                        res.push( sibling );
-                    }
-                    sibling = sibling.nextElementSibling;
-                    if ( !sibling )
-                    {
-                        return res;
-                    }
-                }
-            };
-
-            var i, len, siblingArray = new Array( this.length );
-
-            for ( i = 0, len = this.length; i < len; i++ )
-            {
-                siblingArray[ i ] = this.constructor( _siblings( this[ i ] ) );
-            }
-
-            return siblingArray;
-        },
-
-
-        /**
-         * ## siblingsFlat
-         *
-         * Gets an microbe of all siblings of all element's given. 'next' and 'prev'
-         * passed as direction return only the next or previous siblings of each element
-         *
-         * @param {String} direction direction modifier (optional)
-         *
-         * @return _Microbe_ value array of combined siblings
-         */
-        siblingsFlat : function( direction )
-        {
-            var _siblings = function( _elm )
-            {
-                if ( !direction )
-                {
-                    var res     = [];
-                    var sibling = _elm.parentNode.firstElementChild;
-                    for ( ; sibling; )
-                    {
-                        if ( sibling !== _elm )
-                        {
-                            res.push( sibling );
-                        }
-                        sibling = sibling.nextElementSibling;
-                        if ( !sibling )
-                        {
-                            return res;
-                        }
-                    }
-                }
-                else if ( direction === 'next' )
-                {
-                    var next = _elm.nextElementSibling;
-                    return next ? [ next ] : [];
-                }
-                else if ( direction === 'prev' )
-                {
-                    var prev = _elm.prevElementSibling;
-                    return prev ? [ prev ] : [];
-                }
-            };
-
-            var arr, i, len, siblingArray = [];
-
-            for ( i = 0, len = this.length; i < len; i++ )
-            {
-                arr = _siblings( this[ i ] );
-
-                for ( var j = 0, lenJ = arr.length; j < lenJ; j++ )
-                {
-                    if ( siblingArray.indexOf( arr[ j ] ) === -1 )
-                    {
-                        siblingArray.push( arr[ j ] );
-                    }
-                }
-            }
-
-            return this.constructor( siblingArray );
-        },
 
 
         /**

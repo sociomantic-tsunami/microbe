@@ -2,7 +2,9 @@
 
 module.exports = function( buildTest )
 {
-    var version = '0.4.0';
+    var version = '0.4.1';
+
+    var _observables = µ().get ? true : false;
 
     QUnit.module( 'core.js' );
 
@@ -25,7 +27,6 @@ module.exports = function( buildTest )
         var µMooDivsLength  = µMooDivs.length;
 
         assert.equal( µMooDivsLength, µ( '.moo' ).length, 'it added a class!' );
-        assert.ok( µMooDivs.get( 'class' )[0].indexOf( 'moo' ) !== -1, 'it set the class into the data object' );
 
         µ( '.moo' ).removeClass( 'moo' );
 
@@ -35,9 +36,12 @@ module.exports = function( buildTest )
         var µDiv = µ( 'div' ).addClass( µMooDivs[0].className );
         assert.equal( µDiv.length, µ( '.moo.for--real' ).length, 'multiple classes set by className string' );
 
-        var classData = µ( '.moo' )[0].data.class.class;
-
-        assert.ok( classData.indexOf( 'for--real' ) !== -1, 'class sets data' );
+        if ( _observables )
+        {
+            assert.ok( µMooDivs.get( 'class' )[0].indexOf( 'moo' ) !== -1, 'it set the class into the data object' );
+            var classData = µ( '.moo' )[0].data.class.class;
+            assert.ok( classData.indexOf( 'for--real' ) !== -1, 'class sets data' );
+        }
 
         µ( '.moo' ).removeClass( 'moo  for--real' );
 
@@ -124,79 +128,6 @@ module.exports = function( buildTest )
 
 
     /**
-     * µ children tests
-     *
-     * @test    children exists
-     * @test    children returns an array
-     * @test    full of microbes
-     * @test    that are correct
-     */
-    QUnit.test( '.children()', function( assert )
-    {
-        assert.ok( µ().children, 'exists' );
-
-        var children = µ( '.example--class' ).children();
-
-        assert.ok( µ.isArray( children ), 'returns an array' );
-        assert.ok( children[0].type === '[object Microbe]', 'full of microbes' );
-        assert.deepEqual( µ( '.example--class' )[0].children[0], children[0][0], 'the correct children' );
-
-
-        var $Div = $( 'div' ), µDiv = µ( 'div' );
-        buildTest(
-        'µDiv.children()', function()
-        {
-            µDiv.children();
-        },
-
-        '$Div for loop', function()
-        {
-            var res = new Array( $Div.length );
-            for ( var i = 0, lenI = $Div.length; i < lenI; i++ )
-            {
-                res[ i ] = $( $Div[ i ].children );
-            }
-
-            return res;
-        } );
-    });
-
-
-    /**
-     * µ childrenFlat tests
-     *
-     * @test    childrenFlat exists
-     * @test    childrenFlat returns an array
-     * @test    with itself removed
-     * @test    that are correct
-     */
-    QUnit.test( '.childrenFlat()', function( assert )
-    {
-        assert.ok( µ().childrenFlat, 'exists' );
-
-        var childrenFlat = µ( '.example--class' ).childrenFlat();
-
-        assert.ok( childrenFlat.type === '[object Microbe]', 'returns an microbe' );
-
-        var nodeChildren = Array.prototype.slice.call( µ( '.example--class' )[0].children );
-
-        assert.equal( childrenFlat.length, nodeChildren.length, 'correct number of elements' );
-
-        var $Div = $( 'div' ), µDiv = µ( 'div' );
-        buildTest(
-        'µDiv.childrenFlat()', function()
-        {
-            µDiv.childrenFlat();
-        },
-
-        '$Div.children()', function()
-        {
-            $Div.children();
-        } );
-    });
-
-
-    /**
      * µ css tests
      *
      * @test    css exists
@@ -217,7 +148,7 @@ module.exports = function( buildTest )
         assert.equal( µTarget[0].style.backgroundColor, 'rgb(255, 0, 0)', 'css set' );
 
         var cssGotten = µTarget.css( 'background-color' );
-        assert.ok( µ.isArray( cssGotten ), 'css get returns an array' );
+        assert.ok( Array.isArray( cssGotten ), 'css get returns an array' );
         assert.ok( typeof cssGotten[0] === 'string', 'full of strings' );
         assert.equal( cssGotten.length, µTarget.length, 'correct amount of results' );
         assert.equal( cssGotten[0], 'rgb(255, 0, 0)', 'correct result' );
@@ -437,7 +368,7 @@ module.exports = function( buildTest )
         assert.equal( µTarget[0].innerHTML, 'text, yo', 'html set' );
 
         var htmlGotten = µTarget.html();
-        assert.ok( µ.isArray( htmlGotten ), 'html() returns an array' );
+        assert.ok( Array.isArray( htmlGotten ), 'html() returns an array' );
         assert.ok( typeof htmlGotten[0] === 'string', 'full of strings' );
 
         assert.equal( htmlGotten.length, µTarget.length, 'correct amount of results' );
@@ -497,7 +428,7 @@ module.exports = function( buildTest )
         } );
     });
 
-    
+
     /**
      * µ map tests
      *
@@ -711,90 +642,6 @@ module.exports = function( buildTest )
 
 
     /**
-     * µ siblings tests
-     *
-     * @test    siblings exists
-     * @test    siblings returns an array
-     * @test    full of microbes
-     * @test    with itself removed
-     * @test    that are correct
-     */
-    QUnit.test( '.siblings()', function( assert )
-    {
-        assert.ok( µ().siblings, 'exists' );
-
-        var siblings = µ( '.example--class' ).siblings();
-
-        assert.ok( µ.isArray( siblings ), 'returns an array' );
-        assert.ok( siblings[0].type === '[object Microbe]', 'full of microbes' );
-
-        var nodeChildren = Array.prototype.slice.call( µ( '.example--class' )[0].parentNode.children );
-
-        assert.equal( siblings[0].indexOf( µ( '.example--class' )[0] ), -1, 'removed self' );
-        assert.equal( siblings[0].length, nodeChildren.length - 1, 'correct number of elements' );
-
-        var $Div = $( 'div' ), µDiv = µ( 'div' );
-        buildTest(
-        'µDiv.siblings()', function()
-        {
-            µDiv.siblings();
-        },
-
-        '$Div for loop', function()
-        {
-            var res = new Array( $Div.length );
-            for ( var i = 0, lenI = $Div.length; i < lenI; i++ )
-            {
-                res[ i ] = $( $Div[ i ] ).siblings();
-            }
-
-            return res;
-        } );
-    });
-
-
-    /**
-     * µ siblingsFlat tests
-     *
-     * @test    siblingsFlat exists
-     * @test    siblingsFlat returns an array
-     * @test    with itself removed
-     * @test    that are correct
-     */
-    QUnit.test( '.siblingsFlat()', function( assert )
-    {
-        assert.ok( µ().siblingsFlat, 'exists' );
-
-        var siblingsFlat = µ( '.example--class' ).siblingsFlat();
-
-        assert.ok( siblingsFlat.type === '[object Microbe]', 'returns an microbe' );
-
-        var nodeChildren = Array.prototype.slice.call( µ( '.example--class' )[0].parentNode.children );
-
-        assert.equal( siblingsFlat.indexOf( µ( '.example--class' )[0] ), -1, 'removed self' );
-        assert.equal( siblingsFlat.length, nodeChildren.length - 1, 'correct number of elements' );
-
-        var prev = µ( '#qunit' )[0].prevElementSibling;
-        var next = µ( '#qunit' )[0].nextElementSibling;
-
-        assert.deepEqual( prev, µ( '#qunit' ).siblingsFlat( 'prev' )[0], 'siblingsFlat( \'prev\' ) gets previous element' );
-        assert.deepEqual( next, µ( '#qunit' ).siblingsFlat( 'next' )[0], 'siblingsFlat( \'next\' ) gets next element' );
-
-        var $Div = $( 'div' ), µDiv = µ( 'div' );
-        buildTest(
-        'µDiv.siblingsFlat()', function()
-        {
-            µDiv.siblingsFlat();
-        },
-
-        '$Div.siblings()', function()
-        {
-            $Div.siblings();
-        } );
-    });
-
-
-    /**
      * µ text tests
      *
      * @test    text exists
@@ -826,7 +673,7 @@ module.exports = function( buildTest )
         assert.equal( _text, 'text, yo', 'text set' );
 
         var textGotten = µTarget.text();
-        assert.ok( µ.isArray( textGotten ), 'text() get returns an array' );
+        assert.ok( Array.isArray( textGotten ), 'text() get returns an array' );
         assert.ok( typeof textGotten[0] === 'string', 'full of strings' );
 
         assert.equal( textGotten.length, µTarget.length, 'correct amount of results' );

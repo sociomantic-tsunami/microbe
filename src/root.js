@@ -11,6 +11,7 @@ module.exports = function( Microbe )
 {
     'use strict';
 
+    window.Promise  = window.Promise || require( 'promise' );
     var Types       = require( './utils/types' );
 
     /**
@@ -533,7 +534,7 @@ module.exports = function( Microbe )
      * ## xyzzy
      *
      * nothing happens
-     * 
+     *
      * https://en.wikipedia.org/wiki/Xyzzy_(computing)
      *
      * @return _void_ */

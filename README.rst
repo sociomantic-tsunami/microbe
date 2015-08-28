@@ -100,6 +100,12 @@ We gladly accept and review any pull-requests. Feel free! :heart:
 Change log
 ==========
 
+0.4.1
+~~~~~
+
++ cross browser compatability fixes
+
+
 0.4.0
 ~~~~~
 

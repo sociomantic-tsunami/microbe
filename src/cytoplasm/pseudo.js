@@ -110,7 +110,7 @@ module.exports = function( Cytoplasm )
                 {
                     next = pseudo( self, _selectors[ i ], _scope, _build );
 
-                    for ( var i = 0, lenI = next.length; i < lenI; i++ ) 
+                    for ( var i = 0, lenI = next.length; i < lenI; i++ )
                     {
                         if ( Array.prototype.indexOf.call( resArray, next[ i ] ) === -1 )
                         {
@@ -181,7 +181,7 @@ module.exports = function( Cytoplasm )
                 if ( filter[ 0 ] === '~' )
                 {
                     obj = obj.siblingsFlat();
-                    connect = true; 
+                    connect = true;
                 }
                 else if ( filter[ 0 ] === '+' )
                 {

@@ -12,6 +12,7 @@ var indexOf     = Array.prototype.indexOf;
 module.exports = function( Cytoplasm )
 {
     'use strict';
+
     /**
      * ## _contains
      *
@@ -70,17 +71,17 @@ module.exports = function( Cytoplasm )
             {
                 method = this.matches.__matchesMethod = 'matches';
             }
-            else if ( el[ 0 ].msMatchSelector )
+            else if ( el[ 0 ].msMatchesSelector )
             {
-                method = this.matches.__matchesMethod = 'msMatchSelector';
+                method = this.matches.__matchesMethod = 'msMatchesSelector';
             }
-            else if ( el[ 0 ].mozMatchSelector )
+            else if ( el[ 0 ].mozMatchesSelector )
             {
-                method = this.matches.__matchesMethod = 'mozMatchSelector';
+                method = this.matches.__matchesMethod = 'mozMatchesSelector';
             }
-            else if ( el[ 0 ].webkitMatchSelector )
+            else if ( el[ 0 ].webkitMatchesSelector )
             {
-                method = this.matches.__matchesMethod = 'webkitMatchSelector';
+                method = this.matches.__matchesMethod = 'webkitMatchesSelector';
             }
         }
 
@@ -91,6 +92,56 @@ module.exports = function( Cytoplasm )
         }
 
         return isArray ? resArray : resArray[ 0 ];
+    };
+
+
+
+
+    /**
+     * ## children
+     *
+     * Gets a microbe of all the given element's children
+     *
+     * @return _Array_  array of microbes (value)
+     */
+    Cytoplasm.core.children = function()
+    {
+        var i, len, childrenArray = new Array( this.length );
+
+        for ( i = 0, len = this.length; i < len; i++ )
+        {
+            childrenArray[ i ] = this.constructor( this[ i ].children );
+        }
+
+        return childrenArray;
+    };
+
+
+    /**
+     * ## childrenFlat
+     *
+     * Gets an microbe of all children of all element's given
+     *
+     * @return _Microbe_ value array of combined children
+     */
+    Cytoplasm.core.childrenFlat = function( direction )
+    {
+        var arr, i, len, childrenArray = [];
+
+        for ( i = 0, len = this.length; i < len; i++ )
+        {
+            arr = this[ i ].children;
+
+            for ( var j = 0, lenJ = arr.length; j < lenJ; j++ )
+            {
+                if ( childrenArray.indexOf( arr[ j ] ) === -1 )
+                {
+                    childrenArray.push( arr[ j ] );
+                }
+            }
+        }
+
+        return this.constructor( childrenArray );
     };
 
 
@@ -139,18 +190,15 @@ module.exports = function( Cytoplasm )
                 {
                     var resArray = [], _selector;
                     _selector = i === 0 ? _f[ 0 ] : ':' + _f[ 0 ];
-
                     if ( _selector !== '' )
                     {
                         if ( _f[ 1 ] !== '' )
                         {
                             _selector += '(' + _f[ 1 ] + ')';
                         }
-
                         for ( var j = 0, lenJ = _self.length; j < lenJ; j++ )
                         {
                             _el = _self[ j ];
-
                             if ( Cytoplasm.matches( _el, _selector ) === true )
                             {
                                 resArray.push( _el );
@@ -352,6 +400,106 @@ module.exports = function( Cytoplasm )
         }
 
         return new Cytoplasm( parentArray );
+    };
+
+
+    /**
+     * ## siblings
+     *
+     * Gets an microbe of all of each given element's siblings
+     *
+     * @return _Array_ array of microbes (value)
+     */
+    Cytoplasm.core.siblings = function()
+    {
+        var _siblings = function( _elm )
+        {
+            var res     = [];
+            var sibling = _elm.parentNode.firstElementChild;
+            for ( ; sibling; )
+            {
+                if ( sibling !== _elm )
+                {
+                    res.push( sibling );
+                }
+                sibling = sibling.nextElementSibling;
+                if ( !sibling )
+                {
+                    return res;
+                }
+            }
+        };
+
+        var i, len, siblingArray = new Array( this.length );
+
+        for ( i = 0, len = this.length; i < len; i++ )
+        {
+            siblingArray[ i ] = this.constructor( _siblings( this[ i ] ) );
+        }
+
+        return siblingArray;
+    };
+
+
+    /**
+     * ## siblingsFlat
+     *
+     * Gets an microbe of all siblings of all element's given. 'next' and 'prev'
+     * passed as direction return only the next or previous siblings of each element
+     *
+     * @param {String} direction direction modifier (optional)
+     *
+     * @return _Microbe_ value array of combined siblings
+     */
+    Cytoplasm.core.siblingsFlat = function( direction )
+    {
+        var _siblings = function( _elm )
+        {
+            if ( !direction )
+            {
+                var res     = [];
+                var sibling = _elm.parentNode.firstElementChild;
+                for ( ; sibling; )
+                {
+                    if ( sibling !== _elm )
+                    {
+                        res.push( sibling );
+                    }
+                    sibling = sibling.nextElementSibling;
+                    if ( !sibling )
+                    {
+                        return res;
+                    }
+                }
+            }
+            else if ( direction === 'next' )
+            {
+                var next = _elm.nextElementSibling;
+                return next ? [ next ] : [];
+            }
+            else if ( direction === 'prev' )
+            {
+                var prev = _elm.prevElementSibling;
+                return prev ? [ prev ] : [];
+            }
+        };
+
+        var arr, i, len, siblingArray = [];
+
+        for ( i = 0, len = this.length; i < len; i++ )
+        {
+            arr = _siblings( this[ i ] );
+
+            for ( var j = 0, lenJ = arr.length; j < lenJ; j++ )
+            {
+                if ( siblingArray.indexOf( arr[ j ] ) === -1 )
+                {
+                    siblingArray.push( arr[ j ] );
+                }
+            }
+        }
+
+        return this.constructor( siblingArray );
     };
 
 

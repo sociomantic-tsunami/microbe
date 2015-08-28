@@ -1,4 +1,6 @@
 /* global document, window, µ, $, QUnit, Benchmark, test  */
+var indexOf = Array.prototype.indexOf;
+
 module.exports = function( buildTest )
 {
     QUnit.module( 'cytoplasm/utils.js' );
@@ -36,6 +38,79 @@ module.exports = function( buildTest )
         assert.equal( µ.matches( qunit, '#qunit' ), true, 'accepts an element' );
 
         buildTest( 'No comparison available.' );
+    });
+
+
+    /**
+     * µ children tests
+     *
+     * @test    children exists
+     * @test    children returns an array
+     * @test    full of microbes
+     * @test    that are correct
+     */
+    QUnit.test( '.children()', function( assert )
+    {
+        assert.ok( µ().children, 'exists' );
+
+        var children = µ( '.example--class' ).children();
+
+        assert.ok( Array.isArray( children ), 'returns an array' );
+        assert.ok( children[0].type === '[object Microbe]', 'full of microbes' );
+        assert.deepEqual( µ( '.example--class' )[0].children[0], children[0][0], 'the correct children' );
+
+
+        var $Div = $( 'div' ), µDiv = µ( 'div' );
+        buildTest(
+        'µDiv.children()', function()
+        {
+            µDiv.children();
+        },
+
+        '$Div for loop', function()
+        {
+            var res = new Array( $Div.length );
+            for ( var i = 0, lenI = $Div.length; i < lenI; i++ )
+            {
+                res[ i ] = $( $Div[ i ].children );
+            }
+
+            return res;
+        } );
+    });
+
+
+    /**
+     * µ childrenFlat tests
+     *
+     * @test    childrenFlat exists
+     * @test    childrenFlat returns an array
+     * @test    with itself removed
+     * @test    that are correct
+     */
+    QUnit.test( '.childrenFlat()', function( assert )
+    {
+        assert.ok( µ().childrenFlat, 'exists' );
+
+        var childrenFlat = µ( '.example--class' ).childrenFlat();
+
+        assert.ok( childrenFlat.type === '[object Microbe]', 'returns an microbe' );
+
+        var nodeChildren = Array.prototype.slice.call( µ( '.example--class' )[0].children );
+
+        assert.equal( childrenFlat.length, nodeChildren.length, 'correct number of elements' );
+
+        var $Div = $( 'div' ), µDiv = µ( 'div' );
+        buildTest(
+        'µDiv.childrenFlat()', function()
+        {
+            µDiv.childrenFlat();
+        },
+
+        '$Div.children()', function()
+        {
+            $Div.children();
+        } );
     });
 
 
@@ -164,7 +239,7 @@ module.exports = function( buildTest )
         } );
     });
 
-    
+
     /**
      * µ last tests
      *
@@ -231,6 +306,90 @@ module.exports = function( buildTest )
         '$Divs.parent()', function()
         {
             $Divs.parent();
+        } );
+    });
+
+
+    /**
+     * µ siblings tests
+     *
+     * @test    siblings exists
+     * @test    siblings returns an array
+     * @test    full of microbes
+     * @test    with itself removed
+     * @test    that are correct
+     */
+    QUnit.test( '.siblings()', function( assert )
+    {
+        assert.ok( µ().siblings, 'exists' );
+
+        var siblings = µ( '.example--class' ).siblings();
+
+        assert.ok( Array.isArray( siblings ), 'returns an array' );
+        assert.ok( siblings[0].type === '[object Microbe]', 'full of microbes' );
+
+        var nodeChildren = Array.prototype.slice.call( µ( '.example--class' )[0].parentNode.children );
+
+        assert.equal( indexOf.call( siblings[0], µ( '.example--class' )[0] ), -1, 'removed self' );
+        assert.equal( siblings[0].length, nodeChildren.length - 1, 'correct number of elements' );
+
+        var $Div = $( 'div' ), µDiv = µ( 'div' );
+        buildTest(
+        'µDiv.siblings()', function()
+        {
+            µDiv.siblings();
+        },
+
+        '$Div for loop', function()
+        {
+            var res = new Array( $Div.length );
+            for ( var i = 0, lenI = $Div.length; i < lenI; i++ )
+            {
+                res[ i ] = $( $Div[ i ] ).siblings();
+            }
+
+            return res;
+        } );
+    });
+
+
+    /**
+     * µ siblingsFlat tests
+     *
+     * @test    siblingsFlat exists
+     * @test    siblingsFlat returns an array
+     * @test    with itself removed
+     * @test    that are correct
+     */
+    QUnit.test( '.siblingsFlat()', function( assert )
+    {
+        assert.ok( µ().siblingsFlat, 'exists' );
+
+        var siblingsFlat = µ( '.example--class' ).siblingsFlat();
+
+        assert.ok( siblingsFlat.type === '[object Microbe]', 'returns an microbe' );
+
+        var nodeChildren = Array.prototype.slice.call( µ( '.example--class' )[0].parentNode.children );
+
+        assert.equal( indexOf.call( siblingsFlat, µ( '.example--class' )[0] ), -1, 'removed self' );
+        assert.equal( siblingsFlat.length, nodeChildren.length - 1, 'correct number of elements' );
+
+        var prev = µ( '#qunit' )[0].prevElementSibling;
+        var next = µ( '#qunit' )[0].nextElementSibling;
+
+        assert.deepEqual( prev, µ( '#qunit' ).siblingsFlat( 'prev' )[0], 'siblingsFlat( \'prev\' ) gets previous element' );
+        assert.deepEqual( next, µ( '#qunit' ).siblingsFlat( 'next' )[0], 'siblingsFlat( \'next\' ) gets next element' );
+
+        var $Div = $( 'div' ), µDiv = µ( 'div' );
+        buildTest(
+        'µDiv.siblingsFlat()', function()
+        {
+            µDiv.siblingsFlat();
+        },
+
+        '$Div.siblings()', function()
+        {
+            $Div.siblings();
         } );
     });
 

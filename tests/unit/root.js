@@ -459,6 +459,8 @@ module.exports = function( buildTest )
      */
     QUnit.test( '.type()', function( assert )
     {
+        window.Promise     = window.Promise || require( 'promise' );
+
         assert.ok( µ.type, 'exists' );
         assert.equal( µ.type( [] ), 'array', 'checks arrays' );
         assert.equal( µ.type( 2 ), 'number', 'checks numbers' );

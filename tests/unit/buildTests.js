@@ -4,7 +4,7 @@
 /**
  * benchmark tests
  *
- * this function is weird.  it must mix between µ and $ so it can 
+ * this function is weird.  it must mix between µ and $ so it can
  * test µ without all modules present
  *
  * @param  {str}                    _str1               test 1 name

@@ -12,7 +12,7 @@
 'use strict';
 
 var _type       = '[object Microbe]';
-var _version    = '0.4.0';
+var _version    = '0.4.1';
 
 var Microbe = function( selector, scope, elements )
 {
@@ -20,7 +20,6 @@ var Microbe = function( selector, scope, elements )
 };
 
 Microbe.core    = Microbe.core || {};
-Microbe.version = _version;
 Microbe.type    = _type;
 
 
@@ -33,5 +32,5 @@ require( './events' )( Microbe );
 
 
 require( './cytoplasm/cytoplasm' )( Microbe, _type, _version );
-
+Microbe.version = Microbe.core.__init__.prototype.version = _version;
 module.exports = Microbe.core.constructor = Microbe;

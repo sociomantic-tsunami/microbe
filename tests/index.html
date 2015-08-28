@@ -49,7 +49,7 @@
     <script src="../dist/microbe.js"></script>
     <script type="text/javascript">
         /* global µ */
-        µ( 'title' ).text( 'µ - ' + µ.version + ' QUnit' );
+        document.getElementsByTagName( 'title' )[0].innerHTML = 'µ - ' + µ.version + ' QUnit';
     </script>
     <script src="../node_modules/qunitjs/qunit/qunit.js"></script>
     <script src="vendor/benchmark.js"></script>
