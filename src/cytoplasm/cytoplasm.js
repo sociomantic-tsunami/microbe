@@ -146,8 +146,7 @@ module.exports = function( Cytoplasm, _type )
                     if ( _s.indexOf( '.' ) === -1 )
                     {
                         var id = document.getElementById( _s.slice( 1 ) );
-
-                        return id === null ? _build( [] ) : _build( [ id ], self );
+                        return id === null ? _build( [], self ) : _build( [ id ], self );
                     }
                     break;
                 case '.':
