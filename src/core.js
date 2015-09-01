@@ -421,7 +421,7 @@ module.exports = function( Microbe )
                return _getHtml( _value );
             }
 
-            if ( _value || _value === '' )
+            if ( _value || _value === '' || _value === 0 )
             {
                 var _setHtml = function( _elm )
                 {
@@ -647,7 +647,7 @@ module.exports = function( Microbe )
             };
             return function( _value )
             {
-                if ( _value || _value === '' )
+                if ( _value || _value === '' || _value === 0 )
                 {
                     var i, len;
                     for ( i = 0, len = this.length; i < len; i++ )

@@ -1,4 +1,4 @@
-Microbe - 0.4.0
+Microbe - 0.4.2
 ===============
 
 Microbe (µ) - a javascript library
@@ -99,6 +99,13 @@ We gladly accept and review any pull-requests. Feel free! :heart:
 
 Change log
 ==========
+
+0.4.2
+~~~~~
+
++ fixed a bug in setting falsey values into text/html
++ fixed a bug in selection by id
+
 
 0.4.1
 ~~~~~

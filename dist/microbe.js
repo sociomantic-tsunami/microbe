@@ -1,12 +1,12 @@
 /*!
- * Microbe JavaScript Library v0.4.1
+ * Microbe JavaScript Library v0.4.2
  * http://m.icro.be
  *
  * Copyright 2014-2015 Sociomantic Labs and other contributors
  * Released under the MIT license
  * http://m.icro.be/license
  *
- * Date: Sat Aug 29 2015
+ * Date: Tue Sep 01 2015
  */
 !function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.µ=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /**
@@ -23,7 +23,7 @@
 'use strict';
 
 var _type       = '[object Microbe]';
-var _version    = '0.4.1';
+var _version    = '0.4.2';
 
 var Microbe = function( selector, scope, elements )
 {
@@ -2414,7 +2414,7 @@ module.exports = function( Microbe )
                return _getHtml( _value );
             }
 
-            if ( _value || _value === '' )
+            if ( _value || _value === '' || _value === 0 )
             {
                 var _setHtml = function( _elm )
                 {
@@ -2640,7 +2640,7 @@ module.exports = function( Microbe )
             };
             return function( _value )
             {
-                if ( _value || _value === '' )
+                if ( _value || _value === '' || _value === 0 )
                 {
                     var i, len;
                     for ( i = 0, len = this.length; i < len; i++ )
@@ -2744,13 +2744,13 @@ module.exports = function( Microbe )
  *
  * @package Cytoplasm
  */
-module.exports = function( Cytoplasm, _type )
+module.exports = function( _c, _type )
 {
     'use strict';
 
     var trigger, _shortSelector;
 
-    var selectorRegex = Cytoplasm.prototype.__selectorRegex =  /(?:[\s]*\.([\w-_\.]+)|#([\w-_]+)|([^#\.:<][\w-_]*)|(<[\w-_#\.]+>)|:([^#\.<][\w-()_]*))/g;
+    var selectorRegex = _c.prototype.__selectorRegex =  /(?:[\s]*\.([\w-_\.]+)|#([\w-_]+)|([^#\.:<][\w-_]*)|(<[\w-_#\.]+>)|:([^#\.<][\w-()_]*))/g;
 
     // TODO: Check if we hit the duck
 
@@ -2927,7 +2927,7 @@ module.exports = function( Cytoplasm, _type )
      *
      * @return _Cytoplasm_
      */
-    var Init = Cytoplasm.core.__init__ =  function( _selector, _scope, _elements )
+    var Init = _c.core.__init__ =  function( _selector, _scope, _elements )
     {
         var res;
         if ( !_scope )
@@ -2970,7 +2970,6 @@ module.exports = function( Cytoplasm, _type )
                         res.length++;
                     }
                 }
-                // res.merge( new Init( _selector, _scope[ n ] ), true );
             }
 
             return res;
@@ -3062,13 +3061,13 @@ module.exports = function( Cytoplasm, _type )
         return _build( _scope.querySelectorAll( _selector ), this );
     };
 
-    Cytoplasm.core.type                 = _type;
-    Cytoplasm.core.__init__.prototype   = Cytoplasm.core;
+    _c.core.type                 = _type;
+    _c.core.__init__.prototype   = _c.core;
 
-    require( './utils' )( Cytoplasm );
-    require( './pseudo' )( Cytoplasm );
+    require( './utils' )( _c );
+    require( './pseudo' )( _c );
 
-    var _pseudo = Cytoplasm.constructor.pseudo;
+    var _pseudo = _c.constructor.pseudo;
 };
 
 },{"./pseudo":14,"./utils":15}],14:[function(require,module,exports){

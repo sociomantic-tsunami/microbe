@@ -6,13 +6,13 @@
  *
  * @package Cytoplasm
  */
-module.exports = function( Cytoplasm, _type )
+module.exports = function( _c, _type )
 {
     'use strict';
 
     var trigger, _shortSelector;
 
-    var selectorRegex = Cytoplasm.prototype.__selectorRegex =  /(?:[\s]*\.([\w-_\.]+)|#([\w-_]+)|([^#\.:<][\w-_]*)|(<[\w-_#\.]+>)|:([^#\.<][\w-()_]*))/g;
+    var selectorRegex = _c.prototype.__selectorRegex =  /(?:[\s]*\.([\w-_\.]+)|#([\w-_]+)|([^#\.:<][\w-_]*)|(<[\w-_#\.]+>)|:([^#\.<][\w-()_]*))/g;
 
     // TODO: Check if we hit the duck
 
@@ -189,7 +189,7 @@ module.exports = function( Cytoplasm, _type )
      *
      * @return _Cytoplasm_
      */
-    var Init = Cytoplasm.core.__init__ =  function( _selector, _scope, _elements )
+    var Init = _c.core.__init__ =  function( _selector, _scope, _elements )
     {
         var res;
         if ( !_scope )
@@ -232,7 +232,6 @@ module.exports = function( Cytoplasm, _type )
                         res.length++;
                     }
                 }
-                // res.merge( new Init( _selector, _scope[ n ] ), true );
             }
 
             return res;
@@ -324,11 +323,11 @@ module.exports = function( Cytoplasm, _type )
         return _build( _scope.querySelectorAll( _selector ), this );
     };
 
-    Cytoplasm.core.type                 = _type;
-    Cytoplasm.core.__init__.prototype   = Cytoplasm.core;
+    _c.core.type                 = _type;
+    _c.core.__init__.prototype   = _c.core;
 
-    require( './utils' )( Cytoplasm );
-    require( './pseudo' )( Cytoplasm );
+    require( './utils' )( _c );
+    require( './pseudo' )( _c );
 
-    var _pseudo = Cytoplasm.constructor.pseudo;
+    var _pseudo = _c.constructor.pseudo;
 };
