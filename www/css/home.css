@@ -5,6 +5,12 @@ header
 }
 
 
+#microbe
+{
+    margin:                             20px 0;
+}
+
+
 .github
 {
     width:                              50px;
@@ -22,7 +28,7 @@ header
 .home--slogan
 {
     text-align:                         center;
-    margin-bottom:                      50px;
+    margin-bottom:                      30px;
     color:                              #aaa;
 }
 
@@ -31,6 +37,13 @@ header
 {
     text-align:                         center;
     margin-bottom:                      40px
+}
+
+
+.home--description li
+{
+    margin:                             3px 0;
+    font-size:                          16px;
 }
 
 
@@ -44,6 +57,12 @@ pre
 {
   text-align:                           left;
   margin-left:                          25%;
+}
+
+
+.report--abuse
+{
+    font-size:                          13px;
 }
 
 

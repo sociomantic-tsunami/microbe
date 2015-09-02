@@ -1,36 +1,32 @@
-Microbe - 0.4.2
-===============
+µ - Microbe - 0.4.2
+===================
 
-Microbe (µ) - a javascript library
+microbe is a javascript library to aid in DOM manipulation as well as facilitating events, object observation, and data binding.
 
-Microbe is a javascript library to aid in DOM manipulation as well as facilitating
-events, object observation, and data binding.
+microbe aims to be modular and expandable. It’s separated into several modules:
 
-The next goal being to convert the library to ES6 to be ready for the future.
++ Selector engine with CSS4 selector support and base functions (find, filter, siblings, children, … )
 
-Microbe aims to be somewhat general and expandable.  It's separated
-into several categories:
++ Core helpers (class, extend, text, attributes … )
 
-+ Core helpers (class manipulation, find, filter, etc )
++ DOM helpers (append, insertAfter, prepend … )
 
-- Extended CSS4 selector support
-
-+ DOM helpers such as appending and removing things from the DOM, getting parents and children, and class, attribute, and css manipulation,
-
-- Types (isUnidentified, isArray, isWindow, etc)
++ Type helpers(isUnidentified, isArray, isWindow, … )
 
 + HTTP helpers making use of Promises (get, post, … )
 
-- Object Observe watches objects for changes.  It can also watch itself for changes in element get/set data
++ Object.observe watches objects for changes. It can also watch itself for changes in element get/set data
 
-+ Events binding and emitting custom events
++ Events - binding and emitting custom events
 
-- See the full list at http://m.icro.be or in the wiki https://github.com/sociomantic/microbe/wiki
-
-Microbes are always array like for consistency and can be extended and merged very easily.
++ See the full list `in the docs <http://m.icro.be/doc>`_
 
 
-Don’t hesitate to file issues and features requests!  Or change things yourself and send a pull request.
+microbes are always array-like for consistency and can be extended and merged very easily.
+
+
+Don’t hesitate to file issues and features requests! Or change things yourself and send a pull request.
+
 
 
 Usage
@@ -97,14 +93,23 @@ Contributing
 We gladly accept and review any pull-requests. Feel free! :heart:
 
 
+This project adheres to the `Open Code of Conduct <http://todogroup.org/opencodeofconduct/#microbe.js/abuse@m.icro.be>`_. By participating, you are expected to honor this code.
+
+http://m.icro.be/code-of-conduct/
+
+Need to report something? abuse@m.icro.be
+
+
 Change log
 ==========
 
 0.4.2
 ~~~~~
 
-+ fixed a bug in setting falsey values into text/html
-+ fixed a bug in selection by id
++ fixed bugs with setting falsey values into text/html
++ fixed bugs with selection by id
++ updated copy on site and readme
++ added code of conduct and contact email
 
 
 0.4.1
