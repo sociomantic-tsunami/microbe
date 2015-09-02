@@ -19,7 +19,7 @@ microbe aims to be modular and expandable. It’s separated into several modules
 
 + Events - binding and emitting custom events
 
-+ See the full list `in the docs <http://m.icro.be/doc>`_
++ See the full list [in the docs](http://m.icro.be/doc)
 
 
 microbes are always array-like for consistency and can be extended and merged very easily.
@@ -32,7 +32,7 @@ Don’t hesitate to file issues and features requests! Or change things yourself
 Usage
 =====
 
-- ``require( 'microbejs' );``
+- `require( 'microbejs' );`
     or
 - include microbe.js or microbe.min.js in a script tag
 
@@ -40,35 +40,36 @@ Usage
 Example use
 ===========
 
-.. code:: javascript
 
-    // all divs on the page
-    var µDivs = µ( 'div' ) ;
+```javscript
+// all divs on the page
+var µDivs = µ( 'div' ) ;
 
-    // create a div with the class example--class
-    var newDiv = µ( '<div.example--class>' );
+// create a div with the class example--class
+var newDiv = µ( '<div.example--class>' );
 
-    // all divs get a newDiv or a clone of newDiv inserted into the DOM after them
-    µDivs.insertAfter( newDiv );
+// all divs get a newDiv or a clone of newDiv inserted into the DOM after them
+µDivs.insertAfter( newDiv );
 
-    // watches the class of each div
-    µDivs.observe( 'class', function( e )
-    {
-        console.log( 'your class changed' );
-    } );
+// watches the class of each div
+µDivs.observe( 'class', function( e )
+{
+    console.log( 'your class changed' );
+} );
 
-    // gives the class example--class to each div also triggers the observe fuctions
-    µDivs.addClass( 'example--class' );
+// gives the class example--class to each div also triggers the observe fuctions
+µDivs.addClass( 'example--class' );
 
-    // sets a custom event watch
-    µDivs.on( 'toTheMoon', function( e )
-    {
-        console.log( e.detail );
-    } );
+// sets a custom event watch
+µDivs.on( 'toTheMoon', function( e )
+{
+    console.log( e.detail );
+} );
 
-    // emits a custom event to all elements in µDivs with a custom data packet.
-    // triggers the event listener to show the sent data
-    µDivs.emit( 'toTheMoon', { moon : 'close' } );
+// emits a custom event to all elements in µDivs with a custom data packet.
+// triggers the event listener to show the sent data
+µDivs.emit( 'toTheMoon', { moon : 'close' } );
+```
 
 
 Dev Installation
@@ -76,14 +77,14 @@ Dev Installation
 
 -  Clone repo
 -  Make sure npm is installed
-- ``npm install``
-- ``npm start``
+- `npm install`
+- `npm start`
 
 
 Generating www docs
 ===================
 
-- ``npm run docs``
+- `npm run docs`
 (this command will watch for changes)
 
 
@@ -93,11 +94,11 @@ Contributing
 We gladly accept and review any pull-requests. Feel free! :heart:
 
 
-This project adheres to the `Open Code of Conduct <http://todogroup.org/opencodeofconduct/#microbe.js/abuse@m.icro.be>`_. By participating, you are expected to honor this code.
+This project adheres to the [Open Code of Conduct](http://todogroup.org/opencodeofconduct/#microbe.js/abuse@m.icro.be). By participating, you are expected to honor this code.
 
-http://m.icro.be/code-of-conduct/
+[http://m.icro.be/code-of-conduct/](http://m.icro.be/code-of-conduct/)
 
-Need to report something? abuse@m.icro.be
+Need to report something? [abuse@m.icro.be](abuse@m.icro.be)
 
 
 Change log
@@ -209,3 +210,4 @@ Change log
 
 
 No one should be using less than 0.3  Changes past that will be posted here.
+
