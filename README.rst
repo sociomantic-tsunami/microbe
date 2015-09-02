@@ -106,6 +106,7 @@ Change log
 0.4.2
 ~~~~~
 
++ upgraded tests
 + fixed bugs with setting falsey values into text/html
 + fixed bugs with selection by id
 + updated copy on site and readme

@@ -10,6 +10,32 @@ module.exports = function( buildTest )
      * @test    one body
      * @test    passes
      */
+    QUnit.test( 'wrap an empty set', function( assert )
+    {
+        var µBody = µ( [] );
+
+        assert.equal( µBody.length, 0, 'empty set' );
+        assert.equal( µBody[ 0 ], undefined, 'undefined 0' );
+
+        buildTest(
+        'µ( [] )', function()
+        {
+            return µ( [] );
+        },
+
+        '$( [] )', function()
+        {
+            return $( [] );
+        } );
+    });
+
+
+    /**
+     * µ init wrap element tests
+     *
+     * @test    one body
+     * @test    passes
+     */
     QUnit.test( 'wrap an element', function( assert )
     {
         var _body = document.getElementsByTagName( 'body' )[0];
@@ -73,6 +99,7 @@ module.exports = function( buildTest )
 
         assert.equal( µDiv.length, 1, 'one div' );
         assert.deepEqual( µDiv[ 0 ], _div, 'passes' );
+        assert.equal( µ( '.exarmple-classssss' ).length, 0, 'successfully fails' );
 
         buildTest(
         'µ( \'.example--class\' )', function()

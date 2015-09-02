@@ -47,12 +47,15 @@
   "dependencies": {},
   "keywords": [
     "microbe",
+    "microbejs",
     "dom",
     "javascript",
     "observe",
     "selector",
+    "engine",
     "css4",
     "http",
-    "event"
+    "event",
+    "class"
   ]
 }
