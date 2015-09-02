@@ -1,4 +1,4 @@
-µ - Microbe - 0.4.2
+µ - Microbe - 0.4.3
 ===================
 
 microbe is a javascript library to aid in DOM manipulation as well as facilitating events, object observation, and data binding.
@@ -104,8 +104,7 @@ Need to report something? [abuse@m.icro.be](abuse@m.icro.be)
 Change log
 ==========
 
-0.4.2
------
+#### 0.4.2
 
 + upgraded tests
 + fixed bugs with setting falsey values into text/html
@@ -114,14 +113,12 @@ Change log
 + added code of conduct and contact email
 
 
-0.4.1
------
+#### 0.4.1
 
 + cross browser compatability fixes
 
 
-0.4.0
------
+#### 0.4.0
 
 + namespace bug fixed in Observe Utils shim
 + selector engine abstracted
@@ -129,8 +126,7 @@ Change log
 + fixed a bug in find that left illegal whitespace
 
 
-0.3.9
------
+#### 0.3.9
 
 + speed fixes
 + automated version scaling in static pages
@@ -140,8 +136,7 @@ Change log
 + .root() removed; :root simplified
 
 
-0.3.8
------
+#### 0.3.8
 
 + many more comparative speed test
 + children and siblings speed fixes
@@ -150,8 +145,7 @@ Change log
 + fixed an issue in .match() that incorrectly detected forms as arrays
 
 
-0.3.7
------
+#### 0.3.7
 
 + speed fixes
 + extend updated
@@ -159,8 +153,7 @@ Change log
 + updated gulp file for inclusion of liscence
 
 
-0.3.4
------
+#### 0.3.4
 
 + small bug fixes
 + updated documantation and tests
@@ -169,8 +162,7 @@ Change log
 + updated find to include elements not in the dom
 
 
-0.3.3
------
+#### 0.3.3
 
 + more consistent documentation
 + more consistent output
@@ -183,8 +175,7 @@ Change log
 + many core speed fixes
 
 
-0.3.2
------
+#### 0.3.2
 
 + added debounce
 + added insertStyle
@@ -200,8 +191,7 @@ Change log
 + many documentation updates
 
 
-0.3.1
------
+#### 0.3.1
 
 + added pseudo selector support
 + added filter function
