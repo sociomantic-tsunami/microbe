@@ -690,7 +690,7 @@ module.exports = function( Microbe )
          *
          * @param {String} _class              class to add
          *
-         * @return {Microbe} reference of the original microbe
+         * @return _Microbe_ reference of the original microbe
          */
         toggleClass : (function()
         {

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>cytoplasm.utils.js</title>
+  <title>coreUtils.js</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "Library/WebServer/Documents/microbe//cytoplasm/cytoplasm.utils.js", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "Library/WebServer/Documents/microbe//cytoplasm/coreUtils.js", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../microbe.js"></script>
@@ -22,10 +22,10 @@
     <div id="tree"></div>
     <div id="headings">
       <div class="heading h2">
-        <a href="#_contains">_contains</a>
+        <a href="#children">children</a>
       </div>
       <div class="heading h2">
-        <a href="#matches">matches</a>
+        <a href="#childrenflat">childrenFlat</a>
       </div>
       <div class="heading h2">
         <a href="#filter">filter</a>
@@ -40,7 +40,13 @@
         <a href="#last">last</a>
       </div>
       <div class="heading h2">
-        <a href="#parent">Parent</a>
+        <a href="#parent">parent</a>
+      </div>
+      <div class="heading h2">
+        <a href="#siblings">siblings</a>
+      </div>
+      <div class="heading h2">
+        <a href="#siblingsflat">siblingsFlat</a>
       </div>
       <div class="heading h2">
         <a href="#splice">splice</a>
@@ -53,7 +59,7 @@
   <tbody>
       <tr>
         <td class="docs">
-          <h1>cytoplasm.utils.js</h1>
+          <h1>coreUtils.js</h1>
         </td>
         <td class="code highlight"></td>
       </tr>
@@ -70,11 +76,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Mouse Braun         <a href="&#x6D;&#97;&#105;&#x6C;&#x74;&#x6F;:&#x6D;&#x6F;&#x75;&#x73;e&#64;&#x73;&#x6F;&#99;&#105;&#x6F;&#x6D;&#97;&#110;t&#x69;&#99;&#46;&#99;&#111;m">&#x6D;&#x6F;&#x75;&#x73;e&#64;&#x73;&#x6F;&#99;&#105;&#x6F;&#x6D;&#97;&#110;t&#x69;&#99;&#46;&#99;&#111;m</a></span>
+      <span>Mouse Braun         <a href="&#109;a&#105;&#x6C;&#x74;&#111;:&#x6D;&#111;u&#x73;&#x65;&#x40;&#115;&#x6F;&#99;&#x69;&#111;&#x6D;&#97;&#x6E;&#x74;&#105;&#99;&#x2E;&#99;&#x6F;&#109;">&#x6D;&#111;u&#x73;&#x65;&#x40;&#115;&#x6F;&#99;&#x69;&#111;&#x6D;&#97;&#x6E;&#x74;&#105;&#99;&#x2E;&#99;&#x6F;&#109;</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Nicolas Brugneaux   <a href="&#109;&#97;&#x69;&#108;&#116;o:&#110;&#x69;&#x63;&#111;&#x6C;&#x61;&#115;&#46;&#98;&#114;&#117;&#103;n&#x65;&#x61;&#x75;&#120;&#64;&#x73;&#x6F;&#99;&#105;&#111;&#109;&#x61;&#110;&#x74;&#105;&#99;&#46;&#x63;&#x6F;&#x6D;">&#110;&#x69;&#x63;&#111;&#x6C;&#x61;&#115;&#46;&#98;&#114;&#117;&#103;n&#x65;&#x61;&#x75;&#120;&#64;&#x73;&#x6F;&#99;&#105;&#111;&#109;&#x61;&#110;&#x74;&#105;&#99;&#46;&#x63;&#x6F;&#x6D;</a></span>
+      <span>Nicolas Brugneaux   <a href="&#109;&#x61;&#105;&#x6C;&#116;o:&#110;i&#99;&#x6F;&#x6C;&#97;&#115;&#46;&#98;&#x72;&#117;&#103;&#x6E;&#101;a&#117;&#x78;&#x40;&#115;&#111;&#x63;&#105;&#x6F;&#x6D;&#x61;&#x6E;&#116;&#x69;&#99;&#46;&#x63;&#x6F;m">&#110;i&#99;&#x6F;&#x6C;&#97;&#115;&#46;&#98;&#x72;&#117;&#103;&#x6E;&#101;a&#117;&#x78;&#x40;&#115;&#111;&#x63;&#105;&#x6F;&#x6D;&#x61;&#x6E;&#116;&#x69;&#99;&#46;&#x63;&#x6F;m</a></span>
     </div>
     <div class="dox_tag_title">package</div>
     <div class="dox_tag_detail">
@@ -84,10 +90,12 @@
 </div>
         </td>
         <td class="code highlight"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">splice</span>      <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">splice</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">indexOf</span>     <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">;</span>
 
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">Cytoplasm</span> <span class="p">)</span>
 <span class="p">{</span>
     <span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+
 
 </pre></div>
         </td>
@@ -95,52 +103,36 @@
       <tr>
         <td class="docs"><div class="dox">
   <div class="summary">
-<div class="pilwrap" id="_contains">
+<div class="pilwrap" id="children">
   <h2>
-    <a href="#_contains" name="_contains" class="pilcrow">&#182;</a>
-    _contains
+    <a href="#children" name="children" class="pilcrow">&#182;</a>
+    children
   </h2>
 </div>
 
   </div>
-  <div class="body"><p>Checks if a given element is a child of _scope</p>
+  <div class="body"><p>Gets a microbe of all the given element's children</p>
   </div>
   <div class="details">
-    <div class="dox_tag_title">Params</div>
-    <div class="dox_tag_detail">
-      <span class="dox_tag_name">_el</span>
-      <span class="dox_type">Element</span>
-      <span>element to check</span>
-    </div>
-    <div class="dox_tag_detail">
-      <span class="dox_tag_name">_scope</span>
-      <span class="dox_type">Element</span>
-      <span>scope</span>
-    </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span><em>Boolean</em> whether _el is contained in the scope</span>
+      <span><em>Array</em>  array of microbes (value)</span>
     </div>
   </div>
 </div>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">Cytoplasm</span><span class="p">.</span><span class="nx">contains</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_el</span><span class="p">,</span> <span class="nx">_scope</span> <span class="p">)</span>
+    <span class="nx">Cytoplasm</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">children</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span>
     <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">parent</span> <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">len</span><span class="p">,</span> <span class="nx">childrenArray</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span> <span class="p">);</span>
 
-        <span class="k">while</span> <span class="p">(</span> <span class="nx">parent</span> <span class="o">!==</span> <span class="nb">document</span> <span class="o">&amp;&amp;</span> <span class="nx">parent</span> <span class="o">!==</span> <span class="nx">_scope</span> <span class="p">)</span>
+        <span class="k">for</span> <span class="p">(</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">len</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
         <span class="p">{</span>
-            <span class="nx">parent</span> <span class="o">=</span> <span class="nx">parent</span><span class="p">.</span><span class="nx">parentNode</span> <span class="o">||</span> <span class="nx">_scope</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">;</span>
+            <span class="nx">childrenArray</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">constructor</span><span class="p">(</span> <span class="k">this</span><span class="p">[</span> <span class="nx">i</span> <span class="p">].</span><span class="nx">children</span> <span class="p">);</span>
         <span class="p">}</span>
 
-        <span class="k">if</span> <span class="p">(</span> <span class="nx">parent</span> <span class="o">===</span> <span class="nb">document</span> <span class="p">)</span>
-        <span class="p">{</span>
-            <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
-        <span class="p">}</span>
-
-        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+        <span class="k">return</span> <span class="nx">childrenArray</span><span class="p">;</span>
     <span class="p">};</span>
 
 
@@ -151,74 +143,44 @@
       <tr>
         <td class="docs"><div class="dox">
   <div class="summary">
-<div class="pilwrap" id="matches">
+<div class="pilwrap" id="childrenflat">
   <h2>
-    <a href="#matches" name="matches" class="pilcrow">&#182;</a>
-    matches
+    <a href="#childrenflat" name="childrenflat" class="pilcrow">&#182;</a>
+    childrenFlat
   </h2>
 </div>
 
   </div>
-  <div class="body"><p>checks element an to see if they match a given css selector
-unsure if we actually need the webkitMatchSelector and mozMatchSelector
-<a href='http://caniuse.com/#feat=matchesselector'>http://caniuse.com/#feat=matchesselector</a></p>
+  <div class="body"><p>Gets an microbe of all children of all element's given</p>
   </div>
   <div class="details">
-    <div class="dox_tag_title">Params</div>
-    <div class="dox_tag_detail">
-      <span class="dox_tag_name">el</span>
-      <span class="dox_type">Mixed</span>
-      <span>element, microbe, or array of elements to match</span>
-    </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span><em>Booblean</em> matches or not</span>
+      <span><em>Microbe</em> value array of combined children</span>
     </div>
   </div>
 </div>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">Cytoplasm</span><span class="p">.</span><span class="nx">matches</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">el</span><span class="p">,</span> <span class="nx">selector</span> <span class="p">)</span>
+    <span class="nx">Cytoplasm</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">childrenFlat</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">direction</span> <span class="p">)</span>
     <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">method</span>  <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">matches</span><span class="p">.</span><span class="nx">__matchesMethod</span><span class="p">;</span>
-        <span class="kd">var</span> <span class="nx">notForm</span> <span class="o">=</span> <span class="p">(</span> <span class="k">typeof</span> <span class="nx">el</span> <span class="o">!==</span> <span class="s1">&#39;string&#39;</span> <span class="o">&amp;&amp;</span> <span class="o">!!</span><span class="p">(</span> <span class="nx">el</span><span class="p">.</span><span class="nx">length</span> <span class="p">)</span> <span class="o">&amp;&amp;</span>
-                        <span class="nx">el</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span> <span class="o">!==</span> <span class="s1">&#39;[object HTMLFormElement]&#39;</span> <span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">arr</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">len</span><span class="p">,</span> <span class="nx">childrenArray</span> <span class="o">=</span> <span class="p">[];</span>
 
-        <span class="kd">var</span> <span class="nx">isArray</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span> <span class="nx">el</span> <span class="p">)</span> <span class="o">||</span> <span class="nx">notForm</span> <span class="o">?</span> <span class="kc">true</span> <span class="o">:</span> <span class="kc">false</span><span class="p">;</span>
-
-        <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nx">isArray</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">notForm</span> <span class="p">)</span>
+        <span class="k">for</span> <span class="p">(</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">len</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
         <span class="p">{</span>
-            <span class="nx">el</span> <span class="o">=</span> <span class="p">[</span> <span class="nx">el</span> <span class="p">];</span>
-        <span class="p">}</span>
+            <span class="nx">arr</span> <span class="o">=</span> <span class="k">this</span><span class="p">[</span> <span class="nx">i</span> <span class="p">].</span><span class="nx">children</span><span class="p">;</span>
 
-        <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nx">method</span> <span class="o">&amp;&amp;</span> <span class="nx">el</span><span class="p">[</span> <span class="mi">0</span> <span class="p">]</span> <span class="p">)</span>
-        <span class="p">{</span>
-            <span class="k">if</span> <span class="p">(</span> <span class="nx">el</span><span class="p">[</span> <span class="mi">0</span> <span class="p">].</span><span class="nx">matches</span> <span class="p">)</span>
+            <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenJ</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">lenJ</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">)</span>
             <span class="p">{</span>
-                <span class="nx">method</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">matches</span><span class="p">.</span><span class="nx">__matchesMethod</span> <span class="o">=</span> <span class="s1">&#39;matches&#39;</span><span class="p">;</span>
-            <span class="p">}</span>
-            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">el</span><span class="p">[</span> <span class="mi">0</span> <span class="p">].</span><span class="nx">msMatchSelector</span> <span class="p">)</span>
-            <span class="p">{</span>
-                <span class="nx">method</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">matches</span><span class="p">.</span><span class="nx">__matchesMethod</span> <span class="o">=</span> <span class="s1">&#39;msMatchSelector&#39;</span><span class="p">;</span>
-            <span class="p">}</span>
-            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">el</span><span class="p">[</span> <span class="mi">0</span> <span class="p">].</span><span class="nx">mozMatchSelector</span> <span class="p">)</span>
-            <span class="p">{</span>
-                <span class="nx">method</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">matches</span><span class="p">.</span><span class="nx">__matchesMethod</span> <span class="o">=</span> <span class="s1">&#39;mozMatchSelector&#39;</span><span class="p">;</span>
-            <span class="p">}</span>
-            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">el</span><span class="p">[</span> <span class="mi">0</span> <span class="p">].</span><span class="nx">webkitMatchSelector</span> <span class="p">)</span>
-            <span class="p">{</span>
-                <span class="nx">method</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">matches</span><span class="p">.</span><span class="nx">__matchesMethod</span> <span class="o">=</span> <span class="s1">&#39;webkitMatchSelector&#39;</span><span class="p">;</span>
+                <span class="k">if</span> <span class="p">(</span> <span class="nx">childrenArray</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="nx">arr</span><span class="p">[</span> <span class="nx">j</span> <span class="p">]</span> <span class="p">)</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nx">childrenArray</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">arr</span><span class="p">[</span> <span class="nx">j</span> <span class="p">]</span> <span class="p">);</span>
+                <span class="p">}</span>
             <span class="p">}</span>
         <span class="p">}</span>
 
-        <span class="kd">var</span> <span class="nx">resArray</span> <span class="o">=</span> <span class="p">[];</span>
-        <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">el</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
-        <span class="p">{</span>
-            <span class="nx">resArray</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">el</span><span class="p">[</span> <span class="nx">i</span> <span class="p">][</span> <span class="nx">method</span> <span class="p">](</span> <span class="nx">selector</span> <span class="p">)</span> <span class="p">);</span>
-        <span class="p">}</span>
-
-        <span class="k">return</span> <span class="nx">isArray</span> <span class="o">?</span> <span class="nx">resArray</span> <span class="o">:</span> <span class="nx">resArray</span><span class="p">[</span> <span class="mi">0</span> <span class="p">];</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">constructor</span><span class="p">(</span> <span class="nx">childrenArray</span> <span class="p">);</span>
     <span class="p">};</span>
 
 
@@ -291,18 +253,15 @@ into the set is based on the return of the function</p>
                 <span class="p">{</span>
                     <span class="kd">var</span> <span class="nx">resArray</span> <span class="o">=</span> <span class="p">[],</span> <span class="nx">_selector</span><span class="p">;</span>
                     <span class="nx">_selector</span> <span class="o">=</span> <span class="nx">i</span> <span class="o">===</span> <span class="mi">0</span> <span class="o">?</span> <span class="nx">_f</span><span class="p">[</span> <span class="mi">0</span> <span class="p">]</span> <span class="o">:</span> <span class="s1">&#39;:&#39;</span> <span class="o">+</span> <span class="nx">_f</span><span class="p">[</span> <span class="mi">0</span> <span class="p">];</span>
-
                     <span class="k">if</span> <span class="p">(</span> <span class="nx">_selector</span> <span class="o">!==</span> <span class="s1">&#39;&#39;</span> <span class="p">)</span>
                     <span class="p">{</span>
                         <span class="k">if</span> <span class="p">(</span> <span class="nx">_f</span><span class="p">[</span> <span class="mi">1</span> <span class="p">]</span> <span class="o">!==</span> <span class="s1">&#39;&#39;</span> <span class="p">)</span>
                         <span class="p">{</span>
                             <span class="nx">_selector</span> <span class="o">+=</span> <span class="s1">&#39;(&#39;</span> <span class="o">+</span> <span class="nx">_f</span><span class="p">[</span> <span class="mi">1</span> <span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span><span class="p">;</span>
                         <span class="p">}</span>
-
                         <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenJ</span> <span class="o">=</span> <span class="nx">_self</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">lenJ</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">)</span>
                         <span class="p">{</span>
                             <span class="nx">_el</span> <span class="o">=</span> <span class="nx">_self</span><span class="p">[</span> <span class="nx">j</span> <span class="p">];</span>
-
                             <span class="k">if</span> <span class="p">(</span> <span class="nx">Cytoplasm</span><span class="p">.</span><span class="nx">matches</span><span class="p">(</span> <span class="nx">_el</span><span class="p">,</span> <span class="nx">_selector</span> <span class="p">)</span> <span class="o">===</span> <span class="kc">true</span> <span class="p">)</span>
                             <span class="p">{</span>
                                 <span class="nx">resArray</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">_el</span> <span class="p">);</span>
@@ -556,7 +515,7 @@ Microbe.</p>
 <div class="pilwrap" id="parent">
   <h2>
     <a href="#parent" name="parent" class="pilcrow">&#182;</a>
-    Parent
+    parent
   </h2>
 </div>
 
@@ -588,6 +547,150 @@ Microbe.</p>
         <span class="p">}</span>
 
         <span class="k">return</span> <span class="k">new</span> <span class="nx">Cytoplasm</span><span class="p">(</span> <span class="nx">parentArray</span> <span class="p">);</span>
+    <span class="p">};</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="siblings">
+  <h2>
+    <a href="#siblings" name="siblings" class="pilcrow">&#182;</a>
+    siblings
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>Gets an microbe of all of each given element's siblings</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Array</em> array of microbes (value)</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Cytoplasm</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">siblings</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">_siblings</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_elm</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">res</span>     <span class="o">=</span> <span class="p">[];</span>
+            <span class="kd">var</span> <span class="nx">sibling</span> <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">firstElementChild</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span> <span class="p">;</span> <span class="nx">sibling</span><span class="p">;</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span> <span class="nx">sibling</span> <span class="o">!==</span> <span class="nx">_elm</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nx">res</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">sibling</span> <span class="p">);</span>
+                <span class="p">}</span>
+                <span class="nx">sibling</span> <span class="o">=</span> <span class="nx">sibling</span><span class="p">.</span><span class="nx">nextElementSibling</span><span class="p">;</span>
+                <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nx">sibling</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="k">return</span> <span class="nx">res</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">};</span>
+
+        <span class="kd">var</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">len</span><span class="p">,</span> <span class="nx">siblingArray</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span> <span class="p">);</span>
+
+        <span class="k">for</span> <span class="p">(</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">len</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">siblingArray</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">constructor</span><span class="p">(</span> <span class="nx">_siblings</span><span class="p">(</span> <span class="k">this</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="p">)</span> <span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="nx">siblingArray</span><span class="p">;</span>
+    <span class="p">};</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="siblingsflat">
+  <h2>
+    <a href="#siblingsflat" name="siblingsflat" class="pilcrow">&#182;</a>
+    siblingsFlat
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>Gets an microbe of all siblings of all element's given. 'next' and 'prev'
+passed as direction return only the next or previous siblings of each element</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">direction</span>
+      <span class="dox_type">String</span>
+      <span>direction modifier (optional)</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Microbe</em> value array of combined siblings</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Cytoplasm</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">siblingsFlat</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">direction</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">_siblings</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_elm</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nx">direction</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">res</span>     <span class="o">=</span> <span class="p">[];</span>
+                <span class="kd">var</span> <span class="nx">sibling</span> <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">firstElementChild</span><span class="p">;</span>
+                <span class="k">for</span> <span class="p">(</span> <span class="p">;</span> <span class="nx">sibling</span><span class="p">;</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="k">if</span> <span class="p">(</span> <span class="nx">sibling</span> <span class="o">!==</span> <span class="nx">_elm</span> <span class="p">)</span>
+                    <span class="p">{</span>
+                        <span class="nx">res</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">sibling</span> <span class="p">);</span>
+                    <span class="p">}</span>
+                    <span class="nx">sibling</span> <span class="o">=</span> <span class="nx">sibling</span><span class="p">.</span><span class="nx">nextElementSibling</span><span class="p">;</span>
+                    <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nx">sibling</span> <span class="p">)</span>
+                    <span class="p">{</span>
+                        <span class="k">return</span> <span class="nx">res</span><span class="p">;</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">direction</span> <span class="o">===</span> <span class="s1">&#39;next&#39;</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">next</span> <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">nextElementSibling</span><span class="p">;</span>
+                <span class="k">return</span> <span class="nx">next</span> <span class="o">?</span> <span class="p">[</span> <span class="nx">next</span> <span class="p">]</span> <span class="o">:</span> <span class="p">[];</span>
+            <span class="p">}</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">direction</span> <span class="o">===</span> <span class="s1">&#39;prev&#39;</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">prev</span> <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">prevElementSibling</span><span class="p">;</span>
+                <span class="k">return</span> <span class="nx">prev</span> <span class="o">?</span> <span class="p">[</span> <span class="nx">prev</span> <span class="p">]</span> <span class="o">:</span> <span class="p">[];</span>
+            <span class="p">}</span>
+        <span class="p">};</span>
+
+        <span class="kd">var</span> <span class="nx">arr</span><span class="p">,</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">len</span><span class="p">,</span> <span class="nx">siblingArray</span> <span class="o">=</span> <span class="p">[];</span>
+
+        <span class="k">for</span> <span class="p">(</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">len</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">arr</span> <span class="o">=</span> <span class="nx">_siblings</span><span class="p">(</span> <span class="k">this</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="p">);</span>
+
+            <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenJ</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">lenJ</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span> <span class="nx">siblingArray</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="nx">arr</span><span class="p">[</span> <span class="nx">j</span> <span class="p">]</span> <span class="p">)</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nx">siblingArray</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">arr</span><span class="p">[</span> <span class="nx">j</span> <span class="p">]</span> <span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">constructor</span><span class="p">(</span> <span class="nx">siblingArray</span> <span class="p">);</span>
     <span class="p">};</span>
 
 

@@ -632,7 +632,7 @@ module.exports = asap;
 
 module.exports = function( buildTest )
 {
-    var version = '0.4.4';
+    var version = '0.4.5';
 
     var _observables = µ().get ? true : false;
 
@@ -1439,7 +1439,7 @@ module.exports = function( buildTest )
         var µBody = µ( [] );
 
         assert.equal( µBody.length, 0, 'empty set' );
-        assert.equal( µBody[ 0 ], undefined, 'undefined 0' );
+        assert.equal( µBody[ 0 ], undefined, 'successfully fails' );
 
         buildTest(
         'µ( [] )', function()
@@ -1551,6 +1551,7 @@ module.exports = function( buildTest )
 
         assert.equal( µDiv.length, 1, 'one div' );
         assert.deepEqual( µDiv[ 0 ], _div[0], 'passes' );
+        assert.equal( µ( '.exarmple.classssss' ).length, 0, 'successfully fails' );
 
         buildTest(
         'µ( \'.example--class.example--class--groups\' )', function()
@@ -1578,6 +1579,7 @@ module.exports = function( buildTest )
 
         assert.equal( µDiv.length, 1, 'one div' );
         assert.deepEqual( µDiv[ 0 ], _div, 'passes' );
+        assert.equal( µ( '#exarmple-iddddd' ).length, 0, 'successfully fails' );
 
         buildTest(
         'µ( \'#example--id\' )', function()
@@ -1605,6 +1607,7 @@ module.exports = function( buildTest )
 
         assert.equal( µDiv.length, 1, 'one div' );
         assert.deepEqual( µDiv[ 0 ], _div, 'passes' );
+        assert.equal( µ( '#idand.classssss' ).length, 0, 'successfully fails' );
 
         buildTest(
         'µ( \'#example--combined.example--combined\' )', function()
@@ -1632,6 +1635,7 @@ module.exports = function( buildTest )
 
         assert.equal( µDiv[ 0 ].tagName, 'DIV', 'correct element' );
         assert.deepEqual( µDiv[ 0 ], _div, 'passes' );
+        assert.equal( µ( 'exarmple' ).length, 0, 'successfully fails' );
 
         buildTest(
         'µ( \'div\' )', function()
@@ -1659,6 +1663,7 @@ module.exports = function( buildTest )
 
         assert.equal( µDiv.length, 1, 'one div' );
         assert.deepEqual( µDiv[ 0 ], _div, 'passes' );
+        assert.equal( µ( 'example#exarmple.classssss' ).length, 0, 'successfully fails' );
 
         buildTest(
         'µ( \'div#example--combined.example--combined\' )', function()
@@ -1686,6 +1691,8 @@ module.exports = function( buildTest )
 
         assert.equal( µDiv.length, 2, 'two divs' );
         assert.equal( µDiv[0].tagName, 'DIV', 'correct element' );
+        assert.equal( µ( '.exarmple-classssss', µ( 'exarmple' ) ).length, 0, 'successfully fails scope' );
+        assert.equal( µ( '.exarmple-classssss', µ( 'div' ) ).length, 0, 'successfully fails query' );
 
         buildTest(
         'µ( \'div\', µDiv )', function()
@@ -1744,6 +1751,7 @@ module.exports = function( buildTest )
 
         µDiv = µ( µDiv[0], '.example--class--groups' );
         assert.equal( µDiv.length, 1, '1 divs from a string and an element' );
+        assert.equal( µ( '.exarmple-classssss', 'exarmple' ).length, 0, 'successfully fails scope' );
 
         buildTest(
         'µ( \'h1\', \'div\' )', function()

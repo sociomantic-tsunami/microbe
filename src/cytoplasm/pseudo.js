@@ -12,7 +12,7 @@ module.exports = function( Cytoplasm )
     'use strict';
 
     /**
-     * ### parseNth
+     * ## _parseNth
      *
      * when supplied with a Cytoplasm and a css style n selector (2n1), filters
      * and returns the result
@@ -23,7 +23,7 @@ module.exports = function( Cytoplasm )
      *
      * @return _Cytoplasm_
      */
-    var parseNth = function( _el, _var, _last )
+    var _parseNth = function( _el, _var, _last )
     {
         if ( _var === 'odd' )
         {
@@ -75,7 +75,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### pseudo
+     * ## pseudo
      *
      * an extension to core.__init_ to handle custom pseusoselectors
      *
@@ -283,7 +283,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### any-link
+     * ## any-link
      *
      * match elements that act as the source anchors of hyperlinks
      *
@@ -298,7 +298,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### blank
+     * ## blank
      *
      * matches elements that only contain content which consists of whitespace
      *
@@ -328,7 +328,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### column
+     * ## column
      *
      * filters for columns with a suplied selector
      *
@@ -344,7 +344,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### contains
+     * ## contains
      *
      * Returns only elements that contain the given text.  The supplied text
      * is compared ignoring case
@@ -387,7 +387,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### default
+     * ## default
      *
      * selects all inputs and select boxes that are checked by dafeult
      *
@@ -415,7 +415,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### dir
+     * ## dir
      *
      * match elements by its directionality based on the document language
      *
@@ -440,7 +440,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### drop
+     * ## drop
      *
      * returns all elements that are drop targets. HTML has a dropzone
      * attribute which specifies that an element is a drop target.
@@ -474,7 +474,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### even
+     * ## even
      *
      * Returns the even indexed elements of a Cytoplasm (starting at 0)
      *
@@ -497,7 +497,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### first
+     * ## first
      *
      * returns the first element of a Cytoplasm
      *
@@ -512,7 +512,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### gt
+     * ## gt
      *
      * returns the last {_var} element
      *
@@ -528,7 +528,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### has
+     * ## has
      *
      * returns elements that have the passed selector as a child
      *
@@ -556,7 +556,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### in-range
+     * ## in-range
      *
      * select the elements with a value inside the specified range
      *
@@ -600,7 +600,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### lang
+     * ## lang
      *
      * match the elements based on the document language
      *
@@ -642,7 +642,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### last
+     * ## last
      *
      * returns the last element of a Cytoplasm
      *
@@ -658,7 +658,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### local-link
+     * ## local-link
      *
      * returns all link tags that go to local links. If specified a depth
      * filter can be added
@@ -692,7 +692,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### lt
+     * ## lt
      *
      * returns the first [_var] elements
      *
@@ -708,7 +708,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### matches
+     * ## matches
      *
      * returns elements that match either selector
      *
@@ -738,7 +738,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### not
+     * ## not
      *
      * returns all elements that do not match the given selector. As per
      * CSS4 spec, this accepts complex selectors seperated with a comma
@@ -783,7 +783,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### nth-column
+     * ## nth-column
      *
      * returns the nth column of the current Cytoplasm
      *
@@ -796,12 +796,12 @@ module.exports = function( Cytoplasm )
     {
         _el = _el.filter( 'col' );
 
-        return parseNth( _el, _var );
+        return _parseNth( _el, _var );
     };
 
 
     /**
-     * ### nth-last-column
+     * ## nth-last-column
      *
      * returns the nth column of the current Cytoplasm starting from the back
      *
@@ -814,12 +814,12 @@ module.exports = function( Cytoplasm )
     {
         _el = _el.filter( 'col' );
 
-        return parseNth( _el, _var, true );
+        return _parseNth( _el, _var, true );
     };
 
 
     /**
-     * ### nth-last-match
+     * ## nth-last-match
      *
      * returns the nth match(es) of the current Cytoplasm starting from the back
      *
@@ -830,12 +830,12 @@ module.exports = function( Cytoplasm )
      */
     pseudo[ 'nth-last-match' ] = function( _el, _var )
     {
-        return parseNth( _el, _var, true );
+        return _parseNth( _el, _var, true );
     };
 
 
     /**
-     * ### nth-match
+     * ## nth-match
      *
      * returns the nth match(es) of the current Cytoplasm
      *
@@ -846,12 +846,12 @@ module.exports = function( Cytoplasm )
      */
     pseudo[ 'nth-match' ] = function( _el, _var )
     {
-        return parseNth( _el, _var );
+        return _parseNth( _el, _var );
     };
 
 
     /**
-     * ### add
+     * ## odd
      *
      * returns the odd indexed elements of a Cytoplasm
      *
@@ -874,7 +874,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### optional
+     * ## optional
      *
      * returns all optional elements
      *
@@ -889,7 +889,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### out-of-range
+     * ## out-of-range
      *
      * select the elements with a value inside the specified range
      *
@@ -934,7 +934,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### parent
+     * ## parent
      *
      * returns the parents of an _el match.
      * normally triggered using the ! selector
@@ -963,7 +963,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### read-only
+     * ## read-only
      *
      * user-non-alterable content
      *
@@ -978,7 +978,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### read-write
+     * ## read-write
      *
      * input elements which are user-alterable or contenteditable
      *
@@ -993,7 +993,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### required
+     * ## required
      *
      * returns all required elements
      *
@@ -1008,7 +1008,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### root
+     * ## root
      *
      * returns the root elements of the document
      *

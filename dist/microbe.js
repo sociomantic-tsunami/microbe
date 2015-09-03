@@ -1,12 +1,12 @@
 /*!
- * Microbe JavaScript Library v0.4.4
+ * Microbe JavaScript Library v0.4.5
  * http://m.icro.be
  *
  * Copyright 2014-2015 Sociomantic Labs and other contributors
  * Released under the MIT license
  * http://m.icro.be/license
  *
- * Date: Thu Sep 03 2015
+ * Date: Fri Sep 04 2015
  */
 !function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.µ=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /**
@@ -23,7 +23,7 @@
 'use strict';
 
 var _type       = '[object Microbe]';
-var _version    = '0.4.4';
+var _version    = '0.4.5';
 
 var Microbe = function( selector, scope, elements )
 {
@@ -44,7 +44,7 @@ require( './events' )( Microbe );
 
 require( './cytoplasm/cytoplasm' )( Microbe, _type, _version );
 Microbe.version = Microbe.core.__init__.prototype.version = _version;
-module.exports = Microbe.core.constructor = Microbe;
+module.exports 	= Microbe.core.constructor = Microbe;
 
 },{"./core":12,"./cytoplasm/cytoplasm":13,"./dom":16,"./events":17,"./http":18,"./observe":19,"./root":20}],2:[function(require,module,exports){
 // shim for using process in browser
@@ -2683,7 +2683,7 @@ module.exports = function( Microbe )
          *
          * @param {String} _class              class to add
          *
-         * @return {Microbe} reference of the original microbe
+         * @return _Microbe_ reference of the original microbe
          */
         toggleClass : (function()
         {
@@ -3085,7 +3085,7 @@ module.exports = function( Cytoplasm )
     'use strict';
 
     /**
-     * ### parseNth
+     * ## _parseNth
      *
      * when supplied with a Cytoplasm and a css style n selector (2n1), filters
      * and returns the result
@@ -3096,7 +3096,7 @@ module.exports = function( Cytoplasm )
      *
      * @return _Cytoplasm_
      */
-    var parseNth = function( _el, _var, _last )
+    var _parseNth = function( _el, _var, _last )
     {
         if ( _var === 'odd' )
         {
@@ -3148,7 +3148,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### pseudo
+     * ## pseudo
      *
      * an extension to core.__init_ to handle custom pseusoselectors
      *
@@ -3356,7 +3356,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### any-link
+     * ## any-link
      *
      * match elements that act as the source anchors of hyperlinks
      *
@@ -3371,7 +3371,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### blank
+     * ## blank
      *
      * matches elements that only contain content which consists of whitespace
      *
@@ -3401,7 +3401,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### column
+     * ## column
      *
      * filters for columns with a suplied selector
      *
@@ -3417,7 +3417,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### contains
+     * ## contains
      *
      * Returns only elements that contain the given text.  The supplied text
      * is compared ignoring case
@@ -3460,7 +3460,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### default
+     * ## default
      *
      * selects all inputs and select boxes that are checked by dafeult
      *
@@ -3488,7 +3488,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### dir
+     * ## dir
      *
      * match elements by its directionality based on the document language
      *
@@ -3513,7 +3513,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### drop
+     * ## drop
      *
      * returns all elements that are drop targets. HTML has a dropzone
      * attribute which specifies that an element is a drop target.
@@ -3547,7 +3547,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### even
+     * ## even
      *
      * Returns the even indexed elements of a Cytoplasm (starting at 0)
      *
@@ -3570,7 +3570,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### first
+     * ## first
      *
      * returns the first element of a Cytoplasm
      *
@@ -3585,7 +3585,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### gt
+     * ## gt
      *
      * returns the last {_var} element
      *
@@ -3601,7 +3601,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### has
+     * ## has
      *
      * returns elements that have the passed selector as a child
      *
@@ -3629,7 +3629,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### in-range
+     * ## in-range
      *
      * select the elements with a value inside the specified range
      *
@@ -3673,7 +3673,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### lang
+     * ## lang
      *
      * match the elements based on the document language
      *
@@ -3715,7 +3715,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### last
+     * ## last
      *
      * returns the last element of a Cytoplasm
      *
@@ -3731,7 +3731,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### local-link
+     * ## local-link
      *
      * returns all link tags that go to local links. If specified a depth
      * filter can be added
@@ -3765,7 +3765,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### lt
+     * ## lt
      *
      * returns the first [_var] elements
      *
@@ -3781,7 +3781,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### matches
+     * ## matches
      *
      * returns elements that match either selector
      *
@@ -3811,7 +3811,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### not
+     * ## not
      *
      * returns all elements that do not match the given selector. As per
      * CSS4 spec, this accepts complex selectors seperated with a comma
@@ -3856,7 +3856,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### nth-column
+     * ## nth-column
      *
      * returns the nth column of the current Cytoplasm
      *
@@ -3869,12 +3869,12 @@ module.exports = function( Cytoplasm )
     {
         _el = _el.filter( 'col' );
 
-        return parseNth( _el, _var );
+        return _parseNth( _el, _var );
     };
 
 
     /**
-     * ### nth-last-column
+     * ## nth-last-column
      *
      * returns the nth column of the current Cytoplasm starting from the back
      *
@@ -3887,12 +3887,12 @@ module.exports = function( Cytoplasm )
     {
         _el = _el.filter( 'col' );
 
-        return parseNth( _el, _var, true );
+        return _parseNth( _el, _var, true );
     };
 
 
     /**
-     * ### nth-last-match
+     * ## nth-last-match
      *
      * returns the nth match(es) of the current Cytoplasm starting from the back
      *
@@ -3903,12 +3903,12 @@ module.exports = function( Cytoplasm )
      */
     pseudo[ 'nth-last-match' ] = function( _el, _var )
     {
-        return parseNth( _el, _var, true );
+        return _parseNth( _el, _var, true );
     };
 
 
     /**
-     * ### nth-match
+     * ## nth-match
      *
      * returns the nth match(es) of the current Cytoplasm
      *
@@ -3919,12 +3919,12 @@ module.exports = function( Cytoplasm )
      */
     pseudo[ 'nth-match' ] = function( _el, _var )
     {
-        return parseNth( _el, _var );
+        return _parseNth( _el, _var );
     };
 
 
     /**
-     * ### add
+     * ## odd
      *
      * returns the odd indexed elements of a Cytoplasm
      *
@@ -3947,7 +3947,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### optional
+     * ## optional
      *
      * returns all optional elements
      *
@@ -3962,7 +3962,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### out-of-range
+     * ## out-of-range
      *
      * select the elements with a value inside the specified range
      *
@@ -4007,7 +4007,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### parent
+     * ## parent
      *
      * returns the parents of an _el match.
      * normally triggered using the ! selector
@@ -4036,7 +4036,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### read-only
+     * ## read-only
      *
      * user-non-alterable content
      *
@@ -4051,7 +4051,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### read-write
+     * ## read-write
      *
      * input elements which are user-alterable or contenteditable
      *
@@ -4066,7 +4066,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### required
+     * ## required
      *
      * returns all required elements
      *
@@ -4081,7 +4081,7 @@ module.exports = function( Cytoplasm )
 
 
     /**
-     * ### root
+     * ## root
      *
      * returns the root elements of the document
      *
@@ -6127,34 +6127,13 @@ module.exports = function( Microbe )
  /*jshint globalstrict: true*/
 'use strict';
 module.exports = {
-    // concat          : Array.prototype.concat,
-    // copyWithin      : Array.prototype.copyWithin,
-    // entries         : Array.prototype.entries,
-    // every           : Array.prototype.every,
-    // fill            : Array.prototype.fill,
-    // filter          : Array.prototype.filter,
-    // find            : Array.prototype.find,
-    // findIndex       : Array.prototype.findIndex,
     forEach         : Array.prototype.forEach,
     indexOf         : Array.prototype.indexOf,
-    // join            : Array.prototype.join,
-    // keys            : Array.prototype.keys,
-    // lastIndexOf     : Array.prototype.lastIndexOf,
     map             : Array.prototype.map,
-    // pop             : Array.prototype.pop,
     push            : Array.prototype.push,
-    // reduce          : Array.prototype.reduce,
-    // reduceRight     : Array.prototype.reduceRight,
-    // reverse         : Array.prototype.reverse,
-    // shift           : Array.prototype.shift,
-    // some            : Array.prototype.some,
-    // sort            : Array.prototype.sort,
     slice           : Array.prototype.slice,
     splice          : Array.prototype.splice,
-    // toLocaleString  : Array.prototype.toLocaleString,
-    // toSource        : Array.prototype.toSource,
-    toString        : Array.prototype.toString,
-    // unshift         : Array.prototype.unshift
+    toString        : Array.prototype.toString
 };
 
 },{}],22:[function(require,module,exports){
@@ -6170,36 +6149,7 @@ module.exports = {
  /*jshint globalstrict: true*/
 'use strict';
 module.exports = {
-    // charAt              : String.prototype.charAt,
-    // charCodeAt          : String.prototype.charCodeAt,
-    // codePointAt         : String.prototype.codePointAt,
-    // concat              : String.prototype.concat,
-    // contains            : String.prototype.contains,
-    // endsWith            : String.prototype.endsWith,
-    // indexOf             : String.prototype.indexOf,
-    // lastIndexOf         : String.prototype.lastIndexOf,
-    // localeCompare       : String.prototype.localeCompare,
-    // match               : String.prototype.match,
-    // normalize           : String.prototype.normalize,
-    // quote               : String.prototype.quote,
-    // repeat              : String.prototype.repeat,
-    // replace             : String.prototype.replace,
-    // search              : String.prototype.search,
-    slice               : String.prototype.slice,
-    // split               : String.prototype.split,
-    // startsWith          : String.prototype.startsWith,
-    // substr              : String.prototype.substr,
-    // substring           : String.prototype.substring,
-    // toLocaleLowerCase   : String.prototype.toLocaleLowerCase,
-    // toLocaleUpperCase   : String.prototype.toLocaleUpperCase,
-    // toLowerCase         : String.prototype.toLowerCase,
-    // toSource            : String.prototype.toSource,
-    // toString            : String.prototype.toString,
-    // toUpperCase         : String.prototype.toUpperCase,
-    // trim                : String.prototype.trim,
-    // trimLeft            : String.prototype.trimLeft,
-    // trimRight           : String.prototype.trimRight,
-    // valueOf             : String.prototype.valueOf
+    slice               : String.prototype.slice
 };
 
 },{}],23:[function(require,module,exports){

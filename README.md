@@ -1,4 +1,4 @@
-µ - Microbe - 0.4.4
+µ - Microbe - 0.4.5
 ===================
 
 microbe is a javascript library to aid in DOM manipulation as well as facilitating events, object observation, and data binding.

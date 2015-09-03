@@ -176,7 +176,7 @@ module.exports = function( Microbe )
 
 
     /**
-     * ## CustomEvent polyfill
+     * ## _CustomEvent polyfill
      *
      * CustomEvent polyfill for IE <= 9
      *
