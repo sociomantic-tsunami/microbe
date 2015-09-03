@@ -632,7 +632,7 @@ module.exports = asap;
 
 module.exports = function( buildTest )
 {
-    var version = '0.4.3';
+    var version = '0.4.4';
 
     var _observables = µ().get ? true : false;
 
