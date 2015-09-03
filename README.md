@@ -1,4 +1,4 @@
-µ - Microbe - 0.4.3
+µ - Microbe - 0.4.4
 ===================
 
 microbe is a javascript library to aid in DOM manipulation as well as facilitating events, object observation, and data binding.
@@ -94,11 +94,11 @@ Contributing
 We gladly accept and review any pull-requests. Feel free! :heart:
 
 
-This project adheres to the [Open Code of Conduct](http://todogroup.org/opencodeofconduct/#microbe.js/abuse@m.icro.be). By participating, you are expected to honor this code.
+This project adheres to the [Open Code of Conduct](http://todogroup.org/opencodeofconduct/#microbe.js/report@m.icro.be). By participating, you are expected to honor this code.
 
 [http://m.icro.be/code-of-conduct/](http://m.icro.be/code-of-conduct/)
 
-Need to report something? [abuse@m.icro.be](abuse@m.icro.be)
+Need to report something? [report@m.icro.be](report@m.icro.be)
 
 
 Change log
