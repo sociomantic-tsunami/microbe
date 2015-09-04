@@ -457,12 +457,12 @@ module.exports = function( buildTest )
         assert.equal( indexOf.call( µ( 'col:not(#col2,#col3)' ), col2 ), -1, 'filter with multiple selectors' );
 
         buildTest(
-        'µ( \'div:not(.fastest).\' )', function()
+        'µ( \'div:not(.fastest.invalid--test)\' )', function()
         {
             return µ( 'div:not(.fastest,.invalid--test)' );
         },
 
-        '$( \'div:not(.fastest).\' )', function()
+        '$( \'div:not(.fastest.invalid--test)\' )', function()
         {
             return $( 'div:not(.fastest,.invalid--test)' );
         } );

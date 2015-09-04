@@ -96,7 +96,7 @@ We gladly accept and review any pull-requests. Feel free! :heart:
 
 This project adheres to the [Open Code of Conduct](http://todogroup.org/opencodeofconduct/#microbe.js/report@m.icro.be). By participating, you are expected to honor this code.
 
-[http://m.icro.be/code-of-conduct/](http://m.icro.be/code-of-conduct/)
+[Microbe - Code of Conduct](http://m.icro.be/code-of-conduct/)
 
 Need to report something? [report@m.icro.be](report@m.icro.be)
 
@@ -108,8 +108,8 @@ Change log
 
 + updated tests, docs, and comments
 + cytoplasm utils split into coreUtils and rootUtils
-+ cytoplasm now accepts html strings for element creation
-+ selector strings of multiple classes arer now 100x faster
++ cytoplasm now accepts html strings for element creation (single or multiple elements)
++ selector strings of multiple classes arer now 10x faster
 
 
 #### 0.4.2

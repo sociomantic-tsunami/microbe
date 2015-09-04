@@ -64,15 +64,15 @@ module.exports = function( buildTest )
     {
         var µBody = µ( [] );
 
-        assert.equal( µBody.length, 0, 'empty set' );
+        assert.equal( µBody.length, 0, 'empty set - µ( [] )' );
         assert.equal( µBody[ 0 ], undefined, 'successfully fails' );
 
         µBody = µ();
-        assert.equal( µBody.length, 0, 'empty set' );
+        assert.equal( µBody.length, 0, 'empty set - µ()' );
         assert.equal( µBody[ 0 ], undefined, 'successfully fails' );
 
         µBody = µ( '' );
-        assert.equal( µBody.length, 0, 'empty set' );
+        assert.equal( µBody.length, 0, 'empty set - µ( \'\' )' );
         assert.equal( µBody[ 0 ], undefined, 'successfully fails' );
 
         buildTest(
@@ -182,7 +182,7 @@ module.exports = function( buildTest )
     {
         var _div    = document.getElementsByClassName( 'example--class' );
         var µDiv    = µ( '.example--class.example--class--groups' );
-console.log( µDiv );
+
         assert.equal( µDiv.length, 1, 'one div' );
         assert.deepEqual( µDiv[ 0 ], _div[0], 'passes' );
         assert.equal( µ( '.exarmple.classssss' ).length, 0, 'successfully fails' );
