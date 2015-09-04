@@ -131,7 +131,8 @@ var buildTest = function( _str1, _cb1, _str2, _cb2, _console )
 
 require( './cytoplasm/cytoplasm' )( buildTest );
 require( './cytoplasm/pseudo' )( buildTest );
-require( './cytoplasm/utils' )( buildTest );
+require( './cytoplasm/coreUtils' )( buildTest );
+require( './cytoplasm/rootUtils' )( buildTest );
 require( './core' )( buildTest );
 require( './root' )( buildTest );
 require( './http' )( buildTest );

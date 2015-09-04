@@ -76,11 +76,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Mouse Braun         <a href="&#x6D;&#x61;&#x69;&#x6C;&#116;&#111;:&#x6D;&#x6F;&#x75;&#x73;&#101;&#x40;&#115;&#x6F;&#99;&#x69;&#111;&#x6D;&#x61;&#x6E;t&#105;&#x63;&#x2E;&#x63;&#x6F;&#x6D;">&#x6D;&#x6F;&#x75;&#x73;&#101;&#x40;&#115;&#x6F;&#99;&#x69;&#111;&#x6D;&#x61;&#x6E;t&#105;&#x63;&#x2E;&#x63;&#x6F;&#x6D;</a></span>
+      <span>Mouse Braun         <a href="&#109;&#x61;i&#x6C;&#x74;&#111;:&#x6D;&#111;&#117;&#x73;&#x65;&#64;&#x73;&#111;&#99;&#x69;&#111;&#109;&#97;&#x6E;t&#x69;&#x63;&#x2E;&#x63;&#111;m">&#x6D;&#111;&#117;&#x73;&#x65;&#64;&#x73;&#111;&#99;&#x69;&#111;&#109;&#97;&#x6E;t&#x69;&#x63;&#x2E;&#x63;&#111;m</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Nicolas Brugneaux   <a href="&#109;a&#105;&#108;&#116;&#x6F;:&#110;&#105;&#99;&#111;&#x6C;&#x61;&#115;&#x2E;&#98;r&#117;&#x67;&#110;e&#x61;&#117;&#x78;&#64;s&#x6F;&#x63;&#x69;&#111;&#x6D;&#97;&#110;t&#x69;&#99;&#x2E;c&#111;&#109;">&#110;&#105;&#99;&#111;&#x6C;&#x61;&#115;&#x2E;&#98;r&#117;&#x67;&#110;e&#x61;&#117;&#x78;&#64;s&#x6F;&#x63;&#x69;&#111;&#x6D;&#97;&#110;t&#x69;&#99;&#x2E;c&#111;&#109;</a></span>
+      <span>Nicolas Brugneaux   <a href="&#109;&#97;&#105;lt&#x6F;:&#110;&#x69;&#99;&#111;&#108;a&#115;&#x2E;&#x62;&#x72;&#x75;&#103;&#x6E;&#x65;a&#x75;&#120;&#x40;&#x73;&#x6F;&#99;&#105;o&#x6D;&#x61;n&#116;&#x69;&#99;&#x2E;&#x63;&#111;&#109;">&#110;&#x69;&#99;&#111;&#108;a&#115;&#x2E;&#x62;&#x72;&#x75;&#103;&#x6E;&#x65;a&#x75;&#120;&#x40;&#x73;&#x6F;&#99;&#105;o&#x6D;&#x61;n&#116;&#x69;&#99;&#x2E;&#x63;&#111;&#109;</a></span>
     </div>
     <div class="dox_tag_title">package</div>
     <div class="dox_tag_detail">
@@ -438,14 +438,13 @@ into the set is based on the return of the function</p>
 </div>
 
   </div>
-  <div class="body"><p>gets the first Element of the current microbe, and wraps it in
-Microbe.</p>
+  <div class="body"><p>gets the first Element and wraps it in Cytoplasm.</p>
   </div>
   <div class="details">
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span><em>Microbe</em> new microbe containing only the first value</span>
+      <span><em>Cytoplasm</em> new Cytoplasm containing only the first value</span>
     </div>
   </div>
 </div>
@@ -477,14 +476,13 @@ Microbe.</p>
 </div>
 
   </div>
-  <div class="body"><p>Gets the last Element of the current microbe, and wrap it in
-Microbe.</p>
+  <div class="body"><p>Gets the last Element and wraps it in Cytoplasm.</p>
   </div>
   <div class="details">
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span><em>Microbe</em> new microbe containing only the last value</span>
+      <span><em>Cytoplasm</em> new microbe containing only the last value</span>
     </div>
   </div>
 </div>
@@ -492,13 +490,15 @@ Microbe.</p>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">Cytoplasm</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">last</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span>
     <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">1</span> <span class="p">)</span>
+        <span class="kd">var</span> <span class="nx">len</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">len</span> <span class="o">===</span> <span class="mi">1</span> <span class="p">)</span>
         <span class="p">{</span>
             <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
         <span class="p">}</span>
-        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span> <span class="o">!==</span> <span class="mi">0</span> <span class="p">)</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">len</span> <span class="o">!==</span> <span class="mi">0</span> <span class="p">)</span>
         <span class="p">{</span>
-            <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">constructor</span><span class="p">(</span> <span class="k">this</span><span class="p">[</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">]</span> <span class="p">);</span>
+            <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">constructor</span><span class="p">(</span> <span class="k">this</span><span class="p">[</span> <span class="nx">len</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">]</span> <span class="p">);</span>
         <span class="p">}</span>
 
         <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">constructor</span><span class="p">(</span> <span class="p">[]</span> <span class="p">);</span>

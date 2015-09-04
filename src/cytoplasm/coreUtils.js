@@ -255,10 +255,9 @@ module.exports = function( Cytoplasm )
     /**
      * ## first
      *
-     * gets the first Element of the current microbe, and wraps it in
-     * Microbe.
+     * gets the first Element and wraps it in Cytoplasm.
      *
-     * @return _Microbe_ new microbe containing only the first value
+     * @return _Cytoplasm_ new Cytoplasm containing only the first value
      */
     Cytoplasm.core.first = function()
     {
@@ -274,20 +273,21 @@ module.exports = function( Cytoplasm )
     /**
      * ## last
      *
-     * Gets the last Element of the current microbe, and wrap it in
-     * Microbe.
+     * Gets the last Element and wraps it in Cytoplasm.
      *
-     * @return _Microbe_ new microbe containing only the last value
+     * @return _Cytoplasm_ new microbe containing only the last value
      */
     Cytoplasm.core.last = function()
     {
-        if ( this.length === 1 )
+        var len = this.length;
+
+        if ( len === 1 )
         {
             return this;
         }
-        else if ( this.length !== 0 )
+        else if ( len !== 0 )
         {
-            return this.constructor( this[ this.length - 1 ] );
+            return this.constructor( this[ len - 1 ] );
         }
 
         return this.constructor( [] );

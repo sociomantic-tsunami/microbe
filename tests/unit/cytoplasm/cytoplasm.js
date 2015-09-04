@@ -75,6 +75,22 @@ module.exports = function( buildTest )
         assert.equal( µBody.length, 0, 'empty set - µ( \'\' )' );
         assert.equal( µBody[ 0 ], undefined, 'successfully fails' );
 
+        µBody = µ( false );
+        assert.equal( µBody.length, 0, 'empty set - µ( false )' );
+        assert.equal( µBody[ 0 ], undefined, 'successfully fails' );
+
+        µBody = µ( null );
+        assert.equal( µBody.length, 0, 'empty set - µ( null )' );
+        assert.equal( µBody[ 0 ], undefined, 'successfully fails' );
+
+        µBody = µ( {} );
+        assert.equal( µBody.length, 0, 'empty set - µ( {} )' );
+        assert.equal( µBody[ 0 ], undefined, 'successfully fails' );
+
+        µBody = µ( undefined );
+        assert.equal( µBody.length, 0, 'empty set - µ( undefined )' );
+        assert.equal( µBody[ 0 ], undefined, 'successfully fails' );
+
         buildTest(
         'µ( [] )', function()
         {
