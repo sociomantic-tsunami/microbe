@@ -3180,6 +3180,9 @@ module.exports = function( Cytoplasm )
  *
  * @package Cytoplasm
  */
+
+var slice = Array.prototype.slice;
+
 module.exports = function( _c, _type )
 {
     'use strict';
@@ -3289,7 +3292,7 @@ module.exports = function( _c, _type )
     {
         var _ghost          = document.createElement( 'div' );
         _ghost.innerHTML    = _el;
-        _el                 = Array.prototype.slice.call( _ghost.children );
+        _el                 = slice.call( _ghost.children );
 
         for ( var i = 0, lenI = _el.length; i < lenI; i++ ) 
         {
@@ -3357,6 +3360,28 @@ module.exports = function( _c, _type )
                         {
                             return _build( document.getElementsByClassName( clss ), self );
                         }
+                        else
+                        {
+                            clss = clss.split( '.' );
+
+                            var res, _r, _el = document.getElementsByClassName( clss[ 0 ] );
+                            for ( var c = 1, lenC = clss.length; c < lenC; c++ ) 
+                            {
+                                res = slice.call( document.getElementsByClassName( clss[ c ] ) );
+
+                                for ( var r = 0, lenR = _el.length; r < lenR; r++ ) 
+                                {
+                                    _r = _el[ r ];
+
+                                   if ( res.indexOf( _r ) === -1 )
+                                   {
+                                        _el[ r ] = null;
+                                   }
+                                }
+                            }
+
+                            return _build( _el, self ).filter( function( _e ){ return _e !== null; } );
+                        }
                     }
                     break;
                 default:
@@ -3379,8 +3404,14 @@ module.exports = function( _c, _type )
      * Constructor.
      *
      * Either selects or creates an HTML element and wraps it into a Cytoplasm instance.
-     * Usage:   µ( 'div#test' )   ---> selection
-     *          µ( '<div#test>' ) ---> creation
+     * Usage:   µ()                             ---> empty
+     *          µ( '' )                         ---> empty
+     *          µ( [] )                         ---> empty
+     *          µ( 'div#test' )                 ---> selection
+     *          µ( elDiv )                      ---> selection
+     *          µ( [ elDiv1, elDiv2, elDiv3 ] ) ---> selection
+     *          µ( '<div#test>' )               ---> creation
+     *          µ( '<div id="test"></div>' )    ---> creation
      *
      * @param {Mixed} _selector HTML selector (Element String Array)
      * @param {Mixed} _scope scope to look inside (Element String Cytoplasm)
@@ -3519,6 +3550,7 @@ module.exports = function( _c, _type )
             return _pseudo( this, _selector, _scope, _build );
         }
 
+        // html creation string
         if ( _selector.indexOf( '/' ) !== -1 )
         {
             return _createHtml( _selector, this );

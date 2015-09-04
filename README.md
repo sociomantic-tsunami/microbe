@@ -106,9 +106,10 @@ Change log
 
 #### 0.4.5
 
-+ updated docs and comments
++ updated tests, docs, and comments
 + cytoplasm utils split into coreUtils and rootUtils
 + cytoplasm now accepts html strings for element creation
++ selector strings of multiple classes arer now 100x faster
 
 
 #### 0.4.2
