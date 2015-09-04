@@ -110,6 +110,8 @@ Change log
 + cytoplasm utils split into coreUtils and rootUtils
 + cytoplasm now accepts html strings for element creation (single or multiple elements)
 + selector strings of multiple classes arer now 10x faster
++ code cleaned of unused variables
++ many push replaces with null -> filter
 
 
 #### 0.4.2
