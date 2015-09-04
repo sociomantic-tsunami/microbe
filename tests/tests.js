@@ -1429,6 +1429,56 @@ module.exports = function( buildTest )
 
 
     /**
+     * create a microbe from a css selector
+     *
+     * @test    one body
+     * @test    passes
+     */
+    QUnit.test( 'create from a css selector', function( assert )
+    {
+        var µDiv    = µ( '<div>' );
+        var µLi     = µ( '<li#id>' );
+        var µInput  = µ( '<input.class>' );
+
+        assert.equal( µDiv.length, 1, 'creates a simple div' );
+        assert.equal( µLi.length, 1, 'creates a li with id' );
+        assert.equal( µInput.length, 1, 'creates an input with class' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
+     * create a microbe from html
+     *
+     * @test    one body
+     * @test    passes
+     */
+    QUnit.test( 'create from html', function( assert )
+    {
+        var µDiv    = µ( '<div></div>' );
+        var µLi     = µ( '<li id="id"></li>' );
+        var µInput  = µ( '<input class="class" />' );
+
+        assert.equal( µDiv.length, 1, 'creates a simple div' );
+        assert.equal( µLi.length, 1, 'creates a li with id' );
+        assert.equal( µInput.length, 1, 'creates an input with class' );
+
+        
+        buildTest(
+        'µ( \'&lt;li id="id">&lt;/li>\' )', function()
+        {
+            return µ( '<li id="id"></li>' );
+        },
+
+        '$( \'&lt;li id="id">&lt;/li>\' )', function()
+        {
+            return $( '<li id="id"></li>' );
+        } );
+    });
+
+
+    /**
      * µ init wrap element tests
      *
      * @test    one body

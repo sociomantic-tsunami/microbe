@@ -44,10 +44,10 @@ module.exports = function( _c, _type )
     /**
      * ## _create
      *
-     * Method creates a Cytoplasm from an element or a new element of the passed string, and
-     * returns the Cytoplasm
+     * Method creates Cytoplasm from a passed string, and returns it
      *
-     * @param {Element} _el element to create
+     * @param {String} _el element to create
+     * @param {Object} this reference to pass on to _build
      *
      * @return _Cytoplasm_
      */
@@ -98,6 +98,31 @@ module.exports = function( _c, _type )
         }
 
         return _build( [ _el ], self );
+    }
+
+
+    /**
+     * ## _createHtml
+     * 
+     * Method creates a Cytoplasm from an html string, and returns it
+     *
+     * @param {String} _el element to create
+     * @param {Object} this reference to pass on to _build
+     *
+     * @return _Cytoplasm_
+     */
+    function _createHtml( _el, self )
+    {
+        var _ghost          = document.createElement( 'div' );
+        _ghost.innerHTML    = _el;
+        _el                 = Array.prototype.slice.call( _ghost.children );
+
+        for ( var i = 0, lenI = _el.length; i < lenI; i++ ) 
+        {
+            _ghost.removeChild( _el[ i ] );
+        }
+
+        return _build( _el, self );
     }
 
 
@@ -320,13 +345,19 @@ module.exports = function( _c, _type )
             return _pseudo( this, _selector, _scope, _build );
         }
 
+        if ( _selector.indexOf( '/' ) !== -1 )
+        {
+            return _createHtml( _selector, this );
+        }
+
         return _build( _scope.querySelectorAll( _selector ), this );
     };
 
     _c.core.type                 = _type;
     _c.core.__init__.prototype   = _c.core;
 
-    require( './utils' )( _c );
+    require( './coreUtils' )( _c );
+    require( './rootUtils' )( _c );
     require( './pseudo' )( _c );
 
     var _pseudo = _c.constructor.pseudo;

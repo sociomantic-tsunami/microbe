@@ -28,6 +28,9 @@
         <a href="#_create">_create</a>
       </div>
       <div class="heading h2">
+        <a href="#_createhtml">_createHtml</a>
+      </div>
+      <div class="heading h2">
         <a href="#_css4stringreplace">_css4StringReplace</a>
       </div>
       <div class="heading h2">
@@ -61,11 +64,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Mouse Braun         <a href="&#x6D;&#97;&#x69;&#x6C;&#116;o:&#x6D;&#x6F;u&#x73;&#x65;&#x40;&#115;&#x6F;c&#x69;&#x6F;&#x6D;&#97;&#x6E;&#x74;&#x69;&#99;&#46;&#99;&#x6F;&#x6D;">&#x6D;&#x6F;u&#x73;&#x65;&#x40;&#115;&#x6F;c&#x69;&#x6F;&#x6D;&#97;&#x6E;&#x74;&#x69;&#99;&#46;&#99;&#x6F;&#x6D;</a></span>
+      <span>Mouse Braun         <a href="&#x6D;&#x61;&#105;&#108;t&#111;:&#109;&#x6F;&#x75;&#x73;&#101;&#64;&#115;o&#x63;&#105;&#x6F;m&#x61;&#x6E;&#116;&#105;&#x63;&#46;&#99;&#x6F;m">&#109;&#x6F;&#x75;&#x73;&#101;&#64;&#115;o&#x63;&#105;&#x6F;m&#x61;&#x6E;&#116;&#105;&#x63;&#46;&#99;&#x6F;m</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Nicolas Brugneaux   <a href="&#x6D;&#x61;&#105;&#108;&#116;&#x6F;:&#110;&#105;&#x63;&#x6F;&#x6C;&#x61;&#x73;&#x2E;&#98;&#x72;&#x75;&#x67;&#110;&#101;&#x61;u&#120;&#64;&#x73;&#111;&#99;&#105;&#111;&#109;&#97;n&#116;ic&#x2E;&#x63;&#111;&#109;">&#110;&#105;&#x63;&#x6F;&#x6C;&#x61;&#x73;&#x2E;&#98;&#x72;&#x75;&#x67;&#110;&#101;&#x61;u&#120;&#64;&#x73;&#111;&#99;&#105;&#111;&#109;&#97;n&#116;ic&#x2E;&#x63;&#111;&#109;</a></span>
+      <span>Nicolas Brugneaux   <a href="&#109;&#97;&#x69;l&#116;&#x6F;:&#x6E;i&#99;&#x6F;&#x6C;&#97;&#x73;&#x2E;&#98;r&#x75;&#103;&#110;e&#97;&#117;&#x78;&#64;&#115;&#111;&#99;&#105;&#x6F;&#109;&#97;&#x6E;&#x74;&#x69;&#99;.&#x63;&#111;m">&#x6E;i&#99;&#x6F;&#x6C;&#97;&#x73;&#x2E;&#98;r&#x75;&#103;&#110;e&#97;&#117;&#x78;&#64;&#115;&#111;&#99;&#105;&#x6F;&#109;&#97;&#x6E;&#x74;&#x69;&#99;.&#x63;&#111;m</a></span>
     </div>
     <div class="dox_tag_title">package</div>
     <div class="dox_tag_detail">
@@ -163,15 +166,19 @@
 </div>
 
   </div>
-  <div class="body"><p>Method creates a Cytoplasm from an element or a new element of the passed string, and
-returns the Cytoplasm</p>
+  <div class="body"><p>Method creates Cytoplasm from a passed string, and returns it</p>
   </div>
   <div class="details">
     <div class="dox_tag_title">Params</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name">_el</span>
-      <span class="dox_type">Element</span>
+      <span class="dox_type">String</span>
       <span>element to create</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">this</span>
+      <span class="dox_type">Object</span>
+      <span>reference to pass on to _build</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
@@ -229,6 +236,59 @@ returns the Cytoplasm</p>
         <span class="p">}</span>
 
         <span class="k">return</span> <span class="nx">_build</span><span class="p">(</span> <span class="p">[</span> <span class="nx">_el</span> <span class="p">],</span> <span class="nx">self</span> <span class="p">);</span>
+    <span class="p">}</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="_createhtml">
+  <h2>
+    <a href="#_createhtml" name="_createhtml" class="pilcrow">&#182;</a>
+    _createHtml
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>Method creates a Cytoplasm from an html string, and returns it</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">_el</span>
+      <span class="dox_type">String</span>
+      <span>element to create</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">this</span>
+      <span class="dox_type">Object</span>
+      <span>reference to pass on to _build</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Cytoplasm</em></span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="kd">function</span> <span class="nx">_createHtml</span><span class="p">(</span> <span class="nx">_el</span><span class="p">,</span> <span class="nx">self</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">_ghost</span>          <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span> <span class="s1">&#39;div&#39;</span> <span class="p">);</span>
+        <span class="nx">_ghost</span><span class="p">.</span><span class="nx">innerHTML</span>    <span class="o">=</span> <span class="nx">_el</span><span class="p">;</span>
+        <span class="nx">_el</span>                 <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="nx">_ghost</span><span class="p">.</span><span class="nx">children</span> <span class="p">);</span>
+
+        <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span> 
+        <span class="p">{</span>
+            <span class="nx">_ghost</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span> <span class="nx">_el</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="nx">_build</span><span class="p">(</span> <span class="nx">_el</span><span class="p">,</span> <span class="nx">self</span> <span class="p">);</span>
     <span class="p">}</span>
 
 
@@ -460,7 +520,7 @@ Usage:   µ( 'div#test' )   ---> selection
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
 </div>
 <div class="dox">
   <div class="summary"><p>fast tracks element based queries</p>
@@ -549,13 +609,19 @@ Usage:   µ( 'div#test' )   ---> selection
             <span class="k">return</span> <span class="nx">_pseudo</span><span class="p">(</span> <span class="k">this</span><span class="p">,</span> <span class="nx">_selector</span><span class="p">,</span> <span class="nx">_scope</span><span class="p">,</span> <span class="nx">_build</span> <span class="p">);</span>
         <span class="p">}</span>
 
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">_selector</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="s1">&#39;/&#39;</span> <span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">_createHtml</span><span class="p">(</span> <span class="nx">_selector</span><span class="p">,</span> <span class="k">this</span> <span class="p">);</span>
+        <span class="p">}</span>
+
         <span class="k">return</span> <span class="nx">_build</span><span class="p">(</span> <span class="nx">_scope</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span> <span class="nx">_selector</span> <span class="p">),</span> <span class="k">this</span> <span class="p">);</span>
     <span class="p">};</span>
 
     <span class="nx">_c</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">type</span>                 <span class="o">=</span> <span class="nx">_type</span><span class="p">;</span>
     <span class="nx">_c</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">__init__</span><span class="p">.</span><span class="nx">prototype</span>   <span class="o">=</span> <span class="nx">_c</span><span class="p">.</span><span class="nx">core</span><span class="p">;</span>
 
-    <span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./utils&#39;</span> <span class="p">)(</span> <span class="nx">_c</span> <span class="p">);</span>
+    <span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./coreUtils&#39;</span> <span class="p">)(</span> <span class="nx">_c</span> <span class="p">);</span>
+    <span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./rootUtils&#39;</span> <span class="p">)(</span> <span class="nx">_c</span> <span class="p">);</span>
     <span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./pseudo&#39;</span> <span class="p">)(</span> <span class="nx">_c</span> <span class="p">);</span>
 
     <span class="kd">var</span> <span class="nx">_pseudo</span> <span class="o">=</span> <span class="nx">_c</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">pseudo</span><span class="p">;</span>

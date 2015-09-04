@@ -104,6 +104,13 @@ Need to report something? [report@m.icro.be](report@m.icro.be)
 Change log
 ==========
 
+#### 0.4.5
+
++ updated docs and comments
++ cytoplasm utils split into coreUtils and rootUtils
++ cytoplasm now accepts html strings for element creation
+
+
 #### 0.4.2
 
 + upgraded tests

@@ -46,7 +46,7 @@ require( './cytoplasm/cytoplasm' )( Microbe, _type, _version );
 Microbe.version = Microbe.core.__init__.prototype.version = _version;
 module.exports 	= Microbe.core.constructor = Microbe;
 
-},{"./core":12,"./cytoplasm/cytoplasm":13,"./dom":16,"./events":17,"./http":18,"./observe":19,"./root":20}],2:[function(require,module,exports){
+},{"./core":12,"./cytoplasm/cytoplasm":14,"./dom":17,"./events":18,"./http":19,"./observe":20,"./root":21}],2:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -2735,7 +2735,443 @@ module.exports = function( Microbe )
     };
 };
 
-},{"./utils/array":21,"./utils/string":22}],13:[function(require,module,exports){
+},{"./utils/array":22,"./utils/string":23}],13:[function(require,module,exports){
+/**
+ * pseudo.js
+ *
+ * @author  Mouse Braun         <mouse@sociomantic.com>
+ * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
+ *
+ * @package Microbe
+ */
+var splice      = Array.prototype.splice;
+var indexOf     = Array.prototype.indexOf;
+
+module.exports = function( Cytoplasm )
+{
+    'use strict';
+
+    /**
+     * ## children
+     *
+     * Gets a microbe of all the given element's children
+     *
+     * @return _Array_  array of microbes (value)
+     */
+    Cytoplasm.core.children = function()
+    {
+        var i, len, childrenArray = new Array( this.length );
+
+        for ( i = 0, len = this.length; i < len; i++ )
+        {
+            childrenArray[ i ] = this.constructor( this[ i ].children );
+        }
+
+        return childrenArray;
+    };
+
+
+    /**
+     * ## childrenFlat
+     *
+     * Gets an microbe of all children of all element's given
+     *
+     * @return _Microbe_ value array of combined children
+     */
+    Cytoplasm.core.childrenFlat = function( direction )
+    {
+        var arr, i, len, childrenArray = [];
+
+        for ( i = 0, len = this.length; i < len; i++ )
+        {
+            arr = this[ i ].children;
+
+            for ( var j = 0, lenJ = arr.length; j < lenJ; j++ )
+            {
+                if ( childrenArray.indexOf( arr[ j ] ) === -1 )
+                {
+                    childrenArray.push( arr[ j ] );
+                }
+            }
+        }
+
+        return this.constructor( childrenArray );
+    };
+
+
+    /**
+     * ## filter
+     *
+     * Filters the microbe by the given given selector or function.  In the case
+     * of a function, the element is passed as this. The inclusion on an element
+     * into the set is based on the return of the function
+     *
+     * @param {Mixed} selector selector or function to filter by
+     *
+     * @return _Microbe_ new microbe containing only the filtered values
+     */
+    Cytoplasm.core.filter = function( filter )
+    {
+        var pseudo, filters, self = this, _el, method;
+
+        if ( this.length === 0 )
+        {
+            return this;
+        }
+
+        if ( typeof filter === 'function' )
+        {
+            var res = [];
+
+            for ( var i = 0, lenI = this.length; i < lenI; i++ )
+            {
+                if ( filter.call( this[ i ], i ) )
+                {
+                    res.push( this[ i ] );
+                }
+            }
+            return this.constructor( res );
+        }
+        else
+        {
+            var _filter = function( _f, _self, i )
+            {
+                if ( Cytoplasm.pseudo[ _f[ 0 ] ] )
+                {
+                    return Cytoplasm.pseudo[ _f[ 0 ] ]( _self, _f[ 1 ] );
+                }
+                else
+                {
+                    var resArray = [], _selector;
+                    _selector = i === 0 ? _f[ 0 ] : ':' + _f[ 0 ];
+                    if ( _selector !== '' )
+                    {
+                        if ( _f[ 1 ] !== '' )
+                        {
+                            _selector += '(' + _f[ 1 ] + ')';
+                        }
+                        for ( var j = 0, lenJ = _self.length; j < lenJ; j++ )
+                        {
+                            _el = _self[ j ];
+                            if ( Cytoplasm.matches( _el, _selector ) === true )
+                            {
+                                resArray.push( _el );
+                            }
+                        }
+                    }
+
+                    return new Cytoplasm( resArray );
+                }
+            };
+
+            if ( filter && filter.indexOf( ':' ) !== -1 )
+            {
+                pseudo  = filter.split( ':' );
+                filters = [ [ pseudo.splice( 0, 1 ).toString(), '' ] ];
+
+                var _p, pseudoArray;
+
+                for ( var h = 0, lenH = pseudo.length; h < lenH; h++ )
+                {
+                    _p = pseudo[ h ];
+
+                    if ( _p.indexOf( '(' ) !== - 1 )
+                    {
+                        _p      = _p.split( '(' );
+                        _p[ 1 ] = _p[ 1 ].replace( ')', '' );
+                    }
+                    else
+                    {
+                        _p      = [ _p, '' ];
+                    }
+
+                    filters.push( _p );
+                }
+            }
+            else if ( filter )
+            {
+                filters = [ [ filter, '' ] ];
+            }
+            else
+            {
+                return this;
+            }
+
+            for ( var k = 0, lenK = filters.length; k < lenK; k++ )
+            {
+                if ( self.length !== 0 )
+                {
+                    if ( filters[ k ][ 0 ] !== '' )
+                    {
+                        self = _filter( filters[ k ], self, k );
+                    }
+                }
+                else
+                {
+                    return self;
+                }
+            }
+
+            return self;
+        }
+    };
+
+
+    /**
+     * ## find
+     *
+     * Finds a child element with the given selector inside the scope of the current microbe
+     *
+     * @param {String} selector            selector to search for
+     *
+     * @return _Microbe_ new microbe containing only the found children values
+     */
+    Cytoplasm.core.find = function( _selector )
+    {
+        var _s          = _selector[ 0 ];
+
+        if ( _s === ' ' )
+        {
+            _selector   = _selector.trim();
+            _s          = _selector[ 0 ];
+        }
+
+        if ( _s === '>' )
+        {
+            _selector = _selector.slice( 1 ).trim();
+            return this.childrenFlat().filter( _selector );
+        }
+        else if ( _s === '~' )
+        {
+            _selector = _selector.slice( 1 ).trim();
+            return this.siblingsFlat().filter( _selector );
+        }
+        else if ( _s === '!' )
+        {
+            return this.parent();
+        }
+        else if ( _s === '+' )
+        {
+            _selector       = _selector.slice( 1 ).trim();
+            var resArray    = [],
+                _el, els    = this.children();
+
+            for ( var i = 0, lenI = els.length; i < lenI; i++ )
+            {
+                _el = els[ i ][ 0 ];
+
+                if ( _el )
+                {
+                    resArray.push( _el );
+                }
+            }
+
+            return new Cytoplasm( resArray ).filter( _selector );
+        }
+        else if ( _selector.indexOf( ':' ) !== -1 )
+        {
+            return this.constructor( _selector, this );
+        }
+
+        var _children = new Cytoplasm( _selector ), res = [];
+
+        for ( var j = 0, lenJ = this.length; j < lenJ; j++ )
+        {
+            for ( var k = 0, lenK = _children.length; k < lenK; k++ )
+            {
+                if ( Cytoplasm.contains( _children[ k ], this[ j ] ) )
+                {
+                    res.push( _children[ k ] );
+                }
+            }
+        }
+
+        return this.constructor( res );
+    };
+
+
+    /**
+     * ## first
+     *
+     * gets the first Element of the current microbe, and wraps it in
+     * Microbe.
+     *
+     * @return _Microbe_ new microbe containing only the first value
+     */
+    Cytoplasm.core.first = function()
+    {
+        if ( this.length !== 0 )
+        {
+            return this.constructor( this[ 0 ] );
+        }
+
+        return this.constructor( [] );
+    };
+
+
+    /**
+     * ## last
+     *
+     * Gets the last Element of the current microbe, and wrap it in
+     * Microbe.
+     *
+     * @return _Microbe_ new microbe containing only the last value
+     */
+    Cytoplasm.core.last = function()
+    {
+        if ( this.length === 1 )
+        {
+            return this;
+        }
+        else if ( this.length !== 0 )
+        {
+            return this.constructor( this[ this.length - 1 ] );
+        }
+
+        return this.constructor( [] );
+    };
+
+
+    /**
+     * ## parent
+     *
+     * gets all elements in a microbe's parent nodes
+     *
+     * @return _Microbe_ new microbe containing parent elements (index-preserved)
+     */
+    Cytoplasm.core.parent = function()
+    {
+        var _parent = function( _elm )
+        {
+            return _elm.parentNode;
+        };
+
+        var i, len, parentArray = new Array( this.length );
+
+        for ( i = 0, len = this.length; i < len; i++ )
+        {
+            parentArray[ i ] = _parent( this[ i ] );
+        }
+
+        return new Cytoplasm( parentArray );
+    };
+
+
+    /**
+     * ## siblings
+     *
+     * Gets an microbe of all of each given element's siblings
+     *
+     * @return _Array_ array of microbes (value)
+     */
+    Cytoplasm.core.siblings = function()
+    {
+        var _siblings = function( _elm )
+        {
+            var res     = [];
+            var sibling = _elm.parentNode.firstElementChild;
+            for ( ; sibling; )
+            {
+                if ( sibling !== _elm )
+                {
+                    res.push( sibling );
+                }
+                sibling = sibling.nextElementSibling;
+                if ( !sibling )
+                {
+                    return res;
+                }
+            }
+        };
+
+        var i, len, siblingArray = new Array( this.length );
+
+        for ( i = 0, len = this.length; i < len; i++ )
+        {
+            siblingArray[ i ] = this.constructor( _siblings( this[ i ] ) );
+        }
+
+        return siblingArray;
+    };
+
+
+    /**
+     * ## siblingsFlat
+     *
+     * Gets an microbe of all siblings of all element's given. 'next' and 'prev'
+     * passed as direction return only the next or previous siblings of each element
+     *
+     * @param {String} direction direction modifier (optional)
+     *
+     * @return _Microbe_ value array of combined siblings
+     */
+    Cytoplasm.core.siblingsFlat = function( direction )
+    {
+        var _siblings = function( _elm )
+        {
+            if ( !direction )
+            {
+                var res     = [];
+                var sibling = _elm.parentNode.firstElementChild;
+                for ( ; sibling; )
+                {
+                    if ( sibling !== _elm )
+                    {
+                        res.push( sibling );
+                    }
+                    sibling = sibling.nextElementSibling;
+                    if ( !sibling )
+                    {
+                        return res;
+                    }
+                }
+            }
+            else if ( direction === 'next' )
+            {
+                var next = _elm.nextElementSibling;
+                return next ? [ next ] : [];
+            }
+            else if ( direction === 'prev' )
+            {
+                var prev = _elm.prevElementSibling;
+                return prev ? [ prev ] : [];
+            }
+        };
+
+        var arr, i, len, siblingArray = [];
+
+        for ( i = 0, len = this.length; i < len; i++ )
+        {
+            arr = _siblings( this[ i ] );
+
+            for ( var j = 0, lenJ = arr.length; j < lenJ; j++ )
+            {
+                if ( siblingArray.indexOf( arr[ j ] ) === -1 )
+                {
+                    siblingArray.push( arr[ j ] );
+                }
+            }
+        }
+
+        return this.constructor( siblingArray );
+    };
+
+
+    /**
+     * ## splice
+     *
+     * Native splice wrapped in a microbe
+     *
+     * @return _Microbe_ new microbe of the remaining elements
+     */
+    Cytoplasm.core.splice = function( _start, _end )
+    {
+        var arr = splice.call( this, _start, _end );
+
+        return this.constructor( arr );
+    };
+};
+},{}],14:[function(require,module,exports){
 /**
  * Cytoplasm.js
  *
@@ -2782,10 +3218,10 @@ module.exports = function( _c, _type )
     /**
      * ## _create
      *
-     * Method creates a Cytoplasm from an element or a new element of the passed string, and
-     * returns the Cytoplasm
+     * Method creates Cytoplasm from a passed string, and returns it
      *
-     * @param {Element} _el element to create
+     * @param {String} _el element to create
+     * @param {Object} this reference to pass on to _build
      *
      * @return _Cytoplasm_
      */
@@ -2836,6 +3272,31 @@ module.exports = function( _c, _type )
         }
 
         return _build( [ _el ], self );
+    }
+
+
+    /**
+     * ## _createHtml
+     * 
+     * Method creates a Cytoplasm from an html string, and returns it
+     *
+     * @param {String} _el element to create
+     * @param {Object} this reference to pass on to _build
+     *
+     * @return _Cytoplasm_
+     */
+    function _createHtml( _el, self )
+    {
+        var _ghost          = document.createElement( 'div' );
+        _ghost.innerHTML    = _el;
+        _el                 = Array.prototype.slice.call( _ghost.children );
+
+        for ( var i = 0, lenI = _el.length; i < lenI; i++ ) 
+        {
+            _ghost.removeChild( _el[ i ] );
+        }
+
+        return _build( _el, self );
     }
 
 
@@ -3058,19 +3519,25 @@ module.exports = function( _c, _type )
             return _pseudo( this, _selector, _scope, _build );
         }
 
+        if ( _selector.indexOf( '/' ) !== -1 )
+        {
+            return _createHtml( _selector, this );
+        }
+
         return _build( _scope.querySelectorAll( _selector ), this );
     };
 
     _c.core.type                 = _type;
     _c.core.__init__.prototype   = _c.core;
 
-    require( './utils' )( _c );
+    require( './coreUtils' )( _c );
+    require( './rootUtils' )( _c );
     require( './pseudo' )( _c );
 
     var _pseudo = _c.constructor.pseudo;
 };
 
-},{"./pseudo":14,"./utils":15}],14:[function(require,module,exports){
+},{"./coreUtils":13,"./pseudo":15,"./rootUtils":16}],15:[function(require,module,exports){
 /**
  * pseudo.js
  *
@@ -4100,24 +4567,22 @@ module.exports = function( Cytoplasm )
 };
 
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 /**
- * pseudo.js
- *
+ * rootUtils.js
+ * 
  * @author  Mouse Braun         <mouse@sociomantic.com>
  * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
  *
  * @package Microbe
  */
-var splice      = Array.prototype.splice;
-var indexOf     = Array.prototype.indexOf;
 
 module.exports = function( Cytoplasm )
 {
     'use strict';
 
     /**
-     * ## _contains
+     * ## contains
      *
      * Checks if a given element is a child of _scope
      *
@@ -4196,431 +4661,8 @@ module.exports = function( Cytoplasm )
 
         return isArray ? resArray : resArray[ 0 ];
     };
-
-
-
-
-    /**
-     * ## children
-     *
-     * Gets a microbe of all the given element's children
-     *
-     * @return _Array_  array of microbes (value)
-     */
-    Cytoplasm.core.children = function()
-    {
-        var i, len, childrenArray = new Array( this.length );
-
-        for ( i = 0, len = this.length; i < len; i++ )
-        {
-            childrenArray[ i ] = this.constructor( this[ i ].children );
-        }
-
-        return childrenArray;
-    };
-
-
-    /**
-     * ## childrenFlat
-     *
-     * Gets an microbe of all children of all element's given
-     *
-     * @return _Microbe_ value array of combined children
-     */
-    Cytoplasm.core.childrenFlat = function( direction )
-    {
-        var arr, i, len, childrenArray = [];
-
-        for ( i = 0, len = this.length; i < len; i++ )
-        {
-            arr = this[ i ].children;
-
-            for ( var j = 0, lenJ = arr.length; j < lenJ; j++ )
-            {
-                if ( childrenArray.indexOf( arr[ j ] ) === -1 )
-                {
-                    childrenArray.push( arr[ j ] );
-                }
-            }
-        }
-
-        return this.constructor( childrenArray );
-    };
-
-
-    /**
-     * ## filter
-     *
-     * Filters the microbe by the given given selector or function.  In the case
-     * of a function, the element is passed as this. The inclusion on an element
-     * into the set is based on the return of the function
-     *
-     * @param {Mixed} selector selector or function to filter by
-     *
-     * @return _Microbe_ new microbe containing only the filtered values
-     */
-    Cytoplasm.core.filter = function( filter )
-    {
-        var pseudo, filters, self = this, _el, method;
-
-        if ( this.length === 0 )
-        {
-            return this;
-        }
-
-        if ( typeof filter === 'function' )
-        {
-            var res = [];
-
-            for ( var i = 0, lenI = this.length; i < lenI; i++ )
-            {
-                if ( filter.call( this[ i ], i ) )
-                {
-                    res.push( this[ i ] );
-                }
-            }
-            return this.constructor( res );
-        }
-        else
-        {
-            var _filter = function( _f, _self, i )
-            {
-                if ( Cytoplasm.pseudo[ _f[ 0 ] ] )
-                {
-                    return Cytoplasm.pseudo[ _f[ 0 ] ]( _self, _f[ 1 ] );
-                }
-                else
-                {
-                    var resArray = [], _selector;
-                    _selector = i === 0 ? _f[ 0 ] : ':' + _f[ 0 ];
-                    if ( _selector !== '' )
-                    {
-                        if ( _f[ 1 ] !== '' )
-                        {
-                            _selector += '(' + _f[ 1 ] + ')';
-                        }
-                        for ( var j = 0, lenJ = _self.length; j < lenJ; j++ )
-                        {
-                            _el = _self[ j ];
-                            if ( Cytoplasm.matches( _el, _selector ) === true )
-                            {
-                                resArray.push( _el );
-                            }
-                        }
-                    }
-
-                    return new Cytoplasm( resArray );
-                }
-            };
-
-            if ( filter && filter.indexOf( ':' ) !== -1 )
-            {
-                pseudo  = filter.split( ':' );
-                filters = [ [ pseudo.splice( 0, 1 ).toString(), '' ] ];
-
-                var _p, pseudoArray;
-
-                for ( var h = 0, lenH = pseudo.length; h < lenH; h++ )
-                {
-                    _p = pseudo[ h ];
-
-                    if ( _p.indexOf( '(' ) !== - 1 )
-                    {
-                        _p      = _p.split( '(' );
-                        _p[ 1 ] = _p[ 1 ].replace( ')', '' );
-                    }
-                    else
-                    {
-                        _p      = [ _p, '' ];
-                    }
-
-                    filters.push( _p );
-                }
-            }
-            else if ( filter )
-            {
-                filters = [ [ filter, '' ] ];
-            }
-            else
-            {
-                return this;
-            }
-
-            for ( var k = 0, lenK = filters.length; k < lenK; k++ )
-            {
-                if ( self.length !== 0 )
-                {
-                    if ( filters[ k ][ 0 ] !== '' )
-                    {
-                        self = _filter( filters[ k ], self, k );
-                    }
-                }
-                else
-                {
-                    return self;
-                }
-            }
-
-            return self;
-        }
-    };
-
-
-    /**
-     * ## find
-     *
-     * Finds a child element with the given selector inside the scope of the current microbe
-     *
-     * @param {String} selector            selector to search for
-     *
-     * @return _Microbe_ new microbe containing only the found children values
-     */
-    Cytoplasm.core.find = function( _selector )
-    {
-        var _s          = _selector[ 0 ];
-
-        if ( _s === ' ' )
-        {
-            _selector   = _selector.trim();
-            _s          = _selector[ 0 ];
-        }
-
-        if ( _s === '>' )
-        {
-            _selector = _selector.slice( 1 ).trim();
-            return this.childrenFlat().filter( _selector );
-        }
-        else if ( _s === '~' )
-        {
-            _selector = _selector.slice( 1 ).trim();
-            return this.siblingsFlat().filter( _selector );
-        }
-        else if ( _s === '!' )
-        {
-            return this.parent();
-        }
-        else if ( _s === '+' )
-        {
-            _selector       = _selector.slice( 1 ).trim();
-            var resArray    = [],
-                _el, els    = this.children();
-
-            for ( var i = 0, lenI = els.length; i < lenI; i++ )
-            {
-                _el = els[ i ][ 0 ];
-
-                if ( _el )
-                {
-                    resArray.push( _el );
-                }
-            }
-
-            return new Cytoplasm( resArray ).filter( _selector );
-        }
-        else if ( _selector.indexOf( ':' ) !== -1 )
-        {
-            return this.constructor( _selector, this );
-        }
-
-        var _children = new Cytoplasm( _selector ), res = [];
-
-        for ( var j = 0, lenJ = this.length; j < lenJ; j++ )
-        {
-            for ( var k = 0, lenK = _children.length; k < lenK; k++ )
-            {
-                if ( Cytoplasm.contains( _children[ k ], this[ j ] ) )
-                {
-                    res.push( _children[ k ] );
-                }
-            }
-        }
-
-        return this.constructor( res );
-    };
-
-
-    /**
-     * ## first
-     *
-     * gets the first Element of the current microbe, and wraps it in
-     * Microbe.
-     *
-     * @return _Microbe_ new microbe containing only the first value
-     */
-    Cytoplasm.core.first = function()
-    {
-        if ( this.length !== 0 )
-        {
-            return this.constructor( this[ 0 ] );
-        }
-
-        return this.constructor( [] );
-    };
-
-
-    /**
-     * ## last
-     *
-     * Gets the last Element of the current microbe, and wrap it in
-     * Microbe.
-     *
-     * @return _Microbe_ new microbe containing only the last value
-     */
-    Cytoplasm.core.last = function()
-    {
-        if ( this.length === 1 )
-        {
-            return this;
-        }
-        else if ( this.length !== 0 )
-        {
-            return this.constructor( this[ this.length - 1 ] );
-        }
-
-        return this.constructor( [] );
-    };
-
-
-    /**
-     * ## Parent
-     *
-     * gets all elements in a microbe's parent nodes
-     *
-     * @return _Microbe_ new microbe containing parent elements (index-preserved)
-     */
-    Cytoplasm.core.parent = function()
-    {
-        var _parent = function( _elm )
-        {
-            return _elm.parentNode;
-        };
-
-        var i, len, parentArray = new Array( this.length );
-
-        for ( i = 0, len = this.length; i < len; i++ )
-        {
-            parentArray[ i ] = _parent( this[ i ] );
-        }
-
-        return new Cytoplasm( parentArray );
-    };
-
-
-    /**
-     * ## siblings
-     *
-     * Gets an microbe of all of each given element's siblings
-     *
-     * @return _Array_ array of microbes (value)
-     */
-    Cytoplasm.core.siblings = function()
-    {
-        var _siblings = function( _elm )
-        {
-            var res     = [];
-            var sibling = _elm.parentNode.firstElementChild;
-            for ( ; sibling; )
-            {
-                if ( sibling !== _elm )
-                {
-                    res.push( sibling );
-                }
-                sibling = sibling.nextElementSibling;
-                if ( !sibling )
-                {
-                    return res;
-                }
-            }
-        };
-
-        var i, len, siblingArray = new Array( this.length );
-
-        for ( i = 0, len = this.length; i < len; i++ )
-        {
-            siblingArray[ i ] = this.constructor( _siblings( this[ i ] ) );
-        }
-
-        return siblingArray;
-    };
-
-
-    /**
-     * ## siblingsFlat
-     *
-     * Gets an microbe of all siblings of all element's given. 'next' and 'prev'
-     * passed as direction return only the next or previous siblings of each element
-     *
-     * @param {String} direction direction modifier (optional)
-     *
-     * @return _Microbe_ value array of combined siblings
-     */
-    Cytoplasm.core.siblingsFlat = function( direction )
-    {
-        var _siblings = function( _elm )
-        {
-            if ( !direction )
-            {
-                var res     = [];
-                var sibling = _elm.parentNode.firstElementChild;
-                for ( ; sibling; )
-                {
-                    if ( sibling !== _elm )
-                    {
-                        res.push( sibling );
-                    }
-                    sibling = sibling.nextElementSibling;
-                    if ( !sibling )
-                    {
-                        return res;
-                    }
-                }
-            }
-            else if ( direction === 'next' )
-            {
-                var next = _elm.nextElementSibling;
-                return next ? [ next ] : [];
-            }
-            else if ( direction === 'prev' )
-            {
-                var prev = _elm.prevElementSibling;
-                return prev ? [ prev ] : [];
-            }
-        };
-
-        var arr, i, len, siblingArray = [];
-
-        for ( i = 0, len = this.length; i < len; i++ )
-        {
-            arr = _siblings( this[ i ] );
-
-            for ( var j = 0, lenJ = arr.length; j < lenJ; j++ )
-            {
-                if ( siblingArray.indexOf( arr[ j ] ) === -1 )
-                {
-                    siblingArray.push( arr[ j ] );
-                }
-            }
-        }
-
-        return this.constructor( siblingArray );
-    };
-
-
-    /**
-     * ## splice
-     *
-     * Native splice wrapped in a microbe
-     *
-     * @return _Microbe_ new microbe of the remaining elements
-     */
-    Cytoplasm.core.splice = function( _start, _end )
-    {
-        var arr = splice.call( this, _start, _end );
-
-        return this.constructor( arr );
-    };
 };
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 /**
  * dom.js
  *
@@ -4890,7 +4932,7 @@ module.exports = function( Microbe )
     };
 };
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 /**
  * events.js
  *
@@ -5069,7 +5111,7 @@ module.exports = function( Microbe )
 
 
     /**
-     * ## CustomEvent polyfill
+     * ## _CustomEvent polyfill
      *
      * CustomEvent polyfill for IE <= 9
      *
@@ -5096,7 +5138,7 @@ module.exports = function( Microbe )
     }
 };
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 /**
  * http.js
  *
@@ -5201,7 +5243,7 @@ module.exports = function( Microbe )
             {
                 var _responses = {
                     /**
-                     * ### .then
+                     * ## .then
                      *
                      * Called after `http`, `http.get`, or `http.post`, this is
                      * called passing the result as the first parameter to the callback
@@ -5221,7 +5263,7 @@ module.exports = function( Microbe )
 
 
                     /**
-                     * ### .catch
+                     * ## .catch
                      *
                      * Called after `http`, `http.get`, or `http.post`, this is
                      * called passing the error as the first parameter to the callback
@@ -5295,7 +5337,7 @@ module.exports = function( Microbe )
     };
 };
 
-},{"promise":5}],19:[function(require,module,exports){
+},{"promise":5}],20:[function(require,module,exports){
 /**
  * observe.js
  *
@@ -5570,7 +5612,7 @@ module.exports = function( Microbe )
     };
 };
 
-},{"observe-shim":3,"observe-utils":4,"setimmediate":11}],20:[function(require,module,exports){
+},{"observe-shim":3,"observe-utils":4,"setimmediate":11}],21:[function(require,module,exports){
 /**
  * root.js
  *
@@ -6114,7 +6156,7 @@ module.exports = function( Microbe )
     Microbe.xyzzy   = Microbe.noop;
 };
 
-},{"./utils/types":23,"promise":5}],21:[function(require,module,exports){
+},{"./utils/types":24,"promise":5}],22:[function(require,module,exports){
 /**
  * array.js
  *
@@ -6136,7 +6178,7 @@ module.exports = {
     toString        : Array.prototype.toString
 };
 
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 /**
  * string.js
  *
@@ -6152,7 +6194,7 @@ module.exports = {
     slice               : String.prototype.slice
 };
 
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 /**
  * types.js
  *
