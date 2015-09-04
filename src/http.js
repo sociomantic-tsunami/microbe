@@ -24,7 +24,7 @@ module.exports = function( Microbe )
      */
     Microbe.http = function( _parameters )
     {
-        var fail, req, method, url, data, user, password, headers, async;
+        var req, method, url, data, user, password, headers, async;
 
         if ( !_parameters )
         {

@@ -14,12 +14,8 @@ var Arrays      = require( './utils/array' );
 var Strings     = require( './utils/string' );
 
 var slice       = Arrays.slice;
-var splice      = Arrays.splice;
-var push        = Arrays.push;
-var forEach     = Arrays.forEach;
 var map         = Arrays.map;
 var indexOf     = Arrays.indexOf;
-var toString    = Strings.toString;
 
 
 module.exports = function( Microbe )

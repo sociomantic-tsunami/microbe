@@ -2007,12 +2007,8 @@ var Arrays      = require( './utils/array' );
 var Strings     = require( './utils/string' );
 
 var slice       = Arrays.slice;
-var splice      = Arrays.splice;
-var push        = Arrays.push;
-var forEach     = Arrays.forEach;
 var map         = Arrays.map;
 var indexOf     = Arrays.indexOf;
-var toString    = Strings.toString;
 
 
 module.exports = function( Microbe )
@@ -2747,6 +2743,8 @@ module.exports = function( Microbe )
 var splice      = Array.prototype.splice;
 var indexOf     = Array.prototype.indexOf;
 
+var _cleanArray = function( _r ){ return !!( _r ); };
+
 module.exports = function( Cytoplasm )
 {
     'use strict';
@@ -2788,12 +2786,11 @@ module.exports = function( Cytoplasm )
 
             for ( var j = 0, lenJ = arr.length; j < lenJ; j++ )
             {
-                if ( childrenArray.indexOf( arr[ j ] ) === -1 )
-                {
-                    childrenArray.push( arr[ j ] );
-                }
+                childrenArray[ j ] = childrenArray.indexOf( arr[ j ] ) === -1 ?  arr[ j ] : null;
             }
         }
+
+        childrenArray = childrenArray.filter( _cleanArray );
 
         return this.constructor( childrenArray );
     };
@@ -2825,11 +2822,10 @@ module.exports = function( Cytoplasm )
 
             for ( var i = 0, lenI = this.length; i < lenI; i++ )
             {
-                if ( filter.call( this[ i ], i ) )
-                {
-                    res.push( this[ i ] );
-                }
+                res[ i ] = filter.call( this[ i ], i ) ? this[ i ] : null;
             }
+            res = res.filter( _cleanArray );
+
             return this.constructor( res );
         }
         else
@@ -2853,11 +2849,9 @@ module.exports = function( Cytoplasm )
                         for ( var j = 0, lenJ = _self.length; j < lenJ; j++ )
                         {
                             _el = _self[ j ];
-                            if ( Cytoplasm.matches( _el, _selector ) === true )
-                            {
-                                resArray.push( _el );
-                            }
+                            resArray[ j ] = Cytoplasm.matches( _el, _selector ) === true ? _el : null;
                         }
+                        resArray = resArray.filter( _cleanArray );
                     }
 
                     return new Cytoplasm( resArray );
@@ -2960,11 +2954,10 @@ module.exports = function( Cytoplasm )
             {
                 _el = els[ i ][ 0 ];
 
-                if ( _el )
-                {
-                    resArray.push( _el );
-                }
+                resArray[ i ] = _el ? _el : null;
             }
+
+            resArray.filter( _cleanArray );
 
             return new Cytoplasm( resArray ).filter( _selector );
         }
@@ -3494,8 +3487,7 @@ module.exports = function( _c, _type )
             }
         }
 
-        var scopeNodeType   = _scope.nodeType,
-            nodeType        = ( _selector ) ? _selector.nodeType || typeof _selector : null;
+        var scopeNodeType   = _scope.nodeType;
 
         if ( ( !_selector || typeof _selector !== 'string' ) ||
             ( scopeNodeType !== 1 && scopeNodeType !== 9 ) )
@@ -3671,7 +3663,7 @@ module.exports = function( Cytoplasm )
          */
         function _breakUpSelector( _selectors )
         {
-            var next, _el, resArray = [];
+            var next, resArray = [];
             for ( var i = 0, lenI = _selectors.length; i < lenI; i++ )
             {
                 if ( i === 0 )
@@ -3682,11 +3674,11 @@ module.exports = function( Cytoplasm )
                 {
                     next = pseudo( self, _selectors[ i ], _scope, _build );
 
-                    for ( var i = 0, lenI = next.length; i < lenI; i++ )
+                    for ( var j = 0, lenJ = next.length; j < lenJ; j++ )
                     {
-                        if ( Array.prototype.indexOf.call( resArray, next[ i ] ) === -1 )
+                        if ( Array.prototype.indexOf.call( resArray, next[ j ] ) === -1 )
                         {
-                            resArray[ resArray.length ] = next[ i ];
+                            resArray[ resArray.length ] = next[ j ];
                             resArray.length++;
                         }
                     }
@@ -5197,7 +5189,7 @@ module.exports = function( Microbe )
      */
     Microbe.http = function( _parameters )
     {
-        var fail, req, method, url, data, user, password, headers, async;
+        var req, method, url, data, user, password, headers, async;
 
         if ( !_parameters )
         {
@@ -5446,11 +5438,9 @@ module.exports = function( Microbe )
      */
     Microbe.prototype.observe = function( prop, func, _once )
     {
-        var self = this;
-
         var _observe = function( _elm )
         {
-            var _setObserve = function( _target, _prop )
+            var _setObserve = function( _target )
             {
                 if ( _once === true )
                 {
@@ -5496,7 +5486,7 @@ module.exports = function( Microbe )
                 }
 
                 target = _setObserveFunc( _data[ prop ] );
-                _setObserve( target, prop );
+                _setObserve( target );
             }
             else
             {
@@ -5522,7 +5512,7 @@ module.exports = function( Microbe )
             prop    = null;
         }
 
-        var i, len, results = new Array( this.length );
+        var i, len;
 
         for ( i = 0, len = this.length; i < len; i++ )
         {
@@ -5634,7 +5624,7 @@ module.exports = function( Microbe )
             }
         }.bind( this );
 
-        var i, len, results = new Array( this.length );
+        var i, len;
         for ( i = 0, len = this.length; i < len; i++ )
         {
             _unobserve( this[ i ] );

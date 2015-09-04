@@ -99,7 +99,7 @@ module.exports = function( Cytoplasm )
          */
         function _breakUpSelector( _selectors )
         {
-            var next, _el, resArray = [];
+            var next, resArray = [];
             for ( var i = 0, lenI = _selectors.length; i < lenI; i++ )
             {
                 if ( i === 0 )
@@ -110,11 +110,11 @@ module.exports = function( Cytoplasm )
                 {
                     next = pseudo( self, _selectors[ i ], _scope, _build );
 
-                    for ( var i = 0, lenI = next.length; i < lenI; i++ )
+                    for ( var j = 0, lenJ = next.length; j < lenJ; j++ )
                     {
-                        if ( Array.prototype.indexOf.call( resArray, next[ i ] ) === -1 )
+                        if ( Array.prototype.indexOf.call( resArray, next[ j ] ) === -1 )
                         {
-                            resArray[ resArray.length ] = next[ i ];
+                            resArray[ resArray.length ] = next[ j ];
                             resArray.length++;
                         }
                     }

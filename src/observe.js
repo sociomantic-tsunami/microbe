@@ -74,11 +74,9 @@ module.exports = function( Microbe )
      */
     Microbe.prototype.observe = function( prop, func, _once )
     {
-        var self = this;
-
         var _observe = function( _elm )
         {
-            var _setObserve = function( _target, _prop )
+            var _setObserve = function( _target )
             {
                 if ( _once === true )
                 {
@@ -124,7 +122,7 @@ module.exports = function( Microbe )
                 }
 
                 target = _setObserveFunc( _data[ prop ] );
-                _setObserve( target, prop );
+                _setObserve( target );
             }
             else
             {
@@ -150,7 +148,7 @@ module.exports = function( Microbe )
             prop    = null;
         }
 
-        var i, len, results = new Array( this.length );
+        var i, len;
 
         for ( i = 0, len = this.length; i < len; i++ )
         {
@@ -262,7 +260,7 @@ module.exports = function( Microbe )
             }
         }.bind( this );
 
-        var i, len, results = new Array( this.length );
+        var i, len;
         for ( i = 0, len = this.length; i < len; i++ )
         {
             _unobserve( this[ i ] );

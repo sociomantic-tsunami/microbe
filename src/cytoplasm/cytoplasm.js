@@ -320,8 +320,7 @@ module.exports = function( _c, _type )
             }
         }
 
-        var scopeNodeType   = _scope.nodeType,
-            nodeType        = ( _selector ) ? _selector.nodeType || typeof _selector : null;
+        var scopeNodeType   = _scope.nodeType;
 
         if ( ( !_selector || typeof _selector !== 'string' ) ||
             ( scopeNodeType !== 1 && scopeNodeType !== 9 ) )

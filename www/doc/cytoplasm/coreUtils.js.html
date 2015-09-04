@@ -76,11 +76,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Mouse Braun         <a href="&#109;&#x61;i&#x6C;&#x74;&#111;:&#x6D;&#111;&#117;&#x73;&#x65;&#64;&#x73;&#111;&#99;&#x69;&#111;&#109;&#97;&#x6E;t&#x69;&#x63;&#x2E;&#x63;&#111;m">&#x6D;&#111;&#117;&#x73;&#x65;&#64;&#x73;&#111;&#99;&#x69;&#111;&#109;&#97;&#x6E;t&#x69;&#x63;&#x2E;&#x63;&#111;m</a></span>
+      <span>Mouse Braun         <a href="&#109;a&#x69;&#108;&#x74;o:m&#111;&#117;&#x73;&#x65;&#64;&#x73;&#111;&#99;&#105;o&#x6D;&#x61;&#x6E;&#x74;&#x69;&#99;&#x2E;&#x63;&#x6F;&#109;">m&#111;&#117;&#x73;&#x65;&#64;&#x73;&#111;&#99;&#105;o&#x6D;&#x61;&#x6E;&#x74;&#x69;&#99;&#x2E;&#x63;&#x6F;&#109;</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Nicolas Brugneaux   <a href="&#109;&#97;&#105;lt&#x6F;:&#110;&#x69;&#99;&#111;&#108;a&#115;&#x2E;&#x62;&#x72;&#x75;&#103;&#x6E;&#x65;a&#x75;&#120;&#x40;&#x73;&#x6F;&#99;&#105;o&#x6D;&#x61;n&#116;&#x69;&#99;&#x2E;&#x63;&#111;&#109;">&#110;&#x69;&#99;&#111;&#108;a&#115;&#x2E;&#x62;&#x72;&#x75;&#103;&#x6E;&#x65;a&#x75;&#120;&#x40;&#x73;&#x6F;&#99;&#105;o&#x6D;&#x61;n&#116;&#x69;&#99;&#x2E;&#x63;&#111;&#109;</a></span>
+      <span>Nicolas Brugneaux   <a href="&#109;&#x61;i&#x6C;&#116;&#111;:&#x6E;&#105;&#x63;&#x6F;&#x6C;&#x61;&#115;&#x2E;&#98;&#x72;&#117;&#103;&#110;&#x65;&#97;&#x75;&#120;&#x40;&#115;o&#99;&#x69;&#x6F;&#x6D;&#97;&#x6E;&#116;i&#99;&#x2E;&#x63;&#111;&#109;">&#x6E;&#105;&#x63;&#x6F;&#x6C;&#x61;&#115;&#x2E;&#98;&#x72;&#117;&#103;&#110;&#x65;&#97;&#x75;&#120;&#x40;&#115;o&#99;&#x69;&#x6F;&#x6D;&#97;&#x6E;&#116;i&#99;&#x2E;&#x63;&#111;&#109;</a></span>
     </div>
     <div class="dox_tag_title">package</div>
     <div class="dox_tag_detail">
@@ -91,6 +91,8 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">splice</span>      <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">splice</span><span class="p">;</span>
 <span class="kd">var</span> <span class="nx">indexOf</span>     <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">_cleanArray</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_r</span> <span class="p">){</span> <span class="k">return</span> <span class="o">!!</span><span class="p">(</span> <span class="nx">_r</span> <span class="p">);</span> <span class="p">};</span>
 
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">Cytoplasm</span> <span class="p">)</span>
 <span class="p">{</span>
@@ -173,12 +175,11 @@
 
             <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenJ</span> <span class="o">=</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">lenJ</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">)</span>
             <span class="p">{</span>
-                <span class="k">if</span> <span class="p">(</span> <span class="nx">childrenArray</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="nx">arr</span><span class="p">[</span> <span class="nx">j</span> <span class="p">]</span> <span class="p">)</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span> <span class="p">)</span>
-                <span class="p">{</span>
-                    <span class="nx">childrenArray</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">arr</span><span class="p">[</span> <span class="nx">j</span> <span class="p">]</span> <span class="p">);</span>
-                <span class="p">}</span>
+                <span class="nx">childrenArray</span><span class="p">[</span> <span class="nx">j</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">childrenArray</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="nx">arr</span><span class="p">[</span> <span class="nx">j</span> <span class="p">]</span> <span class="p">)</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span> <span class="o">?</span>  <span class="nx">arr</span><span class="p">[</span> <span class="nx">j</span> <span class="p">]</span> <span class="o">:</span> <span class="kc">null</span><span class="p">;</span>
             <span class="p">}</span>
         <span class="p">}</span>
+
+        <span class="nx">childrenArray</span> <span class="o">=</span> <span class="nx">childrenArray</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span> <span class="nx">_cleanArray</span> <span class="p">);</span>
 
         <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">constructor</span><span class="p">(</span> <span class="nx">childrenArray</span> <span class="p">);</span>
     <span class="p">};</span>
@@ -234,11 +235,10 @@ into the set is based on the return of the function</p>
 
             <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
             <span class="p">{</span>
-                <span class="k">if</span> <span class="p">(</span> <span class="nx">filter</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="k">this</span><span class="p">[</span> <span class="nx">i</span> <span class="p">],</span> <span class="nx">i</span> <span class="p">)</span> <span class="p">)</span>
-                <span class="p">{</span>
-                    <span class="nx">res</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="k">this</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="p">);</span>
-                <span class="p">}</span>
+                <span class="nx">res</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">filter</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="k">this</span><span class="p">[</span> <span class="nx">i</span> <span class="p">],</span> <span class="nx">i</span> <span class="p">)</span> <span class="o">?</span> <span class="k">this</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="o">:</span> <span class="kc">null</span><span class="p">;</span>
             <span class="p">}</span>
+            <span class="nx">res</span> <span class="o">=</span> <span class="nx">res</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span> <span class="nx">_cleanArray</span> <span class="p">);</span>
+
             <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">constructor</span><span class="p">(</span> <span class="nx">res</span> <span class="p">);</span>
         <span class="p">}</span>
         <span class="k">else</span>
@@ -262,11 +262,9 @@ into the set is based on the return of the function</p>
                         <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenJ</span> <span class="o">=</span> <span class="nx">_self</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">lenJ</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">)</span>
                         <span class="p">{</span>
                             <span class="nx">_el</span> <span class="o">=</span> <span class="nx">_self</span><span class="p">[</span> <span class="nx">j</span> <span class="p">];</span>
-                            <span class="k">if</span> <span class="p">(</span> <span class="nx">Cytoplasm</span><span class="p">.</span><span class="nx">matches</span><span class="p">(</span> <span class="nx">_el</span><span class="p">,</span> <span class="nx">_selector</span> <span class="p">)</span> <span class="o">===</span> <span class="kc">true</span> <span class="p">)</span>
-                            <span class="p">{</span>
-                                <span class="nx">resArray</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">_el</span> <span class="p">);</span>
-                            <span class="p">}</span>
+                            <span class="nx">resArray</span><span class="p">[</span> <span class="nx">j</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">Cytoplasm</span><span class="p">.</span><span class="nx">matches</span><span class="p">(</span> <span class="nx">_el</span><span class="p">,</span> <span class="nx">_selector</span> <span class="p">)</span> <span class="o">===</span> <span class="kc">true</span> <span class="o">?</span> <span class="nx">_el</span> <span class="o">:</span> <span class="kc">null</span><span class="p">;</span>
                         <span class="p">}</span>
+                        <span class="nx">resArray</span> <span class="o">=</span> <span class="nx">resArray</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span> <span class="nx">_cleanArray</span> <span class="p">);</span>
                     <span class="p">}</span>
 
                     <span class="k">return</span> <span class="k">new</span> <span class="nx">Cytoplasm</span><span class="p">(</span> <span class="nx">resArray</span> <span class="p">);</span>
@@ -393,11 +391,10 @@ into the set is based on the return of the function</p>
             <span class="p">{</span>
                 <span class="nx">_el</span> <span class="o">=</span> <span class="nx">els</span><span class="p">[</span> <span class="nx">i</span> <span class="p">][</span> <span class="mi">0</span> <span class="p">];</span>
 
-                <span class="k">if</span> <span class="p">(</span> <span class="nx">_el</span> <span class="p">)</span>
-                <span class="p">{</span>
-                    <span class="nx">resArray</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">_el</span> <span class="p">);</span>
-                <span class="p">}</span>
+                <span class="nx">resArray</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">_el</span> <span class="o">?</span> <span class="nx">_el</span> <span class="o">:</span> <span class="kc">null</span><span class="p">;</span>
             <span class="p">}</span>
+
+            <span class="nx">resArray</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span> <span class="nx">_cleanArray</span> <span class="p">);</span>
 
             <span class="k">return</span> <span class="k">new</span> <span class="nx">Cytoplasm</span><span class="p">(</span> <span class="nx">resArray</span> <span class="p">).</span><span class="nx">filter</span><span class="p">(</span> <span class="nx">_selector</span> <span class="p">);</span>
         <span class="p">}</span>

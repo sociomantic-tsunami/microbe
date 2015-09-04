@@ -61,11 +61,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Mouse Braun         <a href="&#x6D;&#97;&#x69;&#108;&#x74;&#111;:&#x6D;&#111;&#x75;&#115;&#x65;&#64;&#x73;&#111;&#x63;&#105;&#x6F;ma&#x6E;t&#105;&#x63;&#46;&#x63;o&#109;">&#x6D;&#111;&#x75;&#115;&#x65;&#64;&#x73;&#111;&#x63;&#105;&#x6F;ma&#x6E;t&#105;&#x63;&#46;&#x63;o&#109;</a></span>
+      <span>Mouse Braun         <a href="&#109;&#97;&#105;l&#x74;&#x6F;:&#x6D;&#111;&#117;&#x73;&#101;&#64;&#x73;&#111;&#x63;&#105;&#x6F;&#x6D;&#97;&#x6E;t&#105;&#99;.&#99;&#111;&#109;">&#x6D;&#111;&#117;&#x73;&#101;&#64;&#x73;&#111;&#x63;&#105;&#x6F;&#x6D;&#97;&#x6E;t&#105;&#99;.&#99;&#111;&#109;</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Nicolas Brugneaux   <a href="&#x6D;&#97;&#105;&#x6C;&#116;&#111;:&#110;i&#99;&#111;&#x6C;as&#x2E;&#98;r&#x75;&#103;n&#x65;&#97;&#x75;&#x78;&#x40;&#x73;oc&#105;&#x6F;&#x6D;&#x61;&#110;&#116;&#105;&#x63;&#x2E;&#x63;&#111;&#109;">&#110;i&#99;&#111;&#x6C;as&#x2E;&#98;r&#x75;&#103;n&#x65;&#97;&#x75;&#x78;&#x40;&#x73;oc&#105;&#x6F;&#x6D;&#x61;&#110;&#116;&#105;&#x63;&#x2E;&#x63;&#111;&#109;</a></span>
+      <span>Nicolas Brugneaux   <a href="m&#97;&#105;&#108;&#x74;&#x6F;:&#x6E;&#105;&#99;&#111;&#108;&#97;&#x73;&#46;&#98;&#114;ug&#110;&#101;&#x61;&#117;&#x78;&#64;&#x73;&#111;c&#x69;&#x6F;&#x6D;&#x61;&#x6E;&#116;&#x69;&#99;&#46;&#99;&#x6F;&#x6D;">&#x6E;&#105;&#99;&#111;&#108;&#97;&#x73;&#46;&#98;&#114;ug&#110;&#101;&#x61;&#117;&#x78;&#64;&#x73;&#111;c&#x69;&#x6F;&#x6D;&#x61;&#x6E;&#116;&#x69;&#99;&#46;&#99;&#x6F;&#x6D;</a></span>
     </div>
     <div class="dox_tag_title">package</div>
     <div class="dox_tag_detail">
@@ -208,11 +208,9 @@
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">Microbe</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">observe</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">prop</span><span class="p">,</span> <span class="nx">func</span><span class="p">,</span> <span class="nx">_once</span> <span class="p">)</span>
     <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
-
         <span class="kd">var</span> <span class="nx">_observe</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_elm</span> <span class="p">)</span>
         <span class="p">{</span>
-            <span class="kd">var</span> <span class="nx">_setObserve</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_target</span><span class="p">,</span> <span class="nx">_prop</span> <span class="p">)</span>
+            <span class="kd">var</span> <span class="nx">_setObserve</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_target</span> <span class="p">)</span>
             <span class="p">{</span>
                 <span class="k">if</span> <span class="p">(</span> <span class="nx">_once</span> <span class="o">===</span> <span class="kc">true</span> <span class="p">)</span>
                 <span class="p">{</span>
@@ -258,7 +256,7 @@
                 <span class="p">}</span>
 
                 <span class="nx">target</span> <span class="o">=</span> <span class="nx">_setObserveFunc</span><span class="p">(</span> <span class="nx">_data</span><span class="p">[</span> <span class="nx">prop</span> <span class="p">]</span> <span class="p">);</span>
-                <span class="nx">_setObserve</span><span class="p">(</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">prop</span> <span class="p">);</span>
+                <span class="nx">_setObserve</span><span class="p">(</span> <span class="nx">target</span> <span class="p">);</span>
             <span class="p">}</span>
             <span class="k">else</span>
             <span class="p">{</span>
@@ -284,7 +282,7 @@
             <span class="nx">prop</span>    <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
         <span class="p">}</span>
 
-        <span class="kd">var</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">len</span><span class="p">,</span> <span class="nx">results</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span> <span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">len</span><span class="p">;</span>
 
         <span class="k">for</span> <span class="p">(</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">len</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
         <span class="p">{</span>
@@ -487,7 +485,7 @@
             <span class="p">}</span>
         <span class="p">}.</span><span class="nx">bind</span><span class="p">(</span> <span class="k">this</span> <span class="p">);</span>
 
-        <span class="kd">var</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">len</span><span class="p">,</span> <span class="nx">results</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span> <span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">len</span><span class="p">;</span>
         <span class="k">for</span> <span class="p">(</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">len</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
         <span class="p">{</span>
             <span class="nx">_unobserve</span><span class="p">(</span> <span class="k">this</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="p">);</span>

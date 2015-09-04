@@ -9,6 +9,8 @@
 var splice      = Array.prototype.splice;
 var indexOf     = Array.prototype.indexOf;
 
+var _cleanArray = function( _r ){ return !!( _r ); };
+
 module.exports = function( Cytoplasm )
 {
     'use strict';
@@ -50,12 +52,11 @@ module.exports = function( Cytoplasm )
 
             for ( var j = 0, lenJ = arr.length; j < lenJ; j++ )
             {
-                if ( childrenArray.indexOf( arr[ j ] ) === -1 )
-                {
-                    childrenArray.push( arr[ j ] );
-                }
+                childrenArray[ j ] = childrenArray.indexOf( arr[ j ] ) === -1 ?  arr[ j ] : null;
             }
         }
+
+        childrenArray = childrenArray.filter( _cleanArray );
 
         return this.constructor( childrenArray );
     };
@@ -87,11 +88,10 @@ module.exports = function( Cytoplasm )
 
             for ( var i = 0, lenI = this.length; i < lenI; i++ )
             {
-                if ( filter.call( this[ i ], i ) )
-                {
-                    res.push( this[ i ] );
-                }
+                res[ i ] = filter.call( this[ i ], i ) ? this[ i ] : null;
             }
+            res = res.filter( _cleanArray );
+
             return this.constructor( res );
         }
         else
@@ -115,11 +115,9 @@ module.exports = function( Cytoplasm )
                         for ( var j = 0, lenJ = _self.length; j < lenJ; j++ )
                         {
                             _el = _self[ j ];
-                            if ( Cytoplasm.matches( _el, _selector ) === true )
-                            {
-                                resArray.push( _el );
-                            }
+                            resArray[ j ] = Cytoplasm.matches( _el, _selector ) === true ? _el : null;
                         }
+                        resArray = resArray.filter( _cleanArray );
                     }
 
                     return new Cytoplasm( resArray );
@@ -222,11 +220,10 @@ module.exports = function( Cytoplasm )
             {
                 _el = els[ i ][ 0 ];
 
-                if ( _el )
-                {
-                    resArray.push( _el );
-                }
+                resArray[ i ] = _el ? _el : null;
             }
+
+            resArray.filter( _cleanArray );
 
             return new Cytoplasm( resArray ).filter( _selector );
         }
