@@ -8,17 +8,14 @@
  */
 
  /*jshint globalstrict: true*/
- 'use strict';
+'use strict';
 
-var Arrays      = require( './utils/array' );
-var Strings     = require( './utils/string' );
+var Arrays      = require('./utils/array');
+var Strings     = require('./utils/string');
 
 var slice       = Arrays.slice;
 var map         = Arrays.map;
 var indexOf     = Arrays.indexOf;
-
-var _observables;
-
 
 module.exports = function( Microbe )
 {
@@ -38,9 +35,9 @@ module.exports = function( Microbe )
          *
          * @return _Microbe_ reference to original microbe
          */
-        addClass : (function()
+        addClass : function( _class )
         {
-            var _addClass = function( _class, _el )
+            var _addClass = function( _el )
             {
                 for ( var i = 0, lenI = _class.length; i < lenI; i++ )
                 {
@@ -55,32 +52,20 @@ module.exports = function( Microbe )
                     }
                 }
 
-                if ( _observables )
-                {
-                    _el.data                = _el.data  || {};
-                    _el.data.class          = _el.data.class || {};
-                    _el.data.class.class    = _el.className;
-                }
+                _el.data                = _el.data  || {};
+                _el.data.class          = _el.data.class || {};
+                _el.data.class.class    = _el.className;
             };
 
-            return function( _class )
+            if ( typeof _class === 'string' )
             {
-                if ( typeof _class === 'string' )
-                {
-                    _class = [ _class ];
-                }
+                _class = [ _class ];
+            }
 
-                _observables = _observables || this.get;
+            this.each( _addClass );
 
-                var i, len;
-                for ( i = 0, len = this.length; i < len; i++ )
-                {
-                    _addClass( _class, this[ i ] );
-                }
-
-                return this;
-            };
-        }()),
+            return this;
+        },
 
 
         /**
@@ -114,13 +99,10 @@ module.exports = function( Microbe )
                         _elm.setAttribute( _a, _v );
                     }
 
-                    if ( _observables )
-                    {
-                        _elm.data                   = _elm.data || {};
-                        _elm.data.attr              = _elm.data.attr || {};
-                        _elm.data.attr.attr         = _elm.data.attr.attr || {};
-                        _elm.data.attr.attr[ _a ]   = _v;
-                    }
+                    _elm.data                   = _elm.data || {};
+                    _elm.data.attr              = _elm.data.attr || {};
+                    _elm.data.attr.attr         = _elm.data.attr.attr || {};
+                    _elm.data.attr.attr[ _a ]   = _v;
                 };
 
                 if ( _value === null )
@@ -147,10 +129,6 @@ module.exports = function( Microbe )
 
             var _getAttr = function( _elm )
             {
-                if ( _elm.getAttribute( _attribute ) === null )
-                {
-                    return _elm[ _attribute ];
-                }
                 return _elm.getAttribute( _attribute );
             };
 
@@ -169,25 +147,12 @@ module.exports = function( Microbe )
 
             if ( _value !== undefined || attrObject )
             {
-                _observables = _observables || this.get;
-
-                var i, len;
-                for ( i = 0, len = this.length; i < len; i++ )
-                {
-                    _setAttr( this[ i ] );
-                }
+                this.each( _setAttr );
 
                 return this;
             }
 
-            var j, lenj;
-            var attributes = new Array( this.length );
-            for ( j = 0, lenj = this.length; j < lenj; j++ )
-            {
-                attributes[ j ] = _getAttr( this[ j ] );
-            }
-
-            return attributes;
+            return this.map( _getAttr );
         },
 
 
@@ -208,13 +173,10 @@ module.exports = function( Microbe )
         {
             var _setCss = function( _elm )
             {
-                if ( _observables )
-                {
-                    _elm.data                   = _elm.data || {};
-                    _elm.data.css               = _elm.data.css || {};
-                    _elm.data.css[ _property ]  = _value;
-                }
-
+                _elm.data                   = _elm.data || {};
+                _elm.data.css               = _elm.data.css || {};
+                _elm.data.css[ _property ]  = _value;
+                
                 _elm.style[ _property ]     = _elm.data.css[ _property ];
             };
 
@@ -226,25 +188,13 @@ module.exports = function( Microbe )
             if ( _value || _value === null || _value === '' )
             {
                 _value = ( _value === null ) ? '' : _value;
-
-                _observables = _observables || this.get;
                 
-                var i, len;
-                for ( i = 0, len = this.length; i < len; i++ )
-                {
-                    _setCss( this[ i ] );
-                }
+                this.each( _setCss );
 
                 return this;
             }
 
-            var j, lenj, styles = new Array( this.length );
-            for ( j = 0, lenj = this.length; j < lenj; j++ )
-            {
-                styles[ j ] = _getCss( this[ j ] );
-            }
-
-            return styles;
+            return this.map( _getCss );
         },
 
 
@@ -363,14 +313,7 @@ module.exports = function( Microbe )
                 return indexOf.call( _elm.parentNode.children, _elm );
             };
 
-            var i, len, indexes = new Array( this.length );
-
-            for ( i = 0, len = this.length; i < len; i++ )
-            {
-                indexes[ i ] = _getParentIndex( this[ i ] );
-            }
-
-            return indexes;
+            return this.map( _getParentIndex );
         },
 
 
@@ -390,13 +333,7 @@ module.exports = function( Microbe )
                 return _elm.classList.contains( _class );
             };
 
-            var i, len, results = new Array( this.length );
-            for ( i = 0, len = this.length; i < len; i++ )
-            {
-                results[ i ] = _hasClass( this[ i ] );
-            }
-
-            return results;
+            return this.map( _hasClass );
         },
 
 
@@ -435,23 +372,14 @@ module.exports = function( Microbe )
             {
                 var _setHtml = function( _elm )
                 {
-                    if ( _observables )
-                    {
-                        _elm.data           = _elm.data || {};
-                        _elm.data.html      = _elm.data.html || {};
-                        _elm.data.html.html = _value;
-                    }
+                    _elm.data           = _elm.data || {};
+                    _elm.data.html      = _elm.data.html || {};
+                    _elm.data.html.html = _value;
 
                     _elm.innerHTML      = _value;
                 };
 
-                _observables = _observables || this.get;
-
-                var i, len;
-                for ( i = 0, len = this.length; i < len; i++ )
-                {
-                    _setHtml( this[ i ] );
-                }
+                this.each( _setHtml );
 
                 if ( _append )
                 {
@@ -463,13 +391,7 @@ module.exports = function( Microbe )
                 }
             }
 
-            var j, lenj, markup = new Array( this.length );
-            for ( j = 0, lenj = this.length; j < lenj; j++ )
-            {
-                markup[ j ] = _getHtml( this[ j ] );
-            }
-
-            return markup;
+            return this.map( _getHtml );
         },
 
 
@@ -581,9 +503,9 @@ module.exports = function( Microbe )
          *
          * @return _Microbe_ reference of the original microbe
          */
-        removeClass : (function()
+        removeClass : function( _class )
         {
-            var _removeClass = function( _class, _el )
+            var _removeClass = function( _el )
             {
                 for ( var i = 0, lenI = _class.length; i < lenI; i++ )
                 {
@@ -598,32 +520,20 @@ module.exports = function( Microbe )
                     }
                 }
 
-                if ( _observables )
-                {
-                    _el.data                = _el.data || {};
-                    _el.data.class          = _el.data.class || {};
-                    _el.data.class.class    = _el.className;
-                }
+                _el.data                = _el.data || {};
+                _el.data.class          = _el.data.class || {};
+                _el.data.class.class    = _el.className;
             };
 
-            return function( _class )
+            if ( typeof _class === 'string' )
             {
-                if ( typeof _class === 'string' )
-                {
-                    _class = [ _class ];
-                }
+                _class = [ _class ];
+            }
 
-                _observables = _observables || this.get;
+            this.each( _removeClass );
 
-                var i, len;
-                for ( i = 0, len = this.length; i < len; i++ )
-                {
-                    _removeClass( _class, this[ i ] );
-                }
-
-                return this;
-            };
-        }()),
+            return this;
+        },
 
 
         /**
@@ -637,9 +547,9 @@ module.exports = function( Microbe )
          * @return _Microbe_ reference to original microbe (set)
          * @return _Array_  array of values (get)
          */
-        text : (function()
+        text : function( _value )
         {
-            var _setText = function( _value, _el )
+            var _setText = function( _el )
             {
                 if ( document.all )
                 {
@@ -650,12 +560,9 @@ module.exports = function( Microbe )
                     _el.textContent = _value;
                 }
 
-                if ( _observables )
-                {
-                    _el.data            = _el.data || {};
-                    _el.data.text       = _el.data.text || {};
-                    _el.data.text.text  = _value;
-                }
+                _el.data            = _el.data || {};
+                _el.data.text       = _el.data.text || {};
+                _el.data.text.text  = _value;
             };
 
             var _getText = function( _el )
@@ -669,30 +576,16 @@ module.exports = function( Microbe )
                     return _el.textContent;
                 }
             };
-            return function( _value )
+
+            if ( _value || _value === '' || _value === 0 )
             {
-                if ( _value || _value === '' || _value === 0 )
-                {
-                    var i, len;
-                    _observables = _observables || this.get;
+                this.each( _setText );
 
-                    for ( i = 0, len = this.length; i < len; i++ )
-                    {
-                        _setText( _value, this[ i ] );
-                    }
+                return this;
+            }
 
-                    return this;
-                }
-
-                var j, lenj, arrayText = new Array( this.length );
-                for ( j = 0, lenj = this.length; j < lenj; j++ )
-                {
-                    arrayText[ j ] = _getText( this[ j ] );
-                }
-
-                return arrayText;
-            };
-        }()),
+            return this.map( _getText );
+        },
 
 
         /**
@@ -718,9 +611,9 @@ module.exports = function( Microbe )
          *
          * @return _Microbe_ reference of the original microbe
          */
-        toggleClass : (function()
+        toggleClass : function( _class )
         {
-            var _toggleClass = function( _class, _el )
+            var _toggleClass = function( _el )
             {
                 if ( _el.classList.contains( _class ) )
                 {
@@ -731,26 +624,15 @@ module.exports = function( Microbe )
                     _el.classList.add( _class );
                 }
 
-                if ( _observables )
-                {
-                    _el.data                = _el.data || {};
-                    _el.data.class          = _el.data.class || {};
-                    _el.data.class.class    = _el.className;
-                }
+                _el.data                = _el.data || {};
+                _el.data.class          = _el.data.class || {};
+                _el.data.class.class    = _el.className;
             };
-            return function( _class )
-            {
-                var i, len;
-                _observables = _observables || this.get;
 
-                for ( i = 0, len = this.length; i < len; i++ )
-                {
-                    _toggleClass( _class, this[ i ] );
-                }
+            this.each( _toggleClass );
 
-                return this;
-            };
-        }()),
+            return this;
+        },
 
 
         /**
