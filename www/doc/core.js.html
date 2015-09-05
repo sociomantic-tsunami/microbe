@@ -97,11 +97,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Mouse Braun         <a href="&#x6D;&#x61;i&#108;t&#x6F;:&#109;&#x6F;&#x75;s&#101;&#64;&#x73;&#111;&#x63;&#105;&#111;&#x6D;&#x61;&#110;t&#x69;&#x63;&#x2E;&#99;&#x6F;&#109;">&#109;&#x6F;&#x75;s&#101;&#64;&#x73;&#111;&#x63;&#105;&#111;&#x6D;&#x61;&#110;t&#x69;&#x63;&#x2E;&#99;&#x6F;&#109;</a></span>
+      <span>Mouse Braun         <a href="&#x6D;a&#x69;l&#x74;&#x6F;:&#x6D;&#111;&#x75;&#x73;&#101;&#64;&#x73;o&#x63;&#105;&#x6F;&#109;&#97;&#110;&#116;&#x69;&#99;&#x2E;&#x63;&#111;&#109;">&#x6D;&#111;&#x75;&#x73;&#101;&#64;&#x73;o&#x63;&#105;&#x6F;&#109;&#97;&#110;&#116;&#x69;&#99;&#x2E;&#x63;&#111;&#109;</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Nicolas Brugneaux   <a href="&#x6D;&#97;&#x69;&#108;&#x74;&#111;:&#110;&#105;&#x63;&#111;las&#x2E;&#x62;&#114;&#117;&#x67;&#110;&#101;a&#x75;&#120;&#x40;&#x73;&#x6F;c&#105;&#x6F;&#109;&#97;n&#x74;&#x69;&#x63;&#46;&#99;o&#x6D;">&#110;&#105;&#x63;&#111;las&#x2E;&#x62;&#114;&#117;&#x67;&#110;&#101;a&#x75;&#120;&#x40;&#x73;&#x6F;c&#105;&#x6F;&#109;&#97;n&#x74;&#x69;&#x63;&#46;&#99;o&#x6D;</a></span>
+      <span>Nicolas Brugneaux   <a href="&#109;&#x61;&#105;&#x6C;&#x74;&#x6F;:&#110;&#105;&#99;&#111;&#x6C;&#x61;&#115;&#46;&#x62;&#114;&#x75;&#x67;&#110;&#x65;&#x61;&#x75;x&#x40;&#115;oc&#x69;&#x6F;&#109;&#x61;&#x6E;&#x74;&#105;&#99;.&#x63;&#111;&#109;">&#110;&#105;&#99;&#111;&#x6C;&#x61;&#115;&#46;&#x62;&#114;&#x75;&#x67;&#110;&#x65;&#x61;&#x75;x&#x40;&#115;oc&#x69;&#x6F;&#109;&#x61;&#x6E;&#x74;&#105;&#99;.&#x63;&#111;&#109;</a></span>
     </div>
     <div class="dox_tag_title">package</div>
     <div class="dox_tag_detail">
@@ -119,6 +119,8 @@
 <span class="kd">var</span> <span class="nx">slice</span>       <span class="o">=</span> <span class="nx">Arrays</span><span class="p">.</span><span class="nx">slice</span><span class="p">;</span>
 <span class="kd">var</span> <span class="nx">map</span>         <span class="o">=</span> <span class="nx">Arrays</span><span class="p">.</span><span class="nx">map</span><span class="p">;</span>
 <span class="kd">var</span> <span class="nx">indexOf</span>     <span class="o">=</span> <span class="nx">Arrays</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">_observables</span><span class="p">;</span>
 
 
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">Microbe</span> <span class="p">)</span>
@@ -165,7 +167,7 @@
         <td class="code highlight"><div class="highlight"><pre>
         <span class="nx">addClass</span> <span class="o">:</span> <span class="p">(</span><span class="kd">function</span><span class="p">()</span>
         <span class="p">{</span>
-            <span class="kd">var</span> <span class="nx">_addClass</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_class</span><span class="p">,</span> <span class="nx">_el</span><span class="p">,</span> <span class="nx">_observables</span> <span class="p">)</span>
+            <span class="kd">var</span> <span class="nx">_addClass</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_class</span><span class="p">,</span> <span class="nx">_el</span> <span class="p">)</span>
             <span class="p">{</span>
                 <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">_class</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
                 <span class="p">{</span>
@@ -190,17 +192,17 @@
 
             <span class="k">return</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_class</span> <span class="p">)</span>
             <span class="p">{</span>
-                <span class="kd">var</span> <span class="nx">_observables</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">get</span> <span class="o">?</span> <span class="kc">true</span> <span class="o">:</span> <span class="kc">false</span><span class="p">;</span>
-
                 <span class="k">if</span> <span class="p">(</span> <span class="k">typeof</span> <span class="nx">_class</span> <span class="o">===</span> <span class="s1">&#39;string&#39;</span> <span class="p">)</span>
                 <span class="p">{</span>
                     <span class="nx">_class</span> <span class="o">=</span> <span class="p">[</span> <span class="nx">_class</span> <span class="p">];</span>
                 <span class="p">}</span>
 
+                <span class="nx">_observables</span> <span class="o">=</span> <span class="nx">_observables</span> <span class="o">||</span> <span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">;</span>
+
                 <span class="kd">var</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">len</span><span class="p">;</span>
                 <span class="k">for</span> <span class="p">(</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">len</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
                 <span class="p">{</span>
-                    <span class="nx">_addClass</span><span class="p">(</span> <span class="nx">_class</span><span class="p">,</span> <span class="k">this</span><span class="p">[</span> <span class="nx">i</span> <span class="p">],</span> <span class="nx">_observables</span> <span class="p">);</span>
+                    <span class="nx">_addClass</span><span class="p">(</span> <span class="nx">_class</span><span class="p">,</span> <span class="k">this</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="p">);</span>
                 <span class="p">}</span>
 
                 <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
@@ -270,10 +272,13 @@ an object (property: value)</p>
                         <span class="nx">_elm</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span> <span class="nx">_a</span><span class="p">,</span> <span class="nx">_v</span> <span class="p">);</span>
                     <span class="p">}</span>
 
-                    <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span>                   <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span> <span class="o">||</span> <span class="p">{};</span>
-                    <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">attr</span>              <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">attr</span> <span class="o">||</span> <span class="p">{};</span>
-                    <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">attr</span><span class="p">.</span><span class="nx">attr</span>         <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">attr</span><span class="p">.</span><span class="nx">attr</span> <span class="o">||</span> <span class="p">{};</span>
-                    <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">attr</span><span class="p">.</span><span class="nx">attr</span><span class="p">[</span> <span class="nx">_a</span> <span class="p">]</span>   <span class="o">=</span> <span class="nx">_v</span><span class="p">;</span>
+                    <span class="k">if</span> <span class="p">(</span> <span class="nx">_observables</span> <span class="p">)</span>
+                    <span class="p">{</span>
+                        <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span>                   <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span> <span class="o">||</span> <span class="p">{};</span>
+                        <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">attr</span>              <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">attr</span> <span class="o">||</span> <span class="p">{};</span>
+                        <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">attr</span><span class="p">.</span><span class="nx">attr</span>         <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">attr</span><span class="p">.</span><span class="nx">attr</span> <span class="o">||</span> <span class="p">{};</span>
+                        <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">attr</span><span class="p">.</span><span class="nx">attr</span><span class="p">[</span> <span class="nx">_a</span> <span class="p">]</span>   <span class="o">=</span> <span class="nx">_v</span><span class="p">;</span>
+                    <span class="p">}</span>
                 <span class="p">};</span>
 
                 <span class="k">if</span> <span class="p">(</span> <span class="nx">_value</span> <span class="o">===</span> <span class="kc">null</span> <span class="p">)</span>
@@ -322,6 +327,8 @@ an object (property: value)</p>
 
             <span class="k">if</span> <span class="p">(</span> <span class="nx">_value</span> <span class="o">!==</span> <span class="kc">undefined</span> <span class="o">||</span> <span class="nx">attrObject</span> <span class="p">)</span>
             <span class="p">{</span>
+                <span class="nx">_observables</span> <span class="o">=</span> <span class="nx">_observables</span> <span class="o">||</span> <span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">;</span>
+
                 <span class="kd">var</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">len</span><span class="p">;</span>
                 <span class="k">for</span> <span class="p">(</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">len</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
                 <span class="p">{</span>
@@ -390,9 +397,13 @@ If the value is omitted, simply returns the current css value of the element.</p
         <span class="p">{</span>
             <span class="kd">var</span> <span class="nx">_setCss</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_elm</span> <span class="p">)</span>
             <span class="p">{</span>
-                <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span>                   <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span> <span class="o">||</span> <span class="p">{};</span>
-                <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">css</span>               <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">css</span> <span class="o">||</span> <span class="p">{};</span>
-                <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">css</span><span class="p">[</span> <span class="nx">_property</span> <span class="p">]</span>  <span class="o">=</span> <span class="nx">_value</span><span class="p">;</span>
+                <span class="k">if</span> <span class="p">(</span> <span class="nx">_observables</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span>                   <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span> <span class="o">||</span> <span class="p">{};</span>
+                    <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">css</span>               <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">css</span> <span class="o">||</span> <span class="p">{};</span>
+                    <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">css</span><span class="p">[</span> <span class="nx">_property</span> <span class="p">]</span>  <span class="o">=</span> <span class="nx">_value</span><span class="p">;</span>
+                <span class="p">}</span>
+
                 <span class="nx">_elm</span><span class="p">.</span><span class="nx">style</span><span class="p">[</span> <span class="nx">_property</span> <span class="p">]</span>     <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">css</span><span class="p">[</span> <span class="nx">_property</span> <span class="p">];</span>
             <span class="p">};</span>
 
@@ -405,6 +416,8 @@ If the value is omitted, simply returns the current css value of the element.</p
             <span class="p">{</span>
                 <span class="nx">_value</span> <span class="o">=</span> <span class="p">(</span> <span class="nx">_value</span> <span class="o">===</span> <span class="kc">null</span> <span class="p">)</span> <span class="o">?</span> <span class="s1">&#39;&#39;</span> <span class="o">:</span> <span class="nx">_value</span><span class="p">;</span>
 
+                <span class="nx">_observables</span> <span class="o">=</span> <span class="nx">_observables</span> <span class="o">||</span> <span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">;</span>
+                
                 <span class="kd">var</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">len</span><span class="p">;</span>
                 <span class="k">for</span> <span class="p">(</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">len</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
                 <span class="p">{</span>
@@ -413,6 +426,7 @@ If the value is omitted, simply returns the current css value of the element.</p
 
                 <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
             <span class="p">}</span>
+
             <span class="kd">var</span> <span class="nx">j</span><span class="p">,</span> <span class="nx">lenj</span><span class="p">,</span> <span class="nx">styles</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span> <span class="p">);</span>
             <span class="k">for</span> <span class="p">(</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenj</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">lenj</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">)</span>
             <span class="p">{</span>
@@ -725,11 +739,17 @@ omitted, simply returns the current inner html value of the element.</p>
             <span class="p">{</span>
                 <span class="kd">var</span> <span class="nx">_setHtml</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_elm</span> <span class="p">)</span>
                 <span class="p">{</span>
-                    <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span>           <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span> <span class="o">||</span> <span class="p">{};</span>
-                    <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">html</span>      <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">html</span> <span class="o">||</span> <span class="p">{};</span>
-                    <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">html</span><span class="p">.</span><span class="nx">html</span> <span class="o">=</span> <span class="nx">_value</span><span class="p">;</span>
+                    <span class="k">if</span> <span class="p">(</span> <span class="nx">_observables</span> <span class="p">)</span>
+                    <span class="p">{</span>
+                        <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span>           <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span> <span class="o">||</span> <span class="p">{};</span>
+                        <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">html</span>      <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">html</span> <span class="o">||</span> <span class="p">{};</span>
+                        <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">html</span><span class="p">.</span><span class="nx">html</span> <span class="o">=</span> <span class="nx">_value</span><span class="p">;</span>
+                    <span class="p">}</span>
+
                     <span class="nx">_elm</span><span class="p">.</span><span class="nx">innerHTML</span>      <span class="o">=</span> <span class="nx">_value</span><span class="p">;</span>
                 <span class="p">};</span>
+
+                <span class="nx">_observables</span> <span class="o">=</span> <span class="nx">_observables</span> <span class="o">||</span><span class="err"> </span><span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">;</span>
 
                 <span class="kd">var</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">len</span><span class="p">;</span>
                 <span class="k">for</span> <span class="p">(</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">len</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
@@ -1006,9 +1026,12 @@ omitted, simply returns the current inner html value of the element.</p>
                     <span class="p">}</span>
                 <span class="p">}</span>
 
-                <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span>                <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span> <span class="o">||</span> <span class="p">{};</span>
-                <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="kr">class</span>          <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="kr">class</span> <span class="o">||</span> <span class="p">{};</span>
-                <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="kr">class</span><span class="p">.</span><span class="kr">class</span>    <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">className</span><span class="p">;</span>
+                <span class="k">if</span> <span class="p">(</span> <span class="nx">_observables</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span>                <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span> <span class="o">||</span> <span class="p">{};</span>
+                    <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="kr">class</span>          <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="kr">class</span> <span class="o">||</span> <span class="p">{};</span>
+                    <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="kr">class</span><span class="p">.</span><span class="kr">class</span>    <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">className</span><span class="p">;</span>
+                <span class="p">}</span>
             <span class="p">};</span>
 
             <span class="k">return</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_class</span> <span class="p">)</span>
@@ -1017,6 +1040,8 @@ omitted, simply returns the current inner html value of the element.</p>
                 <span class="p">{</span>
                     <span class="nx">_class</span> <span class="o">=</span> <span class="p">[</span> <span class="nx">_class</span> <span class="p">];</span>
                 <span class="p">}</span>
+
+                <span class="nx">_observables</span> <span class="o">=</span> <span class="nx">_observables</span> <span class="o">||</span><span class="err"> </span><span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">;</span>
 
                 <span class="kd">var</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">len</span><span class="p">;</span>
                 <span class="k">for</span> <span class="p">(</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">len</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
@@ -1080,9 +1105,12 @@ simply returns the current inner text value of each element.</p>
                     <span class="nx">_el</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="nx">_value</span><span class="p">;</span>
                 <span class="p">}</span>
 
-                <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span>            <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span> <span class="o">||</span> <span class="p">{};</span>
-                <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">text</span>       <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">text</span> <span class="o">||</span> <span class="p">{};</span>
-                <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">text</span><span class="p">.</span><span class="nx">text</span>  <span class="o">=</span> <span class="nx">_value</span><span class="p">;</span>
+                <span class="k">if</span> <span class="p">(</span> <span class="nx">_observables</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span>            <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span> <span class="o">||</span> <span class="p">{};</span>
+                    <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">text</span>       <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">text</span> <span class="o">||</span> <span class="p">{};</span>
+                    <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">text</span><span class="p">.</span><span class="nx">text</span>  <span class="o">=</span> <span class="nx">_value</span><span class="p">;</span>
+                <span class="p">}</span>
             <span class="p">};</span>
 
             <span class="kd">var</span> <span class="nx">_getText</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_el</span> <span class="p">)</span>
@@ -1101,6 +1129,8 @@ simply returns the current inner text value of each element.</p>
                 <span class="k">if</span> <span class="p">(</span> <span class="nx">_value</span> <span class="o">||</span> <span class="nx">_value</span> <span class="o">===</span> <span class="s1">&#39;&#39;</span> <span class="o">||</span><span class="err"> </span><span class="nx">_value</span> <span class="o">===</span> <span class="mi">0</span> <span class="p">)</span>
                 <span class="p">{</span>
                     <span class="kd">var</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">len</span><span class="p">;</span>
+                    <span class="nx">_observables</span> <span class="o">=</span> <span class="nx">_observables</span> <span class="o">||</span><span class="err"> </span><span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">;</span>
+
                     <span class="k">for</span> <span class="p">(</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">len</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
                     <span class="p">{</span>
                         <span class="nx">_setText</span><span class="p">(</span> <span class="nx">_value</span><span class="p">,</span> <span class="k">this</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="p">);</span>
@@ -1200,13 +1230,18 @@ whether it has it already.</p>
                     <span class="nx">_el</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span> <span class="nx">_class</span> <span class="p">);</span>
                 <span class="p">}</span>
 
-                <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span>                <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span> <span class="o">||</span> <span class="p">{};</span>
-                <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="kr">class</span>          <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="kr">class</span> <span class="o">||</span> <span class="p">{};</span>
-                <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="kr">class</span><span class="p">.</span><span class="kr">class</span>    <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">className</span><span class="p">;</span>
+                <span class="k">if</span> <span class="p">(</span> <span class="nx">_observables</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span>                <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span> <span class="o">||</span> <span class="p">{};</span>
+                    <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="kr">class</span>          <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="kr">class</span> <span class="o">||</span> <span class="p">{};</span>
+                    <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="kr">class</span><span class="p">.</span><span class="kr">class</span>    <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">className</span><span class="p">;</span>
+                <span class="p">}</span>
             <span class="p">};</span>
             <span class="k">return</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_class</span> <span class="p">)</span>
             <span class="p">{</span>
                 <span class="kd">var</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">len</span><span class="p">;</span>
+                <span class="nx">_observables</span> <span class="o">=</span> <span class="nx">_observables</span> <span class="o">||</span><span class="err"> </span><span class="k">this</span><span class="p">.</span><span class="nx">get</span><span class="p">;</span>
+
                 <span class="k">for</span> <span class="p">(</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">len</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
                 <span class="p">{</span>
                     <span class="nx">_toggleClass</span><span class="p">(</span> <span class="nx">_class</span><span class="p">,</span> <span class="k">this</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="p">);</span>

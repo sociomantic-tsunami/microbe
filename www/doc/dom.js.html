@@ -45,6 +45,9 @@
       <div class="heading h2">
         <a href="#remove">remove</a>
       </div>
+      <div class="heading h2">
+        <a href="#remove%20polyfill">remove polyfill</a>
+      </div>
     </div>
   </div>
   <div id="sidebar-toggle"></div>
@@ -70,11 +73,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Mouse Braun         <a href="&#109;&#x61;&#x69;&#108;t&#111;:m&#x6F;u&#x73;&#101;&#x40;s&#x6F;&#x63;&#105;&#x6F;&#x6D;&#x61;&#110;&#x74;&#105;c.&#x63;&#x6F;&#109;">m&#x6F;u&#x73;&#101;&#x40;s&#x6F;&#x63;&#105;&#x6F;&#x6D;&#x61;&#110;&#x74;&#105;c.&#x63;&#x6F;&#109;</a></span>
+      <span>Mouse Braun         <a href="&#109;&#97;&#105;&#x6C;&#x74;&#111;:&#x6D;&#x6F;&#117;&#x73;e&#x40;&#x73;&#111;&#x63;&#105;&#x6F;&#x6D;&#97;&#x6E;&#116;&#105;&#99;&#x2E;c&#111;&#x6D;">&#x6D;&#x6F;&#117;&#x73;e&#x40;&#x73;&#111;&#x63;&#105;&#x6F;&#x6D;&#97;&#x6E;&#116;&#105;&#99;&#x2E;c&#111;&#x6D;</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Nicolas Brugneaux   <a href="&#x6D;&#x61;&#x69;&#x6C;&#x74;&#x6F;:&#x6E;&#x69;&#x63;&#111;&#108;&#97;&#115;&#46;&#x62;&#x72;&#x75;&#103;&#110;&#101;&#x61;&#x75;x&#x40;&#115;&#111;&#99;&#105;om&#97;&#x6E;&#116;&#x69;&#x63;&#x2E;&#99;&#x6F;&#x6D;">&#x6E;&#x69;&#x63;&#111;&#108;&#97;&#115;&#46;&#x62;&#x72;&#x75;&#103;&#110;&#101;&#x61;&#x75;x&#x40;&#115;&#111;&#99;&#105;om&#97;&#x6E;&#116;&#x69;&#x63;&#x2E;&#99;&#x6F;&#x6D;</a></span>
+      <span>Nicolas Brugneaux   <a href="m&#x61;&#x69;&#108;&#x74;&#x6F;:&#x6E;&#x69;&#x63;&#x6F;&#108;a&#x73;&#46;b&#114;&#117;&#103;&#x6E;&#x65;&#97;u&#x78;&#64;s&#x6F;&#99;&#105;&#x6F;&#x6D;&#x61;&#110;&#x74;&#105;&#99;&#x2E;&#x63;&#111;&#109;">&#x6E;&#x69;&#x63;&#x6F;&#108;a&#x73;&#46;b&#114;&#117;&#103;&#x6E;&#x65;&#97;u&#x78;&#64;s&#x6F;&#99;&#105;&#x6F;&#x6D;&#x61;&#110;&#x74;&#105;&#99;&#x2E;&#x63;&#111;&#109;</a></span>
     </div>
     <div class="dox_tag_title">package</div>
     <div class="dox_tag_detail">
@@ -83,7 +86,9 @@
   </div>
 </div>
         </td>
-        <td class="code highlight"><div class="highlight"><pre><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">Microbe</span> <span class="p">)</span>
+        <td class="code highlight"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">_events</span><span class="p">;</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">Microbe</span> <span class="p">)</span>
 <span class="p">{</span>
     <span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
 
@@ -497,7 +502,7 @@ a selector string, an element creation string, or an html string</p>
         <span class="p">}</span>
     <span class="p">};</span>
 
-
+ 
 
 </pre></div>
         </td>
@@ -527,22 +532,57 @@ a selector string, an element creation string, or an html string</p>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">remove</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span>
     <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">_remove</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_elm</span> <span class="p">)</span>
+        <span class="nx">_events</span> <span class="o">=</span> <span class="nx">_events</span> <span class="o">||</span><span class="err"> </span><span class="k">this</span><span class="p">.</span><span class="nx">off</span><span class="p">;</span>
+
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">_events</span> <span class="p">)</span>
+        <span class="p">{</span>  
+            <span class="k">this</span><span class="p">.</span><span class="nx">off</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">len</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
         <span class="p">{</span>
-            <span class="k">return</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span> <span class="nx">_elm</span> <span class="p">);</span>
-        <span class="p">};</span>
-
-        <span class="kd">var</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">len</span><span class="p">;</span>
-
-        <span class="k">this</span><span class="p">.</span><span class="nx">off</span><span class="p">();</span>
-
-        <span class="k">for</span> <span class="p">(</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">len</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
-        <span class="p">{</span>
-            <span class="nx">_remove</span><span class="p">(</span> <span class="k">this</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="p">);</span>
+            <span class="k">this</span><span class="p">[</span> <span class="nx">i</span> <span class="p">].</span><span class="nx">remove</span><span class="p">();</span>
         <span class="p">}</span>
 
         <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
     <span class="p">};</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="remove%20polyfill">
+  <h2>
+    <a href="#remove%20polyfill" name="remove%20polyfill" class="pilcrow">&#182;</a>
+    remove polyfill
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>Polyfill for IE because IE</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>void</em></span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="p">(</span> <span class="s1">&#39;remove&#39;</span> <span class="k">in</span> <span class="nx">Element</span><span class="p">.</span><span class="nx">prototype</span> <span class="p">)</span> <span class="p">)</span> 
+    <span class="p">{</span>
+        <span class="nx">Element</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">remove</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> 
+        <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">parentElement</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span> <span class="k">this</span> <span class="p">);</span>
+        <span class="p">};</span>
+    <span class="p">}</span>
+
 <span class="p">};</span>
 </pre></div>
         </td>
