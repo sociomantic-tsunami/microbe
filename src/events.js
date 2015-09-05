@@ -37,11 +37,7 @@ module.exports = function( Microbe )
             _elm.dispatchEvent( _evt );
         };
 
-        var i, len;
-        for ( i = 0, len = this.length; i < len; i++ )
-        {
-            _emit( this[ i ] );
-        }
+        this.each( _emit );
 
         return this;
     };
@@ -62,7 +58,7 @@ module.exports = function( Microbe )
     {
         var filterFunction = function( e ){ return e; };
 
-        var _off = function( _e, _elm )
+        var _off = function( _elm, _e )
         {
             var _cb = _callback;
             var prop = '_' + _e + '-bound-function';
@@ -104,10 +100,8 @@ module.exports = function( Microbe )
             }
         };
 
-        for ( var i = 0, len = this.length; i < len; i++ )
+        var _checkBoundEvents = function ( _elm )
         {
-            var _elm = this[ i ];
-
             if ( !_event && _elm.data && _elm.data.__boundEvents && _elm.data.__boundEvents.__boundEvents )
             {
                 _event = _elm.data.__boundEvents.__boundEvents;
@@ -125,11 +119,13 @@ module.exports = function( Microbe )
 
             for ( var j = 0, lenJ = _event.length; j < lenJ; j++ )
             {
-                _off( _event[ j ], _elm );
+                _off( _elm, _event[ j ] );
             }
 
             _elm.data.__boundEvents.__boundEvents = _event.filter( filterFunction );
         }
+
+        this.each( _checkBoundEvents );
 
         return this;
     };
@@ -165,11 +161,7 @@ module.exports = function( Microbe )
             _elm.data.__boundEvents.__boundEvents.push( _event );
         };
 
-        var i, len;
-        for ( i = 0, len = this.length; i < len; i++ )
-        {
-            _on( this[ i ] );
-        }
+        this.each( _on );
 
         return this;
     };
