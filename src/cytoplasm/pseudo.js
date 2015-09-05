@@ -239,8 +239,6 @@ module.exports = function( Cytoplasm )
             return [ _sel, _pseudo ];
         }
 
-
-
         if ( selector.indexOf( ',' ) !== -1 )
         {
             selector = selector.split( /,(?![a-zA-Z0-9-#.,\s]+\))/g );
@@ -283,6 +281,34 @@ module.exports = function( Cytoplasm )
 
 
     /**
+     * ## _filteredIteration
+     *
+     * special iterator that dumps all results ito one array
+     * 
+     * @param  {Microbe} _el elements to cycle through
+     * @param  {Function} _cb callback
+     * 
+     * @return _Microbe_ filtered microbe
+     */
+    function _filteredIteration( _el, _cb )
+    {
+        var _r, resArray = [], _f = 0;
+        for ( var i = 0, lenI = _el.length; i < lenI; i++ )
+        {
+            _r = _cb( _el[ i ], resArray, i );
+
+            if ( _r )
+            {
+                resArray[ _f ] = _r;
+                _f++;
+            }
+        }
+
+        return _el.constructor( resArray );
+    }
+
+        
+    /**
      * ## any-link
      *
      * match elements that act as the source anchors of hyperlinks
@@ -308,22 +334,20 @@ module.exports = function( Cytoplasm )
      */
     pseudo.blank = function( _el )
     {
-        var resArray = [], _e, _t;
-        for ( var i = 0, lenI = _el.length; i < lenI; i++ )
+        var _blank = function( _e, resArray )
         {
-            _e = _el[ i ];
-            _t = document.all ? _e.innerText : _e.textContent;
+            var _t = document.all ? _e.innerText : _e.textContent;
 
             if ( resArray.indexOf( _e ) === -1 )
             {
                 if ( /^\s*$/.test( _t || _e.value ) )
                 {
-                    resArray.push( _e );
+                    return _e;
                 }
             }
-        }
+        };
 
-        return _el.constructor( resArray );
+        return _filteredIteration( _el, _blank );
     };
 
 
@@ -356,33 +380,24 @@ module.exports = function( Cytoplasm )
      */
     pseudo.contains = function( _el, _var )
     {
-        _var            = _var.toLowerCase();
+        _var = _var.toLowerCase();
 
-        var _getText = function( _el )
+        var _contains = function( _e )
         {
-            if ( document.all )
+            var _getText = function( _el )
             {
-                return _el.innerText;
-            }
-            else // FF
-            {
-                return _el.textContent;
-            }
-        };
+                return document.all ? _el.innerText : _el.textContent; // ff
+            };
 
-        var _e, _elText, elements    = [];
-
-        for ( var i = 0, lenI = _el.length; i < lenI; i++ )
-        {
-            _e      = _el[ i ];
-            _elText = _getText( _e );
+            var _elText = _getText( _e );
 
             if ( _elText.toLowerCase().indexOf( _var ) !== -1 )
             {
-                elements.push( _e );
+                return _e ;
             }
-        }
-        return _el.constructor( elements );
+        };
+
+        return _filteredIteration( _el, _contains, _var );
     };
 
 
@@ -399,18 +414,15 @@ module.exports = function( Cytoplasm )
     {
         _el = _el.filter( 'input, option' );
 
-        var _e, resArray = [];
-        for ( var i = 0, lenI = _el.length; i < lenI; i++ )
+        var _default = function( _e )
         {
-            _e = _el[ i ];
-
             if ( _e.defaultChecked === true )
             {
-                resArray.push( _e );
+                return _e;
             }
-        }
+        };
 
-        return _el.constructor( resArray );
+        return _filteredIteration( _el, _default );
     };
 
 
@@ -426,16 +438,15 @@ module.exports = function( Cytoplasm )
      */
     pseudo.dir = function( _el, _var )
     {
-        var _e, resArray = [];
-        for ( var i = 0, lenI = _el.length; i < lenI; i++ )
+        var _dir = function( _e )
         {
-            _e = _el[ i ];
             if ( getComputedStyle( _e ).direction === _var )
             {
-                resArray.push( _e );
+                return _e;
             }
-        }
-        return _el.constructor( resArray );
+        };
+
+        return _filteredIteration( _el, _dir );
     };
 
 
@@ -484,15 +495,15 @@ module.exports = function( Cytoplasm )
      */
     pseudo.even = function( _el )
     {
-        var elements = [];
-        for ( var i = 0, lenI = _el.length; i < lenI; i++ )
+        var _even = function( _e, resArray, i )
         {
             if ( ( i + 1 ) % 2 === 0 )
             {
-                elements.push( _el[ i ] );
+                return _e;
             }
-        }
-        return _el.constructor( elements );
+        };
+
+        return _filteredIteration( _el, _even );
     };
 
 
@@ -539,19 +550,15 @@ module.exports = function( Cytoplasm )
      */
     pseudo.has = function( _el, _var )
     {
-        var i, lenI, _obj, results = [], _e;
-
-        for ( i = 0, lenI = _el.length; i < lenI; i++ )
+        var _has = function( _e )
         {
-            _e      = _el[ i ];
-            _obj    = _e.querySelector( _var );
-            if ( _obj )
+            if ( _e.querySelector( _var ) )
             {
-                results.push( _e );
+                return _e;
             }
-        }
+        };
 
-        return _el.constructor( results );
+        return _filteredIteration( _el, _has );
     };
 
 
@@ -568,13 +575,11 @@ module.exports = function( Cytoplasm )
     {
         _el = _el.filter( '[max],[min]' );
 
-        var min, max, _v, _e, resArray = [];
-        for ( var i = 0, lenI = _el.length; i < lenI; i++ )
+        var _inRange = function( _e )
         {
-            _e = _el[ i ];
-            min = _e.getAttribute( 'min' );
-            max = _e.getAttribute( 'max' );
-            _v = parseInt( _e.value );
+            var min = _e.getAttribute( 'min' );
+            var max = _e.getAttribute( 'max' );
+            var _v  = parseInt( _e.value );
 
             if ( _v )
             {
@@ -582,20 +587,17 @@ module.exports = function( Cytoplasm )
                 {
                     if ( _v > min && _v < max )
                     {
-                        resArray.push( _e );
+                        return _e;
                     }
                 }
-                else if ( min && _v > min )
+                else if ( min && _v > min || max && _v < max )
                 {
-                    resArray.push( _e );
-                }
-                else if ( max && _v < max )
-                {
-                    resArray.push( _e );
+                    return _e;
                 }
             }
-        }
-        return _el.constructor( resArray );
+        };
+
+        return _filteredIteration( _el, _inRange );
     };
 
 
@@ -617,26 +619,24 @@ module.exports = function( Cytoplasm )
             {
                 _el     = _el.filter( '[lang]' );
                 _var    = _var.replace( '*', '' );
-                var resArray = [], _e;
-                for ( var i = 0; i < _el.length; i++ )
+
+                var _lang = function( _e )
                 {
-                    _e = _el[ i ];
                     if ( _e.getAttribute( 'lang' ).indexOf( _var ) !== -1 )
                     {
-                        resArray.push( _e );
+                        return _e;
                     }
-                }
+                };
 
-                return new Cytoplasm( resArray );
+                return _filteredIteration( _el, _lang );
             }
 
             var res = document.querySelectorAll( ':lang(' + _var + ')' );
-                res = Array.prototype.slice.call( res, 0 );
-            return new Cytoplasm( res );
+            return _el.constructor( Array.prototype.slice.call( res ) );
         }
         else
         {
-            return new Cytoplasm( [] );
+            return _el.constructor( [] );
         }
     };
 

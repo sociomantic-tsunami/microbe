@@ -24,14 +24,14 @@ module.exports = function( Cytoplasm )
      */
     Cytoplasm.core.children = function()
     {
-        var i, len, childrenArray = new Array( this.length );
+        var _constructor = this.constructor;
 
-        for ( i = 0, len = this.length; i < len; i++ )
+        var _children = function( _el )
         {
-            childrenArray[ i ] = this.constructor( this[ i ].children );
-        }
+            return _constructor( _el.children )
+        };
 
-        return childrenArray;
+        return this.map( _children );
     };
 
 
@@ -44,19 +44,21 @@ module.exports = function( Cytoplasm )
      */
     Cytoplasm.core.childrenFlat = function( direction )
     {
-        var arr, i, len, childrenArray = [];
+        var i = 0, childrenArray = [];
 
-        for ( i = 0, len = this.length; i < len; i++ )
+        var _childrenFlat = function( _el )
         {
-            arr = this[ i ].children;
-
-            for ( var j = 0, lenJ = arr.length; j < lenJ; j++ )
+            var arr         = _el.children;
+            var arrLength   = arr.length;
+            
+            for ( var j = 0; j < arrLength; j++ )
             {
-                childrenArray[ j ] = childrenArray.indexOf( arr[ j ] ) === -1 ?  arr[ j ] : null;
+                childrenArray[ i ] = arr[ j ];
+                i++;
             }
-        }
+        };
 
-        childrenArray = childrenArray.filter( _cleanArray );
+        this.each( _childrenFlat );
 
         return this.constructor( childrenArray );
     };
@@ -232,7 +234,7 @@ module.exports = function( Cytoplasm )
             return this.constructor( _selector, this );
         }
 
-        var _children = new Cytoplasm( _selector ), res = [];
+        var _children = new Cytoplasm( _selector ), res = [], r = 0;
 
         for ( var j = 0, lenJ = this.length; j < lenJ; j++ )
         {
@@ -240,7 +242,8 @@ module.exports = function( Cytoplasm )
             {
                 if ( Cytoplasm.contains( _children[ k ], this[ j ] ) )
                 {
-                    res.push( _children[ k ] );
+                    res[ r ] = _children[ k ];
+                    r++;
                 }
             }
         }
@@ -300,9 +303,9 @@ module.exports = function( Cytoplasm )
      */
     Cytoplasm.core.parent = function()
     {
-        var _parent = function( _elm )
+        var _parent = function( _el )
         {
-            return _elm.parentNode;
+            return _el.parentNode;
         };
 
         var i, len, parentArray = new Array( this.length );
@@ -312,7 +315,7 @@ module.exports = function( Cytoplasm )
             parentArray[ i ] = _parent( this[ i ] );
         }
 
-        return new Cytoplasm( parentArray );
+        return this.constructor( parentArray );
     };
 
 
@@ -325,32 +328,28 @@ module.exports = function( Cytoplasm )
      */
     Cytoplasm.core.siblings = function()
     {
-        var _siblings = function( _elm )
+        var _constructor = this.constructor;
+
+        var _siblings = function( _el )
         {
-            var res     = [];
-            var sibling = _elm.parentNode.firstElementChild;
+            var res     = [], r = 0;
+            var sibling = _el.parentNode.firstElementChild;
             for ( ; sibling; )
             {
-                if ( sibling !== _elm )
+                if ( sibling !== _el )
                 {
-                    res.push( sibling );
+                    res[ r ] = sibling;
+                    r++;
                 }
                 sibling = sibling.nextElementSibling;
                 if ( !sibling )
                 {
-                    return res;
+                    return _constructor( res );
                 }
             }
         };
 
-        var i, len, siblingArray = new Array( this.length );
-
-        for ( i = 0, len = this.length; i < len; i++ )
-        {
-            siblingArray[ i ] = this.constructor( _siblings( this[ i ] ) );
-        }
-
-        return siblingArray;
+        return this.map( _siblings );
     };
 
 
@@ -366,53 +365,53 @@ module.exports = function( Cytoplasm )
      */
     Cytoplasm.core.siblingsFlat = function( direction )
     {
-        var _siblings = function( _elm )
+        var i = 0, siblingsArray = [];
+
+        var _siblingsFlat = function( _el )
         {
             if ( !direction )
             {
-                var res     = [];
-                var sibling = _elm.parentNode.firstElementChild;
+                var sibling = _el.parentNode.firstElementChild;
+
                 for ( ; sibling; )
                 {
-                    if ( sibling !== _elm )
+                    if ( sibling !== _el && siblingsArray.indexOf( sibling ) === -1 )
                     {
-                        res.push( sibling );
+                        siblingsArray[ i ] = sibling;
+                        i++;
                     }
                     sibling = sibling.nextElementSibling;
                     if ( !sibling )
                     {
-                        return res;
+                        break;
                     }
                 }
             }
             else if ( direction === 'next' )
             {
-                var next = _elm.nextElementSibling;
-                return next ? [ next ] : [];
+                var next = _el.nextElementSibling;
+
+                if ( next && siblingsArray.indexOf( next ) === -1 )
+                {
+                    siblingsArray[ i ] = next;
+                    i++;
+                }
             }
             else if ( direction === 'prev' )
             {
-                var prev = _elm.prevElementSibling;
-                return prev ? [ prev ] : [];
+                var prev = _el.prevElementSibling;
+
+                if ( prev && siblingsArray.indexOf( prev ) === -1 )
+                {
+                    siblingsArray[ i ] = prev;
+                    i++;
+                }
             }
         };
 
-        var arr, i, len, siblingArray = [];
+        this.each( _siblingsFlat );
 
-        for ( i = 0, len = this.length; i < len; i++ )
-        {
-            arr = _siblings( this[ i ] );
-
-            for ( var j = 0, lenJ = arr.length; j < lenJ; j++ )
-            {
-                if ( siblingArray.indexOf( arr[ j ] ) === -1 )
-                {
-                    siblingArray.push( arr[ j ] );
-                }
-            }
-        }
-
-        return this.constructor( siblingArray );
+        return this.constructor( siblingsArray );
     };
 
 

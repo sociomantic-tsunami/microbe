@@ -50,14 +50,7 @@ module.exports = function( Microbe )
             }
         };
 
-        var i, len, values = new Array( this.length );
-
-        for ( i = 0, len = this.length; i < len; i++ )
-        {
-            values[ i ] = _get( this[ i ] );
-        }
-
-        return values;
+        return this.map( _get );
     };
 
 
@@ -148,12 +141,7 @@ module.exports = function( Microbe )
             prop    = null;
         }
 
-        var i, len;
-
-        for ( i = 0, len = this.length; i < len; i++ )
-        {
-            _observe( this[ i ] );
-        }
+        this.each( _observe );
 
         return this;
     };
@@ -210,12 +198,7 @@ module.exports = function( Microbe )
             _el.data[ prop ][ prop ]    = value;
         };
 
-        var i, len, values = new Array( this.length );
-
-        for ( i = 0, len = this.length; i < len; i++ )
-        {
-            values[ i ] = _set( this[ i ] );
-        }
+        this.each( _set );
 
         return this;
     };
@@ -260,11 +243,7 @@ module.exports = function( Microbe )
             }
         }.bind( this );
 
-        var i, len;
-        for ( i = 0, len = this.length; i < len; i++ )
-        {
-            _unobserve( this[ i ] );
-        }
+        this.each( _unobserve );
 
         return this;
     };

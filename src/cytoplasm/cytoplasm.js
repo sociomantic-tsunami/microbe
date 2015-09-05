@@ -387,8 +387,8 @@ module.exports = function( _c, _type )
     _c.core.type                 = _type;
     _c.core.__init__.prototype   = _c.core;
 
-    require( './coreUtils' )( _c );
-    require( './rootUtils' )( _c );
+    require( './core' )( _c );
+    require( './root' )( _c );
     require( './pseudo' )( _c );
 
     var _pseudo = _c.constructor.pseudo;
