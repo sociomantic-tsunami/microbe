@@ -46,11 +46,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Mouse Braun         <a href="&#x6D;&#x61;&#105;&#108;&#x74;&#x6F;:&#x6D;&#x6F;&#117;&#x73;&#x65;&#x40;s&#x6F;&#x63;&#105;&#111;&#x6D;&#x61;&#x6E;&#116;&#x69;&#99;&#x2E;&#x63;&#111;&#x6D;">&#x6D;&#x6F;&#117;&#x73;&#x65;&#x40;s&#x6F;&#x63;&#105;&#111;&#x6D;&#x61;&#x6E;&#116;&#x69;&#99;&#x2E;&#x63;&#111;&#x6D;</a></span>
+      <span>Mouse Braun         <a href="&#109;&#97;&#105;&#x6C;&#x74;&#111;:&#109;&#x6F;&#117;&#x73;&#x65;&#x40;so&#99;&#x69;&#111;&#109;&#97;&#110;&#116;&#105;&#x63;&#x2E;&#99;&#x6F;m">&#109;&#x6F;&#117;&#x73;&#x65;&#x40;so&#99;&#x69;&#111;&#109;&#97;&#110;&#116;&#105;&#x63;&#x2E;&#99;&#x6F;m</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Nicolas Brugneaux   <a href="&#x6D;&#x61;i&#x6C;&#116;&#x6F;:n&#x69;&#x63;&#111;&#108;&#x61;&#x73;&#46;&#98;&#x72;&#117;&#x67;&#110;&#x65;a&#x75;&#120;&#x40;&#115;&#111;&#x63;&#105;&#111;&#x6D;&#x61;&#110;&#116;&#x69;&#99;&#46;&#99;o&#x6D;">n&#x69;&#x63;&#111;&#108;&#x61;&#x73;&#46;&#98;&#x72;&#117;&#x67;&#110;&#x65;a&#x75;&#120;&#x40;&#115;&#111;&#x63;&#105;&#111;&#x6D;&#x61;&#110;&#116;&#x69;&#99;&#46;&#99;o&#x6D;</a></span>
+      <span>Nicolas Brugneaux   <a href="&#x6D;&#97;&#x69;&#x6C;&#116;&#111;:&#x6E;&#x69;&#x63;&#111;&#108;&#97;&#115;&#46;&#x62;r&#x75;&#x67;&#110;&#x65;&#x61;&#117;&#x78;&#64;&#115;&#x6F;&#99;&#x69;&#111;&#109;&#97;&#110;&#x74;&#x69;&#99;&#x2E;&#99;&#x6F;&#109;">&#x6E;&#x69;&#x63;&#111;&#108;&#97;&#115;&#46;&#x62;r&#x75;&#x67;&#110;&#x65;&#x61;&#117;&#x78;&#64;&#115;&#x6F;&#99;&#x69;&#111;&#109;&#97;&#110;&#x74;&#x69;&#99;&#x2E;&#99;&#x6F;&#109;</a></span>
     </div>
     <div class="dox_tag_title">package</div>
     <div class="dox_tag_detail">
@@ -63,28 +63,25 @@
 <span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
 
 <span class="kd">var</span> <span class="nx">_type</span>       <span class="o">=</span> <span class="s1">&#39;[object Microbe]&#39;</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">_version</span>    <span class="o">=</span> <span class="s1">&#39;0.4.4&#39;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">_version</span>    <span class="o">=</span> <span class="s1">&#39;0.4.5&#39;</span><span class="p">;</span>
 
 <span class="kd">var</span> <span class="nx">Microbe</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">selector</span><span class="p">,</span> <span class="nx">scope</span><span class="p">,</span> <span class="nx">elements</span> <span class="p">)</span>
 <span class="p">{</span>
     <span class="k">return</span> <span class="k">new</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">__init__</span><span class="p">(</span> <span class="nx">selector</span><span class="p">,</span> <span class="nx">scope</span><span class="p">,</span> <span class="nx">elements</span> <span class="p">);</span>
 <span class="p">};</span>
 
-<span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span>    <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span> <span class="o">||</span><span class="err"> </span><span class="p">{};</span>
-<span class="nx">Microbe</span><span class="p">.</span><span class="nx">type</span>    <span class="o">=</span> <span class="nx">_type</span><span class="p">;</span>
 
-
-<span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./core&#39;</span> <span class="p">)(</span> <span class="nx">Microbe</span> <span class="p">);</span>
-<span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./root&#39;</span> <span class="p">)(</span> <span class="nx">Microbe</span> <span class="p">);</span>
+<span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./selectorEngine/init&#39;</span> <span class="p">)(</span> <span class="nx">Microbe</span><span class="p">,</span> <span class="nx">_type</span> <span class="p">);</span>
+<span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./tools&#39;</span> <span class="p">)(</span> <span class="nx">Microbe</span> <span class="p">);</span>
+<span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./array&#39;</span> <span class="p">)(</span> <span class="nx">Microbe</span> <span class="p">);</span>
 <span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./dom&#39;</span> <span class="p">)(</span> <span class="nx">Microbe</span> <span class="p">);</span>
+<span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./elements&#39;</span> <span class="p">)(</span> <span class="nx">Microbe</span> <span class="p">);</span>
 <span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./http&#39;</span> <span class="p">)(</span> <span class="nx">Microbe</span> <span class="p">);</span>
 <span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./observe&#39;</span> <span class="p">)(</span> <span class="nx">Microbe</span> <span class="p">);</span>
 <span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./events&#39;</span> <span class="p">)(</span> <span class="nx">Microbe</span> <span class="p">);</span>
 
-
-<span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./cytoplasm/cytoplasm&#39;</span> <span class="p">)(</span> <span class="nx">Microbe</span><span class="p">,</span> <span class="nx">_type</span><span class="p">,</span> <span class="nx">_version</span> <span class="p">);</span>
-<span class="nx">Microbe</span><span class="p">.</span><span class="nx">version</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">__init__</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">version</span> <span class="o">=</span> <span class="nx">_version</span><span class="p">;</span>
-<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">constructor</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">;</span>
+<span class="nx">Microbe</span><span class="p">.</span><span class="nx">version</span>     <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">__init__</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">version</span> <span class="o">=</span> <span class="nx">_version</span><span class="p">;</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span>      <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">constructor</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">;</span>
 </pre></div>
         </td>
       </tr>

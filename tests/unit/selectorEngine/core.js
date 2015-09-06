@@ -1,45 +1,10 @@
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 var indexOf = Array.prototype.indexOf;
+var version = '0.4.5';
 
 module.exports = function( buildTest )
 {
-    QUnit.module( 'cytoplasm/utils.js' );
-
-    /**
-     * pseudo custom connectors tests
-     *
-     * @test    any-link exists
-     * @test    gets links
-     * @test    gets scoped links
-     */
-    QUnit.test( '.contains()', function( assert )
-    {
-        assert.ok( µ.contains, 'exists' );
-
-        buildTest( 'No comparison available.' );
-    });
-
-
-    /**
-     * µ matches tests
-     *
-     * @test    matches exists
-     * @test    accepts a microbe
-     * @test    accepts an element
-     */
-    QUnit.test( '.matches()', function( assert )
-    {
-        var qunit           = document.getElementById( 'qunit' );
-        var µMatchesDivs    = µ.matches( µ( 'div' ), '#qunit' );
-
-        assert.ok( µ.matches, 'exists' );
-        assert.equal( µMatchesDivs[ 4 ], true, 'finds the right div' );
-        assert.equal( µMatchesDivs[ 1 ], false, 'accepts a microbe' );
-        assert.equal( µ.matches( qunit, '#qunit' ), true, 'accepts an element' );
-
-        buildTest( 'No comparison available.' );
-    });
-
+    QUnit.module( 'selectorEngine/core.js' );
 
     /**
      * µ children tests
@@ -394,28 +359,60 @@ module.exports = function( buildTest )
     });
 
 
+    
     /**
-     * µ splice tests
+     * µ toString tests
      *
-     * @test    splice exists
-     * @test    is the correct length
+     * @test    µ().toString exists
+     * @test    µ.toString exists
+     * @test    microbe is [object Microbe]
      */
-    QUnit.test( '.splice()', function( assert )
+    QUnit.test( '.toString()', function( assert )
     {
-        assert.ok( µ().splice, 'exists' );
-        assert.equal( µ( 'div' ).splice( 0, 5 ).length, 5, 'is the correct length' );
+        assert.ok( µ().toString, 'µ().toString exists' );
+        assert.ok( µ.toString, 'exists on root' );
+        assert.ok( µ().toString() === '[object Microbe]', 'microbe is [object Microbe]' );
 
-        var $Div = $( 'div' ), µDiv = µ( 'div' );
         buildTest(
-        'µDiv.splice( 0, 5 )', function()
+        'µ.toString', function()
         {
-            µDiv.splice( 0, 5 );
+            µ.toString( µ );
+            µ.toString( [ 1, 2, 3 ] );
         },
 
-        '$Div.splice( 0, 5 )', function()
+        '$.toString', function()
         {
-            $Div.splice( 0, 5 );
+            $.toString( $ );
+            $.toString( [ 1, 2, 3 ] );
         } );
+    });
+
+    
+    /**
+     * µ type test
+     *
+     * @test    type exists
+     */
+    QUnit.test( '.type', function( assert )
+    {
+        var type = '[object Microbe]';
+
+        assert.equal( µ().type, type, 'type is ' + type );
+
+        buildTest( 'No speed tests available for non-functions' );
+    });
+
+
+    /**
+     * µ version test
+     *
+     * @test    version exists
+     */
+    QUnit.test( '.version', function( assert )
+    {
+        assert.equal( µ().version, version, 'version is ' + version );
+
+        buildTest( 'No speed tests available for non-functions' );
     });
 };
 

@@ -24,7 +24,7 @@ module.exports = function( Microbe )
      */
     Microbe.http = function( _parameters )
     {
-        var fail, req, method, url, data, user, password, headers, async;
+        var req, method, url, data, user, password, headers, async;
 
         if ( !_parameters )
         {
@@ -102,7 +102,7 @@ module.exports = function( Microbe )
             {
                 var _responses = {
                     /**
-                     * ### .then
+                     * ## .then
                      *
                      * Called after `http`, `http.get`, or `http.post`, this is
                      * called passing the result as the first parameter to the callback
@@ -122,7 +122,7 @@ module.exports = function( Microbe )
 
 
                     /**
-                     * ### .catch
+                     * ## .catch
                      *
                      * Called after `http`, `http.get`, or `http.post`, this is
                      * called passing the error as the first parameter to the callback

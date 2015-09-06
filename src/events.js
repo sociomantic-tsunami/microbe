@@ -23,7 +23,7 @@ module.exports = function( Microbe )
      *
      * @return _Microbe_ reference to original microbe
      */
-    Microbe.prototype.emit = function ( _event, _data, _bubbles, _cancelable )
+    Microbe.core.emit = function ( _event, _data, _bubbles, _cancelable )
     {
         _bubbles    = _bubbles || false;
         _cancelable = _cancelable || false;
@@ -37,11 +37,7 @@ module.exports = function( Microbe )
             _elm.dispatchEvent( _evt );
         };
 
-        var i, len;
-        for ( i = 0, len = this.length; i < len; i++ )
-        {
-            _emit( this[ i ] );
-        }
+        this.each( _emit );
 
         return this;
     };
@@ -58,11 +54,11 @@ module.exports = function( Microbe )
      *
      * @return _Microbe_ reference to original microbe
      */
-    Microbe.prototype.off = function( _event, _callback )
+    Microbe.core.off = function( _event, _callback )
     {
         var filterFunction = function( e ){ return e; };
 
-        var _off = function( _e, _elm )
+        var _off = function( _elm, _e )
         {
             var _cb = _callback;
             var prop = '_' + _e + '-bound-function';
@@ -104,10 +100,8 @@ module.exports = function( Microbe )
             }
         };
 
-        for ( var i = 0, len = this.length; i < len; i++ )
+        var _checkBoundEvents = function ( _elm )
         {
-            var _elm = this[ i ];
-
             if ( !_event && _elm.data && _elm.data.__boundEvents && _elm.data.__boundEvents.__boundEvents )
             {
                 _event = _elm.data.__boundEvents.__boundEvents;
@@ -125,11 +119,13 @@ module.exports = function( Microbe )
 
             for ( var j = 0, lenJ = _event.length; j < lenJ; j++ )
             {
-                _off( _event[ j ], _elm );
+                _off( _elm, _event[ j ] );
             }
 
             _elm.data.__boundEvents.__boundEvents = _event.filter( filterFunction );
         }
+
+        this.each( _checkBoundEvents );
 
         return this;
     };
@@ -146,7 +142,7 @@ module.exports = function( Microbe )
      *
      * @return _Microbe_ reference to original microbe
      */
-    Microbe.prototype.on = function ( _event, _callback )
+    Microbe.core.on = function ( _event, _callback )
     {
         var _on = function( _elm )
         {
@@ -165,18 +161,14 @@ module.exports = function( Microbe )
             _elm.data.__boundEvents.__boundEvents.push( _event );
         };
 
-        var i, len;
-        for ( i = 0, len = this.length; i < len; i++ )
-        {
-            _on( this[ i ] );
-        }
+        this.each( _on );
 
         return this;
     };
 
 
     /**
-     * ## CustomEvent polyfill
+     * ## _CustomEvent polyfill
      *
      * CustomEvent polyfill for IE <= 9
      *

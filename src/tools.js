@@ -12,7 +12,7 @@ module.exports = function( Microbe )
     'use strict';
 
     window.Promise  = window.Promise || require( 'promise' );
-    var Types       = require( './utils/types' );
+    var Types       = require( './types' );
 
     /**
      * ## capitalize
@@ -69,7 +69,7 @@ module.exports = function( Microbe )
 
         return function()
         {
-            var context = this,
+            var self = this,
                 args    = arguments;
 
             var later   = function()
@@ -78,7 +78,7 @@ module.exports = function( Microbe )
 
                 if ( !immediate )
                 {
-                    _func.apply( context, args );
+                    _func.apply( self, args );
                 }
             };
 
@@ -88,14 +88,94 @@ module.exports = function( Microbe )
 
             if ( callNow )
             {
-                _func.apply( context, args );
+                _func.apply( self, args );
             }
         };
     };
 
 
-    Microbe.extend = Microbe.core.extend;
+    /**
+     * ## extend
+     *
+     * Extends an object or microbe
+     *
+     * @return _Object_ reference to this (microbe) or the first
+     *                     object passed (root)
+     */
+    Microbe.extend = function()
+    {
+        var µIsObject   = Microbe.isObject;
+        var µIsArray    = Microbe.isArray;
 
+        var res     = arguments[ 0 ] || {};
+        var i       = 1;
+        var length  = arguments.length;
+        var deep    = false;
+
+        if ( typeof res === 'boolean' )
+        {
+            deep    = res;
+            res     = arguments[ i ] || {};
+            i++;
+        }
+
+        if ( typeof res !== 'object' && !Microbe.isFunction( res ) )
+        {
+            res = {};
+        }
+
+        if ( i === length )
+        {
+            res = this;
+            i--;
+        }
+
+        var _object, _p, src, copy, isArray, clone;
+        for ( ; i < length; i++ )
+        {
+            _object = arguments[ i ];
+
+            if ( _object !== null && _object !== undefined )
+            {
+                for ( _p in _object )
+                {
+                    src     = res[ _p ];
+                    copy    = _object[ _p ];
+
+                    if ( res === copy )
+                    {
+                        continue;
+                    }
+
+                    if ( deep && copy && ( µIsObject( copy ) ||
+                            ( isArray = µIsArray( copy ) ) ) )
+                    {
+                        if ( isArray )
+                        {
+                            isArray = false;
+                            clone   = src && µIsArray( src ) ? src : [];
+                        }
+                        else
+                        {
+                            clone = src && µIsObject( src ) ? src : {};
+                        }
+
+                        res[ _p ] = Microbe.extend( deep, clone, copy );
+                    }
+                    else if ( copy !== undefined )
+                    {
+                        res[ _p ] = copy;
+                    }
+                }
+            }
+        }
+
+        return res;
+    };
+
+
+    Microbe.core.extend     = Microbe.extend;
+    
 
     /**
      * ## identity
@@ -286,8 +366,51 @@ module.exports = function( Microbe )
     };
 
 
-    Microbe.merge = Microbe.core.merge;
+    /**
+     * ## merge
+     *
+     * Combines microbes, arrays, and/or array-like objects.
+     *
+     * @param {Mixed} first               first object _{Array-like Object or Array}_
+     * @param {Mixed} second              second object _{Array-like Object or Array}_
+     *
+     * @return _Mixed_ combined array or array-like object (based off first)
+     */
+    Microbe.merge = function( first, second, unique )
+    {
+        if ( typeof second === 'boolean' )
+        {
+            unique = second;
+            second = null;
+        }
 
+        if ( !second )
+        {
+            second  = first;
+            first   = this;
+        }
+
+        var i = first.length;
+
+        if ( typeof i === 'number' )
+        {
+            for ( var j = 0, len = second.length; j < len; j++ )
+            {
+                if ( !unique || first.indexOf( second[ j ] ) === -1 )
+                {
+                    first[ i++ ] = second[ j ];
+                }
+            }
+
+            first.length = i;
+        }
+
+        return first;
+    };
+
+
+    Microbe.core.merge      = Microbe.merge;
+    
 
     /**
      * ## noop
@@ -310,7 +433,7 @@ module.exports = function( Microbe )
      *
      * @return _Function_
      */
-    Microbe.once = function( _func, context )
+    Microbe.once = function( _func, self )
     {
         var result;
 
@@ -318,7 +441,7 @@ module.exports = function( Microbe )
         {
             if( _func )
             {
-                result  = _func.apply( context || this, arguments );
+                result  = _func.apply( self || this, arguments );
                 _func   = null;
             }
 
@@ -387,9 +510,8 @@ module.exports = function( Microbe )
      * also be passed as the second variable
      *
      * @param {String} selector selector to apply it to
-     * @param {Mixed} properties css properties to remove
-     *                                                  'all' to remove all selector tags
-     *                                                  string as media query {String or Array}
+     * @param {Mixed} properties css properties to remove 'all' to remove all 
+     *                 selector tags string as media query {String or Array}
      * @param {String} media media query
      *
      * @return _Boolean_ removed or not
@@ -487,17 +609,13 @@ module.exports = function( Microbe )
      *
      * @return _Array_
      */
-    Microbe.toArray = Microbe.core.toArray;
+    Microbe.toArray = function( _arr )
+    {
+        return Array.prototype.slice.call( _arr || this );
+    };
 
 
-    /**
-     * ## toString
-     *
-     * Methods returns the type of Microbe.
-     *
-     * @return _String_
-     */
-    Microbe.toString = Microbe.core.toString;
+    Microbe.core.toArray    = Microbe.toArray;
 
 
     /**
@@ -537,6 +655,7 @@ module.exports = function( Microbe )
      *
      * https://en.wikipedia.org/wiki/Xyzzy_(computing)
      *
-     * @return _void_ */
+     * @return _void_ 
+     */
     Microbe.xyzzy   = Microbe.noop;
 };

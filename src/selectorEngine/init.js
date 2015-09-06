@@ -1,30 +1,34 @@
 /**
- * Cytoplasm.js
+ * Microbe.js
  *
  * @author  Mouse Braun         <mouse@sociomantic.com>
  * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
  *
- * @package Cytoplasm
+ * @package Microbe
  */
-module.exports = function( _c, _type )
+
+var slice = Array.prototype.slice;
+
+module.exports = function( Microbe, _type )
 {
     'use strict';
 
+    Microbe.core        = {};
     var trigger, _shortSelector;
 
-    var selectorRegex = _c.prototype.__selectorRegex =  /(?:[\s]*\.([\w-_\.]+)|#([\w-_]+)|([^#\.:<][\w-_]*)|(<[\w-_#\.]+>)|:([^#\.<][\w-()_]*))/g;
+    var selectorRegex = Microbe.prototype.__selectorRegex =  /(?:[\s]*\.([\w-_\.]+)|#([\w-_]+)|([^#\.:<][\w-_]*)|(<[\w-_#\.]+>)|:([^#\.<][\w-()_]*))/g;
 
     // TODO: Check if we hit the duck
 
     /**
      * ## _build
      *
-     * Builds and returns the final Cytoplasm
+     * Builds and returns the final Microbe
      *
      * @param {Array} _elements array of elements
      * @param {String} _selector selector
      *
-     * @return _Cytoplasm_ Cytoplasm wrapped elements
+     * @return _Microbe_ Microbe wrapped elements
      */
     function _build( _elements, self )
     {
@@ -44,12 +48,12 @@ module.exports = function( _c, _type )
     /**
      * ## _create
      *
-     * Method creates a Cytoplasm from an element or a new element of the passed string, and
-     * returns the Cytoplasm
+     * Method creates Microbe from a passed string, and returns it
      *
-     * @param {Element} _el element to create
+     * @param {String} _el element to create
+     * @param {Object} this reference to pass on to _build
      *
-     * @return _Cytoplasm_
+     * @return _Microbe_
      */
     function _create( _el, self )
     {
@@ -102,6 +106,31 @@ module.exports = function( _c, _type )
 
 
     /**
+     * ## _createHtml
+     * 
+     * Method creates a Microbe from an html string, and returns it
+     *
+     * @param {String} _el element to create
+     * @param {Object} this reference to pass on to _build
+     *
+     * @return _Microbe_
+     */
+    function _createHtml( _el, self )
+    {
+        var _ghost          = document.createElement( 'div' );
+        _ghost.innerHTML    = _el;
+        _el                 = slice.call( _ghost.children );
+
+        for ( var i = 0, lenI = _el.length; i < lenI; i++ ) 
+        {
+            _ghost.removeChild( _el[ i ] );
+        }
+
+        return _build( _el, self );
+    }
+
+
+    /**
      * ## _css4StringReplace
      *
      * translates css4 strings
@@ -131,9 +160,9 @@ module.exports = function( _c, _type )
      * if ther is no scope and there is only a simple selector
      *
      * @param {String} _s   selector string
-     * @param {Object} self this empty Cytoplasm
+     * @param {Object} self this empty Microbe
      *
-     * @return _Cytoplasm_
+     * @return _Microbe_
      */
     function _noScopeSimple( _s, self )
     {
@@ -158,6 +187,28 @@ module.exports = function( _c, _type )
                         {
                             return _build( document.getElementsByClassName( clss ), self );
                         }
+                        else
+                        {
+                            clss = clss.split( '.' );
+
+                            var res, _r, _el = document.getElementsByClassName( clss[ 0 ] );
+                            for ( var c = 1, lenC = clss.length; c < lenC; c++ ) 
+                            {
+                                res = slice.call( document.getElementsByClassName( clss[ c ] ) );
+
+                                for ( var r = 0, lenR = _el.length; r < lenR; r++ ) 
+                                {
+                                    _r = _el[ r ];
+
+                                   if ( res.indexOf( _r ) === -1 )
+                                   {
+                                        _el[ r ] = null;
+                                   }
+                                }
+                            }
+
+                            return _build( _el, self ).filter( function( _e ){ return _e !== null; } );
+                        }
                     }
                     break;
                 default:
@@ -179,17 +230,23 @@ module.exports = function( _c, _type )
      *
      * Constructor.
      *
-     * Either selects or creates an HTML element and wraps it into a Cytoplasm instance.
-     * Usage:   µ( 'div#test' )   ---> selection
-     *          µ( '<div#test>' ) ---> creation
+     * Either selects or creates an HTML element and wraps it into a Microbe instance.
+     * Usage:   µ()                             ---> empty
+     *          µ( '' )                         ---> empty
+     *          µ( [] )                         ---> empty
+     *          µ( 'div#test' )                 ---> selection
+     *          µ( elDiv )                      ---> selection
+     *          µ( [ elDiv1, elDiv2, elDiv3 ] ) ---> selection
+     *          µ( '<div#test>' )               ---> creation
+     *          µ( '<div id="test"></div>' )    ---> creation
      *
      * @param {Mixed} _selector HTML selector (Element String Array)
-     * @param {Mixed} _scope scope to look inside (Element String Cytoplasm)
-     * @param {Mixed} _elements elements to fill Cytoplasm with (optional) (Element or Array)
+     * @param {Mixed} _scope scope to look inside (Element String Microbe)
+     * @param {Mixed} _elements elements to fill Microbe with (optional) (Element or Array)
      *
-     * @return _Cytoplasm_
+     * @return _Microbe_
      */
-    var Init = _c.core.__init__ =  function( _selector, _scope, _elements )
+    var Init = Microbe.core.__init__ =  function( _selector, _scope, _elements )
     {
         var res;
         if ( !_scope )
@@ -264,8 +321,7 @@ module.exports = function( _c, _type )
             }
         }
 
-        var scopeNodeType   = _scope.nodeType,
-            nodeType        = ( _selector ) ? _selector.nodeType || typeof _selector : null;
+        var scopeNodeType   = _scope.nodeType;
 
         if ( ( !_selector || typeof _selector !== 'string' ) ||
             ( scopeNodeType !== 1 && scopeNodeType !== 9 ) )
@@ -320,14 +376,21 @@ module.exports = function( _c, _type )
             return _pseudo( this, _selector, _scope, _build );
         }
 
+        // html creation string
+        if ( _selector.indexOf( '/' ) !== -1 )
+        {
+            return _createHtml( _selector, this );
+        }
+
         return _build( _scope.querySelectorAll( _selector ), this );
     };
 
-    _c.core.type                 = _type;
-    _c.core.__init__.prototype   = _c.core;
+    Microbe.core.type                 = _type;
+    Microbe.core.__init__.prototype   = Microbe.core;
 
-    require( './utils' )( _c );
-    require( './pseudo' )( _c );
+    require( './core' )( Microbe );
+    require( './root' )( Microbe );
+    require( './pseudo' )( Microbe );
 
-    var _pseudo = _c.constructor.pseudo;
+    var _pseudo = Microbe.constructor.pseudo;
 };

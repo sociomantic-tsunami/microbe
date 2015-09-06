@@ -2,7 +2,7 @@
 
 module.exports = function( buildTest )
 {
-    QUnit.module( 'root.js' );
+    QUnit.module( 'tools.js' );
 
 
     /**
@@ -68,6 +68,49 @@ module.exports = function( buildTest )
         }, 60 );
 
         buildTest( 'No speed tests available.' );
+    });
+
+
+    /**
+     * µ extend tests
+     *
+     * @test    extend exists
+     * @test    extends microbes
+     * @test    extends objects
+     */
+    QUnit.test( '.extend()', function( assert )
+    {
+        assert.ok( µ().extend, 'core exists' );
+        assert.ok( µ.extend, 'root exists' );
+
+        var µDivs = µ( 'div' );
+        var extension = { more: function(){ return 'MOAR!!!'; } };
+        µDivs.extend( extension );
+        assert.equal( µDivs.more(), 'MOAR!!!', 'extends microbes' );
+
+        var _obj = { a: 1, b: 2, c:3 };
+        µ.extend( _obj, extension );
+        assert.equal( _obj.more(), 'MOAR!!!', 'extends objects' );
+
+            µDivs = µ( 'divs' );
+        var $Divs = µ( 'divs' );
+
+        buildTest(
+        'µ.extend( _obj, extension );', function()
+        {
+            extension = { more: function(){ return 'MOAR!!!'; } };
+            // µDivs.extend( extension );
+            _obj        = { a: 1, b: 2, c:3 };
+            µ.extend( _obj, extension );
+        },
+
+        '$.extend( _obj, extension )', function()
+        {
+            extension   = { more: function(){ return 'MOAR!!!'; } };
+            // $Divs.extend( extension );
+            _obj        = { a: 1, b: 2, c:3 };
+            $.extend( _obj, extension );
+        } );
     });
 
 
@@ -272,6 +315,71 @@ module.exports = function( buildTest )
     });
 
 
+/**
+     * µ merge tests
+     *
+     * @test    µ().merge exists
+     * @test    µ.merge exists
+     * @test    merged microbes
+     * @test    merged arrays
+     * @test    merged this
+     */
+    QUnit.test( '.merge()', function( assert )
+    {
+        assert.ok( µ().merge, 'µ().merge exists' );
+        assert.ok( µ.merge, 'µ.merge exists' );
+
+        var µDivs       = µ( 'div' );
+        var divCount    = µDivs.length;
+        var µHtml       = µ( 'html' );
+        var htmlCount   = µHtml.length;
+
+        var merged      = µ.merge( µDivs, µHtml );
+        assert.equal( divCount + htmlCount, merged.length, 'merged microbes' );
+
+        merged = µ.merge( [ 1, 2, 3 ], [ 4, 5, 6 ] );
+        assert.equal( 6, merged.length, 'merged arrays' );
+
+        µDivs       = µ( 'div' );
+        µDivs.merge( µHtml );
+        assert.equal( µDivs.length, divCount + htmlCount, 'merged this' );
+
+
+        var $Divs, µLi, $Li;
+
+        var refreshObjects = function()
+        {
+            µDivs = µ( 'div' );
+            $Divs = $( 'div' );
+
+            µLi = µ( 'li' );
+            $Li = $( 'li' );
+        };
+
+
+        buildTest(
+        'µ.merge( _obj, extension );', function()
+        {
+            refreshObjects();
+
+            /* these are commented out because jquery doesn't handle this syntax */
+            // µDivs.merge( µLi );
+
+            µ.merge( µDivs, µLi );
+        },
+
+        '$.merge( _obj, extension )', function()
+        {
+            refreshObjects();
+
+            /* these are commented out because jquery doesn't handle this syntax */
+            // $Divs.merge( $Li );
+
+            $.merge( $Divs, µLi );
+        } );
+    });
+
+
     /**
      * µ noop tests
      *
@@ -409,34 +517,6 @@ module.exports = function( buildTest )
         assert.equal( µ.type( µ.toArray( µArr ) ), 'array', 'makes arrays' );
 
         buildTest( 'No speed tests available.' );
-    });
-
-
-    /**
-     * µ toString tests
-     *
-     * @test    µ().toString exists
-     * @test    µ.toString exists
-     * @test    microbe is [object Microbe]
-     */
-    QUnit.test( '.toString()', function( assert )
-    {
-        assert.ok( µ().toString, 'µ().toString exists' );
-        assert.ok( µ.toString, 'exists on root' );
-        assert.ok( µ().toString() === '[object Microbe]', 'microbe is [object Microbe]' );
-
-        buildTest(
-        'µ.toString', function()
-        {
-            µ.toString( µ );
-            µ.toString( [ 1, 2, 3 ] );
-        },
-
-        '$.toString', function()
-        {
-            $.toString( $ );
-            $.toString( [ 1, 2, 3 ] );
-        } );
     });
 
 

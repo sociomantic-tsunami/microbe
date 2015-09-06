@@ -129,11 +129,12 @@ var buildTest = function( _str1, _cb1, _str2, _cb2, _console )
     }
 };
 
-require( './cytoplasm/cytoplasm' )( buildTest );
-require( './cytoplasm/pseudo' )( buildTest );
-require( './cytoplasm/utils' )( buildTest );
-require( './core' )( buildTest );
-require( './root' )( buildTest );
+require( './selectorEngine/init' )( buildTest );
+require( './selectorEngine/pseudo' )( buildTest );
+require( './selectorEngine/core' )( buildTest );
+require( './selectorEngine/root' )( buildTest );
+require( './elements' )( buildTest );
+require( './tools' )( buildTest );
 require( './http' )( buildTest );
 require( './dom' )( buildTest );
 require( './events' )( buildTest );

@@ -29,7 +29,7 @@ module.exports = function( Microbe )
      *
      * @return _Array_ array of values
      */
-    Microbe.prototype.get = function( prop )
+    Microbe.core.get = function( prop )
     {
         var _get = function( _el )
         {
@@ -39,7 +39,7 @@ module.exports = function( Microbe )
             }
             else
             {
-                if ( _el.data[ prop ] && _el.data[ prop ][ prop ] )
+                if ( _el.data && _el.data[ prop ] && _el.data[ prop ][ prop ] )
                 {
                     return _el.data[ prop ][ prop ];
                 }
@@ -50,14 +50,7 @@ module.exports = function( Microbe )
             }
         };
 
-        var i, len, values = new Array( this.length );
-
-        for ( i = 0, len = this.length; i < len; i++ )
-        {
-            values[ i ] = _get( this[ i ] );
-        }
-
-        return values;
+        return this.map( _get );
     };
 
 
@@ -72,13 +65,11 @@ module.exports = function( Microbe )
      *
      * @return _Microbe_  reference to original microbe
      */
-    Microbe.prototype.observe = function( prop, func, _once )
+    Microbe.core.observe = function( prop, func, _once )
     {
-        var self = this;
-
         var _observe = function( _elm )
         {
-            var _setObserve = function( _target, _prop )
+            var _setObserve = function( _target )
             {
                 if ( _once === true )
                 {
@@ -124,7 +115,7 @@ module.exports = function( Microbe )
                 }
 
                 target = _setObserveFunc( _data[ prop ] );
-                _setObserve( target, prop );
+                _setObserve( target );
             }
             else
             {
@@ -150,12 +141,7 @@ module.exports = function( Microbe )
             prop    = null;
         }
 
-        var i, len, results = new Array( this.length );
-
-        for ( i = 0, len = this.length; i < len; i++ )
-        {
-            _observe( this[ i ] );
-        }
+        this.each( _observe );
 
         return this;
     };
@@ -171,7 +157,7 @@ module.exports = function( Microbe )
      *
      * @return _Microbe_ reference to original microbe
      */
-    Microbe.prototype.observeOnce = function( func, _prop )
+    Microbe.core.observeOnce = function( func, _prop )
     {
         this.observe( func, _prop, true );
     };
@@ -187,7 +173,7 @@ module.exports = function( Microbe )
      *
      * @return _Microbe_ reference to original microbe
      */
-    Microbe.prototype.set = function( prop, value )
+    Microbe.core.set = function( prop, value )
     {
         var _set = function( _el )
         {
@@ -212,12 +198,7 @@ module.exports = function( Microbe )
             _el.data[ prop ][ prop ]    = value;
         };
 
-        var i, len, values = new Array( this.length );
-
-        for ( i = 0, len = this.length; i < len; i++ )
-        {
-            values[ i ] = _set( this[ i ] );
-        }
+        this.each( _set );
 
         return this;
     };
@@ -232,7 +213,7 @@ module.exports = function( Microbe )
      *
      * @return _Microbe_ reference to original microbe
      */
-    Microbe.prototype.unobserve = function( _prop )
+    Microbe.core.unobserve = function( _prop )
     {
         var _unobserve = function( _elm )
         {
@@ -262,11 +243,7 @@ module.exports = function( Microbe )
             }
         }.bind( this );
 
-        var i, len, results = new Array( this.length );
-        for ( i = 0, len = this.length; i < len; i++ )
-        {
-            _unobserve( this[ i ] );
-        }
+        this.each( _unobserve );
 
         return this;
     };

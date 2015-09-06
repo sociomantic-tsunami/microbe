@@ -6,6 +6,7 @@
  *
  * @package Microbe
  */
+var _events;
 
 module.exports = function( Microbe )
 {
@@ -239,7 +240,7 @@ module.exports = function( Microbe )
         }
     };
 
-
+ 
     /**
      * ## remove
      *
@@ -249,20 +250,35 @@ module.exports = function( Microbe )
      */
     Microbe.core.remove = function()
     {
-        var _remove = function( _elm )
+        _events = _events || this.off;
+
+        if ( _events )
+        {  
+            this.off();
+        }
+
+        for ( var i = 0, len = this.length; i < len; i++ )
         {
-            return _elm.parentNode.removeChild( _elm );
-        };
-
-        var i, len;
-
-        this.off();
-
-        for ( i = 0, len = this.length; i < len; i++ )
-        {
-            _remove( this[ i ] );
+            this[ i ].remove();
         }
 
         return this;
     };
+
+
+    /**
+     * ## remove polyfill
+     *
+     * Polyfill for IE because IE
+     *
+     * @return _void_
+     */
+    if ( !( 'remove' in Element.prototype ) ) 
+    {
+        Element.prototype.remove = function() 
+        {
+            this.parentElement.removeChild( this );
+        };
+    }
+
 };
