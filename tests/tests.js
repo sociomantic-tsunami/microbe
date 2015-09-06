@@ -130,9 +130,10 @@ var buildTest = function( _str1, _cb1, _str2, _cb2, _console )
     }
 };
 
-require( './cytoplasm/cytoplasm' )( buildTest );
-require( './cytoplasm/pseudo' )( buildTest );
-require( './cytoplasm/utils' )( buildTest );
+require( './selectorEngine/init' )( buildTest );
+require( './selectorEngine/pseudo' )( buildTest );
+require( './selectorEngine/core' )( buildTest );
+require( './selectorEngine/root' )( buildTest );
 require( './core' )( buildTest );
 require( './root' )( buildTest );
 require( './http' )( buildTest );
@@ -141,7 +142,7 @@ require( './events' )( buildTest );
 require( './observe' )( buildTest );
 
 window.buildTest = buildTest;
-},{"./core":9,"./cytoplasm/cytoplasm":10,"./cytoplasm/pseudo":11,"./cytoplasm/utils":12,"./dom":13,"./events":14,"./http":15,"./observe":16,"./root":17}],2:[function(require,module,exports){
+},{"./core":9,"./dom":10,"./events":11,"./http":12,"./observe":13,"./root":14,"./selectorEngine/core":15,"./selectorEngine/init":16,"./selectorEngine/pseudo":17,"./selectorEngine/root":18}],2:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -632,7 +633,7 @@ module.exports = asap;
 
 module.exports = function( buildTest )
 {
-    var version = '0.4.4';
+    var version = '0.4.5';
 
     var _observables = µ().get ? true : false;
 
@@ -1422,1514 +1423,6 @@ module.exports = function( buildTest )
 
 
 },{}],10:[function(require,module,exports){
-/* global document, window, µ, $, QUnit, Benchmark, buildTest  */
-module.exports = function( buildTest )
-{
-    QUnit.module( 'cytoplasm/cytoplasm.js' );
-
-
-    /**
-     * µ init wrap element tests
-     *
-     * @test    one body
-     * @test    passes
-     */
-    QUnit.test( 'wrap an empty set', function( assert )
-    {
-        var µBody = µ( [] );
-
-        assert.equal( µBody.length, 0, 'empty set' );
-        assert.equal( µBody[ 0 ], undefined, 'undefined 0' );
-
-        buildTest(
-        'µ( [] )', function()
-        {
-            return µ( [] );
-        },
-
-        '$( [] )', function()
-        {
-            return $( [] );
-        } );
-    });
-
-
-    /**
-     * µ init wrap element tests
-     *
-     * @test    one body
-     * @test    passes
-     */
-    QUnit.test( 'wrap an element', function( assert )
-    {
-        var _body = document.getElementsByTagName( 'body' )[0];
-        var µBody = µ( _body );
-
-        assert.equal( µBody.length, 1, 'one body' );
-        assert.deepEqual( µBody[ 0 ], _body, 'passes' );
-
-        buildTest(
-        'µ( _el )', function()
-        {
-            return µ( _body );
-        },
-
-        '$( _el )', function()
-        {
-            return $( _body );
-        } );
-    });
-
-
-    /**
-     * µ init wrap element tests
-     *
-     * @test    one body
-     * @test    passes
-     */
-    QUnit.test( 'wrap an array of elements', function( assert )
-    {
-        var _body = document.getElementsByTagName( 'body' )[0];
-        var µBody = µ( [ _body ] );
-
-        assert.equal( µBody.length, 1, 'one body' );
-        assert.deepEqual( µBody[ 0 ], _body, 'passes' );
-
-        var _divs = Array.prototype.slice.call( document.getElementsByTagName( 'div' ) );
-
-        buildTest(
-        'µ( _divs )', function()
-        {
-            return µ( _divs );
-        },
-
-        '$( _divs )', function()
-        {
-            return $( _divs );
-        } );
-    });
-
-
-    /**
-     * µ init query class tests
-     *
-     * @test    one div
-     * @test    passes
-     */
-    QUnit.test( 'query class', function( assert )
-    {
-        var _div = document.getElementsByClassName( 'example--class' )[0];
-        var µDiv = µ( '.example--class' );
-
-        assert.equal( µDiv.length, 1, 'one div' );
-        assert.deepEqual( µDiv[ 0 ], _div, 'passes' );
-        assert.equal( µ( '.exarmple-classssss' ).length, 0, 'successfully fails' );
-
-        buildTest(
-        'µ( \'.example--class\' )', function()
-        {
-            return µ( '.example--class' );
-        },
-
-        '$( \'.example--class\' )', function()
-        {
-            return $( '.example--class' );
-        } );
-    });
-
-
-    /**
-     * µ init query multiple classes tests
-     *
-     * @test    one div
-     * @test    passes
-     */
-    QUnit.test( 'query multiple classes', function( assert )
-    {
-        var _div    = document.getElementsByClassName( 'example--class' );
-        var µDiv    = µ( '.example--class.example--class--groups' );
-
-        assert.equal( µDiv.length, 1, 'one div' );
-        assert.deepEqual( µDiv[ 0 ], _div[0], 'passes' );
-
-        buildTest(
-        'µ( \'.example--class.example--class--groups\' )', function()
-        {
-            return µ( '.example--class.example--class--groups' );
-        },
-
-        '$( \'.example--class.example--class--groups\' )', function()
-        {
-            return $( '.example--class.example--class--groups' );
-        } );
-    });
-
-
-    /**
-     * µ init query id tests
-     *
-     * @test    one body
-     * @test    passes
-     */
-    QUnit.test( 'query id', function( assert )
-    {
-        var _div = document.getElementById( 'example--id' );
-        var µDiv = µ( '#example--id' );
-
-        assert.equal( µDiv.length, 1, 'one div' );
-        assert.deepEqual( µDiv[ 0 ], _div, 'passes' );
-
-        buildTest(
-        'µ( \'#example--id\' )', function()
-        {
-            return µ( '#example--id' );
-        },
-
-        '$( \'#example--id\' )', function()
-        {
-            return $( '#example--id' );
-        } );
-    });
-
-
-    /**
-     * µ init query id and class tests
-     *
-     * @test    one body
-     * @test    passes
-     */
-    QUnit.test( 'query id and class', function( assert )
-    {
-        var _div    = document.getElementById( 'example--combined' );
-        var µDiv    = µ( '#example--combined.example--combined' );
-
-        assert.equal( µDiv.length, 1, 'one div' );
-        assert.deepEqual( µDiv[ 0 ], _div, 'passes' );
-
-        buildTest(
-        'µ( \'#example--combined.example--combined\' )', function()
-        {
-            return µ( '#example--combined.example--combined' );
-        },
-
-        '$( \'#example--combined.example--combined\' )', function()
-        {
-            return $( '#example--combined.example--combined' );
-        } );
-    });
-
-
-    /**
-     * µ init query tagname tests
-     *
-     * @test    correct element
-     * @test    passes
-     */
-    QUnit.test( 'query tagname', function( assert )
-    {
-        var _div = document.getElementsByTagName( 'div' )[0];
-        var µDiv = µ( 'div' );
-
-        assert.equal( µDiv[ 0 ].tagName, 'DIV', 'correct element' );
-        assert.deepEqual( µDiv[ 0 ], _div, 'passes' );
-
-        buildTest(
-        'µ( \'div\' )', function()
-        {
-            return µ( 'div' );
-        },
-
-        '$( \'div\' )', function()
-        {
-            return $( 'div' );
-        } );
-    });
-
-
-    /**
-     * µ init query combined tests
-     *
-     * @test    one div
-     * @test    passes
-     */
-    QUnit.test( 'query combined', function( assert )
-    {
-        var _div = document.querySelector( 'div#example--combined.example--combined' );
-        var µDiv = µ( 'div#example--combined.example--combined' );
-
-        assert.equal( µDiv.length, 1, 'one div' );
-        assert.deepEqual( µDiv[ 0 ], _div, 'passes' );
-
-        buildTest(
-        'µ( \'div#example--combined.example--combined\' )', function()
-        {
-            return µ( 'div#example--combined.example--combined' );
-        },
-
-        '$( \'div#example--combined.example--combined\' )', function()
-        {
-            return $( 'div#example--combined.example--combined' );
-        } );
-    });
-
-
-    /**
-     * µ init query with microbe scope tests
-     *
-     * @test    two divs
-     * @test    correct element
-     */
-    QUnit.test( 'query with microbe scope', function( assert )
-    {
-        var µDiv = µ( 'div', µ( '.example--class--groups' ) );
-        var $Div = $( 'div', $( '.example--class--groups' ) );
-
-        assert.equal( µDiv.length, 2, 'two divs' );
-        assert.equal( µDiv[0].tagName, 'DIV', 'correct element' );
-
-        buildTest(
-        'µ( \'div\', µDiv )', function()
-        {
-            return µ( 'div', µDiv );
-        },
-
-        '$( \'div\', $Div )', function()
-        {
-            return $( 'div', $Div );
-        } );
-    });
-
-
-    /**
-     * µ init query with element scope tests
-     *
-     * @test    two divs
-     * @test    correct parent
-     */
-    QUnit.test( 'query with element scope', function( assert )
-    {
-        var _scopeEl = µ( '.example--class--groups' )[0];
-
-        var µDiv = µ( 'div', _scopeEl );
-
-        assert.equal( µDiv.length, 2, 'two divs' );
-        assert.deepEqual( µDiv[0].parentNode, _scopeEl, 'correct parent' );
-
-        var _el = µ( 'div' )[1];
-
-        buildTest(
-        'µ( \'h1\', _el )', function()
-        {
-            return µ( 'h1', _el );
-        },
-
-        '$( \'h1\', _el )', function()
-        {
-            return $( 'h1', _el );
-        } );
-    });
-
-
-    /**
-     * µ init query with string scope tests
-     *
-     * @test    correctly formed selector
-     * @test    two divs
-     */
-    QUnit.test( 'query with string scope', function( assert )
-    {
-        var µDiv = µ( 'div', '.example--class--groups' );
-        assert.equal( µDiv.length, 2, 'two divs from 2 strings' );
-
-
-        µDiv = µ( µDiv[0], '.example--class--groups' );
-        assert.equal( µDiv.length, 1, '1 divs from a string and an element' );
-
-        buildTest(
-        'µ( \'h1\', \'div\' )', function()
-        {
-            return µ( 'h1', 'div' );
-        },
-
-        '$( \'h1\', \'div\' )', function()
-        {
-            return $( 'h1', 'div' );
-        } );
-    });
-
-
-    /*
-     * µ length test
-     *
-     * @test    length exists
-     */
-    QUnit.test( '.length', function( assert )
-    {
-        assert.equal( µ().length, 0, 'length initializes' );
-        assert.equal( µ( 'head' ).length, 1, 'length reports correctly' );
-
-        buildTest( 'No speed tests available for non-functions' );
-    });
-};
-
-},{}],11:[function(require,module,exports){
-/* global document, window, µ, $, QUnit, Benchmark, test  */
-var indexOf = Array.prototype.indexOf
-
-module.exports = function( buildTest )
-{
-    QUnit.module( 'cytoplasm/pseudo.js' );
-
-    /**
-     * pseudo custom connectors tests
-     *
-     * @test    any-link exists
-     * @test    gets links
-     * @test    gets scoped links
-     */
-    QUnit.test( 'pseudo custom connectors', function( assert )
-    {
-        assert.ok( µ( 'div:first ~ div' ), 'µ( \'div:first ~ div\' )' );
-        assert.ok( µ( 'div:first' ).find( '~ div' ), 'µ( \'div:first\' ).find( \'~ div\' )' );
-        assert.ok( µ( 'div ~ :first' ), 'µ( \'div ~ :first\' )' );
-        assert.ok( µ( 'div:first' ).find( '> div' ), 'µ( \'div:first\' ).find( \'> div\' )' );
-        assert.ok( µ( 'div:first' ).find( '+ div' ), 'µ( \'div:first\' ).find( \'+ div\' )' );
-        assert.ok( µ( 'div! ~ :lt(3) >> div' ).filter( '.invalid--test:contains(comparison)' ).find( '> b' ), 'µ( \'div! ~ :lt(3) >> div\' ).filter( \'.invalid--test:contains(comparison)\' ).find( \'> b\' )' );
-
-        buildTest( 'No comparison available.' );
-    });
-
-
-    /**
-     * µ any-link tests
-     *
-     * @test    any-link exists
-     * @test    gets links
-     * @test    gets scoped links
-     */
-    QUnit.test( ':any-link', function( assert )
-    {
-        assert.ok( µ.pseudo[ 'any-link' ], 'exists' );
-        assert.equal( µ( ':any-link' ).length, document.getElementsByTagName( 'A' ).length, 'gets links' );
-        assert.equal( µ( 'div ~ *:any-link' ).length, document.querySelectorAll( 'div ~ a' ).length, 'gets scoped links' );
-
-        buildTest( 'No comparison available.' );
-    });
-
-
-    /**
-     * ### blank
-     *
-     * µ blank tests
-     *
-     * @test    blank exists
-     * @test    gets links
-     * @test    gets scoped links
-     */
-    QUnit.test( ':blank', function( assert )
-    {
-        assert.ok( µ.pseudo.blank, 'exists' );
-
-        assert.equal( µ( ':blank' ).length, 4, 'gets blanks' );
-        assert.equal( µ( 'div *:blank' ).length, 4, 'gets scoped blanks' );
-
-        buildTest( 'No comparison available.' );
-    });
-
-
-    /**
-     * ### column
-     *
-     * µ column selector tests
-     *
-     * @test    blank exists
-     * @test    gets links
-     * @test    gets scoped links
-     */
-    QUnit.test( ':column', function( assert )
-    {
-        assert.ok( µ.pseudo.column, 'exists' );
-
-        var col1 = document.getElementById( 'col1' );
-        assert.equal( µ( '#col1:column' )[0], col1, 'as pseudo' );
-        assert.equal( µ( ':column(#col1)' )[0], col1, 'filter with variable' );
-
-        buildTest( 'No comparison available.' );
-    });
-
-
-
-    /**
-     * µ contains tests
-     *
-     * @test    contains exists
-     * @test    searches text
-     * @test    ignores case
-     * @test    ignores false returns
-     */
-    QUnit.test( ':contains(text)', function( assert )
-    {
-        assert.ok( µ.pseudo.contains, 'exists' );
-        assert.equal( µ( '#example--combined:contains(I am)' ).length, 1, 'searches text' );
-        assert.equal( µ( '#example--combined:contains(i am)' ).length, 1, 'ignores case' );
-        assert.equal( µ( '#example--combined:contains(moon)' ).length, 0, 'ignores false returns' );
-
-        var µEx = µ( '#example--combined' );
-        var $Ex = $( '#example--combined' );
-        buildTest(
-        'µ( \'#example--combined\' ).filter( \':contains(I am)\' )', function()
-        {
-            return µEx.filter( ':contains(I am)' );
-        },
-
-        '$( \'#example--combined\' ).filter( \':contains(I am)\' )', function()
-        {
-            return $Ex.filter( ':contains(I am)' );
-        } );
-    });
-
-
-    /**
-     * µ default tests
-     *
-     * @test    default exists
-     * @test    selects only the default inputs
-     * @test    selects only the default inputs from a scoped selector
-     */
-    QUnit.test( ':default', function( assert )
-    {
-        var µDefaults       = µ( ':default' );
-        var µScopedDefaults = µ( 'div *:default' );
-
-        assert.ok( µ.pseudo.even, 'exists' );
-        assert.deepEqual( µDefaults.length, 2, 'selects the default inputs' );
-        assert.deepEqual( µScopedDefaults.length, 2, 'selects the default inputs scoped' );
-
-        buildTest( 'No comparison available.' );
-    });
-
-
-    /**
-     * µ default tests
-     *
-     * @test    dir exists
-     * @test    selects ltr
-     * @test    selects rtl
-     */
-    QUnit.test( ':dir', function( assert )
-    {
-        var µLTR    = µ( 'div:dir(ltr)' );
-        var µRTL    = µ( 'div:dir(rtl)' );
-
-        assert.ok( µ.pseudo.dir, 'exists' );
-        assert.deepEqual( µLTR.length, µ( 'div' ).length, 'selects ltr' );
-        assert.equal( µRTL.length, 0, 'selects rtl' );
-
-        buildTest( 'No comparison available.' );
-    });
-
-
-
-    /**
-     * µ drop tests
-     *
-     * @test    default exists
-     * @test    selects only the default inputs
-     * @test    selects only the default inputs from a scoped selector
-     */
-    QUnit.test( ':drop', function( assert )
-    {
-        var µDrop    = µ( 'div:drop' );
-
-        assert.ok( µ.pseudo.drop, 'exists' );
-        assert.equal( µDrop.length, 1, 'selects dropzone' );
-
-        buildTest( 'No comparison available.' );
-    });
-
-
-    /**
-     * µ even tests
-     *
-     * @test    even exists
-     * @test    selects only the even scripts
-     * @test    selects the correct half
-     */
-    QUnit.test( ':even', function( assert )
-    {
-        var µEvenScripts   = µ( 'script:even' ).length;
-        var µScripts       = µ( 'script' ).length;
-
-        assert.ok( µ.pseudo.even, 'exists' );
-        assert.equal( µEvenScripts, Math.floor( µScripts / 2 ), 'selects only the even scripts' );
-        assert.deepEqual( µScripts[1], µEvenScripts[0], 'selects the correct half' );
-
-        buildTest(
-        'µ( \'div:even\' )', function()
-        {
-            return µ( 'div:even' );
-        },
-
-        '$( \'div:even\' )', function()
-        {
-            return $( 'div:even' );
-        } );
-    });
-
-
-    /**
-     * µ first tests
-     *
-     * @test    first exists
-     * @test    finds the right div
-     * @test    only returns one div
-     */
-    QUnit.test( ':first', function( assert )
-    {
-        var µDivs       = µ( 'div' );
-        var µFirstDiv   = µ( 'div:first' );
-
-        assert.ok( µ.pseudo.first, 'exists' );
-        assert.deepEqual( µDivs[ 0 ], µFirstDiv[ 0 ], 'finds the right div' );
-        assert.equal( µFirstDiv.length, 1, 'only finds one div' );
-
-        buildTest(
-        'µ( \'div:first\' )', function()
-        {
-            return µ( 'div:first' );
-        },
-
-        '$( \'div:first\' )', function()
-        {
-            return $( 'div:first' );
-        } );
-    });
-
-
-    /**
-     * µ gt tests
-     *
-     * @test    gt exists
-     * @test    finds the right divs
-     * @test    finds the correct number of elements
-     */
-    QUnit.test( ':gt(X)', function( assert )
-    {
-        var µDivs       = µ( 'div' );
-        var µGtDivs     = µ( 'div:gt(3)' );
-
-        assert.ok( µ.pseudo.gt, 'exists' );
-        assert.deepEqual( µDivs[ 6 ], µGtDivs[ 3 ], 'finds the right divs' );
-        assert.equal( µGtDivs.length, µDivs.length - 3, 'finds the correct number of elements' );
-
-        buildTest(
-        'µ( \'div:gt(3)\' )', function()
-        {
-            return µ( 'div:gt(3)' );
-        },
-
-        '$( \'div:gt(3)\' )', function()
-        {
-            return $( 'div:gt(3)' );
-        } );
-    });
-
-
-    /**
-     * µ has tests
-     *
-     * @test    has exists
-     * @test    finds the correct number of elements
-     */
-    QUnit.test( ':has(S)', function( assert )
-    {
-        var µHasDiv = µ( 'div:has(li)' );
-
-        assert.ok( µ.pseudo.has, 'exists' );
-        assert.equal( µHasDiv.length, 1, 'grabs the correct amount of elements' );
-
-        buildTest(
-        'µ( \'div:has(li)\' )', function()
-        {
-            return µ( 'div:has(li)' );
-        },
-
-        '$( \'div:has(li)\' )', function()
-        {
-            return $( 'div:has(li)' );
-        } );
-    });
-
-
-    /**
-     * µ in-range tests
-     *
-     * @test    in-range exists
-     * @test    finds the correct number of elements
-     * @test    finds the correct element
-     */
-    QUnit.test( ':in-range', function( assert )
-    {
-        var µInRangeDiv = µ( ':in-range' );
-        var byElement   = µ( '#emailInput2' )[0];
-
-        assert.ok( µ.pseudo[ 'in-range' ], 'exists' );
-        assert.equal( µInRangeDiv.length, 1, 'grabs the correct amount of elements' );
-        assert.deepEqual( µInRangeDiv[0], byElement, 'grabs the correct element' );
-
-        buildTest( 'No comparison available.' );
-    });
-
-
-    /**
-     * µ lang tests
-     *
-     * @test    lang exists
-     * @test    finds the right div
-     * @test    only returns one div
-     */
-    QUnit.test( ':lang', function( assert )
-    {
-        var µlangDiv        = µ( 'div:lang(gb-en)' );
-        var µWildcardDiv    = µ( 'div:lang(*-en)' );
-
-        assert.ok( µ.pseudo.lang, 'exists' );
-        assert.equal( µlangDiv.length, 1, 'finds a specified language' );
-        assert.equal( µWildcardDiv.length, 2, 'finds a wildcard language' );
-
-        // this is css2 spec and it works. µ is slower, but $ cant do *
-        // buildTest(
-        // 'µ( \':lang(gb-en)\' )', function()
-        // {
-        //     return µ( ':lang(gb-en)' );
-        // },
-
-        // '$( \':lang(gb-en)\' )', function()
-        // {
-        //     return $( ':lang(gb-en)' );
-        // } );
-
-        buildTest( 'No comparison available.' );
-    });
-
-
-    /**
-     * µ last tests
-     *
-     * @test    last exists
-     * @test    finds the right div
-     * @test    only returns one div
-     */
-    QUnit.test( ':last', function( assert )
-    {
-        var µDivs       = µ( 'div' );
-        var µLastDiv    = µ( 'div:last' );
-
-        assert.ok( µ.pseudo.last, 'exists' );
-        assert.deepEqual( µDivs[ µDivs.length - 1 ], µLastDiv[ 0 ], 'finds the right div' );
-        assert.equal( µLastDiv.length, 1, 'only finds one div' );
-
-        buildTest(
-        'µ( \'div:last\' )', function()
-        {
-            return µ( 'div:last' );
-        },
-
-        '$( \'div:last\' )', function()
-        {
-            return $( 'div:last' );
-        } );
-    });
-
-
-    /**
-     * µ local-link tests
-     *
-     * @test    local-link exists
-     * @test    finds the right div
-     * @test    only returns one div
-     */
-    QUnit.test( ':local-link', function( assert )
-    {
-        var µLinks      = µ( ':local-link' );
-        var allLinks    = µ( 'a' );
-        var depth       = window.location.pathname.slice( 1 ).split( '/' ).length - 1;
-        var µDepth1     = µ( ':local-link(' + ( depth - 1 ) + ')' );
-        var µDepth2     = µ( ':local-link(' + depth + ')' );
-
-        assert.ok( µ.pseudo[ 'local-link'], 'exists' );
-        assert.equal( µLinks.length, allLinks.length, 'get links' );
-        assert.equal( µDepth1.length, 0, 'correctly specifies depth' );
-        assert.equal( µDepth2.length, allLinks.length, 'correctly specifies depth' );
-
-        buildTest( 'No comparison available.' );
-    });
-
-
-    /**
-     * µ lt tests
-     *
-     * @test    lt exists
-     * @test    finds the right divs
-     * @test    finds the correct number of elements
-     */
-    QUnit.test( ':lt(X)', function( assert )
-    {
-        var µDivs       = µ( 'div' );
-        var µLtDivs     = µ( 'div:lt(3)' );
-
-        assert.ok( µ.pseudo.lt, 'exists' );
-        assert.deepEqual( µDivs[ 1 ], µLtDivs[ 1 ], 'finds the right divs' );
-        assert.equal( µLtDivs.length, 3, 'finds the correct number of elements' );
-
-        buildTest(
-        'µ( \'div:lt(2)\' )', function()
-        {
-            return µ( 'div:lt(2)' );
-        },
-
-        '$( \'div:lt(2)\' )', function()
-        {
-            return $( 'div:lt(2)' );
-        } );
-    });
-
-
-    /**
-     * µ matches tests
-     *
-     * @test    matches exists
-     * @test    finds the right div
-     * @test    works with pseudoselectors
-     */
-    QUnit.test( ':matches', function( assert )
-    {
-        var qunit           = document.getElementById( 'qunit' );
-        var µMatchesDivs    = µ( 'div:matches(#qunit)' );
-
-        assert.ok( µ.pseudo.matches, 'exists' );
-        assert.deepEqual( µMatchesDivs[ 0 ], qunit, 'finds the right div' );
-
-        buildTest( 'No comparison available.' );
-    });
-
-
-    /**
-     * ### not
-     *
-     * µ complex not selector tests
-     *
-     * @test    blank exists
-     * @test    gets links
-     * @test    gets scoped links
-     */
-    QUnit.test( ':not', function( assert )
-    {
-        assert.ok( µ.pseudo.not, 'exists' );
-
-        var col2 = document.getElementById( 'col2' );
-        assert.equal( indexOf.call( µ( 'col:not(#col2)'), col2 ), -1, 'filter with single selector' );
-        assert.equal( indexOf.call( µ( 'col:not(#col2,#col3)' ), col2 ), -1, 'filter with multiple selectors' );
-
-        buildTest(
-        'µ( \'div:not(.fastest).\' )', function()
-        {
-            return µ( 'div:not(.fastest,.invalid--test)' );
-        },
-
-        '$( \'div:not(.fastest).\' )', function()
-        {
-            return $( 'div:not(.fastest,.invalid--test)' );
-        } );
-    });
-
-
-    /**
-     * ### nth-column
-     *
-     * µ column selector tests
-     *
-     * @test    nth-column exists
-     * @test    filter with number
-     * @test    filter with n-number
-     */
-    QUnit.test( ':nth-column', function( assert )
-    {
-        assert.ok( µ.pseudo[ 'nth-column' ], 'exists' );
-
-        var col2 = document.getElementById( 'col2' );
-        assert.equal( µ( ':nth-column(2)' )[0], col2, 'filter with number' );
-        assert.equal( µ( ':nth-column(2n1)' )[0], col2, 'filter with n-number' );
-
-        buildTest( 'No comparison available.' );
-    });
-
-
-    /**
-     * ### nth-last-column
-     *
-     * µ column selector tests
-     *
-     * @test    blank exists
-     * @test    gets links
-     * @test    gets scoped links
-     */
-    QUnit.test( ':nth-last-column', function( assert )
-    {
-        assert.ok( µ.pseudo[ 'nth-last-column' ], 'exists' );
-
-        var col1 = document.getElementById( 'col1' );
-        assert.equal( µ( ':nth-last-column(3)' )[0], col1, 'filter with number' );
-        assert.equal( µ( ':nth-last-column(2n1)' )[0], col1, 'filter with n-number' );
-
-        buildTest( 'No comparison available.' );
-    });
-
-
-    /**
-     * ### nth-last-match
-     *
-     * µ match selector tests
-     *
-     * @test    blank exists
-     * @test    gets links
-     * @test    gets scoped links
-     */
-    QUnit.test( ':nth-last-match', function( assert )
-    {
-        assert.ok( µ.pseudo[ 'nth-last-match' ], 'exists' );
-
-        var col1 = document.getElementById( 'col1' );
-        assert.equal( µ( 'col:nth-last-match(3)' )[0], col1, 'filter with number' );
-        assert.equal( µ( 'col:nth-last-match(2n1)' )[0], col1, 'filter with n-number' );
-
-        buildTest( 'No comparison available.' );
-    });
-
-
-    /**
-     * ### nth-match
-     *
-     * µ match selector tests
-     *
-     * @test    nth-match exists
-     * @test    filter with number
-     * @test    filter with n-number
-     */
-    QUnit.test( ':nth-match', function( assert )
-    {
-        assert.ok( µ.pseudo[ 'nth-match' ], 'exists' );
-
-        var col2 = document.getElementById( 'col2' );
-        assert.equal( µ( 'col:nth-match(2)' )[0], col2, 'filter with number' );
-        assert.equal( µ( 'col:nth-match(2n1)' )[0], col2, 'filter with n-number' );
-
-        buildTest( 'No comparison available.' );
-    });
-
-
-    /**
-     * µ odd tests
-     *
-     * @test    odd exists
-     * @test    selects only the odd scripts
-     * @test    selects the correct half
-     */
-    QUnit.test( ':odd', function( assert )
-    {
-        var µOddScripts    = µ( 'script:odd' ).length;
-        var µScripts       = µ( 'script' ).length;
-
-        assert.ok( µ.pseudo.odd, 'exists' );
-        assert.equal( µOddScripts, Math.ceil( µScripts / 2 ), 'selects only the odd scripts' );
-        assert.deepEqual( µScripts[0], µOddScripts[0], 'selects the correct half' );
-
-        buildTest(
-        'µ( \'div:odd\' )', function()
-        {
-            return µ( 'div:odd' );
-        },
-
-        '$( \'div:odd\' )', function()
-        {
-            return $( 'div:odd' );
-        } );
-    });
-
-
-    /**
-     * µ optional selector tests
-     *
-     * @test    optional exists
-     * @test    finds the correct number of elements
-     */
-    QUnit.test( ':optional', function( assert )
-    {
-        var µOptional   = µ( ':optional' );
-        var byQuery     = µ( 'input:not([required=required]), textfield:not([required=required]), [required=optional], [optional]' );
-
-        assert.ok( µ.pseudo.optional, 'exists' );
-        assert.equal( µOptional.length, byQuery.length, 'finds the correct number of elements' );
-        assert.equal( µOptional.length, 8, 'finds the correct elements' );
-
-        buildTest( 'No comparison available.' );
-    });
-
-
-    /**
-     * µ out-of-range tests
-     *
-     * @test    out-of-range exists
-     * @test    finds the correct number of elements
-     * @test    finds the correct element
-     */
-    QUnit.test( ':out-of-range', function( assert )
-    {
-        var µInRangeDiv = µ( ':out-of-range' );
-        var byElement   = µ( '#emailInput3' )[0];
-
-        assert.ok( µ.pseudo[ 'out-of-range' ], 'exists' );
-        assert.equal( µInRangeDiv.length, 1, 'grabs the correct amount of elements' );
-        assert.deepEqual( µInRangeDiv[0], byElement, 'grabs the correct element' );
-
-        buildTest( 'No comparison available.' );
-    });
-
-
-    /**
-     * µ parent tests
-     *
-     * @test    parent exists
-     * @test    gets the correct parent as pseudo
-     * @test    gets the correct parent as connector
-     */
-    QUnit.test( '! || :parent', function( assert )
-    {
-        var emailInput3         = µ( '#emailInput3' ).parent();
-        var emailParent         = µ( '#emailInput3:parent' );
-        var emailExclamation    = µ( '#emailInput3!' );
-
-        assert.ok( µ.pseudo.parent, 'exists' );
-        assert.deepEqual( emailInput3[0], emailParent[0], 'gets the correct parent as pseudo' );
-        assert.deepEqual( emailInput3[0], emailExclamation[0], 'gets the correct parent as connector' );
-
-        buildTest( 'No comparison available.' );
-    });
-
-
-    /**
-     * µ read-only selector tests
-     *
-     * @test    read-only exists
-     * @test    finds the correct number of elements
-     */
-    QUnit.test( ':read-only', function( assert )
-    {
-        var µReadOnly  = µ( 'div:drop :read-only' );
-
-        assert.ok( µ.pseudo[ 'read-only' ], 'exists' );
-        assert.equal( µReadOnly.length, 11, 'finds the correct elements' );
-
-        buildTest( 'No comparison available.' );
-    });
-
-
-    /**
-     * µ read-write selector tests
-     *
-     * @test    read-write exists
-     * @test    finds the correct number of elements
-     */
-    QUnit.test( ':read-write', function( assert )
-    {
-        var µReadWrite  = µ( 'div:drop :read-write' );
-
-        assert.ok( µ.pseudo[ 'read-write' ], 'exists' );
-        assert.equal( µReadWrite.length, 5, 'finds the correct elements' );
-
-        buildTest( 'No comparison available.' );
-    });
-
-
-    /**
-     * µ required selector tests
-     *
-     * @test    required exists
-     * @test    finds the correct number of elements
-     */
-    QUnit.test( ':required', function( assert )
-    {
-        var µRequired   = µ( ':required' );
-        var byQuery     = µ( '[required=required]' );
-
-        assert.ok( µ.pseudo.required, 'exists' );
-        assert.equal( µRequired.length, byQuery.length, 'finds the correct number of elements' );
-        assert.equal( µRequired.length, 1, 'finds the correct elements' );
-
-        buildTest(
-        'µ( \'input:required\' )', function()
-        {
-            return µ( 'input:required' );
-        },
-
-        '$( \'input:required\' )', function()
-        {
-            return $( 'input:required' );
-        } );
-    });
-
-
-    /**
-     * µ root tests
-     *
-     * @test    root exists
-     * @test    selects the root
-     */
-    QUnit.test( ':root', function( assert )
-    {
-        var µRoot = µ( 'div:root' );
-
-        assert.ok( µ.pseudo.root, 'exists' );
-        assert.deepEqual( µRoot[ 0 ], µ( 'html' )[ 0 ], 'selects the root' );
-
-        buildTest(
-        'µ( \'body:root\' )', function()
-        {
-            return µ( 'body:root' );
-        },
-
-        '$( \':root\' )', function()
-        {
-            return $( ':root' );
-        } );
-    });
-};
-
-
-},{}],12:[function(require,module,exports){
-/* global document, window, µ, $, QUnit, Benchmark, test  */
-var indexOf = Array.prototype.indexOf;
-
-module.exports = function( buildTest )
-{
-    QUnit.module( 'cytoplasm/utils.js' );
-
-    /**
-     * pseudo custom connectors tests
-     *
-     * @test    any-link exists
-     * @test    gets links
-     * @test    gets scoped links
-     */
-    QUnit.test( '.contains()', function( assert )
-    {
-        assert.ok( µ.contains, 'exists' );
-
-        buildTest( 'No comparison available.' );
-    });
-
-
-    /**
-     * µ matches tests
-     *
-     * @test    matches exists
-     * @test    accepts a microbe
-     * @test    accepts an element
-     */
-    QUnit.test( '.matches()', function( assert )
-    {
-        var qunit           = document.getElementById( 'qunit' );
-        var µMatchesDivs    = µ.matches( µ( 'div' ), '#qunit' );
-
-        assert.ok( µ.matches, 'exists' );
-        assert.equal( µMatchesDivs[ 4 ], true, 'finds the right div' );
-        assert.equal( µMatchesDivs[ 1 ], false, 'accepts a microbe' );
-        assert.equal( µ.matches( qunit, '#qunit' ), true, 'accepts an element' );
-
-        buildTest( 'No comparison available.' );
-    });
-
-
-    /**
-     * µ children tests
-     *
-     * @test    children exists
-     * @test    children returns an array
-     * @test    full of microbes
-     * @test    that are correct
-     */
-    QUnit.test( '.children()', function( assert )
-    {
-        assert.ok( µ().children, 'exists' );
-
-        var children = µ( '.example--class' ).children();
-
-        assert.ok( Array.isArray( children ), 'returns an array' );
-        assert.ok( children[0].type === '[object Microbe]', 'full of microbes' );
-        assert.deepEqual( µ( '.example--class' )[0].children[0], children[0][0], 'the correct children' );
-
-
-        var $Div = $( 'div' ), µDiv = µ( 'div' );
-        buildTest(
-        'µDiv.children()', function()
-        {
-            µDiv.children();
-        },
-
-        '$Div for loop', function()
-        {
-            var res = new Array( $Div.length );
-            for ( var i = 0, lenI = $Div.length; i < lenI; i++ )
-            {
-                res[ i ] = $( $Div[ i ].children );
-            }
-
-            return res;
-        } );
-    });
-
-
-    /**
-     * µ childrenFlat tests
-     *
-     * @test    childrenFlat exists
-     * @test    childrenFlat returns an array
-     * @test    with itself removed
-     * @test    that are correct
-     */
-    QUnit.test( '.childrenFlat()', function( assert )
-    {
-        assert.ok( µ().childrenFlat, 'exists' );
-
-        var childrenFlat = µ( '.example--class' ).childrenFlat();
-
-        assert.ok( childrenFlat.type === '[object Microbe]', 'returns an microbe' );
-
-        var nodeChildren = Array.prototype.slice.call( µ( '.example--class' )[0].children );
-
-        assert.equal( childrenFlat.length, nodeChildren.length, 'correct number of elements' );
-
-        var $Div = $( 'div' ), µDiv = µ( 'div' );
-        buildTest(
-        'µDiv.childrenFlat()', function()
-        {
-            µDiv.childrenFlat();
-        },
-
-        '$Div.children()', function()
-        {
-            $Div.children();
-        } );
-    });
-
-
-    /**
-     * µ filter tests
-     *
-     * @test    filter exists
-     * @test    selects the correct elements
-     * @test    accepts pseudo selectors
-     */
-    QUnit.test( '.filter()', function( assert )
-    {
-        assert.ok( µ().filter, 'exists' );
-        var µDivs   = µ( 'div' );
-        var µId     = µDivs.filter( '#qunit' );
-
-        assert.equal( µId.length, 1, 'selects the correct element' );
-
-        µId         = µDivs.filter( ':lt(3)' );
-
-        assert.equal( µId.length, 3, 'accepts pseudo selectors' );
-
-        µId         = µDivs.filter( function(){ return this.id === 'qunit'; } );
-
-        assert.equal( µId.length, 1, 'accepts functions' );
-
-        var $Divs   = $( 'div' );
-
-        // buildTest(
-        // 'µDivs.filter( \'#qunit\' )', function()
-        // {
-        //     resetDivs();
-        //     µDivs.filter( '#qunit' );
-        // },
-
-        // '$Divs.filter( \'#qunit\' )', function()
-        // {
-        //     resetDivs();
-        //     $Divs.filter( '#qunit' );
-        // } );
-
-        buildTest(
-        'µDivs.filter( \'#qunit\' )', function()
-        {
-            µDivs.filter( 'div.fastest:lt(3):first' );
-        },
-
-        '$Divs.filter( \'#qunit\' )', function()
-        {
-            $Divs.filter( 'div.fastest:lt(3):first' );
-        } );
-    });
-
-
-    /**
-     * µ find tests
-     *
-     * @test    find exists
-     * @test    selects enough child elements
-     * @test    accepts pseudo selectors
-     */
-    QUnit.test( '.find()', function( assert )
-    {
-        assert.ok( µ().find, 'exists' );
-
-        var µDiv    = µ( '#qunit' );
-        var µH2     = µDiv.find( 'h2' );
-
-        assert.equal( µH2.length, 2, 'selects enough child elements' );
-
-            µH2     = µDiv.find( ':first' );
-
-        assert.equal( µH2.length, 1, 'accepts pseudo selectors' );
-
-        var µADiv = $( '<div>' );
-        var µAH1 = µADiv.append( '<h1>' );
-        assert.equal( µADiv.find( 'h1' ).length, 1, 'finds unattached elements' );
-
-        var µDivs   = µ( 'div' );
-        var $Divs   = $( 'div' );
-
-        buildTest(
-        'µDivs.find( \'h2\' )', function()
-        {
-            µDivs.find( 'h2' );
-        },
-
-        '$Divs.find( \'h2\')', function()
-        {
-            $Divs.find( 'h2' );
-        } );
-    });
-
-
-    /**
-     * µ first tests
-     *
-     * @test    first exists
-     * @test    returns a microbe
-     * @test    of length 1
-     * @test    that is the first one
-     */
-    QUnit.test( '.first()', function( assert )
-    {
-        assert.ok( µ().first, 'exists' );
-
-        var µEverything = µ( '*' );
-        var µFirst = µEverything.first();
-
-        assert.equal( µFirst.type, '[object Microbe]', 'returns a microbe' );
-        assert.equal( µFirst.length, 1, 'of length 1' );
-        assert.deepEqual( µEverything[0], µFirst[0], 'that is actually the first one' );
-
-        var µDivs = µ( 'div' );
-        var $Divs = $( 'div' );
-
-        buildTest(
-        'µDivs.first()', function()
-        {
-            µDivs.first();
-        },
-
-        '$Divs.first()', function()
-        {
-            $Divs.first();
-        } );
-    });
-
-
-    /**
-     * µ last tests
-     *
-     * @test    last exists
-     * @test    returns a microbe
-     * @test    of length 1
-     * @test    that is the last one
-     */
-    QUnit.test( '.last()', function( assert )
-    {
-        assert.ok( µ().last, 'exists' );
-
-        var µEverything = µ( '*' );
-        var µLast = µEverything.last();
-
-        assert.equal( µLast.type, '[object Microbe]', 'returns a microbe' );
-        assert.equal( µLast.length, 1, 'of length 1' );
-        assert.deepEqual( µLast[0], µEverything[ µEverything.length - 1 ], 'that is actually the last one' );
-
-        var µDivs = µ( 'div' );
-        var $Divs = $( 'div' );
-
-        buildTest(
-        'µDivs.last()', function()
-        {
-            µDivs.last();
-        },
-
-        '$Divs.last()', function()
-        {
-            $Divs.last();
-        } );
-    });
-
-
-    /**
-     * µ parent tests
-     *
-     * @test    parent exists
-     * @test    returns a microbe
-     * @test    of the correct length
-     * @test    that is actually the parent(s)
-     */
-    QUnit.test( '.parent()', function( assert )
-    {
-        assert.ok( µ().parent, 'exists' );
-
-        var µBody   = µ( 'body' );
-        var µParent = µBody.parent();
-
-        assert.equal( µParent.type, '[object Microbe]', 'returns a microbe' );
-        assert.equal( µParent.length, 1, 'of the correct length' );
-        assert.deepEqual( µParent[0], µ( 'html' )[0], 'that is actually the parent(s)' );
-
-        var µDivs = µ( 'div' );
-        var $Divs = $( 'div' );
-
-        buildTest(
-        'µDivs.parent()', function()
-        {
-            µDivs.parent();
-        },
-
-        '$Divs.parent()', function()
-        {
-            $Divs.parent();
-        } );
-    });
-
-
-    /**
-     * µ siblings tests
-     *
-     * @test    siblings exists
-     * @test    siblings returns an array
-     * @test    full of microbes
-     * @test    with itself removed
-     * @test    that are correct
-     */
-    QUnit.test( '.siblings()', function( assert )
-    {
-        assert.ok( µ().siblings, 'exists' );
-
-        var siblings = µ( '.example--class' ).siblings();
-
-        assert.ok( Array.isArray( siblings ), 'returns an array' );
-        assert.ok( siblings[0].type === '[object Microbe]', 'full of microbes' );
-
-        var nodeChildren = Array.prototype.slice.call( µ( '.example--class' )[0].parentNode.children );
-
-        assert.equal( indexOf.call( siblings[0], µ( '.example--class' )[0] ), -1, 'removed self' );
-        assert.equal( siblings[0].length, nodeChildren.length - 1, 'correct number of elements' );
-
-        var $Div = $( 'div' ), µDiv = µ( 'div' );
-        buildTest(
-        'µDiv.siblings()', function()
-        {
-            µDiv.siblings();
-        },
-
-        '$Div for loop', function()
-        {
-            var res = new Array( $Div.length );
-            for ( var i = 0, lenI = $Div.length; i < lenI; i++ )
-            {
-                res[ i ] = $( $Div[ i ] ).siblings();
-            }
-
-            return res;
-        } );
-    });
-
-
-    /**
-     * µ siblingsFlat tests
-     *
-     * @test    siblingsFlat exists
-     * @test    siblingsFlat returns an array
-     * @test    with itself removed
-     * @test    that are correct
-     */
-    QUnit.test( '.siblingsFlat()', function( assert )
-    {
-        assert.ok( µ().siblingsFlat, 'exists' );
-
-        var siblingsFlat = µ( '.example--class' ).siblingsFlat();
-
-        assert.ok( siblingsFlat.type === '[object Microbe]', 'returns an microbe' );
-
-        var nodeChildren = Array.prototype.slice.call( µ( '.example--class' )[0].parentNode.children );
-
-        assert.equal( indexOf.call( siblingsFlat, µ( '.example--class' )[0] ), -1, 'removed self' );
-        assert.equal( siblingsFlat.length, nodeChildren.length - 1, 'correct number of elements' );
-
-        var prev = µ( '#qunit' )[0].prevElementSibling;
-        var next = µ( '#qunit' )[0].nextElementSibling;
-
-        assert.deepEqual( prev, µ( '#qunit' ).siblingsFlat( 'prev' )[0], 'siblingsFlat( \'prev\' ) gets previous element' );
-        assert.deepEqual( next, µ( '#qunit' ).siblingsFlat( 'next' )[0], 'siblingsFlat( \'next\' ) gets next element' );
-
-        var $Div = $( 'div' ), µDiv = µ( 'div' );
-        buildTest(
-        'µDiv.siblingsFlat()', function()
-        {
-            µDiv.siblingsFlat();
-        },
-
-        '$Div.siblings()', function()
-        {
-            $Div.siblings();
-        } );
-    });
-
-
-    /**
-     * µ splice tests
-     *
-     * @test    splice exists
-     * @test    is the correct length
-     */
-    QUnit.test( '.splice()', function( assert )
-    {
-        assert.ok( µ().splice, 'exists' );
-        assert.equal( µ( 'div' ).splice( 0, 5 ).length, 5, 'is the correct length' );
-
-        var $Div = $( 'div' ), µDiv = µ( 'div' );
-        buildTest(
-        'µDiv.splice( 0, 5 )', function()
-        {
-            µDiv.splice( 0, 5 );
-        },
-
-        '$Div.splice( 0, 5 )', function()
-        {
-            $Div.splice( 0, 5 );
-        } );
-    });
-};
-
-
-},{}],13:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 module.exports = function( buildTest )
 {
@@ -3229,7 +1722,7 @@ module.exports = function( buildTest )
     });
 };
 
-},{}],14:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 module.exports = function( buildTest )
 {
@@ -3405,7 +1898,7 @@ module.exports = function( buildTest )
     });
 };
 
-},{}],15:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 
 module.exports = function( buildTest )
@@ -3496,7 +1989,7 @@ module.exports = function( buildTest )
     });
 };
 
-},{}],16:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 
 module.exports = function( buildTest )
@@ -3624,7 +2117,7 @@ module.exports = function( buildTest )
     });
 };
 
-},{}],17:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 
 module.exports = function( buildTest )
@@ -4161,4 +2654,1603 @@ module.exports = function( buildTest )
     });
 };
 
-},{"promise":3}]},{},[1]);
+},{"promise":3}],15:[function(require,module,exports){
+/* global document, window, µ, $, QUnit, Benchmark, test  */
+var indexOf = Array.prototype.indexOf;
+
+module.exports = function( buildTest )
+{
+    QUnit.module( 'selectorEngine/core.js' );
+
+    /**
+     * µ children tests
+     *
+     * @test    children exists
+     * @test    children returns an array
+     * @test    full of microbes
+     * @test    that are correct
+     */
+    QUnit.test( '.children()', function( assert )
+    {
+        assert.ok( µ().children, 'exists' );
+
+        var children = µ( '.example--class' ).children();
+
+        assert.ok( Array.isArray( children ), 'returns an array' );
+        assert.ok( children[0].type === '[object Microbe]', 'full of microbes' );
+        assert.deepEqual( µ( '.example--class' )[0].children[0], children[0][0], 'the correct children' );
+
+
+        var $Div = $( 'div' ), µDiv = µ( 'div' );
+        buildTest(
+        'µDiv.children()', function()
+        {
+            µDiv.children();
+        },
+
+        '$Div for loop', function()
+        {
+            var res = new Array( $Div.length );
+            for ( var i = 0, lenI = $Div.length; i < lenI; i++ )
+            {
+                res[ i ] = $( $Div[ i ].children );
+            }
+
+            return res;
+        } );
+    });
+
+
+    /**
+     * µ childrenFlat tests
+     *
+     * @test    childrenFlat exists
+     * @test    childrenFlat returns an array
+     * @test    with itself removed
+     * @test    that are correct
+     */
+    QUnit.test( '.childrenFlat()', function( assert )
+    {
+        assert.ok( µ().childrenFlat, 'exists' );
+
+        var childrenFlat = µ( '.example--class' ).childrenFlat();
+
+        assert.ok( childrenFlat.type === '[object Microbe]', 'returns an microbe' );
+
+        var nodeChildren = Array.prototype.slice.call( µ( '.example--class' )[0].children );
+
+        assert.equal( childrenFlat.length, nodeChildren.length, 'correct number of elements' );
+
+        var $Div = $( 'div' ), µDiv = µ( 'div' );
+        buildTest(
+        'µDiv.childrenFlat()', function()
+        {
+            µDiv.childrenFlat();
+        },
+
+        '$Div.children()', function()
+        {
+            $Div.children();
+        } );
+    });
+
+
+    /**
+     * µ filter tests
+     *
+     * @test    filter exists
+     * @test    selects the correct elements
+     * @test    accepts pseudo selectors
+     */
+    QUnit.test( '.filter()', function( assert )
+    {
+        assert.ok( µ().filter, 'exists' );
+        var µDivs   = µ( 'div' );
+        var µId     = µDivs.filter( '#qunit' );
+
+        assert.equal( µId.length, 1, 'selects the correct element' );
+
+        µId         = µDivs.filter( ':lt(3)' );
+
+        assert.equal( µId.length, 3, 'accepts pseudo selectors' );
+
+        µId         = µDivs.filter( function(){ return this.id === 'qunit'; } );
+
+        assert.equal( µId.length, 1, 'accepts functions' );
+
+        var $Divs   = $( 'div' );
+
+        // buildTest(
+        // 'µDivs.filter( \'#qunit\' )', function()
+        // {
+        //     resetDivs();
+        //     µDivs.filter( '#qunit' );
+        // },
+
+        // '$Divs.filter( \'#qunit\' )', function()
+        // {
+        //     resetDivs();
+        //     $Divs.filter( '#qunit' );
+        // } );
+
+        buildTest(
+        'µDivs.filter( \'#qunit\' )', function()
+        {
+            µDivs.filter( 'div.fastest:lt(3):first' );
+        },
+
+        '$Divs.filter( \'#qunit\' )', function()
+        {
+            $Divs.filter( 'div.fastest:lt(3):first' );
+        } );
+    });
+
+
+    /**
+     * µ find tests
+     *
+     * @test    find exists
+     * @test    selects enough child elements
+     * @test    accepts pseudo selectors
+     */
+    QUnit.test( '.find()', function( assert )
+    {
+        assert.ok( µ().find, 'exists' );
+
+        var µDiv    = µ( '#qunit' );
+        var µH2     = µDiv.find( 'h2' );
+
+        assert.equal( µH2.length, 2, 'selects enough child elements' );
+
+            µH2     = µDiv.find( ':first' );
+
+        assert.equal( µH2.length, 1, 'accepts pseudo selectors' );
+
+        var µADiv = $( '<div>' );
+        var µAH1 = µADiv.append( '<h1>' );
+        assert.equal( µADiv.find( 'h1' ).length, 1, 'finds unattached elements' );
+
+        var µDivs   = µ( 'div' );
+        var $Divs   = $( 'div' );
+
+        buildTest(
+        'µDivs.find( \'h2\' )', function()
+        {
+            µDivs.find( 'h2' );
+        },
+
+        '$Divs.find( \'h2\')', function()
+        {
+            $Divs.find( 'h2' );
+        } );
+    });
+
+
+    /**
+     * µ first tests
+     *
+     * @test    first exists
+     * @test    returns a microbe
+     * @test    of length 1
+     * @test    that is the first one
+     */
+    QUnit.test( '.first()', function( assert )
+    {
+        assert.ok( µ().first, 'exists' );
+
+        var µEverything = µ( '*' );
+        var µFirst = µEverything.first();
+
+        assert.equal( µFirst.type, '[object Microbe]', 'returns a microbe' );
+        assert.equal( µFirst.length, 1, 'of length 1' );
+        assert.deepEqual( µEverything[0], µFirst[0], 'that is actually the first one' );
+
+        var µDivs = µ( 'div' );
+        var $Divs = $( 'div' );
+
+        buildTest(
+        'µDivs.first()', function()
+        {
+            µDivs.first();
+        },
+
+        '$Divs.first()', function()
+        {
+            $Divs.first();
+        } );
+    });
+
+
+    /**
+     * µ last tests
+     *
+     * @test    last exists
+     * @test    returns a microbe
+     * @test    of length 1
+     * @test    that is the last one
+     */
+    QUnit.test( '.last()', function( assert )
+    {
+        assert.ok( µ().last, 'exists' );
+
+        var µEverything = µ( '*' );
+        var µLast = µEverything.last();
+
+        assert.equal( µLast.type, '[object Microbe]', 'returns a microbe' );
+        assert.equal( µLast.length, 1, 'of length 1' );
+        assert.deepEqual( µLast[0], µEverything[ µEverything.length - 1 ], 'that is actually the last one' );
+
+        var µDivs = µ( 'div' );
+        var $Divs = $( 'div' );
+
+        buildTest(
+        'µDivs.last()', function()
+        {
+            µDivs.last();
+        },
+
+        '$Divs.last()', function()
+        {
+            $Divs.last();
+        } );
+    });
+
+
+    /**
+     * µ parent tests
+     *
+     * @test    parent exists
+     * @test    returns a microbe
+     * @test    of the correct length
+     * @test    that is actually the parent(s)
+     */
+    QUnit.test( '.parent()', function( assert )
+    {
+        assert.ok( µ().parent, 'exists' );
+
+        var µBody   = µ( 'body' );
+        var µParent = µBody.parent();
+
+        assert.equal( µParent.type, '[object Microbe]', 'returns a microbe' );
+        assert.equal( µParent.length, 1, 'of the correct length' );
+        assert.deepEqual( µParent[0], µ( 'html' )[0], 'that is actually the parent(s)' );
+
+        var µDivs = µ( 'div' );
+        var $Divs = $( 'div' );
+
+        buildTest(
+        'µDivs.parent()', function()
+        {
+            µDivs.parent();
+        },
+
+        '$Divs.parent()', function()
+        {
+            $Divs.parent();
+        } );
+    });
+
+
+    /**
+     * µ siblings tests
+     *
+     * @test    siblings exists
+     * @test    siblings returns an array
+     * @test    full of microbes
+     * @test    with itself removed
+     * @test    that are correct
+     */
+    QUnit.test( '.siblings()', function( assert )
+    {
+        assert.ok( µ().siblings, 'exists' );
+
+        var siblings = µ( '.example--class' ).siblings();
+
+        assert.ok( Array.isArray( siblings ), 'returns an array' );
+        assert.ok( siblings[0].type === '[object Microbe]', 'full of microbes' );
+
+        var nodeChildren = Array.prototype.slice.call( µ( '.example--class' )[0].parentNode.children );
+
+        assert.equal( indexOf.call( siblings[0], µ( '.example--class' )[0] ), -1, 'removed self' );
+        assert.equal( siblings[0].length, nodeChildren.length - 1, 'correct number of elements' );
+
+        var $Div = $( 'div' ), µDiv = µ( 'div' );
+        buildTest(
+        'µDiv.siblings()', function()
+        {
+            µDiv.siblings();
+        },
+
+        '$Div for loop', function()
+        {
+            var res = new Array( $Div.length );
+            for ( var i = 0, lenI = $Div.length; i < lenI; i++ )
+            {
+                res[ i ] = $( $Div[ i ] ).siblings();
+            }
+
+            return res;
+        } );
+    });
+
+
+    /**
+     * µ siblingsFlat tests
+     *
+     * @test    siblingsFlat exists
+     * @test    siblingsFlat returns an array
+     * @test    with itself removed
+     * @test    that are correct
+     */
+    QUnit.test( '.siblingsFlat()', function( assert )
+    {
+        assert.ok( µ().siblingsFlat, 'exists' );
+
+        var siblingsFlat = µ( '.example--class' ).siblingsFlat();
+
+        assert.ok( siblingsFlat.type === '[object Microbe]', 'returns an microbe' );
+
+        var nodeChildren = Array.prototype.slice.call( µ( '.example--class' )[0].parentNode.children );
+
+        assert.equal( indexOf.call( siblingsFlat, µ( '.example--class' )[0] ), -1, 'removed self' );
+        assert.equal( siblingsFlat.length, nodeChildren.length - 1, 'correct number of elements' );
+
+        var prev = µ( '#qunit' )[0].prevElementSibling;
+        var next = µ( '#qunit' )[0].nextElementSibling;
+
+        assert.deepEqual( prev, µ( '#qunit' ).siblingsFlat( 'prev' )[0], 'siblingsFlat( \'prev\' ) gets previous element' );
+        assert.deepEqual( next, µ( '#qunit' ).siblingsFlat( 'next' )[0], 'siblingsFlat( \'next\' ) gets next element' );
+
+        var $Div = $( 'div' ), µDiv = µ( 'div' );
+        buildTest(
+        'µDiv.siblingsFlat()', function()
+        {
+            µDiv.siblingsFlat();
+        },
+
+        '$Div.siblings()', function()
+        {
+            $Div.siblings();
+        } );
+    });
+
+
+    /**
+     * µ splice tests
+     *
+     * @test    splice exists
+     * @test    is the correct length
+     */
+    QUnit.test( '.splice()', function( assert )
+    {
+        assert.ok( µ().splice, 'exists' );
+        assert.equal( µ( 'div' ).splice( 0, 5 ).length, 5, 'is the correct length' );
+
+        var $Div = $( 'div' ), µDiv = µ( 'div' );
+        buildTest(
+        'µDiv.splice( 0, 5 )', function()
+        {
+            µDiv.splice( 0, 5 );
+        },
+
+        '$Div.splice( 0, 5 )', function()
+        {
+            $Div.splice( 0, 5 );
+        } );
+    });
+};
+
+
+},{}],16:[function(require,module,exports){
+/* global document, window, µ, $, QUnit, Benchmark, buildTest  */
+module.exports = function( buildTest )
+{
+    QUnit.module( 'selectorEngine/init.js' );
+
+
+    /**
+     * create a microbe from a css selector
+     *
+     * @test    one body
+     * @test    passes
+     */
+    QUnit.test( 'create from a css selector', function( assert )
+    {
+        var µDiv    = µ( '<div>' );
+        var µLi     = µ( '<li#id>' );
+        var µInput  = µ( '<input.class>' );
+
+        assert.equal( µDiv.length, 1, 'creates a simple div' );
+        assert.equal( µLi.length, 1, 'creates a li with id' );
+        assert.equal( µInput.length, 1, 'creates an input with class' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
+     * create a microbe from html
+     *
+     * @test    one body
+     * @test    passes
+     */
+    QUnit.test( 'create from html', function( assert )
+    {
+        var µDiv    = µ( '<div></div>' );
+        var µLi     = µ( '<li id="id"></li>' );
+        var µInput  = µ( '<input class="class" />' );
+
+        assert.equal( µDiv.length, 1, 'creates a simple div' );
+        assert.equal( µLi.length, 1, 'creates a li with id' );
+        assert.equal( µInput.length, 1, 'creates an input with class' );
+
+        
+        buildTest(
+        'µ( \'&lt;li id="id">&lt;/li>\' )', function()
+        {
+            return µ( '<li id="id"></li>' );
+        },
+
+        '$( \'&lt;li id="id">&lt;/li>\' )', function()
+        {
+            return $( '<li id="id"></li>' );
+        } );
+    });
+
+
+    /**
+     * µ init wrap element tests
+     *
+     * @test    one body
+     * @test    passes
+     */
+    QUnit.test( 'make empty sets', function( assert )
+    {
+        var µBody = µ( [] );
+
+        assert.equal( µBody.length, 0, 'empty set - µ( [] )' );
+        assert.equal( µBody[ 0 ], undefined, 'successfully fails' );
+
+        µBody = µ();
+        assert.equal( µBody.length, 0, 'empty set - µ()' );
+        assert.equal( µBody[ 0 ], undefined, 'successfully fails' );
+
+        µBody = µ( '' );
+        assert.equal( µBody.length, 0, 'empty set - µ( \'\' )' );
+        assert.equal( µBody[ 0 ], undefined, 'successfully fails' );
+
+        µBody = µ( false );
+        assert.equal( µBody.length, 0, 'empty set - µ( false )' );
+        assert.equal( µBody[ 0 ], undefined, 'successfully fails' );
+
+        µBody = µ( null );
+        assert.equal( µBody.length, 0, 'empty set - µ( null )' );
+        assert.equal( µBody[ 0 ], undefined, 'successfully fails' );
+
+        µBody = µ( {} );
+        assert.equal( µBody.length, 0, 'empty set - µ( {} )' );
+        assert.equal( µBody[ 0 ], undefined, 'successfully fails' );
+
+        µBody = µ( undefined );
+        assert.equal( µBody.length, 0, 'empty set - µ( undefined )' );
+        assert.equal( µBody[ 0 ], undefined, 'successfully fails' );
+
+        buildTest(
+        'µ( [] )', function()
+        {
+            return µ( [] );
+        },
+
+        '$( [] )', function()
+        {
+            return $( [] );
+        } );
+    });
+
+
+    /**
+     * µ init wrap element tests
+     *
+     * @test    one body
+     * @test    passes
+     */
+    QUnit.test( 'wrap an element', function( assert )
+    {
+        var _body = document.getElementsByTagName( 'body' )[0];
+        var µBody = µ( _body );
+
+        assert.equal( µBody.length, 1, 'one body' );
+        assert.deepEqual( µBody[ 0 ], _body, 'passes' );
+
+        buildTest(
+        'µ( _el )', function()
+        {
+            return µ( _body );
+        },
+
+        '$( _el )', function()
+        {
+            return $( _body );
+        } );
+    });
+
+
+    /**
+     * µ init wrap element tests
+     *
+     * @test    one body
+     * @test    passes
+     */
+    QUnit.test( 'wrap an array of elements', function( assert )
+    {
+        var _body = document.getElementsByTagName( 'body' )[0];
+        var µBody = µ( [ _body ] );
+
+        assert.equal( µBody.length, 1, 'one body' );
+        assert.deepEqual( µBody[ 0 ], _body, 'passes' );
+
+        var _divs = Array.prototype.slice.call( document.getElementsByTagName( 'div' ) );
+
+        buildTest(
+        'µ( _divs )', function()
+        {
+            return µ( _divs );
+        },
+
+        '$( _divs )', function()
+        {
+            return $( _divs );
+        } );
+    });
+
+
+    /**
+     * µ init query class tests
+     *
+     * @test    one div
+     * @test    passes
+     */
+    QUnit.test( 'query class', function( assert )
+    {
+        var _div = document.getElementsByClassName( 'example--class' )[0];
+        var µDiv = µ( '.example--class' );
+
+        assert.equal( µDiv.length, 1, 'one div' );
+        assert.deepEqual( µDiv[ 0 ], _div, 'passes' );
+        assert.equal( µ( '.exarmple-classssss' ).length, 0, 'successfully fails' );
+
+        buildTest(
+        'µ( \'.example--class\' )', function()
+        {
+            return µ( '.example--class' );
+        },
+
+        '$( \'.example--class\' )', function()
+        {
+            return $( '.example--class' );
+        } );
+    });
+
+
+    /**
+     * µ init query multiple classes tests
+     *
+     * @test    one div
+     * @test    passes
+     */
+    QUnit.test( 'query multiple classes', function( assert )
+    {
+        var _div    = document.getElementsByClassName( 'example--class' );
+        var µDiv    = µ( '.example--class.example--class--groups' );
+
+        assert.equal( µDiv.length, 1, 'one div' );
+        assert.deepEqual( µDiv[ 0 ], _div[0], 'passes' );
+        assert.equal( µ( '.exarmple.classssss' ).length, 0, 'successfully fails' );
+
+        buildTest(
+        'µ( \'.example--class.example--class--groups\' )', function()
+        {
+            return µ( '.example--class.example--class--groups' );
+        },
+
+        '$( \'.example--class.example--class--groups\' )', function()
+        {
+            return $( '.example--class.example--class--groups' );
+        } );
+    });
+
+
+    /**
+     * µ init query id tests
+     *
+     * @test    one body
+     * @test    passes
+     */
+    QUnit.test( 'query id', function( assert )
+    {
+        var _div = document.getElementById( 'example--id' );
+        var µDiv = µ( '#example--id' );
+
+        assert.equal( µDiv.length, 1, 'one div' );
+        assert.deepEqual( µDiv[ 0 ], _div, 'passes' );
+        assert.equal( µ( '#exarmple-iddddd' ).length, 0, 'successfully fails' );
+
+        buildTest(
+        'µ( \'#example--id\' )', function()
+        {
+            return µ( '#example--id' );
+        },
+
+        '$( \'#example--id\' )', function()
+        {
+            return $( '#example--id' );
+        } );
+    });
+
+
+    /**
+     * µ init query id and class tests
+     *
+     * @test    one body
+     * @test    passes
+     */
+    QUnit.test( 'query id and class', function( assert )
+    {
+        var _div    = document.getElementById( 'example--combined' );
+        var µDiv    = µ( '#example--combined.example--combined' );
+
+        assert.equal( µDiv.length, 1, 'one div' );
+        assert.deepEqual( µDiv[ 0 ], _div, 'passes' );
+        assert.equal( µ( '#idand.classssss' ).length, 0, 'successfully fails' );
+
+        buildTest(
+        'µ( \'#example--combined.example--combined\' )', function()
+        {
+            return µ( '#example--combined.example--combined' );
+        },
+
+        '$( \'#example--combined.example--combined\' )', function()
+        {
+            return $( '#example--combined.example--combined' );
+        } );
+    });
+
+
+    /**
+     * µ init query tagname tests
+     *
+     * @test    correct element
+     * @test    passes
+     */
+    QUnit.test( 'query tagname', function( assert )
+    {
+        var _div = document.getElementsByTagName( 'div' )[0];
+        var µDiv = µ( 'div' );
+
+        assert.equal( µDiv[ 0 ].tagName, 'DIV', 'correct element' );
+        assert.deepEqual( µDiv[ 0 ], _div, 'passes' );
+        assert.equal( µ( 'exarmple' ).length, 0, 'successfully fails' );
+
+        buildTest(
+        'µ( \'div\' )', function()
+        {
+            return µ( 'div' );
+        },
+
+        '$( \'div\' )', function()
+        {
+            return $( 'div' );
+        } );
+    });
+
+
+    /**
+     * µ init query combined tests
+     *
+     * @test    one div
+     * @test    passes
+     */
+    QUnit.test( 'query combined', function( assert )
+    {
+        var _div = document.querySelector( 'div#example--combined.example--combined' );
+        var µDiv = µ( 'div#example--combined.example--combined' );
+
+        assert.equal( µDiv.length, 1, 'one div' );
+        assert.deepEqual( µDiv[ 0 ], _div, 'passes' );
+        assert.equal( µ( 'example#exarmple.classssss' ).length, 0, 'successfully fails' );
+
+        buildTest(
+        'µ( \'div#example--combined.example--combined\' )', function()
+        {
+            return µ( 'div#example--combined.example--combined' );
+        },
+
+        '$( \'div#example--combined.example--combined\' )', function()
+        {
+            return $( 'div#example--combined.example--combined' );
+        } );
+    });
+
+
+    /**
+     * µ init query with microbe scope tests
+     *
+     * @test    two divs
+     * @test    correct element
+     */
+    QUnit.test( 'query with microbe scope', function( assert )
+    {
+        var µDiv = µ( 'div', µ( '.example--class--groups' ) );
+        var $Div = $( 'div', $( '.example--class--groups' ) );
+
+        assert.equal( µDiv.length, 2, 'two divs' );
+        assert.equal( µDiv[0].tagName, 'DIV', 'correct element' );
+        assert.equal( µ( '.exarmple-classssss', µ( 'exarmple' ) ).length, 0, 'successfully fails scope' );
+        assert.equal( µ( '.exarmple-classssss', µ( 'div' ) ).length, 0, 'successfully fails query' );
+
+        buildTest(
+        'µ( \'div\', µDiv )', function()
+        {
+            return µ( 'div', µDiv );
+        },
+
+        '$( \'div\', $Div )', function()
+        {
+            return $( 'div', $Div );
+        } );
+    });
+
+
+    /**
+     * µ init query with element scope tests
+     *
+     * @test    two divs
+     * @test    correct parent
+     */
+    QUnit.test( 'query with element scope', function( assert )
+    {
+        var _scopeEl = µ( '.example--class--groups' )[0];
+
+        var µDiv = µ( 'div', _scopeEl );
+
+        assert.equal( µDiv.length, 2, 'two divs' );
+        assert.deepEqual( µDiv[0].parentNode, _scopeEl, 'correct parent' );
+
+        var _el = µ( 'div' )[1];
+
+        buildTest(
+        'µ( \'h1\', _el )', function()
+        {
+            return µ( 'h1', _el );
+        },
+
+        '$( \'h1\', _el )', function()
+        {
+            return $( 'h1', _el );
+        } );
+    });
+
+
+    /**
+     * µ init query with string scope tests
+     *
+     * @test    correctly formed selector
+     * @test    two divs
+     */
+    QUnit.test( 'query with string scope', function( assert )
+    {
+        var µDiv = µ( 'div', '.example--class--groups' );
+        assert.equal( µDiv.length, 2, 'two divs from 2 strings' );
+
+
+        µDiv = µ( µDiv[0], '.example--class--groups' );
+        assert.equal( µDiv.length, 1, '1 divs from a string and an element' );
+        assert.equal( µ( '.exarmple-classssss', 'exarmple' ).length, 0, 'successfully fails scope' );
+
+        buildTest(
+        'µ( \'h1\', \'div\' )', function()
+        {
+            return µ( 'h1', 'div' );
+        },
+
+        '$( \'h1\', \'div\' )', function()
+        {
+            return $( 'h1', 'div' );
+        } );
+    });
+
+
+    /*
+     * µ length test
+     *
+     * @test    length exists
+     */
+    QUnit.test( '.length', function( assert )
+    {
+        assert.equal( µ().length, 0, 'length initializes' );
+        assert.equal( µ( 'head' ).length, 1, 'length reports correctly' );
+
+        buildTest( 'No speed tests available for non-functions' );
+    });
+};
+
+},{}],17:[function(require,module,exports){
+/* global document, window, µ, $, QUnit, Benchmark, test  */
+var indexOf = Array.prototype.indexOf
+
+module.exports = function( buildTest )
+{
+    QUnit.module( 'selectorEngine/pseudo.js' );
+
+    /**
+     * pseudo custom connectors tests
+     *
+     * @test    any-link exists
+     * @test    gets links
+     * @test    gets scoped links
+     */
+    QUnit.test( 'pseudo custom connectors', function( assert )
+    {
+        assert.ok( µ( 'div:first ~ div' ), 'µ( \'div:first ~ div\' )' );
+        assert.ok( µ( 'div:first' ).find( '~ div' ), 'µ( \'div:first\' ).find( \'~ div\' )' );
+        assert.ok( µ( 'div ~ :first' ), 'µ( \'div ~ :first\' )' );
+        assert.ok( µ( 'div:first' ).find( '> div' ), 'µ( \'div:first\' ).find( \'> div\' )' );
+        assert.ok( µ( 'div:first' ).find( '+ div' ), 'µ( \'div:first\' ).find( \'+ div\' )' );
+        assert.ok( µ( 'div! ~ :lt(3) >> div' ).filter( '.invalid--test:contains(comparison)' ).find( '> b' ), 'µ( \'div! ~ :lt(3) >> div\' ).filter( \'.invalid--test:contains(comparison)\' ).find( \'> b\' )' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
+     * µ any-link tests
+     *
+     * @test    any-link exists
+     * @test    gets links
+     * @test    gets scoped links
+     */
+    QUnit.test( ':any-link', function( assert )
+    {
+        assert.ok( µ.pseudo[ 'any-link' ], 'exists' );
+        assert.equal( µ( ':any-link' ).length, document.getElementsByTagName( 'A' ).length, 'gets links' );
+        assert.equal( µ( 'div ~ *:any-link' ).length, document.querySelectorAll( 'div ~ a' ).length, 'gets scoped links' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
+     * ### blank
+     *
+     * µ blank tests
+     *
+     * @test    blank exists
+     * @test    gets links
+     * @test    gets scoped links
+     */
+    QUnit.test( ':blank', function( assert )
+    {
+        assert.ok( µ.pseudo.blank, 'exists' );
+
+        assert.equal( µ( ':blank' ).length, 4, 'gets blanks' );
+        assert.equal( µ( 'div *:blank' ).length, 4, 'gets scoped blanks' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
+     * ### column
+     *
+     * µ column selector tests
+     *
+     * @test    blank exists
+     * @test    gets links
+     * @test    gets scoped links
+     */
+    QUnit.test( ':column', function( assert )
+    {
+        assert.ok( µ.pseudo.column, 'exists' );
+
+        var col1 = document.getElementById( 'col1' );
+        assert.equal( µ( '#col1:column' )[0], col1, 'as pseudo' );
+        assert.equal( µ( ':column(#col1)' )[0], col1, 'filter with variable' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+
+    /**
+     * µ contains tests
+     *
+     * @test    contains exists
+     * @test    searches text
+     * @test    ignores case
+     * @test    ignores false returns
+     */
+    QUnit.test( ':contains(text)', function( assert )
+    {
+        assert.ok( µ.pseudo.contains, 'exists' );
+        assert.equal( µ( '#example--combined:contains(I am)' ).length, 1, 'searches text' );
+        assert.equal( µ( '#example--combined:contains(i am)' ).length, 1, 'ignores case' );
+        assert.equal( µ( '#example--combined:contains(moon)' ).length, 0, 'ignores false returns' );
+
+        var µEx = µ( '#example--combined' );
+        var $Ex = $( '#example--combined' );
+        buildTest(
+        'µ( \'#example--combined\' ).filter( \':contains(I am)\' )', function()
+        {
+            return µEx.filter( ':contains(I am)' );
+        },
+
+        '$( \'#example--combined\' ).filter( \':contains(I am)\' )', function()
+        {
+            return $Ex.filter( ':contains(I am)' );
+        } );
+    });
+
+
+    /**
+     * µ default tests
+     *
+     * @test    default exists
+     * @test    selects only the default inputs
+     * @test    selects only the default inputs from a scoped selector
+     */
+    QUnit.test( ':default', function( assert )
+    {
+        var µDefaults       = µ( ':default' );
+        var µScopedDefaults = µ( 'div *:default' );
+
+        assert.ok( µ.pseudo.even, 'exists' );
+        assert.deepEqual( µDefaults.length, 2, 'selects the default inputs' );
+        assert.deepEqual( µScopedDefaults.length, 2, 'selects the default inputs scoped' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
+     * µ default tests
+     *
+     * @test    dir exists
+     * @test    selects ltr
+     * @test    selects rtl
+     */
+    QUnit.test( ':dir', function( assert )
+    {
+        var µLTR    = µ( 'div:dir(ltr)' );
+        var µRTL    = µ( 'div:dir(rtl)' );
+
+        assert.ok( µ.pseudo.dir, 'exists' );
+        assert.deepEqual( µLTR.length, µ( 'div' ).length, 'selects ltr' );
+        assert.equal( µRTL.length, 0, 'selects rtl' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+
+    /**
+     * µ drop tests
+     *
+     * @test    default exists
+     * @test    selects only the default inputs
+     * @test    selects only the default inputs from a scoped selector
+     */
+    QUnit.test( ':drop', function( assert )
+    {
+        var µDrop    = µ( 'div:drop' );
+
+        assert.ok( µ.pseudo.drop, 'exists' );
+        assert.equal( µDrop.length, 1, 'selects dropzone' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
+     * µ even tests
+     *
+     * @test    even exists
+     * @test    selects only the even scripts
+     * @test    selects the correct half
+     */
+    QUnit.test( ':even', function( assert )
+    {
+        var µEvenScripts   = µ( 'script:even' ).length;
+        var µScripts       = µ( 'script' ).length;
+
+        assert.ok( µ.pseudo.even, 'exists' );
+        assert.equal( µEvenScripts, Math.floor( µScripts / 2 ), 'selects only the even scripts' );
+        assert.deepEqual( µScripts[1], µEvenScripts[0], 'selects the correct half' );
+
+        buildTest(
+        'µ( \'div:even\' )', function()
+        {
+            return µ( 'div:even' );
+        },
+
+        '$( \'div:even\' )', function()
+        {
+            return $( 'div:even' );
+        } );
+    });
+
+
+    /**
+     * µ first tests
+     *
+     * @test    first exists
+     * @test    finds the right div
+     * @test    only returns one div
+     */
+    QUnit.test( ':first', function( assert )
+    {
+        var µDivs       = µ( 'div' );
+        var µFirstDiv   = µ( 'div:first' );
+
+        assert.ok( µ.pseudo.first, 'exists' );
+        assert.deepEqual( µDivs[ 0 ], µFirstDiv[ 0 ], 'finds the right div' );
+        assert.equal( µFirstDiv.length, 1, 'only finds one div' );
+
+        buildTest(
+        'µ( \'div:first\' )', function()
+        {
+            return µ( 'div:first' );
+        },
+
+        '$( \'div:first\' )', function()
+        {
+            return $( 'div:first' );
+        } );
+    });
+
+
+    /**
+     * µ gt tests
+     *
+     * @test    gt exists
+     * @test    finds the right divs
+     * @test    finds the correct number of elements
+     */
+    QUnit.test( ':gt(X)', function( assert )
+    {
+        var µDivs       = µ( 'div' );
+        var µGtDivs     = µ( 'div:gt(3)' );
+
+        assert.ok( µ.pseudo.gt, 'exists' );
+        assert.deepEqual( µDivs[ 6 ], µGtDivs[ 3 ], 'finds the right divs' );
+        assert.equal( µGtDivs.length, µDivs.length - 3, 'finds the correct number of elements' );
+
+        buildTest(
+        'µ( \'div:gt(3)\' )', function()
+        {
+            return µ( 'div:gt(3)' );
+        },
+
+        '$( \'div:gt(3)\' )', function()
+        {
+            return $( 'div:gt(3)' );
+        } );
+    });
+
+
+    /**
+     * µ has tests
+     *
+     * @test    has exists
+     * @test    finds the correct number of elements
+     */
+    QUnit.test( ':has(S)', function( assert )
+    {
+        var µHasDiv = µ( 'div:has(li)' );
+
+        assert.ok( µ.pseudo.has, 'exists' );
+        assert.equal( µHasDiv.length, 1, 'grabs the correct amount of elements' );
+
+        buildTest(
+        'µ( \'div:has(li)\' )', function()
+        {
+            return µ( 'div:has(li)' );
+        },
+
+        '$( \'div:has(li)\' )', function()
+        {
+            return $( 'div:has(li)' );
+        } );
+    });
+
+
+    /**
+     * µ in-range tests
+     *
+     * @test    in-range exists
+     * @test    finds the correct number of elements
+     * @test    finds the correct element
+     */
+    QUnit.test( ':in-range', function( assert )
+    {
+        var µInRangeDiv = µ( ':in-range' );
+        var byElement   = µ( '#emailInput2' )[0];
+
+        assert.ok( µ.pseudo[ 'in-range' ], 'exists' );
+        assert.equal( µInRangeDiv.length, 1, 'grabs the correct amount of elements' );
+        assert.deepEqual( µInRangeDiv[0], byElement, 'grabs the correct element' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
+     * µ lang tests
+     *
+     * @test    lang exists
+     * @test    finds the right div
+     * @test    only returns one div
+     */
+    QUnit.test( ':lang', function( assert )
+    {
+        var µlangDiv        = µ( 'div:lang(gb-en)' );
+        var µWildcardDiv    = µ( 'div:lang(*-en)' );
+
+        assert.ok( µ.pseudo.lang, 'exists' );
+        assert.equal( µlangDiv.length, 1, 'finds a specified language' );
+        assert.equal( µWildcardDiv.length, 2, 'finds a wildcard language' );
+
+        // this is css2 spec and it works. µ is slower, but $ cant do *
+        // buildTest(
+        // 'µ( \':lang(gb-en)\' )', function()
+        // {
+        //     return µ( ':lang(gb-en)' );
+        // },
+
+        // '$( \':lang(gb-en)\' )', function()
+        // {
+        //     return $( ':lang(gb-en)' );
+        // } );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
+     * µ last tests
+     *
+     * @test    last exists
+     * @test    finds the right div
+     * @test    only returns one div
+     */
+    QUnit.test( ':last', function( assert )
+    {
+        var µDivs       = µ( 'div' );
+        var µLastDiv    = µ( 'div:last' );
+
+        assert.ok( µ.pseudo.last, 'exists' );
+        assert.deepEqual( µDivs[ µDivs.length - 1 ], µLastDiv[ 0 ], 'finds the right div' );
+        assert.equal( µLastDiv.length, 1, 'only finds one div' );
+
+        buildTest(
+        'µ( \'div:last\' )', function()
+        {
+            return µ( 'div:last' );
+        },
+
+        '$( \'div:last\' )', function()
+        {
+            return $( 'div:last' );
+        } );
+    });
+
+
+    /**
+     * µ local-link tests
+     *
+     * @test    local-link exists
+     * @test    finds the right div
+     * @test    only returns one div
+     */
+    QUnit.test( ':local-link', function( assert )
+    {
+        var µLinks      = µ( ':local-link' );
+        var allLinks    = µ( 'a' );
+        var depth       = window.location.pathname.slice( 1 ).split( '/' ).length - 1;
+        var µDepth1     = µ( ':local-link(' + ( depth - 1 ) + ')' );
+        var µDepth2     = µ( ':local-link(' + depth + ')' );
+
+        assert.ok( µ.pseudo[ 'local-link'], 'exists' );
+        assert.equal( µLinks.length, allLinks.length, 'get links' );
+        assert.equal( µDepth1.length, 0, 'correctly specifies depth' );
+        assert.equal( µDepth2.length, allLinks.length, 'correctly specifies depth' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
+     * µ lt tests
+     *
+     * @test    lt exists
+     * @test    finds the right divs
+     * @test    finds the correct number of elements
+     */
+    QUnit.test( ':lt(X)', function( assert )
+    {
+        var µDivs       = µ( 'div' );
+        var µLtDivs     = µ( 'div:lt(3)' );
+
+        assert.ok( µ.pseudo.lt, 'exists' );
+        assert.deepEqual( µDivs[ 1 ], µLtDivs[ 1 ], 'finds the right divs' );
+        assert.equal( µLtDivs.length, 3, 'finds the correct number of elements' );
+
+        buildTest(
+        'µ( \'div:lt(2)\' )', function()
+        {
+            return µ( 'div:lt(2)' );
+        },
+
+        '$( \'div:lt(2)\' )', function()
+        {
+            return $( 'div:lt(2)' );
+        } );
+    });
+
+
+    /**
+     * µ matches tests
+     *
+     * @test    matches exists
+     * @test    finds the right div
+     * @test    works with pseudoselectors
+     */
+    QUnit.test( ':matches', function( assert )
+    {
+        var qunit           = document.getElementById( 'qunit' );
+        var µMatchesDivs    = µ( 'div:matches(#qunit)' );
+
+        assert.ok( µ.pseudo.matches, 'exists' );
+        assert.deepEqual( µMatchesDivs[ 0 ], qunit, 'finds the right div' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
+     * ### not
+     *
+     * µ complex not selector tests
+     *
+     * @test    blank exists
+     * @test    gets links
+     * @test    gets scoped links
+     */
+    QUnit.test( ':not', function( assert )
+    {
+        assert.ok( µ.pseudo.not, 'exists' );
+
+        var col2 = document.getElementById( 'col2' );
+        assert.equal( indexOf.call( µ( 'col:not(#col2)'), col2 ), -1, 'filter with single selector' );
+        assert.equal( indexOf.call( µ( 'col:not(#col2,#col3)' ), col2 ), -1, 'filter with multiple selectors' );
+
+        buildTest(
+        'µ( \'div:not(.fastest.invalid--test)\' )', function()
+        {
+            return µ( 'div:not(.fastest,.invalid--test)' );
+        },
+
+        '$( \'div:not(.fastest.invalid--test)\' )', function()
+        {
+            return $( 'div:not(.fastest,.invalid--test)' );
+        } );
+    });
+
+
+    /**
+     * ### nth-column
+     *
+     * µ column selector tests
+     *
+     * @test    nth-column exists
+     * @test    filter with number
+     * @test    filter with n-number
+     */
+    QUnit.test( ':nth-column', function( assert )
+    {
+        assert.ok( µ.pseudo[ 'nth-column' ], 'exists' );
+
+        var col2 = document.getElementById( 'col2' );
+        assert.equal( µ( ':nth-column(2)' )[0], col2, 'filter with number' );
+        assert.equal( µ( ':nth-column(2n1)' )[0], col2, 'filter with n-number' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
+     * ### nth-last-column
+     *
+     * µ column selector tests
+     *
+     * @test    blank exists
+     * @test    gets links
+     * @test    gets scoped links
+     */
+    QUnit.test( ':nth-last-column', function( assert )
+    {
+        assert.ok( µ.pseudo[ 'nth-last-column' ], 'exists' );
+
+        var col1 = document.getElementById( 'col1' );
+        assert.equal( µ( ':nth-last-column(3)' )[0], col1, 'filter with number' );
+        assert.equal( µ( ':nth-last-column(2n1)' )[0], col1, 'filter with n-number' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
+     * ### nth-last-match
+     *
+     * µ match selector tests
+     *
+     * @test    blank exists
+     * @test    gets links
+     * @test    gets scoped links
+     */
+    QUnit.test( ':nth-last-match', function( assert )
+    {
+        assert.ok( µ.pseudo[ 'nth-last-match' ], 'exists' );
+
+        var col1 = document.getElementById( 'col1' );
+        assert.equal( µ( 'col:nth-last-match(3)' )[0], col1, 'filter with number' );
+        assert.equal( µ( 'col:nth-last-match(2n1)' )[0], col1, 'filter with n-number' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
+     * ### nth-match
+     *
+     * µ match selector tests
+     *
+     * @test    nth-match exists
+     * @test    filter with number
+     * @test    filter with n-number
+     */
+    QUnit.test( ':nth-match', function( assert )
+    {
+        assert.ok( µ.pseudo[ 'nth-match' ], 'exists' );
+
+        var col2 = document.getElementById( 'col2' );
+        assert.equal( µ( 'col:nth-match(2)' )[0], col2, 'filter with number' );
+        assert.equal( µ( 'col:nth-match(2n1)' )[0], col2, 'filter with n-number' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
+     * µ odd tests
+     *
+     * @test    odd exists
+     * @test    selects only the odd scripts
+     * @test    selects the correct half
+     */
+    QUnit.test( ':odd', function( assert )
+    {
+        var µOddScripts    = µ( 'script:odd' ).length;
+        var µScripts       = µ( 'script' ).length;
+
+        assert.ok( µ.pseudo.odd, 'exists' );
+        assert.equal( µOddScripts, Math.ceil( µScripts / 2 ), 'selects only the odd scripts' );
+        assert.deepEqual( µScripts[0], µOddScripts[0], 'selects the correct half' );
+
+        buildTest(
+        'µ( \'div:odd\' )', function()
+        {
+            return µ( 'div:odd' );
+        },
+
+        '$( \'div:odd\' )', function()
+        {
+            return $( 'div:odd' );
+        } );
+    });
+
+
+    /**
+     * µ optional selector tests
+     *
+     * @test    optional exists
+     * @test    finds the correct number of elements
+     */
+    QUnit.test( ':optional', function( assert )
+    {
+        var µOptional   = µ( ':optional' );
+        var byQuery     = µ( 'input:not([required=required]), textfield:not([required=required]), [required=optional], [optional]' );
+
+        assert.ok( µ.pseudo.optional, 'exists' );
+        assert.equal( µOptional.length, byQuery.length, 'finds the correct number of elements' );
+        assert.equal( µOptional.length, 8, 'finds the correct elements' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
+     * µ out-of-range tests
+     *
+     * @test    out-of-range exists
+     * @test    finds the correct number of elements
+     * @test    finds the correct element
+     */
+    QUnit.test( ':out-of-range', function( assert )
+    {
+        var µInRangeDiv = µ( ':out-of-range' );
+        var byElement   = µ( '#emailInput3' )[0];
+
+        assert.ok( µ.pseudo[ 'out-of-range' ], 'exists' );
+        assert.equal( µInRangeDiv.length, 1, 'grabs the correct amount of elements' );
+        assert.deepEqual( µInRangeDiv[0], byElement, 'grabs the correct element' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
+     * µ parent tests
+     *
+     * @test    parent exists
+     * @test    gets the correct parent as pseudo
+     * @test    gets the correct parent as connector
+     */
+    QUnit.test( '! || :parent', function( assert )
+    {
+        var emailInput3         = µ( '#emailInput3' ).parent();
+        var emailParent         = µ( '#emailInput3:parent' );
+        var emailExclamation    = µ( '#emailInput3!' );
+
+        assert.ok( µ.pseudo.parent, 'exists' );
+        assert.deepEqual( emailInput3[0], emailParent[0], 'gets the correct parent as pseudo' );
+        assert.deepEqual( emailInput3[0], emailExclamation[0], 'gets the correct parent as connector' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
+     * µ read-only selector tests
+     *
+     * @test    read-only exists
+     * @test    finds the correct number of elements
+     */
+    QUnit.test( ':read-only', function( assert )
+    {
+        var µReadOnly  = µ( 'div:drop :read-only' );
+
+        assert.ok( µ.pseudo[ 'read-only' ], 'exists' );
+        assert.equal( µReadOnly.length, 11, 'finds the correct elements' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
+     * µ read-write selector tests
+     *
+     * @test    read-write exists
+     * @test    finds the correct number of elements
+     */
+    QUnit.test( ':read-write', function( assert )
+    {
+        var µReadWrite  = µ( 'div:drop :read-write' );
+
+        assert.ok( µ.pseudo[ 'read-write' ], 'exists' );
+        assert.equal( µReadWrite.length, 5, 'finds the correct elements' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
+     * µ required selector tests
+     *
+     * @test    required exists
+     * @test    finds the correct number of elements
+     */
+    QUnit.test( ':required', function( assert )
+    {
+        var µRequired   = µ( ':required' );
+        var byQuery     = µ( '[required=required]' );
+
+        assert.ok( µ.pseudo.required, 'exists' );
+        assert.equal( µRequired.length, byQuery.length, 'finds the correct number of elements' );
+        assert.equal( µRequired.length, 1, 'finds the correct elements' );
+
+        buildTest(
+        'µ( \'input:required\' )', function()
+        {
+            return µ( 'input:required' );
+        },
+
+        '$( \'input:required\' )', function()
+        {
+            return $( 'input:required' );
+        } );
+    });
+
+
+    /**
+     * µ root tests
+     *
+     * @test    root exists
+     * @test    selects the root
+     */
+    QUnit.test( ':root', function( assert )
+    {
+        var µRoot = µ( 'div:root' );
+
+        assert.ok( µ.pseudo.root, 'exists' );
+        assert.deepEqual( µRoot[ 0 ], µ( 'html' )[ 0 ], 'selects the root' );
+
+        buildTest(
+        'µ( \'body:root\' )', function()
+        {
+            return µ( 'body:root' );
+        },
+
+        '$( \':root\' )', function()
+        {
+            return $( ':root' );
+        } );
+    });
+};
+
+
+},{}],18:[function(require,module,exports){
+/* global document, window, µ, $, QUnit, Benchmark, test  */
+var indexOf = Array.prototype.indexOf;
+
+module.exports = function( buildTest )
+{
+    QUnit.module( 'selectorEngine/root.js' );
+
+    /**
+     * pseudo custom connectors tests
+     *
+     * @test    any-link exists
+     * @test    gets links
+     * @test    gets scoped links
+     */
+    QUnit.test( '.contains()', function( assert )
+    {
+        assert.ok( µ.contains, 'exists' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
+     * µ matches tests
+     *
+     * @test    matches exists
+     * @test    accepts a microbe
+     * @test    accepts an element
+     */
+    QUnit.test( '.matches()', function( assert )
+    {
+        var qunit           = document.getElementById( 'qunit' );
+        var µMatchesDivs    = µ.matches( µ( 'div' ), '#qunit' );
+
+        assert.ok( µ.matches, 'exists' );
+        assert.equal( µMatchesDivs[ 4 ], true, 'finds the right div' );
+        assert.equal( µMatchesDivs[ 1 ], false, 'accepts a microbe' );
+        assert.equal( µ.matches( qunit, '#qunit' ), true, 'accepts an element' );
+
+        buildTest( 'No comparison available.' );
+    });
+};
+
+
+},{}]},{},[1]);

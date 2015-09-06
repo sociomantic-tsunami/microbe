@@ -2,7 +2,7 @@
 
 module.exports = function( buildTest )
 {
-    var version = '0.4.4';
+    var version = '0.4.5';
 
     var _observables = µ().get ? true : false;
 

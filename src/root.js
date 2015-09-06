@@ -69,7 +69,7 @@ module.exports = function( Microbe )
 
         return function()
         {
-            var context = this,
+            var self = this,
                 args    = arguments;
 
             var later   = function()
@@ -78,7 +78,7 @@ module.exports = function( Microbe )
 
                 if ( !immediate )
                 {
-                    _func.apply( context, args );
+                    _func.apply( self, args );
                 }
             };
 
@@ -88,7 +88,7 @@ module.exports = function( Microbe )
 
             if ( callNow )
             {
-                _func.apply( context, args );
+                _func.apply( self, args );
             }
         };
     };
@@ -310,7 +310,7 @@ module.exports = function( Microbe )
      *
      * @return _Function_
      */
-    Microbe.once = function( _func, context )
+    Microbe.once = function( _func, self )
     {
         var result;
 
@@ -318,7 +318,7 @@ module.exports = function( Microbe )
         {
             if( _func )
             {
-                result  = _func.apply( context || this, arguments );
+                result  = _func.apply( self || this, arguments );
                 _func   = null;
             }
 
@@ -387,9 +387,8 @@ module.exports = function( Microbe )
      * also be passed as the second variable
      *
      * @param {String} selector selector to apply it to
-     * @param {Mixed} properties css properties to remove
-     *                                                  'all' to remove all selector tags
-     *                                                  string as media query {String or Array}
+     * @param {Mixed} properties css properties to remove 'all' to remove all 
+     *                 selector tags string as media query {String or Array}
      * @param {String} media media query
      *
      * @return _Boolean_ removed or not
@@ -487,7 +486,10 @@ module.exports = function( Microbe )
      *
      * @return _Array_
      */
-    Microbe.toArray = Microbe.core.toArray;
+    Microbe.toArray = Microbe.core.toArray || function( _arr )
+    {
+        return slice.call( _arr || this );
+    };
 
 
     /**
@@ -497,7 +499,10 @@ module.exports = function( Microbe )
      *
      * @return _String_
      */
-    Microbe.toString = Microbe.core.toString;
+    Microbe.toString = Microbe.core.toString || function()
+    {
+        return Microbe.type;
+    };
 
 
     /**

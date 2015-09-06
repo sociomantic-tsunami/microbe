@@ -31,7 +31,7 @@
         <a href="#on">on</a>
       </div>
       <div class="heading h2">
-        <a href="#customevent%20polyfill">CustomEvent polyfill</a>
+        <a href="#_customevent%20polyfill">_CustomEvent polyfill</a>
       </div>
     </div>
   </div>
@@ -58,11 +58,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Mouse Braun         <a href="&#109;&#x61;&#105;&#108;t&#111;:&#x6D;&#x6F;&#117;&#x73;&#x65;&#64;s&#111;&#99;&#105;&#x6F;&#109;an&#x74;&#x69;&#x63;&#46;&#99;&#111;&#109;">&#x6D;&#x6F;&#117;&#x73;&#x65;&#64;s&#111;&#99;&#105;&#x6F;&#109;an&#x74;&#x69;&#x63;&#46;&#99;&#111;&#109;</a></span>
+      <span>Mouse Braun         <a href="&#x6D;&#97;&#105;&#x6C;&#x74;&#111;:&#x6D;&#111;&#x75;&#x73;&#x65;&#x40;s&#x6F;&#99;&#x69;&#x6F;&#109;&#97;n&#x74;&#105;&#x63;&#x2E;c&#x6F;&#x6D;">&#x6D;&#111;&#x75;&#x73;&#x65;&#x40;s&#x6F;&#99;&#x69;&#x6F;&#109;&#97;n&#x74;&#105;&#x63;&#x2E;c&#x6F;&#x6D;</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Nicolas Brugneaux   <a href="&#109;a&#105;l&#x74;&#111;:&#x6E;&#105;&#x63;&#x6F;&#x6C;&#97;&#115;&#46;&#98;&#114;&#117;&#x67;&#x6E;&#x65;&#x61;&#x75;x&#x40;&#x73;&#111;&#x63;&#105;&#x6F;&#109;&#x61;&#110;&#x74;i&#99;.&#x63;&#x6F;m">&#x6E;&#105;&#x63;&#x6F;&#x6C;&#97;&#115;&#46;&#98;&#114;&#117;&#x67;&#x6E;&#x65;&#x61;&#x75;x&#x40;&#x73;&#111;&#x63;&#105;&#x6F;&#109;&#x61;&#110;&#x74;i&#99;.&#x63;&#x6F;m</a></span>
+      <span>Nicolas Brugneaux   <a href="&#109;&#x61;&#x69;&#x6C;to:&#110;&#105;&#99;&#x6F;&#108;&#97;&#115;&#46;&#x62;&#114;&#117;&#103;&#x6E;&#101;&#x61;&#117;&#120;&#64;&#115;&#x6F;&#x63;&#x69;o&#109;&#x61;&#x6E;&#x74;&#x69;&#x63;&#x2E;&#x63;&#x6F;&#109;">&#110;&#105;&#99;&#x6F;&#108;&#97;&#115;&#46;&#x62;&#114;&#117;&#103;&#x6E;&#101;&#x61;&#117;&#120;&#64;&#115;&#x6F;&#x63;&#x69;o&#109;&#x61;&#x6E;&#x74;&#x69;&#x63;&#x2E;&#x63;&#x6F;&#109;</a></span>
     </div>
     <div class="dox_tag_title">package</div>
     <div class="dox_tag_detail">
@@ -137,11 +137,7 @@
             <span class="nx">_elm</span><span class="p">.</span><span class="nx">dispatchEvent</span><span class="p">(</span> <span class="nx">_evt</span> <span class="p">);</span>
         <span class="p">};</span>
 
-        <span class="kd">var</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">len</span><span class="p">;</span>
-        <span class="k">for</span> <span class="p">(</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">len</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
-        <span class="p">{</span>
-            <span class="nx">_emit</span><span class="p">(</span> <span class="k">this</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="p">);</span>
-        <span class="p">}</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span> <span class="nx">_emit</span> <span class="p">);</span>
 
         <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
     <span class="p">};</span>
@@ -194,7 +190,7 @@
     <span class="p">{</span>
         <span class="kd">var</span> <span class="nx">filterFunction</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">e</span> <span class="p">){</span> <span class="k">return</span> <span class="nx">e</span><span class="p">;</span> <span class="p">};</span>
 
-        <span class="kd">var</span> <span class="nx">_off</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_e</span><span class="p">,</span> <span class="nx">_elm</span> <span class="p">)</span>
+        <span class="kd">var</span> <span class="nx">_off</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_elm</span><span class="p">,</span> <span class="nx">_e</span> <span class="p">)</span>
         <span class="p">{</span>
             <span class="kd">var</span> <span class="nx">_cb</span> <span class="o">=</span> <span class="nx">_callback</span><span class="p">;</span>
             <span class="kd">var</span> <span class="nx">prop</span> <span class="o">=</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="nx">_e</span> <span class="o">+</span> <span class="s1">&#39;-bound-function&#39;</span><span class="p">;</span>
@@ -236,10 +232,8 @@
             <span class="p">}</span>
         <span class="p">};</span>
 
-        <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">len</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
+        <span class="kd">var</span> <span class="nx">_checkBoundEvents</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">_elm</span> <span class="p">)</span>
         <span class="p">{</span>
-            <span class="kd">var</span> <span class="nx">_elm</span> <span class="o">=</span> <span class="k">this</span><span class="p">[</span> <span class="nx">i</span> <span class="p">];</span>
-
             <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nx">_event</span> <span class="o">&amp;&amp;</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span> <span class="o">&amp;&amp;</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">__boundEvents</span> <span class="o">&amp;&amp;</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">__boundEvents</span><span class="p">.</span><span class="nx">__boundEvents</span> <span class="p">)</span>
             <span class="p">{</span>
                 <span class="nx">_event</span> <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">__boundEvents</span><span class="p">.</span><span class="nx">__boundEvents</span><span class="p">;</span>
@@ -257,11 +251,13 @@
 
             <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenJ</span> <span class="o">=</span> <span class="nx">_event</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">lenJ</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">)</span>
             <span class="p">{</span>
-                <span class="nx">_off</span><span class="p">(</span> <span class="nx">_event</span><span class="p">[</span> <span class="nx">j</span> <span class="p">],</span> <span class="nx">_elm</span> <span class="p">);</span>
+                <span class="nx">_off</span><span class="p">(</span> <span class="nx">_elm</span><span class="p">,</span> <span class="nx">_event</span><span class="p">[</span> <span class="nx">j</span> <span class="p">]</span> <span class="p">);</span>
             <span class="p">}</span>
 
             <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">__boundEvents</span><span class="p">.</span><span class="nx">__boundEvents</span> <span class="o">=</span> <span class="nx">_event</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span> <span class="nx">filterFunction</span> <span class="p">);</span>
         <span class="p">}</span>
+
+        <span class="k">this</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span> <span class="nx">_checkBoundEvents</span> <span class="p">);</span>
 
         <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
     <span class="p">};</span>
@@ -325,11 +321,7 @@ given element.</p>
             <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">__boundEvents</span><span class="p">.</span><span class="nx">__boundEvents</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">_event</span> <span class="p">);</span>
         <span class="p">};</span>
 
-        <span class="kd">var</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">len</span><span class="p">;</span>
-        <span class="k">for</span> <span class="p">(</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">len</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
-        <span class="p">{</span>
-            <span class="nx">_on</span><span class="p">(</span> <span class="k">this</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="p">);</span>
-        <span class="p">}</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span> <span class="nx">_on</span> <span class="p">);</span>
 
         <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
     <span class="p">};</span>
@@ -342,10 +334,10 @@ given element.</p>
       <tr>
         <td class="docs"><div class="dox">
   <div class="summary">
-<div class="pilwrap" id="customevent%20polyfill">
+<div class="pilwrap" id="_customevent%20polyfill">
   <h2>
-    <a href="#customevent%20polyfill" name="customevent%20polyfill" class="pilcrow">&#182;</a>
-    CustomEvent polyfill
+    <a href="#_customevent%20polyfill" name="_customevent%20polyfill" class="pilcrow">&#182;</a>
+    _CustomEvent polyfill
   </h2>
 </div>
 

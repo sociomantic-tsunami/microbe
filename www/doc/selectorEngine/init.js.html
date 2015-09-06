@@ -3,15 +3,15 @@
 <head>
   <title>init.js</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <link rel="stylesheet" media="all" href="doc-style.css" />
-  <script src="doc-filelist.js"></script>
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "", thisFile = "Users/mouse/workspace/microbe//init.js", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "Library/WebServer/Documents/microbe//selectorEngine/init.js", defaultSidebar = true;
   </script>
-  <script src="doc-script.js"></script>
-  <script src="microbe.js"></script>
-  <script src="fileSearch.js"></script>
-  <link rel="stylesheet" href="fileSearch.css" />
+  <script src="../doc-script.js"></script>
+  <script src="../microbe.js"></script>
+  <script src="../fileSearch.js"></script>
+  <link rel="stylesheet" href="../fileSearch.css" />
 </head>
 <body>
   <div id="sidebar_wrapper">
@@ -22,16 +22,13 @@
     <div id="tree"></div>
     <div id="headings">
       <div class="heading h2">
-        <a href="#exported">exported</a>
-      </div>
-      <div class="heading h2">
         <a href="#_build">_build</a>
       </div>
       <div class="heading h2">
         <a href="#_create">_create</a>
       </div>
       <div class="heading h2">
-        <a href="#_contains">_contains</a>
+        <a href="#_createhtml">_createHtml</a>
       </div>
       <div class="heading h2">
         <a href="#_css4stringreplace">_css4StringReplace</a>
@@ -60,18 +57,18 @@
   <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
 </div>
 <div class="dox">
-  <div class="summary"><p>init.js</p>
+  <div class="summary"><p>Microbe.js</p>
   </div>
   <div class="body">
   </div>
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Mouse Braun         <a href="&#x6D;&#97;&#105;&#108;&#x74;&#x6F;:&#x6D;&#x6F;u&#115;&#101;&#64;&#x73;o&#99;&#x69;&#x6F;&#109;&#x61;&#110;&#x74;i&#x63;&#46;&#x63;&#111;&#x6D;">&#x6D;&#x6F;u&#115;&#101;&#64;&#x73;o&#99;&#x69;&#x6F;&#109;&#x61;&#110;&#x74;i&#x63;&#46;&#x63;&#111;&#x6D;</a></span>
+      <span>Mouse Braun         <a href="&#109;&#x61;&#105;&#x6C;&#116;&#x6F;:&#x6D;&#x6F;&#117;&#x73;&#x65;&#x40;&#x73;&#x6F;&#99;&#x69;o&#x6D;&#97;&#110;&#x74;&#x69;&#x63;&#x2E;&#99;o&#109;">&#x6D;&#x6F;&#117;&#x73;&#x65;&#x40;&#x73;&#x6F;&#99;&#x69;o&#x6D;&#97;&#110;&#x74;&#x69;&#x63;&#x2E;&#99;o&#109;</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Nicolas Brugneaux   <a href="&#x6D;&#x61;&#105;&#108;&#116;&#111;:&#x6E;&#x69;&#x63;&#111;&#x6C;&#97;&#x73;&#x2E;&#x62;&#x72;&#117;g&#x6E;&#x65;&#97;ux&#x40;&#x73;&#111;&#99;&#105;o&#x6D;&#x61;&#x6E;&#x74;&#105;&#x63;&#x2E;&#99;&#111;&#109;">&#x6E;&#x69;&#x63;&#111;&#x6C;&#97;&#x73;&#x2E;&#x62;&#x72;&#117;g&#x6E;&#x65;&#97;ux&#x40;&#x73;&#111;&#99;&#105;o&#x6D;&#x61;&#x6E;&#x74;&#105;&#x63;&#x2E;&#99;&#111;&#109;</a></span>
+      <span>Nicolas Brugneaux   <a href="&#x6D;&#97;i&#x6C;&#x74;&#x6F;:&#x6E;&#105;&#x63;&#111;&#x6C;&#97;&#115;&#46;b&#114;u&#x67;&#x6E;&#x65;&#97;&#117;&#120;&#64;&#115;&#111;&#99;&#105;&#111;&#x6D;&#x61;&#x6E;&#x74;&#x69;&#x63;&#46;&#99;&#x6F;&#x6D;">&#x6E;&#105;&#x63;&#111;&#x6C;&#97;&#115;&#46;b&#114;u&#x67;&#x6E;&#x65;&#97;&#117;&#120;&#64;&#115;&#111;&#99;&#105;&#111;&#x6D;&#x61;&#x6E;&#x74;&#x69;&#x63;&#46;&#99;&#x6F;&#x6D;</a></span>
     </div>
     <div class="dox_tag_title">package</div>
     <div class="dox_tag_detail">
@@ -80,39 +77,15 @@
   </div>
 </div>
         </td>
-        <td class="code highlight"><div class="highlight"><pre></pre></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="docs"><div class="dox">
-  <div class="summary">
-<div class="pilwrap" id="exported">
-  <h2>
-    <a href="#exported" name="exported" class="pilcrow">&#182;</a>
-    exported
-  </h2>
-</div>
+        <td class="code highlight"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">slice</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">;</span>
 
-  </div>
-  <div class="body">
-  </div>
-  <div class="details">
-    <div class="dox_tag_title">Returns</div>
-    <div class="dox_tag_detail">
-      <span class="dox_tag_name"></span>
-      <span><em>Function</em> function that augment Microbe.</span>
-    </div>
-  </div>
-</div>
-        </td>
-        <td class="code highlight"><div class="highlight"><pre>
-<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">Microbe</span> <span class="p">)</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_c</span><span class="p">,</span> <span class="nx">_type</span> <span class="p">)</span>
 <span class="p">{</span>
     <span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
 
     <span class="kd">var</span> <span class="nx">trigger</span><span class="p">,</span> <span class="nx">_shortSelector</span><span class="p">;</span>
 
-    <span class="kd">var</span> <span class="nx">selectorRegex</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">__selectorRegex</span> <span class="o">=</span>  <span class="sr">/(?:[\s]*\.([\w-_\.]+)|#([\w-_]+)|([^#\.:&lt;][\w-_]*)|(&lt;[\w-_#\.]+&gt;)|:([^#\.&lt;][\w-()_]*))/g</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">selectorRegex</span> <span class="o">=</span> <span class="nx">_c</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">__selectorRegex</span> <span class="o">=</span>  <span class="sr">/(?:[\s]*\.([\w-_\.]+)|#([\w-_]+)|([^#\.:&lt;][\w-_]*)|(&lt;[\w-_#\.]+&gt;)|:([^#\.&lt;][\w-()_]*))/g</span><span class="p">;</span>
 
 
 </pre></div>
@@ -121,7 +94,7 @@
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
 </div>
 <p>TODO: Check if we hit the duck</p>
         </td>
@@ -142,7 +115,7 @@
 </div>
 
   </div>
-  <div class="body"><p>Builds and returns the final microbe</p>
+  <div class="body"><p>Builds and returns the final Microbe</p>
   </div>
   <div class="details">
     <div class="dox_tag_title">Params</div>
@@ -159,7 +132,7 @@
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span><em>Microbe</em> microbe wrapped elements</span>
+      <span><em>Microbe</em> Microbe wrapped elements</span>
     </div>
   </div>
 </div>
@@ -195,15 +168,19 @@
 </div>
 
   </div>
-  <div class="body"><p>Method creates a Microbe from an element or a new element of the passed string, and
-returns the Microbe</p>
+  <div class="body"><p>Method creates Microbe from a passed string, and returns it</p>
   </div>
   <div class="details">
     <div class="dox_tag_title">Params</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name">_el</span>
-      <span class="dox_type">Element</span>
+      <span class="dox_type">String</span>
       <span>element to create</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">this</span>
+      <span class="dox_type">Object</span>
+      <span>reference to pass on to _build</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
@@ -271,53 +248,50 @@ returns the Microbe</p>
       <tr>
         <td class="docs"><div class="dox">
   <div class="summary">
-<div class="pilwrap" id="_contains">
+<div class="pilwrap" id="_createhtml">
   <h2>
-    <a href="#_contains" name="_contains" class="pilcrow">&#182;</a>
-    _contains
+    <a href="#_createhtml" name="_createhtml" class="pilcrow">&#182;</a>
+    _createHtml
   </h2>
 </div>
 
   </div>
-  <div class="body"><p>Checks if a given element is a child of _scope</p>
+  <div class="body"><p>Method creates a Microbe from an html string, and returns it</p>
   </div>
   <div class="details">
     <div class="dox_tag_title">Params</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name">_el</span>
-      <span class="dox_type">Element</span>
-      <span>element to check</span>
+      <span class="dox_type">String</span>
+      <span>element to create</span>
     </div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">_scope</span>
-      <span class="dox_type">Element</span>
-      <span>scope</span>
+      <span class="dox_tag_name">this</span>
+      <span class="dox_type">Object</span>
+      <span>reference to pass on to _build</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span><em>Boolean</em> whether _el is contained in the scope</span>
+      <span><em>Microbe</em></span>
     </div>
   </div>
 </div>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="kd">var</span> <span class="nx">_contains</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">contains</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_el</span><span class="p">,</span> <span class="nx">_scope</span> <span class="p">)</span>
+    <span class="kd">function</span> <span class="nx">_createHtml</span><span class="p">(</span> <span class="nx">_el</span><span class="p">,</span> <span class="nx">self</span> <span class="p">)</span>
     <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">parent</span> <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">_ghost</span>          <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span> <span class="s1">&#39;div&#39;</span> <span class="p">);</span>
+        <span class="nx">_ghost</span><span class="p">.</span><span class="nx">innerHTML</span>    <span class="o">=</span> <span class="nx">_el</span><span class="p">;</span>
+        <span class="nx">_el</span>                 <span class="o">=</span> <span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="nx">_ghost</span><span class="p">.</span><span class="nx">children</span> <span class="p">);</span>
 
-        <span class="k">while</span> <span class="p">(</span> <span class="nx">parent</span> <span class="o">!==</span> <span class="nb">document</span> <span class="o">&amp;&amp;</span> <span class="nx">parent</span> <span class="o">!==</span> <span class="nx">_scope</span> <span class="p">)</span>
+        <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span> 
         <span class="p">{</span>
-            <span class="nx">parent</span> <span class="o">=</span> <span class="nx">parent</span><span class="p">.</span><span class="nx">parentNode</span> <span class="o">||</span> <span class="nx">_scope</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">;</span>
+            <span class="nx">_ghost</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span> <span class="nx">_el</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="p">);</span>
         <span class="p">}</span>
 
-        <span class="k">if</span> <span class="p">(</span> <span class="nx">parent</span> <span class="o">===</span> <span class="nb">document</span> <span class="p">)</span>
-        <span class="p">{</span>
-            <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
-        <span class="p">}</span>
-
-        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
-    <span class="p">};</span>
+        <span class="k">return</span> <span class="nx">_build</span><span class="p">(</span> <span class="nx">_el</span><span class="p">,</span> <span class="nx">self</span> <span class="p">);</span>
+    <span class="p">}</span>
 
 
 
@@ -340,12 +314,14 @@ returns the Microbe</p>
   <div class="details">
     <div class="dox_tag_title">Params</div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name"></span>
-      <span>{String} _string pre substitution string</span>
+      <span class="dox_tag_name">_string</span>
+      <span class="dox_type">String</span>
+      <span>pre substitution string</span>
     </div>
+    <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span>{String} post substitution string</span>
+      <span><em>String</em> post substitution string</span>
     </div>
   </div>
 </div>
@@ -386,12 +362,14 @@ returns the Microbe</p>
   <div class="details">
     <div class="dox_tag_title">Params</div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name"></span>
-      <span>{String} _s   selector string</span>
+      <span class="dox_tag_name">_s</span>
+      <span class="dox_type">String</span>
+      <span>selector string</span>
     </div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name"></span>
-      <span>{Object} self this empty Microbe</span>
+      <span class="dox_tag_name">self</span>
+      <span class="dox_type">Object</span>
+      <span>this empty Microbe</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
@@ -413,8 +391,7 @@ returns the Microbe</p>
                     <span class="k">if</span> <span class="p">(</span> <span class="nx">_s</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="s1">&#39;.&#39;</span> <span class="p">)</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span> <span class="p">)</span>
                     <span class="p">{</span>
                         <span class="kd">var</span> <span class="nx">id</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span> <span class="nx">_s</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span> <span class="mi">1</span> <span class="p">)</span> <span class="p">);</span>
-
-                        <span class="k">return</span> <span class="nx">id</span> <span class="o">===</span> <span class="kc">null</span> <span class="o">?</span> <span class="nx">_build</span><span class="p">(</span> <span class="p">[]</span> <span class="p">)</span> <span class="o">:</span> <span class="nx">_build</span><span class="p">(</span> <span class="p">[</span> <span class="nx">id</span> <span class="p">],</span> <span class="nx">self</span> <span class="p">);</span>
+                        <span class="k">return</span> <span class="nx">id</span> <span class="o">===</span> <span class="kc">null</span> <span class="o">?</span> <span class="nx">_build</span><span class="p">(</span> <span class="p">[],</span> <span class="nx">self</span> <span class="p">)</span> <span class="o">:</span> <span class="nx">_build</span><span class="p">(</span> <span class="p">[</span> <span class="nx">id</span> <span class="p">],</span> <span class="nx">self</span> <span class="p">);</span>
                     <span class="p">}</span>
                     <span class="k">break</span><span class="p">;</span>
                 <span class="k">case</span> <span class="s1">&#39;.&#39;</span><span class="o">:</span>
@@ -425,6 +402,28 @@ returns the Microbe</p>
                         <span class="k">if</span> <span class="p">(</span> <span class="nx">clss</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="s1">&#39;.&#39;</span> <span class="p">)</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span> <span class="p">)</span>
                         <span class="p">{</span>
                             <span class="k">return</span> <span class="nx">_build</span><span class="p">(</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByClassName</span><span class="p">(</span> <span class="nx">clss</span> <span class="p">),</span> <span class="nx">self</span> <span class="p">);</span>
+                        <span class="p">}</span>
+                        <span class="k">else</span>
+                        <span class="p">{</span>
+                            <span class="nx">clss</span> <span class="o">=</span> <span class="nx">clss</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span> <span class="s1">&#39;.&#39;</span> <span class="p">);</span>
+
+                            <span class="kd">var</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">_r</span><span class="p">,</span> <span class="nx">_el</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByClassName</span><span class="p">(</span> <span class="nx">clss</span><span class="p">[</span> <span class="mi">0</span> <span class="p">]</span> <span class="p">);</span>
+                            <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">lenC</span> <span class="o">=</span> <span class="nx">clss</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">c</span> <span class="o">&lt;</span> <span class="nx">lenC</span><span class="p">;</span> <span class="nx">c</span><span class="o">++</span> <span class="p">)</span> 
+                            <span class="p">{</span>
+                                <span class="nx">res</span> <span class="o">=</span> <span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByClassName</span><span class="p">(</span> <span class="nx">clss</span><span class="p">[</span> <span class="nx">c</span> <span class="p">]</span> <span class="p">)</span> <span class="p">);</span>
+
+                                <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">r</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenR</span> <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">r</span> <span class="o">&lt;</span> <span class="nx">lenR</span><span class="p">;</span> <span class="nx">r</span><span class="o">++</span> <span class="p">)</span> 
+                                <span class="p">{</span>
+                                    <span class="nx">_r</span> <span class="o">=</span> <span class="nx">_el</span><span class="p">[</span> <span class="nx">r</span> <span class="p">];</span>
+
+                                   <span class="k">if</span> <span class="p">(</span> <span class="nx">res</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="nx">_r</span> <span class="p">)</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span> <span class="p">)</span>
+                                   <span class="p">{</span>
+                                        <span class="nx">_el</span><span class="p">[</span> <span class="nx">r</span> <span class="p">]</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+                                   <span class="p">}</span>
+                                <span class="p">}</span>
+                            <span class="p">}</span>
+
+                            <span class="k">return</span> <span class="nx">_build</span><span class="p">(</span> <span class="nx">_el</span><span class="p">,</span> <span class="nx">self</span> <span class="p">).</span><span class="nx">filter</span><span class="p">(</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_e</span> <span class="p">){</span> <span class="k">return</span> <span class="nx">_e</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">;</span> <span class="p">}</span> <span class="p">);</span>
                         <span class="p">}</span>
                     <span class="p">}</span>
                     <span class="k">break</span><span class="p">;</span>
@@ -460,8 +459,14 @@ returns the Microbe</p>
   <div class="body"><p>Constructor.</p>
 
 <p>Either selects or creates an HTML element and wraps it into a Microbe instance.
-Usage:   µ( 'div#test' )   ---> selection
-         µ( '<div#test>' ) ---> creation</p>
+Usage:   µ()                             ---> empty
+         µ( '' )                         ---> empty
+         µ( [] )                         ---> empty
+         µ( 'div#test' )                 ---> selection
+         µ( elDiv )                      ---> selection
+         µ( [ elDiv1, elDiv2, elDiv3 ] ) ---> selection
+         µ( '<div#test>' )               ---> creation
+         µ( '<div id="test"></div>' )    ---> creation</p>
   </div>
   <div class="details">
     <div class="dox_tag_title">Params</div>
@@ -489,7 +494,7 @@ Usage:   µ( 'div#test' )   ---> selection
 </div>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="kd">var</span> <span class="nx">Init</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">__init__</span> <span class="o">=</span>  <span class="kd">function</span><span class="p">(</span> <span class="nx">_selector</span><span class="p">,</span> <span class="nx">_scope</span><span class="p">,</span> <span class="nx">_elements</span> <span class="p">)</span>
+    <span class="kd">var</span> <span class="nx">Init</span> <span class="o">=</span> <span class="nx">_c</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">__init__</span> <span class="o">=</span>  <span class="kd">function</span><span class="p">(</span> <span class="nx">_selector</span><span class="p">,</span> <span class="nx">_scope</span><span class="p">,</span> <span class="nx">_elements</span> <span class="p">)</span>
     <span class="p">{</span>
         <span class="kd">var</span> <span class="nx">res</span><span class="p">;</span>
         <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nx">_scope</span> <span class="p">)</span>
@@ -514,17 +519,29 @@ Usage:   µ( 'div#test' )   ---> selection
 
         <span class="nx">_selector</span> <span class="o">=</span> <span class="nx">_selector</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
 
-        <span class="k">if</span> <span class="p">(</span> <span class="nx">_scope</span> <span class="o">&amp;&amp;</span> <span class="nx">_scope</span><span class="p">.</span><span class="nx">type</span> <span class="o">===</span> <span class="s1">&#39;[object Microbe]&#39;</span> <span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">_scope</span> <span class="o">&amp;&amp;</span> <span class="nx">_scope</span><span class="p">.</span><span class="nx">type</span> <span class="o">===</span> <span class="nx">_type</span> <span class="p">)</span>
         <span class="p">{</span>
             <span class="nx">res</span> <span class="o">=</span> <span class="nx">_build</span><span class="p">(</span> <span class="p">[],</span> <span class="k">this</span> <span class="p">);</span>
 
+            <span class="kd">var</span> <span class="nx">next</span><span class="p">;</span>
+
             <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenN</span> <span class="o">=</span> <span class="nx">_scope</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">n</span> <span class="o">&lt;</span> <span class="nx">lenN</span><span class="p">;</span> <span class="nx">n</span><span class="o">++</span> <span class="p">)</span>
             <span class="p">{</span>
-                <span class="nx">res</span><span class="p">.</span><span class="nx">merge</span><span class="p">(</span> <span class="k">new</span> <span class="nx">Init</span><span class="p">(</span> <span class="nx">_selector</span><span class="p">,</span> <span class="nx">_scope</span><span class="p">[</span> <span class="nx">n</span> <span class="p">]</span> <span class="p">),</span> <span class="kc">true</span> <span class="p">);</span>
+                <span class="nx">next</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Init</span><span class="p">(</span> <span class="nx">_selector</span><span class="p">,</span> <span class="nx">_scope</span><span class="p">[</span> <span class="nx">n</span> <span class="p">]</span> <span class="p">);</span>
+
+                <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">next</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="k">if</span> <span class="p">(</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="p">)</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span> <span class="p">)</span>
+                    <span class="p">{</span>
+                        <span class="nx">res</span><span class="p">[</span> <span class="nx">res</span><span class="p">.</span><span class="nx">length</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">next</span><span class="p">[</span> <span class="nx">i</span> <span class="p">];</span>
+                        <span class="nx">res</span><span class="p">.</span><span class="nx">length</span><span class="o">++</span><span class="p">;</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
             <span class="p">}</span>
 
             <span class="k">return</span> <span class="nx">res</span><span class="p">;</span>
         <span class="p">}</span>
+
 
 
 </pre></div>
@@ -533,7 +550,7 @@ Usage:   µ( 'div#test' )   ---> selection
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
+  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
 </div>
 <div class="dox">
   <div class="summary"><p>fast tracks element based queries</p>
@@ -544,7 +561,7 @@ Usage:   µ( 'div#test' )   ---> selection
         </td>
         <td class="code highlight"><div class="highlight"><pre>
         <span class="kd">var</span> <span class="nx">isArr</span><span class="p">,</span> <span class="nx">isHTMLCollection</span><span class="p">;</span>
-        <span class="k">if</span> <span class="p">(</span> <span class="nx">_selector</span><span class="p">.</span><span class="nx">nodeType</span> <span class="o">===</span> <span class="mi">1</span> <span class="o">||</span> <span class="p">(</span> <span class="nx">isArr</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span> <span class="nx">_selector</span> <span class="p">)</span> <span class="p">)</span> <span class="o">||</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">_selector</span><span class="p">.</span><span class="nx">nodeType</span> <span class="o">===</span> <span class="mi">1</span> <span class="o">||</span> <span class="p">(</span> <span class="nx">isArr</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span> <span class="nx">_selector</span> <span class="p">)</span> <span class="p">)</span> <span class="o">||</span>
             <span class="nx">_selector</span> <span class="o">===</span> <span class="nb">window</span> <span class="o">||</span> <span class="nx">_selector</span> <span class="o">===</span> <span class="nb">document</span> <span class="o">||</span>
             <span class="p">(</span> <span class="nx">isHTMLCollection</span> <span class="o">=</span> <span class="nx">_selector</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span> <span class="o">===</span> <span class="s1">&#39;[object HTMLCollection]&#39;</span> <span class="p">)</span> <span class="p">)</span>
         <span class="p">{</span>
@@ -566,8 +583,7 @@ Usage:   µ( 'div#test' )   ---> selection
             <span class="p">}</span>
         <span class="p">}</span>
 
-        <span class="kd">var</span> <span class="nx">scopeNodeType</span>   <span class="o">=</span> <span class="nx">_scope</span><span class="p">.</span><span class="nx">nodeType</span><span class="p">,</span>
-            <span class="nx">nodeType</span>        <span class="o">=</span> <span class="p">(</span> <span class="nx">_selector</span> <span class="p">)</span> <span class="o">?</span> <span class="nx">_selector</span><span class="p">.</span><span class="nx">nodeType</span> <span class="o">||</span> <span class="k">typeof</span> <span class="nx">_selector</span> <span class="o">:</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">scopeNodeType</span>   <span class="o">=</span> <span class="nx">_scope</span><span class="p">.</span><span class="nx">nodeType</span><span class="p">;</span>
 
         <span class="k">if</span> <span class="p">(</span> <span class="p">(</span> <span class="o">!</span><span class="nx">_selector</span> <span class="o">||</span> <span class="k">typeof</span> <span class="nx">_selector</span> <span class="o">!==</span> <span class="s1">&#39;string&#39;</span> <span class="p">)</span> <span class="o">||</span>
             <span class="p">(</span> <span class="nx">scopeNodeType</span> <span class="o">!==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="nx">scopeNodeType</span> <span class="o">!==</span> <span class="mi">9</span> <span class="p">)</span> <span class="p">)</span>
@@ -596,7 +612,7 @@ Usage:   µ( 'div#test' )   ---> selection
                 <span class="k">case</span> <span class="s1">&#39;#&#39;</span><span class="o">:</span> <span class="c1">// non-document scoped id search</span>
                     <span class="kd">var</span> <span class="nx">_id</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span> <span class="nx">_shortSelector</span> <span class="p">);</span>
 
-                    <span class="k">if</span> <span class="p">(</span> <span class="nx">_scope</span><span class="p">.</span><span class="nx">ownerDocument</span> <span class="o">&amp;&amp;</span> <span class="nx">_contains</span><span class="p">(</span> <span class="nx">_id</span><span class="p">,</span> <span class="nx">_scope</span> <span class="p">)</span> <span class="p">)</span>
+                    <span class="k">if</span> <span class="p">(</span> <span class="nx">_scope</span><span class="p">.</span><span class="nx">ownerDocument</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">contains</span><span class="p">(</span> <span class="nx">_id</span><span class="p">,</span> <span class="nx">_scope</span> <span class="p">)</span> <span class="p">)</span>
                     <span class="p">{</span>
                         <span class="k">return</span> <span class="nx">_build</span><span class="p">(</span> <span class="p">[</span> <span class="nx">_id</span> <span class="p">],</span> <span class="k">this</span> <span class="p">);</span>
                     <span class="p">}</span>
@@ -617,15 +633,39 @@ Usage:   µ( 'div#test' )   ---> selection
             <span class="k">return</span> <span class="k">new</span> <span class="nx">Init</span><span class="p">(</span> <span class="nx">_selector</span><span class="p">,</span> <span class="nx">_scope</span><span class="p">,</span> <span class="nx">_elements</span> <span class="p">);</span>
         <span class="p">}</span>
 
-        <span class="k">if</span> <span class="p">(</span> <span class="nx">_selector</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="s1">&#39;:&#39;</span> <span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span> <span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">_selector</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="s1">&#39;:&#39;</span> <span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="nx">_pseudo</span> <span class="p">)</span>
         <span class="p">{</span>
-            <span class="k">return</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">pseudo</span><span class="p">(</span> <span class="k">this</span><span class="p">,</span> <span class="nx">_selector</span><span class="p">,</span> <span class="nx">_scope</span><span class="p">,</span> <span class="nx">_build</span> <span class="p">);</span>
+            <span class="k">return</span> <span class="nx">_pseudo</span><span class="p">(</span> <span class="k">this</span><span class="p">,</span> <span class="nx">_selector</span><span class="p">,</span> <span class="nx">_scope</span><span class="p">,</span> <span class="nx">_build</span> <span class="p">);</span>
+        <span class="p">}</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-10" id="section-10">&#182;</a>
+</div>
+<p>html creation string</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">_selector</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="s1">&#39;/&#39;</span> <span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">_createHtml</span><span class="p">(</span> <span class="nx">_selector</span><span class="p">,</span> <span class="k">this</span> <span class="p">);</span>
         <span class="p">}</span>
 
         <span class="k">return</span> <span class="nx">_build</span><span class="p">(</span> <span class="nx">_scope</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span> <span class="nx">_selector</span> <span class="p">),</span> <span class="k">this</span> <span class="p">);</span>
     <span class="p">};</span>
 
-    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">__init__</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">;</span>
+    <span class="nx">_c</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">type</span>                 <span class="o">=</span> <span class="nx">_type</span><span class="p">;</span>
+    <span class="nx">_c</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">__init__</span><span class="p">.</span><span class="nx">prototype</span>   <span class="o">=</span> <span class="nx">_c</span><span class="p">.</span><span class="nx">core</span><span class="p">;</span>
+
+    <span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./core&#39;</span> <span class="p">)(</span> <span class="nx">_c</span> <span class="p">);</span>
+    <span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./root&#39;</span> <span class="p">)(</span> <span class="nx">_c</span> <span class="p">);</span>
+    <span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./pseudo&#39;</span> <span class="p">)(</span> <span class="nx">_c</span> <span class="p">);</span>
+
+    <span class="kd">var</span> <span class="nx">_pseudo</span> <span class="o">=</span> <span class="nx">_c</span><span class="p">.</span><span class="nx">constructor</span><span class="p">.</span><span class="nx">pseudo</span><span class="p">;</span>
 <span class="p">};</span>
 </pre></div>
         </td>

@@ -1,7 +1,57 @@
 /* global document, window, µ, $, QUnit, Benchmark, buildTest  */
 module.exports = function( buildTest )
 {
-    QUnit.module( 'cytoplasm/cytoplasm.js' );
+    QUnit.module( 'selectorEngine/init.js' );
+
+
+    /**
+     * create a microbe from a css selector
+     *
+     * @test    one body
+     * @test    passes
+     */
+    QUnit.test( 'create from a css selector', function( assert )
+    {
+        var µDiv    = µ( '<div>' );
+        var µLi     = µ( '<li#id>' );
+        var µInput  = µ( '<input.class>' );
+
+        assert.equal( µDiv.length, 1, 'creates a simple div' );
+        assert.equal( µLi.length, 1, 'creates a li with id' );
+        assert.equal( µInput.length, 1, 'creates an input with class' );
+
+        buildTest( 'No comparison available.' );
+    });
+
+
+    /**
+     * create a microbe from html
+     *
+     * @test    one body
+     * @test    passes
+     */
+    QUnit.test( 'create from html', function( assert )
+    {
+        var µDiv    = µ( '<div></div>' );
+        var µLi     = µ( '<li id="id"></li>' );
+        var µInput  = µ( '<input class="class" />' );
+
+        assert.equal( µDiv.length, 1, 'creates a simple div' );
+        assert.equal( µLi.length, 1, 'creates a li with id' );
+        assert.equal( µInput.length, 1, 'creates an input with class' );
+
+        
+        buildTest(
+        'µ( \'&lt;li id="id">&lt;/li>\' )', function()
+        {
+            return µ( '<li id="id"></li>' );
+        },
+
+        '$( \'&lt;li id="id">&lt;/li>\' )', function()
+        {
+            return $( '<li id="id"></li>' );
+        } );
+    });
 
 
     /**
@@ -10,12 +60,36 @@ module.exports = function( buildTest )
      * @test    one body
      * @test    passes
      */
-    QUnit.test( 'wrap an empty set', function( assert )
+    QUnit.test( 'make empty sets', function( assert )
     {
         var µBody = µ( [] );
 
-        assert.equal( µBody.length, 0, 'empty set' );
-        assert.equal( µBody[ 0 ], undefined, 'undefined 0' );
+        assert.equal( µBody.length, 0, 'empty set - µ( [] )' );
+        assert.equal( µBody[ 0 ], undefined, 'successfully fails' );
+
+        µBody = µ();
+        assert.equal( µBody.length, 0, 'empty set - µ()' );
+        assert.equal( µBody[ 0 ], undefined, 'successfully fails' );
+
+        µBody = µ( '' );
+        assert.equal( µBody.length, 0, 'empty set - µ( \'\' )' );
+        assert.equal( µBody[ 0 ], undefined, 'successfully fails' );
+
+        µBody = µ( false );
+        assert.equal( µBody.length, 0, 'empty set - µ( false )' );
+        assert.equal( µBody[ 0 ], undefined, 'successfully fails' );
+
+        µBody = µ( null );
+        assert.equal( µBody.length, 0, 'empty set - µ( null )' );
+        assert.equal( µBody[ 0 ], undefined, 'successfully fails' );
+
+        µBody = µ( {} );
+        assert.equal( µBody.length, 0, 'empty set - µ( {} )' );
+        assert.equal( µBody[ 0 ], undefined, 'successfully fails' );
+
+        µBody = µ( undefined );
+        assert.equal( µBody.length, 0, 'empty set - µ( undefined )' );
+        assert.equal( µBody[ 0 ], undefined, 'successfully fails' );
 
         buildTest(
         'µ( [] )', function()
@@ -127,6 +201,7 @@ module.exports = function( buildTest )
 
         assert.equal( µDiv.length, 1, 'one div' );
         assert.deepEqual( µDiv[ 0 ], _div[0], 'passes' );
+        assert.equal( µ( '.exarmple.classssss' ).length, 0, 'successfully fails' );
 
         buildTest(
         'µ( \'.example--class.example--class--groups\' )', function()
@@ -154,6 +229,7 @@ module.exports = function( buildTest )
 
         assert.equal( µDiv.length, 1, 'one div' );
         assert.deepEqual( µDiv[ 0 ], _div, 'passes' );
+        assert.equal( µ( '#exarmple-iddddd' ).length, 0, 'successfully fails' );
 
         buildTest(
         'µ( \'#example--id\' )', function()
@@ -181,6 +257,7 @@ module.exports = function( buildTest )
 
         assert.equal( µDiv.length, 1, 'one div' );
         assert.deepEqual( µDiv[ 0 ], _div, 'passes' );
+        assert.equal( µ( '#idand.classssss' ).length, 0, 'successfully fails' );
 
         buildTest(
         'µ( \'#example--combined.example--combined\' )', function()
@@ -208,6 +285,7 @@ module.exports = function( buildTest )
 
         assert.equal( µDiv[ 0 ].tagName, 'DIV', 'correct element' );
         assert.deepEqual( µDiv[ 0 ], _div, 'passes' );
+        assert.equal( µ( 'exarmple' ).length, 0, 'successfully fails' );
 
         buildTest(
         'µ( \'div\' )', function()
@@ -235,6 +313,7 @@ module.exports = function( buildTest )
 
         assert.equal( µDiv.length, 1, 'one div' );
         assert.deepEqual( µDiv[ 0 ], _div, 'passes' );
+        assert.equal( µ( 'example#exarmple.classssss' ).length, 0, 'successfully fails' );
 
         buildTest(
         'µ( \'div#example--combined.example--combined\' )', function()
@@ -262,6 +341,8 @@ module.exports = function( buildTest )
 
         assert.equal( µDiv.length, 2, 'two divs' );
         assert.equal( µDiv[0].tagName, 'DIV', 'correct element' );
+        assert.equal( µ( '.exarmple-classssss', µ( 'exarmple' ) ).length, 0, 'successfully fails scope' );
+        assert.equal( µ( '.exarmple-classssss', µ( 'div' ) ).length, 0, 'successfully fails query' );
 
         buildTest(
         'µ( \'div\', µDiv )', function()
@@ -320,6 +401,7 @@ module.exports = function( buildTest )
 
         µDiv = µ( µDiv[0], '.example--class--groups' );
         assert.equal( µDiv.length, 1, '1 divs from a string and an element' );
+        assert.equal( µ( '.exarmple-classssss', 'exarmple' ).length, 0, 'successfully fails scope' );
 
         buildTest(
         'µ( \'h1\', \'div\' )', function()

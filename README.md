@@ -1,4 +1,4 @@
-µ - Microbe - 0.4.4
+µ - Microbe - 0.4.5
 ===================
 
 microbe is a javascript library to aid in DOM manipulation as well as facilitating events, object observation, and data binding.
@@ -96,13 +96,26 @@ We gladly accept and review any pull-requests. Feel free! :heart:
 
 This project adheres to the [Open Code of Conduct](http://todogroup.org/opencodeofconduct/#microbe.js/report@m.icro.be). By participating, you are expected to honor this code.
 
-[http://m.icro.be/code-of-conduct/](http://m.icro.be/code-of-conduct/)
+[Microbe - Code of Conduct](http://m.icro.be/code-of-conduct/)
 
 Need to report something? [report@m.icro.be](report@m.icro.be)
 
 
 Change log
 ==========
+
+#### 0.4.5
+
++ updated core.remove
++ core and dom now check before they use something from a different module
++ updated gulpfile, tests, docs, and comments
++ cytoplasm utils split into coreUtils and rootUtils
++ cytoplasm now accepts html strings for element creation (single or multiple elements)
++ selector strings of multiple classes arer now 10x faster
++ code cleaned of unused variables
++ many push replaces with null -> filter
++ iteration abstracted
+
 
 #### 0.4.2
 
