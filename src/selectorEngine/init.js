@@ -13,6 +13,7 @@ module.exports = function( Microbe, _type )
 {
     'use strict';
 
+    Microbe.core        = {};
     var trigger, _shortSelector;
 
     var selectorRegex = Microbe.prototype.__selectorRegex =  /(?:[\s]*\.([\w-_\.]+)|#([\w-_]+)|([^#\.:<][\w-_]*)|(<[\w-_#\.]+>)|:([^#\.<][\w-()_]*))/g;

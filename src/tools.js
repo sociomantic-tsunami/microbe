@@ -611,7 +611,7 @@ module.exports = function( Microbe )
      */
     Microbe.toArray = function( _arr )
     {
-        return this.slice.call( _arr || this );
+        return Array.prototype.slice.call( _arr || this );
     };
 
 
@@ -655,6 +655,7 @@ module.exports = function( Microbe )
      *
      * https://en.wikipedia.org/wiki/Xyzzy_(computing)
      *
-     * @return _void_ */
+     * @return _void_ 
+     */
     Microbe.xyzzy   = Microbe.noop;
 };

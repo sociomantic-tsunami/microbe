@@ -30,9 +30,8 @@ var Microbe = function( selector, scope, elements )
     return new Microbe.core.__init__( selector, scope, elements );
 };
 
-Microbe.type    = _type;
-Microbe.core    = {};
 
+require( './selectorEngine/init' )( Microbe, _type );
 require( './tools' )( Microbe );
 require( './array' )( Microbe );
 require( './dom' )( Microbe );
@@ -41,10 +40,8 @@ require( './http' )( Microbe );
 require( './observe' )( Microbe );
 require( './events' )( Microbe );
 
-
-require( './selectorEngine/init' )( Microbe, _type, _version );
-Microbe.version = Microbe.core.__init__.prototype.version = _version;
-module.exports 	= Microbe.core.constructor = Microbe;
+Microbe.version     = Microbe.core.__init__.prototype.version = _version;
+module.exports      = Microbe.core.constructor = Microbe;
 
 },{"./array":12,"./dom":13,"./elements":14,"./events":15,"./http":16,"./observe":17,"./selectorEngine/init":19,"./tools":22}],2:[function(require,module,exports){
 // shim for using process in browser
@@ -3383,9 +3380,6 @@ module.exports = function( Microbe )
  *
  * @package Microbe
  */
-var splice      = Array.prototype.splice;
-var indexOf     = Array.prototype.indexOf;
-
 var _cleanArray = function( _r ){ return !!( _r ); };
 
 module.exports = function( Microbe )
@@ -3799,23 +3793,10 @@ module.exports = function( Microbe )
      *
      * @return _String_
      */
-    Microbe.toString = function()
+    Microbe.core.toString = function()
     {
-        return Microbe.type;
+        return this.type;
     };
-    // /**
-    //  * ## splice
-    //  *
-    //  * Native splice wrapped in a microbe
-    //  *
-    //  * @return _Microbe_ new microbe of the remaining elements
-    //  */
-    // Microbe.core.splice = function( _start, _end )
-    // {
-    //     var arr = splice.call( this, _start, _end );
-
-    //     return this.constructor( arr );
-    // };
 };
 },{}],19:[function(require,module,exports){
 /**
@@ -3833,6 +3814,7 @@ module.exports = function( Microbe, _type )
 {
     'use strict';
 
+    Microbe.core        = {};
     var trigger, _shortSelector;
 
     var selectorRegex = Microbe.prototype.__selectorRegex =  /(?:[\s]*\.([\w-_\.]+)|#([\w-_]+)|([^#\.:<][\w-_]*)|(<[\w-_#\.]+>)|:([^#\.<][\w-()_]*))/g;
@@ -5947,7 +5929,7 @@ module.exports = function( Microbe )
      */
     Microbe.toArray = function( _arr )
     {
-        return this.slice.call( _arr || this );
+        return Array.prototype.slice.call( _arr || this );
     };
 
 
@@ -5991,7 +5973,8 @@ module.exports = function( Microbe )
      *
      * https://en.wikipedia.org/wiki/Xyzzy_(computing)
      *
-     * @return _void_ */
+     * @return _void_ 
+     */
     Microbe.xyzzy   = Microbe.noop;
 };
 

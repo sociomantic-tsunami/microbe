@@ -133,7 +133,6 @@ require( './selectorEngine/init' )( buildTest );
 require( './selectorEngine/pseudo' )( buildTest );
 require( './selectorEngine/core' )( buildTest );
 require( './selectorEngine/root' )( buildTest );
-require( './manipulators' )( buildTest );
 require( './elements' )( buildTest );
 require( './tools' )( buildTest );
 require( './http' )( buildTest );
