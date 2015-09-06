@@ -195,6 +195,8 @@ module.exports = function( Microbe )
                 }
                 else
                 {
+                    console.trace();
+                    console.log( 'obj: ', obj.type, 'filter: ', filter );
                     obj = obj.find( filter );
                     connect = false;
                 }

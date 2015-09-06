@@ -29,7 +29,7 @@ module.exports = function( Microbe )
      *
      * @return _Array_ array of values
      */
-    Microbe.prototype.get = function( prop )
+    Microbe.core.get = function( prop )
     {
         var _get = function( _el )
         {
@@ -39,7 +39,7 @@ module.exports = function( Microbe )
             }
             else
             {
-                if ( _el.data[ prop ] && _el.data[ prop ][ prop ] )
+                if ( _el.data && _el.data[ prop ] && _el.data[ prop ][ prop ] )
                 {
                     return _el.data[ prop ][ prop ];
                 }
@@ -65,7 +65,7 @@ module.exports = function( Microbe )
      *
      * @return _Microbe_  reference to original microbe
      */
-    Microbe.prototype.observe = function( prop, func, _once )
+    Microbe.core.observe = function( prop, func, _once )
     {
         var _observe = function( _elm )
         {
@@ -157,7 +157,7 @@ module.exports = function( Microbe )
      *
      * @return _Microbe_ reference to original microbe
      */
-    Microbe.prototype.observeOnce = function( func, _prop )
+    Microbe.core.observeOnce = function( func, _prop )
     {
         this.observe( func, _prop, true );
     };
@@ -173,7 +173,7 @@ module.exports = function( Microbe )
      *
      * @return _Microbe_ reference to original microbe
      */
-    Microbe.prototype.set = function( prop, value )
+    Microbe.core.set = function( prop, value )
     {
         var _set = function( _el )
         {
@@ -213,7 +213,7 @@ module.exports = function( Microbe )
      *
      * @return _Microbe_ reference to original microbe
      */
-    Microbe.prototype.unobserve = function( _prop )
+    Microbe.core.unobserve = function( _prop )
     {
         var _unobserve = function( _elm )
         {

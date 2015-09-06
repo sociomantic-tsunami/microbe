@@ -416,16 +416,27 @@ module.exports = function( Microbe )
 
 
     /**
-     * ## splice
+     * ## toString
      *
-     * Native splice wrapped in a microbe
+     * Methods returns the type of Microbe.
      *
-     * @return _Microbe_ new microbe of the remaining elements
+     * @return _String_
      */
-    Microbe.core.splice = function( _start, _end )
+    Microbe.toString = function()
     {
-        var arr = splice.call( this, _start, _end );
-
-        return this.constructor( arr );
+        return Microbe.type;
     };
+    // /**
+    //  * ## splice
+    //  *
+    //  * Native splice wrapped in a microbe
+    //  *
+    //  * @return _Microbe_ new microbe of the remaining elements
+    //  */
+    // Microbe.core.splice = function( _start, _end )
+    // {
+    //     var arr = splice.call( this, _start, _end );
+
+    //     return this.constructor( arr );
+    // };
 };
