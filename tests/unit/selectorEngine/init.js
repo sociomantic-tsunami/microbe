@@ -1,7 +1,7 @@
 /* global document, window, µ, $, QUnit, Benchmark, buildTest  */
 module.exports = function( buildTest )
 {
-    QUnit.module( 'cytoplasm/cytoplasm.js' );
+    QUnit.module( 'selectorEngine/init.js' );
 
 
     /**

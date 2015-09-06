@@ -31,6 +31,6 @@ require( './observe' )( Microbe );
 require( './events' )( Microbe );
 
 
-require( './cytoplasm/cytoplasm' )( Microbe, _type, _version );
+require( './selectorEngine/init' )( Microbe, _type, _version );
 Microbe.version = Microbe.core.__init__.prototype.version = _version;
 module.exports 	= Microbe.core.constructor = Microbe;

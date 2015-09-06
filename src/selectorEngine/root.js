@@ -7,7 +7,7 @@
  * @package Microbe
  */
 
-module.exports = function( Cytoplasm )
+module.exports = function( Microbe )
 {
     'use strict';
 
@@ -21,7 +21,7 @@ module.exports = function( Cytoplasm )
      *
      * @return _Boolean_ whether _el is contained in the scope
      */
-    Cytoplasm.contains = function( _el, _scope )
+    Microbe.contains = function( _el, _scope )
     {
         var parent = _el.parentNode;
 
@@ -50,7 +50,7 @@ module.exports = function( Cytoplasm )
      *
      * @return _Booblean_ matches or not
      */
-    Cytoplasm.matches = function( el, selector )
+    Microbe.matches = function( el, selector )
     {
         var method  = this.matches.__matchesMethod;
         var notForm = ( typeof el !== 'string' && !!( el.length ) &&

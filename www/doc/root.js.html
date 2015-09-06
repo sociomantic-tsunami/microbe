@@ -103,11 +103,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Mouse Braun         <a href="&#x6D;&#97;&#x69;&#108;&#x74;&#111;:&#109;&#x6F;&#x75;&#115;&#101;&#64;&#115;&#111;&#x63;&#x69;&#111;&#x6D;&#97;&#x6E;&#116;&#105;&#x63;&#x2E;&#99;&#111;&#x6D;">&#109;&#x6F;&#x75;&#115;&#101;&#64;&#115;&#111;&#x63;&#x69;&#111;&#x6D;&#97;&#x6E;&#116;&#105;&#x63;&#x2E;&#99;&#111;&#x6D;</a></span>
+      <span>Mouse Braun         <a href="&#109;&#97;&#x69;&#108;&#x74;&#111;:m&#x6F;&#117;&#115;&#101;&#64;&#115;&#111;&#x63;&#105;&#x6F;&#109;&#x61;&#110;t&#105;&#x63;&#x2E;&#99;&#x6F;&#x6D;">m&#x6F;&#117;&#115;&#101;&#64;&#115;&#111;&#x63;&#105;&#x6F;&#109;&#x61;&#110;t&#105;&#x63;&#x2E;&#99;&#x6F;&#x6D;</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Nicolas Brugneaux   <a href="&#x6D;&#x61;&#x69;&#x6C;&#116;&#x6F;:&#110;&#105;&#99;&#x6F;&#108;as&#46;&#98;&#114;u&#103;&#x6E;&#101;&#x61;&#117;&#x78;&#64;&#115;&#x6F;&#x63;&#105;&#111;m&#x61;&#x6E;t&#105;c&#x2E;&#99;o&#109;">&#110;&#105;&#99;&#x6F;&#108;as&#46;&#98;&#114;u&#103;&#x6E;&#101;&#x61;&#117;&#x78;&#64;&#115;&#x6F;&#x63;&#105;&#111;m&#x61;&#x6E;t&#105;c&#x2E;&#99;o&#109;</a></span>
+      <span>Nicolas Brugneaux   <a href="&#x6D;&#x61;&#105;l&#x74;&#x6F;:n&#x69;&#x63;&#111;&#x6C;&#97;&#x73;&#x2E;&#x62;&#x72;&#x75;g&#110;&#101;&#x61;&#x75;&#120;&#x40;&#115;&#111;c&#105;&#111;&#x6D;&#x61;&#110;&#116;&#105;c&#x2E;&#x63;&#111;&#x6D;">n&#x69;&#x63;&#111;&#x6C;&#97;&#x73;&#x2E;&#x62;&#x72;&#x75;g&#110;&#101;&#x61;&#x75;&#120;&#x40;&#115;&#111;c&#105;&#111;&#x6D;&#x61;&#110;&#116;&#105;c&#x2E;&#x63;&#111;&#x6D;</a></span>
     </div>
     <div class="dox_tag_title">package</div>
     <div class="dox_tag_detail">
@@ -245,7 +245,7 @@ type that it was given</p>
 
         <span class="k">return</span> <span class="kd">function</span><span class="p">()</span>
         <span class="p">{</span>
-            <span class="kd">var</span> <span class="nx">context</span> <span class="o">=</span> <span class="k">this</span><span class="p">,</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">,</span>
                 <span class="nx">args</span>    <span class="o">=</span> <span class="nx">arguments</span><span class="p">;</span>
 
             <span class="kd">var</span> <span class="nx">later</span>   <span class="o">=</span> <span class="kd">function</span><span class="p">()</span>
@@ -254,7 +254,7 @@ type that it was given</p>
 
                 <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nx">immediate</span> <span class="p">)</span>
                 <span class="p">{</span>
-                    <span class="nx">_func</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">args</span> <span class="p">);</span>
+                    <span class="nx">_func</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span> <span class="nx">self</span><span class="p">,</span> <span class="nx">args</span> <span class="p">);</span>
                 <span class="p">}</span>
             <span class="p">};</span>
 
@@ -264,7 +264,7 @@ type that it was given</p>
 
             <span class="k">if</span> <span class="p">(</span> <span class="nx">callNow</span> <span class="p">)</span>
             <span class="p">{</span>
-                <span class="nx">_func</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">args</span> <span class="p">);</span>
+                <span class="nx">_func</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span> <span class="nx">self</span><span class="p">,</span> <span class="nx">args</span> <span class="p">);</span>
             <span class="p">}</span>
         <span class="p">};</span>
     <span class="p">};</span>
@@ -741,7 +741,7 @@ the contents</p>
 </div>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">once</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_func</span><span class="p">,</span> <span class="nx">context</span> <span class="p">)</span>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">once</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_func</span><span class="p">,</span> <span class="nx">self</span> <span class="p">)</span>
     <span class="p">{</span>
         <span class="kd">var</span> <span class="nx">result</span><span class="p">;</span>
 
@@ -749,7 +749,7 @@ the contents</p>
         <span class="p">{</span>
             <span class="k">if</span><span class="p">(</span> <span class="nx">_func</span> <span class="p">)</span>
             <span class="p">{</span>
-                <span class="nx">result</span>  <span class="o">=</span> <span class="nx">_func</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span> <span class="nx">context</span> <span class="o">||</span> <span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span> <span class="p">);</span>
+                <span class="nx">result</span>  <span class="o">=</span> <span class="nx">_func</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span> <span class="nx">self</span> <span class="o">||</span> <span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span> <span class="p">);</span>
                 <span class="nx">_func</span>   <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
             <span class="p">}</span>
 
@@ -879,9 +879,8 @@ also be passed as the second variable</p>
     <div class="dox_tag_detail">
       <span class="dox_tag_name">properties</span>
       <span class="dox_type">Mixed</span>
-      <span>css properties to remove
-                                                 'all' to remove all selector tags
-                                                 string as media query {String or Array}</span>
+      <span>css properties to remove 'all' to remove all 
+                selector tags string as media query {String or Array}</span>
     </div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name">media</span>
@@ -1034,7 +1033,10 @@ also be passed as the second variable</p>
 </div>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">toArray</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">toArray</span><span class="p">;</span>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">toArray</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">toArray</span> <span class="o">||</span><span class="err"> </span><span class="kd">function</span><span class="p">(</span> <span class="nx">_arr</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="nx">_arr</span> <span class="o">||</span> <span class="k">this</span> <span class="p">);</span>
+    <span class="p">};</span>
 
 
 
@@ -1064,7 +1066,10 @@ also be passed as the second variable</p>
 </div>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">toString</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">toString</span><span class="p">;</span>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">toString</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">toString</span> <span class="o">||</span><span class="err"> </span><span class="kd">function</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span><span class="err"> </span><span class="nx">Microbe</span><span class="p">.</span><span class="nx">type</span><span class="p">;</span>
+    <span class="p">};</span>
 
 
 

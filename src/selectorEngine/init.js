@@ -1,10 +1,10 @@
 /**
- * Cytoplasm.js
+ * Microbe.js
  *
  * @author  Mouse Braun         <mouse@sociomantic.com>
  * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
  *
- * @package Cytoplasm
+ * @package Microbe
  */
 
 var slice = Array.prototype.slice;
@@ -22,12 +22,12 @@ module.exports = function( _c, _type )
     /**
      * ## _build
      *
-     * Builds and returns the final Cytoplasm
+     * Builds and returns the final Microbe
      *
      * @param {Array} _elements array of elements
      * @param {String} _selector selector
      *
-     * @return _Cytoplasm_ Cytoplasm wrapped elements
+     * @return _Microbe_ Microbe wrapped elements
      */
     function _build( _elements, self )
     {
@@ -47,12 +47,12 @@ module.exports = function( _c, _type )
     /**
      * ## _create
      *
-     * Method creates Cytoplasm from a passed string, and returns it
+     * Method creates Microbe from a passed string, and returns it
      *
      * @param {String} _el element to create
      * @param {Object} this reference to pass on to _build
      *
-     * @return _Cytoplasm_
+     * @return _Microbe_
      */
     function _create( _el, self )
     {
@@ -107,12 +107,12 @@ module.exports = function( _c, _type )
     /**
      * ## _createHtml
      * 
-     * Method creates a Cytoplasm from an html string, and returns it
+     * Method creates a Microbe from an html string, and returns it
      *
      * @param {String} _el element to create
      * @param {Object} this reference to pass on to _build
      *
-     * @return _Cytoplasm_
+     * @return _Microbe_
      */
     function _createHtml( _el, self )
     {
@@ -159,9 +159,9 @@ module.exports = function( _c, _type )
      * if ther is no scope and there is only a simple selector
      *
      * @param {String} _s   selector string
-     * @param {Object} self this empty Cytoplasm
+     * @param {Object} self this empty Microbe
      *
-     * @return _Cytoplasm_
+     * @return _Microbe_
      */
     function _noScopeSimple( _s, self )
     {
@@ -229,7 +229,7 @@ module.exports = function( _c, _type )
      *
      * Constructor.
      *
-     * Either selects or creates an HTML element and wraps it into a Cytoplasm instance.
+     * Either selects or creates an HTML element and wraps it into a Microbe instance.
      * Usage:   µ()                             ---> empty
      *          µ( '' )                         ---> empty
      *          µ( [] )                         ---> empty
@@ -240,10 +240,10 @@ module.exports = function( _c, _type )
      *          µ( '<div id="test"></div>' )    ---> creation
      *
      * @param {Mixed} _selector HTML selector (Element String Array)
-     * @param {Mixed} _scope scope to look inside (Element String Cytoplasm)
-     * @param {Mixed} _elements elements to fill Cytoplasm with (optional) (Element or Array)
+     * @param {Mixed} _scope scope to look inside (Element String Microbe)
+     * @param {Mixed} _elements elements to fill Microbe with (optional) (Element or Array)
      *
-     * @return _Cytoplasm_
+     * @return _Microbe_
      */
     var Init = _c.core.__init__ =  function( _selector, _scope, _elements )
     {

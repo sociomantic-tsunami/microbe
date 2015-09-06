@@ -3,7 +3,7 @@ var indexOf = Array.prototype.indexOf;
 
 module.exports = function( buildTest )
 {
-    QUnit.module( 'cytoplasm/rootUtils.js' );
+    QUnit.module( 'selectorEngine/root.js' );
 
     /**
      * pseudo custom connectors tests
