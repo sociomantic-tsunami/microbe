@@ -93,6 +93,13 @@ Contributing
 
 We gladly accept and review any pull-requests. Feel free! :heart:
 
+Otherwise, if you just want to talk, we are very easy to get a hold of!
+
++ Email:          hello@m.icro.be
++ Web:            http://m.icro.be
++ Git:            https://github.com/sociomantic/microbe/
++ IRC (freenode): #microbe
+
 
 This project adheres to the [Open Code of Conduct](http://todogroup.org/opencodeofconduct/#microbe.js/report@m.icro.be). By participating, you are expected to honor this code.
 
@@ -106,15 +113,17 @@ Change log
 
 #### 0.4.5
 
-+ updated core.remove
++ updated remove
 + core and dom now check before they use something from a different module
-+ updated gulpfile, tests, docs, and comments
-+ cytoplasm utils split into coreUtils and rootUtils
++ updated readme, gulpfile, tests, docs, and comments
++ selectorEngine utils split into core and root
 + cytoplasm now accepts html strings for element creation (single or multiple elements)
 + selector strings of multiple classes arer now 10x faster
 + code cleaned of unused variables
 + many push replaces with null -> filter
 + iteration abstracted
++ changed internal structure to allow for closed array.prototype use
++ added contact info to readme
 
 
 #### 0.4.2

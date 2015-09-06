@@ -58,6 +58,60 @@ module.exports = function( buildTest )
 
 
     /**
+     * µ off tests
+     *
+     * @test    off exists
+     * @test    listener removed
+     */
+    QUnit.test( '.off()', function( assert )
+    {
+        assert.ok( µ().off, 'exists' );
+
+        var µExamples   = µ( '.example--class' );
+
+        µExamples.on( 'turningOff', function( e ){});
+        µExamples.off( 'turningOff' );
+        var func = µExamples[0].data[ '_turningOff-bound-function' ][ '_turningOff-bound-function' ][0];
+
+        assert.equal( func, null, 'listener removed' );
+
+
+        var µDiv = µ( 'div' );
+        var $Div = $( 'div' );
+
+        var vanillaAddListener = function( divs )
+        {
+            for ( var i = 0, lenI = divs.length; i < lenI; i++ )
+            {
+                divs[ i ].addEventListener( 'click', _func );
+                var aDiv = divs[ i ].data       = divs[ i ].data || {};
+                aDiv[ '_click-bound-function' ] = aDiv[ '_click-bound-function' ] || {};
+                aDiv[ '_click-bound-function' ][ '_click-bound-function' ] = [ _func ];
+            }
+        };
+
+        var keyCode;
+        var _func = function( e )
+        {
+            keyCode = e.keyCode;
+        };
+
+        buildTest(
+        'µ( \'div\' ).off( \'click\', _func )', function()
+        {
+            vanillaAddListener( µDiv );
+            µDiv.off( 'click', _func );
+        },
+
+        '$( \'div\' ).off( \'click\', _func )', function()
+        {
+            vanillaAddListener( $Div );
+            $Div.off( 'click', _func );
+        } );
+    });
+
+
+    /**
      * µ on tests
      *
      * @test    on exists
@@ -115,60 +169,6 @@ module.exports = function( buildTest )
         {
             $Div.on( 'click', _func );
             vanillaRemoveListener( $Div );
-        } );
-    });
-
-
-    /**
-     * µ off tests
-     *
-     * @test    off exists
-     * @test    listener removed
-     */
-    QUnit.test( '.off()', function( assert )
-    {
-        assert.ok( µ().off, 'exists' );
-
-        var µExamples   = µ( '.example--class' );
-
-        µExamples.on( 'turningOff', function( e ){});
-        µExamples.off( 'turningOff' );
-        var func = µExamples[0].data[ '_turningOff-bound-function' ][ '_turningOff-bound-function' ][0];
-
-        assert.equal( func, null, 'listener removed' );
-
-
-        var µDiv = µ( 'div' );
-        var $Div = $( 'div' );
-
-        var vanillaAddListener = function( divs )
-        {
-            for ( var i = 0, lenI = divs.length; i < lenI; i++ )
-            {
-                divs[ i ].addEventListener( 'click', _func );
-                var aDiv = divs[ i ].data       = divs[ i ].data || {};
-                aDiv[ '_click-bound-function' ] = aDiv[ '_click-bound-function' ] || {};
-                aDiv[ '_click-bound-function' ][ '_click-bound-function' ] = [ _func ];
-            }
-        };
-
-        var keyCode;
-        var _func = function( e )
-        {
-            keyCode = e.keyCode;
-        };
-
-        buildTest(
-        'µ( \'div\' ).off( \'click\', _func )', function()
-        {
-            vanillaAddListener( µDiv );
-            µDiv.off( 'click', _func );
-        },
-
-        '$( \'div\' ).off( \'click\', _func )', function()
-        {
-            vanillaAddListener( $Div );
-            $Div.off( 'click', _func );
         } );
     });
 };

@@ -49,7 +49,7 @@
         <a href="#siblingsflat">siblingsFlat</a>
       </div>
       <div class="heading h2">
-        <a href="#splice">splice</a>
+        <a href="#tostring">toString</a>
       </div>
     </div>
   </div>
@@ -76,11 +76,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Mouse Braun         <a href="&#109;&#x61;&#105;&#x6C;&#116;&#111;:&#x6D;&#x6F;&#117;&#x73;&#101;&#x40;&#115;&#111;&#x63;&#105;&#x6F;&#x6D;&#97;&#110;&#116;&#x69;&#99;&#x2E;&#x63;&#x6F;&#109;">&#x6D;&#x6F;&#117;&#x73;&#101;&#x40;&#115;&#111;&#x63;&#105;&#x6F;&#x6D;&#97;&#110;&#116;&#x69;&#99;&#x2E;&#x63;&#x6F;&#109;</a></span>
+      <span>Mouse Braun         <a href="&#x6D;&#x61;&#105;&#x6C;&#116;&#111;:&#x6D;&#x6F;&#117;&#115;&#x65;&#x40;&#x73;&#111;&#99;&#105;&#x6F;&#x6D;&#97;&#110;&#x74;&#105;c&#46;&#x63;&#x6F;&#109;">&#x6D;&#x6F;&#117;&#115;&#x65;&#x40;&#x73;&#111;&#99;&#105;&#x6F;&#x6D;&#97;&#110;&#x74;&#105;c&#46;&#x63;&#x6F;&#109;</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Nicolas Brugneaux   <a href="&#109;&#97;&#x69;&#x6C;&#116;&#x6F;:&#110;&#x69;&#99;&#111;l&#x61;&#115;&#x2E;&#98;&#114;u&#x67;&#110;&#101;&#97;ux&#64;&#x73;&#x6F;&#x63;&#105;&#111;&#109;&#97;&#110;&#116;&#x69;&#99;&#x2E;c&#111;&#x6D;">&#110;&#x69;&#99;&#111;l&#x61;&#115;&#x2E;&#98;&#114;u&#x67;&#110;&#101;&#97;ux&#64;&#x73;&#x6F;&#x63;&#105;&#111;&#109;&#97;&#110;&#116;&#x69;&#99;&#x2E;c&#111;&#x6D;</a></span>
+      <span>Nicolas Brugneaux   <a href="&#109;&#x61;&#105;&#108;&#x74;&#x6F;:&#110;&#x69;&#99;&#x6F;&#108;&#97;&#x73;&#46;&#x62;&#x72;&#x75;&#103;&#110;&#x65;&#97;u&#x78;&#x40;&#115;&#x6F;&#99;&#x69;&#x6F;&#x6D;&#x61;&#x6E;&#116;&#105;&#99;&#46;c&#x6F;&#x6D;">&#110;&#x69;&#99;&#x6F;&#108;&#97;&#x73;&#46;&#x62;&#x72;&#x75;&#103;&#110;&#x65;&#97;u&#x78;&#x40;&#115;&#x6F;&#99;&#x69;&#x6F;&#x6D;&#x61;&#x6E;&#116;&#105;&#99;&#46;c&#x6F;&#x6D;</a></span>
     </div>
     <div class="dox_tag_title">package</div>
     <div class="dox_tag_detail">
@@ -89,10 +89,7 @@
   </div>
 </div>
         </td>
-        <td class="code highlight"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">splice</span>      <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">splice</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">indexOf</span>     <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">;</span>
-
-<span class="kd">var</span> <span class="nx">_cleanArray</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_r</span> <span class="p">){</span> <span class="k">return</span> <span class="o">!!</span><span class="p">(</span> <span class="nx">_r</span> <span class="p">);</span> <span class="p">};</span>
+        <td class="code highlight"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">_cleanArray</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_r</span> <span class="p">){</span> <span class="k">return</span> <span class="o">!!</span><span class="p">(</span> <span class="nx">_r</span> <span class="p">);</span> <span class="p">};</span>
 
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">Microbe</span> <span class="p">)</span>
 <span class="p">{</span>
@@ -697,31 +694,29 @@ passed as direction return only the next or previous siblings of each element</p
       <tr>
         <td class="docs"><div class="dox">
   <div class="summary">
-<div class="pilwrap" id="splice">
+<div class="pilwrap" id="tostring">
   <h2>
-    <a href="#splice" name="splice" class="pilcrow">&#182;</a>
-    splice
+    <a href="#tostring" name="tostring" class="pilcrow">&#182;</a>
+    toString
   </h2>
 </div>
 
   </div>
-  <div class="body"><p>Native splice wrapped in a microbe</p>
+  <div class="body"><p>Methods returns the type of Microbe.</p>
   </div>
   <div class="details">
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span><em>Microbe</em> new microbe of the remaining elements</span>
+      <span><em>String</em></span>
     </div>
   </div>
 </div>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">splice</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_start</span><span class="p">,</span> <span class="nx">_end</span> <span class="p">)</span>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">toString</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span>
     <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="nx">splice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="k">this</span><span class="p">,</span> <span class="nx">_start</span><span class="p">,</span> <span class="nx">_end</span> <span class="p">);</span>
-
-        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">constructor</span><span class="p">(</span> <span class="nx">arr</span> <span class="p">);</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">type</span><span class="p">;</span>
     <span class="p">};</span>
 <span class="p">};</span>
 </pre></div>

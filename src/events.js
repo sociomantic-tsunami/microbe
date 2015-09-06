@@ -23,7 +23,7 @@ module.exports = function( Microbe )
      *
      * @return _Microbe_ reference to original microbe
      */
-    Microbe.prototype.emit = function ( _event, _data, _bubbles, _cancelable )
+    Microbe.core.emit = function ( _event, _data, _bubbles, _cancelable )
     {
         _bubbles    = _bubbles || false;
         _cancelable = _cancelable || false;
@@ -54,7 +54,7 @@ module.exports = function( Microbe )
      *
      * @return _Microbe_ reference to original microbe
      */
-    Microbe.prototype.off = function( _event, _callback )
+    Microbe.core.off = function( _event, _callback )
     {
         var filterFunction = function( e ){ return e; };
 
@@ -142,7 +142,7 @@ module.exports = function( Microbe )
      *
      * @return _Microbe_ reference to original microbe
      */
-    Microbe.prototype.on = function ( _event, _callback )
+    Microbe.core.on = function ( _event, _callback )
     {
         var _on = function( _elm )
         {

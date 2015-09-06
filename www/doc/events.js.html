@@ -58,11 +58,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Mouse Braun         <a href="&#x6D;&#97;&#105;&#x6C;&#x74;&#111;:&#x6D;&#111;&#x75;&#x73;&#x65;&#x40;s&#x6F;&#99;&#x69;&#x6F;&#109;&#97;n&#x74;&#105;&#x63;&#x2E;c&#x6F;&#x6D;">&#x6D;&#111;&#x75;&#x73;&#x65;&#x40;s&#x6F;&#99;&#x69;&#x6F;&#109;&#97;n&#x74;&#105;&#x63;&#x2E;c&#x6F;&#x6D;</a></span>
+      <span>Mouse Braun         <a href="m&#97;&#x69;lt&#x6F;:&#109;&#111;&#117;&#115;&#101;&#x40;&#x73;&#x6F;&#x63;&#105;&#x6F;m&#x61;&#x6E;&#x74;&#x69;&#99;&#x2E;&#99;&#111;&#x6D;">&#109;&#111;&#117;&#115;&#101;&#x40;&#x73;&#x6F;&#x63;&#105;&#x6F;m&#x61;&#x6E;&#x74;&#x69;&#99;&#x2E;&#99;&#111;&#x6D;</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Nicolas Brugneaux   <a href="&#109;&#x61;&#x69;&#x6C;to:&#110;&#105;&#99;&#x6F;&#108;&#97;&#115;&#46;&#x62;&#114;&#117;&#103;&#x6E;&#101;&#x61;&#117;&#120;&#64;&#115;&#x6F;&#x63;&#x69;o&#109;&#x61;&#x6E;&#x74;&#x69;&#x63;&#x2E;&#x63;&#x6F;&#109;">&#110;&#105;&#99;&#x6F;&#108;&#97;&#115;&#46;&#x62;&#114;&#117;&#103;&#x6E;&#101;&#x61;&#117;&#120;&#64;&#115;&#x6F;&#x63;&#x69;o&#109;&#x61;&#x6E;&#x74;&#x69;&#x63;&#x2E;&#x63;&#x6F;&#109;</a></span>
+      <span>Nicolas Brugneaux   <a href="&#109;&#x61;&#x69;&#108;&#x74;&#111;:&#x6E;&#105;&#99;&#x6F;&#108;&#x61;&#115;&#x2E;&#x62;r&#x75;&#x67;n&#x65;&#97;&#117;&#120;&#x40;&#x73;&#111;&#99;&#105;&#111;&#x6D;&#x61;&#x6E;&#x74;&#105;&#99;&#x2E;&#99;&#111;&#x6D;">&#x6E;&#105;&#99;&#x6F;&#108;&#x61;&#115;&#x2E;&#x62;r&#x75;&#x67;n&#x65;&#97;&#117;&#120;&#x40;&#x73;&#111;&#99;&#105;&#111;&#x6D;&#x61;&#x6E;&#x74;&#105;&#99;&#x2E;&#99;&#111;&#x6D;</a></span>
     </div>
     <div class="dox_tag_title">package</div>
     <div class="dox_tag_detail">
@@ -123,7 +123,7 @@
 </div>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">emit</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">_event</span><span class="p">,</span> <span class="nx">_data</span><span class="p">,</span> <span class="nx">_bubbles</span><span class="p">,</span> <span class="nx">_cancelable</span> <span class="p">)</span>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">emit</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">_event</span><span class="p">,</span> <span class="nx">_data</span><span class="p">,</span> <span class="nx">_bubbles</span><span class="p">,</span> <span class="nx">_cancelable</span> <span class="p">)</span>
     <span class="p">{</span>
         <span class="nx">_bubbles</span>    <span class="o">=</span> <span class="nx">_bubbles</span> <span class="o">||</span> <span class="kc">false</span><span class="p">;</span>
         <span class="nx">_cancelable</span> <span class="o">=</span> <span class="nx">_cancelable</span> <span class="o">||</span> <span class="kc">false</span><span class="p">;</span>
@@ -186,7 +186,7 @@
 </div>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">off</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_event</span><span class="p">,</span> <span class="nx">_callback</span> <span class="p">)</span>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">off</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_event</span><span class="p">,</span> <span class="nx">_callback</span> <span class="p">)</span>
     <span class="p">{</span>
         <span class="kd">var</span> <span class="nx">filterFunction</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">e</span> <span class="p">){</span> <span class="k">return</span> <span class="nx">e</span><span class="p">;</span> <span class="p">};</span>
 
@@ -302,7 +302,7 @@ given element.</p>
 </div>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">on</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">_event</span><span class="p">,</span> <span class="nx">_callback</span> <span class="p">)</span>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">on</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">_event</span><span class="p">,</span> <span class="nx">_callback</span> <span class="p">)</span>
     <span class="p">{</span>
         <span class="kd">var</span> <span class="nx">_on</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_elm</span> <span class="p">)</span>
         <span class="p">{</span>

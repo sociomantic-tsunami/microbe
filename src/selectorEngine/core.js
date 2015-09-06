@@ -6,9 +6,6 @@
  *
  * @package Microbe
  */
-var splice      = Array.prototype.splice;
-var indexOf     = Array.prototype.indexOf;
-
 var _cleanArray = function( _r ){ return !!( _r ); };
 
 module.exports = function( Microbe )
@@ -416,16 +413,14 @@ module.exports = function( Microbe )
 
 
     /**
-     * ## splice
+     * ## toString
      *
-     * Native splice wrapped in a microbe
+     * Methods returns the type of Microbe.
      *
-     * @return _Microbe_ new microbe of the remaining elements
+     * @return _String_
      */
-    Microbe.core.splice = function( _start, _end )
+    Microbe.core.toString = function()
     {
-        var arr = splice.call( this, _start, _end );
-
-        return this.constructor( arr );
+        return this.type;
     };
 };

@@ -9,13 +9,14 @@
 
 var slice = Array.prototype.slice;
 
-module.exports = function( _c, _type )
+module.exports = function( Microbe, _type )
 {
     'use strict';
 
+    Microbe.core        = {};
     var trigger, _shortSelector;
 
-    var selectorRegex = _c.prototype.__selectorRegex =  /(?:[\s]*\.([\w-_\.]+)|#([\w-_]+)|([^#\.:<][\w-_]*)|(<[\w-_#\.]+>)|:([^#\.<][\w-()_]*))/g;
+    var selectorRegex = Microbe.prototype.__selectorRegex =  /(?:[\s]*\.([\w-_\.]+)|#([\w-_]+)|([^#\.:<][\w-_]*)|(<[\w-_#\.]+>)|:([^#\.<][\w-()_]*))/g;
 
     // TODO: Check if we hit the duck
 
@@ -245,7 +246,7 @@ module.exports = function( _c, _type )
      *
      * @return _Microbe_
      */
-    var Init = _c.core.__init__ =  function( _selector, _scope, _elements )
+    var Init = Microbe.core.__init__ =  function( _selector, _scope, _elements )
     {
         var res;
         if ( !_scope )
@@ -384,12 +385,12 @@ module.exports = function( _c, _type )
         return _build( _scope.querySelectorAll( _selector ), this );
     };
 
-    _c.core.type                 = _type;
-    _c.core.__init__.prototype   = _c.core;
+    Microbe.core.type                 = _type;
+    Microbe.core.__init__.prototype   = Microbe.core;
 
-    require( './core' )( _c );
-    require( './root' )( _c );
-    require( './pseudo' )( _c );
+    require( './core' )( Microbe );
+    require( './root' )( Microbe );
+    require( './pseudo' )( Microbe );
 
-    var _pseudo = _c.constructor.pseudo;
+    var _pseudo = Microbe.constructor.pseudo;
 };
