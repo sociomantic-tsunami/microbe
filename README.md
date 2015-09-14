@@ -1,6 +1,8 @@
 µ - Microbe - 0.4.5
 ===================
 
+[![Join the chat at https://gitter.im/sociomantic/microbe](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/sociomantic/microbe?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 microbe is a javascript library to aid in DOM manipulation as well as facilitating events, object observation, and data binding.
 
 microbe aims to be modular and expandable. It’s separated into several modules:
