@@ -1,6 +1,6 @@
 var gulp            = require( 'gulp' );
 var fs              = require( 'fs' );
-var clean           = require( 'gulp-rimraf' );
+var del             = require( 'del' );
 var replace         = require( 'gulp-replace' );
 var uglify          = require( 'gulp-uglify' );
 var rename          = require( 'gulp-rename' );
@@ -71,10 +71,12 @@ gulp.task( 'tests', function()
 });
 
 
-gulp.task('clean', function()
+gulp.task(  'clean', function ()
 {
-    return gulp.src( [ 'dist/' ], { read: false } ).pipe( clean() );
-});
+  return del( [
+    'dist/'
+  ] );
+} );
 
 
 gulp.task( 'default', [], function()

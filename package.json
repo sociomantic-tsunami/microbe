@@ -13,14 +13,16 @@
   },
   "scripts": {
     "get-dependencies": "npm install . && echo \"Installation complete.\"",
-    "build": "gulp && echo \"Build complete.\"",
-    "test": "gulp test && echo \"Tests complete.\"",
-    "start": "gulp",
-    "watch": "gulp watch",
+    "gulp": "./node_modules/.bin/gulp && echo \"Build complete.\"",
+    "build": "./node_modules/.bin/gulp && echo \"Build complete.\"",
+    "test": "./node_modules/.bin/gulp test && echo \"Tests complete.\"",
+    "clean": "./node_modules/.bin/gulp clean && echo \"Dist cleaned.\"",
+    "watch": "./node_modules/.bin/gulp watch",
     "docs": "docker -o www/doc/ -i src --sidebar true --watch --js dist/microbe.js --extras fileSearch -c manni"
   },
   "devDependencies": {
     "browserify": "^5.11.2",
+    "del": "^2.0.2",
     "docker": "git://github.com/nicolasbrugneaux/docker.git#patch-1",
     "gulp": "^3.8.7",
     "gulp-header": "^1.2.2",
