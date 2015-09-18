@@ -1780,7 +1780,7 @@ module.exports = function( buildTest )
 },{}],14:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 var indexOf = Array.prototype.indexOf;
-var version = '0.4.5';
+var version = '0.4.6';
 
 module.exports = function( buildTest )
 {
@@ -2139,7 +2139,7 @@ module.exports = function( buildTest )
     });
 
 
-    
+
     /**
      * µ toString tests
      *
@@ -2167,7 +2167,7 @@ module.exports = function( buildTest )
         } );
     });
 
-    
+
     /**
      * µ type test
      *
