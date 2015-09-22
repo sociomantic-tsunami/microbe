@@ -2,7 +2,7 @@
 
 module.exports = function( buildTest )
 {
-    var version = '0.4.5';
+    var version = '0.4.6';
 
     QUnit.module( 'elements.js' );
 

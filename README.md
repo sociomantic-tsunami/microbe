@@ -114,6 +114,11 @@ Need to report something? [report@m.icro.be](report@m.icro.be)
 Change log
 ==========
 
+#### 0.4.6
+
++ moved functions and structure to enable modular building
+
+
 #### 0.4.5
 
 + updated remove
