@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>observe.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../", thisFile = "Library/WebServer/Documents/microbe//modules/observe.js", defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+  <script src="../microbe.js"></script>
+  <script src="../fileSearch.js"></script>
+  <link rel="stylesheet" href="../fileSearch.css" />
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h2">
+        <a href="#get">get</a>
+      </div>
+      <div class="heading h2">
+        <a href="#observe">observe</a>
+      </div>
+      <div class="heading h2">
+        <a href="#observeonce">observeOnce</a>
+      </div>
+      <div class="heading h2">
+        <a href="#set">set</a>
+      </div>
+      <div class="heading h2">
+        <a href="#unobserve">unobserve</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>observe.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>observe.js</p>
+  </div>
+  <div class="body">
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">author</div>
+    <div class="dox_tag_detail">
+      <span>Mouse Braun         <a href="&#x6D;&#x61;i&#108;&#116;&#x6F;:&#x6D;o&#117;&#x73;&#x65;&#64;&#115;&#111;&#x63;&#x69;&#111;&#109;&#97;&#x6E;&#x74;&#x69;&#x63;&#x2E;&#99;&#111;&#x6D;">&#x6D;o&#117;&#x73;&#x65;&#64;&#115;&#111;&#x63;&#x69;&#111;&#109;&#97;&#x6E;&#x74;&#x69;&#x63;&#x2E;&#99;&#111;&#x6D;</a></span>
+    </div>
+    <div class="dox_tag_title">author</div>
+    <div class="dox_tag_detail">
+      <span>Nicolas Brugneaux   <a href="&#x6D;a&#105;&#108;&#116;&#111;:&#110;&#x69;c&#111;la&#x73;.&#98;&#114;&#x75;g&#x6E;&#x65;&#97;&#117;x&#64;&#x73;&#111;&#x63;i&#x6F;&#x6D;&#x61;&#110;t&#105;&#x63;&#x2E;&#x63;&#x6F;&#x6D;">&#110;&#x69;c&#111;la&#x73;.&#98;&#114;&#x75;g&#x6E;&#x65;&#97;&#117;x&#64;&#x73;&#111;&#x63;i&#x6F;&#x6D;&#x61;&#110;t&#105;&#x63;&#x2E;&#x63;&#x6F;&#x6D;</a></span>
+    </div>
+    <div class="dox_tag_title">package</div>
+    <div class="dox_tag_detail">
+      <span>Microbe</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">Microbe</span> <span class="p">)</span>
+<span class="p">{</span>
+    <span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-2" id="section-2">&#182;</a>
+</div>
+<p>shim needed for observe</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="k">if</span> <span class="p">(</span> <span class="o">!</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">observe</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;setimmediate&#39;</span> <span class="p">);</span>
+        <span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;observe-shim&#39;</span> <span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">ObserveUtils</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;observe-utils&#39;</span> <span class="p">);</span>
+    <span class="p">}</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="get">
+  <h2>
+    <a href="#get" name="get" class="pilcrow">&#182;</a>
+    get
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>gets the saved value from each element in the microbe in an array</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">_prop</span>
+      <span class="dox_type">String</span>
+      <span>property to get</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Array</em> array of values</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">get</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">prop</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">_get</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_el</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span> <span class="o">!</span> <span class="nx">prop</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">return</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">else</span>
+            <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span> <span class="o">&amp;&amp;</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span> <span class="nx">prop</span> <span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span> <span class="nx">prop</span> <span class="p">][</span> <span class="nx">prop</span> <span class="p">]</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="k">return</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span> <span class="nx">prop</span> <span class="p">][</span> <span class="nx">prop</span> <span class="p">];</span>
+                <span class="p">}</span>
+                <span class="k">else</span>
+                <span class="p">{</span>
+                    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">};</span>
+
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span> <span class="nx">_get</span> <span class="p">);</span>
+    <span class="p">};</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="observe">
+  <h2>
+    <a href="#observe" name="observe" class="pilcrow">&#182;</a>
+    observe
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>Applies a function to an element if it is changed from within µ</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">function</span>
+      <span class="dox_type">Function</span>
+      <span>function to apply</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">_prop</span>
+      <span class="dox_type">String</span>
+      <span>property to observe</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">_once</span>
+      <span class="dox_type">Boolean</span>
+      <span>bool to trigger auto unobserve</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Microbe</em>  reference to original microbe</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">observe</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">prop</span><span class="p">,</span> <span class="nx">func</span><span class="p">,</span> <span class="nx">_once</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">_observe</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_elm</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">_setObserve</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_target</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span> <span class="nx">_once</span> <span class="o">===</span> <span class="kc">true</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="kd">var</span> <span class="nx">_func</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">e</span> <span class="p">)</span>
+                    <span class="p">{</span>
+                        <span class="nx">_target</span><span class="p">.</span><span class="nx">_observeFunc</span><span class="p">(</span> <span class="nx">e</span> <span class="p">);</span>
+                        <span class="nb">Object</span><span class="p">.</span><span class="nx">unobserve</span><span class="p">(</span> <span class="nx">_target</span><span class="p">,</span> <span class="nx">_func</span> <span class="p">);</span>
+                    <span class="p">}.</span><span class="nx">bind</span><span class="p">(</span> <span class="k">this</span> <span class="p">);</span>
+
+                    <span class="nb">Object</span><span class="p">.</span><span class="nx">observe</span><span class="p">(</span> <span class="nx">_target</span><span class="p">,</span> <span class="nx">_func</span> <span class="p">);</span>
+                <span class="p">}</span>
+                <span class="k">else</span>
+                <span class="p">{</span>
+                    <span class="nb">Object</span><span class="p">.</span><span class="nx">observe</span><span class="p">(</span> <span class="nx">_target</span><span class="p">,</span> <span class="nx">_target</span><span class="p">.</span><span class="nx">_observeFunc</span> <span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">};</span>
+
+            <span class="kd">var</span> <span class="nx">_setObserveFunc</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_target</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span> <span class="nx">_target</span><span class="p">.</span><span class="nx">_observeFunc</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nb">Object</span><span class="p">.</span><span class="nx">unobserve</span><span class="p">(</span> <span class="nx">_target</span><span class="p">,</span> <span class="nx">_target</span><span class="p">.</span><span class="nx">_observeFunc</span> <span class="p">);</span>
+                <span class="p">}</span>
+
+                <span class="nx">_target</span><span class="p">.</span><span class="nx">_observeFunc</span>     <span class="o">=</span> <span class="nx">func</span><span class="p">;</span>
+
+                <span class="k">return</span> <span class="nx">_target</span><span class="p">;</span>
+            <span class="p">};</span>
+
+            <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span>   <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span> <span class="o">||</span> <span class="p">{};</span>
+            <span class="kd">var</span> <span class="nx">_data</span>   <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
+            <span class="nx">func</span>        <span class="o">=</span> <span class="nx">func</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span> <span class="k">this</span> <span class="p">);</span>
+
+            <span class="kd">var</span> <span class="nx">target</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+
+            <span class="k">if</span> <span class="p">(</span> <span class="nx">prop</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="nx">_data</span><span class="p">[</span> <span class="nx">prop</span> <span class="p">]</span>  <span class="o">=</span> <span class="nx">_data</span><span class="p">[</span> <span class="nx">prop</span> <span class="p">]</span> <span class="o">||</span> <span class="p">{};</span>
+
+                <span class="k">if</span> <span class="p">(</span> <span class="nx">ObserveUtils</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nx">ObserveUtils</span><span class="p">.</span><span class="nx">defineObservableProperties</span><span class="p">(</span> <span class="nx">_data</span><span class="p">[</span> <span class="nx">prop</span> <span class="p">],</span> <span class="nx">prop</span> <span class="p">);</span>
+                <span class="p">}</span>
+
+                <span class="nx">target</span> <span class="o">=</span> <span class="nx">_setObserveFunc</span><span class="p">(</span> <span class="nx">_data</span><span class="p">[</span> <span class="nx">prop</span> <span class="p">]</span> <span class="p">);</span>
+                <span class="nx">_setObserve</span><span class="p">(</span> <span class="nx">target</span> <span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">else</span>
+            <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">_props</span> <span class="o">=</span> <span class="p">[</span> <span class="s1">&#39;attr&#39;</span><span class="p">,</span> <span class="s1">&#39;text&#39;</span><span class="p">,</span> <span class="s1">&#39;css&#39;</span><span class="p">,</span> <span class="s1">&#39;html&#39;</span><span class="p">,</span> <span class="s1">&#39;class&#39;</span> <span class="p">];</span>
+
+                <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">_props</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nx">_data</span><span class="p">[</span> <span class="nx">_props</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">_data</span><span class="p">[</span> <span class="nx">_props</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="p">]</span> <span class="o">||</span> <span class="p">{};</span>
+
+                    <span class="nx">target</span> <span class="o">=</span> <span class="nx">_setObserveFunc</span><span class="p">(</span> <span class="nx">_data</span><span class="p">[</span> <span class="nx">_props</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="p">]</span> <span class="p">);</span>
+                    <span class="nx">_setObserve</span><span class="p">(</span> <span class="nx">target</span><span class="p">,</span> <span class="nx">_props</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="p">);</span>
+                <span class="p">}</span>
+
+                <span class="nx">target</span> <span class="o">=</span> <span class="nx">_setObserveFunc</span><span class="p">(</span> <span class="nx">_data</span> <span class="p">);</span>
+                <span class="nx">_setObserve</span><span class="p">(</span> <span class="nx">target</span><span class="p">,</span> <span class="kc">null</span> <span class="p">);</span>
+
+            <span class="p">}</span>
+        <span class="p">}.</span><span class="nx">bind</span><span class="p">(</span> <span class="k">this</span> <span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span> <span class="k">typeof</span> <span class="nx">prop</span> <span class="o">===</span> <span class="s1">&#39;function&#39;</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">func</span>    <span class="o">=</span> <span class="nx">prop</span><span class="p">;</span>
+            <span class="nx">prop</span>    <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">this</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span> <span class="nx">_observe</span> <span class="p">);</span>
+
+        <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+    <span class="p">};</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="observeonce">
+  <h2>
+    <a href="#observeonce" name="observeonce" class="pilcrow">&#182;</a>
+    observeOnce
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>Applies a function to an element if it is changed from within µ (once)</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">func</span>
+      <span class="dox_type">Function</span>
+      <span>function to apply</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">_prop</span>
+      <span class="dox_type">String</span>
+      <span>property to observe</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Microbe</em> reference to original microbe</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">observeOnce</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">func</span><span class="p">,</span> <span class="nx">_prop</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">observe</span><span class="p">(</span> <span class="nx">func</span><span class="p">,</span> <span class="nx">_prop</span><span class="p">,</span> <span class="kc">true</span> <span class="p">);</span>
+    <span class="p">};</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="set">
+  <h2>
+    <a href="#set" name="set" class="pilcrow">&#182;</a>
+    set
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>Sets the value to the data object in the each element in the microbe</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">prop</span>
+      <span class="dox_type">String</span>
+      <span>property to set</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">value</span>
+      <span class="dox_type">String</span>
+      <span>value to set to</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Microbe</em> reference to original microbe</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">set</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">prop</span><span class="p">,</span> <span class="nx">value</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">_set</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_el</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span>                    <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span> <span class="o">||</span> <span class="p">{};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-7" id="section-7">&#182;</a>
+</div>
+<p>shim</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+            <span class="k">if</span> <span class="p">(</span> <span class="nx">ObserveUtils</span> <span class="o">&amp;&amp;</span> <span class="o">!</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span> <span class="nx">prop</span> <span class="p">]</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="nx">ObserveUtils</span><span class="p">.</span><span class="nx">defineObservableProperties</span><span class="p">(</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span><span class="p">,</span> <span class="nx">prop</span> <span class="p">);</span>
+            <span class="p">}</span>
+
+            <span class="k">if</span> <span class="p">(</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span> <span class="nx">value</span> <span class="p">)</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="nx">value</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span> <span class="p">[],</span> <span class="nx">value</span> <span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">isObject</span><span class="p">(</span> <span class="nx">value</span> <span class="p">)</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="nx">value</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span> <span class="p">{},</span> <span class="nx">value</span> <span class="p">);</span>
+            <span class="p">}</span>
+
+            <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span> <span class="nx">prop</span> <span class="p">]</span>            <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span> <span class="nx">prop</span> <span class="p">]</span> <span class="o">||</span> <span class="p">{};</span>
+            <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span> <span class="nx">prop</span> <span class="p">][</span> <span class="nx">prop</span> <span class="p">]</span>    <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+        <span class="p">};</span>
+
+        <span class="k">this</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span> <span class="nx">_set</span> <span class="p">);</span>
+
+        <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+    <span class="p">};</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="unobserve">
+  <h2>
+    <a href="#unobserve" name="unobserve" class="pilcrow">&#182;</a>
+    unobserve
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>Stops watching the data changes of a µ object</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">_prop</span>
+      <span class="dox_type">String</span>
+      <span>property to stop observing</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Microbe</em> reference to original microbe</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">unobserve</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_prop</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">_unobserve</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_elm</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">_data</span> <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
+
+            <span class="k">if</span> <span class="p">(</span> <span class="nx">_data</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span> <span class="nx">_prop</span> <span class="o">&amp;&amp;</span> <span class="nx">_data</span><span class="p">[</span> <span class="nx">_prop</span> <span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="nx">_data</span><span class="p">[</span> <span class="nx">_prop</span> <span class="p">].</span><span class="nx">_observeFunc</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nb">Object</span><span class="p">.</span><span class="nx">unobserve</span><span class="p">(</span> <span class="nx">_data</span><span class="p">[</span> <span class="nx">_prop</span> <span class="p">],</span> <span class="nx">_data</span><span class="p">[</span> <span class="nx">_prop</span> <span class="p">].</span><span class="nx">_observeFunc</span> <span class="p">);</span>
+                <span class="p">}</span>
+                <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="o">!</span> <span class="nx">_prop</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="k">if</span> <span class="p">(</span> <span class="nx">_data</span><span class="p">.</span><span class="nx">_observeFunc</span> <span class="p">)</span>
+                    <span class="p">{</span>
+                        <span class="nb">Object</span><span class="p">.</span><span class="nx">unobserve</span><span class="p">(</span> <span class="nx">_data</span><span class="p">,</span> <span class="nx">_data</span><span class="p">.</span><span class="nx">_observeFunc</span> <span class="p">);</span>
+                    <span class="p">}</span>
+
+                    <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">_property</span> <span class="k">in</span> <span class="nx">_data</span> <span class="p">)</span>
+                    <span class="p">{</span>
+                        <span class="k">if</span> <span class="p">(</span> <span class="nx">_data</span><span class="p">[</span> <span class="nx">_property</span> <span class="p">].</span><span class="nx">_observeFunc</span> <span class="p">)</span>
+                        <span class="p">{</span>
+                            <span class="nb">Object</span><span class="p">.</span><span class="nx">unobserve</span><span class="p">(</span> <span class="nx">_data</span><span class="p">[</span> <span class="nx">_property</span> <span class="p">],</span> <span class="nx">_data</span><span class="p">[</span> <span class="nx">_property</span> <span class="p">].</span><span class="nx">_observeFunc</span> <span class="p">);</span>
+                        <span class="p">}</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}.</span><span class="nx">bind</span><span class="p">(</span> <span class="k">this</span> <span class="p">);</span>
+
+        <span class="k">this</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span> <span class="nx">_unobserve</span> <span class="p">);</span>
+
+        <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+    <span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>

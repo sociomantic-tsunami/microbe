@@ -12,7 +12,8 @@
 'use strict';
 
 var _type       = '[object Microbe]';
-var _version    = '0.4.6';
+var _version    = '0.4.6-selectorEngine';
+
 
 var Microbe = function( selector, scope, elements )
 {
@@ -21,12 +22,6 @@ var Microbe = function( selector, scope, elements )
 
 
 require( './selectorEngine/init' )( Microbe, _type );
-require( './modules/tools' )( Microbe );
-require( './modules/dom' )( Microbe );
-require( './modules/elements' )( Microbe );
-require( './modules/http' )( Microbe );
-require( './modules/observe' )( Microbe );
-require( './modules/events' )( Microbe );
 
 
 Microbe.version     = Microbe.core.__init__.prototype.version = _version;

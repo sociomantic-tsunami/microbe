@@ -1,5 +1,7 @@
-µ - Microbe - 0.4.5
+µ - Microbe - 0.4.6
 ===================
+
+[![Join the chat at https://gitter.im/sociomantic/microbe](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/sociomantic/microbe?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 microbe is a javascript library to aid in DOM manipulation as well as facilitating events, object observation, and data binding.
 
@@ -93,10 +95,18 @@ Contributing
 
 We gladly accept and review any pull-requests. Feel free! :heart:
 
+Otherwise, if you just want to talk, we are very easy to get a hold of!
+
++ Email:          [hello@m.icro.be](hello@m.icro.be)
++ Web:            [http://m.icro.be](http://m.icro.be/)
++ Git:            [https://github.com/sociomantic/microbe/](https://github.com/sociomantic/microbe/)
++ IRC ([freenode](https://kiwiirc.com/client/chat.freenode.net:+6697/#microbe)): #microbe
+
+
 
 This project adheres to the [Open Code of Conduct](http://todogroup.org/opencodeofconduct/#microbe.js/report@m.icro.be). By participating, you are expected to honor this code.
 
-[http://m.icro.be/code-of-conduct/](http://m.icro.be/code-of-conduct/)
+[Microbe - Code of Conduct](http://m.icro.be/code-of-conduct/)
 
 Need to report something? [report@m.icro.be](report@m.icro.be)
 
@@ -104,11 +114,24 @@ Need to report something? [report@m.icro.be](report@m.icro.be)
 Change log
 ==========
 
+#### 0.4.6
+
++ moved functions and structure to enable modular building
+
+
 #### 0.4.5
 
-+ updated docs and comments
-+ cytoplasm utils split into coreUtils and rootUtils
-+ cytoplasm now accepts html strings for element creation
++ updated remove
++ core and dom now check before they use something from a different module
++ updated readme, gulpfile, tests, docs, and comments
++ selectorEngine utils split into core and root
++ cytoplasm now accepts html strings for element creation (single or multiple elements)
++ selector strings of multiple classes are now 10x faster
++ code cleaned of unused variables
++ many push replaces with null -> filter
++ iteration abstracted
++ changed internal structure to allow for closed array.prototype use
++ added contact info to readme
 
 
 #### 0.4.2

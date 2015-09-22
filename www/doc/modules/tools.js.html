@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>tools.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="../doc-style.css" />
+  <script src="../doc-filelist.js"></script>
+  <script>
+    var relativeDir = "../", thisFile = "Library/WebServer/Documents/microbe//modules/tools.js", defaultSidebar = true;
+  </script>
+  <script src="../doc-script.js"></script>
+  <script src="../microbe.js"></script>
+  <script src="../fileSearch.js"></script>
+  <link rel="stylesheet" href="../fileSearch.css" />
+</head>
+<body>
+  <div id="sidebar_wrapper">
+    <div id="sidebar_switch">
+      <span class="tree">Files</span>
+      <span class="headings">Headings</span>
+    </div>
+    <div id="tree"></div>
+    <div id="headings">
+      <div class="heading h2">
+        <a href="#capitalize">capitalize</a>
+      </div>
+      <div class="heading h2">
+        <a href="#debounce">debounce</a>
+      </div>
+      <div class="heading h2">
+        <a href="#extend">extend</a>
+      </div>
+      <div class="heading h2">
+        <a href="#identity">identity</a>
+      </div>
+      <div class="heading h2">
+        <a href="#insertstyle">insertStyle</a>
+      </div>
+      <div class="heading h2">
+        <a href="#isarray">isArray</a>
+      </div>
+      <div class="heading h2">
+        <a href="#isempty">isEmpty</a>
+      </div>
+      <div class="heading h2">
+        <a href="#isfunction">isFunction</a>
+      </div>
+      <div class="heading h2">
+        <a href="#isobject">isObject</a>
+      </div>
+      <div class="heading h2">
+        <a href="#isundefined">isUndefined</a>
+      </div>
+      <div class="heading h2">
+        <a href="#iswindow">isWindow</a>
+      </div>
+      <div class="heading h2">
+        <a href="#merge">merge</a>
+      </div>
+      <div class="heading h2">
+        <a href="#noop">noop</a>
+      </div>
+      <div class="heading h2">
+        <a href="#once">once</a>
+      </div>
+      <div class="heading h2">
+        <a href="#poll">poll</a>
+      </div>
+      <div class="heading h2">
+        <a href="#removestyle">removeStyle</a>
+      </div>
+      <div class="heading h2">
+        <a href="#removestyles">removeStyles</a>
+      </div>
+      <div class="heading h2">
+        <a href="#toarray">toArray</a>
+      </div>
+      <div class="heading h2">
+        <a href="#type">type</a>
+      </div>
+      <div class="heading h2">
+        <a href="#xyzzy">xyzzy</a>
+      </div>
+    </div>
+  </div>
+  <div id="sidebar-toggle"></div>
+  <div id="container"><div class="background highlight"></div>
+<table cellpadding="0" cellspacing="0">
+  <tbody>
+      <tr>
+        <td class="docs">
+          <h1>tools.js</h1>
+        </td>
+        <td class="code highlight"></td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-1" id="section-1">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>root.js</p>
+  </div>
+  <div class="body">
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">author</div>
+    <div class="dox_tag_detail">
+      <span>Mouse Braun         <a href="&#109;&#x61;&#x69;&#108;&#116;o:&#x6D;o&#x75;&#x73;&#101;&#64;&#x73;&#x6F;&#x63;&#105;&#x6F;&#x6D;&#x61;&#x6E;&#116;&#x69;&#x63;&#x2E;&#x63;&#x6F;&#109;">&#x6D;o&#x75;&#x73;&#101;&#64;&#x73;&#x6F;&#x63;&#105;&#x6F;&#x6D;&#x61;&#x6E;&#116;&#x69;&#x63;&#x2E;&#x63;&#x6F;&#109;</a></span>
+    </div>
+    <div class="dox_tag_title">author</div>
+    <div class="dox_tag_detail">
+      <span>Nicolas Brugneaux   <a href="&#x6D;&#97;&#x69;&#108;&#116;&#111;:&#110;&#x69;&#x63;o&#x6C;&#97;&#x73;&#x2E;&#x62;&#x72;&#x75;&#x67;&#110;&#101;&#x61;&#117;&#120;&#64;&#x73;o&#99;&#x69;&#x6F;&#x6D;a&#110;&#116;&#x69;&#99;&#46;&#x63;&#111;&#109;">&#110;&#x69;&#x63;o&#x6C;&#97;&#x73;&#x2E;&#x62;&#x72;&#x75;&#x67;&#110;&#101;&#x61;&#117;&#120;&#64;&#x73;o&#99;&#x69;&#x6F;&#x6D;a&#110;&#116;&#x69;&#99;&#46;&#x63;&#111;&#109;</a></span>
+    </div>
+    <div class="dox_tag_title">package</div>
+    <div class="dox_tag_detail">
+      <span>Microbe</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">Microbe</span> <span class="p">)</span>
+<span class="p">{</span>
+    <span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+
+    <span class="nb">window</span><span class="p">.</span><span class="nx">Promise</span>  <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">Promise</span> <span class="o">||</span> <span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;promise&#39;</span> <span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">Types</span>       <span class="o">=</span> <span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./types&#39;</span> <span class="p">);</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="capitalize">
+  <h2>
+    <a href="#capitalize" name="capitalize" class="pilcrow">&#182;</a>
+    capitalize
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>capitalizes every word in a string or an array of strings and returns the
+type that it was given</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">text</span>
+      <span class="dox_type">Mixed</span>
+      <span>string(s) to capitalize <em>{String or Array}</em></span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Mixed</em>  capitalized string(s) values <em>{String or Array}</em></span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">capitalize</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">text</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">array</span>   <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span> <span class="nx">text</span> <span class="p">);</span>
+        <span class="nx">text</span>        <span class="o">=</span> <span class="o">!</span><span class="nx">array</span> <span class="o">?</span> <span class="p">[</span> <span class="nx">text</span> <span class="p">]</span> <span class="o">:</span> <span class="nx">text</span><span class="p">;</span>
+
+        <span class="kd">var</span> <span class="nx">str</span><span class="p">,</span> <span class="nx">res</span> <span class="o">=</span> <span class="p">[];</span>
+
+        <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">text</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">str</span> <span class="o">=</span> <span class="nx">text</span><span class="p">[</span> <span class="nx">i</span> <span class="p">].</span><span class="nx">split</span><span class="p">(</span> <span class="s1">&#39; &#39;</span> <span class="p">);</span>
+            <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenJ</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">lenJ</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="nx">str</span><span class="p">[</span> <span class="nx">j</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">str</span><span class="p">[</span> <span class="nx">j</span> <span class="p">][</span> <span class="mi">0</span> <span class="p">].</span><span class="nx">toUpperCase</span><span class="p">()</span> <span class="o">+</span> <span class="nx">str</span><span class="p">[</span> <span class="nx">j</span> <span class="p">].</span><span class="nx">slice</span><span class="p">(</span> <span class="mi">1</span> <span class="p">);</span>
+            <span class="p">}</span>
+            <span class="nx">res</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">str</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span> <span class="s1">&#39; &#39;</span> <span class="p">)</span> <span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="p">(</span> <span class="nx">array</span> <span class="p">)</span> <span class="o">?</span> <span class="nx">res</span> <span class="o">:</span> <span class="nx">res</span><span class="p">[</span> <span class="mi">0</span> <span class="p">];</span>
+    <span class="p">};</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+</div>
+<p>british people....</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">capitalise</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">capitalize</span><span class="p">;</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="debounce">
+  <h2>
+    <a href="#debounce" name="debounce" class="pilcrow">&#182;</a>
+    debounce
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>Returns a function, that, as long as it continues to be invoked, will not
+ be triggered. The function will be called after it stops being called for
+ [[wait]] milliseconds. If <code>immediate</code> is passed, trigger the function on
+ the leading edge, instead of the trailing.</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">_func</span>
+      <span class="dox_type">Function</span>
+      <span>function to meter</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">wait</span>
+      <span class="dox_type">Number</span>
+      <span>milliseconds to wait</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">immediate</span>
+      <span class="dox_type">Boolean</span>
+      <span>run function at the start of the timeout</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Function</em></span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">debounce</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_func</span><span class="p">,</span> <span class="nx">wait</span><span class="p">,</span> <span class="nx">immediate</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">timeout</span><span class="p">;</span>
+
+        <span class="k">return</span> <span class="kd">function</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">,</span>
+                <span class="nx">args</span>    <span class="o">=</span> <span class="nx">arguments</span><span class="p">;</span>
+
+            <span class="kd">var</span> <span class="nx">later</span>   <span class="o">=</span> <span class="kd">function</span><span class="p">()</span>
+            <span class="p">{</span>
+                <span class="nx">timeout</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+
+                <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nx">immediate</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nx">_func</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span> <span class="nx">self</span><span class="p">,</span> <span class="nx">args</span> <span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">};</span>
+
+            <span class="kd">var</span> <span class="nx">callNow</span> <span class="o">=</span> <span class="nx">immediate</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">timeout</span><span class="p">;</span>
+            <span class="nx">clearTimeout</span><span class="p">(</span> <span class="nx">timeout</span> <span class="p">);</span>
+            <span class="nx">timeout</span>     <span class="o">=</span> <span class="nx">setTimeout</span><span class="p">(</span> <span class="nx">later</span><span class="p">,</span> <span class="nx">wait</span> <span class="p">);</span>
+
+            <span class="k">if</span> <span class="p">(</span> <span class="nx">callNow</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="nx">_func</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span> <span class="nx">self</span><span class="p">,</span> <span class="nx">args</span> <span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">};</span>
+    <span class="p">};</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="extend">
+  <h2>
+    <a href="#extend" name="extend" class="pilcrow">&#182;</a>
+    extend
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>Extends an object or microbe</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Object</em> reference to this (microbe) or the first
+                    object passed (root)</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">extend</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="kd">var</span> <span class="err">µ</span><span class="nx">IsObject</span>   <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">isObject</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="err">µ</span><span class="nx">IsArray</span>    <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">isArray</span><span class="p">;</span>
+
+        <span class="kd">var</span> <span class="nx">res</span>     <span class="o">=</span> <span class="nx">arguments</span><span class="p">[</span> <span class="mi">0</span> <span class="p">]</span> <span class="o">||</span> <span class="p">{};</span>
+        <span class="kd">var</span> <span class="nx">i</span>       <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">length</span>  <span class="o">=</span> <span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">deep</span>    <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+
+        <span class="k">if</span> <span class="p">(</span> <span class="k">typeof</span> <span class="nx">res</span> <span class="o">===</span> <span class="s1">&#39;boolean&#39;</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">deep</span>    <span class="o">=</span> <span class="nx">res</span><span class="p">;</span>
+            <span class="nx">res</span>     <span class="o">=</span> <span class="nx">arguments</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="o">||</span> <span class="p">{};</span>
+            <span class="nx">i</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="p">(</span> <span class="k">typeof</span> <span class="nx">res</span> <span class="o">!==</span> <span class="s1">&#39;object&#39;</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">Microbe</span><span class="p">.</span><span class="nx">isFunction</span><span class="p">(</span> <span class="nx">res</span> <span class="p">)</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">res</span> <span class="o">=</span> <span class="p">{};</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">i</span> <span class="o">===</span> <span class="nx">length</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">res</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+            <span class="nx">i</span><span class="o">--</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="kd">var</span> <span class="nx">_object</span><span class="p">,</span> <span class="nx">_p</span><span class="p">,</span> <span class="nx">src</span><span class="p">,</span> <span class="nx">copy</span><span class="p">,</span> <span class="nx">isArray</span><span class="p">,</span> <span class="nx">clone</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span> <span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">_object</span> <span class="o">=</span> <span class="nx">arguments</span><span class="p">[</span> <span class="nx">i</span> <span class="p">];</span>
+
+            <span class="k">if</span> <span class="p">(</span> <span class="nx">_object</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">_object</span> <span class="o">!==</span> <span class="kc">undefined</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">for</span> <span class="p">(</span> <span class="nx">_p</span> <span class="k">in</span> <span class="nx">_object</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nx">src</span>     <span class="o">=</span> <span class="nx">res</span><span class="p">[</span> <span class="nx">_p</span> <span class="p">];</span>
+                    <span class="nx">copy</span>    <span class="o">=</span> <span class="nx">_object</span><span class="p">[</span> <span class="nx">_p</span> <span class="p">];</span>
+
+                    <span class="k">if</span> <span class="p">(</span> <span class="nx">res</span> <span class="o">===</span> <span class="nx">copy</span> <span class="p">)</span>
+                    <span class="p">{</span>
+                        <span class="k">continue</span><span class="p">;</span>
+                    <span class="p">}</span>
+
+                    <span class="k">if</span> <span class="p">(</span> <span class="nx">deep</span> <span class="o">&amp;&amp;</span> <span class="nx">copy</span> <span class="o">&amp;&amp;</span> <span class="p">(</span> <span class="err">µ</span><span class="nx">IsObject</span><span class="p">(</span> <span class="nx">copy</span> <span class="p">)</span> <span class="o">||</span>
+                            <span class="p">(</span> <span class="nx">isArray</span> <span class="o">=</span> <span class="err">µ</span><span class="nx">IsArray</span><span class="p">(</span> <span class="nx">copy</span> <span class="p">)</span> <span class="p">)</span> <span class="p">)</span> <span class="p">)</span>
+                    <span class="p">{</span>
+                        <span class="k">if</span> <span class="p">(</span> <span class="nx">isArray</span> <span class="p">)</span>
+                        <span class="p">{</span>
+                            <span class="nx">isArray</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+                            <span class="nx">clone</span>   <span class="o">=</span> <span class="nx">src</span> <span class="o">&amp;&amp;</span> <span class="err">µ</span><span class="nx">IsArray</span><span class="p">(</span> <span class="nx">src</span> <span class="p">)</span> <span class="o">?</span> <span class="nx">src</span> <span class="o">:</span> <span class="p">[];</span>
+                        <span class="p">}</span>
+                        <span class="k">else</span>
+                        <span class="p">{</span>
+                            <span class="nx">clone</span> <span class="o">=</span> <span class="nx">src</span> <span class="o">&amp;&amp;</span> <span class="err">µ</span><span class="nx">IsObject</span><span class="p">(</span> <span class="nx">src</span> <span class="p">)</span> <span class="o">?</span> <span class="nx">src</span> <span class="o">:</span> <span class="p">{};</span>
+                        <span class="p">}</span>
+
+                        <span class="nx">res</span><span class="p">[</span> <span class="nx">_p</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span> <span class="nx">deep</span><span class="p">,</span> <span class="nx">clone</span><span class="p">,</span> <span class="nx">copy</span> <span class="p">);</span>
+                    <span class="p">}</span>
+                    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">copy</span> <span class="o">!==</span> <span class="kc">undefined</span> <span class="p">)</span>
+                    <span class="p">{</span>
+                        <span class="nx">res</span><span class="p">[</span> <span class="nx">_p</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">copy</span><span class="p">;</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="nx">res</span><span class="p">;</span>
+    <span class="p">};</span>
+
+
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">extend</span>     <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">extend</span><span class="p">;</span>
+    
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="identity">
+  <h2>
+    <a href="#identity" name="identity" class="pilcrow">&#182;</a>
+    identity
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>returns itself.  useful in functional programmnig when a function must be executed</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">value</span>
+      <span class="dox_type">any</span>
+      <span>any value</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>any</em></span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">identity</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">value</span> <span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">value</span><span class="p">;</span> <span class="p">};</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="insertstyle">
+  <h2>
+    <a href="#insertstyle" name="insertstyle" class="pilcrow">&#182;</a>
+    insertStyle
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>builds a style tag for the given selector/ media query.  Reference to the style
+tag and object is saved in µ.__customCSSRules[ selector ][ media ].
+next rule with the same selector combines the old and new rules and overwrites
+the contents</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">selector</span>
+      <span class="dox_type">String</span>
+      <span>selector to apply it to</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">cssObj</span>
+      <span class="dox_type">Mixed</span>
+      <span>css object. <em>{String or Object}</em></span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">media</span>
+      <span class="dox_type">String</span>
+      <span>media query</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Object</em> reference to the appropriate style object</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">insertStyle</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">selector</span><span class="p">,</span> <span class="nx">cssObj</span><span class="p">,</span> <span class="nx">media</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">_s</span>      <span class="o">=</span> <span class="nx">selector</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span> <span class="sr">/ /g</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span> <span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">_clss</span>   <span class="o">=</span> <span class="nx">media</span> <span class="o">?</span> <span class="nx">_s</span> <span class="o">+</span>  <span class="nx">media</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span> <span class="sr">/[\s:\/\[\]\(\)]+/g</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span> <span class="p">)</span> <span class="o">:</span> <span class="nx">_s</span><span class="p">;</span>
+
+        <span class="nx">media</span>       <span class="o">=</span> <span class="nx">media</span> <span class="o">||</span> <span class="s1">&#39;none&#39;</span><span class="p">;</span>
+
+        <span class="kd">var</span> <span class="nx">createStyleTag</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">el</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span> <span class="s1">&#39;style&#39;</span> <span class="p">);</span>
+            <span class="nx">el</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="s1">&#39;microbe--inserted--style__&#39;</span> <span class="o">+</span> <span class="nx">_clss</span><span class="p">;</span>
+
+            <span class="k">if</span> <span class="p">(</span> <span class="nx">media</span> <span class="o">&amp;&amp;</span> <span class="nx">media</span> <span class="o">!==</span> <span class="s1">&#39;none&#39;</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="nx">el</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span> <span class="s1">&#39;media&#39;</span><span class="p">,</span> <span class="nx">media</span> <span class="p">);</span>
+            <span class="p">}</span>
+
+            <span class="nb">document</span><span class="p">.</span><span class="nx">head</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span> <span class="nx">el</span> <span class="p">);</span>
+
+            <span class="k">return</span> <span class="nx">el</span><span class="p">;</span>
+        <span class="p">};</span>
+
+        <span class="kd">var</span> <span class="nx">_el</span><span class="p">,</span> <span class="nx">prop</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">styleObj</span> <span class="o">=</span>  <span class="nx">Microbe</span><span class="p">.</span><span class="nx">__customCSSRules</span><span class="p">[</span> <span class="nx">_s</span> <span class="p">];</span>
+
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">styleObj</span> <span class="o">&amp;&amp;</span> <span class="nx">styleObj</span><span class="p">[</span> <span class="nx">media</span> <span class="p">]</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">_el</span>     <span class="o">=</span> <span class="nx">styleObj</span><span class="p">[</span> <span class="nx">media</span> <span class="p">].</span><span class="nx">el</span><span class="p">;</span>
+            <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="nx">styleObj</span><span class="p">[</span> <span class="nx">media</span> <span class="p">].</span><span class="nx">obj</span><span class="p">;</span>
+
+            <span class="k">for</span> <span class="p">(</span> <span class="nx">prop</span> <span class="k">in</span> <span class="nx">cssObj</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="nx">obj</span><span class="p">[</span> <span class="nx">prop</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">cssObj</span><span class="p">[</span> <span class="nx">prop</span> <span class="p">];</span>
+            <span class="p">}</span>
+
+            <span class="nx">cssObj</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+            <span class="nx">_el</span> <span class="o">=</span> <span class="nx">createStyleTag</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="kd">var</span> <span class="nx">css</span> <span class="o">=</span> <span class="nx">selector</span> <span class="o">+</span> <span class="s1">&#39;{&#39;</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span> <span class="nx">prop</span> <span class="k">in</span> <span class="nx">cssObj</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">css</span> <span class="o">+=</span> <span class="nx">prop</span> <span class="o">+</span> <span class="s1">&#39; : &#39;</span> <span class="o">+</span> <span class="nx">cssObj</span><span class="p">[</span> <span class="nx">prop</span> <span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;;&#39;</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nx">css</span> <span class="o">+=</span> <span class="s1">&#39;}&#39;</span><span class="p">;</span>
+
+        <span class="nx">_el</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">css</span><span class="p">;</span>
+
+        <span class="nx">Microbe</span><span class="p">.</span><span class="nx">__customCSSRules</span><span class="p">[</span> <span class="nx">_s</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">__customCSSRules</span><span class="p">[</span> <span class="nx">_s</span> <span class="p">]</span> <span class="o">||</span> <span class="p">{};</span>
+        <span class="nx">Microbe</span><span class="p">.</span><span class="nx">__customCSSRules</span><span class="p">[</span> <span class="nx">_s</span> <span class="p">][</span> <span class="nx">media</span> <span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="err"> </span><span class="nx">el</span><span class="o">:</span> <span class="nx">_el</span><span class="p">,</span> <span class="nx">obj</span><span class="o">:</span> <span class="nx">cssObj</span> <span class="p">};</span>
+
+        <span class="k">return</span> <span class="nx">_el</span><span class="p">;</span>
+    <span class="p">};</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+</div>
+<p>keep track of tags created with insertStyle</p>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">__customCSSRules</span> <span class="o">=</span> <span class="p">{};</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="isarray">
+  <h2>
+    <a href="#isarray" name="isarray" class="pilcrow">&#182;</a>
+    isArray
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>native isArray for completeness</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Type</div>
+    <div class="dox_tag_detail">
+      <span class="dox_type">_Function_
+</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">isArray</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">;</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="isempty">
+  <h2>
+    <a href="#isempty" name="isempty" class="pilcrow">&#182;</a>
+    isEmpty
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>Checks if the passed object is empty</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">obj</span>
+      <span class="dox_type">Object</span>
+      <span>object to check</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Boolean</em> empty or not</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">isEmpty</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">obj</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">name</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span> <span class="nx">name</span> <span class="k">in</span> <span class="nx">obj</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">};</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="isfunction">
+  <h2>
+    <a href="#isfunction" name="isfunction" class="pilcrow">&#182;</a>
+    isFunction
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>Checks if the passed parameter is a function</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">obj</span>
+      <span class="dox_type">Object</span>
+      <span>object to check</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Boolean</em> function or not</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">isFunction</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">obj</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">type</span><span class="p">(</span> <span class="nx">obj</span> <span class="p">)</span> <span class="o">===</span> <span class="s2">&quot;function&quot;</span><span class="p">;</span>
+    <span class="p">};</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="isobject">
+  <h2>
+    <a href="#isobject" name="isobject" class="pilcrow">&#182;</a>
+    isObject
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>Checks if the passed parameter is an object</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">obj</span>
+      <span class="dox_type">Object</span>
+      <span>object to check</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Boolean</em> isObject or not</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">isObject</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">obj</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">type</span><span class="p">(</span> <span class="nx">obj</span> <span class="p">)</span> <span class="o">!==</span> <span class="s2">&quot;object&quot;</span> <span class="o">||</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">nodeType</span> <span class="o">||</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">isWindow</span><span class="p">(</span> <span class="nx">obj</span> <span class="p">)</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">};</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="isundefined">
+  <h2>
+    <a href="#isundefined" name="isundefined" class="pilcrow">&#182;</a>
+    isUndefined
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>Checks if the passed parameter is undefined</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">obj</span>
+      <span class="dox_type">String</span>
+      <span>property</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">parent</span>
+      <span class="dox_type">Object</span>
+      <span>object to check</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Boolean</em> obj in parent</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">isUndefined</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">parent</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">parent</span> <span class="o">&amp;&amp;</span> <span class="k">typeof</span> <span class="nx">parent</span> <span class="o">!==</span> <span class="s1">&#39;object&#39;</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="nx">parent</span> <span class="o">?</span> <span class="o">!</span><span class="p">(</span> <span class="nx">obj</span> <span class="k">in</span> <span class="nx">parent</span> <span class="p">)</span> <span class="o">:</span> <span class="nx">obj</span> <span class="o">===</span> <span class="k">void</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">};</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="iswindow">
+  <h2>
+    <a href="#iswindow" name="iswindow" class="pilcrow">&#182;</a>
+    isWindow
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>Checks if the passed parameter equals window</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">obj</span>
+      <span class="dox_type">Object</span>
+      <span>object to check</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Boolean</em> isWindow or not</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">isWindow</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">obj</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">obj</span> <span class="o">!==</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">obj</span> <span class="o">===</span> <span class="nx">obj</span><span class="p">.</span><span class="nb">window</span><span class="p">;</span>
+    <span class="p">};</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="merge">
+  <h2>
+    <a href="#merge" name="merge" class="pilcrow">&#182;</a>
+    merge
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>Combines microbes, arrays, and/or array-like objects.</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">first</span>
+      <span class="dox_type">Mixed</span>
+      <span>first object <em>{Array-like Object or Array}</em></span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">second</span>
+      <span class="dox_type">Mixed</span>
+      <span>second object <em>{Array-like Object or Array}</em></span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Mixed</em> combined array or array-like object (based off first)</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">merge</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">first</span><span class="p">,</span> <span class="nx">second</span><span class="p">,</span> <span class="nx">unique</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="k">typeof</span> <span class="nx">second</span> <span class="o">===</span> <span class="s1">&#39;boolean&#39;</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">unique</span> <span class="o">=</span> <span class="nx">second</span><span class="p">;</span>
+            <span class="nx">second</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nx">second</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">second</span>  <span class="o">=</span> <span class="nx">first</span><span class="p">;</span>
+            <span class="nx">first</span>   <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">first</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+
+        <span class="k">if</span> <span class="p">(</span> <span class="k">typeof</span> <span class="nx">i</span> <span class="o">===</span> <span class="s1">&#39;number&#39;</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">len</span> <span class="o">=</span> <span class="nx">second</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nx">unique</span> <span class="o">||</span> <span class="nx">first</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="nx">second</span><span class="p">[</span> <span class="nx">j</span> <span class="p">]</span> <span class="p">)</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nx">first</span><span class="p">[</span> <span class="nx">i</span><span class="o">++</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">second</span><span class="p">[</span> <span class="nx">j</span> <span class="p">];</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+
+            <span class="nx">first</span><span class="p">.</span><span class="nx">length</span> <span class="o">=</span> <span class="nx">i</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="nx">first</span><span class="p">;</span>
+    <span class="p">};</span>
+
+
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">merge</span>      <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">merge</span><span class="p">;</span>
+    
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="noop">
+  <h2>
+    <a href="#noop" name="noop" class="pilcrow">&#182;</a>
+    noop
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>Nothing happens</p>
+
+<p><a href='https://en.wikipedia.org/wiki/Xyzzy_(computing'>https://en.wikipedia.org/wiki/Xyzzy_(computing</a>)</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>void</em></span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">noop</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{};</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="once">
+  <h2>
+    <a href="#once" name="once" class="pilcrow">&#182;</a>
+    once
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>returns a function that can only be run once</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">_func</span>
+      <span class="dox_type">Function</span>
+      <span>function to run once</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Function</em></span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">once</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_func</span><span class="p">,</span> <span class="nx">self</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">result</span><span class="p">;</span>
+
+        <span class="k">return</span> <span class="kd">function</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="k">if</span><span class="p">(</span> <span class="nx">_func</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="nx">result</span>  <span class="o">=</span> <span class="nx">_func</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span> <span class="nx">self</span> <span class="o">||</span> <span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span> <span class="p">);</span>
+                <span class="nx">_func</span>   <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+        <span class="p">};</span>
+    <span class="p">};</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="poll">
+  <h2>
+    <a href="#poll" name="poll" class="pilcrow">&#182;</a>
+    poll
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>checks a passed function for true every [[interval]] milliseconds.  when
+true, it will run _success, if [[timeout[[]] is reached without a success,
+_error is excecuted</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">_func</span>
+      <span class="dox_type">Function</span>
+      <span>function to check for true</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">_success</span>
+      <span class="dox_type">Function</span>
+      <span>function to run on success</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">_error</span>
+      <span class="dox_type">Function</span>
+      <span>function to run on error</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">timeout</span>
+      <span class="dox_type">Number</span>
+      <span>time (in ms) to stop polling</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">interval</span>
+      <span class="dox_type">Number</span>
+      <span>time (in ms) in between polling</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Function</em></span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">poll</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_func</span><span class="p">,</span> <span class="nx">_success</span><span class="p">,</span> <span class="nx">_error</span><span class="p">,</span> <span class="nx">timeout</span><span class="p">,</span> <span class="nx">interval</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">endTime</span> <span class="o">=</span> <span class="nb">Number</span><span class="p">(</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()</span> <span class="p">)</span> <span class="o">+</span> <span class="p">(</span> <span class="nx">timeout</span> <span class="o">||</span> <span class="mi">2000</span> <span class="p">);</span>
+        <span class="nx">interval</span>    <span class="o">=</span> <span class="nx">interval</span> <span class="o">||</span> <span class="mi">100</span><span class="p">;</span>
+
+        <span class="p">(</span> <span class="kd">function</span> <span class="nx">p</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span> <span class="nx">_func</span><span class="p">()</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">try</span>
+                <span class="p">{</span>
+                    <span class="nx">_success</span><span class="p">();</span>
+                <span class="p">}</span>
+                <span class="k">catch</span><span class="p">(</span> <span class="nx">e</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="k">throw</span> <span class="s1">&#39;No argument given for success function&#39;</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nb">Number</span><span class="p">(</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()</span> <span class="p">)</span> <span class="o">&lt;</span> <span class="nx">endTime</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="nx">setTimeout</span><span class="p">(</span> <span class="nx">p</span><span class="p">,</span> <span class="nx">interval</span> <span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">else</span> <span class="p">{</span>
+                <span class="k">try</span>
+                <span class="p">{</span>
+                    <span class="nx">_error</span><span class="p">(</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span> <span class="s1">&#39;timed out for &#39;</span> <span class="o">+</span> <span class="nx">_func</span> <span class="o">+</span> <span class="s1">&#39;: &#39;</span> <span class="o">+</span> <span class="nx">arguments</span> <span class="p">)</span> <span class="p">);</span>
+                <span class="p">}</span>
+                <span class="k">catch</span><span class="p">(</span> <span class="nx">e</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="k">throw</span> <span class="s1">&#39;No argument given for error function.&#39;</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span> <span class="p">)();</span>
+    <span class="p">};</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="removestyle">
+  <h2>
+    <a href="#removestyle" name="removestyle" class="pilcrow">&#182;</a>
+    removeStyle
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>removes a microbe added style tag for the given selector/ media query. If the
+properties array is passed, rules are removed individually.  If properties is
+set to true, all tags for this selector are removed.  The media query can
+also be passed as the second variable</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">selector</span>
+      <span class="dox_type">String</span>
+      <span>selector to apply it to</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">properties</span>
+      <span class="dox_type">Mixed</span>
+      <span>css properties to remove 'all' to remove all 
+                selector tags string as media query {String or Array}</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">media</span>
+      <span class="dox_type">String</span>
+      <span>media query</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Boolean</em> removed or not</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">removeStyle</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">selector</span><span class="p">,</span> <span class="nx">properties</span><span class="p">,</span> <span class="nx">media</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nx">media</span> <span class="o">&amp;&amp;</span> <span class="k">typeof</span> <span class="nx">properties</span> <span class="o">===</span> <span class="s1">&#39;string&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">properties</span> <span class="o">!==</span> <span class="s1">&#39;all&#39;</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">media</span> <span class="o">=</span> <span class="nx">properties</span><span class="p">;</span>
+            <span class="nx">properties</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="nx">media</span> <span class="o">=</span> <span class="nx">media</span> <span class="o">||</span> <span class="s1">&#39;none&#39;</span><span class="p">;</span>
+
+        <span class="kd">var</span> <span class="nx">_removeStyle</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_el</span><span class="p">,</span> <span class="nx">_media</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">_el</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span> <span class="nx">_el</span> <span class="p">);</span>
+            <span class="k">delete</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">__customCSSRules</span><span class="p">[</span> <span class="nx">selector</span> <span class="p">][</span> <span class="nx">_media</span> <span class="p">];</span>
+        <span class="p">};</span>
+
+        <span class="kd">var</span> <span class="nx">style</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">__customCSSRules</span><span class="p">[</span> <span class="nx">selector</span> <span class="p">];</span>
+
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">style</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span> <span class="nx">properties</span> <span class="o">===</span> <span class="s1">&#39;all&#39;</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">_mq</span> <span class="k">in</span> <span class="nx">style</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="nx">_removeStyle</span><span class="p">(</span> <span class="nx">style</span><span class="p">[</span> <span class="nx">_mq</span> <span class="p">].</span><span class="nx">el</span><span class="p">,</span> <span class="nx">_mq</span> <span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="k">else</span>
+            <span class="p">{</span>
+                <span class="nx">style</span> <span class="o">=</span> <span class="nx">style</span><span class="p">[</span> <span class="nx">media</span> <span class="p">];</span>
+
+                <span class="k">if</span> <span class="p">(</span> <span class="nx">style</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="k">if</span> <span class="p">(</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span> <span class="nx">properties</span> <span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">Microbe</span><span class="p">.</span><span class="nx">isEmpty</span><span class="p">(</span> <span class="nx">properties</span> <span class="p">)</span> <span class="p">)</span>
+                    <span class="p">{</span>
+                        <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">properties</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
+                        <span class="p">{</span>
+                            <span class="k">if</span> <span class="p">(</span> <span class="nx">style</span><span class="p">.</span><span class="nx">obj</span><span class="p">[</span> <span class="nx">properties</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="p">]</span> <span class="p">)</span>
+                            <span class="p">{</span>
+                                <span class="k">delete</span> <span class="nx">style</span><span class="p">.</span><span class="nx">obj</span><span class="p">[</span> <span class="nx">properties</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="p">];</span>
+                            <span class="p">}</span>
+                        <span class="p">}</span>
+                        <span class="k">if</span> <span class="p">(</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">isEmpty</span><span class="p">(</span> <span class="nx">style</span><span class="p">.</span><span class="nx">obj</span> <span class="p">)</span> <span class="p">)</span>
+                        <span class="p">{</span>
+                            <span class="nx">_removeStyle</span><span class="p">(</span> <span class="nx">style</span><span class="p">.</span><span class="nx">el</span><span class="p">,</span> <span class="nx">media</span> <span class="p">);</span>
+                        <span class="p">}</span>
+                        <span class="k">else</span>
+                        <span class="p">{</span>
+                            <span class="nx">Microbe</span><span class="p">.</span><span class="nx">insertStyle</span><span class="p">(</span> <span class="nx">selector</span><span class="p">,</span> <span class="nx">style</span><span class="p">.</span><span class="nx">obj</span><span class="p">,</span> <span class="nx">media</span> <span class="p">);</span>
+                        <span class="p">}</span>
+                    <span class="p">}</span>
+                    <span class="k">else</span>
+                    <span class="p">{</span>
+                        <span class="nx">_removeStyle</span><span class="p">(</span> <span class="nx">style</span><span class="p">.</span><span class="nx">el</span><span class="p">,</span> <span class="nx">media</span> <span class="p">);</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+                <span class="k">else</span>
+                <span class="p">{</span>
+                    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">};</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="removestyles">
+  <h2>
+    <a href="#removestyles" name="removestyles" class="pilcrow">&#182;</a>
+    removeStyles
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>removes all microbe added style tags for the given selector</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">selector</span>
+      <span class="dox_type">String</span>
+      <span>selector to apply it to</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Boolean</em> removed or not</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">removeStyles</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">selector</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">removeStyle</span><span class="p">(</span> <span class="nx">selector</span><span class="p">,</span> <span class="s1">&#39;all&#39;</span> <span class="p">);</span>
+    <span class="p">};</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="toarray">
+  <h2>
+    <a href="#toarray" name="toarray" class="pilcrow">&#182;</a>
+    toArray
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>Methods returns all the elements in an array.</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Array</em></span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">toArray</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_arr</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="nx">_arr</span> <span class="o">||</span> <span class="k">this</span> <span class="p">);</span>
+    <span class="p">};</span>
+
+
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">toArray</span>    <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">toArray</span><span class="p">;</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="type">
+  <h2>
+    <a href="#type" name="type" class="pilcrow">&#182;</a>
+    type
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>returns the type of the parameter passed to it</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">obj</span>
+      <span class="dox_type">all</span>
+      <span>parameter to test</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>String</em> typeof obj</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">obj</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">obj</span> <span class="o">===</span> <span class="kc">null</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">obj</span> <span class="o">+</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="kd">var</span> <span class="nx">type</span> <span class="o">=</span> <span class="nx">Types</span><span class="p">[</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">toString</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="nx">obj</span> <span class="p">)</span> <span class="p">];</span>
+            <span class="nx">type</span> <span class="o">=</span> <span class="o">!</span><span class="nx">type</span> <span class="o">?</span> <span class="nx">Types</span><span class="p">[</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span> <span class="p">]</span> <span class="o">:</span> <span class="nx">type</span><span class="p">;</span>
+
+        <span class="nx">type</span> <span class="o">=</span> <span class="nx">type</span> <span class="o">||</span> <span class="k">typeof</span> <span class="nx">obj</span><span class="p">;</span>
+
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">type</span> <span class="o">===</span> <span class="s1">&#39;object&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">obj</span> <span class="k">instanceof</span> <span class="nx">Promise</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">type</span> <span class="o">=</span> <span class="s1">&#39;promise&#39;</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span>  <span class="nx">type</span><span class="p">;</span>
+    <span class="p">};</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="xyzzy">
+  <h2>
+    <a href="#xyzzy" name="xyzzy" class="pilcrow">&#182;</a>
+    xyzzy
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>nothing happens</p>
+
+<p><a href='https://en.wikipedia.org/wiki/Xyzzy_(computing'>https://en.wikipedia.org/wiki/Xyzzy_(computing</a>)</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>void</em> </span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">xyzzy</span>   <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">noop</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+  </div>
+</body>
+</html>
