@@ -1,6 +1,6 @@
 {
   "name": "microbejs",
-  "version": "0.4.7",
+  "version": "0.4.8",
   "author": "Mouse Braun <mouse@sociomantic.com>",
   "description": "micro-library front-end",
   "contributors": [
@@ -18,7 +18,7 @@
     "selectorEngine": "./node_modules/.bin/gulp selectorEngine && echo \"Build complete.\"",
     "toolkit": "./node_modules/.bin/gulp toolkit && echo \"Build complete.\"",
     "build": "./node_modules/.bin/gulp && echo \"Build complete.\"",
-    "test": "./node_modules/.bin/gulp test && echo \"Tests complete.\"",
+    "tests": "./node_modules/.bin/gulp tests && echo \"Tests complete.\"",
     "clean": "./node_modules/.bin/gulp clean && echo \"Dist cleaned.\"",
     "watch": "./node_modules/.bin/gulp watch",
     "docs": "docker -o www/doc/ -i src --sidebar true --watch --js dist/microbe.js --extras fileSearch -c manni"
