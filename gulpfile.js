@@ -5,7 +5,7 @@ var replace         = require( 'gulp-replace' );
 var uglify          = require( 'gulp-uglify' );
 var rename          = require( 'gulp-rename' );
 var header          = require( 'gulp-header' );
-
+var _name           = 'microbe';
 var now             = new Date();
 var _package        = require( './package.json' );
 
@@ -29,12 +29,12 @@ var exportName      = 'µ';
 
 gulp.task( 'build', function()
 {
-    browserify( './src/microbe.js', { standalone: token } )
+    browserify( './src/' + _name + '.js', { standalone: token } )
         .bundle()
-        .pipe( fs.createWriteStream( __dirname + '/dist/microbe.js' ) )
+        .pipe( fs.createWriteStream( __dirname + '/dist/' + _name + '.js' ) )
         .on( 'finish', function()
         {
-            gulp.src( './dist/microbe.js' )
+            gulp.src( './dist/' + _name + '.js' )
                 .pipe( replace( token, exportName ) )
                 .pipe( header( liscenceLong ) )
                 .pipe( gulp.dest( './dist/' ) );
@@ -44,12 +44,12 @@ gulp.task( 'build', function()
 
 gulp.task( 'min', function()
 {
-    browserify( './src/microbe.js', { standalone: token } )
+    browserify( './src/' + _name + '.js', { standalone: token } )
         .bundle()
-        .pipe( fs.createWriteStream( __dirname + '/dist/microbe.min.js' ) )
+        .pipe( fs.createWriteStream( __dirname + '/dist/' + _name + '.min.js' ) )
         .on( 'finish', function()
         {
-            gulp.src( './dist/microbe.min.js' )
+            gulp.src( './dist/' + _name + '.min.js' )
                 .pipe( replace( token, exportName ) )
                 .pipe( uglify() )
                 .pipe( header( liscenceShort ) )
@@ -88,21 +88,21 @@ gulp.task( 'default', [], function()
 gulp.task( 'microbe', function()
 {
         _name = 'microbe';
-       gulp.start( [ 'build', 'min', 'tests' ] ); 
+       gulp.start( [ 'build', 'min', 'tests' ] );
 } );
 
 
 gulp.task( 'selectorEngine', function()
 {
         _name = 'microbe.selectorEngine';
-       gulp.start( [ 'build', 'min', 'tests' ] ); 
+       gulp.start( [ 'build', 'min', 'tests' ] );
 } );
 
 
 gulp.task( 'toolkit', function()
 {
         _name = 'microbe.toolkit';
-       gulp.start( [ 'build', 'min', 'tests' ] ); 
+       gulp.start( [ 'build', 'min', 'tests' ] );
 } );
 
 

@@ -1,5 +1,5 @@
 /*!
- * Microbe JavaScript Library v0.4.5
+ * Microbe JavaScript Library v0.4.7
  * http://m.icro.be
  *
  * Copyright 2014-2015 Sociomantic Labs and other contributors
@@ -23,7 +23,7 @@
 'use strict';
 
 var _type       = '[object Microbe]';
-var _version    = '0.4.6';
+var _version    = '0.4.7';
 
 var Microbe = function( selector, scope, elements )
 {

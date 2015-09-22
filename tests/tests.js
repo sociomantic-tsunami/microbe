@@ -1780,7 +1780,7 @@ module.exports = function( buildTest )
 },{}],14:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 var indexOf = Array.prototype.indexOf;
-var version = '0.4.6';
+var version = '0.4.7';
 
 module.exports = function( buildTest )
 {

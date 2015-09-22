@@ -1,5 +1,5 @@
 /*!
- * Microbe JavaScript Library v0.4.6
+ * Microbe JavaScript Library v0.4.7
  * http://m.icro.be
  *
  * Copyright 2014-2015 Sociomantic Labs and other contributors
@@ -23,7 +23,7 @@
 'use strict';
 
 var _type       = '[object Microbe]';
-var _version    = '0.4.6-selectorEngine';
+var _version    = '0.4.7-selectorEngine';
 
 
 var Microbe = function( selector, scope, elements )
@@ -81,18 +81,12 @@ module.exports = function( Microbe )
 
 },{}],3:[function(require,module,exports){
 /**
- * selectorEngine/core.js
+ * pseudo.js
  *
  * @author  Mouse Braun         <mouse@sociomantic.com>
  * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
  *
  * @package Microbe
- */
-
-/*
- * ## _cleanArray
- * 
- * helper filter functionto clean null forom arrays
  */
 var _cleanArray = function( _r ){ return !!( _r ); };
 
@@ -514,13 +508,14 @@ module.exports = function( Microbe )
 };
 },{}],4:[function(require,module,exports){
 /**
- * selectorEngine/init.js
+ * Microbe.js
  *
  * @author  Mouse Braun         <mouse@sociomantic.com>
  * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
  *
  * @package Microbe
  */
+
 var slice = Array.prototype.slice;
 
 module.exports = function( Microbe, _type )
@@ -919,6 +914,7 @@ module.exports = function( Microbe, _type )
  *
  * @package Microbe
  */
+
 module.exports = function( Microbe )
 {
     'use strict';
@@ -1934,13 +1930,14 @@ module.exports = function( Microbe )
 
 },{}],6:[function(require,module,exports){
 /**
- * selectorEngine/root.js
- *
+ * rootUtils.js
+ * 
  * @author  Mouse Braun         <mouse@sociomantic.com>
  * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
  *
  * @package Microbe
  */
+
 module.exports = function( Microbe )
 {
     'use strict';

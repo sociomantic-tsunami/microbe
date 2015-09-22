@@ -1,6 +1,6 @@
 {
   "name": "microbejs",
-  "version": "0.4.6",
+  "version": "0.4.7",
   "author": "Mouse Braun <mouse@sociomantic.com>",
   "description": "micro-library front-end",
   "contributors": [
@@ -14,6 +14,9 @@
   "scripts": {
     "get-dependencies": "npm install . && echo \"Installation complete.\"",
     "gulp": "./node_modules/.bin/gulp && echo \"Build complete.\"",
+    "microbe": "./node_modules/.bin/gulp && echo \"Build complete.\"",
+    "selectorEngine": "./node_modules/.bin/gulp selectorEngine && echo \"Build complete.\"",
+    "toolkit": "./node_modules/.bin/gulp toolkit && echo \"Build complete.\"",
     "build": "./node_modules/.bin/gulp && echo \"Build complete.\"",
     "test": "./node_modules/.bin/gulp test && echo \"Tests complete.\"",
     "clean": "./node_modules/.bin/gulp clean && echo \"Dist cleaned.\"",

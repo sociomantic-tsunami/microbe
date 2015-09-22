@@ -1,5 +1,5 @@
 /*!
- * Microbe JavaScript Library v0.4.6
+ * Microbe JavaScript Library v0.4.7
  * http://m.icro.be
  *
  * Copyright 2014-2015 Sociomantic Labs and other contributors
@@ -23,7 +23,7 @@
 'use strict';
 
 var _type       = '[object MicrobeRoot]';
-var _version    = '0.4.6-tool';
+var _version    = '0.4.7-tool';
 
 var Microbe = {};
 require( './modules/tools' )( Microbe );
@@ -519,10 +519,8 @@ module.exports = asap;
 }).call(this,require('_process'))
 },{"_process":2}],9:[function(require,module,exports){
 /**
- * tools.js
+ * root.js
  *
- * root tools.  built for handling javascript more than microbe-specific
- * 
  * @author  Mouse Braun         <mouse@sociomantic.com>
  * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
  *
@@ -694,6 +692,9 @@ module.exports = function( Microbe )
 
         return res;
     };
+
+
+    Microbe.core.extend     = Microbe.extend;
     
 
     /**
@@ -926,6 +927,9 @@ module.exports = function( Microbe )
 
         return first;
     };
+
+
+    Microbe.core.merge      = Microbe.merge;
     
 
     /**
@@ -1131,6 +1135,9 @@ module.exports = function( Microbe )
     };
 
 
+    Microbe.core.toArray    = Microbe.toArray;
+
+
     /**
      * ## type
      *
@@ -1171,25 +1178,12 @@ module.exports = function( Microbe )
      * @return _void_ 
      */
     Microbe.xyzzy   = Microbe.noop;
-
-
-    /**
-     * extends methods to the core if there is one
-     */
-    if ( Microbe.core )
-    {
-        Microbe.core.extend     = Microbe.extend;
-        Microbe.core.merge      = Microbe.merge;
-        Microbe.core.toArray    = Microbe.toArray;
-    }
 };
 
 },{"./types":10,"promise":3}],10:[function(require,module,exports){
 /**
  * types.js
  *
- * object types
- * 
  * @author  Mouse Braun         <mouse@sociomantic.com>
  * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
  *

@@ -3,7 +3,11 @@
 
 [![Join the chat at https://gitter.im/sociomantic/microbe](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/sociomantic/microbe?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-microbe is a javascript library to aid in DOM manipulation as well as facilitating events, object observation, and data binding.
+microbe is a javascript library to aid in DOM manipulation as well as facilitating events, object observation, and data binding. It uses the micro character ( µ ) that is accessible in:
+
++ osx: alt-m
++ windows: alt+0181
++ linux: alt gr+m or alt+230
 
 microbe aims to be modular and expandable. It’s separated into several modules:
 
@@ -43,7 +47,7 @@ Example use
 ===========
 
 
-```javscript
+```javascript
 // all divs on the page
 var µDivs = µ( 'div' ) ;
 
@@ -83,6 +87,14 @@ Dev Installation
 - `npm start`
 
 
+Compiling the dist files
+========================
+
+- microbe.js                    `npm run gulp` or `npm run microbe`
+- microbe.selectorEngine.js     `npm run selectorEngine`
+- microbe.toolkit.js            `npm run toolkit`
+
+
 Generating www docs
 ===================
 
@@ -113,6 +125,14 @@ Need to report something? [report@m.icro.be](report@m.icro.be)
 
 Change log
 ==========
+
+#### 0.4.7
+
+ + updated readme with how to use the µ symbol
+ + copy and logo changes on ./www
+ + regenerated doc
+ + updated gulpfile
+
 
 #### 0.4.6
 

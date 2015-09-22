@@ -6,15 +6,16 @@
         float:                          none !important;
         text-align:                     center;
         padding-bottom:                 5px !important;
-        min-height:                     140px !important;
-        max-height:                     140px !important
+        /*min-height:                     100px !important;*/
+        max-height:                     140px !important;
+        margin-top:                     20px;
     }
 
 
     .content p:nth-child(5), .content p:nth-child(6), .content p:nth-child(7)
     {
         text-align:                     center;
-        width:                          100% !important
+        width:                          100% !important;
     }
 }
 
