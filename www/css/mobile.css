@@ -4,7 +4,7 @@
     {
         padding-bottom:                 10px;
         float:                          none !important;
-        text-align:                     center;
+        /*text-align:                     center;*/
         padding-bottom:                 5px !important;
         /*min-height:                     100px !important;*/
         max-height:                     140px !important;
@@ -14,7 +14,6 @@
 
     .content p:nth-child(5), .content p:nth-child(6), .content p:nth-child(7)
     {
-        text-align:                     center;
         width:                          100% !important;
     }
 }
