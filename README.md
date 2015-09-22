@@ -100,7 +100,7 @@ Otherwise, if you just want to talk, we are very easy to get a hold of!
 + Email:          [hello@m.icro.be](hello@m.icro.be)
 + Web:            [http://m.icro.be](http://m.icro.be/)
 + Git:            [https://github.com/sociomantic/microbe/](https://github.com/sociomantic/microbe/)
-+ IRC ([freenode](https://webchat.freenode.net/)): #microbe
++ IRC ([freenode](https://kiwiirc.com/client/chat.freenode.net:+6697/#microbe)): #microbe
 
 
 

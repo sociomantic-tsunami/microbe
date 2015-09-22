@@ -391,6 +391,7 @@ module.exports = function( Microbe, _type )
     require( './core' )( Microbe );
     require( './root' )( Microbe );
     require( './pseudo' )( Microbe );
+    require( './array' )( Microbe );
 
     var _pseudo = Microbe.constructor.pseudo;
 };

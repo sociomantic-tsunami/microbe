@@ -85,6 +85,27 @@ gulp.task( 'default', [], function()
 } );
 
 
+gulp.task( 'microbe', function()
+{
+        _name = 'microbe';
+       gulp.start( [ 'build', 'min', 'tests' ] ); 
+} );
+
+
+gulp.task( 'selectorEngine', function()
+{
+        _name = 'microbe.selectorEngine';
+       gulp.start( [ 'build', 'min', 'tests' ] ); 
+} );
+
+
+gulp.task( 'toolkit', function()
+{
+        _name = 'microbe.toolkit';
+       gulp.start( [ 'build', 'min', 'tests' ] ); 
+} );
+
+
 gulp.task( 'watch', function()
 {
     gulp.watch( [ 'src/**/*.js', 'tests/unit/*.js', 'tests/unit/cytoplasm/*.js' ], [ 'default' ] );

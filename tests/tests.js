@@ -19,7 +19,7 @@ var buildTest = function( _str1, _cb1, _str2, _cb2, _console )
 {
     this.count = this.count || 0;
 
-    var $Result, µLi, µStrong;
+    var $Result, $li, $strong;
 
     var suite = new Benchmark.Suite();
 
@@ -29,11 +29,11 @@ var buildTest = function( _str1, _cb1, _str2, _cb2, _console )
 
         var resDiv  = µTests[ this.count ];
 
-        µLi      = µ( 'li', resDiv );
-        µStrong  = µ( 'strong', resDiv );
+        $li      = $( 'li', resDiv );
+        $strong  = $( 'strong', resDiv );
         $Result =  $( '<div class="fastest">' );
 
-        resDiv.insertBefore( $Result[ 0 ], µStrong[ 0 ] );
+        resDiv.insertBefore( $Result[ 0 ], $strong[ 0 ] );
     }
 
     var startTheTest = function( e )
@@ -73,7 +73,7 @@ var buildTest = function( _str1, _cb1, _str2, _cb2, _console )
                 if ( !_console )
                 {
                     var test = testRes[ i ] = $( '<span class="slow  speed--result">' );
-                    $( µLi[ i ] ).append( test );
+                    $( $li[ i ] ).append( test );
                     test.html( String( event.target ) );
                 }
 
@@ -3492,20 +3492,13 @@ module.exports = function( buildTest )
      */
     QUnit.test( '.extend()', function( assert )
     {
-        assert.ok( µ().extend, 'core exists' );
         assert.ok( µ.extend, 'root exists' );
 
-        var µDivs = µ( 'div' );
-        var extension = { more: function(){ return 'MOAR!!!'; } };
-        µDivs.extend( extension );
-        assert.equal( µDivs.more(), 'MOAR!!!', 'extends microbes' );
+        var extension   = { more: function(){ return 'MOAR!!!'; } };
+        var _obj        = { a: 1, b: 2, c: 3 };
 
-        var _obj = { a: 1, b: 2, c:3 };
         µ.extend( _obj, extension );
         assert.equal( _obj.more(), 'MOAR!!!', 'extends objects' );
-
-            µDivs = µ( 'divs' );
-        var $Divs = µ( 'divs' );
 
         buildTest(
         'µ.extend( _obj, extension );', function()
@@ -3524,6 +3517,43 @@ module.exports = function( buildTest )
             $.extend( _obj, extension );
         } );
     });
+
+
+    if ( typeof µ === 'function' )
+    {  
+        /**
+         * µ extend tests
+         *
+         * @test    extend exists
+         * @test    extends microbes
+         * @test    extends objects
+         */
+        QUnit.test( 'µ().extend()', function( assert )
+        {
+            assert.ok( µ().extend, 'core exists' );
+
+            var µDivs = µ( 'div' );
+            var extension = { more: function(){ return 'MOAR!!!'; } };
+            µDivs.extend( extension );
+            assert.equal( µDivs.more(), 'MOAR!!!', 'extends microbes' );
+
+                µDivs = µ( 'divs' );
+            var $Divs = µ( 'divs' );
+
+            buildTest(
+            'µ.extend( _obj, extension );', function()
+            {
+                extension = { more: function(){ return 'MOAR!!!'; } };
+                µDivs.extend( extension );
+            },
+
+            '$.extend( _obj, extension )', function()
+            {
+                extension   = { more: function(){ return 'MOAR!!!'; } };
+                $Divs.extend( extension );
+            } );
+        });
+    }
 
 
     /**
@@ -3554,7 +3584,7 @@ module.exports = function( buildTest )
         µ.insertStyle( '#qunit', { 'color':'#f0f' } );
         var savedColor = µ.__customCSSRules[ '#qunit' ].none.obj.color;
 
-        assert.equal( µ( '#qunit' ).css( 'color' )[0], 'rgb(255, 0, 255)', 'sets the rule' );
+        assert.equal( $( '#qunit' ).css( 'color' ), 'rgb(255, 0, 255)', 'sets the rule' ); // ...
         assert.equal( savedColor, '#f0f', 'saves the reference' );
 
         µ.removeStyle( '#qunit' );
@@ -3727,7 +3757,7 @@ module.exports = function( buildTest )
     });
 
 
-/**
+    /**
      * µ merge tests
      *
      * @test    µ().merge exists
@@ -3738,23 +3768,18 @@ module.exports = function( buildTest )
      */
     QUnit.test( '.merge()', function( assert )
     {
-        assert.ok( µ().merge, 'µ().merge exists' );
         assert.ok( µ.merge, 'µ.merge exists' );
 
-        var µDivs       = µ( 'div' );
-        var divCount    = µDivs.length;
-        var µHtml       = µ( 'html' );
-        var htmlCount   = µHtml.length;
+        var $Divs       = $( 'div' );
+        var divCount    = $Divs.length;
+        var $Html       = $( 'html' );
+        var htmlCount   = $Html.length;
 
-        var merged      = µ.merge( µDivs, µHtml );
-        assert.equal( divCount + htmlCount, merged.length, 'merged microbes' );
+        var merged      = µ.merge( $Divs, $Html );
+        assert.equal( divCount + htmlCount, merged.length, 'merged objects' );
 
         merged = µ.merge( [ 1, 2, 3 ], [ 4, 5, 6 ] );
         assert.equal( 6, merged.length, 'merged arrays' );
-
-        µDivs       = µ( 'div' );
-        µDivs.merge( µHtml );
-        assert.equal( µDivs.length, divCount + htmlCount, 'merged this' );
 
 
         var $Divs, µLi, $Li;
@@ -3773,23 +3798,68 @@ module.exports = function( buildTest )
         'µ.merge( _obj, extension );', function()
         {
             refreshObjects();
-
-            /* these are commented out because jquery doesn't handle this syntax */
-            // µDivs.merge( µLi );
-
             µ.merge( µDivs, µLi );
         },
 
         '$.merge( _obj, extension )', function()
         {
             refreshObjects();
-
-            /* these are commented out because jquery doesn't handle this syntax */
-            // $Divs.merge( $Li );
-
             $.merge( $Divs, µLi );
         } );
     });
+
+
+    if ( typeof µ === 'function' )
+    {
+        /**
+         * µ merge tests
+         *
+         * @test    µ().merge exists
+         * @test    µ.merge exists
+         * @test    merged microbes
+         * @test    merged arrays
+         * @test    merged this
+         */
+        QUnit.test( '.merge()', function( assert )
+        {
+            assert.ok( µ().merge, 'µ().merge exists' );
+
+            var µDivs       = µ( 'div' );
+            var divCount    = µDivs.length;
+            var µHtml       = µ( 'html' );
+            var htmlCount   = µHtml.length;
+
+            µDivs       = µ( 'div' );
+            µDivs.merge( µHtml );
+            assert.equal( µDivs.length, divCount + htmlCount, 'merged this' );
+
+
+            var $Divs, µLi, $Li;
+
+            var refreshObjects = function()
+            {
+                µDivs = µ( 'div' );
+                $Divs = $( 'div' );
+
+                µLi = µ( 'li' );
+                $Li = $( 'li' );
+            };
+
+            buildTest( 'No comparison available.' );
+            // buildTest(
+            // 'µDivs.merge( _obj, extension );', function()
+            // {
+            //     refreshObjects();
+            //     µDivs.merge( µLi );
+            // },
+
+            // '$Divs.merge( _obj, extension )', function()
+            // {
+            //     refreshObjects();
+            //     $Divs.merge( $Li );
+            // } );
+        });
+    }
 
 
     /**
@@ -3883,7 +3953,7 @@ module.exports = function( buildTest )
         µ.insertStyle( '#qunit', { 'display':'none' }, media );
         µ.removeStyle( '#qunit', media );
 
-        assert.equal( µ( '#qunit' ).css( 'display' )[0], 'block', 'removes individual media queries' );
+        assert.equal( $( '#qunit' ).css( 'display' ), 'block', 'removes individual media queries' ); // ...
         µ.removeStyle( '#qunit' );
 
         assert.ok( !µ.__customCSSRules[ '#qunit' ].none, 'removes base references' );
@@ -3907,7 +3977,7 @@ module.exports = function( buildTest )
         µ.insertStyle( '#qunit', { 'display':'none' }, media );
         µ.removeStyles( '#qunit' );
 
-        assert.equal( µ( '#qunit' ).css( 'display' )[0], 'block', 'removes all tags' );
+        assert.equal( $( '#qunit' ).css( 'display' ), 'block', 'removes all tags' );
         assert.ok( !µ.__customCSSRules[ '#qunit' ].none && !µ.__customCSSRules[ '#qunit' ][ media ], 'removes all references' );
 
         buildTest( 'No speed tests available.' );
@@ -3925,8 +3995,8 @@ module.exports = function( buildTest )
     {
         assert.ok( µ.toArray, 'exists' );
 
-        var µArr = µ( 'div' );
-        assert.equal( µ.type( µ.toArray( µArr ) ), 'array', 'makes arrays' );
+        var $Arr = $( 'div' );
+        assert.equal( µ.type( µ.toArray( $Arr ) ), 'array', 'makes arrays' );
 
         buildTest( 'No speed tests available.' );
     });
@@ -3959,13 +4029,17 @@ module.exports = function( buildTest )
         assert.equal( µ.type( {} ), 'object', 'checks objects' );
         assert.equal( µ.type( 'moin!' ), 'string', 'checks strings' );
         assert.equal( µ.type( new Date() ), 'date', 'checks dates' );
-        assert.equal( µ.type( µ( 'div' ) ), 'microbe', 'checks microbes' );
         assert.equal( µ.type( /[0-9]/ ), 'regExp', 'checks regex' );
         assert.equal( µ.type( assert.ok ), 'function', 'checks functions' );
         assert.equal( µ.type( true ), 'boolean', 'checks boolean primitives' );
         assert.equal( µ.type( new Boolean( true ) ), 'object', 'checks boolean objects' );
         assert.equal( µ.type( new Error() ), 'error', 'checks error objects' );
         assert.equal( µ.type( new Promise(function(){}) ), 'promise', 'checks promises' );
+
+        if ( typeof µ === 'function' )
+        {
+            assert.equal( µ.type( µ( 'div' ) ), 'microbe', 'checks microbes' );
+        }
 
         buildTest(
         'µ.type', function()
@@ -3975,13 +4049,17 @@ module.exports = function( buildTest )
             µ.type( {} );
             µ.type( 'moin!' );
             µ.type( new Date() );
-            µ.type( µ( 'div' ) );
             µ.type( /[0-9]/ );
             µ.type( assert.ok );
             µ.type( true );
             µ.type( new Boolean( true ) );
             µ.type( new Error() );
             µ.type( new Promise(function(){}) );
+
+            if ( typeof µ === 'function' )
+            {
+                µ.type( µ( 'div' ) );
+            }
         },
 
         '$.type', function()
@@ -3991,13 +4069,17 @@ module.exports = function( buildTest )
             $.type( {} );
             $.type( 'moin!' );
             $.type( new Date() );
-            $.type( $( 'div' ) );
             $.type( /[0-9]/ );
             $.type( assert.ok );
             $.type( true );
             $.type( new Boolean( true ) );
             $.type( new Error() );
             $.type( new Promise(function(){}) );
+
+            if ( typeof µ === 'function' )
+            {
+                $.type( $( 'div' ) );
+            }
         } );
     });
 

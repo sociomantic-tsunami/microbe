@@ -1,6 +1,8 @@
 /**
  * array.js
  *
+ * methods based on the array prototype
+ * 
  * @author  Mouse Braun         <mouse@sociomantic.com>
  * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
  *
@@ -25,6 +27,7 @@ module.exports = function( Microbe )
     Microbe.core.slice          = Array.prototype.slice;
     Microbe.core.some           = Array.prototype.some;
     Microbe.core.sort           = Array.prototype.sort;
+    Microbe.core.unshift        = Array.prototype.unshift;
 
     /*
      * needed to be modified slightly to output a microbe
@@ -33,6 +36,4 @@ module.exports = function( Microbe )
     { 
         return this.constructor( Array.prototype.splice.call( this, start, deleteCount ) );
     };
-
-    Microbe.core.unshift        = Array.prototype.unshift;
 };

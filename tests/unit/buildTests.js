@@ -18,7 +18,7 @@ var buildTest = function( _str1, _cb1, _str2, _cb2, _console )
 {
     this.count = this.count || 0;
 
-    var $Result, µLi, µStrong;
+    var $Result, $li, $strong;
 
     var suite = new Benchmark.Suite();
 
@@ -28,11 +28,11 @@ var buildTest = function( _str1, _cb1, _str2, _cb2, _console )
 
         var resDiv  = µTests[ this.count ];
 
-        µLi      = µ( 'li', resDiv );
-        µStrong  = µ( 'strong', resDiv );
+        $li      = $( 'li', resDiv );
+        $strong  = $( 'strong', resDiv );
         $Result =  $( '<div class="fastest">' );
 
-        resDiv.insertBefore( $Result[ 0 ], µStrong[ 0 ] );
+        resDiv.insertBefore( $Result[ 0 ], $strong[ 0 ] );
     }
 
     var startTheTest = function( e )
@@ -72,7 +72,7 @@ var buildTest = function( _str1, _cb1, _str2, _cb2, _console )
                 if ( !_console )
                 {
                     var test = testRes[ i ] = $( '<span class="slow  speed--result">' );
-                    $( µLi[ i ] ).append( test );
+                    $( $li[ i ] ).append( test );
                     test.html( String( event.target ) );
                 }
 
