@@ -116,9 +116,9 @@ Otherwise, if you just want to talk, we are very easy to get a hold of!
 
 
 
-This project adheres to the [Open Code of Conduct](http://todogroup.org/opencodeofconduct/#microbe.js/report@m.icro.be). By participating, you are expected to honor this code.
+This project adheres to the [Contributor Covenant](http://contributor-covenant.org/). By participating, you are expected to honor this code.
 
-[Microbe - Code of Conduct](http://m.icro.be/code-of-conduct/)
+[Microbe - Code of Conduct](https://github.com/sociomantic/micro/blob/master/CODE_OF_CONDUCT.md)
 
 Need to report something? [report@m.icro.be](report@m.icro.be)
 
