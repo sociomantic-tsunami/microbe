@@ -21,6 +21,12 @@ module.exports = function( Microbe )
      *
      * @param {Mixed} _ele element(s) to append (Element, Array, string, or Microbe)
      *
+     * @example µ( '.example' ).append( '&lt;div class="new-div">test&lt;/div>' );
+     * @example µ( '.example' ).append( µMicrobeExample );
+     * @example µ( '.example' ).append( _el );
+     * @example µ( '.example' ).append( [ _el1, _el2, _el3 ] );
+     * @example µ( '.example' ).append( '&lt;div.example>' );
+     *
      * @return _Microbe_ new microbe filled with the inserted content
      */
     Microbe.core.append = (function()
@@ -88,7 +94,6 @@ module.exports = function( Microbe )
             _parentEl.insertBefore( _elm, firstChild );
         };
 
-
         return function( _el, prepend )
         {
             var elementArray = [];
@@ -140,9 +145,13 @@ module.exports = function( Microbe )
      * Inserts the given element after each of the elements given (or passed through this).
      * if it is an elemnet it is wrapped in a microbe object.  if it is a string it is created
      *
-     * @example `µ( '.elementsInDom' ).insertAfter( µElementToInsert )`
-     *
      * @param {Mixed} _elAfter element to insert {Object or String}
+     *
+     * @example µ( '.example' ).insertAfter( '&lt;div class="new-div">test&lt;/div>' );
+     * @example µ( '.example' ).insertAfter( µMicrobeExample );
+     * @example µ( '.example' ).insertAfter( _el );
+     * @example µ( '.example' ).insertAfter( [ _el1, _el2, _el3 ] );
+     * @example µ( '.example' ).insertAfter( '&lt;div.example>' );
      *
      * @return _Microbe_ new microbe filled with the inserted content
      */
@@ -202,6 +211,12 @@ module.exports = function( Microbe )
      *
      * @param {Mixed} _ele element(s) to prepend _{Element, Array, String, or Microbe}_
      *
+     * @example µ( '.example' ).prepend( '&lt;div class="new-div">test&lt;/div>' );
+     * @example µ( '.example' ).prepend( µMicrobeExample );
+     * @example µ( '.example' ).prepend( _el );
+     * @example µ( '.example' ).prepend( [ _el1, _el2, _el3 ] );
+     * @example µ( '.example' ).prepend( '&lt;div.example>' );
+     *
      * @return _Microbe_ new microbe filled with the inserted content
      */
     Microbe.core.prepend = function( _el )
@@ -216,14 +231,17 @@ module.exports = function( Microbe )
      * Waits until the DOM is ready to execute
      *
      * @param {Function} _cb callback to run on ready
+     * @param {Array} args parameters to pass to the callback
+     *
+     * @example µ.ready( function( a, b ){ return a + b; }, [ 1, 2 ] );
      *
      * @return _void_
      */
-    Microbe.ready = function( _cb )
+    Microbe.ready = function( _cb, args )
     {
         if ( document.readyState === 'complete' )
         {
-            return _cb();
+            return _cb.apply( this, args );
         }
 
         if ( window.addEventListener )
@@ -240,20 +258,20 @@ module.exports = function( Microbe )
         }
     };
 
- 
+
     /**
      * ## remove
      *
-     * Removes an element or elements from the dom
+     * Removes an element or elements from the dom and all events bound to it
+     *
+     * @example µ( '.example' ).remove();
      *
      * @return _Microbe_ reference to original microbe
      */
     Microbe.core.remove = function()
     {
-        _events = _events || this.off;
-
-        if ( _events )
-        {  
+        if ( this.off )
+        {
             this.off();
         }
 
@@ -273,9 +291,9 @@ module.exports = function( Microbe )
      *
      * @return _void_
      */
-    if ( !( 'remove' in Element.prototype ) ) 
+    if ( !( 'remove' in Element.prototype ) )
     {
-        Element.prototype.remove = function() 
+        Element.prototype.remove = function()
         {
             this.parentElement.removeChild( this );
         };

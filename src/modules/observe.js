@@ -27,6 +27,8 @@ module.exports = function( Microbe )
      *
      * @param {String} _prop property to get
      *
+     * @example µ( '.example' ).get( 'moon' );
+     *
      * @return _Array_ array of values
      */
     Microbe.core.get = function( prop )
@@ -62,6 +64,8 @@ module.exports = function( Microbe )
      * @param {Function} function function to apply
      * @param {String} _prop property to observe
      * @param {Boolean} _once bool to trigger auto unobserve
+     *
+     * @example µ( '.example' ).observe( 'moon', function(){ console.log( 'moon!' ); } );
      *
      * @return _Microbe_  reference to original microbe
      */
@@ -155,6 +159,8 @@ module.exports = function( Microbe )
      * @param {Function} func function to apply
      * @param {String} _prop property to observe
      *
+     * @example µ( '.example' ).observeOnce( 'moon', function(){ console.log( 'moon!' ); } );
+     *
      * @return _Microbe_ reference to original microbe
      */
     Microbe.core.observeOnce = function( func, _prop )
@@ -170,6 +176,8 @@ module.exports = function( Microbe )
      *
      * @param {String} prop property to set
      * @param {String} value value to set to
+     *
+     * @example µ( '.example' ).set( 'moon', 'doge' );
      *
      * @return _Microbe_ reference to original microbe
      */
@@ -210,6 +218,8 @@ module.exports = function( Microbe )
      * Stops watching the data changes of a µ object
      *
      * @param {String} _prop property to stop observing
+     *
+     * @example µ( '.example' ).unobserve( 'moon' );
      *
      * @return _Microbe_ reference to original microbe
      */

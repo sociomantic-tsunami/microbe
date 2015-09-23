@@ -15,6 +15,9 @@ module.exports = function( Microbe )
      *                          the strings can be a class or
      *                          classes seperated with spaces _{String or Array}_
      *
+     * @example µ( '.example' ).addClass( 'moon' );
+     * @example µ( '.example' ).addClass( [ 'moon', 'doge' ] );
+     *
      * @return _Microbe_ reference to original microbe
      */
     Microbe.core.addClass = function( _class )
@@ -58,8 +61,13 @@ module.exports = function( Microbe )
      * attribute value of the element. Attributes can be bulk added by passing
      * an object (property: value)
      *
-     * @param {Mixed} _attribute          attribute name {String or Object}
-     * @param {String} _value              attribute value (optional)
+     * @param {Mixed} _attribute attribute name {String or Object}
+     * @param {String} _value attribute value (optional)
+     *
+     * @example µ( '.example' ).attr( 'moon', 'doge' );
+     * @example µ( '.example' ).attr( { 'moon' : 1,
+     *                                  'doge' : 2 } );
+     * @example µ( '.example' ).attr( 'moon' );
      *
      * @return _Microbe_ reference to original microbe (set)
      * @return _Array_  array of values (get)
@@ -148,6 +156,9 @@ module.exports = function( Microbe )
      * @param {String} _attribute          css property
      * @param {String} _value              css value (optional)
      *
+     * @example µ( '.example' ).css( 'background-color', '#fff' );
+     * @example µ( '.example' ).css( 'background-color' );
+     *
      * @return _Microbe_ reference to original microbe (set)
      * @return _Array_  array of values (get)
      */
@@ -158,7 +169,7 @@ module.exports = function( Microbe )
             _elm.data                   = _elm.data || {};
             _elm.data.css               = _elm.data.css || {};
             _elm.data.css[ _property ]  = _value;
-            
+
             _elm.style[ _property ]     = _elm.data.css[ _property ];
         };
 
@@ -170,7 +181,7 @@ module.exports = function( Microbe )
         if ( _value || _value === null || _value === '' )
         {
             _value = ( _value === null ) ? '' : _value;
-            
+
             this.each( _setCss );
 
             return this;
@@ -184,6 +195,8 @@ module.exports = function( Microbe )
      * ## getParentIndex
      *
      * Gets the index of the item in it's parentNode's children array
+     *
+     * @example µ( '.example' ).getParentIndex();
      *
      * @return _Array_ array of index values
      */
@@ -205,7 +218,9 @@ module.exports = function( Microbe )
      *
      * @param {String} _class              class to check
      *
-     * @return _Microbe_ Array of Boolean values
+     * @example µ( '.example' ).hasClass( 'example' );
+     *
+     * @return _Array_ Array of Boolean values
      */
     Microbe.core.hasClass = function( _class )
     {
@@ -225,6 +240,9 @@ module.exports = function( Microbe )
      * omitted, simply returns the current inner html value of the element.
      *
      * @param {Mixed} _value html value (accepts Microbe String)
+     *
+     * @example µ( '.example' ).html( '<span>things!</span>' );
+     * @example µ( '.example' ).html();
      *
      * @return _Microbe_ reference to original microbe (set)
      * @return _Array_  array of values (get)
@@ -286,6 +304,9 @@ module.exports = function( Microbe )
      *                          the strings can be a class or
      *                          classes seperated with spaces {String Array}
      *
+     * @example µ( '.example' ).removeClass( 'moon' );
+     * @example µ( '.example' ).removeClass( [ 'moon', 'doge' ] );
+     *
      * @return _Microbe_ reference of the original microbe
      */
     Microbe.core.removeClass = function( _class )
@@ -328,6 +349,9 @@ module.exports = function( Microbe )
      * simply returns the current inner text value of each element.
      *
      * @param {String} _value              Text value (optional)
+     *
+     * @example µ( '.example' ).text( 'things!' );
+     * @example µ( '.example' ).text();
      *
      * @return _Microbe_ reference to original microbe (set)
      * @return _Array_  array of values (get)
@@ -381,19 +405,29 @@ module.exports = function( Microbe )
      *
      * @param {String} _class              class to add
      *
+     * @example µ( '.example' ).toggleClass( 'moon' );
+     * @example µ( '.example' ).toggleClass( [ 'moon', 'doge' ] );
+     *
      * @return _Microbe_ reference of the original microbe
      */
     Microbe.core.toggleClass = function( _class )
     {
+        var _cls;
+
+        if ( !Array.isArray( _class ) )
+        {
+            _class = [ _class ];
+        }
+
         var _toggleClass = function( _el )
         {
-            if ( _el.classList.contains( _class ) )
+            if ( _el.classList.contains( _cls ) )
             {
-                _el.classList.remove( _class );
+                _el.classList.remove( _cls );
             }
             else
             {
-                _el.classList.add( _class );
+                _el.classList.add( _cls );
             }
 
             _el.data                = _el.data || {};
@@ -401,7 +435,11 @@ module.exports = function( Microbe )
             _el.data.class.class    = _el.className;
         };
 
-        this.each( _toggleClass );
+        for ( var i = 0, lenI = _class.length; i < lenI; i++ )
+        {
+            _cls = _class[ i ];
+            this.each( _toggleClass );
+        }
 
         return this;
     };

@@ -21,6 +21,9 @@ module.exports = function( Microbe )
      * @param {Boolean} _bubbles event bubbles?
      * @param {Boolean} _cancelable cancelable?
      *
+     * @example µ( '.example' ).emit( 'custom-click', { type : 'microbe-click' } );
+     * @example µ( '.example' ).emit( 'custom-click', { type : 'microbe-click' }, true, true );
+     *
      * @return _Microbe_ reference to original microbe
      */
     Microbe.core.emit = function ( _event, _data, _bubbles, _cancelable )
@@ -51,6 +54,9 @@ module.exports = function( Microbe )
      * @param {String} _event event name
      * @param {Function} _callback callback function
      * @param {Object} _el HTML element to modify (optional)
+     *
+     * @example µ( '.example' ).off( 'custom-click' );
+     * @example µ( '.example' ).off();
      *
      * @return _Microbe_ reference to original microbe
      */
@@ -139,6 +145,8 @@ module.exports = function( Microbe )
      *
      * @param {String} _event HTMLEvent
      * @param {Function} _callback callback function
+     *
+     * @example µ( '.example' ).on( 'custom-click', function( e ){ return e.target;} );
      *
      * @return _Microbe_ reference to original microbe
      */

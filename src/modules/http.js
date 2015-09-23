@@ -21,6 +21,8 @@ module.exports = function( Microbe )
      *
      * @param {Object} _parameters http parameters. possible properties
      *                             method, url, data, user, password, headers, async
+     *
+     * @example µ.http( {url: './test.html', method: 'POST', data: { number: 67867} } ).then( function(){} ).catch( function(){} );
      */
     Microbe.http = function( _parameters )
     {
@@ -101,6 +103,7 @@ module.exports = function( Microbe )
             var _response = function( _val )
             {
                 var _responses = {
+
                     /**
                      * ## .then
                      *
@@ -165,6 +168,8 @@ module.exports = function( Microbe )
      *
      * @param {String} _url file url
      *
+     * @example µ.http.get( './test.html' ).then( function(){} ).catch( function(){} );
+     *
      * @return _Object_ contains `.then` and `.catch`
      */
     Microbe.http.get = function( _url )
@@ -183,6 +188,8 @@ module.exports = function( Microbe )
      *
      * @param {String} _url file url
      * @param {Mixed} _data data to post to location {Object or String}
+     *
+     * @example µ.http.post( './test.html', { number: 67867} ).then( function(){} ).catch( function(){} );
      *
      * @return _Object_ contains `.then` and `.catch`
      */
