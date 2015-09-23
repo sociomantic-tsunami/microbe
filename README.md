@@ -1,4 +1,4 @@
-µ - Microbe - 0.4.8
+µ - Microbe - 0.4.9
 ===================
 
 [![Join the chat at https://gitter.im/sociomantic/microbe](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/sociomantic/microbe?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
@@ -125,6 +125,18 @@ Need to report something? [report@m.icro.be](report@m.icro.be)
 
 Change log
 ==========
+
+#### 0.4.9
+
++ µ.ready now accepts an arguments array
++ added examples to docs
++ updated code of conduct
+
+
+#### 0.4.8
+
++ updated copy and tests
+
 
 #### 0.4.8
 

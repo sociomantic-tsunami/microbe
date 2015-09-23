@@ -100,6 +100,14 @@
                          the strings can be a class or
                          classes seperated with spaces <em>{String or Array}</em></span>
     </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).addClass( 'moon' );</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).addClass( [ 'moon', 'doge' ] );</span>
+    </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
@@ -173,6 +181,19 @@ an object (property: value)</p>
       <span class="dox_tag_name">_value</span>
       <span class="dox_type">String</span>
       <span>attribute value (optional)</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).attr( 'moon', 'doge' );</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).attr( { 'moon' : 1,
+                                 'doge' : 2 } );</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).attr( 'moon' );</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
@@ -292,6 +313,14 @@ If the value is omitted, simply returns the current css value of the element.</p
       <span class="dox_type">String</span>
       <span>css value (optional)</span>
     </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).css( 'background-color', '#fff' );</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).css( 'background-color' );</span>
+    </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
@@ -312,7 +341,7 @@ If the value is omitted, simply returns the current css value of the element.</p
             <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span>                   <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span> <span class="o">||</span> <span class="p">{};</span>
             <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">css</span>               <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">css</span> <span class="o">||</span> <span class="p">{};</span>
             <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">css</span><span class="p">[</span> <span class="nx">_property</span> <span class="p">]</span>  <span class="o">=</span> <span class="nx">_value</span><span class="p">;</span>
-            
+
             <span class="nx">_elm</span><span class="p">.</span><span class="nx">style</span><span class="p">[</span> <span class="nx">_property</span> <span class="p">]</span>     <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">css</span><span class="p">[</span> <span class="nx">_property</span> <span class="p">];</span>
         <span class="p">};</span>
 
@@ -324,7 +353,7 @@ If the value is omitted, simply returns the current css value of the element.</p
         <span class="k">if</span> <span class="p">(</span> <span class="nx">_value</span> <span class="o">||</span> <span class="nx">_value</span> <span class="o">===</span> <span class="kc">null</span> <span class="o">||</span> <span class="nx">_value</span> <span class="o">===</span> <span class="s1">&#39;&#39;</span> <span class="p">)</span>
         <span class="p">{</span>
             <span class="nx">_value</span> <span class="o">=</span> <span class="p">(</span> <span class="nx">_value</span> <span class="o">===</span> <span class="kc">null</span> <span class="p">)</span> <span class="o">?</span> <span class="s1">&#39;&#39;</span> <span class="o">:</span> <span class="nx">_value</span><span class="p">;</span>
-            
+
             <span class="k">this</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span> <span class="nx">_setCss</span> <span class="p">);</span>
 
             <span class="k">return</span> <span class="k">this</span><span class="p">;</span>

@@ -73,11 +73,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Mouse Braun         <a href="&#x6D;&#x61;&#105;&#x6C;&#116;&#111;:&#x6D;&#111;&#x75;&#x73;&#101;&#64;&#115;&#111;&#x63;&#105;&#x6F;&#x6D;&#x61;&#110;&#x74;&#105;&#x63;&#x2E;&#x63;&#111;&#109;">&#x6D;&#111;&#x75;&#x73;&#101;&#64;&#115;&#111;&#x63;&#105;&#x6F;&#x6D;&#x61;&#110;&#x74;&#105;&#x63;&#x2E;&#x63;&#111;&#109;</a></span>
+      <span>Mouse Braun         <a href="&#109;&#x61;&#x69;&#x6C;t&#x6F;:mo&#x75;&#x73;&#101;&#x40;&#115;&#111;&#x63;&#x69;o&#x6D;&#x61;&#x6E;&#x74;&#105;&#99;&#x2E;&#x63;&#111;&#x6D;">mo&#x75;&#x73;&#101;&#x40;&#115;&#111;&#x63;&#x69;o&#x6D;&#x61;&#x6E;&#x74;&#105;&#99;&#x2E;&#x63;&#111;&#x6D;</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Nicolas Brugneaux   <a href="&#109;&#97;il&#x74;&#111;:&#110;&#105;c&#x6F;&#x6C;&#97;s&#46;b&#x72;&#x75;&#x67;&#x6E;&#x65;&#97;&#117;x&#64;&#x73;&#x6F;&#x63;&#105;&#111;&#x6D;&#x61;&#x6E;&#x74;&#x69;&#99;&#x2E;&#99;&#111;&#x6D;">&#110;&#105;c&#x6F;&#x6C;&#97;s&#46;b&#x72;&#x75;&#x67;&#x6E;&#x65;&#97;&#117;x&#64;&#x73;&#x6F;&#x63;&#105;&#111;&#x6D;&#x61;&#x6E;&#x74;&#x69;&#99;&#x2E;&#99;&#111;&#x6D;</a></span>
+      <span>Nicolas Brugneaux   <a href="mai&#108;&#116;&#111;:&#x6E;&#105;&#99;&#x6F;&#108;&#97;&#115;&#46;&#x62;&#114;&#x75;&#x67;&#110;e&#97;&#117;&#x78;&#64;&#x73;o&#x63;&#x69;&#x6F;&#109;&#97;&#x6E;&#116;&#105;&#x63;&#x2E;&#99;&#x6F;&#x6D;">&#x6E;&#105;&#99;&#x6F;&#108;&#97;&#115;&#46;&#x62;&#114;&#x75;&#x67;&#110;e&#97;&#117;&#x78;&#64;&#x73;o&#x63;&#x69;&#x6F;&#109;&#97;&#x6E;&#116;&#105;&#x63;&#x2E;&#99;&#x6F;&#x6D;</a></span>
     </div>
     <div class="dox_tag_title">package</div>
     <div class="dox_tag_detail">
@@ -117,6 +117,26 @@ a selector string, an element creation string, or an html string</p>
       <span class="dox_tag_name">_ele</span>
       <span class="dox_type">Mixed</span>
       <span>element(s) to append (Element, Array, string, or Microbe)</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).append( '&lt;div class="new-div">test&lt;/div>' );</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).append( µMicrobeExample );</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).append( _el );</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).append( [ _el1, _el2, _el3 ] );</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).append( '&lt;div.example>' );</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
@@ -276,7 +296,6 @@ innerHTML</p>
             <span class="nx">_parentEl</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span> <span class="nx">_elm</span><span class="p">,</span> <span class="nx">firstChild</span> <span class="p">);</span>
         <span class="p">};</span>
 
-
         <span class="k">return</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_el</span><span class="p">,</span> <span class="nx">prepend</span> <span class="p">)</span>
         <span class="p">{</span>
             <span class="kd">var</span> <span class="nx">elementArray</span> <span class="o">=</span> <span class="p">[];</span>
@@ -341,15 +360,31 @@ innerHTML</p>
 if it is an elemnet it is wrapped in a microbe object.  if it is a string it is created</p>
   </div>
   <div class="details">
-    <div class="dox_tag_title">example</div>
-    <div class="dox_tag_detail">
-      <span><code>µ( '.elementsInDom' ).insertAfter( µElementToInsert )</code></span>
-    </div>
     <div class="dox_tag_title">Params</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name">_elAfter</span>
       <span class="dox_type">Mixed</span>
       <span>element to insert {Object or String}</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).insertAfter( '&lt;div class="new-div">test&lt;/div>' );</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).insertAfter( µMicrobeExample );</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).insertAfter( _el );</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).insertAfter( [ _el1, _el2, _el3 ] );</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).insertAfter( '&lt;div.example>' );</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
@@ -433,6 +468,26 @@ a selector string, an element creation string, or an html string</p>
       <span class="dox_type">Mixed</span>
       <span>element(s) to prepend <em>{Element, Array, String, or Microbe}</em></span>
     </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).prepend( '&lt;div class="new-div">test&lt;/div>' );</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).prepend( µMicrobeExample );</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).prepend( _el );</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).prepend( [ _el1, _el2, _el3 ] );</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).prepend( '&lt;div.example>' );</span>
+    </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
@@ -472,6 +527,15 @@ a selector string, an element creation string, or an html string</p>
       <span class="dox_type">Function</span>
       <span>callback to run on ready</span>
     </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">args</span>
+      <span class="dox_type">Array</span>
+      <span>parameters to pass to the callback</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ.ready( function( a, b ){ return a + b; }, [ 1, 2 ] );</span>
+    </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
@@ -481,11 +545,11 @@ a selector string, an element creation string, or an html string</p>
 </div>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">ready</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_cb</span> <span class="p">)</span>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">ready</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_cb</span><span class="p">,</span> <span class="nx">args</span> <span class="p">)</span>
     <span class="p">{</span>
         <span class="k">if</span> <span class="p">(</span> <span class="nb">document</span><span class="p">.</span><span class="nx">readyState</span> <span class="o">===</span> <span class="s1">&#39;complete&#39;</span> <span class="p">)</span>
         <span class="p">{</span>
-            <span class="k">return</span> <span class="nx">_cb</span><span class="p">();</span>
+            <span class="k">return</span> <span class="nx">_cb</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span> <span class="k">this</span><span class="p">,</span> <span class="nx">args</span> <span class="p">);</span>
         <span class="p">}</span>
 
         <span class="k">if</span> <span class="p">(</span> <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span> <span class="p">)</span>
@@ -502,7 +566,7 @@ a selector string, an element creation string, or an html string</p>
         <span class="p">}</span>
     <span class="p">};</span>
 
- 
+
 
 </pre></div>
         </td>
@@ -518,9 +582,13 @@ a selector string, an element creation string, or an html string</p>
 </div>
 
   </div>
-  <div class="body"><p>Removes an element or elements from the dom</p>
+  <div class="body"><p>Removes an element or elements from the dom and all events bound to it</p>
   </div>
   <div class="details">
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).remove();</span>
+    </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
@@ -532,10 +600,8 @@ a selector string, an element creation string, or an html string</p>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">remove</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span>
     <span class="p">{</span>
-        <span class="nx">_events</span> <span class="o">=</span> <span class="nx">_events</span> <span class="o">||</span><span class="err"> </span><span class="k">this</span><span class="p">.</span><span class="nx">off</span><span class="p">;</span>
-
-        <span class="k">if</span> <span class="p">(</span> <span class="nx">_events</span> <span class="p">)</span>
-        <span class="p">{</span>  
+        <span class="k">if</span> <span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">off</span> <span class="p">)</span>
+        <span class="p">{</span>
             <span class="k">this</span><span class="p">.</span><span class="nx">off</span><span class="p">();</span>
         <span class="p">}</span>
 
@@ -575,9 +641,9 @@ a selector string, an element creation string, or an html string</p>
 </div>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-    <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="p">(</span> <span class="s1">&#39;remove&#39;</span> <span class="k">in</span> <span class="nx">Element</span><span class="p">.</span><span class="nx">prototype</span> <span class="p">)</span> <span class="p">)</span> 
+    <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="p">(</span> <span class="s1">&#39;remove&#39;</span> <span class="k">in</span> <span class="nx">Element</span><span class="p">.</span><span class="nx">prototype</span> <span class="p">)</span> <span class="p">)</span>
     <span class="p">{</span>
-        <span class="nx">Element</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">remove</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> 
+        <span class="nx">Element</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">remove</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span>
         <span class="p">{</span>
             <span class="k">this</span><span class="p">.</span><span class="nx">parentElement</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span> <span class="k">this</span> <span class="p">);</span>
         <span class="p">};</span>
