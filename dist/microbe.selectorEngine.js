@@ -616,7 +616,7 @@ module.exports = function( Microbe, _type )
 
     /**
      * ## _createHtml
-     * 
+     *
      * Method creates a Microbe from an html string, and returns it
      *
      * @param {String} _el element to create
@@ -630,7 +630,7 @@ module.exports = function( Microbe, _type )
         _ghost.innerHTML    = _el;
         _el                 = slice.call( _ghost.children );
 
-        for ( var i = 0, lenI = _el.length; i < lenI; i++ ) 
+        for ( var i = 0, lenI = _el.length; i < lenI; i++ )
         {
             _ghost.removeChild( _el[ i ] );
         }
@@ -701,11 +701,11 @@ module.exports = function( Microbe, _type )
                             clss = clss.split( '.' );
 
                             var res, _r, _el = document.getElementsByClassName( clss[ 0 ] );
-                            for ( var c = 1, lenC = clss.length; c < lenC; c++ ) 
+                            for ( var c = 1, lenC = clss.length; c < lenC; c++ )
                             {
                                 res = slice.call( document.getElementsByClassName( clss[ c ] ) );
 
-                                for ( var r = 0, lenR = _el.length; r < lenR; r++ ) 
+                                for ( var r = 0, lenR = _el.length; r < lenR; r++ )
                                 {
                                     _r = _el[ r ];
 
@@ -740,14 +740,15 @@ module.exports = function( Microbe, _type )
      * Constructor.
      *
      * Either selects or creates an HTML element and wraps it into a Microbe instance.
-     * Usage:   µ()                             ---> empty
-     *          µ( '' )                         ---> empty
-     *          µ( [] )                         ---> empty
-     *          µ( 'div#test' )                 ---> selection
-     *          µ( elDiv )                      ---> selection
-     *          µ( [ elDiv1, elDiv2, elDiv3 ] ) ---> selection
-     *          µ( '<div#test>' )               ---> creation
-     *          µ( '<div id="test"></div>' )    ---> creation
+     *
+     * @example µ()                             ---> empty
+     * @example µ( '' )                         ---> empty
+     * @example µ( [] )                         ---> empty
+     * @example µ( 'div#test' )                 ---> selection
+     * @example µ( elDiv )                      ---> selection
+     * @example µ( [ elDiv1, elDiv2, elDiv3 ] ) ---> selection
+     * @example µ( '<div#test>' )               ---> creation
+     * @example µ( '<div id="test"></div>' )    ---> creation
      *
      * @param {Mixed} _selector HTML selector (Element String Array)
      * @param {Mixed} _scope scope to look inside (Element String Microbe)

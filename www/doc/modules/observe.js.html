@@ -61,11 +61,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Mouse Braun         <a href="&#x6D;&#x61;&#x69;&#x6C;&#116;o:&#109;o&#x75;&#x73;&#101;&#64;&#115;&#111;&#x63;&#x69;&#111;m&#x61;n&#x74;&#105;&#99;&#x2E;&#99;&#111;&#109;">&#109;o&#x75;&#x73;&#101;&#64;&#115;&#111;&#x63;&#x69;&#111;m&#x61;n&#x74;&#105;&#99;&#x2E;&#99;&#111;&#109;</a></span>
+      <span>Mouse Braun         <a href="&#109;&#97;&#105;&#x6C;&#116;&#111;:&#109;&#x6F;&#x75;&#115;&#x65;&#x40;&#115;o&#x63;&#105;&#111;&#109;a&#x6E;&#116;&#105;&#99;&#46;&#x63;&#111;&#109;">&#109;&#x6F;&#x75;&#115;&#x65;&#x40;&#115;o&#x63;&#105;&#111;&#109;a&#x6E;&#116;&#105;&#99;&#46;&#x63;&#111;&#109;</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Nicolas Brugneaux   <a href="&#109;&#x61;i&#108;&#x74;o:&#x6E;&#105;c&#x6F;&#108;&#x61;&#x73;&#x2E;&#x62;&#114;&#x75;&#103;n&#x65;&#97;&#117;x&#x40;&#115;&#111;&#99;&#x69;&#111;&#109;&#97;n&#x74;&#105;&#x63;&#x2E;&#x63;&#111;m">&#x6E;&#105;c&#x6F;&#108;&#x61;&#x73;&#x2E;&#x62;&#114;&#x75;&#103;n&#x65;&#97;&#117;x&#x40;&#115;&#111;&#99;&#x69;&#111;&#109;&#97;n&#x74;&#105;&#x63;&#x2E;&#x63;&#111;m</a></span>
+      <span>Nicolas Brugneaux   <a href="&#x6D;&#97;&#105;&#108;&#x74;&#x6F;:&#110;&#x69;&#99;o&#x6C;&#97;&#115;.b&#114;&#117;&#103;&#x6E;&#x65;&#x61;&#x75;&#120;&#x40;&#115;&#x6F;&#x63;&#105;&#111;&#109;&#97;&#x6E;t&#105;&#x63;&#x2E;c&#111;&#109;">&#110;&#x69;&#99;o&#x6C;&#97;&#115;.b&#114;&#117;&#103;&#x6E;&#x65;&#x61;&#x75;&#120;&#x40;&#115;&#x6F;&#x63;&#105;&#111;&#109;&#97;&#x6E;t&#105;&#x63;&#x2E;c&#111;&#109;</a></span>
     </div>
     <div class="dox_tag_title">package</div>
     <div class="dox_tag_detail">
@@ -121,6 +121,10 @@
       <span class="dox_tag_name">_prop</span>
       <span class="dox_type">String</span>
       <span>property to get</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).get( 'moon' );</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
@@ -189,6 +193,10 @@
       <span class="dox_tag_name">_once</span>
       <span class="dox_type">Boolean</span>
       <span>bool to trigger auto unobserve</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).observe( 'moon', function(){ console.log( 'moon!' ); } );</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
@@ -310,6 +318,10 @@
       <span class="dox_type">String</span>
       <span>property to observe</span>
     </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).observeOnce( 'moon', function(){ console.log( 'moon!' ); } );</span>
+    </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
@@ -353,6 +365,10 @@
       <span class="dox_tag_name">value</span>
       <span class="dox_type">String</span>
       <span>value to set to</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).set( 'moon', 'doge' );</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
@@ -428,6 +444,10 @@
       <span class="dox_tag_name">_prop</span>
       <span class="dox_type">String</span>
       <span>property to stop observing</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).unobserve( 'moon' );</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">

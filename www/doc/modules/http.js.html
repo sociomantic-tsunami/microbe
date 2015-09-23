@@ -61,11 +61,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Mouse Braun         <a href="&#109;&#97;&#105;&#x6C;&#x74;&#111;:&#x6D;o&#117;s&#101;&#64;&#115;&#x6F;&#99;i&#x6F;&#109;&#x61;&#x6E;&#x74;&#105;&#x63;&#46;&#99;&#111;m">&#x6D;o&#117;s&#101;&#64;&#115;&#x6F;&#99;i&#x6F;&#109;&#x61;&#x6E;&#x74;&#105;&#x63;&#46;&#99;&#111;m</a></span>
+      <span>Mouse Braun         <a href="&#x6D;&#97;&#105;&#108;&#116;&#x6F;:&#x6D;&#x6F;&#117;&#115;&#101;&#64;&#x73;&#111;&#x63;&#105;om&#97;n&#x74;&#x69;&#99;&#46;&#x63;&#x6F;&#109;">&#x6D;&#x6F;&#117;&#115;&#101;&#64;&#x73;&#111;&#x63;&#105;om&#97;n&#x74;&#x69;&#99;&#46;&#x63;&#x6F;&#109;</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Nicolas Brugneaux   <a href="&#109;&#x61;&#x69;&#108;&#116;&#111;:&#110;&#105;&#99;&#111;&#108;&#97;s&#46;&#x62;&#114;&#117;&#103;&#x6E;ea&#117;&#120;&#x40;&#115;&#x6F;&#99;&#105;&#x6F;&#109;&#97;&#110;&#x74;&#x69;&#99;&#x2E;&#99;&#111;&#109;">&#110;&#105;&#99;&#111;&#108;&#97;s&#46;&#x62;&#114;&#117;&#103;&#x6E;ea&#117;&#120;&#x40;&#115;&#x6F;&#99;&#105;&#x6F;&#109;&#97;&#110;&#x74;&#x69;&#99;&#x2E;&#99;&#111;&#109;</a></span>
+      <span>Nicolas Brugneaux   <a href="&#109;&#x61;&#105;l&#116;&#111;:n&#x69;&#x63;&#111;&#108;&#x61;&#x73;&#46;&#x62;&#x72;&#x75;&#103;&#x6E;&#101;&#x61;&#x75;&#120;&#64;&#x73;&#x6F;c&#x69;&#111;&#x6D;&#97;&#x6E;&#x74;&#105;&#x63;&#x2E;&#99;&#111;&#109;">n&#x69;&#x63;&#111;&#108;&#x61;&#x73;&#46;&#x62;&#x72;&#x75;&#103;&#x6E;&#101;&#x61;&#x75;&#120;&#64;&#x73;&#x6F;c&#x69;&#111;&#x6D;&#97;&#x6E;&#x74;&#105;&#x63;&#x2E;&#99;&#111;&#109;</a></span>
     </div>
     <div class="dox_tag_title">package</div>
     <div class="dox_tag_detail">
@@ -105,6 +105,10 @@ The return then has the methods <code>.then( _cb )</code> and <code>.error( _cb 
       <span class="dox_type">Object</span>
       <span>http parameters. possible properties
                             method, url, data, user, password, headers, async</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ.http( {url: './test.html', method: 'POST', data: { number: 67867} } ).then( function(){} ).catch( function(){} );</span>
     </div>
   </div>
 </div>
@@ -200,6 +204,7 @@ The return then has the methods <code>.then( _cb )</code> and <code>.error( _cb 
             <span class="kd">var</span> <span class="nx">_response</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_val</span> <span class="p">)</span>
             <span class="p">{</span>
                 <span class="kd">var</span> <span class="nx">_responses</span> <span class="o">=</span> <span class="p">{</span>
+
 
 </pre></div>
         </td>
@@ -329,6 +334,10 @@ called passing the error as the first parameter to the callback</p>
       <span class="dox_type">String</span>
       <span>file url</span>
     </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ.http.get( './test.html' ).then( function(){} ).catch( function(){} );</span>
+    </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
@@ -375,6 +384,10 @@ called passing the error as the first parameter to the callback</p>
       <span class="dox_tag_name">_data</span>
       <span class="dox_type">Mixed</span>
       <span>data to post to location {Object or String}</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ.http.post( './test.html', { number: 67867} ).then( function(){} ).catch( function(){} );</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">

@@ -381,6 +381,10 @@ If the value is omitted, simply returns the current css value of the element.</p
   <div class="body"><p>Gets the index of the item in it's parentNode's children array</p>
   </div>
   <div class="details">
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).getParentIndex();</span>
+    </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
@@ -425,10 +429,14 @@ If the value is omitted, simply returns the current css value of the element.</p
       <span class="dox_type">String</span>
       <span>class to check</span>
     </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).hasClass( 'example' );</span>
+    </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span><em>Microbe</em> Array of Boolean values</span>
+      <span><em>Array</em> Array of Boolean values</span>
     </div>
   </div>
 </div>
@@ -469,6 +477,14 @@ omitted, simply returns the current inner html value of the element.</p>
       <span class="dox_tag_name">_value</span>
       <span class="dox_type">Mixed</span>
       <span>html value (accepts Microbe String)</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).html( '<span>things!</span>' );</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).html();</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
@@ -557,6 +573,14 @@ omitted, simply returns the current inner html value of the element.</p>
                          the strings can be a class or
                          classes seperated with spaces {String Array}</span>
     </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).removeClass( 'moon' );</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).removeClass( [ 'moon', 'doge' ] );</span>
+    </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
@@ -623,6 +647,14 @@ simply returns the current inner text value of each element.</p>
       <span class="dox_tag_name">_value</span>
       <span class="dox_type">String</span>
       <span>Text value (optional)</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).text( 'things!' );</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).text();</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
@@ -703,6 +735,14 @@ whether it has it already.</p>
       <span class="dox_type">String</span>
       <span>class to add</span>
     </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).toggleClass( 'moon' );</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).toggleClass( [ 'moon', 'doge' ] );</span>
+    </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
@@ -714,15 +754,22 @@ whether it has it already.</p>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">toggleClass</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_class</span> <span class="p">)</span>
     <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">_cls</span><span class="p">;</span>
+
+        <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span> <span class="nx">_class</span> <span class="p">)</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">_class</span> <span class="o">=</span> <span class="p">[</span> <span class="nx">_class</span> <span class="p">];</span>
+        <span class="p">}</span>
+
         <span class="kd">var</span> <span class="nx">_toggleClass</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_el</span> <span class="p">)</span>
         <span class="p">{</span>
-            <span class="k">if</span> <span class="p">(</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">contains</span><span class="p">(</span> <span class="nx">_class</span> <span class="p">)</span> <span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">contains</span><span class="p">(</span> <span class="nx">_cls</span> <span class="p">)</span> <span class="p">)</span>
             <span class="p">{</span>
-                <span class="nx">_el</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span> <span class="nx">_class</span> <span class="p">);</span>
+                <span class="nx">_el</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span> <span class="nx">_cls</span> <span class="p">);</span>
             <span class="p">}</span>
             <span class="k">else</span>
             <span class="p">{</span>
-                <span class="nx">_el</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span> <span class="nx">_class</span> <span class="p">);</span>
+                <span class="nx">_el</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span> <span class="nx">_cls</span> <span class="p">);</span>
             <span class="p">}</span>
 
             <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span>                <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span> <span class="o">||</span> <span class="p">{};</span>
@@ -730,7 +777,11 @@ whether it has it already.</p>
             <span class="nx">_el</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="kr">class</span><span class="p">.</span><span class="kr">class</span>    <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">className</span><span class="p">;</span>
         <span class="p">};</span>
 
-        <span class="k">this</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span> <span class="nx">_toggleClass</span> <span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenI</span> <span class="o">=</span> <span class="nx">_class</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">lenI</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">_cls</span> <span class="o">=</span> <span class="nx">_class</span><span class="p">[</span> <span class="nx">i</span> <span class="p">];</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span> <span class="nx">_toggleClass</span> <span class="p">);</span>
+        <span class="p">}</span>
 
         <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
     <span class="p">};</span>

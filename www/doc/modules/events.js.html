@@ -58,11 +58,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Mouse Braun         <a href="m&#x61;&#x69;&#108;t&#x6F;:&#x6D;&#x6F;&#117;&#x73;&#x65;&#x40;&#x73;&#x6F;&#x63;&#105;&#x6F;&#109;&#97;&#110;t&#105;&#x63;&#46;&#99;&#111;&#x6D;">&#x6D;&#x6F;&#117;&#x73;&#x65;&#x40;&#x73;&#x6F;&#x63;&#105;&#x6F;&#109;&#97;&#110;t&#105;&#x63;&#46;&#99;&#111;&#x6D;</a></span>
+      <span>Mouse Braun         <a href="&#x6D;&#x61;&#x69;&#x6C;&#116;o:&#109;&#x6F;&#117;&#x73;&#x65;&#64;&#x73;&#111;&#x63;&#105;&#x6F;&#x6D;&#97;&#x6E;&#116;&#x69;&#x63;&#x2E;&#x63;&#x6F;&#x6D;">&#109;&#x6F;&#117;&#x73;&#x65;&#64;&#x73;&#111;&#x63;&#105;&#x6F;&#x6D;&#97;&#x6E;&#116;&#x69;&#x63;&#x2E;&#x63;&#x6F;&#x6D;</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Nicolas Brugneaux   <a href="m&#x61;&#x69;&#x6C;&#116;&#x6F;:&#110;&#x69;&#x63;&#111;&#108;&#x61;&#x73;&#x2E;&#98;r&#117;&#x67;n&#101;&#97;&#117;&#x78;&#64;&#x73;&#111;&#x63;&#x69;&#111;&#x6D;&#x61;&#110;&#116;i&#99;&#46;&#99;&#x6F;&#x6D;">&#110;&#x69;&#x63;&#111;&#108;&#x61;&#x73;&#x2E;&#98;r&#117;&#x67;n&#101;&#97;&#117;&#x78;&#64;&#x73;&#111;&#x63;&#x69;&#111;&#x6D;&#x61;&#110;&#116;i&#99;&#46;&#99;&#x6F;&#x6D;</a></span>
+      <span>Nicolas Brugneaux   <a href="&#x6D;&#x61;i&#108;&#x74;&#111;:&#x6E;&#x69;&#99;&#111;&#x6C;&#x61;&#115;&#46;&#x62;&#114;&#x75;&#x67;&#x6E;&#x65;&#x61;&#x75;&#120;&#64;&#115;&#111;c&#105;&#x6F;&#x6D;&#x61;&#110;&#116;&#x69;&#99;&#x2E;&#99;&#111;&#109;">&#x6E;&#x69;&#99;&#111;&#x6C;&#x61;&#115;&#46;&#x62;&#114;&#x75;&#x67;&#x6E;&#x65;&#x61;&#x75;&#120;&#64;&#115;&#111;c&#105;&#x6F;&#x6D;&#x61;&#110;&#116;&#x69;&#99;&#x2E;&#99;&#111;&#109;</a></span>
     </div>
     <div class="dox_tag_title">package</div>
     <div class="dox_tag_detail">
@@ -113,6 +113,14 @@
       <span class="dox_tag_name">_cancelable</span>
       <span class="dox_type">Boolean</span>
       <span>cancelable?</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).emit( 'custom-click', { type : 'microbe-click' } );</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).emit( 'custom-click', { type : 'microbe-click' }, true, true );</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
@@ -176,6 +184,14 @@
       <span class="dox_tag_name">_el</span>
       <span class="dox_type">Object</span>
       <span>HTML element to modify (optional)</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).off( 'custom-click' );</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).off();</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
@@ -292,6 +308,10 @@ given element.</p>
       <span class="dox_tag_name">_callback</span>
       <span class="dox_type">Function</span>
       <span>callback function</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).on( 'custom-click', function( e ){ return e.target;} );</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">

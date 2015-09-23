@@ -2490,6 +2490,8 @@ module.exports = function( Microbe )
      *
      * Gets the index of the item in it's parentNode's children array
      *
+     * @example µ( '.example' ).getParentIndex();
+     *
      * @return _Array_ array of index values
      */
     Microbe.core.getParentIndex = function()
@@ -2510,7 +2512,9 @@ module.exports = function( Microbe )
      *
      * @param {String} _class              class to check
      *
-     * @return _Microbe_ Array of Boolean values
+     * @example µ( '.example' ).hasClass( 'example' );
+     *
+     * @return _Array_ Array of Boolean values
      */
     Microbe.core.hasClass = function( _class )
     {
@@ -2530,6 +2534,9 @@ module.exports = function( Microbe )
      * omitted, simply returns the current inner html value of the element.
      *
      * @param {Mixed} _value html value (accepts Microbe String)
+     *
+     * @example µ( '.example' ).html( '<span>things!</span>' );
+     * @example µ( '.example' ).html();
      *
      * @return _Microbe_ reference to original microbe (set)
      * @return _Array_  array of values (get)
@@ -2591,6 +2598,9 @@ module.exports = function( Microbe )
      *                          the strings can be a class or
      *                          classes seperated with spaces {String Array}
      *
+     * @example µ( '.example' ).removeClass( 'moon' );
+     * @example µ( '.example' ).removeClass( [ 'moon', 'doge' ] );
+     *
      * @return _Microbe_ reference of the original microbe
      */
     Microbe.core.removeClass = function( _class )
@@ -2633,6 +2643,9 @@ module.exports = function( Microbe )
      * simply returns the current inner text value of each element.
      *
      * @param {String} _value              Text value (optional)
+     *
+     * @example µ( '.example' ).text( 'things!' );
+     * @example µ( '.example' ).text();
      *
      * @return _Microbe_ reference to original microbe (set)
      * @return _Array_  array of values (get)
@@ -2686,19 +2699,29 @@ module.exports = function( Microbe )
      *
      * @param {String} _class              class to add
      *
+     * @example µ( '.example' ).toggleClass( 'moon' );
+     * @example µ( '.example' ).toggleClass( [ 'moon', 'doge' ] );
+     *
      * @return _Microbe_ reference of the original microbe
      */
     Microbe.core.toggleClass = function( _class )
     {
+        var _cls;
+
+        if ( !Array.isArray( _class ) )
+        {
+            _class = [ _class ];
+        }
+
         var _toggleClass = function( _el )
         {
-            if ( _el.classList.contains( _class ) )
+            if ( _el.classList.contains( _cls ) )
             {
-                _el.classList.remove( _class );
+                _el.classList.remove( _cls );
             }
             else
             {
-                _el.classList.add( _class );
+                _el.classList.add( _cls );
             }
 
             _el.data                = _el.data || {};
@@ -2706,7 +2729,11 @@ module.exports = function( Microbe )
             _el.data.class.class    = _el.className;
         };
 
-        this.each( _toggleClass );
+        for ( var i = 0, lenI = _class.length; i < lenI; i++ )
+        {
+            _cls = _class[ i ];
+            this.each( _toggleClass );
+        }
 
         return this;
     };
@@ -2734,6 +2761,9 @@ module.exports = function( Microbe )
      * @param {Object} _data event data
      * @param {Boolean} _bubbles event bubbles?
      * @param {Boolean} _cancelable cancelable?
+     *
+     * @example µ( '.example' ).emit( 'custom-click', { type : 'microbe-click' } );
+     * @example µ( '.example' ).emit( 'custom-click', { type : 'microbe-click' }, true, true );
      *
      * @return _Microbe_ reference to original microbe
      */
@@ -2765,6 +2795,9 @@ module.exports = function( Microbe )
      * @param {String} _event event name
      * @param {Function} _callback callback function
      * @param {Object} _el HTML element to modify (optional)
+     *
+     * @example µ( '.example' ).off( 'custom-click' );
+     * @example µ( '.example' ).off();
      *
      * @return _Microbe_ reference to original microbe
      */
@@ -2854,6 +2887,8 @@ module.exports = function( Microbe )
      * @param {String} _event HTMLEvent
      * @param {Function} _callback callback function
      *
+     * @example µ( '.example' ).on( 'custom-click', function( e ){ return e.target;} );
+     *
      * @return _Microbe_ reference to original microbe
      */
     Microbe.core.on = function ( _event, _callback )
@@ -2933,6 +2968,8 @@ module.exports = function( Microbe )
      *
      * @param {Object} _parameters http parameters. possible properties
      *                             method, url, data, user, password, headers, async
+     *
+     * @example µ.http( {url: './test.html', method: 'POST', data: { number: 67867} } ).then( function(){} ).catch( function(){} );
      */
     Microbe.http = function( _parameters )
     {
@@ -3013,6 +3050,7 @@ module.exports = function( Microbe )
             var _response = function( _val )
             {
                 var _responses = {
+
                     /**
                      * ## .then
                      *
@@ -3077,6 +3115,8 @@ module.exports = function( Microbe )
      *
      * @param {String} _url file url
      *
+     * @example µ.http.get( './test.html' ).then( function(){} ).catch( function(){} );
+     *
      * @return _Object_ contains `.then` and `.catch`
      */
     Microbe.http.get = function( _url )
@@ -3095,6 +3135,8 @@ module.exports = function( Microbe )
      *
      * @param {String} _url file url
      * @param {Mixed} _data data to post to location {Object or String}
+     *
+     * @example µ.http.post( './test.html', { number: 67867} ).then( function(){} ).catch( function(){} );
      *
      * @return _Object_ contains `.then` and `.catch`
      */
@@ -3138,6 +3180,8 @@ module.exports = function( Microbe )
      *
      * @param {String} _prop property to get
      *
+     * @example µ( '.example' ).get( 'moon' );
+     *
      * @return _Array_ array of values
      */
     Microbe.core.get = function( prop )
@@ -3173,6 +3217,8 @@ module.exports = function( Microbe )
      * @param {Function} function function to apply
      * @param {String} _prop property to observe
      * @param {Boolean} _once bool to trigger auto unobserve
+     *
+     * @example µ( '.example' ).observe( 'moon', function(){ console.log( 'moon!' ); } );
      *
      * @return _Microbe_  reference to original microbe
      */
@@ -3266,6 +3312,8 @@ module.exports = function( Microbe )
      * @param {Function} func function to apply
      * @param {String} _prop property to observe
      *
+     * @example µ( '.example' ).observeOnce( 'moon', function(){ console.log( 'moon!' ); } );
+     *
      * @return _Microbe_ reference to original microbe
      */
     Microbe.core.observeOnce = function( func, _prop )
@@ -3281,6 +3329,8 @@ module.exports = function( Microbe )
      *
      * @param {String} prop property to set
      * @param {String} value value to set to
+     *
+     * @example µ( '.example' ).set( 'moon', 'doge' );
      *
      * @return _Microbe_ reference to original microbe
      */
@@ -3321,6 +3371,8 @@ module.exports = function( Microbe )
      * Stops watching the data changes of a µ object
      *
      * @param {String} _prop property to stop observing
+     *
+     * @example µ( '.example' ).unobserve( 'moon' );
      *
      * @return _Microbe_ reference to original microbe
      */
@@ -3385,6 +3437,8 @@ module.exports = function( Microbe )
      *
      * @param {Mixed} text string(s) to capitalize _{String or Array}_
      *
+     * @example µ.capotalize( 'moon doge' ); // "Moon Doge"
+     *
      * @return _Mixed_  capitalized string(s) values _{String or Array}_
      */
     Microbe.capitalize = function( text )
@@ -3408,7 +3462,13 @@ module.exports = function( Microbe )
     };
 
 
-    // british people....
+    /**
+     * ## capitalise
+     *
+     * british people....
+     *
+     * @example µ.capitalise( 'moon doge' ); // "Moon Doge"
+     */
     Microbe.capitalise = Microbe.capitalize;
 
 
@@ -3423,6 +3483,9 @@ module.exports = function( Microbe )
      * @param {Function} _func function to meter
      * @param {Number} wait milliseconds to wait
      * @param {Boolean} immediate run function at the start of the timeout
+     *
+     * @example µ.debounce( function(){ return Date.now(); }, 250 );
+     * @example µ.debounce( function(){ return Date.now(); }, 250, true );
      *
      * @return _Function_
      */
@@ -3461,6 +3524,8 @@ module.exports = function( Microbe )
      * ## extend
      *
      * Extends an object or microbe
+     *
+     * @example µ.extend( { a: 1, b: 2 }, { c: 3, d: 4 } );
      *
      * @return _Object_ reference to this (microbe) or the first
      *                     object passed (root)
@@ -3537,8 +3602,13 @@ module.exports = function( Microbe )
     };
 
 
+    /**
+     * mounts extend to the core
+     *
+     * @example µ( '.example' ).extend( { c: 3, d: 4 } );
+     */
     Microbe.core.extend     = Microbe.extend;
-    
+
 
     /**
      * ## identity
@@ -3546,6 +3616,8 @@ module.exports = function( Microbe )
      * returns itself.  useful in functional programmnig when a function must be executed
      *
      * @param {any} value any value
+     *
+     * @example µ.identity( 'moon' ); // 'moon'
      *
      * @return _any_
      */
@@ -3563,6 +3635,9 @@ module.exports = function( Microbe )
      * @param {String} selector selector to apply it to
      * @param {Mixed} cssObj css object. _{String or Object}_
      * @param {String} media media query
+     *
+     * @example µ.insertStyle( '.example', { display: 'block', color: '#000' } );
+     * @example µ.insertStyle( '.example', { display: 'block', color: '#000' }, 'min-width: 61.25em' );
      *
      * @return _Object_ reference to the appropriate style object
      */
@@ -3632,6 +3707,8 @@ module.exports = function( Microbe )
      *
      * native isArray for completeness
      *
+     * @example µ.isArray( [ 1, 2, 3 ] ); // true
+     *
      * @type _Function_
      */
     Microbe.isArray = Array.isArray;
@@ -3643,6 +3720,8 @@ module.exports = function( Microbe )
      * Checks if the passed object is empty
      *
      * @param {Object} obj object to check
+     *
+     * @example µ.isEmpty( {} ); // true
      *
      * @return _Boolean_ empty or not
      */
@@ -3665,6 +3744,8 @@ module.exports = function( Microbe )
      *
      * @param {Object} obj object to check
      *
+     * @example µ.isFunction( function(){} ); // true
+     *
      * @return _Boolean_ function or not
      */
     Microbe.isFunction = function( obj )
@@ -3679,6 +3760,8 @@ module.exports = function( Microbe )
      * Checks if the passed parameter is an object
      *
      * @param {Object} obj object to check
+     *
+     * @example µ.isObject( {} ); // true
      *
      * @return _Boolean_ isObject or not
      */
@@ -3701,6 +3784,8 @@ module.exports = function( Microbe )
      * @param {String} obj property
      * @param {Object} parent object to check
      *
+     * @example µ.isUndefined( {} ); // false
+     *
      * @return _Boolean_ obj in parent
      */
     Microbe.isUndefined = function( obj, parent )
@@ -3721,6 +3806,8 @@ module.exports = function( Microbe )
      *
      * @param {Object} obj object to check
      *
+     * @example µ.isWindow( window ); // true
+     *
      * @return _Boolean_ isWindow or not
      */
     Microbe.isWindow = function( obj )
@@ -3736,6 +3823,9 @@ module.exports = function( Microbe )
      *
      * @param {Mixed} first               first object _{Array-like Object or Array}_
      * @param {Mixed} second              second object _{Array-like Object or Array}_
+     *
+     * @example µ.merge( [ 1, 2 ], [ 2, 3, 4 ] ); // [ 1, 2, 2, 3, 4 ]
+     * @example µ.merge( [ 1, 2 ], [ 2, 3, 4 ], true );// [ 1, 2, 3, 4 ]
      *
      * @return _Mixed_ combined array or array-like object (based off first)
      */
@@ -3773,7 +3863,7 @@ module.exports = function( Microbe )
 
 
     Microbe.core.merge      = Microbe.merge;
-    
+
 
     /**
      * ## noop
@@ -3781,6 +3871,8 @@ module.exports = function( Microbe )
      * Nothing happens
      *
      * https://en.wikipedia.org/wiki/Xyzzy_(computing)
+     *
+     * @example µ.noop()
      *
      * @return _void_
      */
@@ -3793,6 +3885,8 @@ module.exports = function( Microbe )
      * returns a function that can only be run once
      *
      * @param {Function} _func function to run once
+     *
+     * @example µ.once( function( a ){ return 1 + 1; } );
      *
      * @return _Function_
      */
@@ -3825,6 +3919,14 @@ module.exports = function( Microbe )
      * @param {Function} _error function to run on error
      * @param {Number} timeout time (in ms) to stop polling
      * @param {Number} interval time (in ms) in between polling
+     *
+     * @example µ.poll( function( a ){ return a === 2; },
+     *                    function( a ){ console.log( 'a === 2' ); },
+     *                    function( a ){ console.log( 'a !== 2' ); } );
+     * @example µ.poll( function( a ){ return a === 2; },
+     *                    function( a ){ console.log( 'a === 2' ); },
+     *                    function( a ){ console.log( 'a !== 2' ); },
+     *                    200, 10000 );
      *
      * @return _Function_
      */
@@ -3873,9 +3975,13 @@ module.exports = function( Microbe )
      * also be passed as the second variable
      *
      * @param {String} selector selector to apply it to
-     * @param {Mixed} properties css properties to remove 'all' to remove all 
+     * @param {Mixed} properties css properties to remove 'all' to remove all
      *                 selector tags string as media query {String or Array}
      * @param {String} media media query
+     *
+     * @example µ.removeStyle( '.example', 'all' );
+     * @example µ.removeStyle( '.example', 'display' );
+     * @example µ.removeStyle( '.example', [ 'display', 'color' ], 'min-width:70em'  );
      *
      * @return _Boolean_ removed or not
      */
@@ -3957,6 +4063,8 @@ module.exports = function( Microbe )
      *
      * @param {String} selector selector to apply it to
      *
+     * @example µ.removeStyle( '.example' );
+     *
      * @return _Boolean_ removed or not
      */
     Microbe.removeStyles = function( selector )
@@ -3970,6 +4078,8 @@ module.exports = function( Microbe )
      *
      * Methods returns all the elements in an array.
      *
+     * @example µ.toArray( µ( 'div' ) );
+     *
      * @return _Array_
      */
     Microbe.toArray = function( _arr )
@@ -3978,6 +4088,11 @@ module.exports = function( Microbe )
     };
 
 
+    /**
+     * attaches toArray to core
+     *
+     * @example µ( 'div' ).toArray();
+     */
     Microbe.core.toArray    = Microbe.toArray;
 
 
@@ -3987,6 +4102,9 @@ module.exports = function( Microbe )
      * returns the type of the parameter passed to it
      *
      * @param {all} obj parameter to test
+     *
+     * @example µ.type( 'moon' ); // 'string'
+     * @example µ.type( [ 'moon' ] ); // 'array'
      *
      * @return _String_ typeof obj
      */
@@ -4018,7 +4136,9 @@ module.exports = function( Microbe )
      *
      * https://en.wikipedia.org/wiki/Xyzzy_(computing)
      *
-     * @return _void_ 
+     * @example µ.xyzzy();
+     *
+     * @return _void_
      */
     Microbe.xyzzy   = Microbe.noop;
 };
@@ -4625,7 +4745,7 @@ module.exports = function( Microbe, _type )
 
     /**
      * ## _createHtml
-     * 
+     *
      * Method creates a Microbe from an html string, and returns it
      *
      * @param {String} _el element to create
@@ -4639,7 +4759,7 @@ module.exports = function( Microbe, _type )
         _ghost.innerHTML    = _el;
         _el                 = slice.call( _ghost.children );
 
-        for ( var i = 0, lenI = _el.length; i < lenI; i++ ) 
+        for ( var i = 0, lenI = _el.length; i < lenI; i++ )
         {
             _ghost.removeChild( _el[ i ] );
         }
@@ -4710,11 +4830,11 @@ module.exports = function( Microbe, _type )
                             clss = clss.split( '.' );
 
                             var res, _r, _el = document.getElementsByClassName( clss[ 0 ] );
-                            for ( var c = 1, lenC = clss.length; c < lenC; c++ ) 
+                            for ( var c = 1, lenC = clss.length; c < lenC; c++ )
                             {
                                 res = slice.call( document.getElementsByClassName( clss[ c ] ) );
 
-                                for ( var r = 0, lenR = _el.length; r < lenR; r++ ) 
+                                for ( var r = 0, lenR = _el.length; r < lenR; r++ )
                                 {
                                     _r = _el[ r ];
 
@@ -4749,14 +4869,15 @@ module.exports = function( Microbe, _type )
      * Constructor.
      *
      * Either selects or creates an HTML element and wraps it into a Microbe instance.
-     * Usage:   µ()                             ---> empty
-     *          µ( '' )                         ---> empty
-     *          µ( [] )                         ---> empty
-     *          µ( 'div#test' )                 ---> selection
-     *          µ( elDiv )                      ---> selection
-     *          µ( [ elDiv1, elDiv2, elDiv3 ] ) ---> selection
-     *          µ( '<div#test>' )               ---> creation
-     *          µ( '<div id="test"></div>' )    ---> creation
+     *
+     * @example µ()                             ---> empty
+     * @example µ( '' )                         ---> empty
+     * @example µ( [] )                         ---> empty
+     * @example µ( 'div#test' )                 ---> selection
+     * @example µ( elDiv )                      ---> selection
+     * @example µ( [ elDiv1, elDiv2, elDiv3 ] ) ---> selection
+     * @example µ( '<div#test>' )               ---> creation
+     * @example µ( '<div id="test"></div>' )    ---> creation
      *
      * @param {Mixed} _selector HTML selector (Element String Array)
      * @param {Mixed} _scope scope to look inside (Element String Microbe)

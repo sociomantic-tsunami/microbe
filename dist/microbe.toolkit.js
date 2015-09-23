@@ -542,6 +542,8 @@ module.exports = function( Microbe )
      *
      * @param {Mixed} text string(s) to capitalize _{String or Array}_
      *
+     * @example µ.capotalize( 'moon doge' ); // "Moon Doge"
+     *
      * @return _Mixed_  capitalized string(s) values _{String or Array}_
      */
     Microbe.capitalize = function( text )
@@ -565,7 +567,13 @@ module.exports = function( Microbe )
     };
 
 
-    // british people....
+    /**
+     * ## capitalise
+     *
+     * british people....
+     *
+     * @example µ.capitalise( 'moon doge' ); // "Moon Doge"
+     */
     Microbe.capitalise = Microbe.capitalize;
 
 
@@ -580,6 +588,9 @@ module.exports = function( Microbe )
      * @param {Function} _func function to meter
      * @param {Number} wait milliseconds to wait
      * @param {Boolean} immediate run function at the start of the timeout
+     *
+     * @example µ.debounce( function(){ return Date.now(); }, 250 );
+     * @example µ.debounce( function(){ return Date.now(); }, 250, true );
      *
      * @return _Function_
      */
@@ -618,6 +629,8 @@ module.exports = function( Microbe )
      * ## extend
      *
      * Extends an object or microbe
+     *
+     * @example µ.extend( { a: 1, b: 2 }, { c: 3, d: 4 } );
      *
      * @return _Object_ reference to this (microbe) or the first
      *                     object passed (root)
@@ -694,8 +707,13 @@ module.exports = function( Microbe )
     };
 
 
+    /**
+     * mounts extend to the core
+     *
+     * @example µ( '.example' ).extend( { c: 3, d: 4 } );
+     */
     Microbe.core.extend     = Microbe.extend;
-    
+
 
     /**
      * ## identity
@@ -703,6 +721,8 @@ module.exports = function( Microbe )
      * returns itself.  useful in functional programmnig when a function must be executed
      *
      * @param {any} value any value
+     *
+     * @example µ.identity( 'moon' ); // 'moon'
      *
      * @return _any_
      */
@@ -720,6 +740,9 @@ module.exports = function( Microbe )
      * @param {String} selector selector to apply it to
      * @param {Mixed} cssObj css object. _{String or Object}_
      * @param {String} media media query
+     *
+     * @example µ.insertStyle( '.example', { display: 'block', color: '#000' } );
+     * @example µ.insertStyle( '.example', { display: 'block', color: '#000' }, 'min-width: 61.25em' );
      *
      * @return _Object_ reference to the appropriate style object
      */
@@ -789,6 +812,8 @@ module.exports = function( Microbe )
      *
      * native isArray for completeness
      *
+     * @example µ.isArray( [ 1, 2, 3 ] ); // true
+     *
      * @type _Function_
      */
     Microbe.isArray = Array.isArray;
@@ -800,6 +825,8 @@ module.exports = function( Microbe )
      * Checks if the passed object is empty
      *
      * @param {Object} obj object to check
+     *
+     * @example µ.isEmpty( {} ); // true
      *
      * @return _Boolean_ empty or not
      */
@@ -822,6 +849,8 @@ module.exports = function( Microbe )
      *
      * @param {Object} obj object to check
      *
+     * @example µ.isFunction( function(){} ); // true
+     *
      * @return _Boolean_ function or not
      */
     Microbe.isFunction = function( obj )
@@ -836,6 +865,8 @@ module.exports = function( Microbe )
      * Checks if the passed parameter is an object
      *
      * @param {Object} obj object to check
+     *
+     * @example µ.isObject( {} ); // true
      *
      * @return _Boolean_ isObject or not
      */
@@ -858,6 +889,8 @@ module.exports = function( Microbe )
      * @param {String} obj property
      * @param {Object} parent object to check
      *
+     * @example µ.isUndefined( {} ); // false
+     *
      * @return _Boolean_ obj in parent
      */
     Microbe.isUndefined = function( obj, parent )
@@ -878,6 +911,8 @@ module.exports = function( Microbe )
      *
      * @param {Object} obj object to check
      *
+     * @example µ.isWindow( window ); // true
+     *
      * @return _Boolean_ isWindow or not
      */
     Microbe.isWindow = function( obj )
@@ -893,6 +928,9 @@ module.exports = function( Microbe )
      *
      * @param {Mixed} first               first object _{Array-like Object or Array}_
      * @param {Mixed} second              second object _{Array-like Object or Array}_
+     *
+     * @example µ.merge( [ 1, 2 ], [ 2, 3, 4 ] ); // [ 1, 2, 2, 3, 4 ]
+     * @example µ.merge( [ 1, 2 ], [ 2, 3, 4 ], true );// [ 1, 2, 3, 4 ]
      *
      * @return _Mixed_ combined array or array-like object (based off first)
      */
@@ -930,7 +968,7 @@ module.exports = function( Microbe )
 
 
     Microbe.core.merge      = Microbe.merge;
-    
+
 
     /**
      * ## noop
@@ -938,6 +976,8 @@ module.exports = function( Microbe )
      * Nothing happens
      *
      * https://en.wikipedia.org/wiki/Xyzzy_(computing)
+     *
+     * @example µ.noop()
      *
      * @return _void_
      */
@@ -950,6 +990,8 @@ module.exports = function( Microbe )
      * returns a function that can only be run once
      *
      * @param {Function} _func function to run once
+     *
+     * @example µ.once( function( a ){ return 1 + 1; } );
      *
      * @return _Function_
      */
@@ -982,6 +1024,14 @@ module.exports = function( Microbe )
      * @param {Function} _error function to run on error
      * @param {Number} timeout time (in ms) to stop polling
      * @param {Number} interval time (in ms) in between polling
+     *
+     * @example µ.poll( function( a ){ return a === 2; },
+     *                    function( a ){ console.log( 'a === 2' ); },
+     *                    function( a ){ console.log( 'a !== 2' ); } );
+     * @example µ.poll( function( a ){ return a === 2; },
+     *                    function( a ){ console.log( 'a === 2' ); },
+     *                    function( a ){ console.log( 'a !== 2' ); },
+     *                    200, 10000 );
      *
      * @return _Function_
      */
@@ -1030,9 +1080,13 @@ module.exports = function( Microbe )
      * also be passed as the second variable
      *
      * @param {String} selector selector to apply it to
-     * @param {Mixed} properties css properties to remove 'all' to remove all 
+     * @param {Mixed} properties css properties to remove 'all' to remove all
      *                 selector tags string as media query {String or Array}
      * @param {String} media media query
+     *
+     * @example µ.removeStyle( '.example', 'all' );
+     * @example µ.removeStyle( '.example', 'display' );
+     * @example µ.removeStyle( '.example', [ 'display', 'color' ], 'min-width:70em'  );
      *
      * @return _Boolean_ removed or not
      */
@@ -1114,6 +1168,8 @@ module.exports = function( Microbe )
      *
      * @param {String} selector selector to apply it to
      *
+     * @example µ.removeStyle( '.example' );
+     *
      * @return _Boolean_ removed or not
      */
     Microbe.removeStyles = function( selector )
@@ -1127,6 +1183,8 @@ module.exports = function( Microbe )
      *
      * Methods returns all the elements in an array.
      *
+     * @example µ.toArray( µ( 'div' ) );
+     *
      * @return _Array_
      */
     Microbe.toArray = function( _arr )
@@ -1135,6 +1193,11 @@ module.exports = function( Microbe )
     };
 
 
+    /**
+     * attaches toArray to core
+     *
+     * @example µ( 'div' ).toArray();
+     */
     Microbe.core.toArray    = Microbe.toArray;
 
 
@@ -1144,6 +1207,9 @@ module.exports = function( Microbe )
      * returns the type of the parameter passed to it
      *
      * @param {all} obj parameter to test
+     *
+     * @example µ.type( 'moon' ); // 'string'
+     * @example µ.type( [ 'moon' ] ); // 'array'
      *
      * @return _String_ typeof obj
      */
@@ -1175,7 +1241,9 @@ module.exports = function( Microbe )
      *
      * https://en.wikipedia.org/wiki/Xyzzy_(computing)
      *
-     * @return _void_ 
+     * @example µ.xyzzy();
+     *
+     * @return _void_
      */
     Microbe.xyzzy   = Microbe.noop;
 };

@@ -25,6 +25,9 @@
         <a href="#capitalize">capitalize</a>
       </div>
       <div class="heading h2">
+        <a href="#capitalise">capitalise</a>
+      </div>
+      <div class="heading h2">
         <a href="#debounce">debounce</a>
       </div>
       <div class="heading h2">
@@ -106,11 +109,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Mouse Braun         <a href="m&#x61;&#x69;&#x6C;&#x74;&#x6F;:&#109;&#x6F;u&#115;&#101;&#64;&#x73;&#111;&#99;&#105;o&#109;&#97;&#x6E;&#x74;&#x69;&#x63;&#46;&#99;&#x6F;&#x6D;">&#109;&#x6F;u&#115;&#101;&#64;&#x73;&#111;&#99;&#105;o&#109;&#97;&#x6E;&#x74;&#x69;&#x63;&#46;&#99;&#x6F;&#x6D;</a></span>
+      <span>Mouse Braun         <a href="&#109;a&#x69;&#x6C;&#116;&#111;:&#109;&#111;us&#101;&#x40;&#x73;&#x6F;&#x63;&#x69;&#111;&#x6D;&#x61;&#110;&#x74;i&#x63;&#x2E;&#99;&#x6F;&#x6D;">&#109;&#111;us&#101;&#x40;&#x73;&#x6F;&#x63;&#x69;&#111;&#x6D;&#x61;&#110;&#x74;i&#x63;&#x2E;&#99;&#x6F;&#x6D;</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Nicolas Brugneaux   <a href="&#109;&#97;&#x69;&#108;&#x74;&#x6F;:&#x6E;&#x69;&#99;&#111;&#108;&#x61;&#115;&#46;b&#114;&#x75;g&#x6E;&#101;&#97;&#117;&#x78;&#x40;&#x73;&#111;&#x63;&#x69;&#x6F;&#x6D;&#97;&#110;&#x74;&#105;&#99;&#x2E;&#x63;&#x6F;&#109;">&#x6E;&#x69;&#99;&#111;&#108;&#x61;&#115;&#46;b&#114;&#x75;g&#x6E;&#101;&#97;&#117;&#x78;&#x40;&#x73;&#111;&#x63;&#x69;&#x6F;&#x6D;&#97;&#110;&#x74;&#105;&#99;&#x2E;&#x63;&#x6F;&#109;</a></span>
+      <span>Nicolas Brugneaux   <a href="&#x6D;&#x61;&#x69;&#x6C;&#x74;&#111;:&#110;&#105;&#x63;&#x6F;&#x6C;&#97;&#x73;&#x2E;&#98;&#x72;&#x75;&#103;&#x6E;e&#x61;u&#120;&#x40;&#x73;&#111;&#x63;&#105;&#111;m&#x61;&#110;&#x74;&#105;&#x63;&#46;&#99;&#x6F;&#x6D;">&#110;&#105;&#x63;&#x6F;&#x6C;&#97;&#x73;&#x2E;&#98;&#x72;&#x75;&#103;&#x6E;e&#x61;u&#120;&#x40;&#x73;&#111;&#x63;&#105;&#111;m&#x61;&#110;&#x74;&#105;&#x63;&#46;&#99;&#x6F;&#x6D;</a></span>
     </div>
     <div class="dox_tag_title">package</div>
     <div class="dox_tag_detail">
@@ -151,6 +154,10 @@ type that it was given</p>
       <span class="dox_type">Mixed</span>
       <span>string(s) to capitalize <em>{String or Array}</em></span>
     </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ.capotalize( 'moon doge' ); // "Moon Doge"</span>
+    </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
@@ -186,11 +193,25 @@ type that it was given</p>
         </td>
       </tr>
       <tr>
-        <td class="docs">
-<div class="pilwrap">
-  <a class="pilcrow" href="#section-3" id="section-3">&#182;</a>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="capitalise">
+  <h2>
+    <a href="#capitalise" name="capitalise" class="pilcrow">&#182;</a>
+    capitalise
+  </h2>
 </div>
-<p>british people....</p>
+
+  </div>
+  <div class="body"><p>british people....</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ.capitalise( 'moon doge' ); // "Moon Doge"</span>
+    </div>
+  </div>
+</div>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">Microbe</span><span class="p">.</span><span class="nx">capitalise</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">capitalize</span><span class="p">;</span>
@@ -232,6 +253,14 @@ type that it was given</p>
       <span class="dox_tag_name">immediate</span>
       <span class="dox_type">Boolean</span>
       <span>run function at the start of the timeout</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ.debounce( function(){ return Date.now(); }, 250 );</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ.debounce( function(){ return Date.now(); }, 250, true );</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
@@ -291,6 +320,10 @@ type that it was given</p>
   <div class="body"><p>Extends an object or microbe</p>
   </div>
   <div class="details">
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ.extend( { a: 1, b: 2 }, { c: 3, d: 4 } );</span>
+    </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
@@ -373,8 +406,31 @@ type that it was given</p>
     <span class="p">};</span>
 
 
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-6" id="section-6">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>mounts extend to the core</p>
+  </div>
+  <div class="body">
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).extend( { c: 3, d: 4 } );</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">extend</span>     <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">extend</span><span class="p">;</span>
-    
+
 
 
 </pre></div>
@@ -399,6 +455,10 @@ type that it was given</p>
       <span class="dox_tag_name">value</span>
       <span class="dox_type">any</span>
       <span>any value</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ.identity( 'moon' ); // 'moon'</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
@@ -448,6 +508,14 @@ the contents</p>
       <span class="dox_tag_name">media</span>
       <span class="dox_type">String</span>
       <span>media query</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ.insertStyle( '.example', { display: 'block', color: '#000' } );</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ.insertStyle( '.example', { display: 'block', color: '#000' }, 'min-width: 61.25em' );</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
@@ -522,7 +590,7 @@ the contents</p>
       <tr>
         <td class="docs">
 <div class="pilwrap">
-  <a class="pilcrow" href="#section-8" id="section-8">&#182;</a>
+  <a class="pilcrow" href="#section-9" id="section-9">&#182;</a>
 </div>
 <p>keep track of tags created with insertStyle</p>
         </td>
@@ -548,6 +616,10 @@ the contents</p>
   <div class="body"><p>native isArray for completeness</p>
   </div>
   <div class="details">
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ.isArray( [ 1, 2, 3 ] ); // true</span>
+    </div>
     <div class="dox_tag_title">Type</div>
     <div class="dox_tag_detail">
       <span class="dox_type">_Function_
@@ -583,6 +655,10 @@ the contents</p>
       <span class="dox_tag_name">obj</span>
       <span class="dox_type">Object</span>
       <span>object to check</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ.isEmpty( {} ); // true</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
@@ -629,6 +705,10 @@ the contents</p>
       <span class="dox_type">Object</span>
       <span>object to check</span>
     </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ.isFunction( function(){} ); // true</span>
+    </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
@@ -667,6 +747,10 @@ the contents</p>
       <span class="dox_tag_name">obj</span>
       <span class="dox_type">Object</span>
       <span>object to check</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ.isObject( {} ); // true</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
@@ -717,6 +801,10 @@ the contents</p>
       <span class="dox_type">Object</span>
       <span>object to check</span>
     </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ.isUndefined( {} ); // false</span>
+    </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
@@ -760,6 +848,10 @@ the contents</p>
       <span class="dox_tag_name">obj</span>
       <span class="dox_type">Object</span>
       <span>object to check</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ.isWindow( window ); // true</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
@@ -805,6 +897,14 @@ the contents</p>
       <span class="dox_type">Mixed</span>
       <span>second object <em>{Array-like Object or Array}</em></span>
     </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ.merge( [ 1, 2 ], [ 2, 3, 4 ] ); // [ 1, 2, 2, 3, 4 ]</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ.merge( [ 1, 2 ], [ 2, 3, 4 ], true );// [ 1, 2, 3, 4 ]</span>
+    </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
@@ -848,7 +948,7 @@ the contents</p>
 
 
     <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">merge</span>      <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">merge</span><span class="p">;</span>
-    
+
 
 
 </pre></div>
@@ -870,6 +970,10 @@ the contents</p>
 <p><a href='https://en.wikipedia.org/wiki/Xyzzy_(computing'>https://en.wikipedia.org/wiki/Xyzzy_(computing</a>)</p>
   </div>
   <div class="details">
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ.noop()</span>
+    </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
@@ -905,6 +1009,10 @@ the contents</p>
       <span class="dox_tag_name">_func</span>
       <span class="dox_type">Function</span>
       <span>function to run once</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ.once( function( a ){ return 1 + 1; } );</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
@@ -977,6 +1085,19 @@ _error is excecuted</p>
       <span class="dox_tag_name">interval</span>
       <span class="dox_type">Number</span>
       <span>time (in ms) in between polling</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ.poll( function( a ){ return a === 2; },
+                   function( a ){ console.log( 'a === 2' ); },
+                   function( a ){ console.log( 'a !== 2' ); } );</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ.poll( function( a ){ return a === 2; },
+                   function( a ){ console.log( 'a === 2' ); },
+                   function( a ){ console.log( 'a !== 2' ); },
+                   200, 10000 );</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
@@ -1053,13 +1174,25 @@ also be passed as the second variable</p>
     <div class="dox_tag_detail">
       <span class="dox_tag_name">properties</span>
       <span class="dox_type">Mixed</span>
-      <span>css properties to remove 'all' to remove all 
+      <span>css properties to remove 'all' to remove all
                 selector tags string as media query {String or Array}</span>
     </div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name">media</span>
       <span class="dox_type">String</span>
       <span>media query</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ.removeStyle( '.example', 'all' );</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ.removeStyle( '.example', 'display' );</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ.removeStyle( '.example', [ 'display', 'color' ], 'min-width:70em'  );</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
@@ -1165,6 +1298,10 @@ also be passed as the second variable</p>
       <span class="dox_type">String</span>
       <span>selector to apply it to</span>
     </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ.removeStyle( '.example' );</span>
+    </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
@@ -1198,6 +1335,10 @@ also be passed as the second variable</p>
   <div class="body"><p>Methods returns all the elements in an array.</p>
   </div>
   <div class="details">
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ.toArray( µ( 'div' ) );</span>
+    </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
@@ -1213,6 +1354,29 @@ also be passed as the second variable</p>
     <span class="p">};</span>
 
 
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs">
+<div class="pilwrap">
+  <a class="pilcrow" href="#section-23" id="section-23">&#182;</a>
+</div>
+<div class="dox">
+  <div class="summary"><p>attaches toArray to core</p>
+  </div>
+  <div class="body">
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( 'div' ).toArray();</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">toArray</span>    <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">toArray</span><span class="p">;</span>
 
 
@@ -1239,6 +1403,14 @@ also be passed as the second variable</p>
       <span class="dox_tag_name">obj</span>
       <span class="dox_type">all</span>
       <span>parameter to test</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ.type( 'moon' ); // 'string'</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ.type( [ 'moon' ] ); // 'array'</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
@@ -1290,10 +1462,14 @@ also be passed as the second variable</p>
 <p><a href='https://en.wikipedia.org/wiki/Xyzzy_(computing'>https://en.wikipedia.org/wiki/Xyzzy_(computing</a>)</p>
   </div>
   <div class="details">
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ.xyzzy();</span>
+    </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span><em>void</em> </span>
+      <span><em>void</em></span>
     </div>
   </div>
 </div>
