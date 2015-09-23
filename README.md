@@ -109,6 +109,7 @@ We gladly accept and review any pull-requests. Feel free! :heart:
 
 Otherwise, if you just want to talk, we are very easy to get a hold of!
 
++ Twitter:        [@microbejs](https://www.twitter.com/microbejs)
 + Email:          [hello@m.icro.be](hello@m.icro.be)
 + Web:            [http://m.icro.be](http://m.icro.be/)
 + Git:            [https://github.com/sociomantic/microbe/](https://github.com/sociomantic/microbe/)
@@ -131,6 +132,8 @@ Change log
 + µ.ready now accepts an arguments array
 + added examples to docs
 + updated code of conduct
++ toggleClass now accepts an array of classes
++ twitter account added to info
 
 
 #### 0.4.8
