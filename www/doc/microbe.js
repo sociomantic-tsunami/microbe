@@ -4899,8 +4899,8 @@ module.exports = function( Microbe, _type )
      * @example µ( 'div#test' )                 ---> selection
      * @example µ( elDiv )                      ---> selection
      * @example µ( [ elDiv1, elDiv2, elDiv3 ] ) ---> selection
-     * @example µ( '<div#test>' )               ---> creation
-     * @example µ( '<div id="test"></div>' )    ---> creation
+     * @example µ( '&lt;div#test>' )               ---> creation
+     * @example µ( '&lt;div id="test">&lt;/div>' )    ---> creation
      *
      * @param {Mixed} _selector HTML selector (Element String Array)
      * @param {Mixed} _scope scope to look inside (Element String Microbe)

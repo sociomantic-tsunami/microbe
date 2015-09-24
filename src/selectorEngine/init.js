@@ -232,18 +232,18 @@ module.exports = function( Microbe, _type )
      *
      * Either selects or creates an HTML element and wraps it into a Microbe instance.
      *
+     * @param {Mixed} _selector HTML selector (Element String Array)
+     * @param {Mixed} _scope scope to look inside (Element String Microbe)
+     * @param {Mixed} _elements elements to fill Microbe with (optional) (Element or Array)
+     * 
      * @example µ()                             ---> empty
      * @example µ( '' )                         ---> empty
      * @example µ( [] )                         ---> empty
      * @example µ( 'div#test' )                 ---> selection
      * @example µ( elDiv )                      ---> selection
      * @example µ( [ elDiv1, elDiv2, elDiv3 ] ) ---> selection
-     * @example µ( '<div#test>' )               ---> creation
-     * @example µ( '<div id="test"></div>' )    ---> creation
-     *
-     * @param {Mixed} _selector HTML selector (Element String Array)
-     * @param {Mixed} _scope scope to look inside (Element String Microbe)
-     * @param {Mixed} _elements elements to fill Microbe with (optional) (Element or Array)
+     * @example µ( '&lt;div#test>' )               ---> creation
+     * @example µ( '&lt;div id="test">&lt;/div>' )    ---> creation
      *
      * @return _Microbe_
      */
