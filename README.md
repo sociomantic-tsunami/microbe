@@ -38,9 +38,19 @@ Don’t hesitate to file issues and features requests! Or change things yourself
 Usage
 =====
 
-- `require( 'microbejs' );`
-    or
-- include microbe.js or microbe.min.js in a script tag
+- `npm i --save microbejs`
+
+	then
+	
+	`require( 'microbejs' );`
+
+	or
+
+- `bower install -S microbejs`
+
+	or
+
+- simply include microbe.js or microbe.min.js in a script tag
 
 
 Example use
