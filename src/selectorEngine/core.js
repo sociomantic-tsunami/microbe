@@ -17,6 +17,8 @@ module.exports = function( Microbe )
      *
      * Gets a microbe of all the given element's children
      *
+     * @example µ( '.example' ).children();
+     * 
      * @return _Array_  array of microbes (value)
      */
     Microbe.core.children = function()
@@ -37,9 +39,11 @@ module.exports = function( Microbe )
      *
      * Gets an microbe of all children of all element's given
      *
+     * @example µ( '.example' ).childrenFlat();
+     * 
      * @return _Microbe_ value array of combined children
      */
-    Microbe.core.childrenFlat = function( direction )
+    Microbe.core.childrenFlat = function()
     {
         var i = 0, childrenArray = [];
 
@@ -70,6 +74,9 @@ module.exports = function( Microbe )
      *
      * @param {Mixed} selector selector or function to filter by
      *
+     * @example µ( '.example' ).filter( 'div' );
+     * @example µ( '.example' ).filter( function( _el ){ return _el.tagName === 'div'; } );
+     * 
      * @return _Microbe_ new microbe containing only the filtered values
      */
     Microbe.core.filter = function( filter )
@@ -183,6 +190,8 @@ module.exports = function( Microbe )
      *
      * @param {String} selector            selector to search for
      *
+     * @example µ( '.example' ).find( 'div' );
+     * 
      * @return _Microbe_ new microbe containing only the found children values
      */
     Microbe.core.find = function( _selector )
@@ -254,6 +263,8 @@ module.exports = function( Microbe )
      *
      * gets the first Element and wraps it in Microbe.
      *
+     * @example µ( '.example' ).first();
+     * 
      * @return _Microbe_ new Microbe containing only the first value
      */
     Microbe.core.first = function()
@@ -272,6 +283,8 @@ module.exports = function( Microbe )
      *
      * Gets the last Element and wraps it in Microbe.
      *
+     * @example µ( '.example' ).last();
+     * 
      * @return _Microbe_ new microbe containing only the last value
      */
     Microbe.core.last = function()
@@ -295,6 +308,8 @@ module.exports = function( Microbe )
      * ## parent
      *
      * gets all elements in a microbe's parent nodes
+     *
+     * @example µ( '.example' ).parent();
      *
      * @return _Microbe_ new microbe containing parent elements (index-preserved)
      */
@@ -321,6 +336,8 @@ module.exports = function( Microbe )
      *
      * Gets an microbe of all of each given element's siblings
      *
+     * @example µ( '.example' ).siblings();
+     * 
      * @return _Array_ array of microbes (value)
      */
     Microbe.core.siblings = function()
@@ -358,6 +375,10 @@ module.exports = function( Microbe )
      *
      * @param {String} direction direction modifier (optional)
      *
+     * @example µ( '.example' ).siblingsFlat();
+     * @example µ( '.example' ).siblingsFlat( 'prev' );
+     * @example µ( '.example' ).siblingsFlat( 'next' );
+     * 
      * @return _Microbe_ value array of combined siblings
      */
     Microbe.core.siblingsFlat = function( direction )
@@ -417,6 +438,8 @@ module.exports = function( Microbe )
      *
      * Methods returns the type of Microbe.
      *
+     * @example µ( '.example' ).toString();
+     * 
      * @return _String_
      */
     Microbe.core.toString = function()

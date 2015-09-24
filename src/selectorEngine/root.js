@@ -19,6 +19,8 @@ module.exports = function( Microbe )
      * @param {Element} _el element to check
      * @param {Element} _scope scope
      *
+     * @example µ.contains( _el, _parentEl );
+     * 
      * @return _Boolean_ whether _el is contained in the scope
      */
     Microbe.contains = function( _el, _scope )
@@ -48,6 +50,8 @@ module.exports = function( Microbe )
      *
      * @param {Mixed} el element, microbe, or array of elements to match
      *
+     * @example µ.matches( _el, 'div.example' );
+     * 
      * @return _Booblean_ matches or not
      */
     Microbe.matches = function( el, selector )
