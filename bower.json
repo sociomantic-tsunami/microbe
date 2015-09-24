@@ -1,0 +1,41 @@
+{
+    "name": "microbejs",
+    "version": "0.4.9",
+    "homepage": "https://github.com/sociomantic/microbe",
+    "authors": [
+        "Mouse Braun <mouse@sociomantic>",
+        "Nicolas Brugneaux <nicolas.brugneaux@sociomantic.com>",
+    ],
+    "description": "microbe.js - A modular JS library for DOM manipulation, and more",
+    "main": "./dist/microbe.js",
+    "keywords": [
+        "microbe",
+        "microbejs",
+        "dom",
+        "javascript",
+        "observe",
+        "selector",
+        "engine",
+        "css4",
+        "http",
+        "event",
+        "class"
+    ],
+    "homepage":"http://m.icro.be",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/sociomantic/microbe.git"
+    },
+    "license": "MIT",
+    "moduleType":"node",
+    "ignore": [
+        "gulpfile.js",
+        "node_modules",
+        "bower_components",
+        "package.json",
+        "src/",
+        "tests/",
+        "www/",
+        ".*"
+    ]
+}

@@ -2,7 +2,7 @@
   "name": "microbejs",
   "version": "0.4.9",
   "author": "Mouse Braun <mouse@sociomantic.com>",
-  "description": "micro-library front-end",
+  "description": "microbe.js - A modular JS library for DOM manipulation, and more",
   "contributors": [
     "Nicolas Brugneaux <nicolas.brugneaux@sociomantic.com>",
     "Michele Guido <michele.guido@sociomantic.com>"
@@ -44,7 +44,7 @@
     "url": "https://github.com/sociomantic/microbe/issues"
   },
   "homepage": "http://m.icro.be",
-  "main": "dist/microbe.min.js",
+  "main": "./dist/microbe.min.js",
   "directories": {
     "test": "tests"
   },
