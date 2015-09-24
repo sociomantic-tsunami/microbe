@@ -6,7 +6,7 @@
  * Released under the MIT license
  * http://m.icro.be/license
  *
- * Date: Wed Sep 23 2015
+ * Date: Thu Sep 24 2015
  */
 !function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.µ=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /**
@@ -99,6 +99,8 @@ module.exports = function( Microbe )
      *
      * Gets a microbe of all the given element's children
      *
+     * @example µ( '.example' ).children();
+     * 
      * @return _Array_  array of microbes (value)
      */
     Microbe.core.children = function()
@@ -119,9 +121,11 @@ module.exports = function( Microbe )
      *
      * Gets an microbe of all children of all element's given
      *
+     * @example µ( '.example' ).childrenFlat();
+     * 
      * @return _Microbe_ value array of combined children
      */
-    Microbe.core.childrenFlat = function( direction )
+    Microbe.core.childrenFlat = function()
     {
         var i = 0, childrenArray = [];
 
@@ -152,6 +156,9 @@ module.exports = function( Microbe )
      *
      * @param {Mixed} selector selector or function to filter by
      *
+     * @example µ( '.example' ).filter( 'div' );
+     * @example µ( '.example' ).filter( function( _el ){ return _el.tagName === 'div'; } );
+     * 
      * @return _Microbe_ new microbe containing only the filtered values
      */
     Microbe.core.filter = function( filter )
@@ -265,6 +272,8 @@ module.exports = function( Microbe )
      *
      * @param {String} selector            selector to search for
      *
+     * @example µ( '.example' ).find( 'div' );
+     * 
      * @return _Microbe_ new microbe containing only the found children values
      */
     Microbe.core.find = function( _selector )
@@ -336,6 +345,8 @@ module.exports = function( Microbe )
      *
      * gets the first Element and wraps it in Microbe.
      *
+     * @example µ( '.example' ).first();
+     * 
      * @return _Microbe_ new Microbe containing only the first value
      */
     Microbe.core.first = function()
@@ -354,6 +365,8 @@ module.exports = function( Microbe )
      *
      * Gets the last Element and wraps it in Microbe.
      *
+     * @example µ( '.example' ).last();
+     * 
      * @return _Microbe_ new microbe containing only the last value
      */
     Microbe.core.last = function()
@@ -377,6 +390,8 @@ module.exports = function( Microbe )
      * ## parent
      *
      * gets all elements in a microbe's parent nodes
+     *
+     * @example µ( '.example' ).parent();
      *
      * @return _Microbe_ new microbe containing parent elements (index-preserved)
      */
@@ -403,6 +418,8 @@ module.exports = function( Microbe )
      *
      * Gets an microbe of all of each given element's siblings
      *
+     * @example µ( '.example' ).siblings();
+     * 
      * @return _Array_ array of microbes (value)
      */
     Microbe.core.siblings = function()
@@ -440,6 +457,10 @@ module.exports = function( Microbe )
      *
      * @param {String} direction direction modifier (optional)
      *
+     * @example µ( '.example' ).siblingsFlat();
+     * @example µ( '.example' ).siblingsFlat( 'prev' );
+     * @example µ( '.example' ).siblingsFlat( 'next' );
+     * 
      * @return _Microbe_ value array of combined siblings
      */
     Microbe.core.siblingsFlat = function( direction )
@@ -499,6 +520,8 @@ module.exports = function( Microbe )
      *
      * Methods returns the type of Microbe.
      *
+     * @example µ( '.example' ).toString();
+     * 
      * @return _String_
      */
     Microbe.core.toString = function()
@@ -1229,6 +1252,8 @@ module.exports = function( Microbe )
      *
      * @param {Microbe} _el Microbe to be filtered
      *
+     * @example µ( '.example:any-link' );
+     * 
      * @return _Microbe_
      */
     pseudo[ 'any-link' ] = function( _el )
@@ -1243,6 +1268,8 @@ module.exports = function( Microbe )
      * matches elements that only contain content which consists of whitespace
      *
      * @param {Microbe} _el Microbe to be filtered
+     *
+     * @example µ( '.example:blank' );
      *
      * @return _Microbe_
      */
@@ -1273,6 +1300,8 @@ module.exports = function( Microbe )
      * @param {Microbe} _el Microbe to be filtered
      * @param {String} _var string to search for
      *
+     * @example µ( '.example:column' );
+     *
      * @return _Microbe_
      */
     pseudo.column = function( _el, _var )
@@ -1290,6 +1319,8 @@ module.exports = function( Microbe )
      * @param {Microbe} _el Microbe to be filtered
      * @param {String} _var string to search for
      *
+     * @example µ( '.example:contains(moon)' );
+     * 
      * @return _Microbe_
      */
     pseudo.contains = function( _el, _var )
@@ -1322,6 +1353,8 @@ module.exports = function( Microbe )
      *
      * @param {Microbe} _el Microbe to be filtered
      *
+     * @example µ( '.example:default' );
+     * 
      * @return _Microbe_
      */
     pseudo.default = function( _el )
@@ -1348,6 +1381,8 @@ module.exports = function( Microbe )
      * @param {Microbe} _el Microbe to be filtered
      * @param {String} _var string to search for
      *
+     * @example µ( '.example:dir(ltr)' );
+     * 
      * @return _Microbe_
      */
     pseudo.dir = function( _el, _var )
@@ -1373,6 +1408,8 @@ module.exports = function( Microbe )
      * @param {Microbe} _el Microbe to be filtered
      * @param {String} _var trigger string
      *
+     * @example µ( '.example:drop' );
+     * 
      * @return _Microbe_
      */
     pseudo.drop = function( _el, _var )
@@ -1405,6 +1442,8 @@ module.exports = function( Microbe )
      *
      * @param {Microbe} _el Microbe to be filtered
      *
+     * @example µ( '.example:even' );
+     *
      * @return _Microbe_
      */
     pseudo.even = function( _el )
@@ -1428,6 +1467,8 @@ module.exports = function( Microbe )
      *
      * @param {Microbe} _el Microbe to be filtered
      *
+     * @example µ( '.example:first' );
+     *
      * @return _Microbe_
      */
     pseudo.first = function( _el )
@@ -1444,6 +1485,8 @@ module.exports = function( Microbe )
      * @param {Microbe} _el Microbe to be filtered
      * @param {String} _var number of elements to return
      *
+     * @example µ( '.example:gt(4)' );
+     * 
      * @return _Microbe_
      */
     pseudo.gt = function( _el, _var )
@@ -1460,6 +1503,8 @@ module.exports = function( Microbe )
      * @param {Microbe} _el Microbe to be filtered
      * @param {String} _var selector string
      *
+     * @example µ( '.example:has(span)' );
+     * 
      * @return _Microbe_
      */
     pseudo.has = function( _el, _var )
@@ -1482,6 +1527,8 @@ module.exports = function( Microbe )
      * select the elements with a value inside the specified range
      *
      * @param {Microbe} _el Microbe to be filtered
+     *
+     * @example µ( '.example:in-range' );
      *
      * @return _Microbe_
      */
@@ -1523,6 +1570,9 @@ module.exports = function( Microbe )
      * @param {Microbe} _el Microbe to be filtered
      * @param {String} _var specified language (accepts wildcards as *)
      *
+     * @example µ( '.example:lang(gb-en)' );
+     * @example µ( '.example:lang(*-en)' );
+     * 
      * @return _Microbe_
      */
     pseudo.lang = function( _el, _var )
@@ -1562,6 +1612,8 @@ module.exports = function( Microbe )
      *
      * @param {Microbe} _el Microbe to be filtered
      *
+     * @example µ( '.example:last' );
+     * 
      * @return _Microbe_
      */
     pseudo.last = function( _el )
@@ -1580,6 +1632,9 @@ module.exports = function( Microbe )
      * @param {Microbe} _el Microbe to be filtered
      * @param {String} _var specified depth
      *
+     * @example µ( '.example:local-link' );
+     * @example µ( '.example:local-link(2)' );
+     * 
      * @return _Microbe_
      */
     pseudo[ 'local-link' ] = function( _el, _var )
@@ -1612,6 +1667,8 @@ module.exports = function( Microbe )
      * @param {Microbe} _el Microbe to be filtered
      * @param {String} _var number of elements to return
      *
+     * @example µ( '.example:lt(2)' );
+     * 
      * @return _Microbe_
      */
     pseudo.lt = function( _el, _var )
@@ -1629,6 +1686,8 @@ module.exports = function( Microbe )
      * @param {String} _var selector filter
      * @param {String} _selector full original selector
      *
+     * @example µ( '.example:matches(div)' );
+     * 
      * @return _Microbe_
      */
     pseudo.matches = function( _el, _var, _selector )
@@ -1662,6 +1721,9 @@ module.exports = function( Microbe )
      * @param {String} _var null selector
      * @param {String} _recursive an indicator that it is calling itself. defines output
      *
+     * @example µ( '.example:not(div)' );
+     * @example µ( '.example:not(div,#an--id)' );
+     * 
      * @return _Microbe_
      */
     pseudo.not = function( _el, _var, _selector, _recursive )
@@ -1701,6 +1763,11 @@ module.exports = function( Microbe )
      * @param {Microbe} _el Microbe to be filtered
      * @param {String} _var column number(s) return
      *
+     * @example µ( '.example:nth-column(1)' );
+     * @example µ( '.example:nth-column(2n1)' );
+     * @example µ( '.example:nth-column(even)' );
+     * @example µ( '.example:nth-column(odd)' );
+     * 
      * @return _Microbe_
      */
     pseudo[ 'nth-column' ] = function( _el, _var )
@@ -1719,6 +1786,11 @@ module.exports = function( Microbe )
      * @param {Microbe} _el Microbe to be filtered
      * @param {String} _var column number(s) return
      *
+     * @example µ( '.example:nth-last-column(1)' );
+     * @example µ( '.example:nth-last-column(2n1)' );
+     * @example µ( '.example:nth-last-column(even)' );
+     * @example µ( '.example:nth-last-column(odd)' );
+     * 
      * @return _Microbe_
      */
     pseudo[ 'nth-last-column' ] = function( _el, _var )
@@ -1737,6 +1809,11 @@ module.exports = function( Microbe )
      * @param {Microbe} _el Microbe to be filtered
      * @param {String} _var match number(s) return
      *
+     * @example µ( '.example:nth-last-match(1)' );
+     * @example µ( '.example:nth-last-match(2n1)' );
+     * @example µ( '.example:nth-last-match(even)' );
+     * @example µ( '.example:nth-last-match(odd)' );
+     * 
      * @return _Microbe_
      */
     pseudo[ 'nth-last-match' ] = function( _el, _var )
@@ -1753,6 +1830,11 @@ module.exports = function( Microbe )
      * @param {Microbe} _el Microbe to be filtered
      * @param {String} _var match number(s) return
      *
+     * @example µ( '.example:nth-match(1)' );
+     * @example µ( '.example:nth-match(2n1)' );
+     * @example µ( '.example:nth-match(even)' );
+     * @example µ( '.example:nth-match(odd)' );
+     * 
      * @return _Microbe_
      */
     pseudo[ 'nth-match' ] = function( _el, _var )
@@ -1768,6 +1850,8 @@ module.exports = function( Microbe )
      *
      * @param {Microbe} _el Microbe to be filtered
      *
+     * @example µ( '.example:odd' );
+     * 
      * @return _Microbe_
      */
     pseudo.odd = function( _el )
@@ -1791,6 +1875,8 @@ module.exports = function( Microbe )
      *
      * @param {Microbe} _el base elements set
      *
+     * @example µ( '.example:optional' );
+     * 
      * @return _Microbe_
      */
     pseudo.optional = function( _el )
@@ -1806,6 +1892,8 @@ module.exports = function( Microbe )
      *
      * @param {Microbe} _el Microbe to be filtered
      *
+     * @example µ( '.example:out-of-range' );
+     * 
      * @return _Microbe_
      */
     pseudo[ 'out-of-range' ] = function( _el )
@@ -1846,6 +1934,9 @@ module.exports = function( Microbe )
      *
      * @param {Microbe} _el Microbe to be filtered
      *
+     * @example µ( '.example!' );
+     * @example µ( '.example:parent' );
+     * 
      * @return _Microbe_
      */
     pseudo.parent = function( _el )
@@ -1871,6 +1962,8 @@ module.exports = function( Microbe )
      *
      * @param {Microbe} _el Microbe to be filtered
      *
+     * @example µ( '.example:read-only' );
+     * 
      * @return _Microbe_
      */
     pseudo[ 'read-only' ] = function( _el )
@@ -1886,6 +1979,8 @@ module.exports = function( Microbe )
      *
      * @param {Microbe} _el Microbe to be filtered
      *
+     * @example µ( '.example:read-write' );
+     * 
      * @return _Microbe_
      */
     pseudo[ 'read-write' ] = function( _el )
@@ -1901,6 +1996,8 @@ module.exports = function( Microbe )
      *
      * @param {Microbe} _el Microbe to be filtered
      *
+     * @example µ( '.example:required' );
+     * 
      * @return _Microbe_
      */
     pseudo.required = function( _el )
@@ -1916,6 +2013,8 @@ module.exports = function( Microbe )
      *
      * @param {Microbe} _el Microbe to be filtered
      *
+     * @example µ( '.example:root );
+     * 
      * @return _Microbe_
      */
     pseudo.root = function( _el )
@@ -1951,6 +2050,8 @@ module.exports = function( Microbe )
      * @param {Element} _el element to check
      * @param {Element} _scope scope
      *
+     * @example µ.contains( _el, _parentEl );
+     * 
      * @return _Boolean_ whether _el is contained in the scope
      */
     Microbe.contains = function( _el, _scope )
@@ -1980,6 +2081,8 @@ module.exports = function( Microbe )
      *
      * @param {Mixed} el element, microbe, or array of elements to match
      *
+     * @example µ.matches( _el, 'div.example' );
+     * 
      * @return _Booblean_ matches or not
      */
     Microbe.matches = function( el, selector )
