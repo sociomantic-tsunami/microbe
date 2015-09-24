@@ -129,6 +129,7 @@ Change log
 
 #### 0.4.9
 
++ added bower support
 + µ.ready now accepts an arguments array
 + added examples to docs
 + updated code of conduct
