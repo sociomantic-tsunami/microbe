@@ -60,7 +60,7 @@ gulp.task( 'min', function()
 
 gulp.task( 'tests', function()
 {
-    browserify( './tests/unit/buildTests.js' )
+    browserify( './tests/buildTests.js' )
         .bundle()
         .pipe( fs.createWriteStream( __dirname + '/tests/tests.js' ) )
         .on( 'finish', function()

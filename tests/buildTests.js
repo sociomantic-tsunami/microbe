@@ -129,15 +129,15 @@ var buildTest = function( _str1, _cb1, _str2, _cb2, _console )
     }
 };
 
-require( './selectorEngine/init' )( buildTest );
-require( './selectorEngine/pseudo' )( buildTest );
-require( './selectorEngine/core' )( buildTest );
-require( './selectorEngine/root' )( buildTest );
-require( './elements' )( buildTest );
-require( './tools' )( buildTest );
-require( './http' )( buildTest );
-require( './dom' )( buildTest );
-require( './events' )( buildTest );
-require( './observe' )( buildTest );
+require( './unit/selectorEngine/init' )( buildTest );
+require( './unit/selectorEngine/pseudo' )( buildTest );
+require( './unit/selectorEngine/core' )( buildTest );
+require( './unit/selectorEngine/root' )( buildTest );
+require( './unit/elements' )( buildTest );
+require( './unit/tools' )( buildTest );
+require( './unit/http' )( buildTest );
+require( './unit/dom' )( buildTest );
+require( './unit/events' )( buildTest );
+require( './unit/observe' )( buildTest );
 
 window.buildTest = buildTest;
