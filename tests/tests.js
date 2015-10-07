@@ -1037,14 +1037,14 @@ module.exports = function( buildTest )
         buildTest(
         'µDivs.attr( \'moo\', \'moooooooooooooon\' )', function()
         {
-            µDivs.attr( 'moo', 'moooooooooooooon' );
+            µDivs.attr( { 'moo': 'moooooooooooooon', 'a' : 1 } );
 
             vanillaRemove();
         },
 
         '$Divs.attr( \'moo\', \'moooooooooooooon\' )', function()
         {
-            $Divs.attr( 'moo', 'moooooooooooooon' );
+            $Divs.attr( { 'moo': 'moooooooooooooon', 'a' : 1 } );
 
             vanillaRemove();
         } );
@@ -1778,7 +1778,7 @@ module.exports = function( buildTest )
 },{}],14:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 var indexOf = Array.prototype.indexOf;
-var version = '0.4.9';
+var version = '0.4.10';
 
 module.exports = function( buildTest )
 {

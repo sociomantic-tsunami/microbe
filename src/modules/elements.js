@@ -110,7 +110,6 @@ module.exports = function( Microbe )
                 {
                     for ( _attr in _attribute )
                     {
-                        console.log( _attribute );
                         _value = _attribute[ _attr ];
                         _set( _attr, _value );
                     }

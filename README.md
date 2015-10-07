@@ -1,5 +1,5 @@
-µ - Microbe - 0.4.9
-===================
+µ - Microbe - 0.4.10
+====================
 
 [![Join the chat at https://gitter.im/sociomantic/microbe](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/sociomantic/microbe?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
