@@ -137,6 +137,11 @@ Need to report something? [report@m.icro.be](report@m.icro.be)
 Change log
 ==========
 
+#### 0.4.10
+
++ 
+
+
 #### 0.4.9
 
 + added bower support
