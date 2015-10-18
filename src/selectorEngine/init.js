@@ -220,6 +220,10 @@ module.exports = function( Microbe, _type )
                     break;
             }
         }
+        else if ( typeof _s === 'function' && Microbe && typeof Microbe.ready === 'function' )
+        {
+            Microbe.ready( _s );
+        }
 
         return false;
     }

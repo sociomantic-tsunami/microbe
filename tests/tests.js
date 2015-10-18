@@ -644,16 +644,25 @@ module.exports = function( buildTest )
     {
         assert.ok( µ.ready, 'exists' );
 
-        var domReady    = assert.async();
+        var domReadyRoot        = assert.async();
+        var domReadySelector    = assert.async();
 
-        var loaded = function()
+        var loadedRoot = function()
         {
             assert.equal( µ( 'h1' ).length, 1, 'is run after dom loads' );
 
-            domReady();
+            domReadyRoot();
         };
 
-        µ.ready( loaded );
+        var loadedSelector = function()
+        {
+            assert.equal( µ( 'h1' ).length, 1, 'is run after dom loads' );
+
+            domReadySelector();
+        };
+
+        µ.ready( loadedRoot );
+        µ( loadedSelector );
 
         buildTest( 'No speed tests available.' );
     });

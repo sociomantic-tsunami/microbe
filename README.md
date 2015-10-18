@@ -139,7 +139,7 @@ Change log
 
 #### 0.4.10
 
-+ 
++ selectorEngine now accepts functions as "document ready" short hand
 
 
 #### 0.4.9
@@ -150,11 +150,6 @@ Change log
 + updated code of conduct
 + toggleClass now accepts an array of classes
 + twitter account added to info
-
-
-#### 0.4.8
-
-+ updated copy and tests
 
 
 #### 0.4.8

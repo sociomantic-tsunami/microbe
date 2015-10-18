@@ -234,6 +234,7 @@ module.exports = function( Microbe )
      * @param {Array} args parameters to pass to the callback
      *
      * @example µ.ready( function( a, b ){ return a + b; }, [ 1, 2 ] );
+     * @example µ( function( a, b ){ return a + b; }, [ 1, 2 ] );
      *
      * @return _void_
      */

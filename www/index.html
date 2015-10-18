@@ -11,6 +11,20 @@
     <link href="./css/main.css" rel="stylesheet">
     <link href="./css/home.css" rel="stylesheet">
     <link href="./css/mobile.css" rel="stylesheet">
+        <script src="./doc/microbe.js"></script>
+    <script type="text/javascript">
+        /* global µ */
+        µ( function()
+        {
+            µ( '#microbe' ).text( 'µ - microbe - ' + µ.version );
+            if ( console && console.log )
+            {
+                console.log( '%cWelcome to the console!  Feel free to give microbe a shot', 'font-size:12px;font-size:1em;font-size:1rem;color: #309CC6;' );
+                console.log( '%cYou can start by building a microbe that selects all divs and going from there.', 'font-size:0.8em;font-size:0.8rem;' );
+                console.log( 'try: var µDiv = µ( \'div\' )' );
+            }
+        } );
+    </script>
 </head>
 <body>
     <header>
@@ -112,18 +126,5 @@
     <footer class="footer">
         Brought to you by <a href="https://github.com/nicolasbrugneaux" target="_blank">Nico</a> and <a href="https://github.com/mousemke" target="_blank">Mouse</a> at <a href="https://sociomantic.com" target="_blank">Sociomantic</a> – 2015.
     </footer>
-    <script src="./doc/microbe.js"></script>
-    <script type="text/javascript">
-        /* global µ */
-        (function()
-        {
-            µ( '#microbe' ).text( 'µ - microbe - ' + µ.version );
-            if ( console && console.log )
-            {
-                console.log( '%cWelcome to the console!  Feel free to give microbe a shot', 'font-size:12px;font-size:1em;font-size:1rem;color: #309CC6;' );
-                console.log( '%cYou can start by building a microbe that selects all divs and going from there.', 'font-size:0.8em;font-size:0.8rem;' );
-                console.log( 'try: var µDiv = µ( \'div\' )' );
-            }
-        })();
-    </script>
+
 </body>
