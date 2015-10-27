@@ -17,17 +17,27 @@ module.exports = function( Microbe )
      *
      * Gets a microbe of all the given element's children
      *
+     * @param {String} selector css selector string filter
+     *
      * @example µ( '.example' ).children();
-     * 
+     * @example µ( '.example' ).children( 'div' );
+     *
      * @return _Array_  array of microbes (value)
      */
-    Microbe.core.children = function()
+    Microbe.core.children = function( selector )
     {
         var _constructor = this.constructor;
 
         var _children = function( _el )
         {
-            return _constructor( _el.children )
+            _el = _constructor( _el.children );
+
+            if ( typeof selector === 'string' )
+            {
+                return _el.filter( selector );
+            }
+
+            return  _el;
         };
 
         return this.map( _children );
@@ -39,11 +49,14 @@ module.exports = function( Microbe )
      *
      * Gets an microbe of all children of all element's given
      *
+     * @param {String} selector css selector string filter
+     *
      * @example µ( '.example' ).childrenFlat();
-     * 
+     * @example µ( '.example' ).childrenFlat( 'div' );
+     *
      * @return _Microbe_ value array of combined children
      */
-    Microbe.core.childrenFlat = function()
+    Microbe.core.childrenFlat = function( selector )
     {
         var i = 0, childrenArray = [];
 
@@ -51,7 +64,7 @@ module.exports = function( Microbe )
         {
             var arr         = _el.children;
             var arrLength   = arr.length;
-            
+
             for ( var j = 0; j < arrLength; j++ )
             {
                 childrenArray[ i ] = arr[ j ];
@@ -61,7 +74,14 @@ module.exports = function( Microbe )
 
         this.each( _childrenFlat );
 
-        return this.constructor( childrenArray );
+        var _el = this.constructor( childrenArray );
+
+        if ( typeof selector === 'string' )
+        {
+            return _el.filter( selector );
+        }
+
+        return _el;
     };
 
 
@@ -76,7 +96,7 @@ module.exports = function( Microbe )
      *
      * @example µ( '.example' ).filter( 'div' );
      * @example µ( '.example' ).filter( function( _el ){ return _el.tagName === 'div'; } );
-     * 
+     *
      * @return _Microbe_ new microbe containing only the filtered values
      */
     Microbe.core.filter = function( filter )
@@ -191,7 +211,7 @@ module.exports = function( Microbe )
      * @param {String} selector            selector to search for
      *
      * @example µ( '.example' ).find( 'div' );
-     * 
+     *
      * @return _Microbe_ new microbe containing only the found children values
      */
     Microbe.core.find = function( _selector )
@@ -264,7 +284,7 @@ module.exports = function( Microbe )
      * gets the first Element and wraps it in Microbe.
      *
      * @example µ( '.example' ).first();
-     * 
+     *
      * @return _Microbe_ new Microbe containing only the first value
      */
     Microbe.core.first = function()
@@ -284,7 +304,7 @@ module.exports = function( Microbe )
      * Gets the last Element and wraps it in Microbe.
      *
      * @example µ( '.example' ).last();
-     * 
+     *
      * @return _Microbe_ new microbe containing only the last value
      */
     Microbe.core.last = function()
@@ -336,11 +356,14 @@ module.exports = function( Microbe )
      *
      * Gets an microbe of all of each given element's siblings
      *
-     * @example µ( '.example' ).siblings();
-     * 
+     * @param {String} selector css selector string filter
+     *
+     * @example µ( '.example' ).siblings();;
+     * @example µ( '.example' ).siblings( 'div' );
+     *
      * @return _Array_ array of microbes (value)
      */
-    Microbe.core.siblings = function()
+    Microbe.core.siblings = function( selector )
     {
         var _constructor = this.constructor;
 
@@ -358,7 +381,14 @@ module.exports = function( Microbe )
                 sibling = sibling.nextElementSibling;
                 if ( !sibling )
                 {
-                    return _constructor( res );
+                    res = _constructor( res );
+
+                    if ( typeof selector === 'string' )
+                    {
+                        return res.filter( selector );
+                    }
+
+                    return res;
                 }
             }
         };
@@ -376,60 +406,54 @@ module.exports = function( Microbe )
      * @param {String} direction direction modifier (optional)
      *
      * @example µ( '.example' ).siblingsFlat();
-     * @example µ( '.example' ).siblingsFlat( 'prev' );
-     * @example µ( '.example' ).siblingsFlat( 'next' );
-     * 
+     * @example µ( '.example' ).siblingsFlat( 'div' );
+     *
      * @return _Microbe_ value array of combined siblings
      */
-    Microbe.core.siblingsFlat = function( direction )
+    Microbe.core.siblingsFlat = function( selector )
     {
         var i = 0, siblingsArray = [];
+        var isSiblingConnector = ( selector === '+' || selector === '~' );
 
         var _siblingsFlat = function( _el )
         {
-            if ( !direction )
-            {
-                var sibling = _el.parentNode.firstElementChild;
+            var sibling = _el;
 
-                for ( ; sibling; )
-                {
-                    if ( sibling !== _el && siblingsArray.indexOf( sibling ) === -1 )
-                    {
-                        siblingsArray[ i ] = sibling;
-                        i++;
-                    }
-                    sibling = sibling.nextElementSibling;
-                    if ( !sibling )
-                    {
-                        break;
-                    }
-                }
+            if ( !isSiblingConnector )
+            {
+                sibling = _el.parentNode.firstElementChild;
             }
-            else if ( direction === 'next' )
+            else
             {
-                var next = _el.nextElementSibling;
+                sibling = _el.nextElementSibling;
+            }
 
-                if ( next && siblingsArray.indexOf( next ) === -1 )
+            for ( ; sibling; )
+            {
+                if ( sibling !== _el && siblingsArray.indexOf( sibling ) === -1 )
                 {
-                    siblingsArray[ i ] = next;
+                    siblingsArray[ i ] = sibling;
                     i++;
                 }
-            }
-            else if ( direction === 'prev' )
-            {
-                var prev = _el.prevElementSibling;
+                sibling = sibling.nextElementSibling;
 
-                if ( prev && siblingsArray.indexOf( prev ) === -1 )
+                if ( !sibling || selector === '+' )
                 {
-                    siblingsArray[ i ] = prev;
-                    i++;
+                    break;
                 }
             }
         };
 
         this.each( _siblingsFlat );
 
-        return this.constructor( siblingsArray );
+        var _el = this.constructor( siblingsArray );
+
+        if ( typeof selector === 'string' && !isSiblingConnector )
+        {
+            return _el.filter( selector );
+        }
+
+        return _el;
     };
 
 
@@ -439,7 +463,7 @@ module.exports = function( Microbe )
      * Methods returns the type of Microbe.
      *
      * @example µ( '.example' ).toString();
-     * 
+     *
      * @return _String_
      */
     Microbe.core.toString = function()
