@@ -1,6 +1,6 @@
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 var indexOf = Array.prototype.indexOf;
-var version = '0.4.10';
+var version = '0.4.11';
 
 module.exports = function( buildTest )
 {
@@ -13,6 +13,7 @@ module.exports = function( buildTest )
      * @test    children returns an array
      * @test    full of microbes
      * @test    that are correct
+     * @test    correctly filters results
      */
     QUnit.test( '.children()', function( assert )
     {
@@ -24,6 +25,9 @@ module.exports = function( buildTest )
         assert.ok( children[0].type === '[object Microbe]', 'full of microbes' );
         assert.deepEqual( µ( '.example--class' )[0].children[0], children[0][0], 'the correct children' );
 
+        assert.deepEqual( µ( '.example--class' ).children( '#example--id' )[0],
+                            µ( '.example--class' ).children()[0].filter( '#example--id' ),
+                            'filter strings filter' );
 
         var $Div = $( 'div' ), µDiv = µ( 'div' );
         buildTest(
@@ -52,6 +56,7 @@ module.exports = function( buildTest )
      * @test    childrenFlat returns an array
      * @test    with itself removed
      * @test    that are correct
+     * @test    correctly filters results
      */
     QUnit.test( '.childrenFlat()', function( assert )
     {
@@ -64,6 +69,9 @@ module.exports = function( buildTest )
         var nodeChildren = Array.prototype.slice.call( µ( '.example--class' )[0].children );
 
         assert.equal( childrenFlat.length, nodeChildren.length, 'correct number of elements' );
+        assert.deepEqual( µ( '.example--class' ).childrenFlat( '#example--id' )[0],
+                            µ( '.example--class' ).childrenFlat().filter( '#example--id' )[0],
+                            'filter strings filter' );
 
         var $Div = $( 'div' ), µDiv = µ( 'div' );
         buildTest(
@@ -104,18 +112,6 @@ module.exports = function( buildTest )
 
         var $Divs   = $( 'div' );
 
-        // buildTest(
-        // 'µDivs.filter( \'#qunit\' )', function()
-        // {
-        //     resetDivs();
-        //     µDivs.filter( '#qunit' );
-        // },
-
-        // '$Divs.filter( \'#qunit\' )', function()
-        // {
-        //     resetDivs();
-        //     $Divs.filter( '#qunit' );
-        // } );
 
         buildTest(
         'µDivs.filter( \'#qunit\' )', function()
@@ -283,6 +279,7 @@ module.exports = function( buildTest )
      * @test    full of microbes
      * @test    with itself removed
      * @test    that are correct
+     * @test    correctly filters results
      */
     QUnit.test( '.siblings()', function( assert )
     {
@@ -297,6 +294,10 @@ module.exports = function( buildTest )
 
         assert.equal( indexOf.call( siblings[0], µ( '.example--class' )[0] ), -1, 'removed self' );
         assert.equal( siblings[0].length, nodeChildren.length - 1, 'correct number of elements' );
+
+        assert.deepEqual( µ( '.example--class' ).siblings( '#example--id' )[0],
+                            µ( '.example--class' ).siblings()[0].filter( '#example--id' ),
+                            'filter strings filter' );
 
         var $Div = $( 'div' ), µDiv = µ( 'div' );
         buildTest(
@@ -325,6 +326,7 @@ module.exports = function( buildTest )
      * @test    siblingsFlat returns an array
      * @test    with itself removed
      * @test    that are correct
+     * @test    correctly filters results
      */
     QUnit.test( '.siblingsFlat()', function( assert )
     {
@@ -339,11 +341,9 @@ module.exports = function( buildTest )
         assert.equal( indexOf.call( siblingsFlat, µ( '.example--class' )[0] ), -1, 'removed self' );
         assert.equal( siblingsFlat.length, nodeChildren.length - 1, 'correct number of elements' );
 
-        var prev = µ( '#qunit' )[0].prevElementSibling;
-        var next = µ( '#qunit' )[0].nextElementSibling;
-
-        assert.deepEqual( prev, µ( '#qunit' ).siblingsFlat( 'prev' )[0], 'siblingsFlat( \'prev\' ) gets previous element' );
-        assert.deepEqual( next, µ( '#qunit' ).siblingsFlat( 'next' )[0], 'siblingsFlat( \'next\' ) gets next element' );
+        assert.deepEqual( µ( '#qunit-fixture' ).siblingsFlat( '#microbe--example--dom' )[0],
+                            µ( '#qunit-fixture' ).siblingsFlat().filter( '#microbe--example--dom' )[0],
+                            'filter strings filter' );
 
         var $Div = $( 'div' ), µDiv = µ( 'div' );
         buildTest(

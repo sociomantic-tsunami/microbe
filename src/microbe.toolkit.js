@@ -12,7 +12,7 @@
 'use strict';
 
 var _type       = '[object MicrobeRoot]';
-var _version    = '0.4.10-tool';
+var _version    = '0.4.11-tool';
 
 var Microbe = {};
 require( './modules/tools' )( Microbe );
