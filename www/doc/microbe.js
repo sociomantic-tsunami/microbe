@@ -4635,6 +4635,10 @@ module.exports = function( Microbe )
             {
                 sibling = _el.parentNode.firstElementChild;
             }
+            else
+            {
+                sibling = _el.nextElementSibling;
+            }
 
             for ( ; sibling; )
             {
