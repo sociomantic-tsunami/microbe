@@ -743,6 +743,78 @@ module.exports = function( buildTest )
 
 
     /**
+     * µ appendTo tests
+     *
+     * @test    appendTo exists
+     * @test    attached microbe
+     * @test    attached element
+     * @test    attached by creation string
+     * @test    attached by selection string
+     * @test    attached by html
+     * @test    attached by array of elements
+     */
+    QUnit.test( '.appendTo()', function( assert )
+    {
+        assert.ok( µ().appendTo, 'exists' );
+
+        var µNewDiv = µ( '<div.a--new--div>' );
+        var µTarget = µ( '#example--id' );
+
+        µNewDiv.appendTo( µTarget );
+        assert.deepEqual( µNewDiv[0], µTarget.children()[0][0], 'attache to a microbe' );
+        µNewDiv.remove();
+
+        µNewDiv.appendTo( µTarget[0] );
+        assert.deepEqual( µNewDiv[0], µTarget.children()[0][0], 'attached to an element' );
+        µNewDiv.remove();
+
+        µNewDiv.appendTo( '<div.a--new--div>' );
+        assert.deepEqual( µ( '.a--new--div' )[0], µNewDiv.childrenFlat()[0], 'attached to a creation string' );
+
+        µNewDiv.appendTo( 'div.a--new--div' );
+        assert.deepEqual( µ( '.a--new--div' )[0], µNewDiv.childrenFlat()[0], 'attached to a selection string' );
+        µNewDiv.remove();
+
+        var µNew = µNewDiv.appendTo( '<div><span class="an--example--span">hello</span></div>' );
+        assert.equal( µNew.parent().childrenFlat().length, 2, 'attached by html' );
+
+        var µTables = µ( 'table' );
+
+        µNewDiv.appendTo( [ µTarget[0], µTables[0] ] );
+        µNewDiv = µ( 'div.a--new--div' );
+        assert.equal( µNewDiv.length, 2, 'attached 2 elements' );
+        µNewDiv.remove();
+
+
+        var el;
+        var µDiv = µ( 'div' ).first();
+        var $Div = $( 'div' ).first();
+
+        var vanillaRemove = function( el )
+        {
+            el.parentNode.removeChild( el );
+        };
+
+        buildTest(
+        'µ( el ).appendTo( µDiv )', function()
+        {
+            el = document.createElement( 'div' );
+            µ( el ).appendTo( µDiv );
+
+            vanillaRemove( el );
+        },
+
+        '$( el ).appendTo( $Div )', function()
+        {
+            el = document.createElement( 'div' );
+            $( el ).appendTo( $Div );
+
+            vanillaRemove( el );
+        } );
+    });
+
+
+    /**
      * µ insertAfter tests
      *
      * @test    insertAfter exists
@@ -886,6 +958,78 @@ module.exports = function( buildTest )
         {
             el = document.createElement( 'div' );
             $Div.prepend( el );
+
+            vanillaRemove( el );
+        } );
+    });
+
+
+
+    /**
+     * µ prependTo tests
+     *
+     * @test    prependTo exists
+     * @test    attached microbe
+     * @test    attached element
+     * @test    attached by creation string
+     * @test    attached by selection string
+     * @test    attached by html
+     * @test    attached by array of elements
+     */
+    QUnit.test( '.prependTo()', function( assert )
+    {
+        assert.ok( µ().prependTo, 'exists' );
+
+        var µNewDiv = µ( '<div.a--new--div>' );
+        var µTarget = µ( '#example--id' );
+
+        µNewDiv.prependTo( µTarget );
+        assert.deepEqual( µNewDiv[0], µTarget.children()[0][0], 'attache to a microbe' );
+        µNewDiv.remove();
+
+        µNewDiv.prependTo( µTarget[0] );
+        assert.deepEqual( µNewDiv[0], µTarget.children()[0][0], 'attached to an element' );
+        µNewDiv.remove();
+
+        µNewDiv.prependTo( '<div.a--new--div>' );
+        assert.deepEqual( µ( '.a--new--div' )[0], µNewDiv.childrenFlat()[0], 'attached to a creation string' );
+
+        µNewDiv.prependTo( 'div.a--new--div' );
+        assert.deepEqual( µ( '.a--new--div' )[0], µNewDiv.childrenFlat()[0], 'attached to a selection string' );
+        µNewDiv.remove();
+
+        var µNew = µNewDiv.prependTo( '<div><span class="an--example--span">hello</span></div>' );
+        assert.equal( µNew.parent().childrenFlat().length, 2, 'attached by html' );
+
+        var µTables = µ( 'table' );
+
+        µNewDiv.prependTo( [ µTarget[0], µTables[0] ] );
+        assert.equal( µ( '.a--new--div' ).length, 2, 'attached 2 elements' );
+        µNewDiv.remove();
+
+
+        var el;
+        var µDiv = µ( 'div' ).first();
+        var $Div = $( 'div' ).first();
+
+        var vanillaRemove = function( el )
+        {
+            el.parentNode.removeChild( el );
+        };
+
+        buildTest(
+        'µ( el ).prependTo( µDiv )', function()
+        {
+            el = document.createElement( 'div' );
+            µ( el ).prependTo( µDiv );
+
+            vanillaRemove( el );
+        },
+
+        '$( el ).prependTo( $Div )', function()
+        {
+            el = document.createElement( 'div' );
+            $( el ).prependTo( $Div );
 
             vanillaRemove( el );
         } );
@@ -1787,7 +1931,7 @@ module.exports = function( buildTest )
 },{}],14:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 var indexOf = Array.prototype.indexOf;
-var version = '0.4.11';
+var version = '0.4.12';
 
 module.exports = function( buildTest )
 {

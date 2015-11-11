@@ -139,7 +139,8 @@ Change log
 
 #### 0.4.12
 
-+
++ added appendTo and prependTo
++ aliased each to forEach for array compatability
 
 
 #### 0.4.11

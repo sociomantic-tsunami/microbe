@@ -65,10 +65,10 @@ module.exports = function( Microbe )
         /**
          * ## _append
          *
-         * in the case of an element or array passed in it will get appended directly
+         * appends the child to the parent
          *
-         * @param {Element} _html html string
-         * @param {Boolean} _pre prepend or not
+         * @param {Element} _parentEl parent element
+         * @param {Element} _elm child element
          *
          * @return _Microbe_
          */
@@ -79,12 +79,36 @@ module.exports = function( Microbe )
 
 
         /**
+         * ## checkElement
+         *
+         * reformats the element into an iterable object
+         *
+         * @param  {Mixed} _el element(s) to be reformatted (String, DOMElement, Array, Microbe)
+         *
+         * @return  _Mixed_ formatted element(s) (Microbe, Array)
+         */
+        var checkElement = function( _el )
+        {
+            if ( typeof _el === 'string' )
+            {
+                return new Microbe( _el );
+            }
+            else if ( !_el.length )
+            {
+                return [ _el ];
+            }
+
+            return _el;
+        }
+
+
+        /**
          * ## _prepend
          *
-         * in the case of an element or array passed in it will get prepended directly
+         * prepends the child to the parent
          *
-         * @param {Element} _html html string
-         * @param {Boolean} _pre prepend or not
+         * @param {Element} _parentEl parent element
+         * @param {Element} _elm child element
          *
          * @return _Microbe_
          */
@@ -94,49 +118,72 @@ module.exports = function( Microbe )
             _parentEl.insertBefore( _elm, firstChild );
         };
 
-        return function( _el, prepend )
+
+        /**
+         * ## append main function
+         *
+         * takes input fromappend, appendTo, prepend, and prependTo, sorts out
+         * the booleans and targets, then passes them to the correct function
+         *
+         * @param {Mixed} _el element to attach or attach to
+         * @param {Boolean} prepend prepend or append
+         * @param {Boolean} to determines the parent child relationship
+         *
+         * @return _Microbe_
+         */
+        return function( _el, prepend, to )
         {
-            var elementArray = [];
+            var _cb = prepend ? _prepend : _append;
 
-            if ( !_el.length )
+            var elementArray = [], node;
+
+            _el = checkElement( _el );
+
+            var self    = to ? _el : this;
+                _el     = to ? this : _el;
+
+            if ( _el.indexOf( '/' ) !== -1 )
             {
-                _el = [ _el ];
-            }
-            if ( typeof _el === 'string' )
-            {
-                if ( _el.indexOf( '/' ) !== -1 )
-                {
-                    return _appendHTML.call( this, _el, prepend );
-                }
-                else
-                {
-                    _el = new Microbe( _el );
-                }
+                return _appendHTML.call( self, _el, prepend );
             }
 
-            var i, j, leni, lenj, node;
-            for ( i = 0, leni = this.length; i < leni; i++ )
+            self.forEach( function( s, i )
             {
-                for ( j = 0, lenj = _el.length; j < lenj; j++ )
+                _el.forEach( function( e, j )
                 {
-                    node = i === 0 ? _el[ j ] : _el[ j ].cloneNode( true );
+                    node = i === 0 ? e : e.cloneNode( true );
 
                     elementArray.push( node );
-
-                    if ( prepend === true )
-                    {
-                        _prepend( this[ i ], node );
-                    }
-                    else
-                    {
-                        _append( this[ i ], node );
-                    }
-                }
-            }
+                    _cb( self[ i ], node );
+                } );
+            } );
 
             return this.constructor( elementArray );
         };
     }());
+
+
+    /**
+     * ## appendTo
+     *
+     * Prepends a microbe to an element or elements.  if there is more than
+     * one target the next ones are cloned. The strings this accepts can be
+     * a selector string, an element creation string, or an html string
+     *
+     * @param {Mixed} _ele element(s) to prepend _{Element, Array, String, or Microbe}_
+     *
+     * @example µ( '.example' ).appendTo( '&lt;div class="new-div">test&lt;/div>' );
+     * @example µ( '.example' ).appendTo( µMicrobeExample );
+     * @example µ( '.example' ).appendTo( _el );
+     * @example µ( '.example' ).appendTo( [ _el1, _el2, _el3 ] );
+     * @example µ( '.example' ).appendTo( '&lt;div.example>' );
+     *
+     * @return _Microbe_ new microbe filled with the inserted content
+     */
+    Microbe.core.appendTo = function( _el )
+    {
+        return this.append( _el, false, true );
+    };
 
 
     /**
@@ -226,6 +273,29 @@ module.exports = function( Microbe )
 
 
     /**
+     * ## prependTo
+     *
+     * Prepends a microbe to an element or elements.  if there is more than
+     * one target the next ones are cloned. The strings this accepts can be
+     * a selector string, an element creation string, or an html string
+     *
+     * @param {Mixed} _ele element(s) to prepend _{Element, Array, String, or Microbe}_
+     *
+     * @example µ( '.example' ).prependTo( '&lt;div class="new-div">test&lt;/div>' );
+     * @example µ( '.example' ).prependTo( µMicrobeExample );
+     * @example µ( '.example' ).prependTo( _el );
+     * @example µ( '.example' ).prependTo( [ _el1, _el2, _el3 ] );
+     * @example µ( '.example' ).prependTo( '&lt;div.example>' );
+     *
+     * @return _Microbe_ new microbe filled with the inserted content
+     */
+    Microbe.core.prependTo = function( _el )
+    {
+        return this.append( _el, true, true );
+    };
+
+
+    /**
      * ## ready
      *
      * Waits until the DOM is ready to execute
@@ -276,10 +346,10 @@ module.exports = function( Microbe )
             this.off();
         }
 
-        for ( var i = 0, len = this.length; i < len; i++ )
+        this.forEach( function( _el )
         {
-            this[ i ].remove();
-        }
+            _el.remove();
+        } );
 
         return this;
     };
