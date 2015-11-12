@@ -15,7 +15,7 @@ microbe aims to be modular and expandable. It’s separated into several modules
 
 + Core helpers (class, extend, text, attributes … )
 
-+ DOM helpers (append, insertAfter, prepend … )
++ DOM helpers (append, appendTo, insertAfter, prepend … )
 
 + Type helpers(isUnidentified, isArray, isWindow, … )
 
@@ -42,7 +42,7 @@ Usage
 
 	then
 
-	`require( 'microbejs' );`
+    `require( 'microbejs' );`
 
 	or
 
