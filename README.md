@@ -1,4 +1,4 @@
-µ - Microbe - 0.4.11
+µ - Microbe - 0.4.12
 ====================
 
 [![Join the chat at https://gitter.im/sociomantic/microbe](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/sociomantic/microbe?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
@@ -15,7 +15,7 @@ microbe aims to be modular and expandable. It’s separated into several modules
 
 + Core helpers (class, extend, text, attributes … )
 
-+ DOM helpers (append, insertAfter, prepend … )
++ DOM helpers (append, appendTo, insertAfter, prepend … )
 
 + Type helpers(isUnidentified, isArray, isWindow, … )
 
@@ -42,7 +42,7 @@ Usage
 
 	then
 
-	`require( 'microbejs' );`
+    `require( 'microbejs' );`
 
 	or
 
@@ -136,6 +136,12 @@ Need to report something? [report@m.icro.be](report@m.icro.be)
 
 Change log
 ==========
+
+#### 0.4.12
+
++ added appendTo and prependTo
++ aliased each to forEach for array compatability
+
 
 #### 0.4.11
 

@@ -2,7 +2,7 @@
  * array.js
  *
  * methods based on the array prototype
- * 
+ *
  * @author  Mouse Braun         <mouse@sociomantic.com>
  * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
  *
@@ -16,6 +16,7 @@ module.exports = function( Microbe )
     Microbe.core.every          = Array.prototype.every;
     Microbe.core.findIndex      = Array.prototype.findIndex;
     Microbe.core.each           = Array.prototype.forEach;
+    Microbe.core.forEach        = Array.prototype.forEach;
     Microbe.core.includes       = Array.prototype.includes;
     Microbe.core.indexOf        = Array.prototype.indexOf;
     Microbe.core.lastIndexOf    = Array.prototype.lastIndexOf;
@@ -33,7 +34,7 @@ module.exports = function( Microbe )
      * needed to be modified slightly to output a microbe
      */
     Microbe.core.splice         = function( start, deleteCount )
-    { 
+    {
         return this.constructor( Array.prototype.splice.call( this, start, deleteCount ) );
     };
 };
