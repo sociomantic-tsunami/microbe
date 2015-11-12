@@ -38,7 +38,7 @@ Don’t hesitate to file issues and features requests! Or change things yourself
 Usage
 =====
 
-- `npm i --save microbejs`
+- `npm i --S microbejs`
 
 	then
 
