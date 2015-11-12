@@ -12,7 +12,7 @@
 'use strict';
 
 var _type       = '[object Microbe]';
-var _version    = '0.4.12-selectorEngine';
+var _version    = '0.4.13-selectorEngine';
 
 
 var Microbe = function( selector, scope, elements )

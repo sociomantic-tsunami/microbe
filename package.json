@@ -1,23 +1,23 @@
 {
   "name": "microbejs",
-  "version": "0.4.12",
+  "version": "0.4.13",
   "author": "Mouse Braun <mouse@sociomantic.com>",
-  "description": "microbe.js - A modular JS library for DOM manipulation, and more",
+  "description": "microbe.js - A modular JS library for DOM manipulation and more",
   "contributors": [
     "Nicolas Brugneaux <nicolas.brugneaux@sociomantic.com>",
     "Michele Guido <michele.guido@sociomantic.com>"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sociomantic/microbe.git"
+    "url": "https://github.com/sociomantic/microbe.git"
   },
   "scripts": {
-    "get-dependencies": "npm install . && echo \"Installation complete.\"",
+    "start": "./node_modules/.bin/gulp && echo \"Build complete.\"",
+    "build": "./node_modules/.bin/gulp toolkit && ./node_modules/.bin/gulp selectorEngine && ./node_modules/.bin/gulp && echo \"All builds complete.\"",
     "gulp": "./node_modules/.bin/gulp && echo \"Build complete.\"",
     "microbe": "./node_modules/.bin/gulp && echo \"Build complete.\"",
     "selectorEngine": "./node_modules/.bin/gulp selectorEngine && echo \"Build complete.\"",
     "toolkit": "./node_modules/.bin/gulp toolkit && echo \"Build complete.\"",
-    "build": "./node_modules/.bin/gulp && echo \"Build complete.\"",
     "tests": "./node_modules/.bin/gulp tests && echo \"Tests complete.\"",
     "clean": "./node_modules/.bin/gulp clean && echo \"Dist cleaned.\"",
     "watch": "./node_modules/.bin/gulp watch",
@@ -48,8 +48,6 @@
   "directories": {
     "test": "tests"
   },
-  "browserDependencies": {},
-  "dependencies": {},
   "keywords": [
     "microbe",
     "microbejs",
@@ -61,6 +59,7 @@
     "css4",
     "http",
     "event",
-    "class"
+    "class",
+    "aria"
   ]
 }
