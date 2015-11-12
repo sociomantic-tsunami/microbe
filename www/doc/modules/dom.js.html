@@ -31,13 +31,25 @@
         <a href="#_append">_append</a>
       </div>
       <div class="heading h2">
+        <a href="#checkelement">checkElement</a>
+      </div>
+      <div class="heading h2">
         <a href="#_prepend">_prepend</a>
+      </div>
+      <div class="heading h2">
+        <a href="#append%20main%20function">append main function</a>
+      </div>
+      <div class="heading h2">
+        <a href="#appendto">appendTo</a>
       </div>
       <div class="heading h2">
         <a href="#insertafter">insertAfter</a>
       </div>
       <div class="heading h2">
         <a href="#prepend">prepend</a>
+      </div>
+      <div class="heading h2">
+        <a href="#prependto">prependTo</a>
       </div>
       <div class="heading h2">
         <a href="#ready">ready</a>
@@ -73,11 +85,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Mouse Braun         <a href="&#109;&#x61;&#105;&#108;&#x74;&#111;:m&#x6F;&#117;&#x73;&#x65;&#64;&#x73;&#111;&#99;i&#x6F;&#x6D;&#x61;n&#116;&#105;&#x63;&#46;c&#x6F;&#x6D;">m&#x6F;&#117;&#x73;&#x65;&#64;&#x73;&#111;&#99;i&#x6F;&#x6D;&#x61;n&#116;&#105;&#x63;&#46;c&#x6F;&#x6D;</a></span>
+      <span>Mouse Braun         <a href="m&#97;&#x69;&#108;&#x74;&#111;:&#109;&#x6F;&#117;&#x73;&#101;&#x40;&#115;&#111;&#99;&#x69;&#x6F;&#x6D;&#97;&#x6E;&#116;&#105;c&#x2E;&#99;&#111;&#x6D;">&#109;&#x6F;&#117;&#x73;&#101;&#x40;&#115;&#111;&#99;&#x69;&#x6F;&#x6D;&#97;&#x6E;&#116;&#105;c&#x2E;&#99;&#111;&#x6D;</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Nicolas Brugneaux   <a href="m&#x61;&#x69;&#108;t&#111;:&#x6E;&#x69;&#x63;&#111;&#x6C;&#97;&#115;&#x2E;&#x62;&#x72;&#x75;&#x67;&#110;&#x65;&#97;&#x75;&#120;&#x40;&#x73;&#x6F;&#x63;&#x69;&#x6F;&#109;&#x61;n&#x74;&#105;&#x63;&#x2E;&#99;&#111;m">&#x6E;&#x69;&#x63;&#111;&#x6C;&#97;&#115;&#x2E;&#x62;&#x72;&#x75;&#x67;&#110;&#x65;&#97;&#x75;&#120;&#x40;&#x73;&#x6F;&#x63;&#x69;&#x6F;&#109;&#x61;n&#x74;&#105;&#x63;&#x2E;&#99;&#111;m</a></span>
+      <span>Nicolas Brugneaux   <a href="&#109;&#97;&#x69;&#x6C;&#116;&#x6F;:&#110;&#105;&#x63;&#111;&#108;&#x61;&#x73;.&#98;r&#117;&#103;&#110;e&#x61;&#x75;&#x78;&#64;&#x73;&#111;&#99;&#105;&#x6F;&#x6D;&#97;n&#116;&#x69;&#x63;&#46;c&#111;&#109;">&#110;&#105;&#x63;&#111;&#108;&#x61;&#x73;.&#98;r&#117;&#103;&#110;e&#x61;&#x75;&#x78;&#64;&#x73;&#111;&#99;&#105;&#x6F;&#x6D;&#97;n&#116;&#x69;&#x63;&#46;c&#111;&#109;</a></span>
     </div>
     <div class="dox_tag_title">package</div>
     <div class="dox_tag_detail">
@@ -223,19 +235,19 @@ innerHTML</p>
 </div>
 
   </div>
-  <div class="body"><p>in the case of an element or array passed in it will get appended directly</p>
+  <div class="body"><p>appends the child to the parent</p>
   </div>
   <div class="details">
     <div class="dox_tag_title">Params</div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">_html</span>
+      <span class="dox_tag_name">_parentEl</span>
       <span class="dox_type">Element</span>
-      <span>html string</span>
+      <span>parent element</span>
     </div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">_pre</span>
-      <span class="dox_type">Boolean</span>
-      <span>prepend or not</span>
+      <span class="dox_tag_name">_elm</span>
+      <span class="dox_type">Element</span>
+      <span>child element</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
@@ -259,6 +271,53 @@ innerHTML</p>
       <tr>
         <td class="docs"><div class="dox">
   <div class="summary">
+<div class="pilwrap" id="checkelement">
+  <h2>
+    <a href="#checkelement" name="checkelement" class="pilcrow">&#182;</a>
+    checkElement
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>reformats the element into an iterable object</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span>{Mixed} _el element(s) to be reformatted (String, DOMElement, Array, Microbe)</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Mixed</em> formatted element(s) (Microbe, Array)</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="kd">var</span> <span class="nx">checkElement</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_el</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span> <span class="k">typeof</span> <span class="nx">_el</span> <span class="o">===</span> <span class="s1">&#39;string&#39;</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">return</span> <span class="k">new</span> <span class="nx">Microbe</span><span class="p">(</span> <span class="nx">_el</span> <span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nx">_el</span><span class="p">.</span><span class="nx">length</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">return</span> <span class="p">[</span> <span class="nx">_el</span> <span class="p">];</span>
+            <span class="p">}</span>
+
+            <span class="k">return</span> <span class="nx">_el</span><span class="p">;</span>
+        <span class="p">}</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
 <div class="pilwrap" id="_prepend">
   <h2>
     <a href="#_prepend" name="_prepend" class="pilcrow">&#182;</a>
@@ -267,19 +326,19 @@ innerHTML</p>
 </div>
 
   </div>
-  <div class="body"><p>in the case of an element or array passed in it will get prepended directly</p>
+  <div class="body"><p>prepends the child to the parent</p>
   </div>
   <div class="details">
     <div class="dox_tag_title">Params</div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">_html</span>
+      <span class="dox_tag_name">_parentEl</span>
       <span class="dox_type">Element</span>
-      <span>html string</span>
+      <span>parent element</span>
     </div>
     <div class="dox_tag_detail">
-      <span class="dox_tag_name">_pre</span>
-      <span class="dox_type">Boolean</span>
-      <span>prepend or not</span>
+      <span class="dox_tag_name">_elm</span>
+      <span class="dox_type">Element</span>
+      <span>child element</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
@@ -296,49 +355,142 @@ innerHTML</p>
             <span class="nx">_parentEl</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span> <span class="nx">_elm</span><span class="p">,</span> <span class="nx">firstChild</span> <span class="p">);</span>
         <span class="p">};</span>
 
-        <span class="k">return</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_el</span><span class="p">,</span> <span class="nx">prepend</span> <span class="p">)</span>
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="append%20main%20function">
+  <h2>
+    <a href="#append%20main%20function" name="append%20main%20function" class="pilcrow">&#182;</a>
+    append main function
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>takes input fromappend, appendTo, prepend, and prependTo, sorts out
+the booleans and targets, then passes them to the correct function</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">_el</span>
+      <span class="dox_type">Mixed</span>
+      <span>element to attach or attach to</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">prepend</span>
+      <span class="dox_type">Boolean</span>
+      <span>prepend or append</span>
+    </div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">to</span>
+      <span class="dox_type">Boolean</span>
+      <span>determines the parent child relationship</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Microbe</em></span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+        <span class="k">return</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_el</span><span class="p">,</span> <span class="nx">prepend</span><span class="p">,</span> <span class="nx">to</span> <span class="p">)</span>
         <span class="p">{</span>
-            <span class="kd">var</span> <span class="nx">elementArray</span> <span class="o">=</span> <span class="p">[];</span>
+            <span class="kd">var</span> <span class="nx">_cb</span> <span class="o">=</span> <span class="nx">prepend</span> <span class="o">?</span> <span class="nx">_prepend</span> <span class="o">:</span> <span class="nx">_append</span><span class="p">;</span>
 
-            <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nx">_el</span><span class="p">.</span><span class="nx">length</span> <span class="p">)</span>
+            <span class="kd">var</span> <span class="nx">elementArray</span> <span class="o">=</span> <span class="p">[],</span> <span class="nx">node</span><span class="p">;</span>
+
+            <span class="nx">_el</span> <span class="o">=</span> <span class="nx">checkElement</span><span class="p">(</span> <span class="nx">_el</span> <span class="p">);</span>
+
+            <span class="kd">var</span> <span class="nx">self</span>    <span class="o">=</span> <span class="nx">to</span> <span class="o">?</span> <span class="nx">_el</span> <span class="o">:</span> <span class="k">this</span><span class="p">;</span>
+                <span class="nx">_el</span>     <span class="o">=</span> <span class="nx">to</span> <span class="o">?</span> <span class="k">this</span> <span class="o">:</span> <span class="nx">_el</span><span class="p">;</span>
+
+            <span class="k">if</span> <span class="p">(</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="s1">&#39;/&#39;</span> <span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span> <span class="p">)</span>
             <span class="p">{</span>
-                <span class="nx">_el</span> <span class="o">=</span> <span class="p">[</span> <span class="nx">_el</span> <span class="p">];</span>
-            <span class="p">}</span>
-            <span class="k">if</span> <span class="p">(</span> <span class="k">typeof</span> <span class="nx">_el</span> <span class="o">===</span> <span class="s1">&#39;string&#39;</span> <span class="p">)</span>
-            <span class="p">{</span>
-                <span class="k">if</span> <span class="p">(</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span> <span class="s1">&#39;/&#39;</span> <span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span> <span class="p">)</span>
-                <span class="p">{</span>
-                    <span class="k">return</span> <span class="nx">_appendHTML</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="k">this</span><span class="p">,</span> <span class="nx">_el</span><span class="p">,</span> <span class="nx">prepend</span> <span class="p">);</span>
-                <span class="p">}</span>
-                <span class="k">else</span>
-                <span class="p">{</span>
-                    <span class="nx">_el</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Microbe</span><span class="p">(</span> <span class="nx">_el</span> <span class="p">);</span>
-                <span class="p">}</span>
+                <span class="k">return</span> <span class="nx">_appendHTML</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="nx">self</span><span class="p">,</span> <span class="nx">_el</span><span class="p">,</span> <span class="nx">prepend</span> <span class="p">);</span>
             <span class="p">}</span>
 
-            <span class="kd">var</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">j</span><span class="p">,</span> <span class="nx">leni</span><span class="p">,</span> <span class="nx">lenj</span><span class="p">,</span> <span class="nx">node</span><span class="p">;</span>
-            <span class="k">for</span> <span class="p">(</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">leni</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">leni</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
+            <span class="nx">self</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">s</span><span class="p">,</span> <span class="nx">i</span> <span class="p">)</span>
             <span class="p">{</span>
-                <span class="k">for</span> <span class="p">(</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">lenj</span> <span class="o">=</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">lenj</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">)</span>
+                <span class="nx">_el</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">e</span><span class="p">,</span> <span class="nx">j</span> <span class="p">)</span>
                 <span class="p">{</span>
-                    <span class="nx">node</span> <span class="o">=</span> <span class="nx">i</span> <span class="o">===</span> <span class="mi">0</span> <span class="o">?</span> <span class="nx">_el</span><span class="p">[</span> <span class="nx">j</span> <span class="p">]</span> <span class="o">:</span> <span class="nx">_el</span><span class="p">[</span> <span class="nx">j</span> <span class="p">].</span><span class="nx">cloneNode</span><span class="p">(</span> <span class="kc">true</span> <span class="p">);</span>
+                    <span class="nx">node</span> <span class="o">=</span> <span class="nx">i</span> <span class="o">===</span> <span class="mi">0</span> <span class="o">?</span> <span class="nx">e</span> <span class="o">:</span> <span class="nx">e</span><span class="p">.</span><span class="nx">cloneNode</span><span class="p">(</span> <span class="kc">true</span> <span class="p">);</span>
 
                     <span class="nx">elementArray</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">node</span> <span class="p">);</span>
-
-                    <span class="k">if</span> <span class="p">(</span> <span class="nx">prepend</span> <span class="o">===</span> <span class="kc">true</span> <span class="p">)</span>
-                    <span class="p">{</span>
-                        <span class="nx">_prepend</span><span class="p">(</span> <span class="k">this</span><span class="p">[</span> <span class="nx">i</span> <span class="p">],</span> <span class="nx">node</span> <span class="p">);</span>
-                    <span class="p">}</span>
-                    <span class="k">else</span>
-                    <span class="p">{</span>
-                        <span class="nx">_append</span><span class="p">(</span> <span class="k">this</span><span class="p">[</span> <span class="nx">i</span> <span class="p">],</span> <span class="nx">node</span> <span class="p">);</span>
-                    <span class="p">}</span>
-                <span class="p">}</span>
-            <span class="p">}</span>
+                    <span class="nx">_cb</span><span class="p">(</span> <span class="nx">self</span><span class="p">[</span> <span class="nx">i</span> <span class="p">],</span> <span class="nx">node</span> <span class="p">);</span>
+                <span class="p">}</span> <span class="p">);</span>
+            <span class="p">}</span> <span class="p">);</span>
 
             <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">constructor</span><span class="p">(</span> <span class="nx">elementArray</span> <span class="p">);</span>
         <span class="p">};</span>
     <span class="p">}());</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="appendto">
+  <h2>
+    <a href="#appendto" name="appendto" class="pilcrow">&#182;</a>
+    appendTo
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>Prepends a microbe to an element or elements.  if there is more than
+one target the next ones are cloned. The strings this accepts can be
+a selector string, an element creation string, or an html string</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">_ele</span>
+      <span class="dox_type">Mixed</span>
+      <span>element(s) to prepend <em>{Element, Array, String, or Microbe}</em></span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).appendTo( '&lt;div class="new-div">test&lt;/div>' );</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).appendTo( µMicrobeExample );</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).appendTo( _el );</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).appendTo( [ _el1, _el2, _el3 ] );</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).appendTo( '&lt;div.example>' );</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Microbe</em> new microbe filled with the inserted content</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">appendTo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_el</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span> <span class="nx">_el</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="kc">true</span> <span class="p">);</span>
+    <span class="p">};</span>
 
 
 
@@ -510,6 +662,67 @@ a selector string, an element creation string, or an html string</p>
       <tr>
         <td class="docs"><div class="dox">
   <div class="summary">
+<div class="pilwrap" id="prependto">
+  <h2>
+    <a href="#prependto" name="prependto" class="pilcrow">&#182;</a>
+    prependTo
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>Prepends a microbe to an element or elements.  if there is more than
+one target the next ones are cloned. The strings this accepts can be
+a selector string, an element creation string, or an html string</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">_ele</span>
+      <span class="dox_type">Mixed</span>
+      <span>element(s) to prepend <em>{Element, Array, String, or Microbe}</em></span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).prependTo( '&lt;div class="new-div">test&lt;/div>' );</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).prependTo( µMicrobeExample );</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).prependTo( _el );</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).prependTo( [ _el1, _el2, _el3 ] );</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).prependTo( '&lt;div.example>' );</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Microbe</em> new microbe filled with the inserted content</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">prependTo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_el</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span> <span class="nx">_el</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="kc">true</span> <span class="p">);</span>
+    <span class="p">};</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
 <div class="pilwrap" id="ready">
   <h2>
     <a href="#ready" name="ready" class="pilcrow">&#182;</a>
@@ -609,10 +822,10 @@ a selector string, an element creation string, or an html string</p>
             <span class="k">this</span><span class="p">.</span><span class="nx">off</span><span class="p">();</span>
         <span class="p">}</span>
 
-        <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">len</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_el</span> <span class="p">)</span>
         <span class="p">{</span>
-            <span class="k">this</span><span class="p">[</span> <span class="nx">i</span> <span class="p">].</span><span class="nx">remove</span><span class="p">();</span>
-        <span class="p">}</span>
+            <span class="nx">_el</span><span class="p">.</span><span class="nx">remove</span><span class="p">();</span>
+        <span class="p">}</span> <span class="p">);</span>
 
         <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
     <span class="p">};</span>
