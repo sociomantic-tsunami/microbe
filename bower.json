@@ -3,7 +3,7 @@
     "version": "0.4.13",
     "authors": [
         "Mouse Braun <mouse@sociomantic>",
-        "Nicolas Brugneaux <nicolas.brugneaux@sociomantic.com>"
+        "Nicolas Brugneaux <nicolas.brugneaux@gmail.com>"
     ],
     "description": "microbe.js - A modular JS library for DOM manipulation and more",
     "main": "./dist/microbe.min.js",
