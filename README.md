@@ -40,17 +40,13 @@ Usage
 
 - `npm i --S microbejs`
 
-	then
-
-    `require( 'microbejs' );`
-
-	or
+    or
 
 - `bower install -S microbejs`
 
 	or
 
-- simply include microbe.js or microbe.min.js in a script tag
+- `<script src="./microbe.js"></script>`
 
 
 Example use
@@ -92,7 +88,7 @@ Dev Installation
 ================
 
 -  Clone repo
--  Make sure npm is installed
+-  Make sure node and npm is installed
 - `npm install`
 - `npm start`
 
@@ -119,6 +115,7 @@ We gladly accept and review any pull-requests. Feel free! :heart:
 
 Otherwise, if you just want to talk, we are very easy to get a hold of!
 
++ Slack:          [microbejs.slack.com](https://microbejs.slack.com)[![Slack Status](https://microbejs-slackin.herokuapp.com/badge.svg)](https://microbejs-slackin.herokuapp.com)
 + Twitter:        [@microbejs](https://www.twitter.com/microbejs)
 + Email:          [hello@m.icro.be](hello@m.icro.be)
 + Web:            [http://m.icro.be](http://m.icro.be/)

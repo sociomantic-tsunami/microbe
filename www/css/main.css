@@ -171,13 +171,26 @@ ul p
 
 .license--wrapper
 {
-    display:        block;
-    width:          100%;
-    text-align:     center;
+    display:                        block;
+    width:                          100%;
+    text-align:                     center;
 }
 
 .license--wrapper div
 {
-    display:        inline-block;
-    width:          40%;
+    display:                        inline-block;
+    width:                          40%;
 }
+
+/* ************ ************ */
+/*  slackin icon adjustment  */
+/* ************ ************ */
+
+.slackin--wrapper
+{
+    display:                        inline-block;
+    position:                       relative;
+    top:                            5px;
+    margin-left:                    7px;
+}
+
