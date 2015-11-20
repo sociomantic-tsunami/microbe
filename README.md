@@ -138,6 +138,7 @@ Change log
 
 + added appendTo and prependTo
 + aliased each to forEach for array compatability
++ added slack community to readme and www
 
 
 #### 0.4.11
