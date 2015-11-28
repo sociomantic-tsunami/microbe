@@ -3,13 +3,14 @@ var vo          = require( 'vo' );
 
 var connect     = require( 'connect' );
 var serveStatic = require( 'serve-static' );
-
-var server = connect().use( serveStatic( process.cwd() ) ).listen( 8666);
+console.log( process.cwd() + 'tests/' );
+var server = connect().use( serveStatic( process.cwd() + 'tests/' ) ).listen( 8666);
 
 var errors;
 
 vo( run )( function( err, result )
 {
+    document.getElementsByClassName( 'pass' ).length
     if ( err )
     {
         throw err;
@@ -30,8 +31,8 @@ function *run()
     var nightmare   = Nightmare();
 
     errors = yield nightmare
-        .goto( 'http://localhost:8666/tests/index.html' )
-        .wait( 500 )
+        .goto( 'http://localhost:8666' )
+        .wait( '#qunit' )
         .evaluate( function()
         {
             return document.getElementsByClassName( 'fail' ).length;
