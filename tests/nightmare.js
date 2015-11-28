@@ -10,6 +10,7 @@ var errors;
 
 vo( run )( function( err, result )
 {
+    console.log( errors );
     if ( err )
     {
         throw err;
@@ -31,7 +32,7 @@ function *run()
 
     errors = yield nightmare
         .goto( 'http://localhost:8666/tests/index.html' )
-        // .wait( '.pass' )
+        .wait( 'body' )
         .evaluate( function()
         {
             console.log( document.title );
