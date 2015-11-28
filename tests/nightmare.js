@@ -30,6 +30,7 @@ function *run()
     var nightmare   = Nightmare();
 
     errors = yield nightmare
+        .on( 'timeout', console.log )
         .goto( 'http://localhost:8666' )
         .wait( '.pass' )
         .evaluate( function()
