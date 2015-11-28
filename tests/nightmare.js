@@ -5,7 +5,7 @@ var connect     = require( 'connect' );
 var serveStatic = require( 'serve-static' );
 
 var server = connect().use( serveStatic( process.cwd() ) ).listen( 8080 );
-console.log( srever );
+console.log( server );
 var errors;
 
 // vo( run )( function( err, result )
