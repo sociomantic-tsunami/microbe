@@ -138,6 +138,7 @@ Change log
 #### 0.4.13
 
 + added travi-ci testing
++ added nightmare command line testing
 
 
 #### 0.4.12

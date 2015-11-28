@@ -5,18 +5,18 @@ var connect     = require( 'connect' );
 var serveStatic = require( 'serve-static' );
 
 var server      = connect().use( serveStatic( process.cwd() ) ).listen( 8666 );
-
-var errors;
+var tests;
 
 vo( run )( function( err, result )
 {
+    console.log( 'pass: ' + tests.pass + ', fail: ' + tests.fail );
     if ( err )
     {
         throw err;
     }
-    else if ( errors !== 0 )
+    else if ( tests.fail !== 0 )
     {
-        throw new Error( '\nthere were more than 0 errors (' + errors + ' to be exact)\n' );
+        throw new Error( '\nthere were more than 0 errors (' + tests.fail + ' to be exact)\n' );
     }
     else
     {
@@ -29,14 +29,16 @@ function *run()
 {
     var nightmare   = Nightmare();
 
-    errors = yield nightmare
+    tests = yield nightmare
         .on( 'page-error', function( e ){ console.log( e ); } )
         .on( 'page-log', function( e ){ console.log( e ); } )
         .goto( 'http://localhost:8666/tests/' )
         .wait( '.pass' )
         .evaluate( function()
         {
-            return document.getElementsByClassName( 'fail' ).length;
+            var pass = document.getElementsByClassName( 'pass' ).length;
+            var fail = document.getElementsByClassName( 'fail' ).length;
+            return { pass : pass, fail : fail };
         } );
 
     server.close();
