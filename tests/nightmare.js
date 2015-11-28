@@ -3,8 +3,8 @@ var vo          = require( 'vo' );
 
 var connect     = require( 'connect' );
 var serveStatic = require( 'serve-static' );
-console.log( process.cwd() + '/tests/' );
-var server = connect().use( serveStatic( process.cwd() + '/tests/' ) ).listen( 8666);
+
+var server = connect().use( serveStatic( process.cwd() ) ).listen( 8666);
 
 var errors;
 
@@ -30,12 +30,11 @@ function *run()
     var nightmare   = Nightmare();
 
     errors = yield nightmare
-        .on( 'timeout', console.log )
-        .goto( 'http://localhost:8666' )
-        .wait( '.pass' )
+        .goto( 'http://localhost:8666/tests/' )
+        // .wait( '.pass' )
         .evaluate( function()
         {
-            return document.getElementsByClassName( 'fail' ).length;
+            return document.getElementsById( 'qunit' ).innerHTML;
         } );
 
     server.close();
