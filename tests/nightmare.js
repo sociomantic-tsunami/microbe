@@ -36,7 +36,7 @@ function *run()
         .evaluate( function()
         {
             console.log( document.title );
-            return document.getElementsByClassName( 'fail' ).length;
+            return document.getElementsByClassName( 'pass' ).length;
         } );
     server.close();
 
