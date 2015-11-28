@@ -9,7 +9,7 @@ node_js:
   - "0.10"
 
 script:
-  - npm run gulp
+  - npm run build
 
 notifications:
   slack: microbejs:HKzPLegwioqGdZrzZflUw0Tm

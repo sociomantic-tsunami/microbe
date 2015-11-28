@@ -130,36 +130,7 @@ var buildTest = function( _str1, _cb1, _str2, _cb2, _console )
     }
 };
 
-/*
-// polyfill for phantomJS 1.9.X
-if (!Function.prototype.bind) {
-  Function.prototype.bind = function(oThis) {
-    if (typeof this !== 'function') {
-      // closest thing possible to the ECMAScript 5
-      // internal IsCallable function
-      throw new TypeError('Function.prototype.bind - what is trying to be bound is not callable');
-    }
 
-    var aArgs   = Array.prototype.slice.call(arguments, 1),
-        fToBind = this,
-        fNOP    = function() {},
-        fBound  = function() {
-          return fToBind.apply(this instanceof fNOP
-                 ? this
-                 : oThis,
-                 aArgs.concat(Array.prototype.slice.call(arguments)));
-        };
-
-    if (this.prototype) {
-      // native functions don't have a prototype
-      fNOP.prototype = this.prototype;
-    }
-    fBound.prototype = new fNOP();
-
-    return fBound;
-  };
-}
-*/
 var µ = window.µ = require( '../src/microbe.js' );
 
 require( './unit/selectorEngine/init' )( buildTest );
@@ -7652,7 +7623,8 @@ module.exports = function( buildTest )
         µ.http( { url : './httpTest.hml' }
         ).catch( function( e )
         {
-            assert.equal( e, 'Error: 404', 'errors are handled correctly' );
+            e = ( e instanceof Error );
+            assert.equal( e, true, 'errors are handled correctly' );
             errorTest();
         } );
 

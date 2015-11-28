@@ -13,7 +13,7 @@
   },
   "scripts": {
     "start": "./node_modules/.bin/gulp && echo \"Build complete.\"",
-    "build": "./node_modules/.bin/gulp toolkit && ./node_modules/.bin/gulp selectorEngine && ./node_modules/.bin/gulp microbe && npm run test && echo \"All builds complete and tests passed.\"",
+    "build": "./node_modules/.bin/gulp toolkit && ./node_modules/.bin/gulp selectorEngine && ./node_modules/.bin/gulp microbe && npm run buildTests && npm run test && echo \"All builds complete and tests passed.\"",
     "buildTests": "./node_modules/.bin/gulp buildTests && echo \"Tests Built.\"",
     "gulp": "./node_modules/.bin/gulp && echo \"Build complete.\"",
     "microbe": "./node_modules/.bin/gulp && echo \"Build complete.\"",
