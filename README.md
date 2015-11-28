@@ -1,9 +1,8 @@
 µ - Microbe - 0.4.13
 ====================
 
-[![Microbe build status](https://travis-ci.org/sociomantic/microbe.svg)](https://travis-ci.org)
+[![Microbe build status](https://travis-ci.org/sociomantic/microbe.svg)](https://travis-ci.org) [microbejs.slack.com](https://microbejs.slack.com)[![Slack Status](https://microbejs-slackin.herokuapp.com/badge.svg)](https://microbejs-slackin.herokuapp.com)
 
-[![Join the chat at https://gitter.im/sociomantic/microbe](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/sociomantic/microbe?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 microbe is a javascript library to aid in DOM manipulation as well as facilitating events, object observation, and data binding. It uses the micro character ( µ ) that is accessible in:
 
