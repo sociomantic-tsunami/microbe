@@ -3,7 +3,7 @@ var vo          = require( 'vo' );
 
 var connect     = require( 'connect' );
 var serveStatic = require( 'serve-static' );
-
+console.log( process.cwd() );
 var server = connect().use( serveStatic( process.cwd() ) ).listen( 8666 );
 
 var errors;
@@ -35,8 +35,7 @@ function *run()
         .wait( 'body' )
         .evaluate( function()
         {
-            console.log( document.title );
-            return document.getElementsByClassName( 'pass' ).length;
+            return document.title;
         } );
     server.close();
 
