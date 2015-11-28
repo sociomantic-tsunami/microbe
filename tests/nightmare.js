@@ -10,14 +10,13 @@ var errors;
 
 vo( run )( function( err, result )
 {
-    document.getElementsByClassName( 'pass' ).length;
     if ( err )
     {
         throw err;
     }
     else if ( errors !== 0 )
     {
-        throw new Error( 'there were more than 0 errors (' + errors + ' to be exact)' );
+        throw new Error( '\nthere were more than 0 errors (' + errors + ' to be exact)\n' );
     }
     else
     {
@@ -32,7 +31,7 @@ function *run()
 
     errors = yield nightmare
         .goto( 'http://localhost:8666' )
-        .wait( '#qunit' )
+        .wait( '.pass' )
         .evaluate( function()
         {
             return document.getElementsByClassName( 'fail' ).length;
