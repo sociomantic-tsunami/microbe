@@ -30,10 +30,11 @@ function *run()
     var nightmare   = Nightmare();
 
     errors = yield nightmare
-        .goto( 'http://localhost/tests/index.html' )
+        .goto( 'http://localhost:86666/tests/index.html' )
         .wait( '.pass' )
         .evaluate( function()
         {
+            console.log( document.title );
             return document.getElementsByClassName( 'fail' ).length;
         } );
     server.close();
