@@ -3,14 +3,14 @@ var vo          = require( 'vo' );
 
 var connect     = require( 'connect' );
 var serveStatic = require( 'serve-static' );
-console.log( process.cwd() + 'tests/' );
-var server = connect().use( serveStatic( process.cwd() + 'tests/' ) ).listen( 8666);
+console.log( process.cwd() + '/tests/' );
+var server = connect().use( serveStatic( process.cwd() + '/tests/' ) ).listen( 8666);
 
 var errors;
 
 vo( run )( function( err, result )
 {
-    document.getElementsByClassName( 'pass' ).length
+    document.getElementsByClassName( 'pass' ).length;
     if ( err )
     {
         throw err;
