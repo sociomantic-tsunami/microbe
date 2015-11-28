@@ -10,6 +10,7 @@ var errors;
 
 vo( run )( function( err, result )
 {
+    console.log( errors );
     if ( err )
     {
         throw err;
@@ -34,7 +35,7 @@ function *run()
         // .wait( '.pass' )
         .evaluate( function()
         {
-            return document.getElementsById( 'qunit' ).innerHTML;
+            return document.getElementsById( 'qunit' );
         } );
 
     server.close();
