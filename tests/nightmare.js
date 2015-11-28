@@ -4,8 +4,8 @@ var vo          = require( 'vo' );
 var connect     = require( 'connect' );
 var serveStatic = require( 'serve-static' );
 
-// var server = connect().use( serveStatic( process.cwd() ) ).listen( 86666 );
-// console.log( server, process.cwd() );
+var server = connect().use( serveStatic( process.cwd() ) ).listen( 86666 );
+
 var errors;
 
 vo( run )( function( err, result )
