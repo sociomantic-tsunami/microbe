@@ -129,6 +129,9 @@ var buildTest = function( _str1, _cb1, _str2, _cb2, _console )
     }
 };
 
+
+var µ = window.µ = require( '../src/microbe.js' );
+
 require( './unit/selectorEngine/init' )( buildTest );
 require( './unit/selectorEngine/pseudo' )( buildTest );
 require( './unit/selectorEngine/core' )( buildTest );
@@ -139,5 +142,7 @@ require( './unit/http' )( buildTest );
 require( './unit/dom' )( buildTest );
 require( './unit/events' )( buildTest );
 require( './unit/observe' )( buildTest );
+
+document.getElementsByTagName( 'title' )[0].innerHTML = 'µ - ' + µ.version + ' QUnit';
 
 window.buildTest = buildTest;
