@@ -32,10 +32,10 @@ function *run()
 
     errors = yield nightmare
         .goto( 'http://localhost:8666/tests/' )
-        // .wait( '.pass' )
+        .wait( 'body' )
         .evaluate( function()
         {
-            return document.getElementsById( 'qunit' );
+            return document.body.innerHTML;
         } );
 
     server.close();
