@@ -3,14 +3,13 @@ var vo          = require( 'vo' );
 
 var connect     = require( 'connect' );
 var serveStatic = require( 'serve-static' );
-console.log( process.cwd() );
-var server = connect().use( serveStatic( process.cwd() ) ).listen( 8666 );
+
+var server = connect().use( serveStatic( process.cwd() ) ).listen( 8666);
 
 var errors;
 
 vo( run )( function( err, result )
 {
-    console.log( errors );
     if ( err )
     {
         throw err;
@@ -32,11 +31,12 @@ function *run()
 
     errors = yield nightmare
         .goto( 'http://localhost:8666/tests/index.html' )
-        .wait( 'body' )
+        .wait( 500 )
         .evaluate( function()
         {
-            return document.title;
+            return document.getElementsByClassName( 'fail' ).length;
         } );
+
     server.close();
 
     yield nightmare.end();
