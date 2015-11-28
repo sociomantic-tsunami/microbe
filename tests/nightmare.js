@@ -4,8 +4,8 @@ var vo          = require( 'vo' );
 var connect     = require( 'connect' );
 var serveStatic = require( 'serve-static' );
 
-var server = connect().use( serveStatic( process.cwd() ) ).listen( 86666 );
-console.log( server, process.cwd() );
+// var server = connect().use( serveStatic( process.cwd() ) ).listen( 86666 );
+// console.log( server, process.cwd() );
 var errors;
 
 vo( run )( function( err, result )
@@ -30,7 +30,7 @@ function *run()
     var nightmare   = Nightmare();
 
     errors = yield nightmare
-        .goto( 'http://localhost:86666/tests/index.html' )
+        .goto( 'http://localhost/tests/index.html' )
         .wait( '.pass' )
         .evaluate( function()
         {
