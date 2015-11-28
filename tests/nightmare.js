@@ -31,11 +31,13 @@ function *run()
     var nightmare   = Nightmare();
 
     errors = yield nightmare
+        .on( 'page-error', function( e ){ console.log( e ); } )
+        .on( 'page-log', function( e ){ console.log( e ); } )
         .goto( 'http://localhost:8666/tests/' )
-        .wait( 'body' )
+        .wait( '.pass' )
         .evaluate( function()
         {
-            return document.body.innerHTML;
+            return document.getElementsByClassName( 'fail' ).length;
         } );
 
     server.close();
