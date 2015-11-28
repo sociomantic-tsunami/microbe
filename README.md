@@ -91,21 +91,26 @@ Dev Installation
 -  Clone repo
 -  Make sure node and npm is installed
 - `npm install`
-- `npm start`
+- `npm build`
 
 
-Compiling the dist files
+Compiling specific dist files
 ========================
 
-- microbe.js                    `npm run gulp` or `npm run microbe`
-- microbe.selectorEngine.js     `npm run selectorEngine`
-- microbe.toolkit.js            `npm run toolkit`
+- microbe.js
+```npm run microbe```
+
+- microbe.selectorEngine.js
+```npm run selectorEngine```
+
+- microbe.toolkit.js
+```npm run toolkit```
 
 
 Generating www docs
 ===================
 
-- `npm run docs`
+```npm run docs```
 (this command will watch for changes)
 
 
@@ -116,7 +121,7 @@ We gladly accept and review any pull-requests. Feel free! :heart:
 
 Otherwise, if you just want to talk, we are very easy to get a hold of!
 
-+ Slack:          [microbejs.slack.com](https://microbejs.slack.com)[![Slack Status](https://microbejs-slackin.herokuapp.com/badge.svg)](https://microbejs-slackin.herokuapp.com)
++ Slack:          [microbejs.slack.com](https://microbejs.slack.com)
 + Twitter:        [@microbejs](https://www.twitter.com/microbejs)
 + Email:          [hello@m.icro.be](hello@m.icro.be)
 + Web:            [http://m.icro.be](http://m.icro.be/)
@@ -137,7 +142,7 @@ Change log
 
 #### 0.4.13
 
-+ added travi-ci testing
++ added travis-ci testing
 + added nightmare command line testing
 + removed gitter
 
