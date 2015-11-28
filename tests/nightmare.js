@@ -4,7 +4,7 @@ var vo          = require( 'vo' );
 var connect     = require( 'connect' );
 var serveStatic = require( 'serve-static' );
 
-var server = connect().use( serveStatic( process.cwd() ) ).listen( 8666);
+var server = connect().use( serveStatic( process.cwd() ) ).listen( 8666 );
 
 var errors;
 
@@ -37,7 +37,7 @@ function *run()
         .wait( '.pass' )
         .evaluate( function()
         {
-            return document.getElementsByClassName( 'fail' ).length;
+            return document.getElementsByClassName( 'pass' ).length;
         } );
 
     server.close();
