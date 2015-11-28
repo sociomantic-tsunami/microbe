@@ -139,6 +139,7 @@ Change log
 
 + added travi-ci testing
 + added nightmare command line testing
++ removed gitter
 
 
 #### 0.4.12
