@@ -1,4 +1,4 @@
-µ - Microbe - 0.4.13
+µ - Microbe - 0.4.14
 ====================
 
 [![Microbe build status](https://travis-ci.org/sociomantic/microbe.svg)](https://travis-ci.org)  [![Slack Status](https://microbejs-slackin.herokuapp.com/badge.svg)](https://microbejs-slackin.herokuapp.com)

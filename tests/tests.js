@@ -2106,7 +2106,7 @@ module.exports = asap;
 'use strict';
 
 var _type       = '[object Microbe]';
-var _version    = '0.4.13';
+var _version    = '0.4.14';
 
 var Microbe = function( selector, scope, elements )
 {
@@ -7800,7 +7800,7 @@ module.exports = function( buildTest )
 },{}],30:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 var indexOf = Array.prototype.indexOf;
-var version = '0.4.13';
+var version = '0.4.14';
 
 module.exports = function( buildTest )
 {
