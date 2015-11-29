@@ -1,15 +1,22 @@
 var Nightmare   = require( 'nightmare' );
 var vo          = require( 'vo' );
-
 var connect     = require( 'connect' );
 var serveStatic = require( 'serve-static' );
 
-var server      = connect().use( serveStatic( process.cwd() ) ).listen( 8666 );
 var tests;
+
+const config = {
+    port : 8666,
+    path : '/tests/',
+    pass : '.pass',
+    fail : '.fail'
+};
 
 vo( run )( function( err, result )
 {
+    tests.server.close();
     console.log( 'pass: ' + tests.pass + ', fail: ' + tests.fail );
+
     if ( err )
     {
         throw err;
@@ -28,20 +35,19 @@ vo( run )( function( err, result )
 function *run()
 {
     var nightmare   = Nightmare();
+    var server      = connect().use( serveStatic( process.cwd() ) ).listen( 8666 );
 
     tests = yield nightmare
-        .on( 'page-error', function( e ){ console.log( e ); } )
-        .on( 'page-log', function( e ){ console.log( e ); } )
-        .goto( 'http://localhost:8666/tests/' )
-        .wait( '.pass' )
-        .evaluate( function()
+        .goto( 'http://localhost:' + config.port + config.path )
+        .wait( config.pass )
+        .evaluate( function( config )
         {
-            var pass = document.getElementsByClassName( 'pass' ).length;
-            var fail = document.getElementsByClassName( 'fail' ).length;
-            return { pass : pass, fail : fail };
-        } );
+            var pass = document.querySelectorAll( config.pass ).length;
+            var fail = document.querySelectorAll( config.fail ).length;
+            return { pass : pass, fail : fail, config : config };
+        }, config );
 
-    server.close();
+    tests.server = server;
 
     yield nightmare.end();
 }
