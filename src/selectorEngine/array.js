@@ -19,8 +19,8 @@
  * Fills the array from a start-index to an end-index
  *
  * @param {Object} the value with which the array will be filled
- * @param {Integer} the value with which the array will be filled
- * @param {Integer} the value with which the array will be filled
+ * @param {Integer} the start index
+ * @param {Integer} the end index
  *
  * @return {Array}, mutate the array and returns it
  */
@@ -53,6 +53,29 @@ var _of = function(){
     return Array.prototype.slice.call(arguments);
 };
 
+/**
+ * ## returns the first value in the array that satisfies the provided predicate
+ *
+ * @return {Number|String|Object|Function|Array}
+ */
+var _find = function(){
+    var predicate = arguments[0];
+    var context = arguments[1];
+    var array= Object(this);
+    var len = this.length;
+    len = !len || len !== len ? 0 : len;
+
+    var index,val,l = len; 
+    while( l ){
+        index = len - l;
+        val = array[index];
+        if (predicate.call(context, val, index, array)) {
+          return val;
+        }
+        --l;
+    }
+}
+
 module.exports = function( Microbe )
 {
     Microbe.core.every          = Array.prototype.every;
@@ -73,7 +96,7 @@ module.exports = function( Microbe )
     Microbe.core.unshift        = Array.prototype.unshift;
     Microbe.core.of             = Array.prototype.of ? Array.prototype.of : _of;
     Microbe.core.fill           = Array.prototype.fill ? Array.prototype.of : _fill;
-
+    Microbe.core.find           = Array.prototype.find ? Array.prototype.find : _find;
     /*
      * needed to be modified slightly to output a microbe
      */
