@@ -118,9 +118,9 @@ Otherwise, if you just want to talk, we are very easy to get a hold of!
 + Slack:          [microbejs.slack.com](https://microbejs.slack.com)[![Slack Status](https://microbejs-slackin.herokuapp.com/badge.svg)](https://microbejs-slackin.herokuapp.com)
 + Twitter:        <a href="https://www.twitter.com/microbejs" target="_blank">@microbejs</a>
 + Email:          [hello@m.icro.be](hello@m.icro.be)
-+ Web:            <a href="http://m.icro.be/" target="_blank">http://m.icro.be/</a>
-+ Git:            <a href="https://github.com/sociomantic/microbe/" target="_blank">https://github.com/sociomantic/microbe/</a>
-+ IRC             <a href="https://kiwiirc.com/client/chat.freenode.net:+6697/#microbe">freenode #microbe</a>
++ Web:           <a href="http://m.icro.be/" target="_blank">http://m.icro.be/</a>
++ Git:             <a href="https://github.com/sociomantic/microbe/" target="_blank">https://github.com/sociomantic/microbe/</a>
++ IRC           <a href="https://kiwiirc.com/client/chat.freenode.net:+6697/#microbe">freenode #microbe</a>
 
 
 
