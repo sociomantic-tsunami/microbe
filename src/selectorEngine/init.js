@@ -240,14 +240,14 @@ module.exports = function( Microbe, _type )
      * @param {Mixed} _scope scope to look inside (Element String Microbe)
      * @param {Mixed} _elements elements to fill Microbe with (optional) (Element or Array)
      *
-     * @example µ()                             ---> empty
-     * @example µ( '' )                         ---> empty
-     * @example µ( [] )                         ---> empty
-     * @example µ( 'div#test' )                 ---> selection
-     * @example µ( elDiv )                      ---> selection
-     * @example µ( [ elDiv1, elDiv2, elDiv3 ] ) ---> selection
-     * @example µ( '&lt;div#test>' )               ---> creation
-     * @example µ( '&lt;div id="test">&lt;/div>' )    ---> creation
+     * @example µ()                                 ---> empty
+     * @example µ( '' )                             ---> empty
+     * @example µ( [] )                             ---> empty
+     * @example µ( 'div#test' )                     ---> selection
+     * @example µ( elDiv )                          ---> selection
+     * @example µ( [ elDiv1, elDiv2, elDiv3 ] )     ---> selection
+     * @example µ( '&lt;div#test>' )                ---> creation
+     * @example µ( '&lt;div id="test">&lt;/div>' )  ---> creation
      *
      * @return _Microbe_
      */
