@@ -115,11 +115,12 @@ We gladly accept and review any pull-requests. Feel free! :heart:
 
 Otherwise, if you just want to talk, we are very easy to get a hold of!
 
-+ Twitter:        <a href="https://www.twitter.com/microbejs" target="_blank">@microbejs</a>
++ Slack:          [microbejs.slack.com](https://microbejs.slack.com)[![Slack Status](https://microbejs-slackin.herokuapp.com/badge.svg)](https://microbejs-slackin.herokuapp.com)
++ Twitter:        [@microbejs](https://www.twitter.com/microbejs)
 + Email:          [hello@m.icro.be](hello@m.icro.be)
-+ Web:           <a href="http://m.icro.be/" target="_blank">http://m.icro.be/</a>
-+ Git:             <a href="https://github.com/sociomantic/microbe/" target="_blank">https://github.com/sociomantic/microbe/</a>
-+ IRC           <a href="https://kiwiirc.com/client/chat.freenode.net:+6697/#microbe">freenode #microbe</a>
++ Web:            [http://m.icro.be](http://m.icro.be/)
++ Git:            [https://github.com/sociomantic/microbe/](https://github.com/sociomantic/microbe/)
++ IRC ([freenode](https://kiwiirc.com/client/chat.freenode.net:+6697/#microbe)): #microbe
 
 
 
