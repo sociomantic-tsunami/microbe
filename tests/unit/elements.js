@@ -150,7 +150,9 @@ module.exports = function( buildTest )
         µTarget.css( 'background-color', null );
         assert.equal( µTarget[0].style.backgroundColor, '', 'css removed' );
 
-
+        µTarget.css( { 'background-color' : 'rgb(0, 255, 0)', 'color' : '#fff' } );
+        assert.equal( µTarget[0].style.backgroundColor, 'rgb(0, 255, 0)', 'css object processed' );
+		
         µTarget = µ( '#example--id' );
         var $Target = $( '#example--id' );
 
