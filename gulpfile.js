@@ -74,7 +74,7 @@ gulp.task( 'min', function()
 
 gulp.task( 'default', [], function()
 {
-    gulp.start( [ 'build', 'min', 'buildTests', 'test' ] );
+    gulp.start( [ 'build', 'min', 'buildTests' ] );
 } );
 
 

@@ -2661,6 +2661,8 @@ module.exports = function( Microbe )
      * @param {String} _value              css value (optional)
      *
      * @example µ( '.example' ).css( 'background-color', '#fff' );
+     * @example µ( '.example' ).css( { 'background-color' : '#fff',
+     *                                  'color' : '#000' } );
      * @example µ( '.example' ).css( 'background-color' );
      *
      * @return _Microbe_ reference to original microbe (set)
@@ -2668,12 +2670,13 @@ module.exports = function( Microbe )
      */
     Microbe.core.css = function( _property, _value )
     {
-        var _setCss = function( _elm )
-        {
-            _elm.data                   = _elm.data || {};
-            _elm.data.css               = _elm.data.css || {};
-            _elm.data.css[ _property ]  = _value;
+	    var isObject = Microbe.isObject( _property );
 
+        var _setCss = function( _elm, _v )
+        {
+            _elm.data                   = _elm.data     || {};
+            _elm.data.css               = _elm.data.css || {};
+            _elm.data.css[ _property ]  = _v || _value;
             _elm.style[ _property ]     = _elm.data.css[ _property ];
         };
 
@@ -2682,8 +2685,18 @@ module.exports = function( Microbe )
             return window.getComputedStyle( _elm ).getPropertyValue( _property );
         };
 
-        if ( _value || _value === null || _value === '' )
+        if ( _value || _value === null || _value === '' || isObject )
         {
+		    if ( isObject )
+            {
+                for ( var prop in _property )
+                {
+                    this.css( prop, _property[ prop ] );
+                }
+
+                return this;
+            }
+
             _value = ( _value === null ) ? '' : _value;
 
             this.each( _setCss );
@@ -3647,7 +3660,7 @@ module.exports = function( Microbe )
      *
      * @param {Mixed} text string(s) to capitalize _{String or Array}_
      *
-     * @example µ.capotalize( 'moon doge' ); // "Moon Doge"
+     * @example µ.capitalize( 'moon doge' ); // "Moon Doge"
      *
      * @return _Mixed_  capitalized string(s) values _{String or Array}_
      */
@@ -5136,14 +5149,14 @@ module.exports = function( Microbe, _type )
      * @param {Mixed} _scope scope to look inside (Element String Microbe)
      * @param {Mixed} _elements elements to fill Microbe with (optional) (Element or Array)
      *
-     * @example µ()                             ---> empty
-     * @example µ( '' )                         ---> empty
-     * @example µ( [] )                         ---> empty
-     * @example µ( 'div#test' )                 ---> selection
-     * @example µ( elDiv )                      ---> selection
-     * @example µ( [ elDiv1, elDiv2, elDiv3 ] ) ---> selection
-     * @example µ( '&lt;div#test>' )               ---> creation
-     * @example µ( '&lt;div id="test">&lt;/div>' )    ---> creation
+     * @example µ()                                 ---> empty
+     * @example µ( '' )                             ---> empty
+     * @example µ( [] )                             ---> empty
+     * @example µ( 'div#test' )                     ---> selection
+     * @example µ( elDiv )                          ---> selection
+     * @example µ( [ elDiv1, elDiv2, elDiv3 ] )     ---> selection
+     * @example µ( '&lt;div#test>' )                ---> creation
+     * @example µ( '&lt;div id="test">&lt;/div>' )  ---> creation
      *
      * @return _Microbe_
      */
@@ -7102,7 +7115,9 @@ module.exports = function( buildTest )
         µTarget.css( 'background-color', null );
         assert.equal( µTarget[0].style.backgroundColor, '', 'css removed' );
 
-
+        µTarget.css( { 'background-color' : 'rgb(0, 255, 0)', 'color' : '#fff' } );
+        assert.equal( µTarget[0].style.backgroundColor, 'rgb(0, 255, 0)', 'css object processed' );
+		
         µTarget = µ( '#example--id' );
         var $Target = $( '#example--id' );
 

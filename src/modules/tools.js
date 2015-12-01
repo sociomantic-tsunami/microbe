@@ -22,7 +22,7 @@ module.exports = function( Microbe )
      *
      * @param {Mixed} text string(s) to capitalize _{String or Array}_
      *
-     * @example µ.capotalize( 'moon doge' ); // "Moon Doge"
+     * @example µ.capitalize( 'moon doge' ); // "Moon Doge"
      *
      * @return _Mixed_  capitalized string(s) values _{String or Array}_
      */
