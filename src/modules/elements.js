@@ -164,11 +164,12 @@ module.exports = function( Microbe )
      */
     Microbe.core.css = function( _property, _value )
     {
-        var _setCss = function( _elm )
+	    var isObject = Microbe.isObject( _property );
+        var _setCss = function( _elm, _v )
         {
             _elm.data                   = _elm.data || {};
             _elm.data.css               = _elm.data.css || {};
-            _elm.data.css[ _property ]  = _value;
+            _elm.data.css[ _property ]  = _v || _value;
 
             _elm.style[ _property ]     = _elm.data.css[ _property ];
         };
@@ -178,8 +179,18 @@ module.exports = function( Microbe )
             return window.getComputedStyle( _elm ).getPropertyValue( _property );
         };
 
-        if ( _value || _value === null || _value === '' )
+        if ( _value || _value === null || _value === '' || isObject )
         {
+		    if ( isObject )
+            {
+                for ( var prop in _property )
+                {
+                    this.css( prop, _property[ prop ] );
+                }
+
+                return this;
+            }
+			
             _value = ( _value === null ) ? '' : _value;
 
             this.each( _setCss );
