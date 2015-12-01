@@ -35,7 +35,7 @@ vo( run )( function( err, result )
 function *run()
 {
     var nightmare   = Nightmare();
-    var server      = connect().use( serveStatic( process.cwd() ) ).listen( 8666 );
+    var server      = connect().use( serveStatic( process.cwd() ) ).listen( config.port );
 
     tests = yield nightmare
         .goto( 'http://localhost:' + config.port + config.path )
