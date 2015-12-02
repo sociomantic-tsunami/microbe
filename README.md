@@ -39,7 +39,7 @@ Don’t hesitate to file issues and features requests! Or change things yourself
 Usage
 =====
 
-- `npm i --S microbejs`
+- `npm i -S microbejs`
 
     or
 
