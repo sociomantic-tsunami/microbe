@@ -46,6 +46,13 @@
   "bugs": {
     "url": "https://github.com/sociomantic/microbe/issues"
   },
+  "files": [
+    "CODE_OF_CONDUCT.md",
+    "older_changes.md",
+    "README.md",
+    "src/",
+    "dist/"
+  ],
   "homepage": "http://m.icro.be",
   "main": "./dist/microbe.min.js",
   "keywords": [
