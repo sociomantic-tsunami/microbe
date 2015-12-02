@@ -45,7 +45,11 @@ var _fill = function( value, start, end )
 }
 
 /**
- * ## creates a new Array instance
+ * ## of
+ *
+ * Creates a new Array instance 
+ *
+ * @param {Object} Array-like object
  *
  * @return {Array}
  */
@@ -54,7 +58,9 @@ var _of = function(){
 };
 
 /**
- * ## returns the first value in the array that satisfies the provided predicate
+ * ## find
+ *
+ * Returns the first value in the array that satisfies the provided predicate
  *
  * @return {Number|String|Object|Function|Array}
  */
@@ -74,6 +80,34 @@ var _find = function(){
         }
         --l;
     }
+}
+
+/**
+ * ## includes 
+ *
+ * Determines if an element exists inside the array
+ *
+ * @return {boolean}
+ */
+var _includes = function(){
+    var elemToSearch = arguments[0];
+    var indexToStart = arguments[1] >> 0;
+    var array= Object(this);
+    var len = this.length >> 0;
+    if( len === 0)
+        return false;
+
+    indexToStart = indexToStart >= 0 ? indexToStart : ( indexToStart + len );
+    indexToStart = indexToStart < 0 ? 0 : indexToStart;
+    
+    while(indexToStart < len){
+      if (elemToSearch === array[indexToStart] ||
+         (array[indexToStart] !== array[indexToStart] && elemToSearch !== elemToSearch)) {
+        return true;
+      }
+      indexToStart++
+    }
+   return false;
 }
 
 module.exports = function( Microbe )
@@ -97,6 +131,8 @@ module.exports = function( Microbe )
     Microbe.core.of             = Array.prototype.of ? Array.prototype.of : _of;
     Microbe.core.fill           = Array.prototype.fill ? Array.prototype.of : _fill;
     Microbe.core.find           = Array.prototype.find ? Array.prototype.find : _find;
+    Microbe.core.includes       = Array.prototype.includes ? Array.prototype.includes : _includes;
+
     /*
      * needed to be modified slightly to output a microbe
      */
