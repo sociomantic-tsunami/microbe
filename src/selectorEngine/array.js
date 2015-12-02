@@ -3,8 +3,9 @@
  *
  * methods based on the array prototype
  *
- * @author  Mouse Braun         <mouse@sociomantic.com>
- * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
+ * @author  Mouse Braun         <mouse@knoblau.ch>
+ * @author  Nicolas Brugneaux   <nicolas.brugneaux@gmail.com>
+ * @author  Avraam Mavridis     <avr.mav@gmail.com>
  *
  * @package Microbe
  */
