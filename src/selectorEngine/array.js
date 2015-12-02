@@ -5,7 +5,6 @@
  *
  * @author  Mouse Braun         <mouse@sociomantic.com>
  * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
- * @author  Avraam Mavridis     <avr.mav@gmail.com>
  *
  * @package Microbe
  */

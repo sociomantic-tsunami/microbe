@@ -1,12 +1,12 @@
 /*!
- * Microbe JavaScript Library v0.4.12
+ * Microbe JavaScript Library v0.4.13
  * http://m.icro.be
  *
  * Copyright 2014-2015 Sociomantic Labs and other contributors
  * Released under the MIT license
  * http://m.icro.be/license
  *
- * Date: Wed Nov 11 2015
+ * Date: Sat Nov 28 2015
  */
 !function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.µ=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /**
@@ -14,8 +14,8 @@
  *
  * Builds the Microbe object
  *
- * @author  Mouse Braun         <mouse@sociomantic.com>
- * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
+ * @author  Mouse Braun         <mouse@knoblau.ch>
+ * @author  Nicolas Brugneaux   <nicolas.brugneaux@gmail.com>
  *
  * @package Microbe
  */
@@ -23,7 +23,7 @@
 'use strict';
 
 var _type       = '[object Microbe]';
-var _version    = '0.4.12';
+var _version    = '0.4.13';
 
 var Microbe = function( selector, scope, elements )
 {
@@ -1809,7 +1809,7 @@ module.exports = asap;
 
 }).call(this,require('_process'))
 },{"_process":2}],11:[function(require,module,exports){
-(function (process){
+(function (process,global){
 (function (global, undefined) {
     "use strict";
 
@@ -1984,15 +1984,15 @@ module.exports = asap;
 
     attachTo.setImmediate = setImmediate;
     attachTo.clearImmediate = clearImmediate;
-}(new Function("return this")()));
+}(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-}).call(this,require('_process'))
+}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"_process":2}],12:[function(require,module,exports){
 /**
  * dom.js
  *
- * @author  Mouse Braun         <mouse@sociomantic.com>
- * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
+ * @author  Mouse Braun         <mouse@knoblau.ch>
+ * @author  Nicolas Brugneaux   <nicolas.brugneaux@gmail.com>
  *
  * @package Microbe
  */
@@ -2813,8 +2813,8 @@ module.exports = function( Microbe )
 /**
  * events.js
  *
- * @author  Mouse Braun         <mouse@sociomantic.com>
- * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
+ * @author  Mouse Braun         <mouse@knoblau.ch>
+ * @author  Nicolas Brugneaux   <nicolas.brugneaux@gmail.com>
  *
  * @package Microbe
  */
@@ -3019,8 +3019,8 @@ module.exports = function( Microbe )
 /**
  * http.js
  *
- * @author  Mouse Braun         <mouse@sociomantic.com>
- * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
+ * @author  Mouse Braun         <mouse@knoblau.ch>
+ * @author  Nicolas Brugneaux   <nicolas.brugneaux@gmail.com>
  *
  * @package Microbe
  */
@@ -3225,8 +3225,8 @@ module.exports = function( Microbe )
 /**
  * observe.js
  *
- * @author  Mouse Braun         <mouse@sociomantic.com>
- * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
+ * @author  Mouse Braun         <mouse@knoblau.ch>
+ * @author  Nicolas Brugneaux   <nicolas.brugneaux@gmail.com>
  *
  * @package Microbe
  */
@@ -3487,8 +3487,8 @@ module.exports = function( Microbe )
 /**
  * root.js
  *
- * @author  Mouse Braun         <mouse@sociomantic.com>
- * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
+ * @author  Mouse Braun         <mouse@knoblau.ch>
+ * @author  Nicolas Brugneaux   <nicolas.brugneaux@gmail.com>
  *
  * @package Microbe
  */
@@ -4218,8 +4218,8 @@ module.exports = function( Microbe )
 /**
  * types.js
  *
- * @author  Mouse Braun         <mouse@sociomantic.com>
- * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
+ * @author  Mouse Braun         <mouse@knoblau.ch>
+ * @author  Nicolas Brugneaux   <nicolas.brugneaux@gmail.com>
  *
  * @package Microbe
  */
@@ -4244,8 +4244,8 @@ module.exports = {
  *
  * methods based on the array prototype
  *
- * @author  Mouse Braun         <mouse@sociomantic.com>
- * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
+ * @author  Mouse Braun         <mouse@knoblau.ch>
+ * @author  Nicolas Brugneaux   <nicolas.brugneaux@gmail.com>
  *
  * @package Microbe
  */
@@ -4284,8 +4284,8 @@ module.exports = function( Microbe )
 /**
  * pseudo.js
  *
- * @author  Mouse Braun         <mouse@sociomantic.com>
- * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
+ * @author  Mouse Braun         <mouse@knoblau.ch>
+ * @author  Nicolas Brugneaux   <nicolas.brugneaux@gmail.com>
  *
  * @package Microbe
  */
@@ -4758,8 +4758,8 @@ module.exports = function( Microbe )
 /**
  * Microbe.js
  *
- * @author  Mouse Braun         <mouse@sociomantic.com>
- * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
+ * @author  Mouse Braun         <mouse@knoblau.ch>
+ * @author  Nicolas Brugneaux   <nicolas.brugneaux@gmail.com>
  *
  * @package Microbe
  */
@@ -4996,7 +4996,7 @@ module.exports = function( Microbe, _type )
      * @param {Mixed} _selector HTML selector (Element String Array)
      * @param {Mixed} _scope scope to look inside (Element String Microbe)
      * @param {Mixed} _elements elements to fill Microbe with (optional) (Element or Array)
-     * 
+     *
      * @example µ()                             ---> empty
      * @example µ( '' )                         ---> empty
      * @example µ( [] )                         ---> empty
@@ -5162,8 +5162,8 @@ module.exports = function( Microbe, _type )
 /**
  * pseudo.js
  *
- * @author  Mouse Braun         <mouse@sociomantic.com>
- * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
+ * @author  Mouse Braun         <mouse@knoblau.ch>
+ * @author  Nicolas Brugneaux   <nicolas.brugneaux@gmail.com>
  *
  * @package Microbe
  */
@@ -6260,9 +6260,9 @@ module.exports = function( Microbe )
 },{}],23:[function(require,module,exports){
 /**
  * rootUtils.js
- * 
- * @author  Mouse Braun         <mouse@sociomantic.com>
- * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
+ *
+ * @author  Mouse Braun         <mouse@knoblau.ch>
+ * @author  Nicolas Brugneaux   <nicolas.brugneaux@gmail.com>
  *
  * @package Microbe
  */
@@ -6280,7 +6280,7 @@ module.exports = function( Microbe )
      * @param {Element} _scope scope
      *
      * @example µ.contains( _el, _parentEl );
-     * 
+     *
      * @return _Boolean_ whether _el is contained in the scope
      */
     Microbe.contains = function( _el, _scope )
@@ -6311,7 +6311,7 @@ module.exports = function( Microbe )
      * @param {Mixed} el element, microbe, or array of elements to match
      *
      * @example µ.matches( _el, 'div.example' );
-     * 
+     *
      * @return _Booblean_ matches or not
      */
     Microbe.matches = function( el, selector )

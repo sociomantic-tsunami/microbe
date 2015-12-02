@@ -43,7 +43,8 @@ module.exports = function( buildTest )
         µ.http( { url : './httpTest.hml' }
         ).catch( function( e )
         {
-            assert.equal( e, 'Error: 404', 'errors are handled correctly' );
+            e = ( e instanceof Error );
+            assert.equal( e, true, 'errors are handled correctly' );
             errorTest();
         } );
 

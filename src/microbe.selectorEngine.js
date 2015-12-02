@@ -3,8 +3,8 @@
  *
  * Builds the Microbe object
  *
- * @author  Mouse Braun         <mouse@sociomantic.com>
- * @author  Nicolas Brugneaux   <nicolas.brugneaux@sociomantic.com>
+ * @author  Mouse Braun         <mouse@knoblau.ch>
+ * @author  Nicolas Brugneaux   <nicolas.brugneaux@gmail.com>
  *
  * @package Microbe
  */
@@ -12,7 +12,7 @@
 'use strict';
 
 var _type       = '[object Microbe]';
-var _version    = '0.4.12-selectorEngine';
+var _version    = '0.4.13-selectorEngine';
 
 
 var Microbe = function( selector, scope, elements )

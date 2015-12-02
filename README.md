@@ -1,7 +1,8 @@
-µ - Microbe - 0.4.12
+µ - Microbe - 0.4.13
 ====================
 
-[![Join the chat at https://gitter.im/sociomantic/microbe](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/sociomantic/microbe?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Microbe build status](https://travis-ci.org/sociomantic/microbe.svg)](https://travis-ci.org)  [![Slack Status](https://microbejs-slackin.herokuapp.com/badge.svg)](https://microbejs-slackin.herokuapp.com)
+
 
 microbe is a javascript library to aid in DOM manipulation as well as facilitating events, object observation, and data binding. It uses the micro character ( µ ) that is accessible in:
 
@@ -40,17 +41,13 @@ Usage
 
 - `npm i --S microbejs`
 
-	then
-
-    `require( 'microbejs' );`
-
-	or
+    or
 
 - `bower install -S microbejs`
 
 	or
 
-- simply include microbe.js or microbe.min.js in a script tag
+- `<script src="./microbe.js"></script>`
 
 
 Example use
@@ -92,7 +89,7 @@ Dev Installation
 ================
 
 -  Clone repo
--  Make sure npm is installed
+-  Make sure node and npm is installed
 - `npm install`
 - `npm start`
 
@@ -119,11 +116,12 @@ We gladly accept and review any pull-requests. Feel free! :heart:
 
 Otherwise, if you just want to talk, we are very easy to get a hold of!
 
-+ Twitter:        [@microbejs](https://www.twitter.com/microbejs)
++ Slack:          [microbejs.slack.com](https://microbejs.slack.com)[![Slack Status](https://microbejs-slackin.herokuapp.com/badge.svg)](https://microbejs-slackin.herokuapp.com)
++ Twitter:        <a href="https://www.twitter.com/microbejs" target="_blank">@microbejs</a>
 + Email:          [hello@m.icro.be](hello@m.icro.be)
-+ Web:            [http://m.icro.be](http://m.icro.be/)
-+ Git:            [https://github.com/sociomantic/microbe/](https://github.com/sociomantic/microbe/)
-+ IRC ([freenode](https://kiwiirc.com/client/chat.freenode.net:+6697/#microbe)): #microbe
++ Web:            <a href="http://m.icro.be/" target="_blank">http://m.icro.be/</a>
++ Git:            <a href="https://github.com/sociomantic/microbe/" target="_blank">https://github.com/sociomantic/microbe/</a>
++ IRC             <a href="https://kiwiirc.com/client/chat.freenode.net:+6697/#microbe">freenode #microbe</a>
 
 
 
@@ -137,10 +135,18 @@ Need to report something? [report@m.icro.be](report@m.icro.be)
 Change log
 ==========
 
+#### 0.4.13
+
++ added travi-ci testing
++ added nightmare command line testing
++ removed gitter
+
+
 #### 0.4.12
 
 + added appendTo and prependTo
 + aliased each to forEach for array compatability
++ added slack community to readme and www
 
 
 #### 0.4.11

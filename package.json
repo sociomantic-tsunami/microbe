@@ -1,43 +1,46 @@
 {
   "name": "microbejs",
-  "version": "0.4.12",
-  "author": "Mouse Braun <mouse@sociomantic.com>",
+  "version": "0.4.13",
+  "author": "Mouse Braun <mouse@knoblau.ch>",
   "description": "microbe.js - A modular JS library for DOM manipulation, and more",
   "contributors": [
-    "Nicolas Brugneaux <nicolas.brugneaux@sociomantic.com>",
+    "Nicolas Brugneaux <nicolas.brugneaux@gmail.com>",
     "Michele Guido <michele.guido@sociomantic.com>"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sociomantic/microbe.git"
+    "url": "https://github.com/sociomantic/microbe.git"
   },
   "scripts": {
-    "get-dependencies": "npm install . && echo \"Installation complete.\"",
+    "start": "./node_modules/.bin/gulp && echo \"Build complete.\"",
+    "build": "./node_modules/.bin/gulp toolkit && ./node_modules/.bin/gulp selectorEngine && ./node_modules/.bin/gulp microbe && npm run buildTests && npm run test && echo \"All builds complete and tests passed.\"",
+    "buildTests": "./node_modules/.bin/gulp buildTests && echo \"Tests Built.\"",
     "gulp": "./node_modules/.bin/gulp && echo \"Build complete.\"",
     "microbe": "./node_modules/.bin/gulp && echo \"Build complete.\"",
     "selectorEngine": "./node_modules/.bin/gulp selectorEngine && echo \"Build complete.\"",
     "toolkit": "./node_modules/.bin/gulp toolkit && echo \"Build complete.\"",
-    "build": "./node_modules/.bin/gulp && echo \"Build complete.\"",
-    "tests": "./node_modules/.bin/gulp tests && echo \"Tests complete.\"",
+    "test": "node --harmony ./tests/nightmare.js",
     "clean": "./node_modules/.bin/gulp clean && echo \"Dist cleaned.\"",
     "watch": "./node_modules/.bin/gulp watch",
     "docs": "docker -o www/doc/ -i src --sidebar true --watch --js dist/microbe.js --extras fileSearch -c manni"
   },
   "devDependencies": {
     "browserify": "^5.11.2",
-    "del": "^2.0.2",
+    "connect": "^3.4.0",
     "docker": "git://github.com/nicolasbrugneaux/docker.git#patch-1",
     "gulp": "^3.8.7",
     "gulp-header": "^1.2.2",
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.4.0",
-    "gulp-rimraf": "^0.1.0",
     "gulp-uglify": "^1.2.0",
+    "nightmare": "^2.0.8",
     "observe-shim": "^0.4.1",
     "observe-utils": "git://github.com/jason-braun-sociomantic-mouse/observe-utils.git#patch-1",
     "promise": "^6.0.0",
     "qunitjs": "^1.18.0",
-    "setimmediate": "^1.0.2"
+    "serve-static": "^1.10.0",
+    "setimmediate": "^1.0.2",
+    "vo": "^1.0.3"
   },
   "license": "MIT",
   "bugs": {
@@ -45,11 +48,6 @@
   },
   "homepage": "http://m.icro.be",
   "main": "./dist/microbe.min.js",
-  "directories": {
-    "test": "tests"
-  },
-  "browserDependencies": {},
-  "dependencies": {},
   "keywords": [
     "microbe",
     "microbejs",
@@ -61,6 +59,7 @@
     "css4",
     "http",
     "event",
-    "class"
+    "class",
+    "aria"
   ]
 }
