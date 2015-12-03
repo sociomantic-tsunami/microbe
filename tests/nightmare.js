@@ -12,9 +12,17 @@ const config = {
     fail : '.fail'
 };
 
+const _cleanArray = function( _r ){ return !!( _r ); };
+
 vo( run )( function( err, result )
 {
     tests.server.close();
+
+    if ( tests.failText )
+    {
+        console.log( tests.failText );
+    }
+
     console.log( 'pass: ' + tests.pass + ', fail: ' + tests.fail );
 
     if ( err )
@@ -42,9 +50,32 @@ function *run()
         .wait( config.pass )
         .evaluate( function( config )
         {
-            var pass = document.querySelectorAll( config.pass ).length;
-            var fail = document.querySelectorAll( config.fail ).length;
-            return { pass : pass, fail : fail, config : config };
+            var pass        = document.querySelectorAll( config.pass ).length;
+            var fail        = document.querySelectorAll( config.fail );
+                fail        = Array.prototype.slice.call( fail );
+            var failCount   = fail.length;
+            var failText;
+
+            if ( failCount )
+            {
+                failText = fail.map( function( _el )
+                {
+                    _el = _el.querySelector( '.test-name, .test-message' );
+
+                    if ( _el )
+                    {
+                        return '[Fail] ' + _el.innerHTML;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                } );
+
+                failText = failText.join( '\n' );
+            }
+
+            return { pass : pass, fail : failCount, failText : failText, config : config };
         }, config );
 
     tests.server = server;

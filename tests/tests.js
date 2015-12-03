@@ -7371,11 +7371,6 @@ module.exports = function( buildTest )
 
         assert.equal( bodyPosition.top + bodyPosition.left, 0, 'correctly finds the body position' );
 
-        var firstTest = µ( '#qunit-tests' ).childrenFlat().first().position()[0]
-
-console.log( firstTest );
-        assert.equal( firstTest.top + firstTest.left, 180, 'correctly finds the #qunit position' );
-
         var $qunit = $( '#qunit' );
 
         buildTest(
