@@ -40,7 +40,7 @@ module.exports = function( buildTest )
         assert.equal( µLi.length, 1, 'creates a li with id' );
         assert.equal( µInput.length, 1, 'creates an input with class' );
 
-        
+
         buildTest(
         'µ( \'&lt;li id="id">&lt;/li>\' )', function()
         {
@@ -157,6 +157,26 @@ module.exports = function( buildTest )
         {
             return $( _divs );
         } );
+    });
+
+
+    /**
+     * µ init wrap jquery object tests
+     *
+     * @test    one body
+     * @test    passes
+     */
+    QUnit.test( 'wrap a jquery object', function( assert )
+    {
+        var _body = document.getElementsByTagName( 'body' )[0];
+        var µBody = µ( $( 'body' ) );
+
+        assert.equal( µBody.length, 1, 'one body' );
+        assert.deepEqual( µBody[ 0 ], _body, 'passes' );
+
+        var _divs = Array.prototype.slice.call( document.getElementsByTagName( 'div' ) );
+
+        buildTest( 'No speed tests available' );
     });
 
 

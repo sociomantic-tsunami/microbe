@@ -311,7 +311,7 @@ module.exports = function( Microbe, _type, _version )
          * fast tracks element based queries
          */
         var isArr, isHTMLCollection;
-        if ( _selector.nodeType === 1 || ( isArr = Array.isArray( _selector ) ) ||
+        if ( _selector.nodeType === 1 || ( isArr = Array.isArray( _selector ) || _selector.jquery ) ||
             _selector === window || _selector === document ||
             ( isHTMLCollection = _selector.toString() === '[object HTMLCollection]' ) )
         {
