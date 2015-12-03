@@ -21,8 +21,6 @@ var Microbe = function( selector, scope, elements )
 };
 
 
-require( './selectorEngine/init' )( Microbe, _type );
+require( './selectorEngine/init' )( Microbe, _type, _version );
 
-
-Microbe.version     = Microbe.core.__init__.prototype.version = _version;
 module.exports      = Microbe.core.constructor = Microbe;

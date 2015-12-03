@@ -202,6 +202,21 @@ module.exports = function( buildTest )
 
 
     /**
+     * µ isMicrobe test
+     *
+     * @test    isMicrobe exists
+     * @test    isMicrobe is true
+     */
+    QUnit.test( '.isMicrobe', function( assert )
+    {
+        assert.ok( µ().isMicrobe, 'isMicrobe exists' );
+        assert.equal( µ.core.isMicrobe, true, 'and equals true' );
+
+        buildTest( 'No speed tests available for non-functions' );
+    });
+
+
+    /**
      * µ last tests
      *
      * @test    last exists

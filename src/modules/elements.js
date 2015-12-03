@@ -308,6 +308,55 @@ module.exports = function( Microbe )
 
 
     /**
+     * ## offset
+     *
+     * returns an array of objects { top, left } of the position (in px) relative to an object's parent
+     *
+     * @example µ( '.example' ).offset();
+     *
+     * @return _Array_ array of objects
+     */
+    Microbe.core.offset = function()
+    {
+        var _offset = function( _elm )
+        {
+            return { top : _elm.offsetTop, left : _elm.offsetLeft };
+        };
+
+        return this.map( _offset );
+    };
+
+
+    /**
+     * ## position
+     *
+     * returns an array of objects { top, left } of the position (in px) relative to an object's parent
+     *
+     * @example µ( '.example' ).position();
+     *
+     * @return _Array_ array of objects
+     */
+    Microbe.core.position = function()
+    {
+        var _position = function( _elm )
+        {
+            var top = 0, left = 0;
+
+            while( _elm )
+            {
+                top     += ( _elm.offsetTop - _elm.scrollTop + _elm.clientTop );
+                left    += ( _elm.offsetLeft - _elm.scrollLeft + _elm.clientLeft );
+                _elm    = _elm.offsetParent;
+            }
+
+            return { top : top, left : left };
+        };
+
+        return this.map( _position );
+    };
+
+
+    /**
      * ## removeClass
      *
      * Method removes the given class from the current object or the given element.

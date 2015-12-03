@@ -145,6 +145,10 @@ Change log
 + css now accepts objects
 + truncated older chanes log outto a seperate file
 + gulpfile changes
++ added position
++ added offset
++ added isMicrobe
++ made isMicrobe, version, and type read-only
 
 
 #### 0.4.13

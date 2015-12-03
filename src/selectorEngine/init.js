@@ -9,11 +9,15 @@
 
 var slice = Array.prototype.slice;
 
-module.exports = function( Microbe, _type )
+module.exports = function( Microbe, _type, _version )
 {
     'use strict';
 
-    Microbe.core        = {};
+    Microbe.core        = {
+        get type()      { return _type; },
+        get isMicrobe() { return true; },
+        get version()   { return _version; }
+    };
     var trigger, _shortSelector;
 
     var selectorRegex = Microbe.prototype.__selectorRegex =  /(?:[\s]*\.([\w-_\.]+)|#([\w-_]+)|([^#\.:<][\w-_]*)|(<[\w-_#\.]+>)|:([^#\.<][\w-()_]*))/g;
@@ -390,8 +394,8 @@ module.exports = function( Microbe, _type )
         return _build( _scope.querySelectorAll( _selector ), this );
     };
 
-    Microbe.core.type                 = _type;
     Microbe.core.__init__.prototype   = Microbe.core;
+
 
     require( './core' )( Microbe );
     require( './root' )( Microbe );

@@ -152,7 +152,7 @@ module.exports = function( buildTest )
 
         µTarget.css( { 'background-color' : 'rgb(0, 255, 0)', 'color' : '#fff' } );
         assert.equal( µTarget[0].style.backgroundColor, 'rgb(0, 255, 0)', 'css object processed' );
-		
+
         µTarget = µ( '#example--id' );
         var $Target = $( '#example--id' );
 
@@ -300,6 +300,72 @@ module.exports = function( buildTest )
         {
             $Target.html( 'blarg' );
             $Target.html();
+        } );
+    });
+
+
+    /**
+     * µ offset tests
+     *
+     * @test    offset exists
+     * @test    retrieves the correct index
+     */
+    QUnit.test( '.offset()', function( assert )
+    {
+        assert.ok( µ().offset, 'exists' );
+
+        var bodyOffset  = µ( 'body' ).offset()[0];
+
+        assert.equal( bodyOffset.top + bodyOffset.left, 0, 'correctly finds the body offset' );
+
+        var qunitOffset = µ( '#qunit' ).offset()[0];
+
+        assert.equal( qunitOffset.top + qunitOffset.left, 16, 'correctly finds the #qunit offset' );
+
+        var $qunit = $( '#qunit' );
+
+        buildTest(
+        'µQunit.offset()', function()
+        {
+            µQunit.offset();
+        },
+
+        '$qunit.offset()', function()
+        {
+            $qunit.offset();
+        } );
+    });
+
+
+    /**
+     * µ offset tests
+     *
+     * @test    offset exists
+     * @test    retrieves the correct index
+     */
+    QUnit.test( '.position()', function( assert )
+    {
+        assert.ok( µ().position, 'exists' );
+
+        var bodyPosition  = µ( 'body' ).position()[0];
+
+        assert.equal( bodyPosition.top + bodyPosition.left, 0, 'correctly finds the body position' );
+
+        var qunitFilterPosition = µ( '#qunit-modulefilter' ).position()[0];
+
+        assert.equal( qunitFilterPosition.top + qunitFilterPosition.left, 898, 'correctly finds the #qunit position' );
+
+        var $qunit = $( '#qunit' );
+
+        buildTest(
+        'µQunit.position()', function()
+        {
+            µQunit.position();
+        },
+
+        '$qunit.position()', function()
+        {
+            $qunit.position();
         } );
     });
 

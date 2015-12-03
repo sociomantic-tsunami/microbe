@@ -148,71 +148,123 @@ document.getElementsByTagName( 'title' )[0].innerHTML = 'µ - ' + µ.version + '
 
 window.buildTest = buildTest;
 },{"../src/microbe.js":12,"./unit/dom":25,"./unit/elements":26,"./unit/events":27,"./unit/http":28,"./unit/observe":29,"./unit/selectorEngine/core":30,"./unit/selectorEngine/init":31,"./unit/selectorEngine/pseudo":32,"./unit/selectorEngine/root":33,"./unit/tools":34}],2:[function(require,module,exports){
-// shim for using process in browser
+(function (process){
 
-var process = module.exports = {};
+// Use the fastest possible means to execute a task in a future turn
+// of the event loop.
 
-process.nextTick = (function () {
-    var canSetImmediate = typeof window !== 'undefined'
-    && window.setImmediate;
-    var canPost = typeof window !== 'undefined'
-    && window.postMessage && window.addEventListener
-    ;
+// linked list of tasks (single, with head node)
+var head = {task: void 0, next: null};
+var tail = head;
+var flushing = false;
+var requestFlush = void 0;
+var isNodeJS = false;
 
-    if (canSetImmediate) {
-        return function (f) { return window.setImmediate(f) };
+function flush() {
+    /* jshint loopfunc: true */
+
+    while (head.next) {
+        head = head.next;
+        var task = head.task;
+        head.task = void 0;
+        var domain = head.domain;
+
+        if (domain) {
+            head.domain = void 0;
+            domain.enter();
+        }
+
+        try {
+            task();
+
+        } catch (e) {
+            if (isNodeJS) {
+                // In node, uncaught exceptions are considered fatal errors.
+                // Re-throw them synchronously to interrupt flushing!
+
+                // Ensure continuation if the uncaught exception is suppressed
+                // listening "uncaughtException" events (as domains does).
+                // Continue in next event to avoid tick recursion.
+                if (domain) {
+                    domain.exit();
+                }
+                setTimeout(flush, 0);
+                if (domain) {
+                    domain.enter();
+                }
+
+                throw e;
+
+            } else {
+                // In browsers, uncaught exceptions are not fatal.
+                // Re-throw them asynchronously to avoid slow-downs.
+                setTimeout(function() {
+                   throw e;
+                }, 0);
+            }
+        }
+
+        if (domain) {
+            domain.exit();
+        }
     }
 
-    if (canPost) {
-        var queue = [];
-        window.addEventListener('message', function (ev) {
-            var source = ev.source;
-            if ((source === window || source === null) && ev.data === 'process-tick') {
-                ev.stopPropagation();
-                if (queue.length > 0) {
-                    var fn = queue.shift();
-                    fn();
-                }
-            }
-        }, true);
+    flushing = false;
+}
 
-        return function nextTick(fn) {
-            queue.push(fn);
-            window.postMessage('process-tick', '*');
+if (typeof process !== "undefined" && process.nextTick) {
+    // Node.js before 0.9. Note that some fake-Node environments, like the
+    // Mocha test runner, introduce a `process` global without a `nextTick`.
+    isNodeJS = true;
+
+    requestFlush = function () {
+        process.nextTick(flush);
+    };
+
+} else if (typeof setImmediate === "function") {
+    // In IE10, Node.js 0.9+, or https://github.com/NobleJS/setImmediate
+    if (typeof window !== "undefined") {
+        requestFlush = setImmediate.bind(window, flush);
+    } else {
+        requestFlush = function () {
+            setImmediate(flush);
         };
     }
 
-    return function nextTick(fn) {
-        setTimeout(fn, 0);
+} else if (typeof MessageChannel !== "undefined") {
+    // modern browsers
+    // http://www.nonblocking.io/2011/06/windownexttick.html
+    var channel = new MessageChannel();
+    channel.port1.onmessage = flush;
+    requestFlush = function () {
+        channel.port2.postMessage(0);
     };
-})();
 
-process.title = 'browser';
-process.browser = true;
-process.env = {};
-process.argv = [];
-
-function noop() {}
-
-process.on = noop;
-process.addListener = noop;
-process.once = noop;
-process.off = noop;
-process.removeListener = noop;
-process.removeAllListeners = noop;
-process.emit = noop;
-
-process.binding = function (name) {
-    throw new Error('process.binding is not supported');
+} else {
+    // old browsers
+    requestFlush = function () {
+        setTimeout(flush, 0);
+    };
 }
 
-// TODO(shtylman)
-process.cwd = function () { return '/' };
-process.chdir = function (dir) {
-    throw new Error('process.chdir is not supported');
+function asap(task) {
+    tail = tail.next = {
+        task: task,
+        domain: isNodeJS && process.domain,
+        next: null
+    };
+
+    if (!flushing) {
+        flushing = true;
+        requestFlush();
+    }
 };
 
-},{}],3:[function(require,module,exports){
+module.exports = asap;
+
+
+}).call(this,require('_process'))
+},{"_process":5}],3:[function(require,module,exports){
 (function (global){
 //    Copyright 2012 Kap IT (http://www.kapit.fr/)
 //
@@ -1492,13 +1544,78 @@ process.chdir = function (dir) {
 })(this);
 
 },{}],5:[function(require,module,exports){
+// shim for using process in browser
+
+var process = module.exports = {};
+
+process.nextTick = (function () {
+    var canSetImmediate = typeof window !== 'undefined'
+    && window.setImmediate;
+    var canPost = typeof window !== 'undefined'
+    && window.postMessage && window.addEventListener
+    ;
+
+    if (canSetImmediate) {
+        return function (f) { return window.setImmediate(f) };
+    }
+
+    if (canPost) {
+        var queue = [];
+        window.addEventListener('message', function (ev) {
+            var source = ev.source;
+            if ((source === window || source === null) && ev.data === 'process-tick') {
+                ev.stopPropagation();
+                if (queue.length > 0) {
+                    var fn = queue.shift();
+                    fn();
+                }
+            }
+        }, true);
+
+        return function nextTick(fn) {
+            queue.push(fn);
+            window.postMessage('process-tick', '*');
+        };
+    }
+
+    return function nextTick(fn) {
+        setTimeout(fn, 0);
+    };
+})();
+
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+}
+
+// TODO(shtylman)
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+
+},{}],6:[function(require,module,exports){
 'use strict';
 
 module.exports = require('./lib/core.js')
 require('./lib/done.js')
 require('./lib/es6-extensions.js')
 require('./lib/node-extensions.js')
-},{"./lib/core.js":6,"./lib/done.js":7,"./lib/es6-extensions.js":8,"./lib/node-extensions.js":9}],6:[function(require,module,exports){
+},{"./lib/core.js":7,"./lib/done.js":8,"./lib/es6-extensions.js":9,"./lib/node-extensions.js":10}],7:[function(require,module,exports){
 'use strict';
 
 var asap = require('asap')
@@ -1605,7 +1722,7 @@ function doResolve(fn, onFulfilled, onRejected) {
   }
 }
 
-},{"asap":10}],7:[function(require,module,exports){
+},{"asap":2}],8:[function(require,module,exports){
 'use strict';
 
 var Promise = require('./core.js')
@@ -1620,7 +1737,7 @@ Promise.prototype.done = function (onFulfilled, onRejected) {
     })
   })
 }
-},{"./core.js":6,"asap":10}],8:[function(require,module,exports){
+},{"./core.js":7,"asap":2}],9:[function(require,module,exports){
 'use strict';
 
 //This file contains the ES6 extensions to the core Promises/A+ API
@@ -1730,7 +1847,7 @@ Promise.prototype['catch'] = function (onRejected) {
   return this.then(null, onRejected);
 }
 
-},{"./core.js":6,"asap":10}],9:[function(require,module,exports){
+},{"./core.js":7,"asap":2}],10:[function(require,module,exports){
 'use strict';
 
 //This file contains then/promise specific extensions that are only useful for node.js interop
@@ -1795,124 +1912,7 @@ Promise.prototype.nodeify = function (callback, ctx) {
   })
 }
 
-},{"./core.js":6,"asap":10}],10:[function(require,module,exports){
-(function (process){
-
-// Use the fastest possible means to execute a task in a future turn
-// of the event loop.
-
-// linked list of tasks (single, with head node)
-var head = {task: void 0, next: null};
-var tail = head;
-var flushing = false;
-var requestFlush = void 0;
-var isNodeJS = false;
-
-function flush() {
-    /* jshint loopfunc: true */
-
-    while (head.next) {
-        head = head.next;
-        var task = head.task;
-        head.task = void 0;
-        var domain = head.domain;
-
-        if (domain) {
-            head.domain = void 0;
-            domain.enter();
-        }
-
-        try {
-            task();
-
-        } catch (e) {
-            if (isNodeJS) {
-                // In node, uncaught exceptions are considered fatal errors.
-                // Re-throw them synchronously to interrupt flushing!
-
-                // Ensure continuation if the uncaught exception is suppressed
-                // listening "uncaughtException" events (as domains does).
-                // Continue in next event to avoid tick recursion.
-                if (domain) {
-                    domain.exit();
-                }
-                setTimeout(flush, 0);
-                if (domain) {
-                    domain.enter();
-                }
-
-                throw e;
-
-            } else {
-                // In browsers, uncaught exceptions are not fatal.
-                // Re-throw them asynchronously to avoid slow-downs.
-                setTimeout(function() {
-                   throw e;
-                }, 0);
-            }
-        }
-
-        if (domain) {
-            domain.exit();
-        }
-    }
-
-    flushing = false;
-}
-
-if (typeof process !== "undefined" && process.nextTick) {
-    // Node.js before 0.9. Note that some fake-Node environments, like the
-    // Mocha test runner, introduce a `process` global without a `nextTick`.
-    isNodeJS = true;
-
-    requestFlush = function () {
-        process.nextTick(flush);
-    };
-
-} else if (typeof setImmediate === "function") {
-    // In IE10, Node.js 0.9+, or https://github.com/NobleJS/setImmediate
-    if (typeof window !== "undefined") {
-        requestFlush = setImmediate.bind(window, flush);
-    } else {
-        requestFlush = function () {
-            setImmediate(flush);
-        };
-    }
-
-} else if (typeof MessageChannel !== "undefined") {
-    // modern browsers
-    // http://www.nonblocking.io/2011/06/windownexttick.html
-    var channel = new MessageChannel();
-    channel.port1.onmessage = flush;
-    requestFlush = function () {
-        channel.port2.postMessage(0);
-    };
-
-} else {
-    // old browsers
-    requestFlush = function () {
-        setTimeout(flush, 0);
-    };
-}
-
-function asap(task) {
-    tail = tail.next = {
-        task: task,
-        domain: isNodeJS && process.domain,
-        next: null
-    };
-
-    if (!flushing) {
-        flushing = true;
-        requestFlush();
-    }
-};
-
-module.exports = asap;
-
-
-}).call(this,require('_process'))
-},{"_process":2}],11:[function(require,module,exports){
+},{"./core.js":7,"asap":2}],11:[function(require,module,exports){
 (function (process,global){
 (function (global, undefined) {
     "use strict";
@@ -2091,7 +2091,7 @@ module.exports = asap;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"_process":2}],12:[function(require,module,exports){
+},{"_process":5}],12:[function(require,module,exports){
 /**
  * ## Microbe
  *
@@ -2114,7 +2114,7 @@ var Microbe = function( selector, scope, elements )
 };
 
 
-require( './selectorEngine/init' )( Microbe, _type );
+require( './selectorEngine/init' )( Microbe, _type, _version );
 require( './modules/tools' )( Microbe );
 require( './modules/dom' )( Microbe );
 require( './modules/elements' )( Microbe );
@@ -2122,8 +2122,6 @@ require( './modules/http' )( Microbe );
 require( './modules/observe' )( Microbe );
 require( './modules/events' )( Microbe );
 
-
-Microbe.version     = Microbe.core.__init__.prototype.version = _version;
 module.exports      = Microbe.core.constructor = Microbe;
 
 },{"./modules/dom":13,"./modules/elements":14,"./modules/events":15,"./modules/http":16,"./modules/observe":17,"./modules/tools":18,"./selectorEngine/init":22}],13:[function(require,module,exports){
@@ -2812,6 +2810,55 @@ module.exports = function( Microbe )
 
 
     /**
+     * ## offset
+     *
+     * returns an array of objects { top, left } of the position (in px) relative to an object's parent
+     *
+     * @example µ( '.example' ).offset();
+     *
+     * @return _Array_ array of objects
+     */
+    Microbe.core.offset = function()
+    {
+        var _offset = function( _elm )
+        {
+            return { top : _elm.offsetTop, left : _elm.offsetLeft };
+        };
+
+        return this.map( _offset );
+    };
+
+
+    /**
+     * ## position
+     *
+     * returns an array of objects { top, left } of the position (in px) relative to an object's parent
+     *
+     * @example µ( '.example' ).position();
+     *
+     * @return _Array_ array of objects
+     */
+    Microbe.core.position = function()
+    {
+        var _position = function( _elm )
+        {
+            var top = 0, left = 0;
+
+            while( _elm )
+            {
+                top     += ( _elm.offsetTop - _elm.scrollTop + _elm.clientTop );
+                left    += ( _elm.offsetLeft - _elm.scrollLeft + _elm.clientLeft );
+                _elm    = _elm.offsetParent;
+            }
+
+            return { top : top, left : left };
+        };
+
+        return this.map( _position );
+    };
+
+
+    /**
      * ## removeClass
      *
      * Method removes the given class from the current object or the given element.
@@ -3373,7 +3420,7 @@ module.exports = function( Microbe )
     };
 };
 
-},{"promise":5}],17:[function(require,module,exports){
+},{"promise":6}],17:[function(require,module,exports){
 /**
  * observe.js
  *
@@ -4366,7 +4413,7 @@ module.exports = function( Microbe )
     Microbe.xyzzy   = Microbe.noop;
 };
 
-},{"./types":19,"promise":5}],19:[function(require,module,exports){
+},{"./types":19,"promise":6}],19:[function(require,module,exports){
 /**
  * types.js
  *
@@ -4918,11 +4965,15 @@ module.exports = function( Microbe )
 
 var slice = Array.prototype.slice;
 
-module.exports = function( Microbe, _type )
+module.exports = function( Microbe, _type, _version )
 {
     'use strict';
 
-    Microbe.core        = {};
+    Microbe.core        = {
+        get type()      { return _type; },
+        get isMicrobe() { return true; },
+        get version()   { return _version; }
+    };
     var trigger, _shortSelector;
 
     var selectorRegex = Microbe.prototype.__selectorRegex =  /(?:[\s]*\.([\w-_\.]+)|#([\w-_]+)|([^#\.:<][\w-_]*)|(<[\w-_#\.]+>)|:([^#\.<][\w-()_]*))/g;
@@ -5299,8 +5350,8 @@ module.exports = function( Microbe, _type )
         return _build( _scope.querySelectorAll( _selector ), this );
     };
 
-    Microbe.core.type                 = _type;
     Microbe.core.__init__.prototype   = Microbe.core;
+
 
     require( './core' )( Microbe );
     require( './root' )( Microbe );
@@ -7117,7 +7168,7 @@ module.exports = function( buildTest )
 
         µTarget.css( { 'background-color' : 'rgb(0, 255, 0)', 'color' : '#fff' } );
         assert.equal( µTarget[0].style.backgroundColor, 'rgb(0, 255, 0)', 'css object processed' );
-		
+
         µTarget = µ( '#example--id' );
         var $Target = $( '#example--id' );
 
@@ -7265,6 +7316,72 @@ module.exports = function( buildTest )
         {
             $Target.html( 'blarg' );
             $Target.html();
+        } );
+    });
+
+
+    /**
+     * µ offset tests
+     *
+     * @test    offset exists
+     * @test    retrieves the correct index
+     */
+    QUnit.test( '.offset()', function( assert )
+    {
+        assert.ok( µ().offset, 'exists' );
+
+        var bodyOffset  = µ( 'body' ).offset()[0];
+
+        assert.equal( bodyOffset.top + bodyOffset.left, 0, 'correctly finds the body offset' );
+
+        var qunitOffset = µ( '#qunit' ).offset()[0];
+
+        assert.equal( qunitOffset.top + qunitOffset.left, 16, 'correctly finds the #qunit offset' );
+
+        var $qunit = $( '#qunit' );
+
+        buildTest(
+        'µQunit.offset()', function()
+        {
+            µQunit.offset();
+        },
+
+        '$qunit.offset()', function()
+        {
+            $qunit.offset();
+        } );
+    });
+
+
+    /**
+     * µ offset tests
+     *
+     * @test    offset exists
+     * @test    retrieves the correct index
+     */
+    QUnit.test( '.position()', function( assert )
+    {
+        assert.ok( µ().position, 'exists' );
+
+        var bodyPosition  = µ( 'body' ).position()[0];
+
+        assert.equal( bodyPosition.top + bodyPosition.left, 0, 'correctly finds the body position' );
+
+        var qunitFilterPosition = µ( '#qunit-modulefilter' ).position()[0];
+
+        assert.equal( qunitFilterPosition.top + qunitFilterPosition.left, 898, 'correctly finds the #qunit position' );
+
+        var $qunit = $( '#qunit' );
+
+        buildTest(
+        'µQunit.position()', function()
+        {
+            µQunit.position();
+        },
+
+        '$qunit.position()', function()
+        {
+            $qunit.position();
         } );
     });
 
@@ -8013,6 +8130,21 @@ module.exports = function( buildTest )
         {
             $Divs.first();
         } );
+    });
+
+
+    /**
+     * µ isMicrobe test
+     *
+     * @test    isMicrobe exists
+     * @test    isMicrobe is true
+     */
+    QUnit.test( '.isMicrobe', function( assert )
+    {
+        assert.ok( µ().isMicrobe, 'isMicrobe exists' );
+        assert.equal( µ.core.isMicrobe, true, 'and equals true' );
+
+        buildTest( 'No speed tests available for non-functions' );
     });
 
 
@@ -10142,4 +10274,4 @@ module.exports = function( buildTest )
         } );
     });
 };
-},{"promise":5}]},{},[1]);
+},{"promise":6}]},{},[1]);

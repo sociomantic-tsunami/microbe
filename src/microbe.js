@@ -20,7 +20,7 @@ var Microbe = function( selector, scope, elements )
 };
 
 
-require( './selectorEngine/init' )( Microbe, _type );
+require( './selectorEngine/init' )( Microbe, _type, _version );
 require( './modules/tools' )( Microbe );
 require( './modules/dom' )( Microbe );
 require( './modules/elements' )( Microbe );
@@ -28,6 +28,4 @@ require( './modules/http' )( Microbe );
 require( './modules/observe' )( Microbe );
 require( './modules/events' )( Microbe );
 
-
-Microbe.version     = Microbe.core.__init__.prototype.version = _version;
 module.exports      = Microbe.core.constructor = Microbe;

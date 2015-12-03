@@ -14,8 +14,11 @@
 var _type       = '[object MicrobeRoot]';
 var _version    = '0.4.14-tool';
 
-var Microbe = {};
+var Microbe = {
+    get version()   { return _version; },
+    get type()      { return _type; }
+};
+
 require( './modules/tools' )( Microbe );
 
-Microbe.version     = _version;
 module.exports      = Microbe;
