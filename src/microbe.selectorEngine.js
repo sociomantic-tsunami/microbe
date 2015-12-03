@@ -20,7 +20,6 @@ var Microbe = function( selector, scope, elements )
     return new Microbe.core.__init__( selector, scope, elements );
 };
 
-
 require( './selectorEngine/init' )( Microbe, _type, _version );
 
 module.exports      = Microbe.core.constructor = Microbe;

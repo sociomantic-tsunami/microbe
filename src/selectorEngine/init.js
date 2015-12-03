@@ -18,6 +18,9 @@ module.exports = function( Microbe, _type, _version )
         get isMicrobe() { return true; },
         get version()   { return _version; }
     };
+
+    Microbe.__defineGetter__( 'version', function(){ return _version } );
+
     var trigger, _shortSelector;
 
     var selectorRegex = Microbe.prototype.__selectorRegex =  /(?:[\s]*\.([\w-_\.]+)|#([\w-_]+)|([^#\.:<][\w-_]*)|(<[\w-_#\.]+>)|:([^#\.<][\w-()_]*))/g;

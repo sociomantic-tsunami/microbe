@@ -147,6 +147,8 @@ require( './unit/observe' )( buildTest );
 document.getElementsByTagName( 'title' )[0].innerHTML = 'µ - ' + µ.version + ' QUnit';
 
 window.buildTest = buildTest;
+
+
 },{"../src/microbe.js":12,"./unit/dom":25,"./unit/elements":26,"./unit/events":27,"./unit/http":28,"./unit/observe":29,"./unit/selectorEngine/core":30,"./unit/selectorEngine/init":31,"./unit/selectorEngine/pseudo":32,"./unit/selectorEngine/root":33,"./unit/tools":34}],2:[function(require,module,exports){
 (function (process){
 
@@ -2113,7 +2115,6 @@ var Microbe = function( selector, scope, elements )
     return new Microbe.core.__init__( selector, scope, elements );
 };
 
-
 require( './selectorEngine/init' )( Microbe, _type, _version );
 require( './modules/tools' )( Microbe );
 require( './modules/dom' )( Microbe );
@@ -2846,8 +2847,8 @@ module.exports = function( Microbe )
 
             while( _elm )
             {
-                top     += ( _elm.offsetTop - _elm.scrollTop + _elm.clientTop );
-                left    += ( _elm.offsetLeft - _elm.scrollLeft + _elm.clientLeft );
+                top     += _elm.offsetTop;
+                left    += _elm.offsetLeft;
                 _elm    = _elm.offsetParent;
             }
 
@@ -4974,6 +4975,9 @@ module.exports = function( Microbe, _type, _version )
         get isMicrobe() { return true; },
         get version()   { return _version; }
     };
+
+    Microbe.__defineGetter__( 'version', function(){ return _version } );
+
     var trigger, _shortSelector;
 
     var selectorRegex = Microbe.prototype.__selectorRegex =  /(?:[\s]*\.([\w-_\.]+)|#([\w-_]+)|([^#\.:<][\w-_]*)|(<[\w-_#\.]+>)|:([^#\.<][\w-()_]*))/g;
@@ -7367,9 +7371,10 @@ module.exports = function( buildTest )
 
         assert.equal( bodyPosition.top + bodyPosition.left, 0, 'correctly finds the body position' );
 
-        var qunitFilterPosition = µ( '#qunit-modulefilter' ).position()[0];
+        var firstTest = µ( '#qunit-tests' ).childrenFlat().first().position()[0]
 
-        assert.equal( qunitFilterPosition.top + qunitFilterPosition.left, 898, 'correctly finds the #qunit position' );
+console.log( firstTest );
+        assert.equal( firstTest.top + firstTest.left, 180, 'correctly finds the #qunit position' );
 
         var $qunit = $( '#qunit' );
 

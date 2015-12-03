@@ -344,8 +344,8 @@ module.exports = function( Microbe )
 
             while( _elm )
             {
-                top     += ( _elm.offsetTop - _elm.scrollTop + _elm.clientTop );
-                left    += ( _elm.offsetLeft - _elm.scrollLeft + _elm.clientLeft );
+                top     += _elm.offsetTop;
+                left    += _elm.offsetLeft;
                 _elm    = _elm.offsetParent;
             }
 

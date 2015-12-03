@@ -6,7 +6,7 @@
  * Released under the MIT license
  * http://m.icro.be/license
  *
- * Date: Tue Dec 01 2015
+ * Date: Thu Dec 03 2015
  */
 !function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.µ=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /**
@@ -32,10 +32,8 @@ var Microbe = function( selector, scope, elements )
 };
 
 
-require( './selectorEngine/init' )( Microbe, _type );
+require( './selectorEngine/init' )( Microbe, _type, _version );
 
-
-Microbe.version     = Microbe.core.__init__.prototype.version = _version;
 module.exports      = Microbe.core.constructor = Microbe;
 
 },{"./selectorEngine/init":4}],2:[function(require,module,exports){
@@ -566,11 +564,15 @@ module.exports = function( Microbe )
 
 var slice = Array.prototype.slice;
 
-module.exports = function( Microbe, _type )
+module.exports = function( Microbe, _type, _version )
 {
     'use strict';
 
-    Microbe.core        = {};
+    Microbe.core        = {
+        get type()      { return _type; },
+        get isMicrobe() { return true; },
+        get version()   { return _version; }
+    };
     var trigger, _shortSelector;
 
     var selectorRegex = Microbe.prototype.__selectorRegex =  /(?:[\s]*\.([\w-_\.]+)|#([\w-_]+)|([^#\.:<][\w-_]*)|(<[\w-_#\.]+>)|:([^#\.<][\w-()_]*))/g;
@@ -947,8 +949,8 @@ module.exports = function( Microbe, _type )
         return _build( _scope.querySelectorAll( _selector ), this );
     };
 
-    Microbe.core.type                 = _type;
     Microbe.core.__init__.prototype   = Microbe.core;
+
 
     require( './core' )( Microbe );
     require( './root' )( Microbe );
