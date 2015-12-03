@@ -31,7 +31,6 @@ var Microbe = function( selector, scope, elements )
     return new Microbe.core.__init__( selector, scope, elements );
 };
 
-
 require( './selectorEngine/init' )( Microbe, _type, _version );
 
 module.exports      = Microbe.core.constructor = Microbe;
@@ -573,6 +572,9 @@ module.exports = function( Microbe, _type, _version )
         get isMicrobe() { return true; },
         get version()   { return _version; }
     };
+
+    Microbe.__defineGetter__( 'version', function(){ return _version } );
+
     var trigger, _shortSelector;
 
     var selectorRegex = Microbe.prototype.__selectorRegex =  /(?:[\s]*\.([\w-_\.]+)|#([\w-_]+)|([^#\.:<][\w-_]*)|(<[\w-_#\.]+>)|:([^#\.<][\w-()_]*))/g;
