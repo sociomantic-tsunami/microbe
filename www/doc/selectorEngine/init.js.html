@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "Library/WebServer/Documents/microbe//selectorEngine/init.js", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "Users/mouse/workspace/microbe//selectorEngine/init.js", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../microbe.js"></script>
@@ -64,11 +64,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Mouse Braun         <a href="&#x6D;&#x61;&#x69;&#x6C;&#x74;&#x6F;:&#x6D;&#111;&#x75;s&#x65;&#64;&#x6B;&#x6E;&#x6F;&#x62;&#108;&#x61;&#117;&#x2E;&#x63;&#104;">&#x6D;&#111;&#x75;s&#x65;&#64;&#x6B;&#x6E;&#x6F;&#x62;&#108;&#x61;&#117;&#x2E;&#x63;&#104;</a></span>
+      <span>Mouse Braun         <a href="&#109;&#x61;&#x69;&#x6C;&#x74;&#111;:&#x6D;&#111;&#117;&#x73;&#101;&#64;&#107;&#x6E;&#111;&#x62;&#x6C;&#97;&#117;.ch">&#x6D;&#111;&#117;&#x73;&#101;&#64;&#107;&#x6E;&#111;&#x62;&#x6C;&#97;&#117;.ch</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Nicolas Brugneaux   <a href="&#x6D;&#97;&#x69;&#108;&#x74;&#x6F;:&#110;&#105;&#99;&#x6F;l&#x61;&#x73;&#x2E;&#x62;&#x72;&#x75;&#x67;&#110;&#x65;&#x61;u&#120;&#64;&#x67;&#x6D;&#97;i&#x6C;&#46;&#x63;&#111;&#109;">&#110;&#105;&#99;&#x6F;l&#x61;&#x73;&#x2E;&#x62;&#x72;&#x75;&#x67;&#110;&#x65;&#x61;u&#120;&#64;&#x67;&#x6D;&#97;i&#x6C;&#46;&#x63;&#111;&#109;</a></span>
+      <span>Nicolas Brugneaux   <a href="&#109;&#x61;&#105;&#108;&#x74;&#x6F;:&#110;&#105;&#x63;&#111;&#108;&#97;s&#46;b&#114;&#x75;&#103;&#x6E;&#101;&#97;&#x75;x&#x40;&#x67;&#x6D;&#97;&#x69;&#108;&#46;c&#x6F;&#x6D;">&#110;&#105;&#x63;&#111;&#108;&#97;s&#46;b&#114;&#x75;&#103;&#x6E;&#101;&#97;&#x75;x&#x40;&#x67;&#x6D;&#97;&#x69;&#108;&#46;c&#x6F;&#x6D;</a></span>
     </div>
     <div class="dox_tag_title">package</div>
     <div class="dox_tag_detail">
@@ -79,11 +79,18 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">slice</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">;</span>
 
-<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">Microbe</span><span class="p">,</span> <span class="nx">_type</span> <span class="p">)</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">Microbe</span><span class="p">,</span> <span class="nx">_type</span><span class="p">,</span> <span class="nx">_version</span> <span class="p">)</span>
 <span class="p">{</span>
     <span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
 
-    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span>        <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span>        <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">get</span> <span class="nx">type</span><span class="p">()</span>      <span class="p">{</span> <span class="k">return</span> <span class="nx">_type</span><span class="p">;</span> <span class="p">},</span>
+        <span class="nx">get</span> <span class="nx">isMicrobe</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="kc">true</span><span class="p">;</span> <span class="p">},</span>
+        <span class="nx">get</span> <span class="nx">version</span><span class="p">()</span>   <span class="p">{</span> <span class="k">return</span> <span class="nx">_version</span><span class="p">;</span> <span class="p">}</span>
+    <span class="p">};</span>
+
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">__defineGetter__</span><span class="p">(</span> <span class="s1">&#39;version&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span> <span class="k">return</span> <span class="nx">_version</span> <span class="p">}</span> <span class="p">);</span>
+
     <span class="kd">var</span> <span class="nx">trigger</span><span class="p">,</span> <span class="nx">_shortSelector</span><span class="p">;</span>
 
     <span class="kd">var</span> <span class="nx">selectorRegex</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">__selectorRegex</span> <span class="o">=</span>  <span class="sr">/(?:[\s]*\.([\w-_\.]+)|#([\w-_]+)|([^#\.:&lt;][\w-_]*)|(&lt;[\w-_#\.]+&gt;)|:([^#\.&lt;][\w-()_]*))/g</span><span class="p">;</span>
@@ -484,35 +491,35 @@
     </div>
     <div class="dox_tag_title">example</div>
     <div class="dox_tag_detail">
-      <span>µ()                             ---> empty</span>
+      <span>µ()                                 ---> empty</span>
     </div>
     <div class="dox_tag_title">example</div>
     <div class="dox_tag_detail">
-      <span>µ( '' )                         ---> empty</span>
+      <span>µ( '' )                             ---> empty</span>
     </div>
     <div class="dox_tag_title">example</div>
     <div class="dox_tag_detail">
-      <span>µ( [] )                         ---> empty</span>
+      <span>µ( [] )                             ---> empty</span>
     </div>
     <div class="dox_tag_title">example</div>
     <div class="dox_tag_detail">
-      <span>µ( 'div#test' )                 ---> selection</span>
+      <span>µ( 'div#test' )                     ---> selection</span>
     </div>
     <div class="dox_tag_title">example</div>
     <div class="dox_tag_detail">
-      <span>µ( elDiv )                      ---> selection</span>
+      <span>µ( elDiv )                          ---> selection</span>
     </div>
     <div class="dox_tag_title">example</div>
     <div class="dox_tag_detail">
-      <span>µ( [ elDiv1, elDiv2, elDiv3 ] ) ---> selection</span>
+      <span>µ( [ elDiv1, elDiv2, elDiv3 ] )     ---> selection</span>
     </div>
     <div class="dox_tag_title">example</div>
     <div class="dox_tag_detail">
-      <span>µ( '&lt;div#test>' )               ---> creation</span>
+      <span>µ( '&lt;div#test>' )                ---> creation</span>
     </div>
     <div class="dox_tag_title">example</div>
     <div class="dox_tag_detail">
-      <span>µ( '&lt;div id="test">&lt;/div>' )    ---> creation</span>
+      <span>µ( '&lt;div id="test">&lt;/div>' )  ---> creation</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
@@ -590,7 +597,7 @@
         </td>
         <td class="code highlight"><div class="highlight"><pre>
         <span class="kd">var</span> <span class="nx">isArr</span><span class="p">,</span> <span class="nx">isHTMLCollection</span><span class="p">;</span>
-        <span class="k">if</span> <span class="p">(</span> <span class="nx">_selector</span><span class="p">.</span><span class="nx">nodeType</span> <span class="o">===</span> <span class="mi">1</span> <span class="o">||</span> <span class="p">(</span> <span class="nx">isArr</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span> <span class="nx">_selector</span> <span class="p">)</span> <span class="p">)</span> <span class="o">||</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">_selector</span><span class="p">.</span><span class="nx">nodeType</span> <span class="o">===</span> <span class="mi">1</span> <span class="o">||</span> <span class="p">(</span> <span class="nx">isArr</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span> <span class="nx">_selector</span> <span class="p">)</span> <span class="o">||</span><span class="err"> </span><span class="nx">_selector</span><span class="p">.</span><span class="nx">jquery</span> <span class="p">)</span> <span class="o">||</span>
             <span class="nx">_selector</span> <span class="o">===</span> <span class="nb">window</span> <span class="o">||</span> <span class="nx">_selector</span> <span class="o">===</span> <span class="nb">document</span> <span class="o">||</span>
             <span class="p">(</span> <span class="nx">isHTMLCollection</span> <span class="o">=</span> <span class="nx">_selector</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span> <span class="o">===</span> <span class="s1">&#39;[object HTMLCollection]&#39;</span> <span class="p">)</span> <span class="p">)</span>
         <span class="p">{</span>
@@ -687,8 +694,8 @@
         <span class="k">return</span> <span class="nx">_build</span><span class="p">(</span> <span class="nx">_scope</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span> <span class="nx">_selector</span> <span class="p">),</span> <span class="k">this</span> <span class="p">);</span>
     <span class="p">};</span>
 
-    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">type</span>                 <span class="o">=</span> <span class="nx">_type</span><span class="p">;</span>
     <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">__init__</span><span class="p">.</span><span class="nx">prototype</span>   <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">;</span>
+
 
     <span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./core&#39;</span> <span class="p">)(</span> <span class="nx">Microbe</span> <span class="p">);</span>
     <span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./root&#39;</span> <span class="p">)(</span> <span class="nx">Microbe</span> <span class="p">);</span>

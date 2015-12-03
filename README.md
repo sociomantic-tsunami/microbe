@@ -149,7 +149,7 @@ Change log
 + added offset
 + added isMicrobe
 + made isMicrobe, version, and type read-only
-+ added of, fill, includes
++ added includes
 
 
 #### 0.4.13

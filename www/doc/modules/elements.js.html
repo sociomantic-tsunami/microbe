@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "Library/WebServer/Documents/microbe//modules/elements.js", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "Users/mouse/workspace/microbe//modules/elements.js", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../microbe.js"></script>
@@ -38,6 +38,12 @@
       </div>
       <div class="heading h2">
         <a href="#html">html</a>
+      </div>
+      <div class="heading h2">
+        <a href="#offset">offset</a>
+      </div>
+      <div class="heading h2">
+        <a href="#position">position</a>
       </div>
       <div class="heading h2">
         <a href="#removeclass">removeClass</a>
@@ -319,6 +325,11 @@ If the value is omitted, simply returns the current css value of the element.</p
     </div>
     <div class="dox_tag_title">example</div>
     <div class="dox_tag_detail">
+      <span>µ( '.example' ).css( { 'background-color' : '#fff',
+                                 'color' : '#000' } );</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
       <span>µ( '.example' ).css( 'background-color' );</span>
     </div>
     <div class="dox_tag_title">Returns</div>
@@ -336,12 +347,13 @@ If the value is omitted, simply returns the current css value of the element.</p
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">css</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_property</span><span class="p">,</span> <span class="nx">_value</span> <span class="p">)</span>
     <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">_setCss</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_elm</span> <span class="p">)</span>
-        <span class="p">{</span>
-            <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span>                   <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span> <span class="o">||</span> <span class="p">{};</span>
-            <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">css</span>               <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">css</span> <span class="o">||</span> <span class="p">{};</span>
-            <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">css</span><span class="p">[</span> <span class="nx">_property</span> <span class="p">]</span>  <span class="o">=</span> <span class="nx">_value</span><span class="p">;</span>
+      <span class="kd">var</span> <span class="nx">isObject</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">isObject</span><span class="p">(</span> <span class="nx">_property</span> <span class="p">);</span>
 
+        <span class="kd">var</span> <span class="nx">_setCss</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_elm</span><span class="p">,</span> <span class="nx">_v</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span>                   <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span>     <span class="o">||</span> <span class="p">{};</span>
+            <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">css</span>               <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">css</span> <span class="o">||</span> <span class="p">{};</span>
+            <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">css</span><span class="p">[</span> <span class="nx">_property</span> <span class="p">]</span>  <span class="o">=</span> <span class="nx">_v</span> <span class="o">||</span> <span class="nx">_value</span><span class="p">;</span>
             <span class="nx">_elm</span><span class="p">.</span><span class="nx">style</span><span class="p">[</span> <span class="nx">_property</span> <span class="p">]</span>     <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">css</span><span class="p">[</span> <span class="nx">_property</span> <span class="p">];</span>
         <span class="p">};</span>
 
@@ -350,8 +362,18 @@ If the value is omitted, simply returns the current css value of the element.</p
             <span class="k">return</span> <span class="nb">window</span><span class="p">.</span><span class="nx">getComputedStyle</span><span class="p">(</span> <span class="nx">_elm</span> <span class="p">).</span><span class="nx">getPropertyValue</span><span class="p">(</span> <span class="nx">_property</span> <span class="p">);</span>
         <span class="p">};</span>
 
-        <span class="k">if</span> <span class="p">(</span> <span class="nx">_value</span> <span class="o">||</span> <span class="nx">_value</span> <span class="o">===</span> <span class="kc">null</span> <span class="o">||</span> <span class="nx">_value</span> <span class="o">===</span> <span class="s1">&#39;&#39;</span> <span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">_value</span> <span class="o">||</span> <span class="nx">_value</span> <span class="o">===</span> <span class="kc">null</span> <span class="o">||</span> <span class="nx">_value</span> <span class="o">===</span> <span class="s1">&#39;&#39;</span> <span class="o">||</span> <span class="nx">isObject</span> <span class="p">)</span>
         <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">isObject</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">prop</span> <span class="k">in</span> <span class="nx">_property</span> <span class="p">)</span>
+                <span class="p">{</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span> <span class="nx">prop</span><span class="p">,</span> <span class="nx">_property</span><span class="p">[</span> <span class="nx">prop</span> <span class="p">]</span> <span class="p">);</span>
+                <span class="p">}</span>
+
+                <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+            <span class="p">}</span>
+
             <span class="nx">_value</span> <span class="o">=</span> <span class="p">(</span> <span class="nx">_value</span> <span class="o">===</span> <span class="kc">null</span> <span class="p">)</span> <span class="o">?</span> <span class="s1">&#39;&#39;</span> <span class="o">:</span> <span class="nx">_value</span><span class="p">;</span>
 
             <span class="k">this</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span> <span class="nx">_setCss</span> <span class="p">);</span>
@@ -543,6 +565,99 @@ omitted, simply returns the current inner html value of the element.</p>
         <span class="p">}</span>
 
         <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span> <span class="nx">_getHtml</span> <span class="p">);</span>
+    <span class="p">};</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="offset">
+  <h2>
+    <a href="#offset" name="offset" class="pilcrow">&#182;</a>
+    offset
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>returns an array of objects { top, left } of the position (in px) relative to an object's parent</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).offset();</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Array</em> array of objects</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">offset</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">_offset</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_elm</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="p">{</span> <span class="nx">top</span> <span class="o">:</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">offsetTop</span><span class="p">,</span> <span class="nx">left</span> <span class="o">:</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">offsetLeft</span> <span class="p">};</span>
+        <span class="p">};</span>
+
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span> <span class="nx">_offset</span> <span class="p">);</span>
+    <span class="p">};</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="position">
+  <h2>
+    <a href="#position" name="position" class="pilcrow">&#182;</a>
+    position
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>returns an array of objects { top, left } of the position (in px) relative to an object's parent</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).position();</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Array</em> array of objects</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">position</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">_position</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_elm</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">top</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">left</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+            <span class="k">while</span><span class="p">(</span> <span class="nx">_elm</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="nx">top</span>     <span class="o">+=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">offsetTop</span><span class="p">;</span>
+                <span class="nx">left</span>    <span class="o">+=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">offsetLeft</span><span class="p">;</span>
+                <span class="nx">_elm</span>    <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">offsetParent</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="k">return</span> <span class="p">{</span> <span class="nx">top</span> <span class="o">:</span> <span class="nx">top</span><span class="p">,</span> <span class="nx">left</span> <span class="o">:</span> <span class="nx">left</span> <span class="p">};</span>
+        <span class="p">};</span>
+
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span> <span class="nx">_position</span> <span class="p">);</span>
     <span class="p">};</span>
 
 
