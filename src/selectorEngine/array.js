@@ -24,9 +24,8 @@
  *
  * @return {Array}, mutate the array and returns it
  */
-var _fill = function( value, start, end )
+const _fill = function( value, start, end )
 {
-    var __fill = 
     var len = this.length;
 
     start = !start || start !== start ? 0 : start;
@@ -53,34 +52,9 @@ var _fill = function( value, start, end )
  *
  * @return {Array}
  */
-var _of = function(){ 
+const _of = function(){ 
     return Array.prototype.slice.call(arguments);
 };
-
-/**
- * ## find
- *
- * Returns the first value in the array that satisfies the provided predicate
- *
- * @return {Number|String|Object|Function|Array}
- */
-var _find = function(){
-    var predicate = arguments[0];
-    var context = arguments[1];
-    var array= Object(this);
-    var len = this.length;
-    len = !len || len !== len ? 0 : len;
-
-    var index,val,l = len; 
-    while( l ){
-        index = len - l;
-        val = array[index];
-        if (predicate.call(context, val, index, array)) {
-          return val;
-        }
-        --l;
-    }
-}
 
 /**
  * ## includes 
@@ -89,7 +63,7 @@ var _find = function(){
  *
  * @return {boolean}
  */
-var _includes = function(){
+const _includes = function(){
     var elemToSearch = arguments[0];
     var indexToStart = arguments[1] >> 0;
     var array= Object(this);
@@ -130,7 +104,6 @@ module.exports = function( Microbe )
     Microbe.core.unshift        = Array.prototype.unshift;
     Microbe.core.of             = Array.prototype.of ? Array.prototype.of : _of;
     Microbe.core.fill           = Array.prototype.fill ? Array.prototype.of : _fill;
-    Microbe.core.find           = Array.prototype.find ? Array.prototype.find : _find;
     Microbe.core.includes       = Array.prototype.includes ? Array.prototype.includes : _includes;
 
     /*
