@@ -140,6 +140,11 @@ Need to report something? [report@m.icro.be](report@m.icro.be)
 Change log
 ==========
 
+#### 0.4.15
+
++ added .height() and .width() syntactic sugar
+
+
 #### 0.4.14
 
 + css now accepts objects

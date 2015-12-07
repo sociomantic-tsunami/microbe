@@ -247,6 +247,20 @@ module.exports = function( Microbe )
 
 
     /**
+     * ## height
+     *
+     * syntactic sugar for css height
+     *
+     * @paran {String} _height (optional) parameter to set height
+     * @return _Microbe_
+     */
+    Microbe.core.height = function( _height )
+    {
+        return _height ? this.css( 'height', _height ) : this.css( 'height' );
+    };
+
+
+    /**
      * ## html
      *
      * Changes the innerHtml to the supplied string or microbe.  If the value is
@@ -504,5 +518,19 @@ module.exports = function( Microbe )
         }
 
         return this;
+    };
+
+
+    /**
+     * ## width
+     *
+     * syntactic sugar for css width
+     *
+     * @paran {String} _width (optional) parameter to set width
+     * @return _Microbe_
+     */
+    Microbe.core.width = function( _width )
+    {
+        return _width ? this.css( 'width', _width ) : this.css( 'width' );
     };
 };

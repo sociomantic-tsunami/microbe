@@ -2750,6 +2750,20 @@ module.exports = function( Microbe )
 
 
     /**
+     * ## height
+     *
+     * syntactic sugar for css height
+     *
+     * @paran {String} _height (optional) parameter to set height
+     * @return _Microbe_
+     */
+    Microbe.core.height = function( _height )
+    {
+        return _height ? this.css( 'height', _height ) : this.css( 'height' );
+    };
+
+
+    /**
      * ## html
      *
      * Changes the innerHtml to the supplied string or microbe.  If the value is
@@ -3008,7 +3022,22 @@ module.exports = function( Microbe )
 
         return this;
     };
+
+
+    /**
+     * ## width
+     *
+     * syntactic sugar for css width
+     *
+     * @paran {String} _width (optional) parameter to set width
+     * @return _Microbe_
+     */
+    Microbe.core.width = function( _width )
+    {
+        return _width ? this.css( 'width', _width ) : this.css( 'width' );
+    };
 };
+
 },{}],15:[function(require,module,exports){
 /**
  * events.js
@@ -7318,6 +7347,50 @@ module.exports = function( buildTest )
     });
 
 
+     /**
+      * µ height tests
+      *
+      * @test    height exists
+      * @test    height gets
+      * @test    height sets
+      */
+     QUnit.test( '.height()', function( assert )
+     {
+         assert.ok( µ().height, 'exists' );
+
+         var µTarget    = µ( '#example--id' );
+         var height     = µTarget.height()[0];
+
+         assert.ok( typeof height === 'string' && height.indexOf ( 'px' ) !== -1 , 'height gotten' );
+
+         var µTarget    = µ( '#example--id' );
+         µTarget.height( '100px' );
+
+         var height     = µTarget.height()[0];
+
+         assert.equal( height , '100px', 'height set' );
+
+         µTarget.height( '' );
+
+
+         µTarget = µ( '#example--id' );
+         var $Target = $( '#example--id' );
+
+         buildTest(
+         'µTarget.height( \'200px\' )', function()
+         {
+             µTarget.height( '200px' );
+             µTarget.height();
+         },
+
+         '$Target.height( \'200px\' )', function()
+         {
+             $Target.height( '200px' );
+             $Target.height();
+         } );
+     });
+
+
     /**
      * µ html tests
      *
@@ -7569,6 +7642,50 @@ module.exports = function( buildTest )
         '$Divs.toggleClass( \'moo\' )', function()
         {
             $Divs.toggleClass( 'moo' );
+        } );
+    });
+
+
+    /**
+     * µ width tests
+     *
+     * @test    width exists
+     * @test    width gets
+     * @test    width sets
+     */
+    QUnit.test( '.width()', function( assert )
+    {
+        assert.ok( µ().width, 'exists' );
+
+        var µTarget    = µ( '#example--id' );
+        var width     = µTarget.width()[0];
+
+        assert.ok( typeof width === 'string' && width.indexOf ( 'px' ) !== -1 , 'width gotten' );
+
+        var µTarget    = µ( '#example--id' );
+        µTarget.width( '100px' );
+
+        var width     = µTarget.width()[0];
+
+        assert.equal( width , '100px', 'width set' );
+
+        µTarget.width( '' );
+
+
+        µTarget = µ( '#example--id' );
+        var $Target = $( '#example--id' );
+
+        buildTest(
+        'µTarget.width( \'200px\' )', function()
+        {
+            µTarget.width( '200px' );
+            µTarget.width();
+        },
+
+        '$Target.width( \'200px\' )', function()
+        {
+            $Target.width( '200px' );
+            $Target.width();
         } );
     });
 };
