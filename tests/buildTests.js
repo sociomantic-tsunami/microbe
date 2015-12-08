@@ -138,6 +138,7 @@ require( './unit/selectorEngine/core' )( buildTest );
 require( './unit/selectorEngine/root' )( buildTest );
 require( './unit/elements' )( buildTest );
 require( './unit/tools' )( buildTest );
+require( './unit/pageStyles' )( buildTest );
 require( './unit/http' )( buildTest );
 require( './unit/dom' )( buildTest );
 require( './unit/events' )( buildTest );

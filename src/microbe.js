@@ -21,6 +21,7 @@ var Microbe = function( selector, scope, elements )
 
 require( './selectorEngine/init' )( Microbe, _type, _version );
 require( './modules/tools' )( Microbe );
+require( './modules/pageStyles' )( Microbe );
 require( './modules/dom' )( Microbe );
 require( './modules/elements' )( Microbe );
 require( './modules/http' )( Microbe );

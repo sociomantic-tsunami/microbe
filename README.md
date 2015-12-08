@@ -144,6 +144,7 @@ Change log
 
 + added .height() and .width() syntactic sugar
 + added .scroll()
++ pageStyles split from main root tools
 
 
 #### 0.4.14

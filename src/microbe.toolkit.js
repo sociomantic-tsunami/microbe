@@ -20,5 +20,6 @@ var Microbe = {
 };
 
 require( './modules/tools' )( Microbe );
+require( './modules/pageStyles' )( Microbe );
 
 module.exports      = Microbe;
