@@ -1,5 +1,5 @@
 /*!
- * Microbe JavaScript Library v0.4.14
+ * Microbe JavaScript Library v0.4.15
  * http://m.icro.be
  *
  * Copyright 2014-2015 Sociomantic Labs and other contributors
@@ -23,7 +23,7 @@
 'use strict';
 
 var _type       = '[object Microbe]';
-var _version    = '0.4.14';
+var _version    = '0.4.15';
 
 var Microbe = function( selector, scope, elements )
 {
@@ -2777,6 +2777,26 @@ module.exports = function( Microbe )
         this.each( _removeClass );
 
         return this;
+    };
+
+
+    /**
+     * ## scroll
+     *
+     * returns an array of objects { top, left } of the scroll position of each element
+     *
+     * @example µ( '.example' ).scroll();
+     *
+     * @return _Array_ array of objects
+     */
+    Microbe.core.scroll = function()
+    {
+        var _offset = function( _elm )
+        {
+            return { top : _elm.scrollTop, left : _elm.scrollLeft };
+        };
+
+        return this.map( _offset );
     };
 
 

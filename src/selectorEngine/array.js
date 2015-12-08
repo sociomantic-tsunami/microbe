@@ -57,7 +57,7 @@ module.exports = function( Microbe )
     Microbe.core.findIndex      = Array.prototype.findIndex;
     Microbe.core.each           = Array.prototype.forEach;
     Microbe.core.forEach        = Array.prototype.forEach;
-    Microbe.core.includes       = Array.prototype.includes;
+    Microbe.core.includes       = Array.prototype.includes ? Array.prototype.includes : _includes;
     Microbe.core.indexOf        = Array.prototype.indexOf;
     Microbe.core.lastIndexOf    = Array.prototype.lastIndexOf;
     Microbe.core.map            = Array.prototype.map;
@@ -69,7 +69,6 @@ module.exports = function( Microbe )
     Microbe.core.some           = Array.prototype.some;
     Microbe.core.sort           = Array.prototype.sort;
     Microbe.core.unshift        = Array.prototype.unshift;
-    Microbe.core.includes       = Array.prototype.includes ? Array.prototype.includes : _includes;
 
     /*
      * needed to be modified slightly to output a microbe

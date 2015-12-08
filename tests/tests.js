@@ -2108,7 +2108,7 @@ Promise.prototype.nodeify = function (callback, ctx) {
 'use strict';
 
 var _type       = '[object Microbe]';
-var _version    = '0.4.14';
+var _version    = '0.4.15';
 
 var Microbe = function( selector, scope, elements )
 {
@@ -2918,6 +2918,26 @@ module.exports = function( Microbe )
         this.each( _removeClass );
 
         return this;
+    };
+
+
+    /**
+     * ## scroll
+     *
+     * returns an array of objects { top, left } of the scroll position of each element
+     *
+     * @example µ( '.example' ).scroll();
+     *
+     * @return _Array_ array of objects
+     */
+    Microbe.core.scroll = function()
+    {
+        var _offset = function( _elm )
+        {
+            return { top : _elm.scrollTop, left : _elm.scrollLeft };
+        };
+
+        return this.map( _offset );
     };
 
 
@@ -7372,7 +7392,6 @@ module.exports = function( buildTest )
 
          µTarget.height( '' );
 
-
          µTarget = µ( '#example--id' );
          var $Target = $( '#example--id' );
 
@@ -7554,6 +7573,39 @@ module.exports = function( buildTest )
 
 
     /**
+     * µ scroll tests
+     *
+     * @test    scroll exists
+     * @test    retrieves the correct index
+     */
+    QUnit.test( '.scroll()', function( assert )
+    {
+        assert.ok( µ().scroll, 'exists' );
+
+        var bodyscroll  = µ( 'body' ).scroll()[0];
+
+        assert.equal( bodyscroll.top + bodyscroll.left, 0, 'correctly finds the body scroll' );
+
+        var qunitscroll = µ( '#qunit' ).scroll()[0];
+
+        assert.equal( qunitscroll.top + qunitscroll.left, 0, 'correctly finds the #qunit scroll' );
+
+        var $qunit = $( '#qunit' );
+
+        buildTest(
+        'µQunit.scroll()', function()
+        {
+            µQunit.scroll();
+        },
+
+        '$qunit.scroll()', function()
+        {
+            $qunit.scroll();
+        } );
+    });
+
+
+    /**
      * µ text tests
      *
      * @test    text exists
@@ -7670,7 +7722,6 @@ module.exports = function( buildTest )
         assert.equal( width , '100px', 'width set' );
 
         µTarget.width( '' );
-
 
         µTarget = µ( '#example--id' );
         var $Target = $( '#example--id' );
@@ -8090,7 +8141,7 @@ module.exports = function( buildTest )
 },{}],30:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 var indexOf = Array.prototype.indexOf;
-var version = '0.4.14';
+var version = '0.4.15';
 
 module.exports = function( buildTest )
 {

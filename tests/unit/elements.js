@@ -463,6 +463,39 @@ module.exports = function( buildTest )
 
 
     /**
+     * µ scroll tests
+     *
+     * @test    scroll exists
+     * @test    retrieves the correct index
+     */
+    QUnit.test( '.scroll()', function( assert )
+    {
+        assert.ok( µ().scroll, 'exists' );
+
+        var bodyscroll  = µ( 'body' ).scroll()[0];
+
+        assert.equal( bodyscroll.top + bodyscroll.left, 0, 'correctly finds the body scroll' );
+
+        var qunitscroll = µ( '#qunit' ).scroll()[0];
+
+        assert.equal( qunitscroll.top + qunitscroll.left, 0, 'correctly finds the #qunit scroll' );
+
+        var $qunit = $( '#qunit' );
+
+        buildTest(
+        'µQunit.scroll()', function()
+        {
+            µQunit.scroll();
+        },
+
+        '$qunit.scroll()', function()
+        {
+            $qunit.scroll();
+        } );
+    });
+
+
+    /**
      * µ text tests
      *
      * @test    text exists
