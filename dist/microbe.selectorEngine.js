@@ -6,7 +6,7 @@
  * Released under the MIT license
  * http://m.icro.be/license
  *
- * Date: Mon Dec 07 2015
+ * Date: Thu Dec 10 2015
  */
 !function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.µ=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /**
@@ -58,7 +58,7 @@ module.exports      = Microbe.core.constructor = Microbe;
  *
  * @return {boolean}
  */
-const _includes = function()
+var _includes = function()
 {
     var elemToSearch = arguments[0];
     var indexToStart = arguments[1] >> 0;
@@ -95,7 +95,7 @@ module.exports = function( Microbe )
     Microbe.core.findIndex      = Array.prototype.findIndex;
     Microbe.core.each           = Array.prototype.forEach;
     Microbe.core.forEach        = Array.prototype.forEach;
-    Microbe.core.includes       = Array.prototype.includes;
+    Microbe.core.includes       = Array.prototype.includes ? Array.prototype.includes : _includes;
     Microbe.core.indexOf        = Array.prototype.indexOf;
     Microbe.core.lastIndexOf    = Array.prototype.lastIndexOf;
     Microbe.core.map            = Array.prototype.map;
@@ -107,7 +107,6 @@ module.exports = function( Microbe )
     Microbe.core.some           = Array.prototype.some;
     Microbe.core.sort           = Array.prototype.sort;
     Microbe.core.unshift        = Array.prototype.unshift;
-    Microbe.core.includes       = Array.prototype.includes ? Array.prototype.includes : _includes;
 
     /*
      * needed to be modified slightly to output a microbe

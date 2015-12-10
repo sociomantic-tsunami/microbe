@@ -6,7 +6,7 @@
  * Released under the MIT license
  * http://m.icro.be/license
  *
- * Date: Mon Dec 07 2015
+ * Date: Thu Dec 10 2015
  */
 !function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.µ=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /**
@@ -31,10 +31,11 @@ var Microbe = {
 };
 
 require( './modules/tools' )( Microbe );
+require( './modules/pageStyles' )( Microbe );
 
 module.exports      = Microbe;
 
-},{"./modules/tools":9}],2:[function(require,module,exports){
+},{"./modules/pageStyles":9,"./modules/tools":10}],2:[function(require,module,exports){
 (function (process){
 
 // Use the fastest possible means to execute a task in a future turn
@@ -522,6 +523,205 @@ Promise.prototype.nodeify = function (callback, ctx) {
 
 },{"./core.js":5,"asap":2}],9:[function(require,module,exports){
 /**
+ * pageStyles.js
+ *
+ * @author  Mouse Braun         <mouse@knoblau.ch>
+ * @author  Nicolas Brugneaux   <nicolas.brugneaux@gmail.com>
+ *
+ * @package Microbe
+ */
+
+module.exports = function( Microbe )
+{
+    'use strict';
+
+    /**
+     * ## insertStyle
+     *
+     * builds a style tag for the given selector/ media query.  Reference to the style
+     * tag and object is saved in µ.__customCSSRules[ selector ][ media ].
+     * next rule with the same selector combines the old and new rules and overwrites
+     * the contents
+     *
+     * @param {String} selector selector to apply it to
+     * @param {Mixed} cssObj css object. _{String or Object}_
+     * @param {String} media media query
+     *
+     * @example µ.insertStyle( '.example', { display: 'block', color: '#000' } );
+     * @example µ.insertStyle( '.example', { display: 'block', color: '#000' }, 'min-width: 61.25em' );
+     *
+     * @return _Object_ reference to the appropriate style object
+     */
+    Microbe.insertStyle = function( selector, cssObj, media )
+    {
+        var _s      = selector.replace( / /g, '-' );
+        var _clss   = media ? _s +  media.replace( /[\s:\/\[\]\(\)]+/g, '-' ) : _s;
+
+        media       = media || 'none';
+
+        var createStyleTag = function()
+        {
+            var el = document.createElement( 'style' );
+            el.className = 'microbe--inserted--style__' + _clss;
+
+            if ( media && media !== 'none' )
+            {
+                el.setAttribute( 'media', media );
+            }
+
+            document.head.appendChild( el );
+
+            return el;
+        };
+
+        var _el, prop;
+        var styleObj =  Microbe.__customCSSRules[ _s ];
+
+        if ( styleObj && styleObj[ media ] )
+        {
+            _el     = styleObj[ media ].el;
+            var obj = styleObj[ media ].obj;
+
+            for ( prop in cssObj )
+            {
+                obj[ prop ] = cssObj[ prop ];
+            }
+
+            cssObj = obj;
+        }
+        else
+        {
+            _el = createStyleTag();
+        }
+
+        var css = selector + '{';
+        for ( prop in cssObj )
+        {
+            css += prop + ' : ' + cssObj[ prop ] + ';';
+        }
+        css += '}';
+
+        _el.innerHTML = css;
+
+        Microbe.__customCSSRules[ _s ] = Microbe.__customCSSRules[ _s ] || {};
+        Microbe.__customCSSRules[ _s ][ media ] = { el: _el, obj: cssObj };
+
+        return _el;
+    };
+
+    // keep track of tags created with insertStyle
+    Microbe.__customCSSRules = {};
+
+
+    /**
+     * ## removeStyle
+     *
+     * removes a microbe added style tag for the given selector/ media query. If the
+     * properties array is passed, rules are removed individually.  If properties is
+     * set to true, all tags for this selector are removed.  The media query can
+     * also be passed as the second variable
+     *
+     * @param {String} selector selector to apply it to
+     * @param {Mixed} properties css properties to remove 'all' to remove all
+     *                 selector tags string as media query {String or Array}
+     * @param {String} media media query
+     *
+     * @example µ.removeStyle( '.example', 'all' );
+     * @example µ.removeStyle( '.example', 'display' );
+     * @example µ.removeStyle( '.example', [ 'display', 'color' ], 'min-width:70em'  );
+     *
+     * @return _Boolean_ removed or not
+     */
+    Microbe.removeStyle = function( selector, properties, media )
+    {
+        if ( !media && typeof properties === 'string' && properties !== 'all' )
+        {
+            media = properties;
+            properties = null;
+        }
+
+        media = media || 'none';
+
+        var _removeStyle = function( _el, _media )
+        {
+            _el.parentNode.removeChild( _el );
+            delete Microbe.__customCSSRules[ selector ][ _media ];
+        };
+
+        var style = Microbe.__customCSSRules[ selector ];
+
+        if ( style )
+        {
+            if ( properties === 'all' )
+            {
+                for ( var _mq in style )
+                {
+                    _removeStyle( style[ _mq ].el, _mq );
+                }
+            }
+            else
+            {
+                style = style[ media ];
+
+                if ( style )
+                {
+                    if ( Microbe.isArray( properties ) && !Microbe.isEmpty( properties ) )
+                    {
+                        for ( var i = 0, lenI = properties.length; i < lenI; i++ )
+                        {
+                            if ( style.obj[ properties[ i ] ] )
+                            {
+                                delete style.obj[ properties[ i ] ];
+                            }
+                        }
+                        if ( Microbe.isEmpty( style.obj ) )
+                        {
+                            _removeStyle( style.el, media );
+                        }
+                        else
+                        {
+                            Microbe.insertStyle( selector, style.obj, media );
+                        }
+                    }
+                    else
+                    {
+                        _removeStyle( style.el, media );
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+        else
+        {
+            return false;
+        }
+
+        return true;
+    };
+
+
+    /**
+     * ## removeStyles
+     *
+     * removes all microbe added style tags for the given selector
+     *
+     * @param {String} selector selector to apply it to
+     *
+     * @example µ.removeStyle( '.example' );
+     *
+     * @return _Boolean_ removed or not
+     */
+    Microbe.removeStyles = function( selector )
+    {
+        return Microbe.removeStyle( selector, 'all' );
+    };
+};
+
+},{}],10:[function(require,module,exports){
+/**
  * root.js
  *
  * @author  Mouse Braun         <mouse@knoblau.ch>
@@ -730,84 +930,6 @@ module.exports = function( Microbe )
      * @return _any_
      */
     Microbe.identity = function( value ) { return value; };
-
-
-    /**
-     * ## insertStyle
-     *
-     * builds a style tag for the given selector/ media query.  Reference to the style
-     * tag and object is saved in µ.__customCSSRules[ selector ][ media ].
-     * next rule with the same selector combines the old and new rules and overwrites
-     * the contents
-     *
-     * @param {String} selector selector to apply it to
-     * @param {Mixed} cssObj css object. _{String or Object}_
-     * @param {String} media media query
-     *
-     * @example µ.insertStyle( '.example', { display: 'block', color: '#000' } );
-     * @example µ.insertStyle( '.example', { display: 'block', color: '#000' }, 'min-width: 61.25em' );
-     *
-     * @return _Object_ reference to the appropriate style object
-     */
-    Microbe.insertStyle = function( selector, cssObj, media )
-    {
-        var _s      = selector.replace( / /g, '-' );
-        var _clss   = media ? _s +  media.replace( /[\s:\/\[\]\(\)]+/g, '-' ) : _s;
-
-        media       = media || 'none';
-
-        var createStyleTag = function()
-        {
-            var el = document.createElement( 'style' );
-            el.className = 'microbe--inserted--style__' + _clss;
-
-            if ( media && media !== 'none' )
-            {
-                el.setAttribute( 'media', media );
-            }
-
-            document.head.appendChild( el );
-
-            return el;
-        };
-
-        var _el, prop;
-        var styleObj =  Microbe.__customCSSRules[ _s ];
-
-        if ( styleObj && styleObj[ media ] )
-        {
-            _el     = styleObj[ media ].el;
-            var obj = styleObj[ media ].obj;
-
-            for ( prop in cssObj )
-            {
-                obj[ prop ] = cssObj[ prop ];
-            }
-
-            cssObj = obj;
-        }
-        else
-        {
-            _el = createStyleTag();
-        }
-
-        var css = selector + '{';
-        for ( prop in cssObj )
-        {
-            css += prop + ' : ' + cssObj[ prop ] + ';';
-        }
-        css += '}';
-
-        _el.innerHTML = css;
-
-        Microbe.__customCSSRules[ _s ] = Microbe.__customCSSRules[ _s ] || {};
-        Microbe.__customCSSRules[ _s ][ media ] = { el: _el, obj: cssObj };
-
-        return _el;
-    };
-
-    // keep track of tags created with insertStyle
-    Microbe.__customCSSRules = {};
 
 
     /**
@@ -1075,113 +1197,6 @@ module.exports = function( Microbe )
 
 
     /**
-     * ## removeStyle
-     *
-     * removes a microbe added style tag for the given selector/ media query. If the
-     * properties array is passed, rules are removed individually.  If properties is
-     * set to true, all tags for this selector are removed.  The media query can
-     * also be passed as the second variable
-     *
-     * @param {String} selector selector to apply it to
-     * @param {Mixed} properties css properties to remove 'all' to remove all
-     *                 selector tags string as media query {String or Array}
-     * @param {String} media media query
-     *
-     * @example µ.removeStyle( '.example', 'all' );
-     * @example µ.removeStyle( '.example', 'display' );
-     * @example µ.removeStyle( '.example', [ 'display', 'color' ], 'min-width:70em'  );
-     *
-     * @return _Boolean_ removed or not
-     */
-    Microbe.removeStyle = function( selector, properties, media )
-    {
-        if ( !media && typeof properties === 'string' && properties !== 'all' )
-        {
-            media = properties;
-            properties = null;
-        }
-
-        media = media || 'none';
-
-        var _removeStyle = function( _el, _media )
-        {
-            _el.parentNode.removeChild( _el );
-            delete Microbe.__customCSSRules[ selector ][ _media ];
-        };
-
-        var style = Microbe.__customCSSRules[ selector ];
-
-        if ( style )
-        {
-            if ( properties === 'all' )
-            {
-                for ( var _mq in style )
-                {
-                    _removeStyle( style[ _mq ].el, _mq );
-                }
-            }
-            else
-            {
-                style = style[ media ];
-
-                if ( style )
-                {
-                    if ( Microbe.isArray( properties ) && !Microbe.isEmpty( properties ) )
-                    {
-                        for ( var i = 0, lenI = properties.length; i < lenI; i++ )
-                        {
-                            if ( style.obj[ properties[ i ] ] )
-                            {
-                                delete style.obj[ properties[ i ] ];
-                            }
-                        }
-                        if ( Microbe.isEmpty( style.obj ) )
-                        {
-                            _removeStyle( style.el, media );
-                        }
-                        else
-                        {
-                            Microbe.insertStyle( selector, style.obj, media );
-                        }
-                    }
-                    else
-                    {
-                        _removeStyle( style.el, media );
-                    }
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
-        else
-        {
-            return false;
-        }
-
-        return true;
-    };
-
-
-    /**
-     * ## removeStyles
-     *
-     * removes all microbe added style tags for the given selector
-     *
-     * @param {String} selector selector to apply it to
-     *
-     * @example µ.removeStyle( '.example' );
-     *
-     * @return _Boolean_ removed or not
-     */
-    Microbe.removeStyles = function( selector )
-    {
-        return Microbe.removeStyle( selector, 'all' );
-    };
-
-
-    /**
      * ## toArray
      *
      * Methods returns all the elements in an array.
@@ -1251,7 +1266,7 @@ module.exports = function( Microbe )
     Microbe.xyzzy   = Microbe.noop;
 };
 
-},{"./types":10,"promise":4}],10:[function(require,module,exports){
+},{"./types":11,"promise":4}],11:[function(require,module,exports){
 /**
  * types.js
  *

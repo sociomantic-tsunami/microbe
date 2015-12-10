@@ -20,7 +20,7 @@
  *
  * @return {boolean}
  */
-const _includes = function()
+var _includes = function()
 {
     var elemToSearch = arguments[0];
     var indexToStart = arguments[1] >> 0;

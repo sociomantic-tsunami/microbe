@@ -139,6 +139,7 @@ require( './unit/selectorEngine/core' )( buildTest );
 require( './unit/selectorEngine/root' )( buildTest );
 require( './unit/elements' )( buildTest );
 require( './unit/tools' )( buildTest );
+require( './unit/pageStyles' )( buildTest );
 require( './unit/http' )( buildTest );
 require( './unit/dom' )( buildTest );
 require( './unit/events' )( buildTest );
@@ -149,7 +150,7 @@ document.getElementsByTagName( 'title' )[0].innerHTML = 'µ - ' + µ.version + '
 window.buildTest = buildTest;
 
 
-},{"../src/microbe.js":12,"./unit/dom":25,"./unit/elements":26,"./unit/events":27,"./unit/http":28,"./unit/observe":29,"./unit/selectorEngine/core":30,"./unit/selectorEngine/init":31,"./unit/selectorEngine/pseudo":32,"./unit/selectorEngine/root":33,"./unit/tools":34}],2:[function(require,module,exports){
+},{"../src/microbe.js":12,"./unit/dom":26,"./unit/elements":27,"./unit/events":28,"./unit/http":29,"./unit/observe":30,"./unit/pageStyles":31,"./unit/selectorEngine/core":32,"./unit/selectorEngine/init":33,"./unit/selectorEngine/pseudo":34,"./unit/selectorEngine/root":35,"./unit/tools":36}],2:[function(require,module,exports){
 (function (process){
 
 // Use the fastest possible means to execute a task in a future turn
@@ -2117,6 +2118,7 @@ var Microbe = function( selector, scope, elements )
 
 require( './selectorEngine/init' )( Microbe, _type, _version );
 require( './modules/tools' )( Microbe );
+require( './modules/pageStyles' )( Microbe );
 require( './modules/dom' )( Microbe );
 require( './modules/elements' )( Microbe );
 require( './modules/http' )( Microbe );
@@ -2125,7 +2127,7 @@ require( './modules/events' )( Microbe );
 
 module.exports      = Microbe.core.constructor = Microbe;
 
-},{"./modules/dom":13,"./modules/elements":14,"./modules/events":15,"./modules/http":16,"./modules/observe":17,"./modules/tools":18,"./selectorEngine/init":22}],13:[function(require,module,exports){
+},{"./modules/dom":13,"./modules/elements":14,"./modules/events":15,"./modules/http":16,"./modules/observe":17,"./modules/pageStyles":18,"./modules/tools":19,"./selectorEngine/init":23}],13:[function(require,module,exports){
 /**
  * dom.js
  *
@@ -3734,6 +3736,205 @@ module.exports = function( Microbe )
 
 },{"observe-shim":3,"observe-utils":4,"setimmediate":11}],18:[function(require,module,exports){
 /**
+ * pageStyles.js
+ *
+ * @author  Mouse Braun         <mouse@knoblau.ch>
+ * @author  Nicolas Brugneaux   <nicolas.brugneaux@gmail.com>
+ *
+ * @package Microbe
+ */
+
+module.exports = function( Microbe )
+{
+    'use strict';
+
+    /**
+     * ## insertStyle
+     *
+     * builds a style tag for the given selector/ media query.  Reference to the style
+     * tag and object is saved in µ.__customCSSRules[ selector ][ media ].
+     * next rule with the same selector combines the old and new rules and overwrites
+     * the contents
+     *
+     * @param {String} selector selector to apply it to
+     * @param {Mixed} cssObj css object. _{String or Object}_
+     * @param {String} media media query
+     *
+     * @example µ.insertStyle( '.example', { display: 'block', color: '#000' } );
+     * @example µ.insertStyle( '.example', { display: 'block', color: '#000' }, 'min-width: 61.25em' );
+     *
+     * @return _Object_ reference to the appropriate style object
+     */
+    Microbe.insertStyle = function( selector, cssObj, media )
+    {
+        var _s      = selector.replace( / /g, '-' );
+        var _clss   = media ? _s +  media.replace( /[\s:\/\[\]\(\)]+/g, '-' ) : _s;
+
+        media       = media || 'none';
+
+        var createStyleTag = function()
+        {
+            var el = document.createElement( 'style' );
+            el.className = 'microbe--inserted--style__' + _clss;
+
+            if ( media && media !== 'none' )
+            {
+                el.setAttribute( 'media', media );
+            }
+
+            document.head.appendChild( el );
+
+            return el;
+        };
+
+        var _el, prop;
+        var styleObj =  Microbe.__customCSSRules[ _s ];
+
+        if ( styleObj && styleObj[ media ] )
+        {
+            _el     = styleObj[ media ].el;
+            var obj = styleObj[ media ].obj;
+
+            for ( prop in cssObj )
+            {
+                obj[ prop ] = cssObj[ prop ];
+            }
+
+            cssObj = obj;
+        }
+        else
+        {
+            _el = createStyleTag();
+        }
+
+        var css = selector + '{';
+        for ( prop in cssObj )
+        {
+            css += prop + ' : ' + cssObj[ prop ] + ';';
+        }
+        css += '}';
+
+        _el.innerHTML = css;
+
+        Microbe.__customCSSRules[ _s ] = Microbe.__customCSSRules[ _s ] || {};
+        Microbe.__customCSSRules[ _s ][ media ] = { el: _el, obj: cssObj };
+
+        return _el;
+    };
+
+    // keep track of tags created with insertStyle
+    Microbe.__customCSSRules = {};
+
+
+    /**
+     * ## removeStyle
+     *
+     * removes a microbe added style tag for the given selector/ media query. If the
+     * properties array is passed, rules are removed individually.  If properties is
+     * set to true, all tags for this selector are removed.  The media query can
+     * also be passed as the second variable
+     *
+     * @param {String} selector selector to apply it to
+     * @param {Mixed} properties css properties to remove 'all' to remove all
+     *                 selector tags string as media query {String or Array}
+     * @param {String} media media query
+     *
+     * @example µ.removeStyle( '.example', 'all' );
+     * @example µ.removeStyle( '.example', 'display' );
+     * @example µ.removeStyle( '.example', [ 'display', 'color' ], 'min-width:70em'  );
+     *
+     * @return _Boolean_ removed or not
+     */
+    Microbe.removeStyle = function( selector, properties, media )
+    {
+        if ( !media && typeof properties === 'string' && properties !== 'all' )
+        {
+            media = properties;
+            properties = null;
+        }
+
+        media = media || 'none';
+
+        var _removeStyle = function( _el, _media )
+        {
+            _el.parentNode.removeChild( _el );
+            delete Microbe.__customCSSRules[ selector ][ _media ];
+        };
+
+        var style = Microbe.__customCSSRules[ selector ];
+
+        if ( style )
+        {
+            if ( properties === 'all' )
+            {
+                for ( var _mq in style )
+                {
+                    _removeStyle( style[ _mq ].el, _mq );
+                }
+            }
+            else
+            {
+                style = style[ media ];
+
+                if ( style )
+                {
+                    if ( Microbe.isArray( properties ) && !Microbe.isEmpty( properties ) )
+                    {
+                        for ( var i = 0, lenI = properties.length; i < lenI; i++ )
+                        {
+                            if ( style.obj[ properties[ i ] ] )
+                            {
+                                delete style.obj[ properties[ i ] ];
+                            }
+                        }
+                        if ( Microbe.isEmpty( style.obj ) )
+                        {
+                            _removeStyle( style.el, media );
+                        }
+                        else
+                        {
+                            Microbe.insertStyle( selector, style.obj, media );
+                        }
+                    }
+                    else
+                    {
+                        _removeStyle( style.el, media );
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+        else
+        {
+            return false;
+        }
+
+        return true;
+    };
+
+
+    /**
+     * ## removeStyles
+     *
+     * removes all microbe added style tags for the given selector
+     *
+     * @param {String} selector selector to apply it to
+     *
+     * @example µ.removeStyle( '.example' );
+     *
+     * @return _Boolean_ removed or not
+     */
+    Microbe.removeStyles = function( selector )
+    {
+        return Microbe.removeStyle( selector, 'all' );
+    };
+};
+
+},{}],19:[function(require,module,exports){
+/**
  * root.js
  *
  * @author  Mouse Braun         <mouse@knoblau.ch>
@@ -3942,84 +4143,6 @@ module.exports = function( Microbe )
      * @return _any_
      */
     Microbe.identity = function( value ) { return value; };
-
-
-    /**
-     * ## insertStyle
-     *
-     * builds a style tag for the given selector/ media query.  Reference to the style
-     * tag and object is saved in µ.__customCSSRules[ selector ][ media ].
-     * next rule with the same selector combines the old and new rules and overwrites
-     * the contents
-     *
-     * @param {String} selector selector to apply it to
-     * @param {Mixed} cssObj css object. _{String or Object}_
-     * @param {String} media media query
-     *
-     * @example µ.insertStyle( '.example', { display: 'block', color: '#000' } );
-     * @example µ.insertStyle( '.example', { display: 'block', color: '#000' }, 'min-width: 61.25em' );
-     *
-     * @return _Object_ reference to the appropriate style object
-     */
-    Microbe.insertStyle = function( selector, cssObj, media )
-    {
-        var _s      = selector.replace( / /g, '-' );
-        var _clss   = media ? _s +  media.replace( /[\s:\/\[\]\(\)]+/g, '-' ) : _s;
-
-        media       = media || 'none';
-
-        var createStyleTag = function()
-        {
-            var el = document.createElement( 'style' );
-            el.className = 'microbe--inserted--style__' + _clss;
-
-            if ( media && media !== 'none' )
-            {
-                el.setAttribute( 'media', media );
-            }
-
-            document.head.appendChild( el );
-
-            return el;
-        };
-
-        var _el, prop;
-        var styleObj =  Microbe.__customCSSRules[ _s ];
-
-        if ( styleObj && styleObj[ media ] )
-        {
-            _el     = styleObj[ media ].el;
-            var obj = styleObj[ media ].obj;
-
-            for ( prop in cssObj )
-            {
-                obj[ prop ] = cssObj[ prop ];
-            }
-
-            cssObj = obj;
-        }
-        else
-        {
-            _el = createStyleTag();
-        }
-
-        var css = selector + '{';
-        for ( prop in cssObj )
-        {
-            css += prop + ' : ' + cssObj[ prop ] + ';';
-        }
-        css += '}';
-
-        _el.innerHTML = css;
-
-        Microbe.__customCSSRules[ _s ] = Microbe.__customCSSRules[ _s ] || {};
-        Microbe.__customCSSRules[ _s ][ media ] = { el: _el, obj: cssObj };
-
-        return _el;
-    };
-
-    // keep track of tags created with insertStyle
-    Microbe.__customCSSRules = {};
 
 
     /**
@@ -4287,113 +4410,6 @@ module.exports = function( Microbe )
 
 
     /**
-     * ## removeStyle
-     *
-     * removes a microbe added style tag for the given selector/ media query. If the
-     * properties array is passed, rules are removed individually.  If properties is
-     * set to true, all tags for this selector are removed.  The media query can
-     * also be passed as the second variable
-     *
-     * @param {String} selector selector to apply it to
-     * @param {Mixed} properties css properties to remove 'all' to remove all
-     *                 selector tags string as media query {String or Array}
-     * @param {String} media media query
-     *
-     * @example µ.removeStyle( '.example', 'all' );
-     * @example µ.removeStyle( '.example', 'display' );
-     * @example µ.removeStyle( '.example', [ 'display', 'color' ], 'min-width:70em'  );
-     *
-     * @return _Boolean_ removed or not
-     */
-    Microbe.removeStyle = function( selector, properties, media )
-    {
-        if ( !media && typeof properties === 'string' && properties !== 'all' )
-        {
-            media = properties;
-            properties = null;
-        }
-
-        media = media || 'none';
-
-        var _removeStyle = function( _el, _media )
-        {
-            _el.parentNode.removeChild( _el );
-            delete Microbe.__customCSSRules[ selector ][ _media ];
-        };
-
-        var style = Microbe.__customCSSRules[ selector ];
-
-        if ( style )
-        {
-            if ( properties === 'all' )
-            {
-                for ( var _mq in style )
-                {
-                    _removeStyle( style[ _mq ].el, _mq );
-                }
-            }
-            else
-            {
-                style = style[ media ];
-
-                if ( style )
-                {
-                    if ( Microbe.isArray( properties ) && !Microbe.isEmpty( properties ) )
-                    {
-                        for ( var i = 0, lenI = properties.length; i < lenI; i++ )
-                        {
-                            if ( style.obj[ properties[ i ] ] )
-                            {
-                                delete style.obj[ properties[ i ] ];
-                            }
-                        }
-                        if ( Microbe.isEmpty( style.obj ) )
-                        {
-                            _removeStyle( style.el, media );
-                        }
-                        else
-                        {
-                            Microbe.insertStyle( selector, style.obj, media );
-                        }
-                    }
-                    else
-                    {
-                        _removeStyle( style.el, media );
-                    }
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
-        else
-        {
-            return false;
-        }
-
-        return true;
-    };
-
-
-    /**
-     * ## removeStyles
-     *
-     * removes all microbe added style tags for the given selector
-     *
-     * @param {String} selector selector to apply it to
-     *
-     * @example µ.removeStyle( '.example' );
-     *
-     * @return _Boolean_ removed or not
-     */
-    Microbe.removeStyles = function( selector )
-    {
-        return Microbe.removeStyle( selector, 'all' );
-    };
-
-
-    /**
      * ## toArray
      *
      * Methods returns all the elements in an array.
@@ -4463,7 +4479,7 @@ module.exports = function( Microbe )
     Microbe.xyzzy   = Microbe.noop;
 };
 
-},{"./types":19,"promise":6}],19:[function(require,module,exports){
+},{"./types":20,"promise":6}],20:[function(require,module,exports){
 /**
  * types.js
  *
@@ -4487,7 +4503,7 @@ module.exports = {
     '[object Microbe]'  : 'microbe'
 };
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 /**
  * array.js
  *
@@ -4510,7 +4526,7 @@ module.exports = {
  *
  * @return {boolean}
  */
-const _includes = function()
+var _includes = function()
 {
     var elemToSearch = arguments[0];
     var indexToStart = arguments[1] >> 0;
@@ -4547,7 +4563,7 @@ module.exports = function( Microbe )
     Microbe.core.findIndex      = Array.prototype.findIndex;
     Microbe.core.each           = Array.prototype.forEach;
     Microbe.core.forEach        = Array.prototype.forEach;
-    Microbe.core.includes       = Array.prototype.includes;
+    Microbe.core.includes       = Array.prototype.includes ? Array.prototype.includes : _includes;
     Microbe.core.indexOf        = Array.prototype.indexOf;
     Microbe.core.lastIndexOf    = Array.prototype.lastIndexOf;
     Microbe.core.map            = Array.prototype.map;
@@ -4559,7 +4575,6 @@ module.exports = function( Microbe )
     Microbe.core.some           = Array.prototype.some;
     Microbe.core.sort           = Array.prototype.sort;
     Microbe.core.unshift        = Array.prototype.unshift;
-    Microbe.core.includes       = Array.prototype.includes ? Array.prototype.includes : _includes;
 
     /*
      * needed to be modified slightly to output a microbe
@@ -4570,7 +4585,7 @@ module.exports = function( Microbe )
     };
 };
 
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 /**
  * pseudo.js
  *
@@ -5044,7 +5059,7 @@ module.exports = function( Microbe )
         return this.type;
     };
 };
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 /**
  * Microbe.js
  *
@@ -5455,7 +5470,7 @@ module.exports = function( Microbe, _type, _version )
     var _pseudo = Microbe.constructor.pseudo;
 };
 
-},{"./array":20,"./core":21,"./pseudo":23,"./root":24}],23:[function(require,module,exports){
+},{"./array":21,"./core":22,"./pseudo":24,"./root":25}],24:[function(require,module,exports){
 /**
  * pseudo.js
  *
@@ -6554,7 +6569,7 @@ module.exports = function( Microbe )
 };
 
 
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 /**
  * rootUtils.js
  *
@@ -6654,7 +6669,7 @@ module.exports = function( Microbe )
     };
 };
 
-},{}],25:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 module.exports = function( buildTest )
 {
@@ -7107,7 +7122,7 @@ module.exports = function( buildTest )
     });
 };
 
-},{}],26:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
  /* global document, window, µ, $, QUnit, Benchmark, test  */
 
 module.exports = function( buildTest )
@@ -7742,7 +7757,7 @@ module.exports = function( buildTest )
 };
 
 
-},{}],27:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 module.exports = function( buildTest )
 {
@@ -7918,7 +7933,7 @@ module.exports = function( buildTest )
     });
 };
 
-},{}],28:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 
 module.exports = function( buildTest )
@@ -8010,7 +8025,7 @@ module.exports = function( buildTest )
     });
 };
 
-},{}],29:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 
 module.exports = function( buildTest )
@@ -8138,7 +8153,88 @@ module.exports = function( buildTest )
     });
 };
 
-},{}],30:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
+/* global document, window, µ, $, QUnit, Benchmark, test  */
+
+module.exports = function( buildTest )
+{
+    QUnit.module( 'pageStyles.js' );
+
+
+    /**
+     * µ insertStyle tests
+     *
+     * @test    insertStyle exists
+     */
+    QUnit.test( '.insertStyle()', function( assert )
+    {
+        assert.ok( µ.insertStyle, 'exists' );
+
+        µ.insertStyle( '#qunit', { 'color':'#f0f' } );
+        var savedColor = µ.__customCSSRules[ '#qunit' ].none.obj.color;
+
+        assert.equal( $( '#qunit' ).css( 'color' ), 'rgb(255, 0, 255)', 'sets the rule' ); // ...
+        assert.equal( savedColor, '#f0f', 'saves the reference' );
+
+        µ.removeStyle( '#qunit' );
+
+        var media = 'screen and (min-width : 600px)';
+        µ.insertStyle( '#qunit', { 'color':'#f0f' }, media );
+
+        assert.ok( µ.__customCSSRules[ '#qunit' ][ media ], 'inserts media queries' );
+        µ.removeStyle( '#qunit' );
+
+        buildTest( 'No speed tests available.' );
+    });
+
+
+    /**
+     * µ removeStyle tests
+     *
+     * @test    removeStyle exists
+     */
+    QUnit.test( '.removeStyle()', function( assert )
+    {
+        assert.ok( µ.removeStyle, 'exists' );
+
+        µ.insertStyle( '#qunit', { 'color':'#f0f' } );
+
+        var media = 'screen and (min-width : 600px)';
+        µ.insertStyle( '#qunit', { 'display':'none' }, media );
+        µ.removeStyle( '#qunit', media );
+
+        assert.equal( $( '#qunit' ).css( 'display' ), 'block', 'removes individual media queries' ); // ...
+        µ.removeStyle( '#qunit' );
+
+        assert.ok( !µ.__customCSSRules[ '#qunit' ].none, 'removes base references' );
+
+        buildTest( 'No speed tests available.' );
+    });
+
+
+    /**
+     * µ removeStyles tests
+     *
+     * @test    removeStyles exists
+     */
+    QUnit.test( '.removeStyles()', function( assert )
+    {
+        assert.ok( µ.removeStyles, 'exists' );
+
+        µ.insertStyle( '#qunit', { 'color':'#f0f' } );
+
+        var media = 'screen and (min-width : 600px)';
+        µ.insertStyle( '#qunit', { 'display':'none' }, media );
+        µ.removeStyles( '#qunit' );
+
+        assert.equal( $( '#qunit' ).css( 'display' ), 'block', 'removes all tags' );
+        assert.ok( !µ.__customCSSRules[ '#qunit' ].none && !µ.__customCSSRules[ '#qunit' ][ media ], 'removes all references' );
+
+        buildTest( 'No speed tests available.' );
+    });
+};
+
+},{}],32:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 var indexOf = Array.prototype.indexOf;
 var version = '0.4.15';
@@ -8573,7 +8669,7 @@ module.exports = function( buildTest )
 };
 
 
-},{}],31:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, buildTest  */
 module.exports = function( buildTest )
 {
@@ -9026,7 +9122,7 @@ module.exports = function( buildTest )
     });
 };
 
-},{}],32:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 var indexOf = Array.prototype.indexOf
 
@@ -9760,7 +9856,7 @@ module.exports = function( buildTest )
 };
 
 
-},{}],33:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 var indexOf = Array.prototype.indexOf;
 
@@ -9805,7 +9901,7 @@ module.exports = function( buildTest )
 };
 
 
-},{}],34:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 
 module.exports = function( buildTest )

@@ -37,6 +37,9 @@
         <a href="#hasclass">hasClass</a>
       </div>
       <div class="heading h2">
+        <a href="#height">height</a>
+      </div>
+      <div class="heading h2">
         <a href="#html">html</a>
       </div>
       <div class="heading h2">
@@ -49,10 +52,16 @@
         <a href="#removeclass">removeClass</a>
       </div>
       <div class="heading h2">
+        <a href="#scroll">scroll</a>
+      </div>
+      <div class="heading h2">
         <a href="#text">text</a>
       </div>
       <div class="heading h2">
         <a href="#toggleclass">toggleClass</a>
+      </div>
+      <div class="heading h2">
+        <a href="#width">width</a>
       </div>
     </div>
   </div>
@@ -482,6 +491,44 @@ If the value is omitted, simply returns the current css value of the element.</p
       <tr>
         <td class="docs"><div class="dox">
   <div class="summary">
+<div class="pilwrap" id="height">
+  <h2>
+    <a href="#height" name="height" class="pilcrow">&#182;</a>
+    height
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>syntactic sugar for css height</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">paran</div>
+    <div class="dox_tag_detail">
+      <span class="dox_type">String</span>
+      <span>_height (optional) parameter to set height</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Microbe</em></span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_height</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">_height</span> <span class="o">?</span> <span class="k">this</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span> <span class="s1">&#39;height&#39;</span><span class="p">,</span> <span class="nx">_height</span> <span class="p">)</span> <span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span> <span class="s1">&#39;height&#39;</span> <span class="p">);</span>
+    <span class="p">};</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
 <div class="pilwrap" id="html">
   <h2>
     <a href="#html" name="html" class="pilcrow">&#182;</a>
@@ -745,6 +792,48 @@ omitted, simply returns the current inner html value of the element.</p>
       <tr>
         <td class="docs"><div class="dox">
   <div class="summary">
+<div class="pilwrap" id="scroll">
+  <h2>
+    <a href="#scroll" name="scroll" class="pilcrow">&#182;</a>
+    scroll
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>returns an array of objects { top, left } of the scroll position of each element</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).scroll();</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Array</em> array of objects</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">scroll</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">_offset</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_elm</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="p">{</span> <span class="nx">top</span> <span class="o">:</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">scrollTop</span><span class="p">,</span> <span class="nx">left</span> <span class="o">:</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">scrollLeft</span> <span class="p">};</span>
+        <span class="p">};</span>
+
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span> <span class="nx">_offset</span> <span class="p">);</span>
+    <span class="p">};</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
 <div class="pilwrap" id="text">
   <h2>
     <a href="#text" name="text" class="pilcrow">&#182;</a>
@@ -899,6 +988,44 @@ whether it has it already.</p>
         <span class="p">}</span>
 
         <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+    <span class="p">};</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
+<div class="pilwrap" id="width">
+  <h2>
+    <a href="#width" name="width" class="pilcrow">&#182;</a>
+    width
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>syntactic sugar for css width</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">paran</div>
+    <div class="dox_tag_detail">
+      <span class="dox_type">String</span>
+      <span>_width (optional) parameter to set width</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Microbe</em></span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_width</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">_width</span> <span class="o">?</span> <span class="k">this</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span> <span class="s1">&#39;width&#39;</span><span class="p">,</span> <span class="nx">_width</span> <span class="p">)</span> <span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span> <span class="s1">&#39;width&#39;</span> <span class="p">);</span>
     <span class="p">};</span>
 <span class="p">};</span>
 </pre></div>

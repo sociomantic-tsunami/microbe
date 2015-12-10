@@ -49,15 +49,15 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Mouse Braun         <a href="&#x6D;&#x61;&#105;&#108;&#116;&#x6F;:&#109;&#111;&#x75;&#x73;&#101;&#x40;k&#x6E;&#111;&#98;&#108;&#97;&#117;&#46;&#99;&#104;">&#109;&#111;&#x75;&#x73;&#101;&#x40;k&#x6E;&#111;&#98;&#108;&#97;&#117;&#46;&#99;&#104;</a></span>
+      <span>Mouse Braun         <a href="ma&#105;&#108;&#x74;&#111;:&#109;&#111;&#x75;&#x73;&#x65;&#64;k&#110;&#x6F;&#x62;&#108;&#97;&#117;&#x2E;&#x63;&#x68;">&#109;&#111;&#x75;&#x73;&#x65;&#64;k&#110;&#x6F;&#x62;&#108;&#97;&#117;&#x2E;&#x63;&#x68;</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Nicolas Brugneaux   <a href="&#109;&#97;&#x69;&#x6C;&#116;o:n&#x69;&#x63;&#x6F;l&#x61;&#115;&#x2E;&#98;&#114;&#117;g&#110;&#101;&#x61;&#x75;&#x78;&#64;&#x67;m&#97;&#x69;&#x6C;&#46;&#x63;&#111;m">n&#x69;&#x63;&#x6F;l&#x61;&#115;&#x2E;&#98;&#114;&#117;g&#110;&#101;&#x61;&#x75;&#x78;&#64;&#x67;m&#97;&#x69;&#x6C;&#46;&#x63;&#111;m</a></span>
+      <span>Nicolas Brugneaux   <a href="&#x6D;&#x61;&#105;&#x6C;&#x74;&#111;:&#110;&#105;c&#111;&#x6C;&#x61;&#x73;&#x2E;&#98;&#114;&#117;&#103;&#x6E;&#x65;&#x61;&#x75;&#120;&#64;&#103;&#x6D;a&#105;&#x6C;&#46;&#x63;o&#109;">&#110;&#105;c&#111;&#x6C;&#x61;&#x73;&#x2E;&#98;&#114;&#117;&#103;&#x6E;&#x65;&#x61;&#x75;&#120;&#64;&#103;&#x6D;a&#105;&#x6C;&#46;&#x63;o&#109;</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Avraam Mavridis     <a href="&#x6D;&#97;&#x69;&#108;&#116;&#111;:&#97;&#118;&#114;&#46;&#109;&#97;&#118;&#x40;&#x67;&#x6D;&#x61;&#105;&#x6C;&#x2E;&#x63;&#111;&#109;">&#97;&#118;&#114;&#46;&#109;&#97;&#118;&#x40;&#x67;&#x6D;&#x61;&#105;&#x6C;&#x2E;&#x63;&#111;&#109;</a></span>
+      <span>Avraam Mavridis     <a href="&#x6D;a&#x69;l&#x74;&#x6F;:&#97;&#118;&#x72;&#x2E;&#109;&#x61;&#x76;&#x40;g&#109;&#97;&#x69;&#x6C;&#46;&#99;&#x6F;&#109;">&#97;&#118;&#x72;&#x2E;&#109;&#x61;&#x76;&#x40;g&#109;&#97;&#x69;&#x6C;&#46;&#99;&#x6F;&#109;</a></span>
     </div>
     <div class="dox_tag_title">package</div>
     <div class="dox_tag_detail">
@@ -98,7 +98,7 @@
 </div>
         </td>
         <td class="code highlight"><div class="highlight"><pre>
-<span class="kr">const</span> <span class="nx">_includes</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span>
+<span class="kd">var</span> <span class="nx">_includes</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span>
 <span class="p">{</span>
     <span class="kd">var</span> <span class="nx">elemToSearch</span> <span class="o">=</span> <span class="nx">arguments</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
     <span class="kd">var</span> <span class="nx">indexToStart</span> <span class="o">=</span> <span class="nx">arguments</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;&gt;</span> <span class="mi">0</span><span class="p">;</span>
@@ -135,7 +135,7 @@
     <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">findIndex</span>      <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">findIndex</span><span class="p">;</span>
     <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">each</span>           <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">forEach</span><span class="p">;</span>
     <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">forEach</span>        <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">forEach</span><span class="p">;</span>
-    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">includes</span>       <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">includes</span><span class="p">;</span>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">includes</span>       <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">includes</span> <span class="o">?</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">includes</span> <span class="o">:</span> <span class="nx">_includes</span><span class="p">;</span>
     <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">indexOf</span>        <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">;</span>
     <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">lastIndexOf</span>    <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">lastIndexOf</span><span class="p">;</span>
     <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">map</span>            <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">map</span><span class="p">;</span>
@@ -147,7 +147,6 @@
     <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">some</span>           <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">some</span><span class="p">;</span>
     <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">sort</span>           <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">sort</span><span class="p">;</span>
     <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">unshift</span>        <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">unshift</span><span class="p">;</span>
-    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">includes</span>       <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">includes</span> <span class="o">?</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">includes</span> <span class="o">:</span> <span class="nx">_includes</span><span class="p">;</span>
 
 
 </pre></div>
