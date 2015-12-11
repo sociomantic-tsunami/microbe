@@ -325,19 +325,35 @@ module.exports = function( Microbe )
      * ## offset
      *
      * returns an array of objects { top, left } of the position (in px) relative to an object's parent
+     * the returned array has the aditional properties top and left attached to
+     * it which arrays containing only the top or left
      *
      * @example µ( '.example' ).offset();
+     * @example µ( '.example' ).offset().top;
+     * @example µ( '.example' ).offset().left;
      *
      * @return _Array_ array of objects
      */
     Microbe.core.offset = function()
     {
-        var _offset = function( _elm )
+        var len = this.length;
+
+        var _top    = Array( len );
+        var _left   = Array( len );
+
+        var _offset = function( _elm, i )
         {
-            return { top : _elm.offsetTop, left : _elm.offsetLeft };
+            var top     = _top[ i ]     = _elm.offsetTop;
+            var left    = _left[ i ]    = _elm.offsetLeft;
+
+            return { top : top, left :left };
         };
 
-        return this.map( _offset );
+        var res     = this.map( _offset );
+        res.top     = _top;
+        res.left    = _left;
+
+        return res;
     };
 
 
@@ -345,14 +361,23 @@ module.exports = function( Microbe )
      * ## position
      *
      * returns an array of objects { top, left } of the position (in px) relative to an object's parent
+     * the returned array has the aditional properties top and left attached to
+     * it which arrays containing only the top or left
      *
      * @example µ( '.example' ).position();
+     * @example µ( '.example' ).position().top;
+     * @example µ( '.example' ).position().left;
      *
      * @return _Array_ array of objects
      */
     Microbe.core.position = function()
     {
-        var _position = function( _elm )
+        var len = this.length;
+
+        var _top    = Array( len );
+        var _left   = Array( len );
+
+        var _position = function( _elm, i )
         {
             var top = 0, left = 0;
 
@@ -363,10 +388,17 @@ module.exports = function( Microbe )
                 _elm    = _elm.offsetParent;
             }
 
+            _top[ i ]   = top;
+            _left[ i ]  = left;
+
             return { top : top, left : left };
         };
 
-        return this.map( _position );
+        var res     = this.map( _position );
+        res.top     = _top;
+        res.left    = _left;
+
+        return res;
     };
 
 
@@ -422,19 +454,35 @@ module.exports = function( Microbe )
      * ## scroll
      *
      * returns an array of objects { top, left } of the scroll position of each element
+     * the returned array has the aditional properties top and left attached to
+     * it which arrays containing only the top or left
      *
      * @example µ( '.example' ).scroll();
+     * @example µ( '.example' ).scroll().top;
+     * @example µ( '.example' ).scroll().left;
      *
      * @return _Array_ array of objects
      */
     Microbe.core.scroll = function()
     {
-        var _offset = function( _elm )
+        var len = this.length;
+
+        var _top    = Array( len );
+        var _left   = Array( len );
+
+        var _scroll = function( _elm, i )
         {
-            return { top : _elm.scrollTop, left : _elm.scrollLeft };
+            var top     = _top[ i ]     = _elm.scrollTop;
+            var left    = _left[ i ]    = _elm.scrollLeft;
+
+            return { top : top, left :left };
         };
 
-        return this.map( _offset );
+        var res     = this.map( _scroll );
+        res.top     = _top;
+        res.left    = _left;
+
+        return res;
     };
 
 

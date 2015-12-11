@@ -145,6 +145,7 @@ Change log
 + added .height() and .width() syntactic sugar
 + added .scroll()
 + pageStyles split from main root tools
++ added top and left to scroll(), position(), and offset()
 
 
 #### 0.4.14

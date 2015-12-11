@@ -367,6 +367,9 @@ module.exports = function( buildTest )
 
         var $qunit = $( '#qunit' );
 
+        var µQunit = µ( '#qunit' );
+        var $qunit = $( '#qunit' );
+
         buildTest(
         'µQunit.offset()', function()
         {
@@ -394,6 +397,9 @@ module.exports = function( buildTest )
 
         assert.equal( bodyPosition.top + bodyPosition.left, 0, 'correctly finds the body position' );
 
+        var $qunit = $( '#qunit' );
+
+        var µQunit = µ( '#qunit' );
         var $qunit = $( '#qunit' );
 
         buildTest(
@@ -476,10 +482,15 @@ module.exports = function( buildTest )
 
         assert.equal( bodyscroll.top + bodyscroll.left, 0, 'correctly finds the body scroll' );
 
-        var qunitscroll = µ( '#qunit' ).scroll()[0];
+        var µQunit      = µ( '#qunit' );
+        var qunitscroll = µQunit.scroll();
 
-        assert.equal( qunitscroll.top + qunitscroll.left, 0, 'correctly finds the #qunit scroll' );
+        assert.equal( qunitscroll[0].top + qunitscroll[0].left, 0, 'correctly finds the #qunit scroll' );
 
+        assert.ok( qunitscroll.top.length === µQunit.length, 'correctly assigns top' );
+        assert.ok( qunitscroll.left.length === µQunit.length, 'correctly assigns left' );
+
+        var µQunit = µ( '#qunit' );
         var $qunit = $( '#qunit' );
 
         buildTest(
