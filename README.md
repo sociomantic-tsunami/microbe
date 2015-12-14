@@ -106,6 +106,21 @@ Compiling specific dist files
 - microbe.toolkit.js
 ```npm run toolkit```
 
+Running the tests
+=================
+
+From the command line:
+
+```
+npm run test
+```
+
+From the browser
+
+```
+http://m.icro.be/tests
+http://localhost/microbe/tests
+```
 
 Generating www docs
 ===================
