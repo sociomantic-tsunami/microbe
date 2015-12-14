@@ -19,7 +19,12 @@ module.exports = function( Microbe, _type, _version )
         get version()   { return _version; }
     };
 
-    Microbe.__defineGetter__( 'version', function(){ return _version } );
+    Object.defineProperty( Microbe, 'version', {
+        get : function()
+        {
+            return _version;
+        }
+    } );
 
     var trigger, _shortSelector;
 
