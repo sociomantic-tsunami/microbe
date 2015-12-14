@@ -6,7 +6,7 @@
  * Released under the MIT license
  * http://m.icro.be/license
  *
- * Date: Thu Dec 10 2015
+ * Date: Mon Dec 14 2015
  */
 !function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.µ=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /**
@@ -2688,19 +2688,35 @@ module.exports = function( Microbe )
      * ## offset
      *
      * returns an array of objects { top, left } of the position (in px) relative to an object's parent
+     * the returned array has the aditional properties top and left attached to
+     * it which arrays containing only the top or left
      *
      * @example µ( '.example' ).offset();
+     * @example µ( '.example' ).offset().top;
+     * @example µ( '.example' ).offset().left;
      *
-     * @return _Array_ array of objects
+     * @return _Array_ array of objects or numbers
      */
     Microbe.core.offset = function()
     {
-        var _offset = function( _elm )
+        var len = this.length;
+
+        var _top    = Array( len );
+        var _left   = Array( len );
+
+        var _offset = function( _elm, i )
         {
-            return { top : _elm.offsetTop, left : _elm.offsetLeft };
+            var top     = _top[ i ]     = _elm.offsetTop;
+            var left    = _left[ i ]    = _elm.offsetLeft;
+
+            return { top : top, left :left };
         };
 
-        return this.map( _offset );
+        var res     = this.map( _offset );
+        res.top     = _top;
+        res.left    = _left;
+
+        return res;
     };
 
 
@@ -2708,14 +2724,23 @@ module.exports = function( Microbe )
      * ## position
      *
      * returns an array of objects { top, left } of the position (in px) relative to an object's parent
+     * the returned array has the aditional properties top and left attached to
+     * it which arrays containing only the top or left
      *
      * @example µ( '.example' ).position();
+     * @example µ( '.example' ).position().top;
+     * @example µ( '.example' ).position().left;
      *
-     * @return _Array_ array of objects
+     * @return _Array_ array of objects or numbers
      */
     Microbe.core.position = function()
     {
-        var _position = function( _elm )
+        var len = this.length;
+
+        var _top    = Array( len );
+        var _left   = Array( len );
+
+        var _position = function( _elm, i )
         {
             var top = 0, left = 0;
 
@@ -2726,10 +2751,17 @@ module.exports = function( Microbe )
                 _elm    = _elm.offsetParent;
             }
 
+            _top[ i ]   = top;
+            _left[ i ]  = left;
+
             return { top : top, left : left };
         };
 
-        return this.map( _position );
+        var res     = this.map( _position );
+        res.top     = _top;
+        res.left    = _left;
+
+        return res;
     };
 
 
@@ -2785,19 +2817,35 @@ module.exports = function( Microbe )
      * ## scroll
      *
      * returns an array of objects { top, left } of the scroll position of each element
+     * the returned array has the aditional properties top and left attached to
+     * it which arrays containing only the top or left
      *
      * @example µ( '.example' ).scroll();
+     * @example µ( '.example' ).scroll().top;
+     * @example µ( '.example' ).scroll().left;
      *
-     * @return _Array_ array of objects
+     * @return _Array_ array of objects numbers
      */
     Microbe.core.scroll = function()
     {
-        var _offset = function( _elm )
+        var len = this.length;
+
+        var _top    = Array( len );
+        var _left   = Array( len );
+
+        var _scroll = function( _elm, i )
         {
-            return { top : _elm.scrollTop, left : _elm.scrollLeft };
+            var top     = _top[ i ]     = _elm.scrollTop;
+            var left    = _left[ i ]    = _elm.scrollLeft;
+
+            return { top : top, left :left };
         };
 
-        return this.map( _offset );
+        var res     = this.map( _scroll );
+        res.top     = _top;
+        res.left    = _left;
+
+        return res;
     };
 
 
@@ -4939,7 +4987,12 @@ module.exports = function( Microbe, _type, _version )
         get version()   { return _version; }
     };
 
-    Microbe.__defineGetter__( 'version', function(){ return _version } );
+    Object.defineProperty( Microbe, 'version', {
+        get : function()
+        {
+            return _version;
+        }
+    } );
 
     var trigger, _shortSelector;
 
@@ -5676,7 +5729,7 @@ module.exports = function( Microbe )
     {
         var _blank = function( _e, resArray )
         {
-            var _t = document.all ? _e.innerText : _e.textContent;
+            var _t = _e.textContent;
 
             if ( resArray.indexOf( _e ) === -1 )
             {
@@ -6044,11 +6097,13 @@ module.exports = function( Microbe )
         var _localLink = function( _e )
         {
             var url         = _e.href;
-            var urlShort    = url.replace( here.origin, '' ).replace( here.host, '' );
+            var urlShort    = url.replace( here.protocol + '//', '' ).replace( here.host, '' );
             urlShort        = urlShort[ 0 ] === '/' ? urlShort.slice( 1 ) : urlShort;
+
             var depth       = urlShort.split( '/' ).length - 1;
 
-            if ( !_var || parseInt( _var ) === depth )
+            if ( !/^https?:\/\//.test( urlShort ) &&
+                ( !_var || parseInt( _var ) === depth ) )
             {
                 return _e;
             }

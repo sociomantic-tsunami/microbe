@@ -345,7 +345,7 @@ module.exports = function( Microbe )
     {
         var _blank = function( _e, resArray )
         {
-            var _t = document.all ? _e.innerText : _e.textContent;
+            var _t = _e.textContent;
 
             if ( resArray.indexOf( _e ) === -1 )
             {
@@ -713,11 +713,13 @@ module.exports = function( Microbe )
         var _localLink = function( _e )
         {
             var url         = _e.href;
-            var urlShort    = url.replace( here.origin, '' ).replace( here.host, '' );
+            var urlShort    = url.replace( here.protocol + '//', '' ).replace( here.host, '' );
             urlShort        = urlShort[ 0 ] === '/' ? urlShort.slice( 1 ) : urlShort;
+
             var depth       = urlShort.split( '/' ).length - 1;
 
-            if ( !_var || parseInt( _var ) === depth )
+            if ( !/^https?:\/\//.test( urlShort ) &&
+                ( !_var || parseInt( _var ) === depth ) )
             {
                 return _e;
             }

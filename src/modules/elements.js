@@ -332,7 +332,7 @@ module.exports = function( Microbe )
      * @example µ( '.example' ).offset().top;
      * @example µ( '.example' ).offset().left;
      *
-     * @return _Array_ array of objects
+     * @return _Array_ array of objects or numbers
      */
     Microbe.core.offset = function()
     {
@@ -368,7 +368,7 @@ module.exports = function( Microbe )
      * @example µ( '.example' ).position().top;
      * @example µ( '.example' ).position().left;
      *
-     * @return _Array_ array of objects
+     * @return _Array_ array of objects or numbers
      */
     Microbe.core.position = function()
     {
@@ -461,7 +461,7 @@ module.exports = function( Microbe )
      * @example µ( '.example' ).scroll().top;
      * @example µ( '.example' ).scroll().left;
      *
-     * @return _Array_ array of objects
+     * @return _Array_ array of objects numbers
      */
     Microbe.core.scroll = function()
     {

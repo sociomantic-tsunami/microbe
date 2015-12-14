@@ -3,6 +3,7 @@
 
 [![Microbe build status](https://travis-ci.org/sociomantic/microbe.svg)](https://travis-ci.org)  [![Slack Status](https://microbejs-slackin.herokuapp.com/badge.svg)](https://microbejs-slackin.herokuapp.com)
 
+(for modern browsers and ie10+)
 
 microbe is a javascript library to aid in DOM manipulation as well as facilitating events, object observation, and data binding. It uses the micro character ( µ ) that is accessible in:
 
@@ -106,6 +107,7 @@ Compiling specific dist files
 - microbe.toolkit.js
 ```npm run toolkit```
 
+
 Running the tests
 =================
 
@@ -121,6 +123,7 @@ From the browser
 http://m.icro.be/tests
 http://localhost/microbe/tests
 ```
+
 
 Generating www docs
 ===================
@@ -157,10 +160,12 @@ Change log
 
 #### 0.4.15
 
++ text() : changed innetText to textContent to avoid reflow
 + added .height() and .width() syntactic sugar
 + added .scroll()
 + pageStyles split from main root tools
 + added top and left to scroll(), position(), and offset()
++ fixed local-link
 
 
 #### 0.4.14
