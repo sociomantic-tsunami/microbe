@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "Users/mouse/workspace/microbe//modules/elements.js", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "Library/WebServer/Documents/microbe//modules/elements.js", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../microbe.js"></script>
@@ -630,17 +630,27 @@ omitted, simply returns the current inner html value of the element.</p>
 </div>
 
   </div>
-  <div class="body"><p>returns an array of objects { top, left } of the position (in px) relative to an object's parent</p>
+  <div class="body"><p>returns an array of objects { top, left } of the position (in px) relative to an object's parent
+the returned array has the aditional properties top and left attached to
+it which arrays containing only the top or left</p>
   </div>
   <div class="details">
     <div class="dox_tag_title">example</div>
     <div class="dox_tag_detail">
       <span>µ( '.example' ).offset();</span>
     </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).offset().top;</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).offset().left;</span>
+    </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span><em>Array</em> array of objects</span>
+      <span><em>Array</em> array of objects or numbers</span>
     </div>
   </div>
 </div>
@@ -648,12 +658,24 @@ omitted, simply returns the current inner html value of the element.</p>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">offset</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span>
     <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">_offset</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_elm</span> <span class="p">)</span>
+        <span class="kd">var</span> <span class="nx">len</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+
+        <span class="kd">var</span> <span class="nx">_top</span>    <span class="o">=</span> <span class="nb">Array</span><span class="p">(</span> <span class="nx">len</span> <span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">_left</span>   <span class="o">=</span> <span class="nb">Array</span><span class="p">(</span> <span class="nx">len</span> <span class="p">);</span>
+
+        <span class="kd">var</span> <span class="nx">_offset</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_elm</span><span class="p">,</span> <span class="nx">i</span> <span class="p">)</span>
         <span class="p">{</span>
-            <span class="k">return</span> <span class="p">{</span> <span class="nx">top</span> <span class="o">:</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">offsetTop</span><span class="p">,</span> <span class="nx">left</span> <span class="o">:</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">offsetLeft</span> <span class="p">};</span>
+            <span class="kd">var</span> <span class="nx">top</span>     <span class="o">=</span> <span class="nx">_top</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span>     <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">offsetTop</span><span class="p">;</span>
+            <span class="kd">var</span> <span class="nx">left</span>    <span class="o">=</span> <span class="nx">_left</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span>    <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">offsetLeft</span><span class="p">;</span>
+
+            <span class="k">return</span> <span class="p">{</span> <span class="nx">top</span> <span class="o">:</span> <span class="nx">top</span><span class="p">,</span> <span class="nx">left</span> <span class="o">:</span><span class="nx">left</span> <span class="p">};</span>
         <span class="p">};</span>
 
-        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span> <span class="nx">_offset</span> <span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">res</span>     <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span> <span class="nx">_offset</span> <span class="p">);</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">top</span>     <span class="o">=</span> <span class="nx">_top</span><span class="p">;</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">left</span>    <span class="o">=</span> <span class="nx">_left</span><span class="p">;</span>
+
+        <span class="k">return</span> <span class="nx">res</span><span class="p">;</span>
     <span class="p">};</span>
 
 
@@ -672,17 +694,27 @@ omitted, simply returns the current inner html value of the element.</p>
 </div>
 
   </div>
-  <div class="body"><p>returns an array of objects { top, left } of the position (in px) relative to an object's parent</p>
+  <div class="body"><p>returns an array of objects { top, left } of the position (in px) relative to an object's parent
+the returned array has the aditional properties top and left attached to
+it which arrays containing only the top or left</p>
   </div>
   <div class="details">
     <div class="dox_tag_title">example</div>
     <div class="dox_tag_detail">
       <span>µ( '.example' ).position();</span>
     </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).position().top;</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).position().left;</span>
+    </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span><em>Array</em> array of objects</span>
+      <span><em>Array</em> array of objects or numbers</span>
     </div>
   </div>
 </div>
@@ -690,7 +722,12 @@ omitted, simply returns the current inner html value of the element.</p>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">position</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span>
     <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">_position</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_elm</span> <span class="p">)</span>
+        <span class="kd">var</span> <span class="nx">len</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+
+        <span class="kd">var</span> <span class="nx">_top</span>    <span class="o">=</span> <span class="nb">Array</span><span class="p">(</span> <span class="nx">len</span> <span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">_left</span>   <span class="o">=</span> <span class="nb">Array</span><span class="p">(</span> <span class="nx">len</span> <span class="p">);</span>
+
+        <span class="kd">var</span> <span class="nx">_position</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_elm</span><span class="p">,</span> <span class="nx">i</span> <span class="p">)</span>
         <span class="p">{</span>
             <span class="kd">var</span> <span class="nx">top</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">left</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 
@@ -701,10 +738,17 @@ omitted, simply returns the current inner html value of the element.</p>
                 <span class="nx">_elm</span>    <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">offsetParent</span><span class="p">;</span>
             <span class="p">}</span>
 
+            <span class="nx">_top</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span>   <span class="o">=</span> <span class="nx">top</span><span class="p">;</span>
+            <span class="nx">_left</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span>  <span class="o">=</span> <span class="nx">left</span><span class="p">;</span>
+
             <span class="k">return</span> <span class="p">{</span> <span class="nx">top</span> <span class="o">:</span> <span class="nx">top</span><span class="p">,</span> <span class="nx">left</span> <span class="o">:</span> <span class="nx">left</span> <span class="p">};</span>
         <span class="p">};</span>
 
-        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span> <span class="nx">_position</span> <span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">res</span>     <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span> <span class="nx">_position</span> <span class="p">);</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">top</span>     <span class="o">=</span> <span class="nx">_top</span><span class="p">;</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">left</span>    <span class="o">=</span> <span class="nx">_left</span><span class="p">;</span>
+
+        <span class="k">return</span> <span class="nx">res</span><span class="p">;</span>
     <span class="p">};</span>
 
 
@@ -800,17 +844,27 @@ omitted, simply returns the current inner html value of the element.</p>
 </div>
 
   </div>
-  <div class="body"><p>returns an array of objects { top, left } of the scroll position of each element</p>
+  <div class="body"><p>returns an array of objects { top, left } of the scroll position of each element
+the returned array has the aditional properties top and left attached to
+it which arrays containing only the top or left</p>
   </div>
   <div class="details">
     <div class="dox_tag_title">example</div>
     <div class="dox_tag_detail">
       <span>µ( '.example' ).scroll();</span>
     </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).scroll().top;</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).scroll().left;</span>
+    </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">
       <span class="dox_tag_name"></span>
-      <span><em>Array</em> array of objects</span>
+      <span><em>Array</em> array of objects numbers</span>
     </div>
   </div>
 </div>
@@ -818,12 +872,24 @@ omitted, simply returns the current inner html value of the element.</p>
         <td class="code highlight"><div class="highlight"><pre>
     <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">scroll</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span>
     <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">_offset</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_elm</span> <span class="p">)</span>
+        <span class="kd">var</span> <span class="nx">len</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+
+        <span class="kd">var</span> <span class="nx">_top</span>    <span class="o">=</span> <span class="nb">Array</span><span class="p">(</span> <span class="nx">len</span> <span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">_left</span>   <span class="o">=</span> <span class="nb">Array</span><span class="p">(</span> <span class="nx">len</span> <span class="p">);</span>
+
+        <span class="kd">var</span> <span class="nx">_scroll</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_elm</span><span class="p">,</span> <span class="nx">i</span> <span class="p">)</span>
         <span class="p">{</span>
-            <span class="k">return</span> <span class="p">{</span> <span class="nx">top</span> <span class="o">:</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">scrollTop</span><span class="p">,</span> <span class="nx">left</span> <span class="o">:</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">scrollLeft</span> <span class="p">};</span>
+            <span class="kd">var</span> <span class="nx">top</span>     <span class="o">=</span> <span class="nx">_top</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span>     <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">scrollTop</span><span class="p">;</span>
+            <span class="kd">var</span> <span class="nx">left</span>    <span class="o">=</span> <span class="nx">_left</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span>    <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">scrollLeft</span><span class="p">;</span>
+
+            <span class="k">return</span> <span class="p">{</span> <span class="nx">top</span> <span class="o">:</span> <span class="nx">top</span><span class="p">,</span> <span class="nx">left</span> <span class="o">:</span><span class="nx">left</span> <span class="p">};</span>
         <span class="p">};</span>
 
-        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span> <span class="nx">_offset</span> <span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">res</span>     <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span> <span class="nx">_scroll</span> <span class="p">);</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">top</span>     <span class="o">=</span> <span class="nx">_top</span><span class="p">;</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">left</span>    <span class="o">=</span> <span class="nx">_left</span><span class="p">;</span>
+
+        <span class="k">return</span> <span class="nx">res</span><span class="p">;</span>
     <span class="p">};</span>
 
 
