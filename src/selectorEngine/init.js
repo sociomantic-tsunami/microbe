@@ -410,5 +410,5 @@ module.exports = function( Microbe, _type, _version )
     require( './pseudo' )( Microbe );
     require( './array' )( Microbe );
 
-    var _pseudo = Microbe.constructor.pseudo;
+    var _pseudo = Microbe.pseudo;
 };

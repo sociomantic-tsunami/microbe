@@ -158,6 +158,11 @@ Need to report something? [report@m.icro.be](report@m.icro.be)
 Change log
 ==========
 
+#### 0.4.16
+
++ fixed global constructor leak with pseudo
+
+
 #### 0.4.15
 
 + text() : changed innetText to textContent to avoid reflow

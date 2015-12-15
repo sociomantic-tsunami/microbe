@@ -150,9 +150,9 @@ module.exports = function( Microbe )
                 }
                 _sel = _sel[ 0 ];
 
-                if ( Microbe.constructor.pseudo[ _sel ] )
+                if ( Microbe.pseudo[ _sel ] )
                 {
-                    obj = Microbe.constructor.pseudo[ _sel ]( obj, _var, selector );
+                    obj = Microbe.pseudo[ _sel ]( obj, _var, selector );
                 }
             }
 
@@ -171,7 +171,7 @@ module.exports = function( Microbe )
          */
         function _cycleFilters( res )
         {
-            var obj = Microbe.constructor.pseudo( self, res[ 0 ], _scope, _build );
+            var obj = Microbe.pseudo( self, res[ 0 ], _scope, _build );
 
             var filter, connect = false;
             for ( var i = 1, lenI = res.length; i < lenI; i++ )
@@ -229,7 +229,7 @@ module.exports = function( Microbe )
             {
                 _pseudoArray = _pseudo[ k ].split( '(' );
 
-                if ( !Microbe.constructor.pseudo[ _pseudoArray[ 0 ] ] )
+                if ( !Microbe.pseudo[ _pseudoArray[ 0 ] ] )
                 {
                     _sel += ':' + _pseudo[ k ];
                     _pseudo.splice( k, 1 );
@@ -1087,7 +1087,6 @@ module.exports = function( Microbe )
     };
 
 
-
-    Microbe.constructor.prototype.pseudo = pseudo;
+    Microbe.pseudo = pseudo;
 };
 
