@@ -166,6 +166,7 @@ Change log
 + pageStyles split from main root tools
 + added top and left to scroll(), position(), and offset()
 + fixed local-link
++ fixed Win 10 IE 11 and Edge :lang
 
 
 #### 0.4.14

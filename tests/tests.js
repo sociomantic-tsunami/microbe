@@ -6173,8 +6173,8 @@ module.exports = function( Microbe )
     {
         if ( _var )
         {
-            if ( _var.indexOf( '*' ) !== -1 )
-            {
+            // if ( _var.indexOf( '*' ) !== -1 )
+            // {
                 _el     = _el.filter( '[lang]' );
                 _var    = _var.replace( '*', '' );
 
@@ -6187,10 +6187,10 @@ module.exports = function( Microbe )
                 };
 
                 return _filteredIteration( _el, _lang );
-            }
+            // }
 
-            var res = document.querySelectorAll( ':lang(' + _var + ')' );
-            return _el.constructor( Array.prototype.slice.call( res ) );
+            // var res = document.querySelectorAll( ':lang(' + _var + ')' );
+            // return _el.constructor( Array.prototype.slice.call( res ) );
         }
         else
         {

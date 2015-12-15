@@ -647,24 +647,18 @@ module.exports = function( Microbe )
     {
         if ( _var )
         {
-            if ( _var.indexOf( '*' ) !== -1 )
+            _el     = _el.filter( '[lang]' );
+            _var    = _var.replace( '*', '' );
+
+            var _lang = function( _e )
             {
-                _el     = _el.filter( '[lang]' );
-                _var    = _var.replace( '*', '' );
-
-                var _lang = function( _e )
+                if ( _e.getAttribute( 'lang' ).indexOf( _var ) !== -1 )
                 {
-                    if ( _e.getAttribute( 'lang' ).indexOf( _var ) !== -1 )
-                    {
-                        return _e;
-                    }
-                };
+                    return _e;
+                }
+            };
 
-                return _filteredIteration( _el, _lang );
-            }
-
-            var res = document.querySelectorAll( ':lang(' + _var + ')' );
-            return _el.constructor( Array.prototype.slice.call( res ) );
+            return _filteredIteration( _el, _lang );
         }
         else
         {
