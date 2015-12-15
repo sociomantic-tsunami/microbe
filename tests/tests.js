@@ -2673,11 +2673,11 @@ module.exports = function( Microbe )
     {
 	    var isObject = Microbe.isObject( _property );
 
-        var _setCss = function( _elm, _v )
+        var _setCss = function( _elm )
         {
             _elm.data                   = _elm.data     || {};
             _elm.data.css               = _elm.data.css || {};
-            _elm.data.css[ _property ]  = _v || _value;
+            _elm.data.css[ _property ]  = _value;
             _elm.style[ _property ]     = _elm.data.css[ _property ];
         };
 

@@ -2,7 +2,6 @@ var gulp            = require( 'gulp' );
 var fs              = require( 'fs' );
 var replace         = require( 'gulp-replace' );
 var uglify          = require( 'gulp-uglify' );
-var rename          = require( 'gulp-rename' );
 var header          = require( 'gulp-header' );
 var browserify      = require( 'browserify' );
 var Nightmare       = require( 'nightmare' );

@@ -6,7 +6,7 @@
  * Released under the MIT license
  * http://m.icro.be/license
  *
- * Date: Mon Dec 14 2015
+ * Date: Tue Dec 15 2015
  */
 !function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.µ=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /**
@@ -1004,7 +1004,7 @@ module.exports = function( Microbe, _type, _version )
     require( './pseudo' )( Microbe );
     require( './array' )( Microbe );
 
-    var _pseudo = Microbe.constructor.pseudo;
+    var _pseudo = Microbe.pseudo;
 };
 
 },{"./array":2,"./core":3,"./pseudo":5,"./root":6}],5:[function(require,module,exports){
@@ -1160,9 +1160,9 @@ module.exports = function( Microbe )
                 }
                 _sel = _sel[ 0 ];
 
-                if ( Microbe.constructor.pseudo[ _sel ] )
+                if ( Microbe.pseudo[ _sel ] )
                 {
-                    obj = Microbe.constructor.pseudo[ _sel ]( obj, _var, selector );
+                    obj = Microbe.pseudo[ _sel ]( obj, _var, selector );
                 }
             }
 
@@ -1181,7 +1181,7 @@ module.exports = function( Microbe )
          */
         function _cycleFilters( res )
         {
-            var obj = Microbe.constructor.pseudo( self, res[ 0 ], _scope, _build );
+            var obj = Microbe.pseudo( self, res[ 0 ], _scope, _build );
 
             var filter, connect = false;
             for ( var i = 1, lenI = res.length; i < lenI; i++ )
@@ -1239,7 +1239,7 @@ module.exports = function( Microbe )
             {
                 _pseudoArray = _pseudo[ k ].split( '(' );
 
-                if ( !Microbe.constructor.pseudo[ _pseudoArray[ 0 ] ] )
+                if ( !Microbe.pseudo[ _pseudoArray[ 0 ] ] )
                 {
                     _sel += ':' + _pseudo[ k ];
                     _pseudo.splice( k, 1 );
@@ -1657,24 +1657,18 @@ module.exports = function( Microbe )
     {
         if ( _var )
         {
-            if ( _var.indexOf( '*' ) !== -1 )
+            _el     = _el.filter( '[lang]' );
+            _var    = _var.replace( '*', '' );
+
+            var _lang = function( _e )
             {
-                _el     = _el.filter( '[lang]' );
-                _var    = _var.replace( '*', '' );
-
-                var _lang = function( _e )
+                if ( _e.getAttribute( 'lang' ).indexOf( _var ) !== -1 )
                 {
-                    if ( _e.getAttribute( 'lang' ).indexOf( _var ) !== -1 )
-                    {
-                        return _e;
-                    }
-                };
+                    return _e;
+                }
+            };
 
-                return _filteredIteration( _el, _lang );
-            }
-
-            var res = document.querySelectorAll( ':lang(' + _var + ')' );
-            return _el.constructor( Array.prototype.slice.call( res ) );
+            return _filteredIteration( _el, _lang );
         }
         else
         {
@@ -2103,8 +2097,7 @@ module.exports = function( Microbe )
     };
 
 
-
-    Microbe.constructor.prototype.pseudo = pseudo;
+    Microbe.pseudo = pseudo;
 };
 
 
