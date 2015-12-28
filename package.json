@@ -1,6 +1,6 @@
 {
   "name": "microbejs",
-  "version": "0.4.17",
+  "version": "0.4.18",
   "author": "Mouse Braun <mouse@knoblau.ch>",
   "description": "microbe.js - A modular JS library for DOM manipulation, and more",
   "contributors": [
@@ -9,12 +9,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/sociomantic/microbe.git"
+    "url": "git@github.com:sociomantic/microbe.git"
   },
   "scripts": {
     "build": "./node_modules/.bin/gulp toolkit && ./node_modules/.bin/gulp selectorEngine && ./node_modules/.bin/gulp microbe && npm run buildTests && npm run test && echo \"All builds complete and tests passed.\"",
     "buildTests": "./node_modules/.bin/gulp buildTests",
-    "deploy": "node version_bump && npm run build && npm run docsOnce",
+    "deploy": "node ./scripts/version_bump && npm run build && npm run docsOnce",
     "docsOnce": "docker -o www/doc/ -i src --sidebar true --js dist/microbe.js --extras fileSearch -c manni",
     "docs": "docker -o www/doc/ -i src --sidebar true --watch --js dist/microbe.js --extras fileSearch -c manni",
     "gulp": "./node_modules/.bin/gulp",
@@ -22,10 +22,11 @@
     "selectorEngine": "./node_modules/.bin/gulp selectorEngine",
     "start": "./node_modules/.bin/gulp",
     "toolkit": "./node_modules/.bin/gulp toolkit",
-    "test": "node --harmony ./tests/nightmare.js"
+    "test": "node --harmony ./scripts/nightmare.js"
   },
   "devDependencies": {
     "browserify": "^5.11.2",
+    "cdnjs-importer": "^2.0.0-beta",
     "connect": "^3.4.0",
     "docker": "git://github.com/nicolasbrugneaux/docker.git#patch-1",
     "gulp": "^3.8.7",
@@ -52,6 +53,14 @@
     "src/",
     "dist/"
   ],
+  "autoupdate": {
+    "source": "git",
+    "target": "git://github.com/sociomantic/microbe.git",
+    "basePath": "dist/",
+    "files": [
+      "microbe.min"
+    ]
+  },
   "homepage": "http://m.icro.be",
   "main": "./dist/microbe.min.js",
   "keywords": [

@@ -6718,7 +6718,7 @@ module.exports = function( Microbe )
 };
 
 },{}],26:[function(require,module,exports){
-module.exports = '0.4.17';
+module.exports = '0.4.18';
 },{}],27:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 module.exports = function( buildTest )

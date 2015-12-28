@@ -1,4 +1,4 @@
-µ - Microbe - 0.4.17
+µ - Microbe - 0.4.18
 ====================
 
 [![Microbe build status](https://travis-ci.org/sociomantic/microbe.svg)](https://travis-ci.org)  [![Slack Status](https://microbejs-slackin.herokuapp.com/badge.svg)](https://microbejs-slackin.herokuapp.com)
@@ -7,9 +7,9 @@
 
 microbe is a javascript library to aid in DOM manipulation as well as facilitating events, object observation, and data binding. It uses the micro character ( µ ) that is accessible in:
 
-+ osx: alt-m
-+ windows: alt+0181
-+ linux: alt gr+m or alt+230
++ osx: alt + m
++ windows: alt + 0181
++ linux: alt gr + m or alt + 230
 
 microbe aims to be modular and expandable. It’s separated into several modules:
 

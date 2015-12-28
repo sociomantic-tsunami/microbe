@@ -1,5 +1,5 @@
 /*!
- * Microbe JavaScript Library v0.4.17
+ * Microbe JavaScript Library v0.4.18
  * http://m.icro.be
  *
  * Copyright 2014-2015 Sociomantic Labs and other contributors
@@ -23,7 +23,7 @@
 'use strict';
 
 var _type       = '[object Microbe]';
-var _version    = '0.4.17';
+var _version    = require( './version' );
 
 var Microbe = function( selector, scope, elements )
 {
@@ -41,7 +41,7 @@ require( './modules/events' )( Microbe );
 
 module.exports      = Microbe.core.constructor = Microbe;
 
-},{"./modules/dom":12,"./modules/elements":13,"./modules/events":14,"./modules/http":15,"./modules/observe":16,"./modules/pageStyles":17,"./modules/tools":18,"./selectorEngine/init":22}],2:[function(require,module,exports){
+},{"./modules/dom":12,"./modules/elements":13,"./modules/events":14,"./modules/http":15,"./modules/observe":16,"./modules/pageStyles":17,"./modules/tools":18,"./selectorEngine/init":22,"./version":25}],2:[function(require,module,exports){
 (function (process){
 
 // Use the fastest possible means to execute a task in a future turn
@@ -6575,5 +6575,7 @@ module.exports = function( Microbe )
     };
 };
 
+},{}],25:[function(require,module,exports){
+module.exports = '0.4.18';
 },{}]},{},[1])(1)
 });
