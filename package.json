@@ -12,17 +12,17 @@
     "url": "https://github.com/sociomantic/microbe.git"
   },
   "scripts": {
-    "start": "./node_modules/.bin/gulp && echo \"Build complete.\"",
     "build": "./node_modules/.bin/gulp toolkit && ./node_modules/.bin/gulp selectorEngine && ./node_modules/.bin/gulp microbe && npm run buildTests && npm run test && echo \"All builds complete and tests passed.\"",
-    "buildTests": "./node_modules/.bin/gulp buildTests && echo \"Tests Built.\"",
-    "gulp": "./node_modules/.bin/gulp && echo \"Build complete.\"",
-    "microbe": "./node_modules/.bin/gulp && echo \"Build complete.\"",
-    "selectorEngine": "./node_modules/.bin/gulp selectorEngine && echo \"Build complete.\"",
-    "toolkit": "./node_modules/.bin/gulp toolkit && echo \"Build complete.\"",
-    "test": "node --harmony ./tests/nightmare.js",
-    "clean": "./node_modules/.bin/gulp clean && echo \"Dist cleaned.\"",
-    "watch": "./node_modules/.bin/gulp watch",
-    "docs": "docker -o www/doc/ -i src --sidebar true --watch --js dist/microbe.js --extras fileSearch -c manni"
+    "buildTests": "./node_modules/.bin/gulp buildTests",
+    "deploy": "node version_bump && npm run build && npm run docsOnce",
+    "docsOnce": "docker -o www/doc/ -i src --sidebar true --js dist/microbe.js --extras fileSearch -c manni",
+    "docs": "docker -o www/doc/ -i src --sidebar true --watch --js dist/microbe.js --extras fileSearch -c manni",
+    "gulp": "./node_modules/.bin/gulp",
+    "microbe": "./node_modules/.bin/gulp",
+    "selectorEngine": "./node_modules/.bin/gulp selectorEngine",
+    "start": "./node_modules/.bin/gulp",
+    "toolkit": "./node_modules/.bin/gulp toolkit",
+    "test": "node --harmony ./tests/nightmare.js"
   },
   "devDependencies": {
     "browserify": "^5.11.2",
