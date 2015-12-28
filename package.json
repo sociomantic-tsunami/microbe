@@ -26,7 +26,6 @@
   },
   "devDependencies": {
     "browserify": "^5.11.2",
-    "cdnjs-importer": "^2.0.0-beta",
     "connect": "^3.4.0",
     "docker": "git://github.com/nicolasbrugneaux/docker.git#patch-1",
     "gulp": "^3.8.7",
