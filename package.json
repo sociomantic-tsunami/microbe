@@ -1,6 +1,6 @@
 {
   "name": "microbejs",
-  "version": "0.4.16",
+  "version": "0.4.17",
   "author": "Mouse Braun <mouse@knoblau.ch>",
   "description": "microbe.js - A modular JS library for DOM manipulation, and more",
   "contributors": [

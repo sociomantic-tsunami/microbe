@@ -2109,7 +2109,7 @@ Promise.prototype.nodeify = function (callback, ctx) {
 'use strict';
 
 var _type       = '[object Microbe]';
-var _version    = '0.4.15';
+var _version    = '0.4.17';
 
 var Microbe = function( selector, scope, elements )
 {
