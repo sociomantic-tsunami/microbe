@@ -3,13 +3,31 @@ Older changes
 
 This is truncated from the readme file to keep down the size
 
+#### 0.4.8
+
++ updated copy and tests
+
+
+#### 0.4.7
+
+ + updated readme with how to use the µ symbol
+ + copy and logo changes on ./www
+ + regenerated doc
+ + updated gulpfile
+
+
+#### 0.4.6
+
++ moved functions and structure to enable modular building
+
+
 #### 0.4.5
 
 + updated remove
 + core and dom now check before they use something from a different module
 + updated readme, gulpfile, tests, docs, and comments
 + selectorEngine utils split into core and root
-+ cytoplasm now accepts html strings for element creation (single or multiple elements)
++ microbe selector engine now accepts html strings for element creation (single or multiple elements)
 + selector strings of multiple classes are now 10x faster
 + code cleaned of unused variables
 + many push replaces with null -> filter

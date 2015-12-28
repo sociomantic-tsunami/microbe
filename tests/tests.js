@@ -150,7 +150,7 @@ document.getElementsByTagName( 'title' )[0].innerHTML = 'µ - ' + µ.version + '
 window.buildTest = buildTest;
 
 
-},{"../src/microbe.js":12,"./unit/dom":26,"./unit/elements":27,"./unit/events":28,"./unit/http":29,"./unit/observe":30,"./unit/pageStyles":31,"./unit/selectorEngine/core":32,"./unit/selectorEngine/init":33,"./unit/selectorEngine/pseudo":34,"./unit/selectorEngine/root":35,"./unit/tools":36}],2:[function(require,module,exports){
+},{"../src/microbe.js":12,"./unit/dom":27,"./unit/elements":28,"./unit/events":29,"./unit/http":30,"./unit/observe":31,"./unit/pageStyles":32,"./unit/selectorEngine/core":33,"./unit/selectorEngine/init":34,"./unit/selectorEngine/pseudo":35,"./unit/selectorEngine/root":36,"./unit/tools":37}],2:[function(require,module,exports){
 (function (process){
 
 // Use the fastest possible means to execute a task in a future turn
@@ -2109,7 +2109,7 @@ Promise.prototype.nodeify = function (callback, ctx) {
 'use strict';
 
 var _type       = '[object Microbe]';
-var _version    = '0.4.17';
+var _version    = require( './version' );
 
 var Microbe = function( selector, scope, elements )
 {
@@ -2127,7 +2127,7 @@ require( './modules/events' )( Microbe );
 
 module.exports      = Microbe.core.constructor = Microbe;
 
-},{"./modules/dom":13,"./modules/elements":14,"./modules/events":15,"./modules/http":16,"./modules/observe":17,"./modules/pageStyles":18,"./modules/tools":19,"./selectorEngine/init":23}],13:[function(require,module,exports){
+},{"./modules/dom":13,"./modules/elements":14,"./modules/events":15,"./modules/http":16,"./modules/observe":17,"./modules/pageStyles":18,"./modules/tools":19,"./selectorEngine/init":23,"./version":26}],13:[function(require,module,exports){
 /**
  * dom.js
  *
@@ -6718,6 +6718,8 @@ module.exports = function( Microbe )
 };
 
 },{}],26:[function(require,module,exports){
+module.exports = '0.4.17';
+},{}],27:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 module.exports = function( buildTest )
 {
@@ -7170,7 +7172,7 @@ module.exports = function( buildTest )
     });
 };
 
-},{}],27:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
  /* global document, window, µ, $, QUnit, Benchmark, test  */
 
 module.exports = function( buildTest )
@@ -7816,7 +7818,7 @@ module.exports = function( buildTest )
 };
 
 
-},{}],28:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 module.exports = function( buildTest )
 {
@@ -7992,7 +7994,7 @@ module.exports = function( buildTest )
     });
 };
 
-},{}],29:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 
 module.exports = function( buildTest )
@@ -8084,7 +8086,7 @@ module.exports = function( buildTest )
     });
 };
 
-},{}],30:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 
 module.exports = function( buildTest )
@@ -8212,7 +8214,7 @@ module.exports = function( buildTest )
     });
 };
 
-},{}],31:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 
 module.exports = function( buildTest )
@@ -8293,10 +8295,10 @@ module.exports = function( buildTest )
     });
 };
 
-},{}],32:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 var indexOf = Array.prototype.indexOf;
-var version = '0.4.17';
+var version = require( '../../../src/version' );
 
 module.exports = function( buildTest )
 {
@@ -8728,7 +8730,7 @@ module.exports = function( buildTest )
 };
 
 
-},{}],33:[function(require,module,exports){
+},{"../../../src/version":26}],34:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, buildTest  */
 module.exports = function( buildTest )
 {
@@ -9181,7 +9183,7 @@ module.exports = function( buildTest )
     });
 };
 
-},{}],34:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 var indexOf = Array.prototype.indexOf
 
@@ -9915,7 +9917,7 @@ module.exports = function( buildTest )
 };
 
 
-},{}],35:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 var indexOf = Array.prototype.indexOf;
 
@@ -9960,7 +9962,7 @@ module.exports = function( buildTest )
 };
 
 
-},{}],36:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 
 module.exports = function( buildTest )

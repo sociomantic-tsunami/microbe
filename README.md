@@ -95,18 +95,6 @@ Dev Installation
 - `npm build`
 
 
-Compiling specific dist files
-========================
-
-- microbe.js
-```npm run microbe```
-
-- microbe.selectorEngine.js
-```npm run selectorEngine```
-
-- microbe.toolkit.js
-```npm run toolkit```
-
 
 Running the tests
 =================
@@ -125,11 +113,19 @@ http://localhost/microbe/tests
 ```
 
 
-Generating www docs
-===================
+Available npm scripts
+=====================
 
-```npm run docs```
-(this command will watch for changes)
++ build `builds all 3 standard microbe versions, then builds and runs tests`
++ buildTests `builds the tests`
++ deploy `bumps the minor version, runs build, then builds docs` 
++ docs `builds the docs.  rebuilds the docs everytime a file changes`
++ docsOnce `build docs once`
++ gulp `builds microbe`
++ microbe `builds microbe`
++ selectorEngine `builds the microbe selector engine`
++ toolkit `builds microbe toolkit`
++ test `runs the test suite in nightmare`
 
 
 Contributing
@@ -157,6 +153,14 @@ Need to report something? [report@m.icro.be](report@m.icro.be)
 
 Change log
 ==========
+
+#### 0.4.18
+
++ automated version bumps to stop needing to jump multiple minor versions
++ tweaked test css
++ readme updates
++ removed watch script from package.json
+
 
 #### 0.4.16
 
@@ -219,25 +223,6 @@ Change log
 + updated code of conduct
 + toggleClass now accepts an array of classes
 + twitter account added to info
-
-
-#### 0.4.8
-
-+ updated copy and tests
-
-
-#### 0.4.7
-
- + updated readme with how to use the µ symbol
- + copy and logo changes on ./www
- + regenerated doc
- + updated gulpfile
-
-
-#### 0.4.6
-
-+ moved functions and structure to enable modular building
-
 
 
 Older Changes

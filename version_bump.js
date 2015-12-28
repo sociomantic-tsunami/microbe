@@ -1,6 +1,14 @@
-// minor version update script
+/**
+ * ## version_bump.js
+ *
+ * Node script that bumps the version in the appropriate spots
+ *
+ * @author  Mouse Braun         <mouse@knoblau.ch>
+ * @author  Nicolas Brugneaux   <nicolas.brugneaux@gmail.com>
+ *
+ * @package Microbe
+ */
 var fs              = require( 'fs' );
-
 
 /**
  * ## getResource
@@ -36,13 +44,25 @@ function setResource( url, data )
 }
 
 
+/**
+ * ## updateLine
+ *
+ * updates a specific line with the given replacement
+ *
+ * @param {String} url url to find the resource
+ * @param {Number} ln line number
+ * @param {String} replacement replacement text
+ *
+ * @return _Void_
+ */
 function updateLine( url, ln, replacement )
 {
     var data            = getResource( url );
     var dataSplit       = data.split( '\n' );
         dataSplit[ ln ] = replacement;
+        data            = dataSplit.join( '\n' );
 
-    return dataSplit.join( '\n' );
+    setResource( url, data );
 }
 
 
@@ -72,14 +92,8 @@ var readmeUrl       = './README.md';
 var versionUrl      = './src/version.js';
 var packageUrl      = './package.json';
 
+var newVersion      = process.argv[ 2 ] || updateVersion( versionUrl );
 
-var newVersion      = process.argv[2] || updateVersion( versionUrl );
-
-var versionScript   = 'module.exports = \'' + newVersion + '\';';
-setResource( versionUrl, versionScript );
-
-var readme          = updateLine( readmeUrl, 0, 'µ - Microbe - ' + newVersion );
-setResource( readmeUrl, readme );
-
-var packageJSON     = updateLine( packageUrl, 2, '  "version": "' + newVersion + '",' );
-setResource( packageUrl, packageJSON );
+updateLine( versionUrl, 0, 'module.exports = \'' + newVersion + '\';' );
+updateLine( readmeUrl, 0, 'µ - Microbe - ' + newVersion );
+updateLine( packageUrl, 2, '  "version": "' + newVersion + '",' );

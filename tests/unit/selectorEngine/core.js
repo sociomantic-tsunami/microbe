@@ -1,6 +1,6 @@
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 var indexOf = Array.prototype.indexOf;
-var version = '0.4.17';
+var version = require( '../../../src/version' );
 
 module.exports = function( buildTest )
 {

@@ -38,3 +38,9 @@
 {
     color:              #CB3737;
 }
+
+#example--id
+{
+    position:           absolute;
+    top:                -9999px;
+}
