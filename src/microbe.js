@@ -12,7 +12,7 @@
 'use strict';
 
 var _type       = '[object Microbe]';
-var _version    = '0.4.17';
+var _version    = require( './version' );
 
 var Microbe = function( selector, scope, elements )
 {
