@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "Library/WebServer/Documents/microbe//modules/elements.js", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "Users/mouse/workspace/microbe//modules/elements.js", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../microbe.js"></script>
@@ -358,11 +358,11 @@ If the value is omitted, simply returns the current css value of the element.</p
     <span class="p">{</span>
       <span class="kd">var</span> <span class="nx">isObject</span> <span class="o">=</span> <span class="nx">Microbe</span><span class="p">.</span><span class="nx">isObject</span><span class="p">(</span> <span class="nx">_property</span> <span class="p">);</span>
 
-        <span class="kd">var</span> <span class="nx">_setCss</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_elm</span><span class="p">,</span> <span class="nx">_v</span> <span class="p">)</span>
+        <span class="kd">var</span> <span class="nx">_setCss</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_elm</span> <span class="p">)</span>
         <span class="p">{</span>
             <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span>                   <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span>     <span class="o">||</span> <span class="p">{};</span>
             <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">css</span>               <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">css</span> <span class="o">||</span> <span class="p">{};</span>
-            <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">css</span><span class="p">[</span> <span class="nx">_property</span> <span class="p">]</span>  <span class="o">=</span> <span class="nx">_v</span> <span class="o">||</span> <span class="nx">_value</span><span class="p">;</span>
+            <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">css</span><span class="p">[</span> <span class="nx">_property</span> <span class="p">]</span>  <span class="o">=</span> <span class="nx">_value</span><span class="p">;</span>
             <span class="nx">_elm</span><span class="p">.</span><span class="nx">style</span><span class="p">[</span> <span class="nx">_property</span> <span class="p">]</span>     <span class="o">=</span> <span class="nx">_elm</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">css</span><span class="p">[</span> <span class="nx">_property</span> <span class="p">];</span>
         <span class="p">};</span>
 
