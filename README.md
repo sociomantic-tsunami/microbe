@@ -1,4 +1,4 @@
-µ - Microbe - 0.4.18
+µ - Microbe - 0.4.19
 ====================
 
 [![Microbe build status](https://travis-ci.org/sociomantic/microbe.svg)](https://travis-ci.org)  [![Slack Status](https://microbejs-slackin.herokuapp.com/badge.svg)](https://microbejs-slackin.herokuapp.com)
@@ -153,6 +153,13 @@ Need to report something? [report@m.icro.be](report@m.icro.be)
 
 Change log
 ==========
+
+#### 0.4.19
+
++ added bower to version_bump
++ removed cdnjs-importer from dependencies
++ small www changes
+
 
 #### 0.4.18
 
