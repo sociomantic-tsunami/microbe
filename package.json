@@ -1,6 +1,6 @@
 {
   "name": "microbejs",
-  "version": "0.4.19",
+  "version": "0.4.20",
   "author": "Mouse Braun <mouse@knoblau.ch>",
   "description": "microbe.js - A modular JS library for DOM manipulation, and more",
   "contributors": [
@@ -22,7 +22,8 @@
     "selectorEngine": "./node_modules/.bin/gulp selectorEngine",
     "start": "./node_modules/.bin/gulp",
     "toolkit": "./node_modules/.bin/gulp toolkit",
-    "test": "node --harmony ./scripts/nightmare.js"
+    "test": "node --harmony ./scripts/nightmare.js",
+    "versionBump": "node ./scripts/version_bump"
   },
   "devDependencies": {
     "browserify": "^5.11.2",

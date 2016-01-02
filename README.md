@@ -1,4 +1,4 @@
-µ - Microbe - 0.4.19
+µ - Microbe - 0.4.20
 ====================
 
 [![Microbe build status](https://travis-ci.org/sociomantic/microbe.svg)](https://travis-ci.org)  [![Slack Status](https://microbejs-slackin.herokuapp.com/badge.svg)](https://microbejs-slackin.herokuapp.com)
@@ -118,7 +118,7 @@ Available npm scripts
 
 + build `builds all 3 standard microbe versions, then builds and runs tests`
 + buildTests `builds the tests`
-+ deploy `bumps the minor version, runs build, then builds docs` 
++ deploy `bumps the minor version, runs build, then builds docs`
 + docs `builds the docs.  rebuilds the docs everytime a file changes`
 + docsOnce `build docs once`
 + gulp `builds microbe`
@@ -153,6 +153,11 @@ Need to report something? [report@m.icro.be](report@m.icro.be)
 
 Change log
 ==========
+
+#### 0.4.20
+
++ fixed toolkit getter issue
+
 
 #### 0.4.19
 
