@@ -14,12 +14,24 @@
 var _type       = '[object MicrobeRoot]';
 var _version    = require( './version' ) + '-tool';
 
-var Microbe = {
-    get version()   { return _version; },
-    get type()      { return _type; }
-};
+var Microbe = { core : {} };
 
 require( './modules/tools' )( Microbe );
 require( './modules/pageStyles' )( Microbe );
+require( './modules/http' )( Microbe );
+
+Object.defineProperty( Microbe, 'version', {
+    get : function()
+    {
+        return _version;
+    }
+} );
+
+Object.defineProperty( Microbe, 'type', {
+    get : function()
+    {
+        return _type;
+    }
+} );
 
 module.exports      = Microbe;
