@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="doc-style.css" />
   <script src="doc-filelist.js"></script>
   <script>
-    var relativeDir = "", thisFile = "Users/mouse/workspace/microbe//microbe.toolkit.js", defaultSidebar = true;
+    var relativeDir = "", thisFile = "Library/WebServer/Documents/microbe//microbe.toolkit.js", defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
   <script src="microbe.js"></script>
@@ -46,11 +46,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Mouse Braun         <a href="&#109;&#x61;&#x69;&#x6C;t&#x6F;:&#109;&#x6F;&#117;&#x73;&#101;&#x40;kn&#111;&#x62;&#108;a&#117;&#46;&#x63;&#104;">&#109;&#x6F;&#117;&#x73;&#101;&#x40;kn&#111;&#x62;&#108;a&#117;&#46;&#x63;&#104;</a></span>
+      <span>Mouse Braun         <a href="&#x6D;&#97;&#x69;&#108;&#116;&#111;:&#x6D;&#x6F;&#x75;s&#x65;&#64;&#107;&#110;&#x6F;&#x62;&#108;&#97;&#x75;&#46;&#x63;&#x68;">&#x6D;&#x6F;&#x75;s&#x65;&#64;&#107;&#110;&#x6F;&#x62;&#108;&#97;&#x75;&#46;&#x63;&#x68;</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Nicolas Brugneaux   <a href="&#109;a&#105;&#108;&#116;&#x6F;:&#110;&#105;&#x63;&#x6F;&#x6C;&#97;&#115;&#46;&#x62;&#114;&#x75;&#x67;&#110;&#x65;&#97;&#x75;&#x78;&#64;&#x67;&#x6D;&#97;&#105;&#x6C;.&#99;&#x6F;&#x6D;">&#110;&#105;&#x63;&#x6F;&#x6C;&#97;&#115;&#46;&#x62;&#114;&#x75;&#x67;&#110;&#x65;&#97;&#x75;&#x78;&#64;&#x67;&#x6D;&#97;&#105;&#x6C;.&#99;&#x6F;&#x6D;</a></span>
+      <span>Nicolas Brugneaux   <a href="&#x6D;&#x61;&#105;&#108;&#116;&#111;:ni&#x63;&#x6F;&#108;&#x61;&#115;&#46;b&#114;&#x75;&#103;&#x6E;&#101;&#x61;&#x75;&#120;&#x40;&#x67;&#x6D;&#x61;&#x69;l&#46;&#x63;&#x6F;&#x6D;">ni&#x63;&#x6F;&#108;&#x61;&#115;&#46;b&#114;&#x75;&#103;&#x6E;&#101;&#x61;&#x75;&#120;&#x40;&#x67;&#x6D;&#x61;&#x69;l&#46;&#x63;&#x6F;&#x6D;</a></span>
     </div>
     <div class="dox_tag_title">package</div>
     <div class="dox_tag_detail">
@@ -65,13 +65,25 @@
 <span class="kd">var</span> <span class="nx">_type</span>       <span class="o">=</span> <span class="s1">&#39;[object MicrobeRoot]&#39;</span><span class="p">;</span>
 <span class="kd">var</span> <span class="nx">_version</span>    <span class="o">=</span> <span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./version&#39;</span> <span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;-tool&#39;</span><span class="p">;</span>
 
-<span class="kd">var</span> <span class="nx">Microbe</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="nx">get</span> <span class="nx">version</span><span class="p">()</span>   <span class="p">{</span> <span class="k">return</span> <span class="nx">_version</span><span class="p">;</span> <span class="p">},</span>
-    <span class="nx">get</span> <span class="nx">type</span><span class="p">()</span>      <span class="p">{</span> <span class="k">return</span> <span class="nx">_type</span><span class="p">;</span> <span class="p">}</span>
-<span class="p">};</span>
+<span class="kd">var</span> <span class="nx">Microbe</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">core</span> <span class="o">:</span> <span class="p">{}</span> <span class="p">};</span>
 
 <span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./modules/tools&#39;</span> <span class="p">)(</span> <span class="nx">Microbe</span> <span class="p">);</span>
 <span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./modules/pageStyles&#39;</span> <span class="p">)(</span> <span class="nx">Microbe</span> <span class="p">);</span>
+<span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./modules/http&#39;</span> <span class="p">)(</span> <span class="nx">Microbe</span> <span class="p">);</span>
+
+<span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span> <span class="nx">Microbe</span><span class="p">,</span> <span class="s1">&#39;version&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">get</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">_version</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span> <span class="p">);</span>
+
+<span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span> <span class="nx">Microbe</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">get</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">_type</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span> <span class="p">);</span>
 
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span>      <span class="o">=</span> <span class="nx">Microbe</span><span class="p">;</span>
 </pre></div>
