@@ -154,6 +154,11 @@ Need to report something? [report@m.icro.be](report@m.icro.be)
 Change log
 ==========
 
+### 0.4.21
+
++ license spells
+
+
 #### 0.4.20
 
 + fixed toolkit getter issue

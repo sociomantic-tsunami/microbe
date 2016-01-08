@@ -10,7 +10,7 @@ var _name           = 'microbe';
 var now             = new Date();
 var _package        = require( './package.json' );
 
-var liscenceLong    = '/*!\n' +
+var licenceLong     = '/*!\n' +
                       ' * Microbe JavaScript Library v' + _package.version + '\n' +
                       ' * ' + _package.homepage + '\n' +
                       ' *\n' +
@@ -21,7 +21,7 @@ var liscenceLong    = '/*!\n' +
                       ' * Date: ' + now.toDateString() + '\n' +
                       ' */\n';
 
-var liscenceShort   = '/*! Microbe v' + _package.version + ' | (c) 2014-' + now.getUTCFullYear() + ' Sociomantic Labs | http://m.icro.be/license */\n';
+var licenceShort    = '/*! Microbe v' + _package.version + ' | (c) 2014-' + now.getUTCFullYear() + ' Sociomantic Labs | http://m.icro.be/license */\n';
 
 var token           = 'ThisIsVeryUnlikelyThatAVariableWillBeCalledThisWay';
 var exportName      = 'µ';
@@ -36,7 +36,7 @@ gulp.task( 'build', function()
         {
             gulp.src( './dist/' + _name + '.js' )
                 .pipe( replace( token, exportName ) )
-                .pipe( header( liscenceLong ) )
+                .pipe( header( licenceLong ) )
                 .pipe( gulp.dest( './dist/' ) );
         } );
 } );
@@ -65,7 +65,7 @@ gulp.task( 'min', function()
             gulp.src( './dist/' + _name + '.min.js' )
                 .pipe( replace( token, exportName ) )
                 .pipe( uglify() )
-                .pipe( header( liscenceShort ) )
+                .pipe( header( licenceShort ) )
                 .pipe( gulp.dest( './dist/' ) );
         });
 });
