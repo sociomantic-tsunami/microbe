@@ -34,6 +34,7 @@ module.exports = function( Microbe )
         {
             var textContent;
             var template        = document.createElement( 'template' );
+            var contentDiv      = _elm.getElementsByClassName( 'content' )[0];
             var _elmChildren    = _elm.children;
 
             for ( var i = 0, lenI = _elmChildren.length; i < lenI; i++ )
@@ -42,7 +43,6 @@ module.exports = function( Microbe )
             }
 
             var content     = document.createElement( 'content' );
-            var contentDiv  = _elm.getElementsByClassName( 'content' )[0];
 
             if ( contentDiv )
             {

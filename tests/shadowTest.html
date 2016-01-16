@@ -6,8 +6,6 @@
     </head>
     <body>
         <div id="nameTag">
-        <!-- <div id="nameTag">Bob</div> -->
-        <!-- <template id="nameTagTemplate"> -->
             <style>
                 .outer
                 {
@@ -39,16 +37,15 @@
                     Hi! My name is
                 </div>
                 <div class="name">
-                    <div class="cotent">Bob</div>
+                    <div class="content">Bob</div>
                 </div>
-            <!-- </template> -->
             </div>
         </div>
     </body>
     <script type="text/javascript" src="../dist/microbe.exp.js"></script>
     <script type="text/javascript">
-
-
-
+        var µNametag = µ( '#nameTag' );
+        µNametag.createShadow();
+        µNametag.text( 'moon' );
     </script>
 </html>
