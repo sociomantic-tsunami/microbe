@@ -98,6 +98,13 @@ gulp.task( 'toolkit', function()
 } );
 
 
+gulp.task( 'experimental', function()
+{
+    _name = 'microbe.exp';
+    gulp.start( [ 'build', 'min' ] );
+} );
+
+
 gulp.task( 'watch', function()
 {
     gulp.watch( [ 'src/**/*.js', 'tests/unit/*.js', 'tests/unit/**/*.js' ], [ 'default' ] );

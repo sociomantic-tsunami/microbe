@@ -22,6 +22,7 @@
     "selectorEngine": "./node_modules/.bin/gulp selectorEngine",
     "start": "./node_modules/.bin/gulp",
     "toolkit": "./node_modules/.bin/gulp toolkit",
+    "experimental" : "./node_modules/.bin/gulp experimental",
     "test": "node --harmony ./scripts/nightmare.js",
     "versionBump": "node ./scripts/version_bump"
   },
