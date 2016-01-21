@@ -98,4 +98,4 @@ var newVersion      = process.argv[ 2 ] || updateVersion( versionUrl );
 updateLine( versionUrl, 0, 'module.exports = \'' + newVersion + '\';' );
 updateLine( readmeUrl, 0, 'µ - Microbe - ' + newVersion );
 updateLine( packageUrl, 2, '  "version": "' + newVersion + '",' );
-updateLine( bowerUrl, 2, '  "version": "' + newVersion + '",' );
+updateLine( bowerUrl, 2, '    "version": "' + newVersion + '",' );
