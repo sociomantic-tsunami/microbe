@@ -116,16 +116,17 @@ http://localhost/microbe/tests
 Available npm scripts
 =====================
 
-+ build `builds all 3 standard microbe versions, then builds and runs tests`
-+ buildTests `builds the tests`
-+ deploy `bumps the minor version, runs build, then builds docs`
-+ docs `builds the docs.  rebuilds the docs everytime a file changes`
-+ docsOnce `build docs once`
-+ gulp `builds microbe`
-+ microbe `builds microbe`
-+ selectorEngine `builds the microbe selector engine`
-+ toolkit `builds microbe toolkit`
-+ test `runs the test suite in nightmare`
++ `npm run build` builds all 4 standard microbe versions, then builds and runs tests
++ `npm run buildTests` builds the tests
++ `npm run deploy` bumps the minor version, runs build, then builds docs
++ `npm run docs` builds the docs.  rebuilds the docs everytime a file changes
++ `npm run docsOnce` build docs once
++ `npm run gulp` builds microbe
++ `npm run http` builds microbe http
++ `npm run microbe` builds microbe
++ `npm run selectorEngine` builds the microbe selector engine
++ `npm run toolkit` builds microbe toolkit
++ `npm test` runs the test suite in nightmare
 
 
 Contributing
@@ -157,6 +158,8 @@ Change log
 ### 0.4.21
 
 + license spells
++ added seperate http build
++ gulp and package file changes
 
 
 #### 0.4.20
