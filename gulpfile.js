@@ -73,6 +73,7 @@ gulp.task( 'min', function()
 
 gulp.task( 'default', [], function()
 {
+    _name = 'microbe';
     gulp.start( [ 'build', 'min', 'buildTests' ] );
 } );
 

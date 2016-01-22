@@ -15,6 +15,7 @@ var _type       = '[object Microbe-Http]';
 var _version    = require( './version' ) + '-tool';
 
 var Microbe = {};
+var _version    = require( './version' ) + '-http';
 
 require( './modules/http' )( Microbe );
 

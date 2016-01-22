@@ -3455,10 +3455,10 @@ module.exports = function( Microbe )
                     {
                         if ( _val.status !== 200 )
                         {
-                            _cb({
+                            _cb( {
                                 status      : _val.status,
                                 statusText  : _val.statusText
-                            });
+                            } );
                         }
                         return _responses;
                     }
@@ -6718,7 +6718,7 @@ module.exports = function( Microbe )
 };
 
 },{}],26:[function(require,module,exports){
-module.exports = '0.4.20';
+module.exports = '0.4.21';
 },{}],27:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 module.exports = function( buildTest )

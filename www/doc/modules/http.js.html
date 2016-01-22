@@ -6,7 +6,7 @@
   <link rel="stylesheet" media="all" href="../doc-style.css" />
   <script src="../doc-filelist.js"></script>
   <script>
-    var relativeDir = "../", thisFile = "Library/WebServer/Documents/microbe//modules/http.js", defaultSidebar = true;
+    var relativeDir = "../", thisFile = "Users/mouse/workspace/microbe//modules/http.js", defaultSidebar = true;
   </script>
   <script src="../doc-script.js"></script>
   <script src="../microbe.js"></script>
@@ -61,11 +61,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Mouse Braun         <a href="&#109;&#97;&#x69;&#108;&#116;&#x6F;:&#109;&#111;&#117;s&#x65;&#x40;&#x6B;&#x6E;&#111;&#98;&#108;&#x61;&#x75;&#x2E;&#x63;&#104;">&#109;&#111;&#117;s&#x65;&#x40;&#x6B;&#x6E;&#111;&#98;&#108;&#x61;&#x75;&#x2E;&#x63;&#104;</a></span>
+      <span>Mouse Braun         <a href="&#109;&#97;&#x69;&#x6C;&#x74;&#x6F;:&#x6D;&#x6F;&#117;&#x73;&#x65;&#x40;&#107;&#x6E;&#x6F;&#98;&#x6C;&#x61;u&#x2E;&#x63;&#x68;">&#x6D;&#x6F;&#117;&#x73;&#x65;&#x40;&#107;&#x6E;&#x6F;&#98;&#x6C;&#x61;u&#x2E;&#x63;&#x68;</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Nicolas Brugneaux   <a href="&#x6D;&#x61;&#105;&#108;&#116;&#x6F;:&#110;&#105;&#99;&#x6F;&#108;&#x61;&#115;&#46;b&#x72;u&#103;&#x6E;&#x65;&#x61;&#117;&#x78;&#64;&#103;&#x6D;&#x61;&#x69;&#108;&#x2E;&#x63;&#x6F;&#109;">&#110;&#105;&#99;&#x6F;&#108;&#x61;&#115;&#46;b&#x72;u&#103;&#x6E;&#x65;&#x61;&#117;&#x78;&#64;&#103;&#x6D;&#x61;&#x69;&#108;&#x2E;&#x63;&#x6F;&#109;</a></span>
+      <span>Nicolas Brugneaux   <a href="&#109;&#97;&#x69;&#108;&#x74;&#x6F;:&#x6E;&#105;&#99;&#x6F;&#108;&#97;&#x73;.&#98;&#114;&#x75;&#103;n&#x65;&#97;&#117;&#x78;&#64;&#103;&#109;&#x61;&#x69;l&#x2E;&#x63;o&#x6D;">&#x6E;&#105;&#99;&#x6F;&#108;&#97;&#x73;.&#98;&#114;&#x75;&#103;n&#x65;&#97;&#117;&#x78;&#64;&#103;&#109;&#x61;&#x69;l&#x2E;&#x63;o&#x6D;</a></span>
     </div>
     <div class="dox_tag_title">package</div>
     <div class="dox_tag_detail">
@@ -287,10 +287,10 @@ called passing the error as the first parameter to the callback</p>
                     <span class="p">{</span>
                         <span class="k">if</span> <span class="p">(</span> <span class="nx">_val</span><span class="p">.</span><span class="nx">status</span> <span class="o">!==</span> <span class="mi">200</span> <span class="p">)</span>
                         <span class="p">{</span>
-                            <span class="nx">_cb</span><span class="p">({</span>
+                            <span class="nx">_cb</span><span class="p">(</span> <span class="p">{</span>
                                 <span class="nx">status</span>      <span class="o">:</span> <span class="nx">_val</span><span class="p">.</span><span class="nx">status</span><span class="p">,</span>
                                 <span class="nx">statusText</span>  <span class="o">:</span> <span class="nx">_val</span><span class="p">.</span><span class="nx">statusText</span>
-                            <span class="p">});</span>
+                            <span class="p">}</span> <span class="p">);</span>
                         <span class="p">}</span>
                         <span class="k">return</span> <span class="nx">_responses</span><span class="p">;</span>
                     <span class="p">}</span>
