@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>microbe.toolkit.js</title>
+  <title>microbe.http.js</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" media="all" href="doc-style.css" />
   <script src="doc-filelist.js"></script>
   <script>
-    var relativeDir = "", thisFile = "Users/mouse/workspace/microbe//microbe.toolkit.js", defaultSidebar = true;
+    var relativeDir = "", thisFile = "Users/mouse/workspace/microbe//microbe.http.js", defaultSidebar = true;
   </script>
   <script src="doc-script.js"></script>
   <script src="microbe.js"></script>
@@ -46,11 +46,11 @@
   <div class="details">
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Mouse Braun         <a href="&#x6D;a&#105;&#108;&#116;&#x6F;:&#109;&#111;&#117;&#x73;&#101;&#x40;&#107;&#x6E;&#111;&#x62;&#108;&#x61;&#x75;&#46;&#x63;&#104;">&#109;&#111;&#117;&#x73;&#101;&#x40;&#107;&#x6E;&#111;&#x62;&#108;&#x61;&#x75;&#46;&#x63;&#104;</a></span>
+      <span>Mouse Braun         <a href="&#x6D;&#x61;&#105;&#x6C;&#116;&#111;:&#x6D;&#x6F;&#117;s&#101;&#64;&#107;&#110;o&#98;&#x6C;&#x61;&#x75;&#46;&#99;&#104;">&#x6D;&#x6F;&#117;s&#101;&#64;&#107;&#110;o&#98;&#x6C;&#x61;&#x75;&#46;&#99;&#104;</a></span>
     </div>
     <div class="dox_tag_title">author</div>
     <div class="dox_tag_detail">
-      <span>Nicolas Brugneaux   <a href="&#109;&#x61;&#105;&#108;&#116;&#x6F;:&#110;&#x69;&#x63;&#111;&#x6C;&#x61;s&#x2E;&#98;&#114;&#x75;&#103;&#x6E;&#101;&#x61;&#x75;&#120;&#64;&#103;&#x6D;&#97;i&#108;&#x2E;&#x63;&#x6F;m">&#110;&#x69;&#x63;&#111;&#x6C;&#x61;s&#x2E;&#98;&#114;&#x75;&#103;&#x6E;&#101;&#x61;&#x75;&#120;&#64;&#103;&#x6D;&#97;i&#108;&#x2E;&#x63;&#x6F;m</a></span>
+      <span>Nicolas Brugneaux   <a href="&#x6D;&#97;&#x69;&#108;&#116;&#x6F;:&#x6E;&#105;&#x63;&#x6F;&#108;a&#115;.&#98;&#x72;&#x75;&#103;&#x6E;&#x65;&#x61;&#117;&#120;&#64;&#x67;&#109;&#x61;&#105;&#108;&#46;c&#111;&#x6D;">&#x6E;&#105;&#x63;&#x6F;&#108;a&#115;.&#98;&#x72;&#x75;&#103;&#x6E;&#x65;&#x61;&#117;&#120;&#64;&#x67;&#109;&#x61;&#105;&#108;&#46;c&#111;&#x6D;</a></span>
     </div>
     <div class="dox_tag_title">package</div>
     <div class="dox_tag_detail">
@@ -63,12 +63,10 @@
 <span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
 
 <span class="kd">var</span> <span class="nx">_type</span>       <span class="o">=</span> <span class="s1">&#39;[object MicrobeRoot]&#39;</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">_version</span>    <span class="o">=</span> <span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./version&#39;</span> <span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;-tool&#39;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">_version</span>    <span class="o">=</span> <span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./version&#39;</span> <span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;-http&#39;</span><span class="p">;</span>
 
 <span class="kd">var</span> <span class="nx">Microbe</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">core</span> <span class="o">:</span> <span class="p">{}</span> <span class="p">};</span>
 
-<span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./modules/tools&#39;</span> <span class="p">)(</span> <span class="nx">Microbe</span> <span class="p">);</span>
-<span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./modules/pageStyles&#39;</span> <span class="p">)(</span> <span class="nx">Microbe</span> <span class="p">);</span>
 <span class="nx">require</span><span class="p">(</span> <span class="s1">&#39;./modules/http&#39;</span> <span class="p">)(</span> <span class="nx">Microbe</span> <span class="p">);</span>
 
 <span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span> <span class="nx">Microbe</span><span class="p">,</span> <span class="s1">&#39;version&#39;</span><span class="p">,</span> <span class="p">{</span>

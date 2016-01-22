@@ -73,6 +73,7 @@ gulp.task( 'min', function()
 
 gulp.task( 'default', [], function()
 {
+    _name = 'microbe';
     gulp.start( [ 'build', 'min', 'buildTests' ] );
 } );
 
@@ -94,6 +95,13 @@ gulp.task( 'selectorEngine', function()
 gulp.task( 'toolkit', function()
 {
     _name = 'microbe.toolkit';
+    gulp.start( [ 'build', 'min' ] );
+} );
+
+
+gulp.task( 'http', function()
+{
+    _name = 'microbe.http';
     gulp.start( [ 'build', 'min' ] );
 } );
 

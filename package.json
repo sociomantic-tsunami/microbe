@@ -12,7 +12,7 @@
     "url": "git@github.com:sociomantic/microbe.git"
   },
   "scripts": {
-    "build": "./node_modules/.bin/gulp toolkit && ./node_modules/.bin/gulp selectorEngine && ./node_modules/.bin/gulp microbe && npm run buildTests && npm run test && echo \"All builds complete and tests passed.\"",
+    "build": "./node_modules/.bin/gulp toolkit && ./node_modules/.bin/gulp selectorEngine && ./node_modules/.bin/gulp http && ./node_modules/.bin/gulp && npm run docsOnce && npm run test && echo \"All builds complete and tests passed.\"",
     "buildTests": "./node_modules/.bin/gulp buildTests",
     "deploy": "node ./scripts/version_bump && npm run build && npm run docsOnce",
     "docsOnce": "docker -o www/doc/ -i src --sidebar true --js dist/microbe.js --extras fileSearch -c manni",
