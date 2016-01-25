@@ -14,7 +14,7 @@ const config = {
 
 const _cleanArray = function( _r ){ return !!( _r ); };
 
-vo( run )( function( err, result )
+var reportTest = function( err, result )
 {
     tests.server.close();
 
@@ -36,8 +36,8 @@ vo( run )( function( err, result )
     else
     {
         console.log( 'All tests passed!' );
-    }
-} );
+    };
+};
 
 
 function *run()
@@ -82,3 +82,5 @@ function *run()
 
     yield nightmare.end();
 }
+
+vo( run )( reportTest );

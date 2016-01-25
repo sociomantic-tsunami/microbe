@@ -29,12 +29,12 @@ var exportName      = 'µ';
 
 gulp.task( 'build', function()
 {
-    browserify( './src/' + _name + '.js', { standalone: token } )
+    browserify( './src/microbe' + _name + '.js', { standalone: token } )
         .bundle()
-        .pipe( fs.createWriteStream( __dirname + '/dist/' + _name + '.js' ) )
+        .pipe( fs.createWriteStream( __dirname + '/dist/microbe' + _name + '.js' ) )
         .on( 'finish', function()
         {
-            gulp.src( './dist/' + _name + '.js' )
+            gulp.src( './dist/microbe' + _name + '.js' )
                 .pipe( replace( token, exportName ) )
                 .pipe( header( licenceLong ) )
                 .pipe( gulp.dest( './dist/' ) );
@@ -44,12 +44,12 @@ gulp.task( 'build', function()
 
 gulp.task( 'buildTests', function()
 {
-    browserify( './tests/buildTests.js' )
+    browserify( './tests/buildTests' + _name + '.js' )
         .bundle()
-        .pipe( fs.createWriteStream( __dirname + '/tests/tests.js' ) )
+        .pipe( fs.createWriteStream( __dirname + '/tests/tests' + _name + '.js' ) )
         .on( 'finish', function()
         {
-            gulp.src( './tests/tests.js' )
+            gulp.src( './tests/tests' + _name + '.js' )
                 .pipe( gulp.dest( './tests/' ) );
         } );
 });
@@ -57,12 +57,12 @@ gulp.task( 'buildTests', function()
 
 gulp.task( 'min', function()
 {
-    browserify( './src/' + _name + '.js', { standalone: token } )
+    browserify( './src/microbe' + _name + '.js', { standalone: token } )
         .bundle()
-        .pipe( fs.createWriteStream( __dirname + '/dist/' + _name + '.min.js' ) )
+        .pipe( fs.createWriteStream( __dirname + '/dist/microbe' + _name + '.min.js' ) )
         .on( 'finish', function()
         {
-            gulp.src( './dist/' + _name + '.min.js' )
+            gulp.src( './dist/microbe' + _name + '.min.js' )
                 .pipe( replace( token, exportName ) )
                 .pipe( uglify() )
                 .pipe( header( licenceShort ) )
@@ -73,36 +73,36 @@ gulp.task( 'min', function()
 
 gulp.task( 'default', [], function()
 {
-    _name = 'microbe';
+    _name = '';
     gulp.start( [ 'build', 'min', 'buildTests' ] );
 } );
 
 
 gulp.task( 'microbe', function()
 {
-    _name = 'microbe';
+    _name = '';
     gulp.start( [ 'build', 'min' ] );
 } );
 
 
 gulp.task( 'selectorEngine', function()
 {
-    _name = 'microbe.selectorEngine';
-    gulp.start( [ 'build', 'min' ] );
+    _name = '.selectorEngine';
+    gulp.start( [ 'build', 'min', 'buildTests' ] );
 } );
 
 
 gulp.task( 'toolkit', function()
 {
-    _name = 'microbe.toolkit';
-    gulp.start( [ 'build', 'min' ] );
+    _name = '.toolkit';
+    gulp.start( [ 'build', 'min', 'buildTests' ] );
 } );
 
 
 gulp.task( 'http', function()
 {
-    _name = 'microbe.http';
-    gulp.start( [ 'build', 'min' ] );
+    _name = '.http';
+    gulp.start( [ 'build', 'min', 'buildTests' ] );
 } );
 
 
