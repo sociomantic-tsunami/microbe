@@ -32,10 +32,6 @@ module.exports = function( buildTest )
         var µDiv = µ( 'div' ).addClass( µMooDivs[0].className );
         assert.equal( µDiv.length, µ( '.moo.for--real' ).length, 'multiple classes set by className string' );
 
-        assert.ok( µMooDivs.get( 'class' )[0].indexOf( 'moo' ) !== -1, 'it set the class into the data object' );
-        var classData = µ( '.moo' )[0].data.class.class;
-        assert.ok( classData.indexOf( 'for--real' ) !== -1, 'class sets data' );
-
         µ( '.moo' ).removeClass( 'moo  for--real' );
 
         var µDivs = µ( 'div' );
@@ -419,7 +415,6 @@ module.exports = function( buildTest )
      * µ removeClass tests
      *
      * @test    removeClass exists
-     * @test    sets data
      * @test    removes class in all elements
      */
     QUnit.test( '.removeClass()', function( assert )
@@ -428,9 +423,6 @@ module.exports = function( buildTest )
 
         var µDivs   = µ( '.example--class--groups' );
         µDivs.removeClass( 'example--class--groups' );
-
-        var classData = µDivs[0].data.class.class;
-        assert.ok( classData.indexOf( 'example--class--groups' ) === -1, 'removeClass sets data' );
 
         assert.equal( µ( '.example--class--groups' ).length, 0, 'removed class to both divs' );
 

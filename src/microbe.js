@@ -25,7 +25,7 @@ require( './modules/pageStyles' )( Microbe );
 require( './modules/dom' )( Microbe );
 require( './modules/elements' )( Microbe );
 require( './modules/http' )( Microbe );
-require( './modules/observe' )( Microbe );
+require( './modules/data' )( Microbe );
 require( './modules/events' )( Microbe );
 
 module.exports      = Microbe.core.constructor = Microbe;

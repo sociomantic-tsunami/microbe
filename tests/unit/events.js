@@ -71,7 +71,7 @@ module.exports = function( buildTest )
 
         µExamples.on( 'turningOff', function( e ){});
         µExamples.off( 'turningOff' );
-        var func = µExamples[0].data[ '_turningOff-bound-function' ][ '_turningOff-bound-function' ][0];
+        var func = µExamples[0].data[ '_turningOff-bound-function' ][0];
 
         assert.equal( func, null, 'listener removed' );
 
@@ -85,8 +85,7 @@ module.exports = function( buildTest )
             {
                 divs[ i ].addEventListener( 'click', _func );
                 var aDiv = divs[ i ].data       = divs[ i ].data || {};
-                aDiv[ '_click-bound-function' ] = aDiv[ '_click-bound-function' ] || {};
-                aDiv[ '_click-bound-function' ][ '_click-bound-function' ] = [ _func ];
+                aDiv[ '_click-bound-function' ] = [ _func ];
             }
         };
 
@@ -130,7 +129,7 @@ module.exports = function( buildTest )
 
         µExamples.on( 'onTest', function( e )
         {
-            var func = µExamples[0].data['_onTest-bound-function']['_onTest-bound-function'][0];
+            var func = µExamples[0].data['_onTest-bound-function'][0];
 
             assert.equal( typeof func, 'function', 'sets unload data' );
             µExamples.off();

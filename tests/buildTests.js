@@ -142,7 +142,7 @@ require( './unit/pageStyles' )( buildTest );
 require( './unit/http' )( buildTest );
 require( './unit/dom' )( buildTest );
 require( './unit/events' )( buildTest );
-require( './unit/observe' )( buildTest );
+require( './unit/data' )( buildTest );
 
 document.getElementsByTagName( 'title' )[0].innerHTML = 'µ - ' + µ.version + ' QUnit';
 

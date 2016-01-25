@@ -36,10 +36,6 @@ module.exports = function( Microbe )
                     }
                 }
             }
-
-            _el.data                = _el.data  || {};
-            _el.data.class          = _el.data.class || {};
-            _el.data.class.class    = _el.className;
         };
 
         if ( typeof _class === 'string' )
@@ -88,11 +84,6 @@ module.exports = function( Microbe )
                 {
                     _elm.setAttribute( _a, _v );
                 }
-
-                _elm.data                   = _elm.data || {};
-                _elm.data.attr              = _elm.data.attr || {};
-                _elm.data.attr.attr         = _elm.data.attr.attr || {};
-                _elm.data.attr.attr[ _a ]   = _v;
             };
 
             if ( _value === null )
@@ -132,7 +123,6 @@ module.exports = function( Microbe )
             {
                 _elm.removeAttribute( _attribute );
             }
-            delete _elm.data.attr.attr[ _attribute ];
         };
 
         if ( _value !== undefined || attrObject )
@@ -170,10 +160,7 @@ module.exports = function( Microbe )
 
         var _setCss = function( _elm )
         {
-            _elm.data                   = _elm.data     || {};
-            _elm.data.css               = _elm.data.css || {};
-            _elm.data.css[ _property ]  = _value;
-            _elm.style[ _property ]     = _elm.data.css[ _property ];
+            _elm.style[ _property ]     = _value;
         };
 
         var _getCss = function( _elm )
@@ -298,10 +285,6 @@ module.exports = function( Microbe )
         {
             var _setHtml = function( _elm )
             {
-                _elm.data           = _elm.data || {};
-                _elm.data.html      = _elm.data.html || {};
-                _elm.data.html.html = _value;
-
                 _elm.innerHTML      = _value;
             };
 
@@ -433,10 +416,6 @@ module.exports = function( Microbe )
                     }
                 }
             }
-
-            _el.data                = _el.data || {};
-            _el.data.class          = _el.data.class || {};
-            _el.data.class.class    = _el.className;
         };
 
         if ( typeof _class === 'string' )
@@ -512,10 +491,6 @@ module.exports = function( Microbe )
             {
                 _el.textContent = _value;
             }
-
-            _el.data            = _el.data || {};
-            _el.data.text       = _el.data.text || {};
-            _el.data.text.text  = _value;
         };
 
         var _getText = function( _el )
@@ -573,10 +548,6 @@ module.exports = function( Microbe )
             {
                 _el.classList.add( _cls );
             }
-
-            _el.data                = _el.data || {};
-            _el.data.class          = _el.data.class || {};
-            _el.data.class.class    = _el.className;
         };
 
         for ( var i = 0, lenI = _class.length; i < lenI; i++ )

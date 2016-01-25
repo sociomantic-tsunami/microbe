@@ -5,7 +5,7 @@
 
 (for modern browsers and ie10+)
 
-microbe is a javascript library to aid in DOM manipulation as well as facilitating events, object observation, and data binding. It uses the micro character ( µ ) that is accessible in:
+microbe is a javascript library to aid in DOM manipulation aimed at speed and consistency as well as facilitating events, and data binding. It uses the micro character ( µ ) that is accessible in:
 
 + osx: alt + m
 + windows: alt + 0181
@@ -23,7 +23,7 @@ microbe aims to be modular and expandable. It’s separated into several modules
 
 + HTTP helpers making use of Promises (get, post, … )
 
-+ Object.observe watches objects for changes. It can also watch itself for changes in element get/set data
++ Data that is retrievable through the DOM. (get/set)
 
 + Events - binding and emitting custom events
 
@@ -62,17 +62,11 @@ var µDivs = µ( 'div' ) ;
 // create a div with the class example--class
 var newDiv = µ( '<div.example--class>' );
 
+// gives the class example--class to each div
+µDivs.addClass( 'example--class' );
+
 // all divs get a newDiv or a clone of newDiv inserted into the DOM after them
 µDivs.insertAfter( newDiv );
-
-// watches the class of each div
-µDivs.observe( 'class', function( e )
-{
-    console.log( 'your class changed' );
-} );
-
-// gives the class example--class to each div also triggers the observe fuctions
-µDivs.addClass( 'example--class' );
 
 // sets a custom event watch
 µDivs.on( 'toTheMoon', function( e )
