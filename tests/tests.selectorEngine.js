@@ -5043,7 +5043,7 @@ module.exports = function( Microbe )
 };
 
 },{}],23:[function(require,module,exports){
-module.exports = '0.4.21';
+module.exports = '0.5.0';
 },{}],24:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 var indexOf = Array.prototype.indexOf;

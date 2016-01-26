@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+
+        <link rel="stylesheet" href="../../node_modules/qunitjs/qunit/qunit.css">
+        <link rel="stylesheet" href="../tests.css">
+    </head>
+    <body>
+        <div dropzone style="display:none">
+        <div lang="gb-en">Great Britain (EN)</div>
+        <div lang="ca-en">Canada (EN)</div>
+        <div lang="ca-fr">Canada (FR)</div>
+            <table>
+                <col id="col1"></col>
+                <col id="col2"></col>
+                <col id="col3"></col>
+            </table>
+            <input type="email" id="emailInput"/>
+            <input type="text" id="emailInput2" max="10" min="1" value="7" />
+            <input type="text" id="emailInput3" max="2" min="1" value="7" />
+            <input type="checkbox" id="checkBox" checked="checked" />Test checkbox
+            <input type="radio" id="radioButton" checked="checked" required="required" />Test Radio Button
+            <select id="selectBox">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+            </select>
+        </div>
+        <div id="qunit"></div>
+        <div id="qunit-fixture"></div>
+
+        <div id="microbe--example--dom">
+            <div class="example--class  example--class--groups">
+                <div class="example--nested  example--class--groups" style="display:none">
+                    I have some text!
+                </div>
+                <div id="example--id"></div>
+            </div>
+            </div>
+            <div id="example--combined" class="example--combined" style="display:none">
+                I am also a text
+            </div>
+        </div>
+
+
+    </body>
+    <script src="../../node_modules/qunitjs/qunit/qunit.js"></script>
+    <script src="../vendor/benchmark.js"></script>
+    <script src="../vendor/jquery-2.1.3.js"></script>
+
+    <script src="../tests.toolkit.js"></script>
+</html>

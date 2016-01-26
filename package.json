@@ -35,8 +35,6 @@
     "gulp-replace": "^0.4.0",
     "gulp-uglify": "^1.2.0",
     "nightmare": "^2.0.8",
-    "observe-shim": "^0.4.1",
-    "observe-utils": "git://github.com/jason-braun-sociomantic-mouse/observe-utils.git#patch-1",
     "promise": "^6.0.0",
     "qunitjs": "^1.18.0",
     "serve-static": "^1.10.0",
@@ -75,7 +73,6 @@
     "css4",
     "http",
     "event",
-    "class",
-    "aria"
+    "class"
   ]
 }

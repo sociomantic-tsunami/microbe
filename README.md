@@ -149,6 +149,13 @@ Need to report something? [report@m.icro.be](report@m.icro.be)
 Change log
 ==========
 
+### 0.5.0
+
++ observe is fully depreciated and removed
++ all builds now have their own test page for testing encapsulation
++ package.json cleaned up
+
+
 ### 0.4.21
 
 + license spells
