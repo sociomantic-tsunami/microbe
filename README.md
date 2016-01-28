@@ -152,6 +152,7 @@ Change log
 ### 0.5.0
 
 + observe is fully depreciated and removed
++ observe related speed fixes in addClass, removeClass, attr, html, text, on, off, set, get
 + all builds now have their own test page for testing encapsulation
 + package.json cleaned up
 
