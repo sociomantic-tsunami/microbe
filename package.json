@@ -9,7 +9,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git@github.com:sociomantic/microbe.git"
+    "url": "git@github.com:sociomantic-tsunami/microbe.git"
   },
   "scripts": {
     "build": "./node_modules/.bin/gulp toolkit && ./node_modules/.bin/gulp selectorEngine && ./node_modules/.bin/gulp http && ./node_modules/.bin/gulp && npm run docsOnce && npm run test && echo \"All builds complete and tests passed.\"",
@@ -43,7 +43,7 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sociomantic/microbe/issues"
+    "url": "https://github.com/sociomantic-tsunami/microbe/issues"
   },
   "files": [
     "CODE_OF_CONDUCT.md",
@@ -54,7 +54,7 @@
   ],
   "autoupdate": {
     "source": "git",
-    "target": "git://github.com/sociomantic/microbe.git",
+    "target": "git://github.com/sociomantic-tsunami/microbe.git",
     "basePath": "dist/",
     "files": [
       "microbe.min"

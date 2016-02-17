@@ -24,7 +24,7 @@
     "homepage":"http://m.icro.be",
     "repository": {
         "type": "git",
-        "url": "https://github.com/sociomantic/microbe.git"
+        "url": "https://github.com/sociomantic-tsunami/microbe.git"
     },
     "license": "MIT",
     "moduleType":"node",

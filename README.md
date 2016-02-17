@@ -1,7 +1,7 @@
 µ - Microbe - 0.5.0
 ====================
 
-[![Microbe build status](https://travis-ci.org/sociomantic/microbe.svg)](https://travis-ci.org)  [![Slack Status](https://microbejs-slackin.herokuapp.com/badge.svg)](https://microbejs-slackin.herokuapp.com)
+[![Microbe build status](https://travis-ci.org/sociomantic-tsunami/microbe.svg)](https://travis-ci.org)  [![Slack Status](https://microbejs-slackin.herokuapp.com/badge.svg)](https://microbejs-slackin.herokuapp.com)
 
 (for modern browsers and ie10+)
 
@@ -134,14 +134,14 @@ Otherwise, if you just want to talk, we are very easy to get a hold of!
 + Twitter:        <a href="https://www.twitter.com/microbejs" target="_blank">@microbejs</a>
 + Email:          [hello@m.icro.be](hello@m.icro.be)
 + Web:            <a href="http://m.icro.be/" target="_blank">http://m.icro.be/</a>
-+ Git:            <a href="https://github.com/sociomantic/microbe/" target="_blank">https://github.com/sociomantic/microbe/</a>
++ Git:            <a href="https://github.com/sociomantic-tsunami/microbe/" target="_blank">https://github.com/sociomantic-tsunami/microbe/</a>
 + IRC             <a href="https://kiwiirc.com/client/chat.freenode.net:+6697/#microbe">freenode #microbe</a>
 
 
 
 This project adheres to the [Contributor Covenant](http://contributor-covenant.org/). By participating, you are expected to honor this code.
 
-[Microbe - Code of Conduct](https://github.com/sociomantic/microbe/blob/master/CODE_OF_CONDUCT.md)
+[Microbe - Code of Conduct](https://github.com/sociomantic-tsunami/microbe/blob/master/CODE_OF_CONDUCT.md)
 
 Need to report something? [report@m.icro.be](report@m.icro.be)
 
