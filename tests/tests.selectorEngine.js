@@ -729,7 +729,7 @@ module.exports = function( Microbe )
     {
         var _set = function( _el )
         {
-            _el.data                    = _el.data || {};
+            _el.data            = _el.data || {};
 
             if ( Microbe.isArray( value ) )
             {
@@ -740,7 +740,7 @@ module.exports = function( Microbe )
                 value = Microbe.extend( {}, value );
             }
 
-            _el.data[ prop ]            = value;
+            _el.data[ prop ]    = value;
         };
 
         this.each( _set );
@@ -5043,7 +5043,7 @@ module.exports = function( Microbe )
 };
 
 },{}],23:[function(require,module,exports){
-module.exports = '0.5.0';
+module.exports = '0.5.1';
 },{}],24:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 var indexOf = Array.prototype.indexOf;

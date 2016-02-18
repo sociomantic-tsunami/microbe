@@ -1,5 +1,5 @@
 /*!
- * Microbe JavaScript Library v0.5.0
+ * Microbe JavaScript Library v0.5.1
  * http://m.icro.be
  *
  * Copyright 2014-2016 Sociomantic Labs and other contributors
@@ -594,7 +594,7 @@ module.exports = function( Microbe )
     {
         var _set = function( _el )
         {
-            _el.data                    = _el.data || {};
+            _el.data            = _el.data || {};
 
             if ( Microbe.isArray( value ) )
             {
@@ -605,7 +605,7 @@ module.exports = function( Microbe )
                 value = Microbe.extend( {}, value );
             }
 
-            _el.data[ prop ]            = value;
+            _el.data[ prop ]    = value;
         };
 
         this.each( _set );
@@ -4908,6 +4908,6 @@ module.exports = function( Microbe )
 };
 
 },{}],22:[function(require,module,exports){
-module.exports = '0.5.0';
+module.exports = '0.5.1';
 },{}]},{},[1])(1)
 });

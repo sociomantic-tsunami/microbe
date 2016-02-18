@@ -64,7 +64,7 @@ module.exports = function( Microbe )
     {
         var _set = function( _el )
         {
-            _el.data                    = _el.data || {};
+            _el.data            = _el.data || {};
 
             if ( Microbe.isArray( value ) )
             {
@@ -75,7 +75,7 @@ module.exports = function( Microbe )
                 value = Microbe.extend( {}, value );
             }
 
-            _el.data[ prop ]            = value;
+            _el.data[ prop ]    = value;
         };
 
         this.each( _set );

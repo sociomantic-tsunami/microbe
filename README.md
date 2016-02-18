@@ -1,4 +1,4 @@
-µ - Microbe - 0.5.0
+µ - Microbe - 0.5.1
 ====================
 
 [![Microbe build status](https://travis-ci.org/sociomantic-tsunami/microbe.svg)](https://travis-ci.org)  [![Slack Status](https://microbejs-slackin.herokuapp.com/badge.svg)](https://microbejs-slackin.herokuapp.com)
@@ -132,7 +132,7 @@ Otherwise, if you just want to talk, we are very easy to get a hold of!
 
 + Slack:          [microbejs.slack.com](https://microbejs.slack.com)
 + Twitter:        <a href="https://www.twitter.com/microbejs" target="_blank">@microbejs</a>
-+ Email:          [hello@m.icro.be](hello@m.icro.be)
++ Email:          [hello@m.icro.be](mailto:hello@m.icro.be)
 + Web:            <a href="http://m.icro.be/" target="_blank">http://m.icro.be/</a>
 + Git:            <a href="https://github.com/sociomantic-tsunami/microbe/" target="_blank">https://github.com/sociomantic-tsunami/microbe/</a>
 + IRC             <a href="https://kiwiirc.com/client/chat.freenode.net:+6697/#microbe">freenode #microbe</a>
@@ -143,11 +143,18 @@ This project adheres to the [Contributor Covenant](http://contributor-covenant.o
 
 [Microbe - Code of Conduct](https://github.com/sociomantic-tsunami/microbe/blob/master/CODE_OF_CONDUCT.md)
 
-Need to report something? [report@m.icro.be](report@m.icro.be)
+Need to report something? [report@m.icro.be](mailto:report@m.icro.be)
 
 
 Change log
 ==========
+
+### 0.5.1
+
++ readme updates
++ repo url update
++ updated version_bump script
+
 
 ### 0.5.0
 
@@ -187,64 +194,6 @@ Change log
 #### 0.4.16
 
 + fixed global constructor leak with pseudo
-
-
-#### 0.4.15
-
-+ text() : changed innetText to textContent to avoid reflow
-+ added .height() and .width() syntactic sugar
-+ added .scroll()
-+ pageStyles split from main root tools
-+ added top and left to scroll(), position(), and offset()
-+ fixed local-link
-+ fixed Win 10 IE 11 and Edge :lang
-
-
-#### 0.4.14
-
-+ css now accepts objects
-+ truncated older chanes log outto a seperate file
-+ gulpfile changes
-+ added position
-+ added offset
-+ added isMicrobe
-+ made isMicrobe, version, and type read-only
-+ added includes
-
-
-#### 0.4.13
-
-+ added travis-ci testing
-+ added nightmare command line testing
-+ removed gitter
-
-
-#### 0.4.12
-
-+ added appendTo and prependTo
-+ aliased each to forEach for array compatability
-+ added slack community to readme and www
-
-
-#### 0.4.11
-
-+ children, childrenFlat, siblings, siblingsFlat now all accept filter strings
-+ changes to siblings, siblingsFlat, filter, and find using + and ~
-
-
-#### 0.4.10
-
-+ selectorEngine now accepts functions as "document ready" short hand
-
-
-#### 0.4.9
-
-+ added bower support
-+ µ.ready now accepts an arguments array
-+ added examples to docs
-+ updated code of conduct
-+ toggleClass now accepts an array of classes
-+ twitter account added to info
 
 
 Older Changes

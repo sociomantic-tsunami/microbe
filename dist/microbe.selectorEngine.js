@@ -1,5 +1,5 @@
 /*!
- * Microbe JavaScript Library v0.5.0
+ * Microbe JavaScript Library v0.5.1
  * http://m.icro.be
  *
  * Copyright 2014-2016 Sociomantic Labs and other contributors
@@ -2202,6 +2202,6 @@ module.exports = function( Microbe )
 };
 
 },{}],7:[function(require,module,exports){
-module.exports = '0.5.0';
+module.exports = '0.5.1';
 },{}]},{},[1])(1)
 });

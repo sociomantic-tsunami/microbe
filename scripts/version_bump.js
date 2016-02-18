@@ -39,7 +39,10 @@ function setResource( url, data )
 {
     fs.writeFile( url, data, function ( err )
     {
-        return console.log( err );
+        if ( err )
+        {
+            console.log( err );
+        }
     } );
 }
 
@@ -63,6 +66,8 @@ function updateLine( url, ln, replacement )
         data            = dataSplit.join( '\n' );
 
     setResource( url, data );
+
+    console.log( url + ' successfully changed' );
 }
 
 

@@ -3,6 +3,64 @@ Older changes
 
 This is truncated from the readme file to keep down the size
 
+#### 0.4.15
+
++ text() : changed innetText to textContent to avoid reflow
++ added .height() and .width() syntactic sugar
++ added .scroll()
++ pageStyles split from main root tools
++ added top and left to scroll(), position(), and offset()
++ fixed local-link
++ fixed Win 10 IE 11 and Edge :lang
+
+
+#### 0.4.14
+
++ css now accepts objects
++ truncated older chanes log outto a seperate file
++ gulpfile changes
++ added position
++ added offset
++ added isMicrobe
++ made isMicrobe, version, and type read-only
++ added includes
+
+
+#### 0.4.13
+
++ added travis-ci testing
++ added nightmare command line testing
++ removed gitter
+
+
+#### 0.4.12
+
++ added appendTo and prependTo
++ aliased each to forEach for array compatability
++ added slack community to readme and www
+
+
+#### 0.4.11
+
++ children, childrenFlat, siblings, siblingsFlat now all accept filter strings
++ changes to siblings, siblingsFlat, filter, and find using + and ~
+
+
+#### 0.4.10
+
++ selectorEngine now accepts functions as "document ready" short hand
+
+
+#### 0.4.9
+
++ added bower support
++ µ.ready now accepts an arguments array
++ added examples to docs
++ updated code of conduct
++ toggleClass now accepts an array of classes
++ twitter account added to info
+
+
 #### 0.4.8
 
 + updated copy and tests
@@ -131,4 +189,4 @@ This is truncated from the readme file to keep down the size
 + many documentation updates
 
 
-No one should be using less than 0.3  Changes past that will be posted here.
+No one should be using less than 0.3.
