@@ -147,4 +147,3 @@ require( './unit/data' )( buildTest );
 document.getElementsByTagName( 'title' )[0].innerHTML = 'µ - ' + µ.version + ' QUnit';
 
 window.buildTest = buildTest;
-

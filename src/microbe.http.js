@@ -12,7 +12,6 @@
 'use strict';
 
 var _type       = '[object Microbe-Http]';
-var _version    = require( './version' ) + '-tool';
 
 var Microbe = {};
 var _version    = require( './version' ) + '-http';
@@ -33,4 +32,4 @@ Object.defineProperty( Microbe, 'type', {
     }
 } );
 
-module.exports      = Microbe.http;
+module.exports      = Microbe;
