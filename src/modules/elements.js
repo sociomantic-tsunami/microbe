@@ -576,7 +576,7 @@ module.exports = function( Microbe )
     {
         var _value = function( _el )
         {
-            if ( _val )
+            if ( _val || _val === '' )
             {
                 _el.value = _val;
                 return _el;
@@ -587,12 +587,9 @@ module.exports = function( Microbe )
             }
         };
 
-        for ( var i = 0, lenI = _class.length; i < lenI; i++ )
-        {
-            this.map( _value );
-        }
+        var res = this.map( _value );
 
-        return this;
+        return res;
     };
 
 
@@ -602,6 +599,10 @@ module.exports = function( Microbe )
      * syntactic sugar for css width
      *
      * @paran {String} _width (optional) parameter to set width
+     *
+     * @example µ( '.example' ).width( '200px' );
+     * @example µ( '.example' ).width();
+     *
      * @return _Microbe_
      */
     Microbe.core.width = function( _width )

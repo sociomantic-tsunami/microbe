@@ -1,4 +1,4 @@
-µ - Microbe - 0.5.1
+µ - Microbe - 0.5.2
 ====================
 
 [![Microbe build status](https://travis-ci.org/sociomantic-tsunami/microbe.svg)](https://travis-ci.org)  [![Slack Status](https://microbejs-slackin.herokuapp.com/badge.svg)](https://microbejs-slackin.herokuapp.com)
@@ -148,6 +148,11 @@ Need to report something? [report@m.icro.be](mailto:report@m.icro.be)
 
 Change log
 ==========
+
+### 0.5.2
+
++ added .value() and tests
+
 
 ### 0.5.1
 
