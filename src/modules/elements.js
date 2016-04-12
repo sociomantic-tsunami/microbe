@@ -561,6 +561,42 @@ module.exports = function( Microbe )
 
 
     /**
+     * ## value
+     *
+     * retieves or sets the value of an element
+     *
+     * @param {String} _value value to set
+     *
+     * @example µ( '.example' ).value( 'moon' );
+     * @example µ( '.example' ).value();
+     *
+     * @return _Microbe_ reference of the original microbe
+     */
+    Microbe.core.value = function( _val )
+    {
+        var _value = function( _el )
+        {
+            if ( _val )
+            {
+                _el.value = _val;
+                return _el;
+            }
+            else
+            {
+                return _el.value;
+            }
+        };
+
+        for ( var i = 0, lenI = _class.length; i < lenI; i++ )
+        {
+            this.map( _value );
+        }
+
+        return this;
+    };
+
+
+    /**
      * ## width
      *
      * syntactic sugar for css width
