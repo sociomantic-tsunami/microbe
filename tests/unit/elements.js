@@ -592,6 +592,44 @@ module.exports = function( buildTest )
 
 
     /**
+     * µ value tests
+     *
+     * @test    value exists
+     * @test    removes classes
+     * @test    adds classes
+     */
+    QUnit.test( '.value()', function( assert )
+    {
+        assert.ok( µ().value, 'exists' );
+
+        var µInputs   = µ( 'input' );
+
+        µInputs.value( 'moon' );
+        assert.equal( µInputs[0].value, 'moon', 'sets the value' );
+
+        assert.equal( µInputs.value()[0], 'moon', 'gets the value' );
+
+        µInputs.value( '' );
+        assert.equal( µInputs.value()[0], '', 'clears the value' );
+
+
+        µInputs     = µ( 'input' );
+        var $input   = $( 'input' );
+
+        buildTest(
+        'µInputs.value( \'moo\' )', function()
+        {
+            µInputs.value( 'moo' );
+        },
+
+        '$input.value( \'moo\' )', function()
+        {
+            $input.value( 'moo' );
+        } );
+    });
+
+
+    /**
      * µ width tests
      *
      * @test    width exists
