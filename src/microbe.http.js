@@ -13,7 +13,7 @@
 
 var _type       = '[object Microbe-Http]';
 
-var Microbe = {};
+var Microbe     = {};
 var _version    = require( './version' ) + '-http';
 
 require( './modules/http' )( Microbe );

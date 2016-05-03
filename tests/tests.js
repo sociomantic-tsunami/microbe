@@ -1694,11 +1694,48 @@ module.exports = function( Microbe )
 
 
     /**
+     * ## value
+     *
+     * retieves or sets the value of an element
+     *
+     * @param {String} _value value to set
+     *
+     * @example µ( '.example' ).value( 'moon' );
+     * @example µ( '.example' ).value();
+     *
+     * @return _Microbe_ reference of the original microbe
+     */
+    Microbe.core.value = function( _val )
+    {
+        var _value = function( _el )
+        {
+            if ( _val || _val === '' )
+            {
+                _el.value = _val;
+                return _el;
+            }
+            else
+            {
+                return _el.value;
+            }
+        };
+
+        var res = this.map( _value );
+
+        return res;
+    };
+
+
+    /**
      * ## width
      *
      * syntactic sugar for css width
      *
      * @paran {String} _width (optional) parameter to set width
+     *
+     * @example µ( '.example' ).width( '200px' );
+     * @example µ( '.example' ).width();
+     *
      * @return _Microbe_
      */
     Microbe.core.width = function( _width )
@@ -5049,7 +5086,7 @@ module.exports = function( Microbe )
 };
 
 },{}],23:[function(require,module,exports){
-module.exports = '0.5.1';
+module.exports = '0.5.2';
 },{}],24:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 
@@ -6145,6 +6182,44 @@ module.exports = function( buildTest )
         '$Divs.toggleClass( \'moo\' )', function()
         {
             $Divs.toggleClass( 'moo' );
+        } );
+    });
+
+
+    /**
+     * µ value tests
+     *
+     * @test    value exists
+     * @test    removes classes
+     * @test    adds classes
+     */
+    QUnit.test( '.value()', function( assert )
+    {
+        assert.ok( µ().value, 'exists' );
+
+        var µInputs   = µ( 'input' );
+
+        µInputs.value( 'moon' );
+        assert.equal( µInputs[0].value, 'moon', 'sets the value' );
+
+        assert.equal( µInputs.value()[0], 'moon', 'gets the value' );
+
+        µInputs.value( '' );
+        assert.equal( µInputs.value()[0], '', 'clears the value' );
+
+
+        µInputs     = µ( 'input' );
+        var $input   = $( 'input' );
+
+        buildTest(
+        'µInputs.value( \'moo\' )', function()
+        {
+            µInputs.value( 'moo' );
+        },
+
+        '$input.value( \'moo\' )', function()
+        {
+            $input.value( 'moo' );
         } );
     });
 

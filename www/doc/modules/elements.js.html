@@ -61,6 +61,9 @@
         <a href="#toggleclass">toggleClass</a>
       </div>
       <div class="heading h2">
+        <a href="#value">value</a>
+      </div>
+      <div class="heading h2">
         <a href="#width">width</a>
       </div>
     </div>
@@ -1035,6 +1038,68 @@ whether it has it already.</p>
       <tr>
         <td class="docs"><div class="dox">
   <div class="summary">
+<div class="pilwrap" id="value">
+  <h2>
+    <a href="#value" name="value" class="pilcrow">&#182;</a>
+    value
+  </h2>
+</div>
+
+  </div>
+  <div class="body"><p>retieves or sets the value of an element</p>
+  </div>
+  <div class="details">
+    <div class="dox_tag_title">Params</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name">_value</span>
+      <span class="dox_type">String</span>
+      <span>value to set</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).value( 'moon' );</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).value();</span>
+    </div>
+    <div class="dox_tag_title">Returns</div>
+    <div class="dox_tag_detail">
+      <span class="dox_tag_name"></span>
+      <span><em>Microbe</em> reference of the original microbe</span>
+    </div>
+  </div>
+</div>
+        </td>
+        <td class="code highlight"><div class="highlight"><pre>
+    <span class="nx">Microbe</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_val</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">_value</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">_el</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span> <span class="nx">_val</span> <span class="o">||</span><span class="err"> </span><span class="nx">_val</span> <span class="o">===</span> <span class="s1">&#39;&#39;</span> <span class="p">)</span>
+            <span class="p">{</span>
+                <span class="nx">_el</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">_val</span><span class="p">;</span>
+                <span class="k">return</span> <span class="nx">_el</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">else</span>
+            <span class="p">{</span>
+                <span class="k">return</span> <span class="nx">_el</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">};</span>
+
+        <span class="kd">var</span> <span class="nx">res</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span> <span class="nx">_value</span> <span class="p">);</span>
+
+        <span class="k">return</span> <span class="nx">res</span><span class="p">;</span>
+    <span class="p">};</span>
+
+
+
+</pre></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="docs"><div class="dox">
+  <div class="summary">
 <div class="pilwrap" id="width">
   <h2>
     <a href="#width" name="width" class="pilcrow">&#182;</a>
@@ -1050,6 +1115,14 @@ whether it has it already.</p>
     <div class="dox_tag_detail">
       <span class="dox_type">String</span>
       <span>_width (optional) parameter to set width</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).width( '200px' );</span>
+    </div>
+    <div class="dox_tag_title">example</div>
+    <div class="dox_tag_detail">
+      <span>µ( '.example' ).width();</span>
     </div>
     <div class="dox_tag_title">Returns</div>
     <div class="dox_tag_detail">

@@ -1688,11 +1688,48 @@ module.exports = function( Microbe )
 
 
     /**
+     * ## value
+     *
+     * retieves or sets the value of an element
+     *
+     * @param {String} _value value to set
+     *
+     * @example µ( '.example' ).value( 'moon' );
+     * @example µ( '.example' ).value();
+     *
+     * @return _Microbe_ reference of the original microbe
+     */
+    Microbe.core.value = function( _val )
+    {
+        var _value = function( _el )
+        {
+            if ( _val || _val === '' )
+            {
+                _el.value = _val;
+                return _el;
+            }
+            else
+            {
+                return _el.value;
+            }
+        };
+
+        var res = this.map( _value );
+
+        return res;
+    };
+
+
+    /**
      * ## width
      *
      * syntactic sugar for css width
      *
      * @paran {String} _width (optional) parameter to set width
+     *
+     * @example µ( '.example' ).width( '200px' );
+     * @example µ( '.example' ).width();
+     *
      * @return _Microbe_
      */
     Microbe.core.width = function( _width )
@@ -5043,7 +5080,7 @@ module.exports = function( Microbe )
 };
 
 },{}],23:[function(require,module,exports){
-module.exports = '0.5.1';
+module.exports = '0.5.2';
 },{}],24:[function(require,module,exports){
 /* global document, window, µ, $, QUnit, Benchmark, test  */
 var indexOf = Array.prototype.indexOf;
