@@ -14,14 +14,14 @@ var licenceLong     = '/*!\n' +
                       ' * Microbe JavaScript Library v' + _package.version + '\n' +
                       ' * ' + _package.homepage + '\n' +
                       ' *\n' +
-                      ' * Copyright 2014-' + now.getUTCFullYear() + ' Sociomantic Labs and other contributors\n' +
+                      ' * Copyright 2014-' + now.getUTCFullYear() + ' dunnhumby Germany GmbH and other contributors\n' +
                       ' * Released under the MIT license\n' +
                       ' * http://m.icro.be/license\n' +
                       ' *\n' +
                       ' * Date: ' + now.toDateString() + '\n' +
                       ' */\n';
 
-var licenceShort    = '/*! Microbe v' + _package.version + ' | (c) 2014-' + now.getUTCFullYear() + ' Sociomantic Labs | http://m.icro.be/license */\n';
+var licenceShort    = '/*! Microbe v' + _package.version + ' | (c) 2014-' + now.getUTCFullYear() + ' dunnhumby Germany GmbH | http://m.icro.be/license */\n';
 
 var token           = 'ThisIsVeryUnlikelyThatAVariableWillBeCalledThisWay';
 var exportName      = 'µ';

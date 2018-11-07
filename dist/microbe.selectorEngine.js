@@ -2,7 +2,7 @@
  * Microbe JavaScript Library v0.5.2
  * http://m.icro.be
  *
- * Copyright 2014-2016 Sociomantic Labs and other contributors
+ * Copyright 2014-2016 dunnhumby Germany GmbH and other contributors
  * Released under the MIT license
  * http://m.icro.be/license
  *
