@@ -1,3 +1,8 @@
+NOTE
+====
+
+This project is not maintained anymore and it's archived.
+
 µ - Microbe - 0.5.2
 ====================
 
